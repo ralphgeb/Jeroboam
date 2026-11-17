@@ -22,6 +22,8 @@ struct GrapeMarkLayout {
 
 struct GrapeMark: View {
     var tones: [Color] = [Color(hex: "#8B1538"), Color(hex: "#6A0F2B"), Color(hex: "#A82247")]
+    /// Optional vertical gradient (top → bottom) instead of tones.
+    var gradient: [Color]? = nil
 
     var body: some View {
         Canvas { ctx, size in
@@ -32,7 +34,14 @@ struct GrapeMark: View {
             let oy = (size.height - h * s) / 2 - GrapeMarkLayout.minY * s
             for (c, t) in GrapeMarkLayout.berries {
                 let r = CGRect(x: ox + (c.x - 1) * s, y: oy + (c.y - 1) * s, width: 2 * s, height: 2 * s)
-                ctx.fill(Path(ellipseIn: r), with: .color(tones[t % tones.count]))
+                var color = tones[t % tones.count]
+                if let grad = gradient, grad.count >= 2 {
+                    let f = Double((c.y - GrapeMarkLayout.minY - 1) / (GrapeMarkLayout.maxY - GrapeMarkLayout.minY - 2))
+                    let x = max(0, min(1, f)) * Double(grad.count - 1)
+                    let i = min(grad.count - 2, Int(x))
+                    color = grad[i].mix(with: grad[i + 1], x - Double(i))
+                }
+                ctx.fill(Path(ellipseIn: r), with: .color(color))
             }
         }
         .aspectRatio((GrapeMarkLayout.maxX - GrapeMarkLayout.minX) / (GrapeMarkLayout.maxY - GrapeMarkLayout.minY), contentMode: .fit)

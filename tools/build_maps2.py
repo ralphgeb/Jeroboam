@@ -27,6 +27,22 @@ GEO = os.path.join(HOME, "geo")
 OUT = os.path.join(os.path.dirname(__file__), "..", "Jeroboam", "Resources", "Maps")
 os.makedirs(OUT, exist_ok=True)
 
+RES = 2  # coordinate precision multiplier (smooth edges when zoomed)
+
+def chaikin(pts, it=2):
+    """Corner-cutting smoothing for a closed ring (list of (x,y), first==last)."""
+    ring = list(pts[:-1]) if len(pts) > 1 and pts[0] == pts[-1] else list(pts)
+    for _ in range(it):
+        if len(ring) < 3: break
+        out = []
+        n = len(ring)
+        for i in range(n):
+            (x0, y0), (x1, y1) = ring[i], ring[(i + 1) % n]
+            out.append((0.75 * x0 + 0.25 * x1, 0.75 * y0 + 0.25 * y1))
+            out.append((0.25 * x0 + 0.75 * x1, 0.25 * y0 + 0.75 * y1))
+        ring = out
+    return ring + ring[:1]
+
 PALETTE = ["claret", "magenta", "rose", "coral", "orange", "ochre", "gold", "olive", "green", "teal", "blue", "violet", "plum"]
 
 def cidx(name, i=0):
@@ -58,6 +74,7 @@ class Proj:
         self.la0, self.lo0, self.la1, self.lo1 = bbox
         self.k = math.cos(math.radians((self.la0 + self.la1) / 2))
         if self.lo1 - self.lo0 > 200: self.k = 1.0
+        W = W * RES
         self.W = W
         self.s = W / ((self.lo1 - self.lo0) * self.k)
         self.H = round((self.la1 - self.la0) * self.s)
@@ -87,11 +104,12 @@ def flat(coords):
         if q != last: out += q; last = q
     return out
 
-def enc_polys(g, tol, min_area):
+def enc_polys(g, tol, min_area, smooth=False):
     res = []
-    for p in polys_of(g.simplify(tol, preserve_topology=True)):
-        if p.area < min_area: continue
-        f = flat(p.exterior.coords)
+    for p in polys_of(g.simplify(tol * RES, preserve_topology=True)):
+        if p.area < min_area * RES * RES: continue
+        coords = list(p.exterior.coords)
+        f = flat(chaikin(coords) if smooth else coords)
         if len(f) >= 6: res.append(f)
     return res
 
@@ -185,7 +203,7 @@ def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
             if rank > 9: continue
             g = shape(f["geometry"])
             if not g.intersects(clipbox): continue
-            for ln in lines_of(pr.geom(g.intersection(clipbox)).intersection(view).simplify(tol)):
+            for ln in lines_of(pr.geom(g.intersection(clipbox)).intersection(view).simplify(tol * RES)):
                 if ln.length > tol * 8:
                     rv.append({"w": 2 if rank < 6 else 1, "p": flat(ln.coords)})
     return land, focus, lk, rv
@@ -198,7 +216,7 @@ def admin_borders(pr, bbox, geoms, tol):
     out = []
     for g in geoms:
         if not g.intersects(clipbox): continue
-        b = pr.geom(g.boundary.intersection(clipbox)).intersection(view).simplify(tol)
+        b = pr.geom(g.boundary.intersection(clipbox)).intersection(view).simplify(tol * RES)
         for ln in lines_of(b):
             if ln.length > tol * 6: out.append(flat(ln.coords))
     return out
@@ -209,9 +227,9 @@ def label_point(g):
 
 def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4):
     g = pr.geom(geom_ll)
-    shapes = enc_polys(g, tol, min_area)
+    shapes = enc_polys(g, tol, min_area, smooth=True)
     if not shapes: return None
-    cx, cy = label_point(max(polys_of(g.simplify(tol)), key=lambda p: p.area))
+    cx, cy = label_point(max(polys_of(g.simplify(tol * RES)), key=lambda p: p.area))
     rec = {"id": aid, "name": name, "lv": lv, "c": color, "shapes": shapes, "cx": round(cx), "cy": round(cy)}
     if label:
         lx, ly = pr.xy(label[1], label[0])
@@ -225,8 +243,8 @@ def commune_layer(pr, named_geoms, tol, minz=3.0):
     lines, names = [], []
     for n, g in named_geoms:
         pg = pr.geom(g)
-        for p in polys_of(pg.simplify(tol)):
-            f = flat(p.exterior.coords)
+        for p in polys_of(pg.simplify(tol * RES)):
+            f = flat(chaikin(list(p.exterior.coords)))
             if len(f) >= 6: lines.append(f)
         x, y = label_point(pg)
         names.append({"n": n, "x": round(x), "y": round(y)})

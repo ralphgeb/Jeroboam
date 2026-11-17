@@ -105,6 +105,7 @@ struct RegionDetailView: View {
                             explore = MapRef(id: m, hl: [id])
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        if pinIDs.isEmpty { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
                         HStack {
                             Text("Tap a region to explore").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
                             Spacer()

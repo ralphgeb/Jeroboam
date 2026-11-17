@@ -153,6 +153,22 @@ final class MapGeometry {
         return s / 2
     }
 
+    /// Stable numbers for the areas visible at a level (top-to-bottom, left-to-right).
+    func numbering(level: Int, zoom: CGFloat = 1) -> [String: Int] {
+        var out: [String: Int] = [:]
+        for (i, a) in numbered(level: level, zoom: zoom).enumerated() { out[a.id] = i + 1 }
+        return out
+    }
+
+    func numbered(level: Int, zoom: CGFloat = 1) -> [Area] {
+        areas.filter { a in
+            if a.level > level { return false }
+            if hasChildren.contains(a.id) && a.level < level { return false }
+            return true
+        }
+        .sorted { ($0.centroid.y / 120).rounded() == ($1.centroid.y / 120).rounded() ? $0.centroid.x < $1.centroid.x : $0.centroid.y < $1.centroid.y }
+    }
+
     /// The deepest visible area containing a point (map units).
     func hit(_ pt: CGPoint, maxLevel lv: Int) -> Area? {
         areas.filter { $0.level <= lv && $0.path.contains(pt) }
@@ -286,8 +302,9 @@ struct MapRenderer {
             }
         }
 
-        // Region and appellation labels: highlighted first, then by level and size.
+        // Area labels: a small numbered badge until the area is big enough on screen for a framed label.
         let shownLevel = lv
+        let numbers = g.numbering(level: shownLevel, zoom: zoom)
         let candidates = g.areas.filter { a in
             if a.level > shownLevel { return false }
             if g.hasChildren.contains(a.id) && a.level < shownLevel && zoom > LOD.level1 * 1.4 { return false }
@@ -298,34 +315,46 @@ struct MapRenderer {
             if a.level != b.level { return a.level < b.level }
             return a.area > b.area
         }
+        func pill(_ name: String, at c: CGPoint, anchor: UnitPoint, force: Bool, strong: Bool) -> Bool {
+            var t = ctx
+            let resolved = t.resolve(Text(name).font(.system(size: 10.5 * ls, weight: strong ? .semibold : .medium)).foregroundColor(Palette.ink))
+            let sz = resolved.measure(in: CGSize(width: 220, height: 60))
+            let w = sz.width + 10, h = sz.height + 5
+            let rect = CGRect(x: c.x - w * anchor.x, y: c.y - h * anchor.y, width: w, height: h)
+            if !force {
+                if !inset.contains(rect) { return false }
+                if taken.contains(where: { $0.insetBy(dx: -2, dy: -2).intersects(rect) }) { return false }
+            }
+            taken.append(rect)
+            let box = Path(roundedRect: rect, cornerRadius: 5, style: .continuous)
+            t.fill(box, with: .color(Palette.focusLand.opacity(0.94)))
+            t.stroke(box, with: .color(strong ? Palette.ink.opacity(0.7) : Palette.border), lineWidth: strong ? 1 : 0.6)
+            t.draw(resolved, at: CGPoint(x: rect.midX, y: rect.midY), anchor: .center)
+            return true
+        }
+        func badge(_ n: Int, color: Color, at c: CGPoint) {
+            let r: CGFloat = 8.5
+            let rect = CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r)
+            guard inset.contains(rect), !taken.contains(where: { $0.insetBy(dx: -1, dy: -1).intersects(rect) }) else { return }
+            taken.append(rect)
+            let circle = Path(ellipseIn: rect)
+            ctx.fill(circle, with: .color(color.mix(with: .black, 0.25)))
+            ctx.stroke(circle, with: .color(.white), lineWidth: 1.2)
+            ctx.draw(Text("\(n)").font(.system(size: 9.5, weight: .heavy)).foregroundColor(.white), at: c)
+        }
         for a in candidates {
             let isHL = highlight.contains(a.id) || selected == a.id
-            let top = a.level == 0 && !(lv >= 1 && g.hasChildren.contains(a.id))
-            let name = top ? a.name.uppercased() : a.name
-            let font: Font = top ? .display(15 * ls, .heavy) : .system(size: (a.level == 1 ? 11.5 : 10.5) * ls, weight: .bold)
-            var title = Text(name).font(font).foregroundColor(Palette.ink)
-            if top { title = title.kerning(0.6) }
             let c = screen(a.centroid)
-            if top, let l = a.label, zoom < LOD.level1 {
-                // Wine Folly-style callout with a leader line and the main grapes.
-                let lp = screen(l)
-                var block = title
-                if let gr = a.grapes {
-                    block = block + Text("\n" + gr.uppercased()).font(.system(size: 7.5 * ls, weight: .semibold)).foregroundColor(Palette.inkSoft)
-                }
-                let anchor: UnitPoint = lp.x < c.x ? .trailing : .leading
-                if let r = place(block, at: lp, anchor: anchor, force: isHL) {
-                    var line = Path()
-                    line.move(to: c)
-                    line.addLine(to: CGPoint(x: anchor == .trailing ? r.maxX + 3 : r.minX - 3, y: r.midY))
-                    ctx.stroke(line, with: .color(Palette.ink.opacity(0.75)), lineWidth: 0.8)
-                    ctx.fill(Path(ellipseIn: CGRect(x: c.x - 2, y: c.y - 2, width: 4, height: 4)), with: .color(Palette.ink))
-                    continue
-                }
+            let b = a.path.boundingRect
+            let sw = b.width * s, sh = b.height * s
+            // roomy enough for a text label?
+            let approxText = CGFloat(a.name.count) * 5.6 * ls + 10
+            if isHL || (sw >= approxText * 0.85 && sh >= 16) {
+                if pill(a.name, at: c, anchor: .center, force: isHL, strong: isHL) { continue }
+                if sw >= approxText * 1.6, pill(a.name, at: CGPoint(x: c.x, y: c.y + 12), anchor: .center, force: false, strong: false) { continue }
             }
-            if place(title, at: c, anchor: .center, force: isHL) == nil {
-                _ = place(title, at: CGPoint(x: c.x + 8, y: c.y), anchor: .leading)
-                    ?? place(title, at: CGPoint(x: c.x - 8, y: c.y), anchor: .trailing)
+            if let n = numbers[a.id], max(sw, sh) >= 4 {
+                badge(n, color: Palette.mapColor(a.color), at: c)
             }
         }
 
@@ -621,14 +650,23 @@ struct MapExplorer: View {
                         .padding(.bottom, 12)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else {
-                    HStack(spacing: 8) {
-                        Image(systemName: "hand.pinch").font(.system(size: 13, weight: .semibold))
-                        Text("Pinch to zoom · tap a region").font(.system(size: 13, weight: .semibold))
+                    VStack(spacing: 10) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "hand.pinch").font(.system(size: 13, weight: .semibold))
+                            Text("Pinch to zoom · tap a number or region").font(.system(size: 13, weight: .semibold))
+                        }
+                        .foregroundStyle(Palette.ink)
+                        .padding(.horizontal, 14).padding(.vertical, 8)
+                        .background(Capsule().fill(Palette.focusLand.opacity(0.94)))
+                        if let g {
+                            let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                MapLegend(mapID: mapID, level: lv) { id in selected = id }
+                                    .padding(.horizontal, 16)
+                            }
+                        }
                     }
-                    .foregroundStyle(Palette.ink)
-                    .padding(.horizontal, 14).padding(.vertical, 10)
-                    .background(Capsule().fill(Palette.focusLand.opacity(0.94)))
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 16)
                 }
             }
         }
@@ -694,5 +732,36 @@ struct MapExplorer: View {
         .padding(18)
         .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Palette.card))
         .shadow(color: .black.opacity(0.12), radius: 20, y: 6)
+    }
+}
+
+
+/// Numbered key for a map's areas (matches the badges drawn on the map).
+struct MapLegend: View {
+    let mapID: String
+    var level: Int = 0
+    var onSelect: ((String) -> Void)? = nil
+
+    var body: some View {
+        if let g = MapGeometry.get(mapID) {
+            let list = g.numbered(level: level)
+            FlowLayout(spacing: 6, lineSpacing: 6) {
+                ForEach(Array(list.enumerated()), id: \.element.id) { i, a in
+                    Button { onSelect?(a.id) } label: {
+                        HStack(spacing: 5) {
+                            Text("\(i + 1)").font(.system(size: 10, weight: .heavy)).foregroundStyle(.white)
+                                .frame(width: 18, height: 18)
+                                .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.25)))
+                            Text(a.name).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
+                        }
+                        .padding(.leading, 3).padding(.trailing, 9).padding(.vertical, 3)
+                        .background(Capsule().fill(Palette.card))
+                        .overlay(Capsule().strokeBorder(Palette.line, lineWidth: 0.5))
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(onSelect == nil)
+                }
+            }
+        }
     }
 }

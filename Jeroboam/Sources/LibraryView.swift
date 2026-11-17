@@ -126,11 +126,9 @@ struct LibraryView: View {
                 Text(LibrarySection.grapes.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
             }
             Spacer()
-            HStack(spacing: -26) {
-                GrapeCluster(berry: .white, leaf: false, seed: 2).frame(width: 76, height: 76)
-                GrapeCluster(berry: .pink, leaf: false, seed: 5).frame(width: 76, height: 76)
-                GrapeCluster(berry: .black, leaf: true, seed: 9).frame(width: 86, height: 86)
-            }
+            GrapeMark(gradient: ["#EFEAD0", "#D9C873", "#E39AAE", "#B0284F", "#5E0C25"].map { Color(hex: $0) })
+                .frame(width: 70, height: 92)
+                .padding(.trailing, 6)
         }
         .cardStyle(padding: 20)
     }
