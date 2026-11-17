@@ -181,8 +181,10 @@ struct MapRenderer {
     var showCities = true
     var labelScale: CGFloat = 1
     var dark = false
+    var forcedLevel: Int? = nil
 
     func visibleLevel() -> Int {
+        if let f = forcedLevel { return f }
         if zoom >= LOD.level2 { return 2 }
         if zoom >= LOD.level1 { return 1 }
         return 0
@@ -243,7 +245,7 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.ink), lineWidth: hair * 2.2)
                 }
             }
-            if zoom >= LOD.communes {
+            if zoom >= LOD.communes || (forcedLevel ?? 0) >= 2 {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
@@ -327,7 +329,7 @@ struct MapRenderer {
             }
         }
 
-        if zoom >= LOD.villages, let vs = g.map.villages {
+        if zoom >= LOD.villages || ((forcedLevel ?? 0) >= 2 && zoom >= 2), let vs = g.map.villages {
             for v in vs {
                 let p = screen(CGPoint(x: CGFloat(v.x), y: CGFloat(v.y)))
                 guard full.contains(p) else { continue }
@@ -356,6 +358,7 @@ struct MapRenderer {
 struct WineMapView: View {
     let mapID: String
     var highlight: Set<String> = []
+    var pins: [String] = []
     var showLabels = true
     var showCities = true
     var labelScale: CGFloat = 1
@@ -368,7 +371,7 @@ struct WineMapView: View {
             Canvas { ctx, size in
                 var r = MapRenderer(g: g)
                 r.highlight = highlight
-                r.showLabels = showLabels
+                r.showLabels = showLabels && pins.isEmpty
                 r.showCities = showCities
                 r.labelScale = labelScale
                 r.dark = scheme == .dark
@@ -376,6 +379,18 @@ struct WineMapView: View {
                 let deepest = g.areas.filter { highlight.contains($0.id) }.map(\.level).max() ?? 0
                 if deepest >= 2 { r.zoom = 1.0001 }
                 r.draw(in: &ctx, size: size)
+                if !pins.isEmpty {
+                    let s = size.width / CGFloat(g.map.w)
+                    for (i, id) in pins.enumerated() {
+                        guard let a = g.areas.first(where: { $0.id == id }) else { continue }
+                        let p = CGPoint(x: a.centroid.x * s, y: a.centroid.y * s)
+                        let r: CGFloat = 10
+                        let circle = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
+                        ctx.fill(circle, with: .color(Palette.mapColor(a.color).mix(with: .black, 0.15)))
+                        ctx.stroke(circle, with: .color(.white), lineWidth: 1.5)
+                        ctx.draw(Text("\(i + 1)").font(.system(size: 10.5, weight: .heavy)).foregroundColor(.white), at: p)
+                    }
+                }
                 if deepest >= 1 {
                     // draw highlighted sub-areas on top even at zoom 1
                     let s = size.width / CGFloat(g.map.w)
@@ -420,6 +435,8 @@ struct ZoomableWineMap: View {
     let mapID: String
     var highlight: Set<String> = []
     var focus: String? = nil
+    var forcedLevel: Int? = nil
+    var zoomCommand: Int = 0
     @Binding var selected: String?
     @Binding var zoom: CGFloat
 
@@ -442,6 +459,7 @@ struct ZoomableWineMap: View {
                     r.highlight = highlight
                     r.selected = selected
                     r.dark = scheme == .dark
+                    r.forcedLevel = forcedLevel
                     r.draw(in: &ctx, size: sz)
                 }
                 .contentShape(Rectangle())
@@ -468,11 +486,15 @@ struct ZoomableWineMap: View {
                 .onTapGesture(count: 2) { pt in
                     zoomBy(2, at: pt, size: size, g: g)
                 }
+                .onChange(of: zoomCommand) { old, new in
+                    zoomBy(new > old ? 1.8 : 1 / 1.8, at: CGPoint(x: size.width / 2, y: size.height / 2), size: size, g: g)
+                }
                 .onTapGesture { pt in
                     var r = MapRenderer(g: g)
                     r.zoom = zoom
                     r.offset = offset
                     let m = r.toMap(pt, size: size)
+                    r.forcedLevel = forcedLevel
                     if let a = g.hit(m, maxLevel: r.visibleLevel()) {
                         Haptics.tap()
                         withAnimation(.easeInOut(duration: 0.2)) { selected = a.id }
@@ -544,12 +566,15 @@ struct MapExplorer: View {
     @State private var zoom: CGFloat = 1
     @State private var openRegion: Region? = nil
     @State private var resetToken = 0
+    @State private var layer: Int? = nil
+    @State private var zoomCommand = 0
 
     var body: some View {
         let g = MapGeometry.get(mapID)
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
-            ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus, selected: $selected, zoom: $zoom)
+            ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
+                            forcedLevel: layer, zoomCommand: zoomCommand, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .ignoresSafeArea()
 
@@ -566,6 +591,23 @@ struct MapExplorer: View {
                 VStack(spacing: 10) {
                     circleButton("xmark") { dismiss() }
                     if zoom > 1.01 { circleButton("arrow.down.right.and.arrow.up.left") { resetToken += 1; zoom = 1; selected = nil } }
+                    Spacer().frame(height: 6)
+                    circleButton("plus") { zoomCommand += 1 }
+                    circleButton("minus") { zoomCommand -= 1 }
+                    if (g?.maxLevel ?? 0) > 0 {
+                        Menu {
+                            Picker("Detail", selection: $layer) {
+                                Text("Automatic").tag(Int?.none)
+                                Text("Regions").tag(Int?.some(0))
+                                Text("Appellations").tag(Int?.some(1))
+                                if (g?.maxLevel ?? 0) >= 2 { Text("Villages & crus").tag(Int?.some(2)) }
+                            }
+                        } label: {
+                            Image(systemName: "square.3.layers.3d").font(.system(size: 15, weight: .bold)).foregroundStyle(Palette.ink)
+                                .frame(width: 42, height: 42)
+                                .background(Circle().fill(Palette.focusLand.opacity(0.94)))
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -604,6 +646,7 @@ struct MapExplorer: View {
     private var levelHint: String {
         guard let g = MapGeometry.get(mapID) else { return "" }
         if g.maxLevel == 0 { return "Regions" }
+        if let l = layer { return ["Regions", "Appellations", "Villages & crus"][min(2, l)] }
         if zoom >= 3.2 && g.maxLevel >= 2 { return "Villages & crus" }
         if zoom >= 1.9 { return "Appellations · zoom for more" }
         return "Regions · zoom in for appellations"

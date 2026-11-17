@@ -98,8 +98,10 @@ struct RegionDetailView: View {
 
                 if let m = r.map {
                     let hl = Set(r.highlight ?? (r.kind == "country" ? [] : [r.id]))
+                    let pinIDs = (r.kind == "country" ? (r.sub ?? []) : [])
+                        .filter { id in MapGeometry.get(m)?.areas.contains { $0.id == id } ?? false }
                     VStack(alignment: .leading, spacing: 8) {
-                        WineMapView(mapID: m, highlight: hl) { id in
+                        WineMapView(mapID: m, highlight: hl, pins: pinIDs) { id in
                             explore = MapRef(id: m, hl: [id])
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -172,12 +174,20 @@ struct RegionDetailView: View {
                 if !subs.isEmpty {
                     VStack(alignment: .leading, spacing: 0) {
                         SectionTitle(text: r.kind == "country" ? "Regions" : "Inside \(r.name)").padding(.bottom, 8)
+                        let pinned = (r.kind == "country" ? (r.sub ?? []) : [])
+                            .filter { id in r.map.flatMap { MapGeometry.get($0) }?.areas.contains { $0.id == id } ?? false }
                         ForEach(subs) { s in
                             NavigationLink(value: s) {
-                                HStack {
+                                HStack(spacing: 12) {
+                                    if let n = pinned.firstIndex(of: s.id), let m = r.map, let a = MapGeometry.get(m)?.areas.first(where: { $0.id == s.id }) {
+                                        Text("\(n + 1)").font(.system(size: 12, weight: .heavy)).foregroundStyle(.white)
+                                            .frame(width: 26, height: 26)
+                                            .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.15)))
+                                    }
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(s.name).font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
-                                        Text(s.summary).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                                        Text(s.name).font(.system(size: 16, weight: .bold)).foregroundStyle(Palette.ink)
+                                        Text(s.grapes.prefix(3).compactMap { ContentStore.shared.grape($0)?.name }.joined(separator: " · "))
+                                            .font(.system(size: 13, weight: .medium)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                                     }
                                     Spacer()
                                     Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)

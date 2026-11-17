@@ -243,6 +243,9 @@ struct NewTastingFlow: View {
     @State private var error: String? = nil
     @State private var lastCost: Double? = nil
     @State private var typedName = ""
+    @State private var aromaQuery = ""
+    @State private var expandedFamily: String? = nil
+    @State private var infoTab = 0
 
     var body: some View {
         VStack(spacing: 0) {
@@ -414,29 +417,74 @@ struct NewTastingFlow: View {
     }
 
     private func identityCard(_ w: WineIdentity) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Eyebrow(w.found ? "Identified · \(w.confidence) confidence" : "Best guess", color: Palette.pink)
-                Spacer()
-            }
-            Text(w.name.uppercased()).font(.display(30)).foregroundStyle(Palette.ink)
-            Text([w.producer, w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · "))
-                .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
-            if !w.grapes.isEmpty {
-                Text(w.grapes.joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .heavy)).kerning(0.8).foregroundStyle(styleColor(w.style))
-            }
-            if w.priceHigh > 0 {
-                HStack(spacing: 6) {
-                    Image(systemName: "tag.fill").font(.system(size: 12))
-                    Text("Typically \(price(w.priceLow, w.currency))–\(price(w.priceHigh, w.currency)) a bottle")
-                        .font(.system(size: 14, weight: .bold))
+        let region = ContentStore.shared.library.regions.first { r in
+            !w.region.isEmpty && (w.region.localizedCaseInsensitiveContains(r.name) || r.name.localizedCaseInsensitiveContains(w.region))
+        }
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 12) {
+                Image(systemName: "wineglass").font(.system(size: 20, weight: .semibold)).foregroundStyle(styleColor(w.style))
+                    .frame(width: 44, height: 44).background(RoundedRectangle(cornerRadius: 12).fill(styleColor(w.style).opacity(0.12)))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(w.producer.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1).foregroundStyle(Palette.inkSoft)
+                    Text([w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")).font(.system(size: 18, weight: .heavy)).foregroundStyle(Palette.ink)
                 }
-                .foregroundStyle(Palette.ink)
-                Text("Estimated typical retail price, not a live quote.").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
             }
-            if !w.palate.isEmpty { Text(w.palate).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)) }
-            if !w.funFact.isEmpty {
-                Text(w.funFact).font(.system(size: 13.5, weight: .medium).italic()).foregroundStyle(Palette.inkSoft)
+            Picker("Info", selection: $infoTab) {
+                Text("This bottle").tag(0)
+                Text("In the glass").tag(1)
+                Text("Region").tag(2)
+            }
+            .pickerStyle(.segmented)
+            switch infoTab {
+            case 1:
+                if !w.tastingNotes.isEmpty {
+                    HStack(alignment: .top, spacing: 0) {
+                        ForEach(w.tastingNotes.prefix(5), id: \.self) { n in
+                            VStack(spacing: 5) {
+                                FlavorIcon(aroma: n, size: 30)
+                                Text(n).font(.system(size: 10.5, weight: .semibold)).multilineTextAlignment(.center).lineLimit(2)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                }
+                if !w.palate.isEmpty { Text(w.palate).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)) }
+                if !w.food.isEmpty {
+                    Text("WITH: " + w.food.prefix(3).joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .heavy)).kerning(0.6)
+                        .foregroundStyle(Palette.inkSoft)
+                }
+            case 2:
+                if let r = region {
+                    Text(r.name.uppercased()).font(.display(24)).foregroundStyle(Palette.ink)
+                    Text(r.summary).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85))
+                    if let m = r.map {
+                        WineMapView(mapID: m, highlight: Set(r.highlight ?? [r.id]), showCities: false, labelScale: 0.85)
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    }
+                } else {
+                    Text([w.region, w.country].filter { !$0.isEmpty }.joined(separator: ", "))
+                        .font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                }
+            default:
+                Text([w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · "))
+                    .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                if !w.grapes.isEmpty {
+                    Text(w.grapes.joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .heavy)).kerning(0.8).foregroundStyle(styleColor(w.style))
+                }
+                if w.priceHigh > 0 {
+                    HStack(spacing: 6) {
+                        Image(systemName: "tag.fill").font(.system(size: 12))
+                        Text("Typically \(price(w.priceLow, w.currency))–\(price(w.priceHigh, w.currency)) a bottle").font(.system(size: 14, weight: .bold))
+                    }
+                    .foregroundStyle(Palette.ink)
+                    Text("Estimated typical retail price, not a live quote.").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+                }
+                if !w.funFact.isEmpty {
+                    Text(w.funFact).font(.system(size: 13.5, weight: .medium).italic()).foregroundStyle(Palette.inkSoft)
+                }
+                if !w.found {
+                    Text("Best guess, so double-check the name below.").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.pink)
+                }
             }
         }
         .padding(18)
@@ -485,7 +533,8 @@ struct NewTastingFlow: View {
             ? "white" : (entry.wine.style == "rose" ? "rose" : "red")
         let colors = ContentStore.shared.library.colors.filter { $0.chart == true && $0.family == family }
         return VStack(alignment: .leading, spacing: 18) {
-            stepTitle("1 · LOOK", "Tilt your glass over something white. Which color is closest?")
+            stepTitle("1 · LOOK", "Which color is closest?")
+            coach("Tilt your glass over something white. Judge depth at the center, and the hue at the rim.")
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 14) {
                 ForEach(colors) { c in
                     Button { entry.colorID = c.id; Haptics.tap() } label: {
@@ -505,11 +554,44 @@ struct NewTastingFlow: View {
 
     // ---- 4. smell
     private var smellStep: some View {
-        let typical = Set(entry.wine.tastingNotes.map { $0.lowercased() })
-        let groups = ContentStore.shared.library.aromas
+        let cats = ContentStore.shared.allAromaCategories()
+        let q = aromaQuery.trimmingCharacters(in: .whitespaces).lowercased()
+        let results = q.isEmpty ? [] : cats.flatMap(\.items).filter { $0.lowercased().contains(q) }
         return VStack(alignment: .leading, spacing: 18) {
-            stepTitle("2 · SMELL", "Swirl, sniff, then tap everything you can find. No wrong answers.")
-            if !entry.wine.tastingNotes.isEmpty {
+            stepTitle("2 · SMELL", "What can you find in the glass?")
+            coach("Take a short sniff. Swirl once and sniff again. Pick a family first, then the exact smell.")
+            if !entry.aromas.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("SELECTED (\(entry.aromas.count))").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(entry.aromas, id: \.self) { a in
+                                Button { entry.aromas.removeAll { $0 == a } } label: {
+                                    HStack(spacing: 6) {
+                                        FlavorIcon(aroma: a, size: 18)
+                                        Text(a).font(.system(size: 14, weight: .bold)).foregroundStyle(Palette.ink)
+                                        Image(systemName: "xmark").font(.system(size: 10, weight: .heavy)).foregroundStyle(Palette.inkSoft)
+                                    }
+                                    .padding(.horizontal, 12).padding(.vertical, 8)
+                                    .background(Capsule().fill(Palette.card))
+                                    .overlay(Capsule().strokeBorder(Palette.pink.opacity(0.6), lineWidth: 1.5))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+                }
+            }
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass").foregroundStyle(Palette.inkSoft)
+                TextField("Search aromas…", text: $aromaQuery).textInputAutocapitalization(.never)
+            }
+            .padding(14)
+            .background(Capsule().fill(Palette.card))
+            if !results.isEmpty {
+                FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(results, id: \.self) { aromaToggle($0, highlighted: false) } }
+            }
+            if !entry.wine.tastingNotes.isEmpty && q.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("TRY LOOKING FOR").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.pink)
                     FlowLayout(spacing: 8, lineSpacing: 8) {
@@ -517,19 +599,49 @@ struct NewTastingFlow: View {
                     }
                 }
             }
-            ForEach(groups) { g in
-                ForEach(g.categories) { cat in
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack(spacing: 6) {
-                            Circle().fill(Color(hex: cat.color)).frame(width: 8, height: 8)
-                            Text(cat.name.uppercased()).font(.system(size: 10.5, weight: .heavy)).kerning(1).foregroundStyle(Palette.inkSoft)
+            if q.isEmpty {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                    ForEach(cats) { cat in
+                        let picked = cat.items.filter { entry.aromas.contains($0) }.count
+                        let open = expandedFamily == cat.id
+                        Button { withAnimation(.easeInOut(duration: 0.2)) { expandedFamily = open ? nil : cat.id } } label: {
+                            VStack(spacing: 6) {
+                                FlavorIcon(aroma: cat.items.first ?? "", size: 30)
+                                Text(cat.name).font(.system(size: 14.5, weight: .bold)).foregroundStyle(Palette.ink)
+                                Text(picked > 0 ? "\(picked) picked" : " ").font(.system(size: 11.5, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                                Image(systemName: open ? "chevron.up" : "chevron.down").font(.system(size: 11, weight: .bold)).foregroundStyle(Palette.inkSoft)
+                            }
+                            .frame(maxWidth: .infinity).padding(.vertical, 14)
+                            .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .fill(picked > 0 ? Color(hex: cat.color).opacity(0.14) : Palette.card))
+                            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .strokeBorder(open ? Color(hex: cat.color) : .clear, lineWidth: 2))
                         }
-                        FlowLayout(spacing: 8, lineSpacing: 8) {
-                            ForEach(cat.items.filter { !typical.contains($0.lowercased()) }, id: \.self) { a in aromaToggle(a, highlighted: false) }
-                        }
+                        .buttonStyle(.plain)
                     }
                 }
+                if let id = expandedFamily, let cat = cats.first(where: { $0.id == id }) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(cat.name.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                        FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(cat.items, id: \.self) { aromaToggle($0, highlighted: false) } }
+                    }
+                    .padding(16)
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Color(hex: cat.color).opacity(0.10)))
+                    .transition(.opacity)
+                }
             }
+        }
+    }
+
+    private func coach(_ text: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            BrandDroplet(size: 44)
+                .padding(8)
+                .background(Circle().fill(Palette.card))
+            Text(text).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
+                .padding(14)
+                .background(UnevenRoundedRectangle(topLeadingRadius: 4, bottomLeadingRadius: 18, bottomTrailingRadius: 18,
+                                                   topTrailingRadius: 18, style: .continuous).fill(Palette.card))
         }
     }
 
@@ -551,7 +663,8 @@ struct NewTastingFlow: View {
     // ---- 5. taste
     private var tasteStep: some View {
         VStack(alignment: .leading, spacing: 22) {
-            stepTitle("3 · TASTE", "Take a sip and let it coat your mouth.")
+            stepTitle("3 · TASTE", "Structure, one sensation at a time.")
+            coach("Take a sip and let it coat your mouth. Mouth watering? That's acidity. Drying gums? That's tannin.")
             scale("Sweetness", value: $entry.sweetness, labels: ["Dry", "Off-dry", "Medium", "Sweet"])
             scale("Acidity", value: $entry.acidity, labels: ["Low", "Med−", "Medium", "Med+", "High"])
             if entry.wine.style == "red" || entry.wine.style == "fortified" {

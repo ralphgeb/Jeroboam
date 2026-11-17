@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
-    case grapes, regions, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels
+    case grapes, regions, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels, guide
     var id: String { rawValue }
     var title: String {
         switch self {
@@ -17,6 +17,7 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .cards: return "Wine cards"
         case .boldness: return "Boldness scale"
         case .labels: return "Label decoder"
+        case .guide: return "Style guide"
         }
     }
     var subtitle: String {
@@ -34,6 +35,7 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .cards: return "\(lib.grapes.count) varieties to swipe"
         case .boldness: return "Light to bold, red and white"
         case .labels: return "\(lib.labels?.count ?? 0) regions explained"
+        case .guide: return "Glasses, temps & food"
         }
     }
 }
@@ -60,7 +62,7 @@ struct LibraryView: View {
                         .buttonStyle(PressableStyle()).padding(.top, 14)
 
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                        ForEach([LibrarySection.cards, .boldness, .aromas, .colors, .labels, .styles, .tasting, .pairing, .bottles], id: \.self) { s in
+                        ForEach([LibrarySection.cards, .boldness, .guide, .aromas, .colors, .labels, .styles, .tasting, .pairing, .bottles], id: \.self) { s in
                             NavigationLink(value: s) { tile(s) }.buttonStyle(PressableStyle())
                         }
                     }
@@ -112,6 +114,7 @@ struct LibraryView: View {
         case .cards: WineCardsScreen()
         case .boldness: BoldnessScreen()
         case .labels: LabelsScreen()
+        case .guide: StyleGuideScreen()
         }
     }
 
@@ -183,6 +186,13 @@ struct LibraryView: View {
                     }
                     .padding(8).background(RoundedRectangle(cornerRadius: 4).fill(Color(hex: "#FBF6EC")))
                     .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Palette.line))
+                    .frame(height: 58)
+                case .guide:
+                    HStack(alignment: .bottom, spacing: 2) {
+                        WineGlass(color: Color(hex: "#EDE6B8"), fill: 0.75, sparkling: true).frame(width: 16, height: 52)
+                        WineGlass(color: Color(hex: "#E3BE55"), fill: 0.5).frame(width: 24, height: 48)
+                        WineGlass(color: Color(hex: "#4E0F27"), fill: 0.45).frame(width: 30, height: 52)
+                    }
                     .frame(height: 58)
                 case .bottles:
                     HStack(alignment: .bottom, spacing: 4) {
