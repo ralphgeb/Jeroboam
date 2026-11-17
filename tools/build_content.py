@@ -35,11 +35,13 @@ styles = load("styles.yaml")
 flows = load("flows.yaml")
 sat = load("sat.yaml")
 pairings = load("pairings.yaml")
+labels = load("labels.yaml")
+lids = {l["id"] for l in labels}
 
 maps = {}
 for p in glob.glob(os.path.join(MAPS, "*.json")):
     m = json.load(open(p))
-    maps[m["id"]] = {r["id"] for r in m["regions"]}
+    maps[m["id"]] = {r["id"] for r in m.get("areas", m.get("regions", []))}
 
 gids = [g["id"] for g in grapes]
 rids = [r["id"] for r in regions]
@@ -84,9 +86,8 @@ for r in regions:
     r.setdefault("grapes", [])
 
 # every region area on a map should ideally have an entry
-for mid, areas in maps.items():
-    for a in areas:
-        if a not in rset: warn(f"map {mid}: area {a} has no region entry")
+missing_entries = sum(1 for mid, areas in maps.items() for a in areas if a not in rset)
+if missing_entries: print(f"note: {missing_entries} map areas have no region guide (shown with name only)")
 
 def check_visual(v, where):
     if not v: return
@@ -111,6 +112,8 @@ def check_visual(v, where):
             err(f"{where}: unknown diagram {arg}")
     elif kind == "wheel":
         pass
+    elif kind == "label":
+        if arg not in lids: err(f"{where}: unknown label {arg}")
     else:
         err(f"{where}: unknown visual kind {kind}")
 
@@ -181,7 +184,7 @@ for lv in levels_meta:
     course["levels"].append(level)
 
 library = {"grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
-           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings}
+           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 
 for w in warnings: print("warning:", w)
 for e in errors: print("ERROR:", e)

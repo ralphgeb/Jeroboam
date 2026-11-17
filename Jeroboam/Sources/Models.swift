@@ -154,6 +154,8 @@ struct WineColor: Decodable, Identifiable, Hashable {
     let hex: String
     let rim: String
     let note: String
+    let chart: Bool?
+    let examples: String?
 }
 
 struct GlossaryTerm: Decodable, Identifiable, Hashable {
@@ -217,6 +219,21 @@ struct Library: Decodable {
     let flows: [Flow]
     let sat: [SATSection]
     let pairings: [Pairing]
+    let labels: [WineLabel]?
+}
+
+struct WineLabel: Decodable, Identifiable, Hashable {
+    struct Field: Decodable, Hashable {
+        let kind: String
+        let text: String
+        let note: String
+    }
+    let id: String
+    let title: String
+    let region: String
+    let style: String
+    let summary: String
+    let fields: [Field]
 }
 
 // MARK: - Maps

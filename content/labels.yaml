@@ -1,0 +1,131 @@
+# Label decoder. kind: small | title | place | class | vintage | fine | badge
+- id: bordeaux
+  title: Bordeaux
+  region: bordeaux
+  style: chateau
+  summary: "Bordeaux labels lead with the château, then the appellation. Classified growths say so."
+  fields:
+    - {kind: small, text: "Grand Vin de", note: "The estate's flagship wine (as opposed to a second wine)."}
+    - {kind: title, text: "Château Belle-Rive", note: "**Producer.** A château is an estate with its own vineyards, castle or not."}
+    - {kind: class, text: "Grand Cru Classé en 1855", note: "**Classification.** One of the 61 Médoc estates ranked in 1855 (First to Fifth Growth)."}
+    - {kind: place, text: "Margaux", note: "**Appellation.** The more specific the place, the higher the expectations: Bordeaux → Haut-Médoc → Margaux."}
+    - {kind: fine, text: "Appellation Margaux Contrôlée", note: "Confirms the AOC (PDO). No grape names: it's a blend, mostly Cabernet Sauvignon here."}
+    - {kind: vintage, text: "2019", note: "**Vintage.** Weather varies a lot in Bordeaux, so the year matters."}
+    - {kind: fine, text: "Mis en bouteille au château", note: "**Estate bottled.** Made and bottled at the property."}
+- id: burgundy
+  title: Burgundy
+  region: burgundy
+  style: burgundy
+  summary: "In Burgundy the vineyard is king. The quality level is shown by how specific the place name is."
+  fields:
+    - {kind: title, text: "Gevrey-Chambertin", note: "**Village.** A village-level wine names the commune."}
+    - {kind: class, text: "1er Cru · Les Cazetiers", note: "**Premier Cru + climat.** The named vineyard is a Premier Cru. A Grand Cru would show only the vineyard name, e.g. *Chambertin*."}
+    - {kind: fine, text: "Appellation Gevrey-Chambertin 1er Cru Contrôlée", note: "No grape on the label: red Burgundy is Pinot Noir, white is Chardonnay."}
+    - {kind: vintage, text: "2020", note: "**Vintage.**"}
+    - {kind: small, text: "Domaine Martin & Fils", note: "**Producer.** *Domaine* = grower-producer. *Maison* usually means a négociant who buys grapes."}
+- id: champagne
+  title: Champagne
+  region: champagne
+  style: champagne
+  summary: "Champagne labels show the house, the style, the sweetness and a small code revealing who made it."
+  fields:
+    - {kind: title, text: "Maison Lefèvre", note: "**House.** Most Champagne is sold by brand."}
+    - {kind: place, text: "Champagne", note: "Only sparkling wine from the Champagne region may use this word."}
+    - {kind: class, text: "Blanc de Blancs · Grand Cru", note: "**Style.** Blanc de Blancs = Chardonnay only. Grand Cru = grapes from top-rated villages."}
+    - {kind: badge, text: "Brut", note: "**Sweetness.** Brut Nature < Extra Brut < Brut < Extra Dry < Sec < Demi-Sec < Doux."}
+    - {kind: vintage, text: "Non-Vintage", note: "No year: a blend of several harvests for consistency. A vintage Champagne shows one year."}
+    - {kind: fine, text: "NM-123-456 · Reims", note: "**Maker code.** NM = house buying grapes; RM = grower making their own; CM = co-operative."}
+- id: alsace
+  title: Alsace
+  region: alsace
+  style: alsace
+  summary: "Unusually for France, Alsace names the grape. Look for Grand Cru and late-harvest terms."
+  fields:
+    - {kind: small, text: "Domaine Weber", note: "**Producer.**"}
+    - {kind: title, text: "Riesling", note: "**Grape variety.** Alsace labels are varietal."}
+    - {kind: class, text: "Grand Cru Schlossberg", note: "**Grand Cru** + vineyard name: one of 51 top sites."}
+    - {kind: badge, text: "Vendanges Tardives", note: "**Late harvest**, usually sweet. *Sélection de Grains Nobles* = botrytized."}
+    - {kind: vintage, text: "2018", note: "**Vintage.**"}
+    - {kind: fine, text: "Alsace Grand Cru · 75 cl · 13% vol", note: "Tall flûte bottle is required."}
+- id: rhone
+  title: Rhône
+  region: rhone
+  style: rhone
+  summary: "Rhône labels name the appellation; the papal crossed keys mark many Châteauneuf-du-Pape bottles."
+  fields:
+    - {kind: small, text: "Domaine du Vieux Mas", note: "**Producer.**"}
+    - {kind: title, text: "Châteauneuf-du-Pape", note: "**Appellation.** A cru of the Southern Rhône: Grenache-led blends of up to 13 varieties."}
+    - {kind: class, text: "Vieilles Vignes", note: "'Old vines': no legal definition, but signals lower yields."}
+    - {kind: vintage, text: "2017", note: "**Vintage.**"}
+    - {kind: fine, text: "Mis en bouteille à la propriété", note: "Estate bottled."}
+- id: germany
+  title: Germany
+  region: germany
+  style: german
+  summary: "German labels pack in region, village + vineyard, grape and a ripeness level (Prädikat)."
+  fields:
+    - {kind: small, text: "Weingut Kessler", note: "**Producer.** Weingut = wine estate."}
+    - {kind: place, text: "Mosel", note: "**Region** (Anbaugebiet)."}
+    - {kind: title, text: "Wehlener Sonnenuhr", note: "**Village + vineyard.** Wehlen (village, with -er) and Sonnenuhr (the 'sundial' vineyard)."}
+    - {kind: class, text: "Riesling Spätlese", note: "**Grape + Prädikat.** Spätlese = late harvest ripeness; often lusciously off-dry unless *trocken*."}
+    - {kind: badge, text: "Trocken", note: "**Dry.** Halbtrocken/feinherb = off-dry."}
+    - {kind: vintage, text: "2021", note: "**Vintage.**"}
+    - {kind: fine, text: "Prädikatswein · A.P.Nr. 2 576 041 05 22", note: "Quality category and official control number."}
+- id: italy
+  title: Italy
+  region: tuscany
+  style: italian
+  summary: "Italian labels name the place (sometimes the grape), the category (DOCG) and ageing terms."
+  fields:
+    - {kind: small, text: "Fattoria di Colle", note: "**Producer.** Fattoria, Tenuta, Castello = estate."}
+    - {kind: title, text: "Chianti Classico", note: "**Denomination.** The historic heart of Chianti: mostly Sangiovese."}
+    - {kind: class, text: "Gran Selezione", note: "**Top tier**: estate fruit, longest ageing. Below it: Riserva, then annata."}
+    - {kind: badge, text: "DOCG", note: "Denominazione di Origine Controllata e Garantita: Italy's highest category."}
+    - {kind: vintage, text: "2016", note: "**Vintage.**"}
+    - {kind: fine, text: "Imbottigliato all'origine", note: "Estate bottled. The black rooster neck seal marks Chianti Classico."}
+- id: spain
+  title: Spain
+  region: rioja
+  style: spanish
+  summary: "Spanish labels show the region and an ageing category that tells you how long it rested."
+  fields:
+    - {kind: small, text: "Bodegas Altamira", note: "**Producer.** Bodega = winery."}
+    - {kind: title, text: "Rioja", note: "**Region** (DOCa). Mostly Tempranillo."}
+    - {kind: class, text: "Gran Reserva", note: "**Ageing.** Joven → Crianza (2 yrs) → Reserva (3) → Gran Reserva (5, at least 2 in oak)."}
+    - {kind: badge, text: "Denominación de Origen Calificada", note: "Spain's top category (DOCa / DOQ)."}
+    - {kind: vintage, text: "Cosecha 2012", note: "**Cosecha** = vintage."}
+- id: port
+  title: Port
+  region: douro
+  style: port
+  summary: "Port labels name the shipper and the style; the style tells you how it was aged."
+  fields:
+    - {kind: small, text: "Quinta do Rio", note: "**Shipper / quinta.** A quinta is a Douro estate."}
+    - {kind: title, text: "Vintage Port", note: "**Style.** Declared only in great years, bottled after ~2 years, ages for decades. Needs decanting."}
+    - {kind: class, text: "Late Bottled Vintage", note: "(Alternative) LBV: single year, 4–6 years in wood, ready to drink."}
+    - {kind: badge, text: "20 Years Old Tawny", note: "(Alternative) An *indication of age*: a tawny blend tasting of about 20 years."}
+    - {kind: vintage, text: "2017", note: "**Vintage** (only on vintage, LBV and Colheita styles)."}
+    - {kind: fine, text: "Produce of Portugal · 20% vol", note: "Fortified: about 19–22% abv."}
+- id: napa
+  title: USA
+  region: napa-valley
+  style: newworld
+  summary: "New World labels lead with the brand and the grape; the AVA tells you where."
+  fields:
+    - {kind: title, text: "Stonebridge", note: "**Brand / winery.**"}
+    - {kind: class, text: "Cabernet Sauvignon", note: "**Grape.** At least 75% of the named variety (US rule)."}
+    - {kind: place, text: "Oakville · Napa Valley", note: "**AVA.** At least 85% of grapes from the named AVA."}
+    - {kind: small, text: "Reserve", note: "No legal meaning in the US: the producer's own top tier."}
+    - {kind: vintage, text: "2019", note: "**Vintage.** At least 95% from that year when an AVA is named."}
+    - {kind: fine, text: "Estate Grown & Bottled · 14.5% alc/vol", note: "Estate = grown on land the winery owns or controls."}
+- id: australia
+  title: Australia
+  region: barossa
+  style: newworld
+  summary: "Australian labels show brand, grape and the GI (Geographical Indication)."
+  fields:
+    - {kind: title, text: "Red Gum Hill", note: "**Brand.**"}
+    - {kind: class, text: "Old Vine Shiraz", note: "**Grape** (85% rule). 'Old vine' is defined by the Barossa Old Vine Charter: 35+ years."}
+    - {kind: place, text: "Barossa Valley", note: "**GI** (region)."}
+    - {kind: vintage, text: "2018", note: "**Vintage.**"}
+    - {kind: fine, text: "Screwcap · 14.5% vol", note: "Most Australian wines use screwcaps."}

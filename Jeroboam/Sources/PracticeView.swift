@@ -11,7 +11,7 @@ struct PracticeView: View {
                     TopStatusBar().padding(.top, 8)
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow("Practice")
-                        Text("Keep it fresh").font(.serif(34)).foregroundStyle(Palette.ink)
+                        Text("KEEP IT FRESH").font(.display(46)).foregroundStyle(Palette.ink)
                         Text("Endless questions drawn from the whole library, plus a review of anything you got wrong.")
                             .font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                     }

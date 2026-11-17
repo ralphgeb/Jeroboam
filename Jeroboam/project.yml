@@ -27,15 +27,19 @@ targets:
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: Jeroboam
+        CFBundleDisplayName: Jero
         UILaunchScreen:
           UIColorName: LaunchBackground
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
+        NSCameraUsageDescription: Jero uses the camera to photograph wine labels for your tasting journal.
+        NSPhotoLibraryAddUsageDescription: Jero can save your tasting photos.
+        JeroAPIKey: $(JERO_API_KEY)
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.ralphgeb.jeroboam
+        PRODUCT_BUNDLE_IDENTIFIER: com.ralphgeb.jero
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        JERO_API_KEY: ""        # injected by CI from the ANTHROPIC_API_KEY secret (testing only)

@@ -276,7 +276,7 @@ struct LearnCard: View {
         VStack(alignment: .leading, spacing: 20) {
             Eyebrow("Learn", color: Palette.wine)
             if let t = card.title {
-                Text(t).font(.serif(30)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                Text(t).font(.heading(30, .heavy)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
             }
             if let v = card.visual {
                 VisualView(spec: v)
@@ -317,7 +317,7 @@ struct QuestionHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Eyebrow(label)
-            Text(rich(text)).font(.serif(24)).foregroundStyle(Palette.ink).lineSpacing(2)
+            Text(rich(text)).font(.heading(23, .bold)).foregroundStyle(Palette.ink).lineSpacing(2)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -616,7 +616,7 @@ struct LessonComplete: View {
             }
             .padding(.bottom, 28)
             Eyebrow(session.lessonID == nil ? "Practice complete" : "Lesson complete", color: Palette.wine)
-            Text(headline).font(.serif(32)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+            Text(headline.uppercased()).font(.display(40)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
                 .padding(.top, 8).padding(.horizontal, Metrics.margin)
 
             HStack(spacing: 0) {

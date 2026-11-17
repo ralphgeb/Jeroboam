@@ -37,7 +37,7 @@ struct GrapeListView: View {
     private func card(_ g: Grape) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
-                GrapeCluster(berry: g.berry, leaf: false, seed: g.name.count).frame(width: 64, height: 64)
+                GrapeCluster(berry: g.berry).frame(width: 40, height: 52)
                 Spacer()
                 if g.level == 1 {
                     Text("Classic").font(.system(size: 10, weight: .semibold)).kerning(0.6).textCase(.uppercase)
@@ -46,7 +46,7 @@ struct GrapeListView: View {
                 }
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(g.name).font(.serif(18, .medium)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                Text(g.name.uppercased()).font(.display(19)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                 Text(g.aromas.prefix(2).joined(separator: " · ")).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
         }
@@ -62,45 +62,14 @@ struct GrapeDetailView: View {
 
     var body: some View {
         let g = grape
-        let color = ContentStore.shared.color(g.glass)
         ScrollView {
             VStack(alignment: .leading, spacing: 30) {
-                // Hero
-                VStack(alignment: .leading, spacing: 18) {
-                    HStack(alignment: .center, spacing: 18) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Eyebrow(g.berry == .white ? "White grape" : (g.berry == .pink ? "Pink-skinned grape" : "Black grape"), color: Palette.wine)
-                            Text(g.name).font(.serif(36)).foregroundStyle(Palette.ink).lineLimit(2).minimumScaleFactor(0.7)
-                            if let p = g.pronounce {
-                                Text(p).font(.system(size: 14).italic()).foregroundStyle(Palette.inkSoft)
-                            }
-                        }
-                        Spacer(minLength: 0)
-                        GrapeCluster(berry: g.berry, seed: g.name.count).frame(width: 110, height: 110)
-                    }
-                    Text(rich(g.summary)).font(.system(size: 17)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
-                        .fixedSize(horizontal: false, vertical: true)
-                    if let aka = g.aka, !aka.isEmpty {
-                        Text("Also known as \(aka.joined(separator: ", "))").font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
-                    }
+                WineCardView(grape: g)
+                Text(rich(g.summary)).font(.system(size: 17, weight: .medium)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(4)
+                    .fixedSize(horizontal: false, vertical: true)
+                if let aka = g.aka, !aka.isEmpty {
+                    Text("Also known as \(aka.joined(separator: ", "))").font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
                 }
-
-                // Taste profile + glass
-                HStack(alignment: .top, spacing: 20) {
-                    VStack(alignment: .leading, spacing: 14) {
-                        SectionTitle(text: "Taste profile")
-                        StructureBars(grape: g)
-                    }
-                    if let c = color {
-                        VStack(spacing: 8) {
-                            WineGlass(color: Color(hex: c.hex), rim: Color(hex: c.rim), fill: 0.55).frame(width: 66, height: 110)
-                            Text(c.name).font(.system(size: 11)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
-                        }
-                        .frame(width: 80)
-                        .padding(.top, 34)
-                    }
-                }
-                .cardStyle()
 
                 VStack(alignment: .leading, spacing: 14) {
                     SectionTitle(text: "Aromas & flavors")

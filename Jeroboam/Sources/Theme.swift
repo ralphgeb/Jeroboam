@@ -41,78 +41,91 @@ extension Color {
 }
 
 enum Palette {
-    // Surfaces
-    static let paper = Color.dynamic("#F7F3EE", "#121011")
-    static let card = Color.dynamic("#FFFFFF", "#1C1819")
-    static let cardAlt = Color.dynamic("#F1EBE3", "#241F21")
-    static let line = Color.dynamic("#E6DED5", "#2F282A")
+    // Light: clean porcelain + Bordeaux. Dark: deep Bordeaux + beige.
+    static let paper = Color.dynamic("#F5F4F2", "#1A0910")
+    static let card = Color.dynamic("#FFFFFF", "#28101A")
+    static let cardAlt = Color.dynamic("#EEECE9", "#341620")
+    static let line = Color.dynamic("#E4E0DD", "#43202C")
     // Text
-    static let ink = Color.dynamic("#1F1719", "#F2ECE8")
-    static let inkSoft = Color.dynamic("#7A6B6E", "#A39598")
-    static let inkFaint = Color.dynamic("#B3A6A2", "#6B5F62")
+    static let ink = Color.dynamic("#140A0E", "#F4EADF")
+    static let inkSoft = Color.dynamic("#655B5F", "#C9B5B0")
+    static let inkFaint = Color.dynamic("#A39A9C", "#86656C")
     // Brand
-    static let wine = Color.dynamic("#7D1D3F", "#D4738F")
-    static let wineSoft = Color.dynamic("#F3E4E7", "#3A2229")
-    static let wineDeep = Color(hex: "#4E0F27")
-    static let brass = Color.dynamic("#A9824A", "#CFA96E")
-    static let sage = Color.dynamic("#7C8C62", "#A3B386")
-    static let slate = Color.dynamic("#6F8193", "#93A6B8")
-    // Feedback (muted, in the same family)
-    static let correct = Color.dynamic("#4F7A4A", "#8DBE86")
-    static let correctBG = Color.dynamic("#EEF3EA", "#1C261B")
-    static let wrong = Color.dynamic("#A8323A", "#E4838A")
-    static let wrongBG = Color.dynamic("#F8ECEB", "#2E1C1E")
+    static let wine = Color.dynamic("#8B1538", "#F0D9C4")          // primary action
+    static let onWine = Color.dynamic("#FFFFFF", "#3A0E1D")
+    static let wineSoft = Color.dynamic("#F6E3E8", "#3E1724")
+    static let wineDeep = Color(hex: "#4C0B22")
+    static let bordeaux = Color(hex: "#8B1538")
+    static let grape = Color.dynamic("#4A1D3F", "#E6B8C8")
+    static let pink = Color(hex: "#D8285A")
+    static let beige = Color(hex: "#F0E2D2")
+    static let brass = Color.dynamic("#B07A2A", "#E3B567")
+    static let sage = Color.dynamic("#5E8A4E", "#9CC48A")
+    static let slate = Color.dynamic("#3F6E8C", "#8EB8D4")
+    // Feedback
+    static let correct = Color.dynamic("#2F8A4E", "#7FD39A")
+    static let correctBG = Color.dynamic("#E7F5EC", "#173022")
+    static let wrong = Color.dynamic("#C81E3F", "#FF8DA1")
+    static let wrongBG = Color.dynamic("#FCE8EC", "#3D1522")
     // Game
-    static let flame = Color.dynamic("#C8642D", "#E8955C")
+    static let flame = Color.dynamic("#E8571F", "#FF9A5C")
     static let gold = brass
     static let goldDeep = brass
-    // Maps
-    static let sea = Color.dynamic("#E4E9EA", "#161B1E")
-    static let land = Color.dynamic("#EFE9E1", "#211C1E")
-    static let focusLand = Color.dynamic("#FBF8F4", "#2A2426")
-    static let border = Color.dynamic("#D8CEC3", "#3A3235")
-    static let river = Color.dynamic("#A9BCC6", "#3E5462")
-    static let locked = Color.dynamic("#EAE3DB", "#2A2426")
-    static let lockedDeep = Color.dynamic("#D8CEC3", "#3A3235")
+    // Maps (Wine Folly-style: white land, blue sea, grey neighbours)
+    static let sea = Color.dynamic("#A9D2EA", "#122633")
+    static let land = Color.dynamic("#E6E3E0", "#24111A")
+    static let focusLand = Color.dynamic("#FFFFFF", "#3A1925")
+    static let border = Color.dynamic("#C9C2BD", "#5A3341")
+    static let adminLine = Color.dynamic("#E2DCD8", "#4A2734")
+    static let river = Color.dynamic("#6FAED6", "#3F7598")
+    static let locked = Color.dynamic("#E6E3E0", "#341620")
+    static let lockedDeep = Color.dynamic("#D2CDC9", "#4A2230")
 
-    /// Tints of the brand color for map regions (alternating so neighbours differ).
-    static func regionFill(_ index: Int, dark: Bool) -> Color {
-        let steps: [Double] = [0.34, 0.62, 0.20, 0.50, 0.76, 0.28, 0.44]
-        let t = steps[index % steps.count]
-        return dark ? Color(hex: "#D4738F").opacity(0.18 + t * 0.6)
-                    : Color(hex: "#7D1D3F").mix(with: Color(hex: "#FBF8F4"), 1 - t)
-    }
+    /// Bold, wine-led map palette (indices are stored in the map files).
+    static let mapColors: [Color] = ["#9E1B3A", "#C2185B", "#E8708A", "#EE7B5A", "#F29A3D", "#D9A23B", "#E8C547", "#9AA549",
+                                     "#5FA35A", "#2E9C97", "#3A7BC8", "#7B4BA8", "#5B2049"].map { Color(hex: $0) }
+
+    static func mapColor(_ i: Int) -> Color { mapColors[((i % mapColors.count) + mapColors.count) % mapColors.count] }
+
+    static func regionFill(_ index: Int, dark: Bool) -> Color { mapColor(index) }
 
     static func berry(_ b: BerryColor) -> Color {
         switch b {
-        case .black: return Color(hex: "#3E2140")
-        case .white: return Color(hex: "#C9C47C")
-        case .pink: return Color(hex: "#B9787F")
+        case .black: return Color(hex: "#4A1D3F")
+        case .white: return Color(hex: "#C7C25A")
+        case .pink: return Color(hex: "#C46A82")
         }
     }
 
     static func level(_ n: Int) -> Color {
         switch n {
-        case 1: return sage
-        case 2: return wine
-        default: return Color.dynamic("#3E2140", "#B79AC0")
+        case 1: return Color.dynamic("#C2185B", "#FF8DB3")
+        case 2: return Color.dynamic("#8B1538", "#F0D9C4")
+        default: return Color.dynamic("#4A1D3F", "#D7A7E0")
         }
     }
 }
 
-// MARK: - Type
+// MARK: - Type (SF Pro: bold, condensed display; same system family as Halo, Ahead and Scout)
 
 extension Font {
-    /// Display serif (New York).
-    static func serif(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .serif)
+    /// Poster headline: heavy, condensed. Use with uppercase text.
+    static func display(_ size: CGFloat, _ weight: Font.Weight = .heavy) -> Font {
+        .system(size: size, weight: weight).width(.condensed)
     }
-    /// Numbers in game UI.
+    /// Titles: SF Pro bold.
+    static func heading(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
+        .system(size: size, weight: weight)
+    }
+    /// Kept for older call sites: maps to the bold sans heading.
+    static func serif(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
+        .system(size: size, weight: weight == .regular || weight == .light ? .bold : weight)
+    }
     static func numeric(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
-        .system(size: size, weight: weight, design: .default).monospacedDigit()
+        .system(size: size, weight: weight).monospacedDigit()
     }
     static func rounded(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
-        .system(size: size, weight: weight, design: .default)
+        .system(size: size, weight: weight)
     }
 }
 
@@ -123,8 +136,8 @@ struct Eyebrow: View {
     init(_ text: String, color: Color = Palette.inkSoft) { self.text = text; self.color = color }
     var body: some View {
         Text(text.uppercased())
-            .font(.system(size: 11, weight: .semibold))
-            .kerning(1.4)
+            .font(.system(size: 11, weight: .bold))
+            .kerning(1.3)
             .foregroundStyle(color)
     }
 }
@@ -145,7 +158,7 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: 17, weight: .semibold))
-            .foregroundStyle(enabled ? Color.white : Palette.inkFaint)
+            .foregroundStyle(enabled ? (color == Palette.wine ? Palette.onWine : Color.white) : Palette.inkFaint)
             .frame(maxWidth: .infinity)
             .frame(height: 54)
             .background(

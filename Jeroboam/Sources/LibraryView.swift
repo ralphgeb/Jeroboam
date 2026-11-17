@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
-    case grapes, regions, aromas, colors, styles, tasting, pairing, glossary, bottles
+    case grapes, regions, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels
     var id: String { rawValue }
     var title: String {
         switch self {
@@ -14,6 +14,9 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .pairing: return "Food & wine"
         case .glossary: return "Glossary"
         case .bottles: return "Bottle sizes"
+        case .cards: return "Wine cards"
+        case .boldness: return "Boldness scale"
+        case .labels: return "Label decoder"
         }
     }
     var subtitle: String {
@@ -28,6 +31,9 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .pairing: return "Principles that work"
         case .glossary: return "\(lib.glossary.count) terms"
         case .bottles: return "Piccolo to Nebuchadnezzar"
+        case .cards: return "\(lib.grapes.count) varieties to swipe"
+        case .boldness: return "Light to bold, red and white"
+        case .labels: return "\(lib.labels?.count ?? 0) regions explained"
         }
     }
 }
@@ -41,7 +47,7 @@ struct LibraryView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow("Library")
-                        Text("The wine atlas").font(.serif(34)).foregroundStyle(Palette.ink)
+                        Text("THE WINE ATLAS").font(.display(46)).foregroundStyle(Palette.ink)
                         Text("Every grape, place, aroma and term you meet in the lessons, in one place.")
                             .font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                     }
@@ -54,7 +60,7 @@ struct LibraryView: View {
                         .buttonStyle(PressableStyle()).padding(.top, 14)
 
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                        ForEach([LibrarySection.aromas, .colors, .styles, .tasting, .pairing, .bottles], id: \.self) { s in
+                        ForEach([LibrarySection.cards, .boldness, .aromas, .colors, .labels, .styles, .tasting, .pairing, .bottles], id: \.self) { s in
                             NavigationLink(value: s) { tile(s) }.buttonStyle(PressableStyle())
                         }
                     }
@@ -97,12 +103,15 @@ struct LibraryView: View {
         case .grapes: GrapeListView()
         case .regions: RegionListView()
         case .aromas: AromaWheelScreen()
-        case .colors: ColorsScreen()
+        case .colors: ColorChartScreen()
         case .styles: StylesScreen()
         case .tasting: TastingScreen()
         case .pairing: PairingScreen()
         case .glossary: GlossaryScreen()
         case .bottles: BottlesScreen()
+        case .cards: WineCardsScreen()
+        case .boldness: BoldnessScreen()
+        case .labels: LabelsScreen()
         }
     }
 
@@ -110,7 +119,7 @@ struct LibraryView: View {
         HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
                 Eyebrow("Ampelography", color: Palette.wine)
-                Text("Grapes").font(.serif(28)).foregroundStyle(Palette.ink)
+                Text("GRAPES").font(.display(34)).foregroundStyle(Palette.ink)
                 Text(LibrarySection.grapes.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
             }
             Spacer()
@@ -131,7 +140,7 @@ struct LibraryView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Eyebrow("Atlas", color: Palette.wine)
-                    Text("Regions & maps").font(.serif(24)).foregroundStyle(Palette.ink)
+                    Text("REGIONS & MAPS").font(.display(28)).foregroundStyle(Palette.ink)
                 }
                 Spacer()
                 Text(LibrarySection.regions.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
@@ -154,6 +163,27 @@ struct LibraryView: View {
                 case .styles: WineGlass(color: Color(hex: "#EADFA6"), fill: 0.75, sparkling: true).frame(height: 58)
                 case .tasting: Image(systemName: "eye").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine).frame(height: 58)
                 case .pairing: Image(systemName: "fork.knife").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine).frame(height: 58)
+                case .cards:
+                    HStack(spacing: -14) {
+                        ForEach(0..<3, id: \.self) { i in
+                            RoundedRectangle(cornerRadius: 6).fill([Palette.bordeaux, Color(hex: "#D9B22E"), Color(hex: "#C2185B")][i])
+                                .frame(width: 30, height: 44).rotationEffect(.degrees(Double(i - 1) * 9))
+                        }
+                    }
+                    .frame(height: 58)
+                case .boldness:
+                    Capsule().fill(LinearGradient(colors: ["#F0827A", "#E0284F", "#A3163C", "#3A0A22"].map { Color(hex: $0) },
+                                                  startPoint: .leading, endPoint: .trailing))
+                        .frame(width: 92, height: 14).frame(height: 58)
+                case .labels:
+                    VStack(spacing: 3) {
+                        Rectangle().fill(Palette.bordeaux).frame(width: 34, height: 3)
+                        Text("Château").font(.system(size: 11, weight: .semibold, design: .serif)).foregroundStyle(Palette.ink)
+                        Text("1855").font(.system(size: 8, weight: .heavy)).foregroundStyle(Palette.bordeaux)
+                    }
+                    .padding(8).background(RoundedRectangle(cornerRadius: 4).fill(Color(hex: "#FBF6EC")))
+                    .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Palette.line))
+                    .frame(height: 58)
                 case .bottles:
                     HStack(alignment: .bottom, spacing: 4) {
                         ForEach([26.0, 36.0, 46.0, 56.0], id: \.self) { h in
@@ -184,7 +214,7 @@ struct ScreenHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Eyebrow(eyebrow)
-            Text(title).font(.serif(32)).foregroundStyle(Palette.ink)
+            Text(title.uppercased()).font(.display(38)).foregroundStyle(Palette.ink)
             if let s = subtitle {
                 Text(rich(s)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5)
                     .fixedSize(horizontal: false, vertical: true)

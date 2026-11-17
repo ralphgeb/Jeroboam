@@ -148,6 +148,12 @@ struct RegionDetailView: View {
 
                 if let s = r.styles { textBlock("Styles", s) }
                 if let c = r.classification { textBlock("Classification", c) }
+                if let l = ContentStore.shared.label(forRegion: r.id) {
+                    VStack(alignment: .leading, spacing: 14) {
+                        SectionTitle(text: "How to read the label")
+                        LabelDecoderCard(label: l)
+                    }
+                }
 
                 if let facts = r.facts, !facts.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
@@ -190,7 +196,14 @@ struct RegionDetailView: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
-        .onAppear { progress.noteViewed(region: r.id) }
+        .onAppear {
+            progress.noteViewed(region: r.id)
+            #if DEBUG
+            if DebugScreens.screen == "explorer", r.id == "bordeaux" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: "bordeaux", hl: ["pauillac"]) }
+            }
+            #endif
+        }
     }
 
     private func infoRow(icon: String, title: String, text: String) -> some View {

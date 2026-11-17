@@ -101,7 +101,7 @@ struct LearnView: View {
     private func levelIntro(_ level: Level) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Eyebrow(level.subtitle, color: Palette.level(level.number))
-            Text(level.title).font(.serif(34)).foregroundStyle(Palette.ink)
+            Text(level.title.uppercased()).font(.display(48)).foregroundStyle(Palette.ink)
             let lessons = level.units.flatMap(\.lessons)
             let done = lessons.filter { progress.isCompleted($0.id) }.count
             HStack(spacing: 12) {
@@ -126,7 +126,7 @@ struct LearnView: View {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     Eyebrow(progress.completedCount == 0 ? "Start here" : "Up next", color: .white.opacity(0.75))
-                    Text(lesson.title).font(.serif(24)).foregroundStyle(.white).multilineTextAlignment(.leading)
+                    Text(lesson.title.uppercased()).font(.display(30)).foregroundStyle(.white).multilineTextAlignment(.leading)
                     Text(unit?.title ?? "").font(.system(size: 13)).foregroundStyle(.white.opacity(0.75))
                     HStack(spacing: 6) {
                         Text("Start lesson").font(.system(size: 14, weight: .semibold))
@@ -136,10 +136,8 @@ struct LearnView: View {
                     .padding(.top, 10)
                 }
                 Spacer(minLength: 0)
-                DropletShape()
-                    .fill(LinearGradient(colors: [.white.opacity(0.38), .white.opacity(0.06)], startPoint: .top, endPoint: .bottom))
-                    .overlay(DropletShape().stroke(.white.opacity(0.35), lineWidth: 1))
-                    .frame(width: 40, height: 80)
+                GrapeMark(tones: [.white.opacity(0.9), .white.opacity(0.55), .white.opacity(0.75)])
+                    .frame(width: 58, height: 76)
             }
             .padding(22)
             .background(
@@ -164,10 +162,10 @@ struct PressableStyle: ButtonStyle {
 
 struct TopStatusBar: View {
     @Environment(GameProgress.self) private var progress
+    @State private var showProfile = false
     var body: some View {
         HStack(spacing: 10) {
-            BrandDroplet(size: 26)
-            Text("Jeroboam").font(.serif(20, .medium)).foregroundStyle(Palette.ink)
+            Wordmark(size: 22)
             Spacer()
             HStack(spacing: 14) {
                 FlameBadge(count: progress.data.streak, active: progress.activeToday)
@@ -178,8 +176,12 @@ struct TopStatusBar: View {
             }
             .padding(.horizontal, 12).padding(.vertical, 7)
             .background(Capsule().fill(Palette.card))
-            .overlay(Capsule().strokeBorder(Palette.line, lineWidth: 0.5))
+            Button { showProfile = true } label: {
+                Image(systemName: "person.crop.circle.fill").font(.system(size: 26)).foregroundStyle(Palette.ink.opacity(0.85))
+            }
+            .accessibilityLabel("Profile and settings")
         }
+        .sheet(isPresented: $showProfile) { ProfileView() }
     }
 }
 
@@ -198,10 +200,10 @@ struct UnitSection: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 14) {
                 Text(String(format: "%02d", number))
-                    .font(.serif(30, .light))
+                    .font(.display(36, .black))
                     .foregroundStyle(Palette.level(level.number).opacity(0.7))
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(unit.title).font(.serif(22, .medium)).foregroundStyle(Palette.ink)
+                    Text(unit.title).font(.heading(21, .bold)).foregroundStyle(Palette.ink)
                     Text(unit.summary).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }

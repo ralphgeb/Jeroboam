@@ -71,6 +71,10 @@ struct VisualView: View {
                 }
             case "wheel":
                 AromaWheel(compact: true)
+            case "label":
+                if let l = ContentStore.shared.label(arg) {
+                    WineLabelView(label: l, numbered: false).padding(.horizontal, 20).padding(.vertical, 6)
+                }
             case "flow":
                 if let f = ContentStore.shared.flow(arg) { FlowDiagram(flow: f, compact: compact) }
             case "diagram":
@@ -105,7 +109,7 @@ struct MapRef: Identifiable { let id: String; let hl: Set<String> }
 struct ColorLadder: View {
     let family: String
     var body: some View {
-        let colors = ContentStore.shared.library.colors.filter { $0.family == family }
+        let colors = ContentStore.shared.library.colors.filter { $0.family == family && $0.chart != true }
         HStack(alignment: .bottom, spacing: 4) {
             ForEach(colors) { c in
                 VStack(spacing: 8) {

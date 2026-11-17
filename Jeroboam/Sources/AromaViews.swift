@@ -57,7 +57,12 @@ struct AromaWheel: View {
                                 var deg = (a + step / 2)
                                 if deg > 90 && deg < 270 { deg += 180 }
                                 t.rotate(by: .degrees(deg))
-                                t.draw(Text(cat.name).font(.system(size: 9.5, weight: .semibold)).foregroundColor(Color(hex: cat.color).mix(with: .black, 0.62)), at: .zero)
+                                let avail = rOut - rMid - 10
+                                let ink = Color(hex: cat.color).mix(with: .black, 0.62)
+                                let probe = t.resolve(Text(cat.name).font(.system(size: 10, weight: .bold)))
+                                let wNeeded = probe.measure(in: CGSize(width: 400, height: 40)).width
+                                let fs = max(6.5, min(10.5, 10 * avail / max(1, wNeeded)))
+                                t.draw(Text(cat.name).font(.system(size: fs, weight: .bold)).foregroundColor(ink), at: .zero)
                             }
                             a += step
                         }

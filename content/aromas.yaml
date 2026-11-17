@@ -6,19 +6,19 @@
     - {id: green-fruit, name: Green fruit, color: "#A6B676", icon: leaf, note: "Typical of cool-climate whites: crisp, tart and fresh.", items: [Green apple, Red apple, Gooseberry, Pear, Quince, Green grape]}
     - {id: citrus, name: Citrus, color: "#DCC864", icon: circle.lefthalf.filled, note: "High-acid whites from cool to moderate climates.", items: [Grapefruit, Lemon, Lime, Orange peel, Lemon zest, Yuzu]}
     - {id: stone-fruit, name: Stone fruit, color: "#E2AE74", icon: circle.fill, note: "Riper whites from moderate climates: Viognier, Albariño, riper Chardonnay.", items: [Peach, Apricot, Nectarine, White peach]}
-    - {id: tropical, name: Tropical fruit, color: "#E4BF58", icon: sun.max, note: "Warm-climate ripeness, or certain aromatic grapes and cool fermentations.", items: [Banana, Lychee, Mango, Melon, Passion fruit, Pineapple]}
+    - {id: tropical, name: Tropical, color: "#E4BF58", icon: sun.max, note: "Warm-climate ripeness, or certain aromatic grapes and cool fermentations.", items: [Banana, Lychee, Mango, Melon, Passion fruit, Pineapple]}
     - {id: red-fruit, name: Red fruit, color: "#C25468", icon: heart, note: "Lighter reds and cooler climates: Pinot Noir, Gamay, Grenache, Sangiovese.", items: [Redcurrant, Cranberry, Raspberry, Strawberry, Red cherry, Red plum, Pomegranate]}
     - {id: black-fruit, name: Black fruit, color: "#5B2A4C", icon: circle.hexagongrid.fill, note: "Fuller reds from moderate to warm climates: Cabernet Sauvignon, Syrah, Malbec.", items: [Blackcurrant, Blackberry, Black cherry, Black plum, Blueberry, Mulberry]}
-    - {id: dried-fruit, name: Dried & cooked fruit, color: "#9A6848", icon: sun.haze, note: "Very ripe grapes from hot climates, dried grapes (Amarone, PX) or age.", items: [Fig, Prune, Raisin, Sultana, Kirsch, Jammy fruit, Fruit cake]}
+    - {id: dried-fruit, name: Dried fruit, color: "#9A6848", icon: sun.haze, note: "Very ripe grapes from hot climates, dried grapes (Amarone, PX) or age.", items: [Fig, Prune, Raisin, Sultana, Kirsch, Jammy fruit, Fruit cake]}
     - {id: herbaceous, name: Herbaceous, color: "#86A05E", icon: leaf.fill, note: "Green, leafy notes from compounds called methoxypyrazines, common in Sauvignon Blanc, Cabernets and Carmenère, especially when less ripe.", items: [Green bell pepper, Grass, Tomato leaf, Asparagus, Blackcurrant leaf, Nettle]}
     - {id: herbal, name: Herbal, color: "#7C9270", icon: tree, note: "Dried and fresh herbs: classic in southern French and Mediterranean reds (garrigue) and Australian Cabernet (eucalyptus, mint).", items: [Eucalyptus, Mint, Fennel, Dill, Dried herbs, Thyme, Garrigue]}
-    - {id: spice, name: Pungent spice, color: "#B07854", icon: flame, note: "Peppery notes from the grape itself, most famously in cool-climate Syrah and Grüner Veltliner.", items: [Black pepper, White pepper, Liquorice]}
-    - {id: mineral, name: Mineral & other, color: "#98A0A6", icon: mountain.2, note: "Hard-to-pin notes often linked to cool climates, high acidity or reductive winemaking.", items: [Flint, Wet stones, Wet wool, Chalk, Saline]}
+    - {id: spice, name: Spice, color: "#B07854", icon: flame, note: "Peppery notes from the grape itself, most famously in cool-climate Syrah and Grüner Veltliner.", items: [Black pepper, White pepper, Liquorice]}
+    - {id: mineral, name: Mineral, color: "#98A0A6", icon: mountain.2, note: "Hard-to-pin notes often linked to cool climates, high acidity or reductive winemaking.", items: [Flint, Wet stones, Wet wool, Chalk, Saline]}
 - id: secondary
   name: Secondary
   summary: "Aromas from **winemaking** after fermentation: yeast lees, malolactic conversion and oak."
   categories:
-    - {id: yeast, name: Yeast & lees, color: "#D6BE88", icon: birthday.cake, note: "From contact with dead yeast cells (lees), as in Champagne and lees-aged Muscadet.", items: [Biscuit, Bread, Brioche, Pastry, Bread dough, Cheese rind]}
+    - {id: yeast, name: Lees, color: "#D6BE88", icon: birthday.cake, note: "From contact with dead yeast cells (lees), as in Champagne and lees-aged Muscadet.", items: [Biscuit, Bread, Brioche, Pastry, Bread dough, Cheese rind]}
     - {id: malolactic, name: Malolactic, color: "#E3D29C", icon: drop.halffull, note: "Malolactic conversion turns tart malic acid into softer lactic acid, often adding buttery, creamy notes (diacetyl).", items: [Butter, Cream, Sour cream]}
     - {id: oak, name: Oak, color: "#A9824A", icon: cylinder.split.1x2, note: "New oak barrels, especially toasted ones, add sweet spice and smoky notes. American oak is more coconut and vanilla; French oak is subtler and spicier.", items: [Vanilla, Cloves, Nutmeg, Coconut, Butterscotch, Toast, Cedar, Charred wood, Smoke, Chocolate, Coffee, Sweet spice]}
 - id: tertiary

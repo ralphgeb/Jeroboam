@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct JeroboamApp: App {
     @State private var progress = GameProgress()
+    @State private var journal = JournalStore()
 
     init() {
         let p = GameProgress()
@@ -25,6 +26,7 @@ struct JeroboamApp: App {
         WindowGroup {
             RootView()
                 .environment(progress)
+                .environment(journal)
                 .preferredColorScheme(progress.colorScheme)
                 .tint(Palette.wine)
                 .onAppear {
@@ -52,8 +54,8 @@ struct RootView: View {
                     LibraryView()
                         .tabItem { Label("Library", systemImage: "books.vertical") }
                         .tag(2)
-                    ProfileView()
-                        .tabItem { Label("Profile", systemImage: "person.crop.circle") }
+                    JournalView()
+                        .tabItem { Label("Journal", systemImage: "camera.aperture") }
                         .tag(3)
                 }
                 .transition(.opacity)

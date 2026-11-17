@@ -2,7 +2,10 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(GameProgress.self) private var progress
+    @Environment(JournalStore.self) private var journal
     @State private var confirmReset = false
+    private var journalLookups: Int { journal.lookups }
+    private var journalSpent: Double { journal.spentUSD }
 
     var body: some View {
         @Bindable var p = progress
@@ -12,7 +15,7 @@ struct ProfileView: View {
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                         Eyebrow("Your cellar")
-                        Text(progress.rank).font(.serif(34)).foregroundStyle(Palette.ink)
+                        Text(progress.rank.uppercased()).font(.display(42)).foregroundStyle(Palette.ink)
                         if let next = progress.nextRank {
                             VStack(alignment: .leading, spacing: 6) {
                                 GeometryReader { geo in
@@ -110,8 +113,11 @@ struct ProfileView: View {
                     }
 
                     VStack(spacing: 6) {
-                        BrandDroplet(size: 34)
-                        Text("Jeroboam").font(.serif(15)).foregroundStyle(Palette.inkSoft)
+                        Wordmark(size: 18)
+                        if journalLookups > 0 {
+                            Text("Wine lookups: \(journalLookups) · ≈ $\(String(format: "%.3f", journalSpent)) in AI cost")
+                                .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+                        }
                         Text("Course structure inspired by the WSET levels. Not affiliated with or endorsed by WSET.")
                             .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
                     }

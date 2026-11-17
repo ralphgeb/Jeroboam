@@ -96,7 +96,7 @@
 - {id: gigondas, name: Gigondas, country: France, kind: subregion, map: rhone, highlight: [gigondas], level: 3, grapes: [grenache, syrah, mourvedre], summary: "Grenache-based reds beneath the jagged Dentelles de Montmirail: robust and spicy."}
 - {id: vacqueyras, name: Vacqueyras, country: France, kind: subregion, map: rhone, highlight: [vacqueyras], level: 3, grapes: [grenache, syrah], summary: "Gigondas' neighbor: generous, value Grenache blends."}
 - {id: tavel, name: Tavel & Lirac, country: France, kind: subregion, map: rhone, highlight: [tavel], level: 2, grapes: [grenache, cinsault], summary: "Tavel is France's only all-rosé appellation: deeper, fuller, food-friendly rosé. Lirac makes all three colors."}
-- {id: cotes-du-rhone, name: Côtes du Rhône, country: France, kind: subregion, map: rhone, highlight: [cotes-du-rhone], level: 1, grapes: [grenache, syrah, mourvedre], summary: "The big regional appellation, mostly in the south: juicy, spicy red blends with great value."}
+- {id: cotes-du-rhone, name: Côtes du Rhône, country: France, kind: subregion, map: rhone, highlight: [southern-rhone], level: 1, grapes: [grenache, syrah, mourvedre], summary: "The big regional appellation, mostly in the south: juicy, spicy red blends with great value."}
 - id: loire
   name: Loire Valley
   country: France
@@ -330,7 +330,7 @@
   name: United States
   country: United States
   kind: country
-  map: usa-west
+  map: california
   level: 1
   climate: "California: Mediterranean, cooled by Pacific fog and breezes. Oregon: cool and wet. Eastern Washington: hot, dry desert irrigated by rivers."
   grapes: [cabernet-sauvignon, chardonnay, pinot-noir, zinfandel, merlot, syrah]
@@ -360,15 +360,15 @@
 - {id: sonoma-valley, name: Sonoma Valley, country: United States, kind: region, map: napa-sonoma, highlight: [sonoma-valley], level: 3, grapes: [cabernet-sauvignon, zinfandel, chardonnay], summary: "The 'Valley of the Moon': historic estates and varied wines."}
 - {id: dry-creek, name: Dry Creek Valley, country: United States, kind: region, map: napa-sonoma, highlight: [dry-creek], level: 3, grapes: [zinfandel, sauvignon-blanc], summary: "Benchmark old-vine Zinfandel near Healdsburg."}
 - {id: alexander-valley, name: Alexander Valley, country: United States, kind: region, map: napa-sonoma, highlight: [alexander-valley], level: 3, grapes: [cabernet-sauvignon], summary: "Warm inland Sonoma valley: soft, generous Cabernet."}
-- {id: central-coast, name: Central Coast, country: United States, kind: region, map: usa-west, highlight: [central-coast], level: 3, grapes: [pinot-noir, chardonnay, syrah, viognier], summary: "From Santa Cruz to Santa Barbara: cool valleys open to the ocean (Santa Rita Hills) for Pinot and Chardonnay; warmer Paso Robles for Rhône and Bordeaux varieties."}
-- {id: lodi, name: Lodi, country: United States, kind: region, map: usa-west, highlight: [lodi], level: 3, grapes: [zinfandel], summary: "Inland, warm, with Delta breezes: famous for old-vine Zinfandel."}
-- {id: mendocino, name: Mendocino, country: United States, kind: region, map: usa-west, highlight: [mendocino], level: 3, grapes: [pinot-noir, zinfandel], summary: "Rugged north coast; Anderson Valley is known for Pinot Noir and sparkling wine."}
-- {id: sierra-foothills, name: Sierra Foothills, country: United States, kind: region, map: usa-west, highlight: [sierra-foothills], level: 3, grapes: [zinfandel], summary: "Gold Rush country with gnarled old Zinfandel vines."}
-- {id: central-valley, name: Central Valley, country: United States, kind: region, map: usa-west, highlight: [central-valley], level: 3, grapes: [chardonnay, zinfandel, cabernet-sauvignon], summary: "Hot and vast: the source of most inexpensive California wine."}
-- {id: willamette, name: Willamette Valley, country: United States, kind: region, map: usa-west, highlight: [willamette], level: 2, climate: "Cool and wet, sheltered by the Coast Range.", grapes: [pinot-noir, pinot-grigio, chardonnay], summary: "Oregon's heart: elegant, Burgundian Pinot Noir and Pinot Gris."}
-- {id: southern-oregon, name: Southern Oregon, country: United States, kind: region, map: usa-west, highlight: [southern-oregon], level: 3, grapes: [syrah, pinot-noir], summary: "Warmer valleys (Umpqua, Rogue) growing a wide range of grapes."}
-- {id: columbia-valley, name: Columbia Valley, country: United States, kind: region, map: usa-west, highlight: [columbia-valley], level: 2, climate: "Semi-desert east of the Cascades: hot days, cold nights, irrigation from the Columbia river.", grapes: [cabernet-sauvignon, merlot, syrah, riesling, chardonnay], summary: "Washington's vast region: ripe, fresh Cabernet, Merlot, Syrah and Riesling."}
-- {id: walla-walla, name: Walla Walla, country: United States, kind: region, map: usa-west, highlight: [walla-walla], level: 3, grapes: [syrah, cabernet-sauvignon], summary: "Famous for savory Syrah grown on cobblestones (The Rocks District)."}
+- {id: central-coast, name: Central Coast, country: United States, kind: region, map: california, highlight: [central-coast], level: 3, grapes: [pinot-noir, chardonnay, syrah, viognier], summary: "From Santa Cruz to Santa Barbara: cool valleys open to the ocean (Santa Rita Hills) for Pinot and Chardonnay; warmer Paso Robles for Rhône and Bordeaux varieties."}
+- {id: lodi, name: Lodi, country: United States, kind: region, map: california, highlight: [lodi], level: 3, grapes: [zinfandel], summary: "Inland, warm, with Delta breezes: famous for old-vine Zinfandel."}
+- {id: mendocino, name: Mendocino, country: United States, kind: region, map: california, highlight: [mendocino], level: 3, grapes: [pinot-noir, zinfandel], summary: "Rugged north coast; Anderson Valley is known for Pinot Noir and sparkling wine."}
+- {id: sierra-foothills, name: Sierra Foothills, country: United States, kind: region, map: california, highlight: [sierra-foothills], level: 3, grapes: [zinfandel], summary: "Gold Rush country with gnarled old Zinfandel vines."}
+- {id: central-valley, name: Central Valley, country: United States, kind: region, map: california, level: 3, grapes: [chardonnay, zinfandel, cabernet-sauvignon], summary: "Hot and vast: the source of most inexpensive California wine."}
+- {id: willamette, name: Willamette Valley, country: United States, kind: region, map: pacific-northwest, highlight: [willamette], level: 2, climate: "Cool and wet, sheltered by the Coast Range.", grapes: [pinot-noir, pinot-grigio, chardonnay], summary: "Oregon's heart: elegant, Burgundian Pinot Noir and Pinot Gris."}
+- {id: southern-oregon, name: Southern Oregon, country: United States, kind: region, map: pacific-northwest, highlight: [southern-oregon], level: 3, grapes: [syrah, pinot-noir], summary: "Warmer valleys (Umpqua, Rogue) growing a wide range of grapes."}
+- {id: columbia-valley, name: Columbia Valley, country: United States, kind: region, map: pacific-northwest, highlight: [columbia-valley], level: 2, climate: "Semi-desert east of the Cascades: hot days, cold nights, irrigation from the Columbia river.", grapes: [cabernet-sauvignon, merlot, syrah, riesling, chardonnay], summary: "Washington's vast region: ripe, fresh Cabernet, Merlot, Syrah and Riesling."}
+- {id: walla-walla, name: Walla Walla, country: United States, kind: region, map: pacific-northwest, highlight: [walla-walla], level: 3, grapes: [syrah, cabernet-sauvignon], summary: "Famous for savory Syrah grown on cobblestones (The Rocks District)."}
 # ======================================================================= SOUTH AMERICA
 - id: chile
   name: Chile

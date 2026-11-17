@@ -5,7 +5,7 @@ lessons:
   - title: California, Oregon & Washington
     cards:
       - learn: The West Coast
-        visual: "map:usa-west"
+        visual: "map:california"
         body: |
           - **California**: Mediterranean climate cooled by Pacific fog. Napa (Cabernet), Sonoma (Pinot, Chardonnay, Zinfandel), the Central Coast (Pinot in the Santa Rita Hills, Rhône varieties in Paso Robles), Lodi (old-vine Zinfandel).
           - **Oregon**: cool, wet Willamette Valley; Pinot Noir and Pinot Gris.
@@ -21,7 +21,7 @@ lessons:
       - choice: "Which Oregon region is famous for Pinot Noir?"
         options: [Willamette Valley, Columbia Valley, Lodi, Paso Robles]
         a: Willamette Valley
-        visual: "map:usa-west:willamette"
+        visual: "map:pacific-northwest:willamette"
         explain: "Its cool, cloudy climate echoes Burgundy."
       - tf: "Carneros, in the south of Napa and Sonoma, is cooled by San Pablo Bay."
         truth: true

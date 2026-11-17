@@ -5,7 +5,7 @@
 - number: 2
   title: Intermediate
   subtitle: "Level 2 · Grapes & regions"
-  units: [l2-vineyard, l2-winery, l2-more-whites, l2-more-reds, l2-sparkling, l2-sweet-fortified, l2-labels]
+  units: [l2-vineyard, l2-winery, l2-more-whites, l2-more-reds, l2-sparkling, l2-sweet-fortified, l2-labels, l2-label-decoder]
 - number: 3
   title: Advanced
   subtitle: "Level 3 · In depth"

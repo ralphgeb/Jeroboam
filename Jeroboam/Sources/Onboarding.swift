@@ -38,17 +38,18 @@ struct OnboardingView: View {
     private var welcome: some View {
         VStack(spacing: 0) {
             Spacer()
-            BrandDroplet(size: 120)
+            BrandDroplet(size: 130)
                 .scaleEffect(appear ? 1 : 0.85)
                 .opacity(appear ? 1 : 0)
-                .padding(.bottom, 40)
-            Text("Jeroboam").font(.serif(44)).foregroundStyle(Palette.ink)
-            Text("Learn wine, one glass at a time.")
-                .font(.serif(19).italic()).foregroundStyle(Palette.inkSoft).padding(.top, 8)
+                .padding(.bottom, 36)
+            Text("JERO").font(.display(84, .black)).kerning(4).foregroundStyle(Palette.ink)
+            Text("LEARN WINE. TASTE BETTER.")
+                .font(.system(size: 13, weight: .heavy)).kerning(2.4).foregroundStyle(Palette.inkSoft).padding(.top, 4)
             VStack(alignment: .leading, spacing: 16) {
                 bullet("graduationcap", "Three levels, from first sip to advanced study")
                 bullet("map", "Illustrated maps of the world’s great regions")
                 bullet("flame", "Short daily lessons that build a streak")
+                bullet("camera", "A tasting journal that recognises your bottles")
             }
             .padding(.top, 44)
             .opacity(appear ? 1 : 0)

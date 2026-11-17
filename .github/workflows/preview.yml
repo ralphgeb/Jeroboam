@@ -8,7 +8,7 @@ on:
       screens:
         description: "Space-separated screens to capture"
         required: false
-        default: "onboarding learn lesson feedback blank match complete practice library grapes grape regions region map aromas colors profile"
+        default: "onboarding learn lesson feedback blank complete practice library cards boldness colors labels grape region explorer map aromas journal"
   push:
     branches: [main]
     paths: ["Jeroboam/**", ".github/workflows/preview.yml"]
@@ -77,16 +77,16 @@ jobs:
           xcrun simctl install "$UDID" "$APP"
           mkdir -p shots
           SCREENS="${{ github.event.inputs.screens }}"
-          [ -z "$SCREENS" ] && SCREENS="onboarding learn lesson feedback blank match complete practice library grapes grape regions region map aromas colors profile"
+          [ -z "$SCREENS" ] && SCREENS="onboarding learn lesson feedback blank complete practice library cards boldness colors labels grape region explorer map aromas journal"
           for mode in light dark; do
             xcrun simctl ui "$UDID" appearance $mode
             for s in $SCREENS; do
-              xcrun simctl terminate "$UDID" com.ralphgeb.jeroboam 2>/dev/null || true
-              xcrun simctl launch "$UDID" com.ralphgeb.jeroboam -screen "$s" > /dev/null
+              xcrun simctl terminate "$UDID" com.ralphgeb.jero 2>/dev/null || true
+              xcrun simctl launch "$UDID" com.ralphgeb.jero -screen "$s" > /dev/null
               sleep 8
               xcrun simctl io "$UDID" screenshot "shots/${mode}-${s}.png" > /dev/null 2>&1
             done
-            [ "$mode" = light ] && SCREENS="learn lesson grape map"
+            [ "$mode" = light ] && SCREENS="learn cards explorer journal"
           done
           xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
           ls shots

@@ -11,3 +11,28 @@
 - {id: ruby, name: Ruby, family: red, hex: "#7A1428", rim: "#B03343", note: "The typical young red: bright red core. Most reds in their first few years."}
 - {id: garnet, name: Garnet, family: red, hex: "#76281F", rim: "#A65A42", note: "Red with an orange-brick rim. Older reds, or naturally pale, quick-to-age grapes such as Nebbiolo and Pinot Noir."}
 - {id: tawny, name: Tawny, family: red, hex: "#8C4A24", rim: "#BA7D4A", note: "Brownish orange. Long barrel-aged wines such as Tawny Port, or reds of considerable age."}
+# ---- color chart (poster): chart: true
+- {id: c-pale-straw, chart: true, name: Pale straw, family: white, hex: "#F1EDC4", rim: "#FAF8E6", note: "Very young, unoaked, cool-climate whites.", examples: "Vinho Verde, Muscadet, Verdejo"}
+- {id: c-medium-straw, chart: true, name: Medium straw, family: white, hex: "#EEE6A8", rim: "#F8F4D8", note: "Fresh aromatic whites.", examples: "Young Riesling, Torrontés, Moscato"}
+- {id: c-pale-yellow, chart: true, name: Pale yellow, family: white, hex: "#F0E58A", rim: "#F9F3C8", note: "Crisp, mineral whites.", examples: "Albariño, Grüner Veltliner"}
+- {id: c-deep-yellow, chart: true, name: Deep yellow, family: white, hex: "#EBD552", rim: "#F6E9A2", note: "Riper or richer whites.", examples: "Sauternes, aged Riesling"}
+- {id: c-pale-gold, chart: true, name: Pale gold, family: white, hex: "#E8C766", rim: "#F4E3AE", note: "Textured whites, some with oak.", examples: "Chenin Blanc, Pinot Gris"}
+- {id: c-deep-gold, chart: true, name: Deep gold, family: white, hex: "#DDA93A", rim: "#EECF8A", note: "Oaked or aged whites.", examples: "Oaked Chardonnay, aged white Rioja"}
+- {id: c-amber, chart: true, name: Amber, family: white, hex: "#D08A2C", rim: "#E7B877", note: "Oxidative or long-aged sweet wines.", examples: "Tokaji, Vin Santo, orange wine"}
+- {id: c-brown, chart: true, name: Brown, family: white, hex: "#7A4419", rim: "#B07A44", note: "Very old or deliberately oxidized.", examples: "Oloroso, Pedro Ximénez"}
+- {id: c-pale-salmon, chart: true, name: Pale salmon, family: rose, hex: "#F7CDBE", rim: "#FBE6DD", note: "Delicate, dry, Provence style.", examples: "Provence rosé, White Zinfandel"}
+- {id: c-salmon, chart: true, name: Salmon, family: rose, hex: "#F4A88F", rim: "#F9D1C2", note: "Classic dry rosé.", examples: "Sangiovese rosé, Pinot Noir rosé"}
+- {id: c-copper, chart: true, name: Copper, family: rose, hex: "#EE9465", rim: "#F6C4A6", note: "Skin-contact or Pinot Gris rosé.", examples: "Pinot Gris ramato, Tibouren"}
+- {id: c-pale-pink, chart: true, name: Pale pink, family: rose, hex: "#F6C1CB", rim: "#FBE2E7", note: "Light, fresh rosé.", examples: "Mourvèdre rosé"}
+- {id: c-pink, chart: true, name: Pink, family: rose, hex: "#EE8DA0", rim: "#F7C6D0", note: "Fruity, vivid rosé.", examples: "Grenache rosé, Navarra rosado"}
+- {id: c-deep-pink, chart: true, name: Deep pink, family: rose, hex: "#E04C72", rim: "#EF97AE", note: "Full, deeply colored rosé.", examples: "Tavel, Cerasuolo"}
+- {id: c-pale-ruby, chart: true, name: Pale ruby, family: red, hex: "#B8263F", rim: "#DC7584", note: "Thin-skinned, light reds.", examples: "Pinot Noir, Gamay"}
+- {id: c-medium-ruby, chart: true, name: Medium ruby, family: red, hex: "#911A31", rim: "#C9566A", note: "The everyday red.", examples: "Tempranillo, GSM blends"}
+- {id: c-deep-ruby, chart: true, name: Deep ruby, family: red, hex: "#5E0F24", rim: "#9C3248", note: "Thick-skinned, structured reds.", examples: "Merlot, Cabernet Sauvignon, Tannat"}
+- {id: c-pale-purple, chart: true, name: Pale purple, family: red, hex: "#A0275C", rim: "#D06B96", note: "Very young, fruity reds.", examples: "Beaujolais Nouveau, Valpolicella"}
+- {id: c-medium-purple, chart: true, name: Medium purple, family: red, hex: "#6D1A4A", rim: "#A84F84", note: "Young, intense reds.", examples: "Malbec, Syrah, Teroldego"}
+- {id: c-deep-purple, chart: true, name: Deep purple, family: red, hex: "#3A0C2C", rim: "#743062", note: "Inky, dark-skinned reds.", examples: "Alicante Bouschet, Pinotage"}
+- {id: c-pale-garnet, chart: true, name: Pale garnet, family: red, hex: "#B8402F", rim: "#DD8270", note: "Light reds that age quickly.", examples: "Nebbiolo"}
+- {id: c-medium-garnet, chart: true, name: Medium garnet, family: red, hex: "#8E2A22", rim: "#C66A58", note: "Developing reds.", examples: "Sangiovese, aged reds"}
+- {id: c-deep-garnet, chart: true, name: Deep garnet, family: red, hex: "#5C1A17", rim: "#9A4B3C", note: "Powerful, aged reds.", examples: "Aged Amarone, Barolo"}
+- {id: c-tawny, chart: true, name: Tawny, family: red, hex: "#A0532A", rim: "#CF8E5E", note: "Long oxidative ageing.", examples: "Tawny Port, aged Nebbiolo"}

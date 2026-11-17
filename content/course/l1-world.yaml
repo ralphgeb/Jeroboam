@@ -76,7 +76,7 @@ lessons:
       - choice: "Napa Valley is in…"
         options: [California, Oregon, Australia, Chile]
         a: California
-        visual: "map:usa-west:napa-sonoma"
+        visual: "map:california:north-coast"
         explain: "North of San Francisco, and famous for Cabernet Sauvignon."
       - tf: "Prosecco is a sparkling wine from Italy."
         truth: true

@@ -20,7 +20,7 @@ final class ContentStore {
     private init() {
         course = Self.load("course", as: Course.self) ?? Course(levels: [])
         library = Self.load("library", as: Library.self)
-            ?? Library(grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [])
+            ?? Library(grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [], labels: [])
         for g in library.grapes { grapesByID[g.id] = g }
         for r in library.regions { regionsByID[r.id] = r }
         for c in library.colors { colorsByID[c.id] = c }
@@ -66,6 +66,8 @@ final class ContentStore {
     func region(_ id: String) -> Region? { regionsByID[id] }
     func color(_ id: String) -> WineColor? { colorsByID[id] }
     func flow(_ id: String) -> Flow? { flowsByID[id] }
+    func label(_ id: String) -> WineLabel? { library.labels?.first { $0.id == id } }
+    func label(forRegion id: String) -> WineLabel? { library.labels?.first { $0.region == id } }
 
     /// Region entries that can be opened from a map region id (the map's own region ids match library ids).
     func regionForMapArea(_ id: String) -> Region? { regionsByID[id] }
