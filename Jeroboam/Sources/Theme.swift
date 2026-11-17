@@ -106,20 +106,33 @@ enum Palette {
     }
 }
 
-// MARK: - Type (SF Pro: bold, condensed display; same system family as Halo, Ahead and Scout)
+// MARK: - Type
+// One family (SF Pro, like Halo, Ahead and Scout) and one modest scale:
+//   screen title 30 bold · section 19 semibold · card title 17 semibold · body 16 · secondary 14 · caption 12.
+// Poster type (`display`) is reserved for numbers and short posters and is kept small and bold, not heavy.
+
+enum TypeScale {
+    static let title: CGFloat = 30
+    static let section: CGFloat = 19
+    static let cardTitle: CGFloat = 17
+    static let body: CGFloat = 16
+    static let secondary: CGFloat = 14
+    static let caption: CGFloat = 12
+}
 
 extension Font {
-    /// Poster headline: heavy, condensed. Use with uppercase text.
-    static func display(_ size: CGFloat, _ weight: Font.Weight = .heavy) -> Font {
-        .system(size: size, weight: weight).width(.condensed)
+    /// Poster/number type: bold SF, scaled down from older call sites so nothing shouts.
+    static func display(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
+        let w: Font.Weight = (weight == .black || weight == .heavy) ? .bold : weight
+        return .system(size: (size * 0.74).rounded(), weight: w)
     }
-    /// Titles: SF Pro bold.
-    static func heading(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
+    /// Titles.
+    static func heading(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight)
     }
-    /// Kept for older call sites: maps to the bold sans heading.
-    static func serif(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
-        .system(size: size, weight: weight == .regular || weight == .light ? .bold : weight)
+    /// Kept for older call sites: a calm semibold sans, slightly smaller than requested.
+    static func serif(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
+        .system(size: (size * 0.9).rounded(), weight: weight == .regular || weight == .light || weight == .medium ? .semibold : .semibold)
     }
     static func numeric(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight).monospacedDigit()
@@ -127,6 +140,9 @@ extension Font {
     static func rounded(_ size: CGFloat, _ weight: Font.Weight = .semibold) -> Font {
         .system(size: size, weight: weight)
     }
+    static var screenTitle: Font { .system(size: TypeScale.title, weight: .bold) }
+    static var sectionTitle: Font { .system(size: TypeScale.section, weight: .semibold) }
+    static var cardTitle: Font { .system(size: TypeScale.cardTitle, weight: .semibold) }
 }
 
 /// Small uppercase label above titles.
@@ -136,16 +152,51 @@ struct Eyebrow: View {
     init(_ text: String, color: Color = Palette.inkSoft) { self.text = text; self.color = color }
     var body: some View {
         Text(text.uppercased())
-            .font(.system(size: 11, weight: .bold))
-            .kerning(1.3)
+            .font(.system(size: 11, weight: .semibold))
+            .kerning(1.2)
             .foregroundStyle(color)
     }
 }
 
+/// The one title block used at the top of every screen: eyebrow, title, optional subtitle.
+struct ScreenHeader: View {
+    let eyebrow: String
+    let title: String
+    var subtitle: String? = nil
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Eyebrow(eyebrow, color: Palette.wine)
+            Text(title).font(.screenTitle).kerning(-0.4).foregroundStyle(Palette.ink)
+                .fixedSize(horizontal: false, vertical: true)
+            if let s = subtitle {
+                Text(rich(s)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 2)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 8)
+    }
+}
+
+/// Section heading inside a screen.
+struct SectionTitle: View {
+    let text: String
+    var detail: String? = nil
+    var body: some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(text).font(.sectionTitle).foregroundStyle(Palette.ink)
+            Spacer()
+            if let d = detail { Text(d).font(.system(size: 13)).foregroundStyle(Palette.inkFaint) }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 enum Metrics {
-    static let margin: CGFloat = 24
+    static let margin: CGFloat = 20
     static let gap: CGFloat = 16
-    static let radius: CGFloat = 18
+    static let radius: CGFloat = 16
 }
 
 // MARK: - Buttons
@@ -157,12 +208,12 @@ struct PrimaryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 17, weight: .semibold))
+            .font(.system(size: 16, weight: .semibold))
             .foregroundStyle(enabled ? (color == Palette.wine ? Palette.onWine : Color.white) : Palette.inkFaint)
             .frame(maxWidth: .infinity)
-            .frame(height: 54)
+            .frame(height: 50)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
                     .fill(enabled ? color : Palette.locked)
             )
             .scaleEffect(configuration.isPressed && enabled ? 0.98 : 1)
@@ -179,8 +230,8 @@ struct SecondaryButtonStyle: ButtonStyle {
             .font(.system(size: 16, weight: .semibold))
             .foregroundStyle(color)
             .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(Palette.line, lineWidth: 1))
+            .frame(height: 48)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line, lineWidth: 1))
             .contentShape(Rectangle())
             .opacity(configuration.isPressed ? 0.6 : 1)
     }
@@ -195,11 +246,11 @@ struct TileStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         let (fill, stroke, text, width) = colors
         configuration.label
-            .font(.system(size: 16, weight: .medium))
+            .font(.system(size: 16, weight: .regular))
             .foregroundStyle(text)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 15)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(fill))
             .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(stroke, lineWidth: width))
             .scaleEffect(configuration.isPressed ? 0.985 : 1)
@@ -284,5 +335,88 @@ struct FlowLayout: Layout {
             x += s.width + spacing
             lineH = max(lineH, s.height)
         }
+    }
+}
+
+// MARK: - Zoom transitions (cards grow into the screen they open; iOS 18+, plain push before that)
+
+private struct ZoomNamespaceKey: EnvironmentKey { static let defaultValue: Namespace.ID? = nil }
+
+extension EnvironmentValues {
+    var zoomNamespace: Namespace.ID? {
+        get { self[ZoomNamespaceKey.self] }
+        set { self[ZoomNamespaceKey.self] = newValue }
+    }
+}
+
+private struct ZoomSource: ViewModifier {
+    let id: String
+    @Environment(\.zoomNamespace) private var ns
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *), let ns {
+            content.matchedTransitionSource(id: id, in: ns) { $0.clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)) }
+        } else {
+            content
+        }
+    }
+}
+
+private struct ZoomDestination: ViewModifier {
+    let id: String
+    let ns: Namespace.ID
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *) {
+            content.navigationTransition(.zoom(sourceID: id, in: ns))
+        } else {
+            content
+        }
+    }
+}
+
+extension View {
+    /// Mark a tappable card as the origin of a zoom transition.
+    func zoomSource(_ id: String) -> some View { modifier(ZoomSource(id: id)) }
+    /// Open this destination with a zoom from the matching source.
+    func zoomDestination(_ id: String, in ns: Namespace.ID) -> some View { modifier(ZoomDestination(id: id, ns: ns)) }
+}
+
+enum ZoomID {
+    static func grape(_ id: String) -> String { "g:" + id }
+    static func region(_ id: String) -> String { "r:" + id }
+    static func section(_ s: String) -> String { "s:" + s }
+    static func style(_ id: String) -> String { "st:" + id }
+}
+
+/// A grouped list card (Settings-like): rows separated by inset hairlines.
+struct GroupCard<Content: View>: View {
+    @ViewBuilder let content: Content
+    var body: some View {
+        VStack(spacing: 0) { content }
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+    }
+}
+
+/// A row with a small leading icon tile, title, detail and chevron.
+struct IconRow<Icon: View>: View {
+    let title: String
+    var detail: String? = nil
+    var last = false
+    @ViewBuilder let icon: Icon
+    var body: some View {
+        HStack(spacing: 14) {
+            icon
+                .frame(width: 40, height: 40)
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Palette.cardAlt))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
+                if let detail { Text(detail).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1) }
+            }
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+        }
+        .padding(.horizontal, 14).padding(.vertical, 11)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 68) } }
+        .contentShape(Rectangle())
     }
 }

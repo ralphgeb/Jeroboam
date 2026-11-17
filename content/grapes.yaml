@@ -545,7 +545,7 @@
   aromas: [Blackcurrant, Black cherry, Green bell pepper, Mint, Cedar, Vanilla, Tobacco]
   cool: "Leaner, with herbaceous green bell pepper and leafy notes; needs a warm site to ripen."
   warm: "Riper black fruit, often mint or eucalyptus, fuller body: Napa, Coonawarra, Margaret River."
-  regions: [bordeaux, haut-medoc, pauillac, margaux, saint-julien, saint-estephe, pessac-leognan, napa-valley, oakville, rutherford, stags-leap, coonawarra, margaret-river, maipo, colchagua, stellenbosch, bolgheri, columbia-valley]
+  regions: [bordeaux, haut-medoc, pauillac, margaux, saint-julien, saint-estephe, pessac-leognan, napa-valley, oakville, rutherford, stags-leap, coonawarra, margaret-river, maipo, colchagua, stellenbosch, bolgheri, columbia-valley, bekaa-valley]
   styles: "Often blended (Bordeaux blend) with Merlot and Cabernet Franc, which soften and add aroma. Usually matured in oak."
   food: [Steak, Lamb, Hard cheeses, Mushrooms]
   ageing: "Top examples develop over 10–30 years: cedar, tobacco, leather, forest floor."
@@ -608,7 +608,7 @@
   aromas: [Blackberry, Black plum, Blueberry, Black pepper, Violet, Liquorice, Smoke, Meaty]
   cool: "Syrah style: black pepper, violet, blackberry and savory meat: Northern Rhône, Hawke's Bay."
   warm: "Shiraz style: ripe blackberry, plum, chocolate and sweet spice: Barossa, McLaren Vale."
-  regions: [rhone, hermitage, cote-rotie, crozes-hermitage, cornas, saint-joseph, barossa, mclaren-vale, hunter-valley, eden-valley, hawkes-bay, swartland, stellenbosch, columbia-valley, walla-walla]
+  regions: [rhone, hermitage, cote-rotie, crozes-hermitage, cornas, saint-joseph, barossa, mclaren-vale, hunter-valley, eden-valley, hawkes-bay, swartland, stellenbosch, columbia-valley, walla-walla, bekaa-valley, batroun]
   styles: "Single varietal or blended (GSM with Grenache and Mourvèdre; with Cabernet in Australia). Also sparkling Shiraz in Australia."
   food: [Barbecue, Lamb, Game, Pepper steak]
   ageing: "Hermitage and top Barossa age 15–30 years."
@@ -922,7 +922,7 @@
   alcohol: 4
   sweetness: 1
   aromas: [Red cherry, Blackberry, Dried herbs, Liquorice, Earth]
-  regions: [languedoc, priorat, rioja, maule]
+  regions: [languedoc, priorat, rioja, maule, baalbek]
   food: [Cassoulet, Sausages, Stews]
   glass: ruby
   level: 3
@@ -937,7 +937,7 @@
   alcohol: 3
   sweetness: 1
   aromas: [Strawberry, Raspberry, Red cherry, Blossom]
-  regions: [provence, languedoc, itata-bio-bio, swartland]
+  regions: [provence, languedoc, itata-bio-bio, swartland, bekaa-valley, baalbek]
   food: [Mezze, Grilled fish, Rosé-friendly salads]
   glass: pink
   level: 3
@@ -1111,4 +1111,34 @@
   food: [Aperitif, Charcuterie, Fried chicken]
   glass: pink
   fact: "'Meunier' means miller: the undersides of its leaves are dusted with fine white hairs, as if floured."
+  level: 3
+- id: obaideh
+  name: Obaideh
+  berry: white
+  origin: Lebanon
+  summary: "Lebanon's best-known native white grape: soft, round and gently aromatic, often compared to Chardonnay. Used in dry whites and to distil arak."
+  body: 3
+  acidity: 2
+  tannin: 1
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Pear, Melon, Almond, Honeysuckle]
+  regions: [mount-lebanon, bekaa-valley]
+  food: [Fattoush, Grilled halloumi, Fish with tahini]
+  glass: lemon
+  level: 3
+- id: merwah
+  name: Merwah
+  berry: white
+  origin: Lebanon
+  summary: "Ancient mountain grape from Mount Lebanon, often linked to Sémillon. Waxy texture, citrus and a light nutty finish; a key white in Château Musar's white."
+  body: 3
+  acidity: 3
+  tannin: 1
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Green apple, Honey, Hazelnut]
+  regions: [mount-lebanon]
+  food: [Mezze, Roast chicken, Kibbeh]
+  glass: lemon
   level: 3

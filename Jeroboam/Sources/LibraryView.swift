@@ -42,60 +42,61 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
 
 struct LibraryView: View {
     @State private var path = NavigationPath()
+    @Namespace private var zoom
 
     var body: some View {
         NavigationStack(path: $path) {
             ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Eyebrow("Library")
-                        Text("THE WINE ATLAS").font(.display(46)).foregroundStyle(Palette.ink)
-                        Text("Every grape, place, aroma and term you meet in the lessons, in one place.")
-                            .font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
-                    }
-                    .padding(.top, 20)
+                VStack(alignment: .leading, spacing: 28) {
+                    ScreenHeader(eyebrow: "Library", title: "Atlas",
+                                 subtitle: "Every grape, place, aroma and term from the lessons, in one place.")
 
-                    NavigationLink(value: LibrarySection.grapes) { featureGrapes }
-                        .buttonStyle(PressableStyle()).padding(.top, 24)
-
-                    NavigationLink(value: LibrarySection.regions) { featureRegions }
-                        .buttonStyle(PressableStyle()).padding(.top, 14)
-
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
-                        ForEach([LibrarySection.cards, .boldness, .guide, .aromas, .colors, .labels, .styles, .tasting, .pairing, .bottles], id: \.self) { s in
-                            NavigationLink(value: s) { tile(s) }.buttonStyle(PressableStyle())
+                    VStack(spacing: 12) {
+                        link(.regions) { featureRegions }
+                        HStack(spacing: 12) {
+                            link(.grapes) { halfCard(.grapes) }
+                            link(.cards) { halfCard(.cards) }
                         }
                     }
-                    .padding(.top, 14)
 
-                    NavigationLink(value: LibrarySection.glossary) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text("Glossary").font(.serif(20)).foregroundStyle(Palette.ink)
-                                Text(LibrarySection.glossary.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
-                            }
-                            Spacer()
-                            Text("A–Z").font(.serif(26, .light)).foregroundStyle(Palette.wine.opacity(0.6))
-                        }
-                        .cardStyle(padding: 18)
-                    }
-                    .buttonStyle(PressableStyle())
-                    .padding(.top, 12)
-                    Color.clear.frame(height: 30)
+                    group("Taste", [.aromas, .colors, .tasting, .boldness])
+                    group("Read & serve", [.labels, .guide, .styles, .pairing, .bottles, .glossary])
+                    Color.clear.frame(height: 12)
                 }
                 .padding(.horizontal, Metrics.margin)
             }
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(for: LibrarySection.self) { s in destination(s) }
-            .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g) }
-            .navigationDestination(for: Region.self) { r in RegionDetailView(region: r) }
-            .navigationDestination(for: WineStyle.self) { s in StyleDetailView(style: s) }
+            .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
+            .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g).zoomDestination(ZoomID.grape(g.id), in: zoom) }
+            .navigationDestination(for: Region.self) { r in RegionDetailView(region: r).zoomDestination(ZoomID.region(r.id), in: zoom) }
+            .navigationDestination(for: WineStyle.self) { s in StyleDetailView(style: s).zoomDestination(ZoomID.style(s.id), in: zoom) }
+            .debugDestinations()
             .onAppear {
                 #if DEBUG
                 DebugScreens.libraryHook { path.append($0) }
                 #endif
+            }
+        }
+        .environment(\.zoomNamespace, zoom)
+    }
+
+    private func link<V: View>(_ s: LibrarySection, @ViewBuilder _ label: () -> V) -> some View {
+        NavigationLink(value: s) { label().zoomSource(ZoomID.section(s.rawValue)) }.buttonStyle(PressableStyle())
+    }
+
+    private func group(_ title: String, _ items: [LibrarySection]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            SectionTitle(text: title)
+            GroupCard {
+                ForEach(items, id: \.self) { s in
+                    NavigationLink(value: s) {
+                        IconRow(title: s.title, detail: s.subtitle, last: s == items.last) { icon(s) }
+                            .zoomSource(ZoomID.section(s.rawValue))
+                    }
+                    .buttonStyle(RowPressStyle())
+                }
             }
         }
     }
@@ -118,126 +119,93 @@ struct LibraryView: View {
         }
     }
 
-    private var featureGrapes: some View {
-        HStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 4) {
-                Eyebrow("Ampelography", color: Palette.wine)
-                Text("GRAPES").font(.display(34)).foregroundStyle(Palette.ink)
-                Text(LibrarySection.grapes.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
-            }
-            Spacer()
-            GrapeMark(gradient: ["#EFEAD0", "#D9C873", "#E39AAE", "#B0284F", "#5E0C25"].map { Color(hex: $0) })
-                .frame(width: 70, height: 92)
-                .padding(.trailing, 6)
-        }
-        .cardStyle(padding: 20)
-    }
-
     private var featureRegions: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 0) {
             WineMapView(mapID: "world", showLabels: false, showCities: false)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .allowsHitTesting(false)
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Eyebrow("Atlas", color: Palette.wine)
-                    Text("REGIONS & MAPS").font(.display(28)).foregroundStyle(Palette.ink)
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Regions & maps").font(.cardTitle).foregroundStyle(Palette.ink)
+                    Text("\(ContentStore.shared.library.regions.filter { $0.kind == "country" }.count) countries · \(LibrarySection.regions.subtitle)")
+                        .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
                 Spacer()
-                Text(LibrarySection.regions.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                Image(systemName: "arrow.up.right").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
             }
+            .padding(16)
         }
-        .cardStyle(padding: 16)
+        .background(Palette.card)
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
     }
 
-    private func tile(_ s: LibrarySection) -> some View {
-        VStack(alignment: .leading, spacing: 14) {
+    private func halfCard(_ s: LibrarySection) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
             Group {
-                switch s {
-                case .aromas: AromaWheelMini().frame(width: 58, height: 58)
-                case .colors:
-                    HStack(spacing: -6) {
-                        WineGlass(color: Color(hex: "#E3D48A"), fill: 0.5).frame(height: 56)
-                        WineGlass(color: Color(hex: "#E8A3A0"), fill: 0.5).frame(height: 56)
-                        WineGlass(color: Color(hex: "#6E1630"), fill: 0.5).frame(height: 56)
-                    }
-                case .styles: WineGlass(color: Color(hex: "#EADFA6"), fill: 0.75, sparkling: true).frame(height: 58)
-                case .tasting: Image(systemName: "eye").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine).frame(height: 58)
-                case .pairing: Image(systemName: "fork.knife").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine).frame(height: 58)
-                case .cards:
-                    HStack(spacing: -14) {
+                if s == .grapes {
+                    GrapeMark(gradient: GrapeMark.brandGradient).frame(width: 46, height: 58)
+                } else {
+                    ZStack {
                         ForEach(0..<3, id: \.self) { i in
-                            RoundedRectangle(cornerRadius: 6).fill([Palette.bordeaux, Color(hex: "#D9B22E"), Color(hex: "#C2185B")][i])
-                                .frame(width: 30, height: 44).rotationEffect(.degrees(Double(i - 1) * 9))
+                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                .fill([Color(hex: "#E9DDB0"), Color(hex: "#D98A9E"), Palette.bordeaux][i])
+                                .frame(width: 30, height: 42)
+                                .rotationEffect(.degrees(Double(i - 1) * 10), anchor: .bottom)
                         }
                     }
-                    .frame(height: 58)
-                case .boldness:
-                    Capsule().fill(LinearGradient(colors: ["#F0827A", "#E0284F", "#A3163C", "#3A0A22"].map { Color(hex: $0) },
-                                                  startPoint: .leading, endPoint: .trailing))
-                        .frame(width: 92, height: 14).frame(height: 58)
-                case .labels:
-                    VStack(spacing: 3) {
-                        Rectangle().fill(Palette.bordeaux).frame(width: 34, height: 3)
-                        Text("Château").font(.system(size: 11, weight: .semibold, design: .serif)).foregroundStyle(Palette.ink)
-                        Text("1855").font(.system(size: 8, weight: .heavy)).foregroundStyle(Palette.bordeaux)
-                    }
-                    .padding(8).background(RoundedRectangle(cornerRadius: 4).fill(Color(hex: "#FBF6EC")))
-                    .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Palette.line))
-                    .frame(height: 58)
-                case .guide:
-                    HStack(alignment: .bottom, spacing: 2) {
-                        WineGlass(color: Color(hex: "#EDE6B8"), fill: 0.75, sparkling: true).frame(width: 16, height: 52)
-                        WineGlass(color: Color(hex: "#E3BE55"), fill: 0.5).frame(width: 24, height: 48)
-                        WineGlass(color: Color(hex: "#4E0F27"), fill: 0.45).frame(width: 30, height: 52)
-                    }
-                    .frame(height: 58)
-                case .bottles:
-                    HStack(alignment: .bottom, spacing: 4) {
-                        ForEach([26.0, 36.0, 46.0, 56.0], id: \.self) { h in
-                            BottleShape().fill(h == 46 ? Palette.wine : Palette.ink.opacity(0.75)).frame(width: h * 0.32, height: h)
-                        }
-                    }
-                    .frame(height: 58, alignment: .bottom)
-                default: EmptyView()
+                    .frame(width: 60, height: 58)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(s.title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                Text(s.subtitle).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
-            }
+            .frame(maxWidth: .infinity, minHeight: 70, alignment: .leading)
+            Spacer(minLength: 14)
+            Text(s.title).font(.cardTitle).foregroundStyle(Palette.ink)
+            Text(s.subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle(padding: 16)
+    }
+
+    @ViewBuilder private func icon(_ s: LibrarySection) -> some View {
+        switch s {
+        case .aromas: AromaWheelMini().frame(width: 28, height: 28)
+        case .colors:
+            HStack(spacing: 2) {
+                ForEach(["#E6D68C", "#E9A6A2", "#7A1832"], id: \.self) { Rectangle().fill(Color(hex: $0)).frame(width: 7, height: 20) }
+            }
+        case .boldness:
+            Capsule().fill(LinearGradient(colors: ["#F0A39A", "#C8284D", "#4A0A24"].map { Color(hex: $0) }, startPoint: .leading, endPoint: .trailing))
+                .frame(width: 26, height: 6)
+        case .bottles:
+            HStack(alignment: .bottom, spacing: 2) {
+                ForEach([12.0, 17.0, 22.0], id: \.self) { h in BottleShape().fill(Palette.wine).frame(width: h * 0.33, height: h) }
+            }
+        default:
+            Image(systemName: symbol(s)).font(.system(size: 17, weight: .regular)).foregroundStyle(Palette.wine)
+        }
+    }
+
+    private func symbol(_ s: LibrarySection) -> String {
+        switch s {
+        case .tasting: return "eye"
+        case .labels: return "text.viewfinder"
+        case .guide: return "thermometer.medium"
+        case .styles: return "wineglass"
+        case .pairing: return "fork.knife"
+        case .glossary: return "character.book.closed"
+        default: return "circle"
+        }
+    }
+}
+
+/// Row highlight on press (for rows inside grouped cards).
+struct RowPressStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(Palette.ink.opacity(configuration.isPressed ? 0.05 : 0))
     }
 }
 
 // MARK: - Shared screen scaffold
-
-struct ScreenHeader: View {
-    let eyebrow: String
-    let title: String
-    var subtitle: String? = nil
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Eyebrow(eyebrow)
-            Text(title.uppercased()).font(.display(38)).foregroundStyle(Palette.ink)
-            if let s = subtitle {
-                Text(rich(s)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
-
-struct SectionTitle: View {
-    let text: String
-    var body: some View {
-        Text(text).font(.serif(21, .medium)).foregroundStyle(Palette.ink).frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
 
 // MARK: - Colors
 

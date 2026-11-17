@@ -35,23 +35,24 @@ struct GrapeListView: View {
     }
 
     private func card(_ g: Grape) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
-                GrapeCluster(berry: g.berry).frame(width: 40, height: 52)
+                GrapeBadge(grape: g, size: 46)
                 Spacer()
                 if g.level == 1 {
-                    Text("Classic").font(.system(size: 10, weight: .semibold)).kerning(0.6).textCase(.uppercase)
+                    Text("Classic").font(.system(size: 10, weight: .semibold)).kerning(0.5).textCase(.uppercase)
                         .foregroundStyle(Palette.wine).padding(.horizontal, 7).padding(.vertical, 3)
                         .background(Capsule().fill(Palette.wineSoft))
                 }
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(g.name.uppercased()).font(.display(19)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                Text(g.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                 Text(g.aromas.prefix(2).joined(separator: " · ")).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle(padding: 14)
+        .zoomSource(ZoomID.grape(g.id))
     }
 }
 
@@ -65,7 +66,7 @@ struct GrapeDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 30) {
                 WineCardView(grape: g)
-                Text(rich(g.summary)).font(.system(size: 17, weight: .medium)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(4)
+                Text(rich(g.summary)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(4)
                     .fixedSize(horizontal: false, vertical: true)
                 if let aka = g.aka, !aka.isEmpty {
                     Text("Also known as \(aka.joined(separator: ", "))").font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
@@ -73,7 +74,15 @@ struct GrapeDetailView: View {
 
                 VStack(alignment: .leading, spacing: 14) {
                     SectionTitle(text: "Aromas & flavors")
-                    FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(g.aromas, id: \.self) { AromaChip(text: $0) } }
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 4), alignment: .center, spacing: 14) {
+                        ForEach(g.aromas, id: \.self) { a in
+                            VStack(spacing: 6) {
+                                FlavorIcon(aroma: a, size: 32)
+                                Text(a).font(.system(size: 11)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                                    .lineLimit(2).minimumScaleFactor(0.85)
+                            }
+                        }
+                    }
                 }
 
                 if g.cool != nil || g.warm != nil {

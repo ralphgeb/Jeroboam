@@ -1,29 +1,30 @@
 import SwiftUI
 
-// MARK: - Brand mark: a grape cluster (six berries around one, plus one below)
+// MARK: - Brand mark: a grape cluster of eight berries in rows of 2 · 3 · 3, with a short stem
 
 struct GrapeMarkLayout {
+    static let g: CGFloat = 1.08
     /// Centers in unit space where berry radius = 1; returns (center, toneIndex).
     static let berries: [(CGPoint, Int)] = {
-        let g: CGFloat = 1.10
-        var pts: [(CGPoint, Int)] = [(CGPoint(x: 0, y: 0), 0)]
-        let tones = [1, 2, 1, 2, 1, 0]
-        for (i, a) in [0.0, 60.0, 120.0, 180.0, 240.0, 300.0].enumerated() {
-            let r = a * Double.pi / 180
-            pts.append((CGPoint(x: 2 * g * CGFloat(cos(r)), y: 2 * g * CGFloat(sin(r))), tones[i]))
-        }
-        pts.append((CGPoint(x: 0, y: 2 * g * CGFloat(3.0.squareRoot())), 0))
-        return pts
+        let dy: CGFloat = 2 * g * 0.866
+        return [
+            (CGPoint(x: -g, y: 0), 1), (CGPoint(x: g, y: 0), 2),
+            (CGPoint(x: -2 * g, y: dy), 2), (CGPoint(x: 0, y: dy), 0), (CGPoint(x: 2 * g, y: dy), 1),
+            (CGPoint(x: -1.86 * g, y: dy + 2 * g * 0.93), 0), (CGPoint(x: 0, y: dy + 2 * g), 1), (CGPoint(x: 1.86 * g, y: dy + 2 * g * 0.93), 2),
+        ]
     }()
-    // bounds in unit space
-    static let minX: CGFloat = -3.2, maxX: CGFloat = 3.2
-    static let minY: CGFloat = -1.0 - 2 * 1.10 * 0.866 * 1, maxY: CGFloat = 1 + 2 * 1.10 * 1.7320508
+    static let minX: CGFloat = -2 * g - 1, maxX: CGFloat = 2 * g + 1
+    static let minY: CGFloat = -1 - 1.25, maxY: CGFloat = 2 * g * 0.866 + 2 * g + 1
 }
 
 struct GrapeMark: View {
     var tones: [Color] = [Color(hex: "#8B1538"), Color(hex: "#6A0F2B"), Color(hex: "#A82247")]
     /// Optional vertical gradient (top → bottom) instead of tones.
     var gradient: [Color]? = nil
+    var stem = true
+
+    /// Brand gradient: beige to Bordeaux.
+    static let brandGradient: [Color] = ["#F2E3CF", "#E2A8B2", "#B42A50", "#6E0D2C"].map { Color(hex: $0) }
 
     var body: some View {
         Canvas { ctx, size in
@@ -32,6 +33,13 @@ struct GrapeMark: View {
             let s = min(size.width / w, size.height / h)
             let ox = size.width / 2
             let oy = (size.height - h * s) / 2 - GrapeMarkLayout.minY * s
+            if stem {
+                var st = Path()
+                st.move(to: CGPoint(x: ox + 0.05 * s, y: oy - 0.85 * s))
+                st.addQuadCurve(to: CGPoint(x: ox + 0.55 * s, y: oy - 2.15 * s), control: CGPoint(x: ox + 0.05 * s, y: oy - 1.7 * s))
+                let top = gradient?.first ?? tones[0]
+                ctx.stroke(st, with: .color(top.mix(with: gradient?.last ?? tones[0], 0.35)), style: StrokeStyle(lineWidth: max(1, 0.34 * s), lineCap: .round))
+            }
             for (c, t) in GrapeMarkLayout.berries {
                 let r = CGRect(x: ox + (c.x - 1) * s, y: oy + (c.y - 1) * s, width: 2 * s, height: 2 * s)
                 var color = tones[t % tones.count]
@@ -61,8 +69,8 @@ struct GrapeMark: View {
 struct BrandDroplet: View {
     var size: CGFloat = 64
     var body: some View {
-        GrapeMark(tones: [Palette.bordeaux, Color(hex: "#6A0F2B"), Color(hex: "#B0284F")])
-            .frame(width: size * 0.62, height: size * 0.8)
+        GrapeMark(gradient: GrapeMark.brandGradient)
+            .frame(width: size * 0.66, height: size * 0.8)
     }
 }
 
@@ -71,7 +79,7 @@ struct Wordmark: View {
     var body: some View {
         HStack(spacing: size * 0.3) {
             BrandDroplet(size: size * 1.05)
-            Text("JERO").font(.display(size, .black)).kerning(size * 0.06).foregroundStyle(Palette.ink)
+            Text("Jero").font(.system(size: size * 0.95, weight: .bold)).kerning(-0.2).foregroundStyle(Palette.ink)
         }
     }
 }
@@ -283,7 +291,7 @@ struct BottleView: View {
                     GrapeMark(tones: [labelTint, labelTint.mix(with: .black, 0.2), labelTint.mix(with: .white, 0.2)])
                         .frame(height: h * 0.07)
                     Text(label.uppercased())
-                        .font(.system(size: max(6, w * 0.085), weight: .heavy).width(.condensed))
+                        .font(.system(size: max(6, w * 0.085), weight: .bold).width(.condensed))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(Color(hex: "#1A0A10"))
                         .lineLimit(3).minimumScaleFactor(0.6)
@@ -322,50 +330,82 @@ struct BottleView: View {
 
 // MARK: - Taste profile bars (Wine Folly-style, animated fill)
 
-struct ProfileBar: View {
-    let title: String
+/// Five-step meter: thin segments, filled up to the value (animates in).
+struct SegmentMeter: View {
     let value: Int          // 1...5
     let tint: Color
     var delay: Double = 0
-    @State private var shown: CGFloat = 0
+    @State private var shown = 0
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
-            GeometryReader { geo in
-                let w = geo.size.width
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Palette.line).frame(height: 5)
-                    Capsule().fill(tint).frame(width: max(5, w * shown), height: 5)
-                    ForEach(1..<5, id: \.self) { i in
-                        Rectangle().fill(Palette.card).frame(width: 2.5, height: 7).offset(x: w * CGFloat(i) / 5 - 1.25)
-                    }
-                }
+        HStack(spacing: 3) {
+            ForEach(1...5, id: \.self) { i in
+                Capsule().fill(i <= shown ? tint : Palette.line).frame(height: 5)
             }
-            .frame(height: 7)
         }
         .onAppear {
-            withAnimation(.spring(response: 0.9, dampingFraction: 0.8).delay(delay)) { shown = CGFloat(value) / 5 }
+            withAnimation(.easeOut(duration: 0.5).delay(delay)) { shown = value }
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(title)")
     }
 }
 
-/// Structure profile with Wine Folly-style wording and animated bars.
+/// Kept for older call sites.
+struct ProfileBar: View {
+    let title: String
+    let value: Int
+    let tint: Color
+    var delay: Double = 0
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
+            SegmentMeter(value: value, tint: tint, delay: delay)
+        }
+    }
+}
+
+/// Structure profile: label · meter · plain-English value.
 struct StructureBars: View {
     let grape: Grape
 
     var body: some View {
         let tint = WineCardView.tint(for: grape)
-        VStack(alignment: .leading, spacing: 14) {
-            ProfileBar(title: Self.sweetWord(grape.sweetness), value: grape.sweetness, tint: tint, delay: 0.0)
-            ProfileBar(title: Self.scale(grape.body, "Body", light: "Light", full: "Full"), value: grape.body, tint: tint, delay: 0.08)
-            if grape.berry == .black {
-                ProfileBar(title: Self.scale(grape.tannin, "Tannin"), value: grape.tannin, tint: tint, delay: 0.16)
-            }
-            ProfileBar(title: Self.scale(grape.acidity, "Acidity"), value: grape.acidity, tint: tint, delay: 0.24)
-            ProfileBar(title: Self.abv(grape.alcohol), value: grape.alcohol, tint: tint, delay: 0.32)
+        VStack(spacing: 11) {
+            row("Sweetness", grape.sweetness, Self.sweetWord(grape.sweetness), tint, 0)
+            row("Body", grape.body, Self.level(grape.body, low: "Light", high: "Full"), tint, 0.06)
+            if grape.berry == .black { row("Tannin", grape.tannin, Self.level(grape.tannin), tint, 0.12) }
+            row("Acidity", grape.acidity, Self.level(grape.acidity), tint, 0.18)
+            row("Alcohol", grape.alcohol, Self.abvShort(grape.alcohol), tint, 0.24)
+        }
+    }
+
+    private func row(_ label: String, _ v: Int, _ word: String, _ tint: Color, _ d: Double) -> some View {
+        HStack(spacing: 12) {
+            Text(label).font(.system(size: 13, weight: .medium)).foregroundStyle(Palette.ink).frame(width: 74, alignment: .leading)
+            SegmentMeter(value: v, tint: tint, delay: d)
+            Text(word).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).frame(width: 78, alignment: .trailing)
+                .lineLimit(1).minimumScaleFactor(0.8)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(label): \(word)")
+    }
+
+    static func level(_ v: Int, low: String = "Low", high: String = "High") -> String {
+        switch v {
+        case ...1: return low
+        case 2: return "Medium–"
+        case 3: return "Medium"
+        case 4: return "Medium+"
+        default: return high
+        }
+    }
+
+    static func abvShort(_ v: Int) -> String {
+        switch v {
+        case ...1: return "< 10%"
+        case 2: return "10–11.5%"
+        case 3: return "11.5–13.5%"
+        case 4: return "13.5–15%"
+        default: return "> 15%"
         }
     }
 
@@ -405,57 +445,6 @@ extension String {
 }
 
 // MARK: - Flavor icons (line icons per aroma family)
-
-struct FlavorIcon: View {
-    let aroma: String
-    var size: CGFloat = 30
-
-    var body: some View {
-        let cat = ContentStore.shared.aromaCategory(forItem: aroma)
-        let color = Color(hex: cat?.color ?? "#A08890").mix(with: .black, 0.1)
-        Canvas { ctx, sz in
-            let s = min(sz.width, sz.height)
-            let lw = s * 0.095
-            let st = StrokeStyle(lineWidth: lw, lineCap: .round, lineJoin: .round)
-            let c = CGPoint(x: sz.width / 2, y: sz.height / 2)
-            func circle(_ x: CGFloat, _ y: CGFloat, _ r: CGFloat) -> Path { Path(ellipseIn: CGRect(x: x - r, y: y - r, width: 2 * r, height: 2 * r)) }
-            switch cat?.id ?? "" {
-            case "red-fruit", "black-fruit":
-                let r = s * 0.17
-                for (dx, dy) in [(-0.18, 0.08), (0.18, 0.08), (0.0, -0.2)] {
-                    ctx.stroke(circle(c.x + s * CGFloat(dx), c.y + s * CGFloat(dy), r), with: .color(color), style: st)
-                }
-                var stem = Path(); stem.move(to: CGPoint(x: c.x, y: c.y - s * 0.37)); stem.addLine(to: CGPoint(x: c.x + s * 0.1, y: c.y - s * 0.46))
-                ctx.stroke(stem, with: .color(color), style: st)
-            case "citrus":
-                ctx.stroke(circle(c.x, c.y, s * 0.36), with: .color(color), style: st)
-                var seg = Path()
-                for k in 0..<6 {
-                    let a = Double(k) * Double.pi / 3
-                    seg.move(to: c); seg.addLine(to: CGPoint(x: c.x + CGFloat(cos(a)) * s * 0.26, y: c.y + CGFloat(sin(a)) * s * 0.26))
-                }
-                ctx.stroke(seg, with: .color(color), style: StrokeStyle(lineWidth: lw * 0.7, lineCap: .round))
-            case "green-fruit", "stone-fruit", "tropical", "dried-fruit":
-                ctx.stroke(circle(c.x, c.y + s * 0.06, s * 0.33), with: .color(color), style: st)
-                var leaf = Path()
-                leaf.move(to: CGPoint(x: c.x, y: c.y - s * 0.27))
-                leaf.addQuadCurve(to: CGPoint(x: c.x + s * 0.28, y: c.y - s * 0.42), control: CGPoint(x: c.x + s * 0.06, y: c.y - s * 0.46))
-                leaf.addQuadCurve(to: CGPoint(x: c.x, y: c.y - s * 0.27), control: CGPoint(x: c.x + s * 0.24, y: c.y - s * 0.24))
-                ctx.stroke(leaf, with: .color(color), style: st)
-            case "floral":
-                for k in 0..<5 {
-                    let a = Double(k) * 2 * Double.pi / 5 - Double.pi / 2
-                    ctx.stroke(circle(c.x + CGFloat(cos(a)) * s * 0.2, c.y + CGFloat(sin(a)) * s * 0.2, s * 0.15), with: .color(color), style: st)
-                }
-                ctx.fill(circle(c.x, c.y, s * 0.07), with: .color(color))
-            default:
-                ctx.draw(Text(Image(systemName: cat?.icon ?? "circle")).font(.system(size: s * 0.6, weight: .regular)).foregroundColor(color), at: c)
-            }
-        }
-        .frame(width: size, height: size)
-        .accessibilityHidden(true)
-    }
-}
 
 // MARK: - Aroma chip
 

@@ -4,6 +4,8 @@ import SwiftUI
 struct WineLabelView: View {
     let label: WineLabel
     var numbered = true
+    var selected: Int? = nil
+    var onTap: ((Int) -> Void)? = nil
 
     private var style: (paper: Color, ink: Color, accent: Color, border: Int) {
         switch label.style {
@@ -24,11 +26,21 @@ struct WineLabelView: View {
         VStack(spacing: 10) {
             ForEach(Array(label.fields.enumerated()), id: \.offset) { i, f in
                 HStack(alignment: .center, spacing: 8) {
-                    if numbered { badge(i + 1, accent: st.accent).opacity(0) }
+                    if numbered { badge(i + 1, on: selected == i).opacity(0) }
                     text(f, st: st)
                         .frame(maxWidth: .infinity)
-                    if numbered { badge(i + 1, accent: st.accent) }
+                    if numbered { badge(i + 1, on: selected == i) }
                 }
+                .padding(.vertical, 3)
+                .background(
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        .strokeBorder(Palette.pink, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                        .opacity(selected == i ? 1 : 0)
+                        .padding(.horizontal, -4)
+                )
+                .opacity(selected == nil || selected == i ? 1 : 0.45)
+                .contentShape(Rectangle())
+                .onTapGesture { onTap?(i) }
             }
         }
         .padding(.vertical, 26)
@@ -53,9 +65,11 @@ struct WineLabelView: View {
         }
     }
 
-    private func badge(_ n: Int, accent: Color) -> some View {
-        Text("\(n)").font(.system(size: 11, weight: .heavy)).foregroundStyle(.white)
-            .frame(width: 20, height: 20).background(Circle().fill(Palette.pink))
+    private func badge(_ n: Int, on: Bool) -> some View {
+        Text("\(n)").font(.system(size: 10.5, weight: .semibold).monospacedDigit()).foregroundStyle(on ? .white : Palette.pink)
+            .frame(width: 19, height: 19)
+            .background(Circle().fill(on ? Palette.pink : Color.white))
+            .overlay(Circle().strokeBorder(Palette.pink, lineWidth: 1))
     }
 
     @ViewBuilder private func text(_ f: WineLabel.Field, st: (paper: Color, ink: Color, accent: Color, border: Int)) -> some View {
@@ -63,7 +77,7 @@ struct WineLabelView: View {
         switch f.kind {
         case "title":
             Text(f.text)
-                .font(serifStyles ? .system(size: 27, weight: .semibold, design: .serif) : .display(32, .black))
+                .font(serifStyles ? .system(size: 25, weight: .semibold, design: .serif) : .system(size: 24, weight: .bold))
                 .foregroundStyle(st.ink).multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.6)
         case "place":
             Text(f.text.uppercased()).font(.system(size: 15, weight: .bold)).kerning(2).foregroundStyle(st.accent)
@@ -74,7 +88,7 @@ struct WineLabelView: View {
         case "vintage":
             Text(f.text).font(.system(size: 18, weight: .bold, design: serifStyles ? .serif : .default)).foregroundStyle(st.ink)
         case "badge":
-            Text(f.text.uppercased()).font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(st.paper)
+            Text(f.text.uppercased()).font(.system(size: 10.5, weight: .semibold)).kerning(1.2).foregroundStyle(st.paper)
                 .padding(.horizontal, 10).padding(.vertical, 4).background(Capsule().fill(st.accent))
                 .multilineTextAlignment(.center)
         case "small":
@@ -86,24 +100,70 @@ struct WineLabelView: View {
     }
 }
 
-/// Label + numbered explanations.
+/// Label + numbered explanations: tap a part of the label (or step with the arrows).
 struct LabelDecoderCard: View {
     let label: WineLabel
+    @State private var current = 0
+
+    static func kindName(_ k: String) -> String {
+        switch k {
+        case "title": return "Name"
+        case "place": return "Place of origin"
+        case "class": return "Classification"
+        case "vintage": return "Vintage"
+        case "badge": return "Quality mark"
+        case "small": return "Detail"
+        default: return "Small print"
+        }
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            WineLabelView(label: label)
-                .padding(.horizontal, 18)
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(Array(label.fields.enumerated()), id: \.offset) { i, f in
-                    HStack(alignment: .top, spacing: 10) {
-                        Text("\(i + 1)").font(.system(size: 11, weight: .heavy)).foregroundStyle(.white)
-                            .frame(width: 20, height: 20).background(Circle().fill(Palette.pink))
-                        Text(rich(f.note)).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(2)
-                            .fixedSize(horizontal: false, vertical: true)
+        let fields = label.fields
+        VStack(alignment: .leading, spacing: 16) {
+            WineLabelView(label: label, selected: current) { i in
+                Haptics.tap()
+                withAnimation(.easeInOut(duration: 0.2)) { current = i }
+            }
+            .padding(.horizontal, 22)
+            .padding(.vertical, 4)
+
+            if fields.indices.contains(current) {
+                let f = fields[current]
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(spacing: 8) {
+                        Text("\(current + 1)").font(.system(size: 10.5, weight: .semibold).monospacedDigit()).foregroundStyle(.white)
+                            .frame(width: 19, height: 19).background(Circle().fill(Palette.pink))
+                        Text(Self.kindName(f.kind)).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Spacer()
+                        Text("\(current + 1) of \(fields.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                        stepButton("chevron.left", enabled: current > 0) { current -= 1 }
+                        stepButton("chevron.right", enabled: current < fields.count - 1) { current += 1 }
                     }
+                    Text(rich(f.note)).font(.system(size: 15)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(3)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .id(current)
+                        .transition(.opacity)
                 }
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+                .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
             }
         }
+        .onChange(of: label.id) { _, _ in current = 0 }
+    }
+
+    private func stepButton(_ icon: String, enabled: Bool, _ action: @escaping () -> Void) -> some View {
+        Button {
+            Haptics.tap()
+            withAnimation(.easeInOut(duration: 0.2)) { action() }
+        } label: {
+            Image(systemName: icon).font(.system(size: 12, weight: .semibold))
+                .frame(width: 28, height: 28)
+                .background(Circle().fill(Palette.cardAlt))
+                .foregroundStyle(enabled ? Palette.ink : Palette.inkFaint)
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled)
     }
 }
 
@@ -113,15 +173,13 @@ struct LabelsScreen: View {
         let labels = ContentStore.shared.library.labels ?? []
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Eyebrow("Read any bottle")
-                    Text("LABEL DECODER").font(.display(42)).foregroundStyle(Palette.ink)
-                }
+                ScreenHeader(eyebrow: "Read any bottle", title: "Label decoder",
+                             subtitle: "Pick a region, then tap a numbered part of the label to see what it tells you.")
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
                         ForEach(labels) { l in
                             Button { withAnimation(.easeInOut(duration: 0.2)) { selected = l.id } } label: {
-                                Text(l.title).font(.system(size: 14, weight: .bold))
+                                Text(l.title).font(.system(size: 14, weight: .medium))
                                     .foregroundStyle(selected == l.id ? Palette.onWine : Palette.ink)
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .background(Capsule().fill(selected == l.id ? Palette.wine : Palette.cardAlt))
@@ -131,7 +189,8 @@ struct LabelsScreen: View {
                     }
                 }
                 if let l = labels.first(where: { $0.id == selected }) {
-                    Text(rich(l.summary)).font(.system(size: 15.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                    Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                        .fixedSize(horizontal: false, vertical: true)
                     LabelDecoderCard(label: l)
                         .id(l.id)
                         .transition(.opacity)

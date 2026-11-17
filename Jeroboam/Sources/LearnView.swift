@@ -101,7 +101,7 @@ struct LearnView: View {
     private func levelIntro(_ level: Level) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Eyebrow(level.subtitle, color: Palette.level(level.number))
-            Text(level.title.uppercased()).font(.display(48)).foregroundStyle(Palette.ink)
+            Text(level.title).font(.screenTitle).kerning(-0.4).foregroundStyle(Palette.ink)
             let lessons = level.units.flatMap(\.lessons)
             let done = lessons.filter { progress.isCompleted($0.id) }.count
             HStack(spacing: 12) {
@@ -126,7 +126,7 @@ struct LearnView: View {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     Eyebrow(progress.completedCount == 0 ? "Start here" : "Up next", color: .white.opacity(0.75))
-                    Text(lesson.title.uppercased()).font(.display(30)).foregroundStyle(.white).multilineTextAlignment(.leading)
+                    Text(lesson.title).font(.system(size: 22, weight: .bold)).foregroundStyle(.white).multilineTextAlignment(.leading)
                     Text(unit?.title ?? "").font(.system(size: 13)).foregroundStyle(.white.opacity(0.75))
                     HStack(spacing: 6) {
                         Text("Start lesson").font(.system(size: 14, weight: .semibold))
@@ -137,11 +137,11 @@ struct LearnView: View {
                 }
                 Spacer(minLength: 0)
                 GrapeMark(tones: [.white.opacity(0.9), .white.opacity(0.55), .white.opacity(0.75)])
-                    .frame(width: 58, height: 76)
+                    .frame(width: 46, height: 60)
             }
-            .padding(22)
+            .padding(20)
             .background(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous)
                     .fill(LinearGradient(colors: [Palette.level(level.number), Palette.level(level.number).mix(with: .black, 0.25)],
                                          startPoint: .topLeading, endPoint: .bottomTrailing))
             )
@@ -200,10 +200,10 @@ struct UnitSection: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 14) {
                 Text(String(format: "%02d", number))
-                    .font(.display(36, .black))
-                    .foregroundStyle(Palette.level(level.number).opacity(0.7))
+                    .font(.system(size: 22, weight: .semibold).monospacedDigit())
+                    .foregroundStyle(Palette.level(level.number).opacity(0.75))
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(unit.title).font(.heading(21, .bold)).foregroundStyle(Palette.ink)
+                    Text(unit.title).font(.sectionTitle).foregroundStyle(Palette.ink)
                     Text(unit.summary).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }

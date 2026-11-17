@@ -477,3 +477,27 @@
 - {id: breedekloof, name: Breedekloof, country: South Africa, kind: region, map: south-africa, highlight: [breedekloof], level: 3, grapes: [chenin-blanc], summary: "Large valley region known for value Chenin Blanc."}
 - {id: tulbagh, name: Tulbagh, country: South Africa, kind: region, map: south-africa, highlight: [tulbagh], level: 3, grapes: [syrah], summary: "Mountain-ringed valley with Rhône varieties and sparkling wine."}
 - {id: elim, name: Cape Agulhas (Elim), country: South Africa, kind: region, map: south-africa, highlight: [elim], level: 3, grapes: [sauvignon-blanc], summary: "Africa's southernmost vineyards: cool, windswept Sauvignon Blanc."}
+# ======================================================================= LEBANON
+- id: lebanon
+  name: Lebanon
+  country: Lebanon
+  kind: country
+  map: lebanon
+  level: 3
+  climate: "Mediterranean, but the vineyards sit high: the Bekaa Valley floor is around 1,000 m, giving hot days, cold nights and a long, dry growing season."
+  grapes: [cinsault, cabernet-sauvignon, syrah, carignan, obaideh, merwah]
+  summary: "One of the oldest wine cultures on earth, from Phoenician traders to the Temple of Bacchus at Baalbek. Today it is known for structured red blends from the high Bekaa Valley."
+  classification: "No formal appellation system yet; wines are labeled by producer, region and grape."
+  styles: "Bordeaux- and Rhône-style red blends, often Cabernet Sauvignon with Cinsault, Carignan or Syrah; fresh whites from native Obaideh and Merwah; dry rosé from Cinsault."
+  facts:
+    - "**Château Musar** (founded 1930) made Lebanon famous, with long-lived reds released years after the vintage."
+    - "**Château Ksara**, founded by Jesuits in 1857, keeps its wine in Roman-era limestone caves."
+    - "Most vineyards lie in the **Bekaa Valley**, a high plateau between the Mount Lebanon and Anti-Lebanon ranges."
+    - "**Obaideh** and **Merwah** are native white grapes, sometimes compared to Chardonnay and Sémillon."
+  sub: [bekaa-valley, west-bekaa, baalbek, mount-lebanon, batroun, jezzine]
+- {id: bekaa-valley, name: Bekaa Valley, country: Lebanon, kind: region, map: lebanon, highlight: [bekaa-valley], level: 3, climate: "High plateau (about 1,000 m): sunny, dry summers with cool nights.", grapes: [cabernet-sauvignon, cinsault, syrah], summary: "The heart of Lebanese wine around Zahlé, home to Ksara and many leading estates: ripe, spicy red blends with fresh acidity from the altitude."}
+- {id: west-bekaa, name: West Bekaa, country: Lebanon, kind: region, map: lebanon, highlight: [west-bekaa], level: 3, grapes: [cabernet-sauvignon, syrah, cinsault], summary: "The southern Bekaa around Kefraya and Ammiq: higher, cooler sites on the slopes of Mount Barouk, giving elegant reds."}
+- {id: baalbek, name: Baalbek, country: Lebanon, kind: region, map: lebanon, highlight: [baalbek], level: 3, grapes: [cinsault, carignan], summary: "The northern Bekaa, near the Roman Temple of Bacchus. Drier and higher, with old bush vines and a growing number of new estates."}
+- {id: mount-lebanon, name: Mount Lebanon, country: Lebanon, kind: region, map: lebanon, highlight: [mount-lebanon], level: 3, grapes: [obaideh, merwah, cinsault], summary: "Terraced mountain vineyards above Beirut and Byblos; Château Musar's winery is in Ghazir. Fresh whites and lighter reds."}
+- {id: batroun, name: Batroun, country: Lebanon, kind: region, map: lebanon, highlight: [batroun], level: 3, grapes: [syrah, cabernet-sauvignon], summary: "Coastal hills in the north with a cluster of small family wineries; sea breezes and limestone soils."}
+- {id: jezzine, name: Jezzine, country: Lebanon, kind: region, map: lebanon, highlight: [jezzine], level: 3, grapes: [cinsault, syrah], summary: "High, green hills in the south, an emerging area for fresh, aromatic wines."}

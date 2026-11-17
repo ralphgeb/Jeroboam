@@ -44,7 +44,7 @@ struct OnboardingView: View {
                 .padding(.bottom, 36)
             Text("JERO").font(.display(84, .black)).kerning(4).foregroundStyle(Palette.ink)
             Text("LEARN WINE. TASTE BETTER.")
-                .font(.system(size: 13, weight: .heavy)).kerning(2.4).foregroundStyle(Palette.inkSoft).padding(.top, 4)
+                .font(.system(size: 13, weight: .semibold)).kerning(2.4).foregroundStyle(Palette.inkSoft).padding(.top, 4)
             VStack(alignment: .leading, spacing: 16) {
                 bullet("graduationcap", "Three levels, from first sip to advanced study")
                 bullet("map", "Illustrated maps of the world’s great regions")

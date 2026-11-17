@@ -1,5 +1,5 @@
-#if DEBUG
 import SwiftUI
+#if DEBUG
 
 /// Simulator-only helpers: `-screen <name>` opens a given screen so CI can take screenshots.
 enum DebugScreens {
@@ -16,7 +16,7 @@ enum DebugScreens {
         switch screen {
         case "learn", "lesson", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
-        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany": return 2
+        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal": return 2
         case "journal", "profile": return 3
         default: return nil
         }
@@ -96,9 +96,41 @@ enum DebugScreens {
             case "labels": push(LibrarySection.labels)
             case "guide": push(LibrarySection.guide)
             case "tuscany": if let r = c.region("tuscany") { push(r) }
+            case "lebanon": if let r = c.region("lebanon") { push(r) }
+            case "portugal": if let r = c.region("portugal") { push(r) }
+            case "icons": push("icons")
             default: break
             }
         }
     }
 }
+
+/// Every flavor icon on one sheet (for reviewing the icon set in CI screenshots).
+struct DebugIconSheet: View {
+    var body: some View {
+        let items = ContentStore.shared.allAromaCategories().flatMap { c in c.items }
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 6), spacing: 8) {
+                ForEach(items, id: \.self) { a in
+                    VStack(spacing: 3) {
+                        FlavorIcon(aroma: a, size: 34)
+                        Text(a).font(.system(size: 8)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.6)
+                    }
+                }
+            }
+            .padding(10)
+        }
+        .background(Palette.paper)
+    }
+}
 #endif
+
+extension View {
+    @ViewBuilder func debugDestinations() -> some View {
+        #if DEBUG
+        self.navigationDestination(for: String.self) { _ in DebugIconSheet() }
+        #else
+        self
+        #endif
+    }
+}

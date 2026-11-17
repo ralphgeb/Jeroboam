@@ -234,7 +234,20 @@ struct MapRenderer {
             layer.translateBy(x: offset.width, y: offset.height)
             layer.scaleBy(x: s, y: s)
             layer.fill(g.land, with: .color(Palette.land))
-            layer.stroke(g.land, with: .color(Palette.border), lineWidth: hair * 0.8)
+            layer.stroke(g.land, with: .color(Palette.border.opacity(0.7)), lineWidth: hair * 0.7)
+        }
+        // The focus country "pops out": a soft lift shadow under bright land, neighbours stay muted.
+        if g.map.belts == nil {
+            let t = CGAffineTransform(translationX: offset.width, y: offset.height).scaledBy(x: s, y: s)
+            let fp = g.focus.applying(t)
+            ctx.drawLayer { l in
+                l.addFilter(.shadow(color: .black.opacity(dark ? 0.55 : 0.16), radius: 7, x: 0, y: 3))
+                l.fill(fp, with: .color(Palette.focusLand))
+            }
+        }
+        ctx.drawLayer { layer in
+            layer.translateBy(x: offset.width, y: offset.height)
+            layer.scaleBy(x: s, y: s)
             layer.fill(g.focus, with: .color(Palette.focusLand))
             layer.stroke(g.borders, with: .color(Palette.adminLine), lineWidth: hair * 0.8)
 
@@ -302,58 +315,32 @@ struct MapRenderer {
             }
         }
 
-        // Area labels: a small numbered badge until the area is big enough on screen for a framed label.
+        // Area labels: small numbered badges (names appear in a callout when an area is tapped).
         let shownLevel = lv
         let numbers = g.numbering(level: shownLevel, zoom: zoom)
+        let calloutID = calloutArea
         let candidates = g.areas.filter { a in
             if a.level > shownLevel { return false }
             if g.hasChildren.contains(a.id) && a.level < shownLevel && zoom > LOD.level1 * 1.4 { return false }
             return true
         }.sorted { a, b in
-            let ha = highlight.contains(a.id) || selected == a.id, hb = highlight.contains(b.id) || selected == b.id
-            if ha != hb { return ha }
-            if a.level != b.level { return a.level < b.level }
-            return a.area > b.area
-        }
-        func pill(_ name: String, at c: CGPoint, anchor: UnitPoint, force: Bool, strong: Bool) -> Bool {
-            var t = ctx
-            let resolved = t.resolve(Text(name).font(.system(size: 10.5 * ls, weight: strong ? .semibold : .medium)).foregroundColor(Palette.ink))
-            let sz = resolved.measure(in: CGSize(width: 220, height: 60))
-            let w = sz.width + 10, h = sz.height + 5
-            let rect = CGRect(x: c.x - w * anchor.x, y: c.y - h * anchor.y, width: w, height: h)
-            if !force {
-                if !inset.contains(rect) { return false }
-                if taken.contains(where: { $0.insetBy(dx: -2, dy: -2).intersects(rect) }) { return false }
-            }
-            taken.append(rect)
-            let box = Path(roundedRect: rect, cornerRadius: 5, style: .continuous)
-            t.fill(box, with: .color(Palette.focusLand.opacity(0.94)))
-            t.stroke(box, with: .color(strong ? Palette.ink.opacity(0.7) : Palette.border), lineWidth: strong ? 1 : 0.6)
-            t.draw(resolved, at: CGPoint(x: rect.midX, y: rect.midY), anchor: .center)
-            return true
+            if a.level != b.level { return a.level > b.level }
+            return a.area < b.area
         }
         func badge(_ n: Int, color: Color, at c: CGPoint) {
-            let r: CGFloat = 8.5
+            let r: CGFloat = 7.5 * max(1, ls * 0.95)
             let rect = CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r)
-            guard inset.contains(rect), !taken.contains(where: { $0.insetBy(dx: -1, dy: -1).intersects(rect) }) else { return }
+            guard inset.contains(rect), !taken.contains(where: { $0.insetBy(dx: -0.5, dy: -0.5).intersects(rect) }) else { return }
             taken.append(rect)
             let circle = Path(ellipseIn: rect)
-            ctx.fill(circle, with: .color(color.mix(with: .black, 0.25)))
-            ctx.stroke(circle, with: .color(.white), lineWidth: 1.2)
-            ctx.draw(Text("\(n)").font(.system(size: 9.5, weight: .heavy)).foregroundColor(.white), at: c)
+            ctx.fill(circle, with: .color(color.mix(with: .black, 0.28)))
+            ctx.stroke(circle, with: .color(.white.opacity(0.95)), lineWidth: 1)
+            ctx.draw(Text("\(n)").font(.system(size: r * 1.12, weight: .bold).monospacedDigit()).foregroundColor(.white), at: c)
         }
-        for a in candidates {
-            let isHL = highlight.contains(a.id) || selected == a.id
+        for a in candidates where a.id != calloutID {
             let c = screen(a.centroid)
             let b = a.path.boundingRect
-            let sw = b.width * s, sh = b.height * s
-            // roomy enough for a text label?
-            let approxText = CGFloat(a.name.count) * 5.6 * ls + 10
-            if isHL || (sw >= approxText * 0.85 && sh >= 16) {
-                if pill(a.name, at: c, anchor: .center, force: isHL, strong: isHL) { continue }
-                if sw >= approxText * 1.6, pill(a.name, at: CGPoint(x: c.x, y: c.y + 12), anchor: .center, force: false, strong: false) { continue }
-            }
-            if let n = numbers[a.id], max(sw, sh) >= 4 {
+            if let n = numbers[a.id], max(b.width * s, b.height * s) >= 3 {
                 badge(n, color: Palette.mapColor(a.color), at: c)
             }
         }
@@ -379,6 +366,51 @@ struct MapRenderer {
                 }
             }
         }
+        drawCallout(in: &ctx, size: size)
+    }
+
+    /// The area whose name is shown in a callout: the tapped one, else a single highlighted area.
+    var calloutArea: String? {
+        if let s = selected { return s }
+        let ids = highlight.intersection(Set(g.areas.map(\.id)))
+        return ids.count == 1 ? ids.first : nil
+    }
+
+    /// A small boxed name with a pointer, anchored on the area.
+    func drawCallout(in ctx: inout GraphicsContext, size: CGSize) {
+        guard let id = calloutArea, let a = g.areas.first(where: { $0.id == id }) else { return }
+        let fit = size.width / CGFloat(g.map.w)
+        let s = fit * zoom
+        let c = CGPoint(x: a.centroid.x * s + offset.width, y: a.centroid.y * s + offset.height)
+        var t = ctx
+        let title = t.resolve(Text(a.name).font(.system(size: 12.5 * max(1, labelScale * 0.9), weight: .semibold)).foregroundColor(Palette.ink))
+        let tsz = title.measure(in: CGSize(width: 240, height: 60))
+        let w = tsz.width + 30, h = tsz.height + 12
+        let below = c.y - h - 12 < 4
+        var x = c.x - w / 2
+        x = min(max(4, x), size.width - w - 4)
+        let y = below ? c.y + 12 : c.y - h - 10
+        let box = CGRect(x: x, y: y, width: w, height: h)
+        var p = Path(roundedRect: box, cornerRadius: 8, style: .continuous)
+        let tipX = min(max(box.minX + 10, c.x), box.maxX - 10)
+        var tip = Path()
+        if below {
+            tip.move(to: CGPoint(x: tipX - 6, y: box.minY)); tip.addLine(to: CGPoint(x: tipX, y: box.minY - 6)); tip.addLine(to: CGPoint(x: tipX + 6, y: box.minY))
+        } else {
+            tip.move(to: CGPoint(x: tipX - 6, y: box.maxY)); tip.addLine(to: CGPoint(x: tipX, y: box.maxY + 6)); tip.addLine(to: CGPoint(x: tipX + 6, y: box.maxY))
+        }
+        tip.closeSubpath()
+        p.addPath(tip)
+        t.drawLayer { l in
+            l.addFilter(.shadow(color: .black.opacity(dark ? 0.5 : 0.18), radius: 6, y: 2))
+            l.fill(p, with: .color(Palette.card))
+        }
+        let dotR: CGFloat = 4
+        t.fill(Path(ellipseIn: CGRect(x: box.minX + 10 - dotR, y: box.midY - dotR, width: 2 * dotR, height: 2 * dotR)), with: .color(Palette.mapColor(a.color)))
+        t.draw(title, at: CGPoint(x: box.minX + 20, y: box.midY), anchor: .leading)
+        let ring = Path(ellipseIn: CGRect(x: c.x - 3, y: c.y - 3, width: 6, height: 6))
+        t.fill(ring, with: .color(Palette.ink))
+        t.stroke(ring, with: .color(.white), lineWidth: 1.2)
     }
 }
 
@@ -394,12 +426,14 @@ struct WineMapView: View {
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
+    @State private var tapped: String? = nil
 
     var body: some View {
         if let g = MapGeometry.get(mapID) {
             Canvas { ctx, size in
                 var r = MapRenderer(g: g)
                 r.highlight = highlight
+                r.selected = tapped
                 r.showLabels = showLabels && pins.isEmpty
                 r.showCities = showCities
                 r.labelScale = labelScale
@@ -413,11 +447,18 @@ struct WineMapView: View {
                     for (i, id) in pins.enumerated() {
                         guard let a = g.areas.first(where: { $0.id == id }) else { continue }
                         let p = CGPoint(x: a.centroid.x * s, y: a.centroid.y * s)
-                        let r: CGFloat = 10
+                        if id == tapped { continue }
+                        let r: CGFloat = 8.5
                         let circle = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
-                        ctx.fill(circle, with: .color(Palette.mapColor(a.color).mix(with: .black, 0.15)))
-                        ctx.stroke(circle, with: .color(.white), lineWidth: 1.5)
-                        ctx.draw(Text("\(i + 1)").font(.system(size: 10.5, weight: .heavy)).foregroundColor(.white), at: p)
+                        ctx.fill(circle, with: .color(Palette.mapColor(a.color).mix(with: .black, 0.28)))
+                        ctx.stroke(circle, with: .color(.white), lineWidth: 1)
+                        ctx.draw(Text("\(i + 1)").font(.system(size: 9.5, weight: .bold).monospacedDigit()).foregroundColor(.white), at: p)
+                    }
+                    if tapped != nil {
+                        var r2 = MapRenderer(g: g)
+                        r2.selected = tapped
+                        r2.dark = scheme == .dark
+                        r2.drawCallout(in: &ctx, size: size)
                     }
                 }
                 if deepest >= 1 {
@@ -441,9 +482,16 @@ struct WineMapView: View {
                             .onTapGesture { pt in
                                 let r = MapRenderer(g: g)
                                 let m = r.toMap(pt, size: geo.size)
-                                if let a = g.hit(m, maxLevel: 0) ?? g.hit(m, maxLevel: 2) {
+                                // numbered pins first, then areas
+                                let fit = geo.size.width / CGFloat(g.map.w)
+                                let pinHit = pins.compactMap { id in g.areas.first { $0.id == id } }
+                                    .min { hypot($0.centroid.x * fit - pt.x, $0.centroid.y * fit - pt.y) < hypot($1.centroid.x * fit - pt.x, $1.centroid.y * fit - pt.y) }
+                                    .flatMap { a in hypot(a.centroid.x * fit - pt.x, a.centroid.y * fit - pt.y) < 16 ? a : nil }
+                                if let a = pinHit ?? g.hit(m, maxLevel: 0) ?? g.hit(m, maxLevel: 2) {
                                     Haptics.tap()
-                                    onSelect(a.id)
+                                    if tapped == a.id { onSelect(a.id) } else { withAnimation(.easeOut(duration: 0.15)) { tapped = a.id } }
+                                } else {
+                                    tapped = nil
                                 }
                             }
                     }
@@ -610,9 +658,9 @@ struct MapExplorer: View {
             // header
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("WINE MAP OF").font(.system(size: 10, weight: .bold)).kerning(1.6).foregroundStyle(Palette.inkSoft)
-                    Text((g?.map.title ?? "").uppercased()).font(.display(30)).foregroundStyle(Palette.ink)
-                    Text(levelHint).font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                    Eyebrow("Wine map", color: Palette.wine)
+                    Text(g?.map.title ?? "").font(.system(size: 22, weight: .bold)).foregroundStyle(Palette.ink)
+                    Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
                 }
                 .padding(.horizontal, 16).padding(.vertical, 12)
                 .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.focusLand.opacity(0.94)))
@@ -653,7 +701,7 @@ struct MapExplorer: View {
                     VStack(spacing: 10) {
                         HStack(spacing: 8) {
                             Image(systemName: "hand.pinch").font(.system(size: 13, weight: .semibold))
-                            Text("Pinch to zoom · tap a number or region").font(.system(size: 13, weight: .semibold))
+                            Text("Pinch to zoom · tap a number for its name").font(.system(size: 12.5, weight: .medium))
                         }
                         .foregroundStyle(Palette.ink)
                         .padding(.horizontal, 14).padding(.vertical, 8)
@@ -706,7 +754,7 @@ struct MapExplorer: View {
                 RoundedRectangle(cornerRadius: 4).fill(Palette.mapColor(a.color)).frame(width: 6, height: 40)
                 VStack(alignment: .leading, spacing: 2) {
                     if let p = parent { Eyebrow(p.name) }
-                    Text(a.name.uppercased()).font(.display(26)).foregroundStyle(Palette.ink)
+                    Text(a.name).font(.system(size: 21, weight: .bold)).foregroundStyle(Palette.ink)
                 }
                 Spacer()
                 Button { selected = nil } label: {
@@ -714,13 +762,13 @@ struct MapExplorer: View {
                 }
             }
             if let gr = a.grapes ?? region?.grapes.compactMap({ ContentStore.shared.grape($0)?.name }).prefix(3).joined(separator: " · ") , !gr.isEmpty {
-                Text(gr.uppercased()).font(.system(size: 11, weight: .bold)).kerning(0.8).foregroundStyle(Palette.mapColor(a.color))
+                Text(gr).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.mapColor(a.color).mix(with: .black, 0.15))
             }
             if let r = region {
-                Text(r.summary).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2).lineLimit(3)
+                Text(r.summary).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2).lineLimit(3)
                 Button { openRegion = r } label: {
                     HStack(spacing: 6) {
-                        Text("Open guide").font(.system(size: 15, weight: .bold))
+                        Text("Open guide").font(.system(size: 15, weight: .semibold))
                         Image(systemName: "arrow.right").font(.system(size: 13, weight: .bold))
                     }
                     .foregroundStyle(Palette.wine)
@@ -749,10 +797,10 @@ struct MapLegend: View {
                 ForEach(Array(list.enumerated()), id: \.element.id) { i, a in
                     Button { onSelect?(a.id) } label: {
                         HStack(spacing: 5) {
-                            Text("\(i + 1)").font(.system(size: 10, weight: .heavy)).foregroundStyle(.white)
-                                .frame(width: 18, height: 18)
-                                .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.25)))
-                            Text(a.name).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
+                            Text("\(i + 1)").font(.system(size: 9.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                                .frame(width: 17, height: 17)
+                                .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.28)))
+                            Text(a.name).font(.system(size: 12.5)).foregroundStyle(Palette.ink)
                         }
                         .padding(.leading, 3).padding(.trailing, 9).padding(.vertical, 3)
                         .background(Capsule().fill(Palette.card))

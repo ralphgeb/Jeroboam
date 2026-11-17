@@ -9,13 +9,9 @@ struct PracticeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     TopStatusBar().padding(.top, 8)
-                    VStack(alignment: .leading, spacing: 8) {
-                        Eyebrow("Practice")
-                        Text("KEEP IT FRESH").font(.display(46)).foregroundStyle(Palette.ink)
-                        Text("Endless questions drawn from the whole library, plus a review of anything you got wrong.")
-                            .font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
-                    }
-                    .padding(.top, 26)
+                    ScreenHeader(eyebrow: "Practice", title: "Keep it fresh",
+                                 subtitle: "Endless questions drawn from the whole library, plus a review of anything you got wrong.")
+                    .padding(.top, 18)
 
                     dailyGoal.padding(.top, 24)
 

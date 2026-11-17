@@ -96,31 +96,24 @@ struct JournalView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
-                    HStack(alignment: .firstTextBaseline) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Eyebrow("Tasting notebook")
-                            Text("JOURNAL").font(.display(46)).foregroundStyle(Palette.ink)
-                        }
-                        Spacer()
-                    }
-                    .padding(.top, 8)
+                    ScreenHeader(eyebrow: "Tasting notebook", title: "Journal")
 
                     Button { newTasting = true } label: {
                         HStack(spacing: 16) {
                             ZStack {
-                                Circle().fill(Palette.onWine.opacity(0.14)).frame(width: 54, height: 54)
-                                Image(systemName: "camera.fill").font(.system(size: 22, weight: .semibold)).foregroundStyle(Palette.onWine)
+                                Circle().fill(Palette.onWine.opacity(0.14)).frame(width: 46, height: 46)
+                                Image(systemName: "camera").font(.system(size: 19, weight: .medium)).foregroundStyle(Palette.onWine)
                             }
                             VStack(alignment: .leading, spacing: 3) {
-                                Text("NEW TASTING").font(.display(24)).foregroundStyle(Palette.onWine)
+                                Text("New tasting").font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.onWine)
                                 Text(WineRecognizer.isAvailable ? "Snap the label. We'll find the wine, you taste it."
                                                                 : "Photograph the label and log your tasting.")
                                     .font(.system(size: 13.5, weight: .medium)).foregroundStyle(Palette.onWine.opacity(0.8))
                             }
                             Spacer()
                         }
-                        .padding(20)
-                        .background(RoundedRectangle(cornerRadius: 24, style: .continuous).fill(Palette.wine))
+                        .padding(18)
+                        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.wine))
                     }
                     .buttonStyle(PressableStyle())
 
@@ -162,7 +155,7 @@ struct JournalView: View {
     private func stat(_ v: String, _ label: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(v).font(.display(22)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.6)
-            Text(label.uppercased()).font(.system(size: 9.5, weight: .heavy)).kerning(1).foregroundStyle(Palette.inkSoft)
+            Text(label.uppercased()).font(.system(size: 9.5, weight: .semibold)).kerning(1).foregroundStyle(Palette.inkSoft)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
@@ -172,7 +165,7 @@ struct JournalView: View {
     private var emptyState: some View {
         VStack(spacing: 14) {
             GrapeMark(tones: [Palette.line, Palette.lockedDeep, Palette.cardAlt]).frame(height: 90)
-            Text("YOUR CELLAR OF MEMORIES").font(.display(22)).foregroundStyle(Palette.ink)
+            Text("Your cellar of memories").font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.ink)
             Text("Every bottle you taste becomes a page: the photo, what you smelled, how much you loved it. Over time you'll see your palate take shape.")
                 .font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
         }
@@ -203,7 +196,7 @@ struct EntryTile: View {
                     .padding(8)
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(entry.title.uppercased()).font(.display(16)).foregroundStyle(Palette.ink).lineLimit(2)
+                Text(entry.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
                 Text([entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
@@ -343,7 +336,7 @@ struct NewTastingFlow: View {
             }
             HStack {
                 Rectangle().fill(Palette.line).frame(height: 1)
-                Text("OR").font(.system(size: 11, weight: .heavy)).foregroundStyle(Palette.inkFaint)
+                Text("OR").font(.system(size: 11, weight: .bold)).foregroundStyle(Palette.inkFaint)
                 Rectangle().fill(Palette.line).frame(height: 1)
             }
             VStack(alignment: .leading, spacing: 8) {
@@ -425,8 +418,8 @@ struct NewTastingFlow: View {
                 Image(systemName: "wineglass").font(.system(size: 20, weight: .semibold)).foregroundStyle(styleColor(w.style))
                     .frame(width: 44, height: 44).background(RoundedRectangle(cornerRadius: 12).fill(styleColor(w.style).opacity(0.12)))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(w.producer.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1).foregroundStyle(Palette.inkSoft)
-                    Text([w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")).font(.system(size: 18, weight: .heavy)).foregroundStyle(Palette.ink)
+                    Text(w.producer.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1).foregroundStyle(Palette.inkSoft)
+                    Text([w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")).font(.system(size: 18, weight: .bold)).foregroundStyle(Palette.ink)
                 }
             }
             Picker("Info", selection: $infoTab) {
@@ -450,12 +443,12 @@ struct NewTastingFlow: View {
                 }
                 if !w.palate.isEmpty { Text(w.palate).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)) }
                 if !w.food.isEmpty {
-                    Text("WITH: " + w.food.prefix(3).joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .heavy)).kerning(0.6)
+                    Text("WITH: " + w.food.prefix(3).joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .semibold)).kerning(0.6)
                         .foregroundStyle(Palette.inkSoft)
                 }
             case 2:
                 if let r = region {
-                    Text(r.name.uppercased()).font(.display(24)).foregroundStyle(Palette.ink)
+                    Text(r.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
                     Text(r.summary).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85))
                     if let m = r.map {
                         WineMapView(mapID: m, highlight: Set(r.highlight ?? [r.id]), showCities: false, labelScale: 0.85)
@@ -469,7 +462,7 @@ struct NewTastingFlow: View {
                 Text([w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                 if !w.grapes.isEmpty {
-                    Text(w.grapes.joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .heavy)).kerning(0.8).foregroundStyle(styleColor(w.style))
+                    Text(w.grapes.joined(separator: " · ").uppercased()).font(.system(size: 11, weight: .semibold)).kerning(0.8).foregroundStyle(styleColor(w.style))
                 }
                 if w.priceHigh > 0 {
                     HStack(spacing: 6) {
@@ -562,7 +555,7 @@ struct NewTastingFlow: View {
             coach("Take a short sniff. Swirl once and sniff again. Pick a family first, then the exact smell.")
             if !entry.aromas.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("SELECTED (\(entry.aromas.count))").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                    Text("SELECTED (\(entry.aromas.count))").font(.system(size: 10.5, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
                             ForEach(entry.aromas, id: \.self) { a in
@@ -570,7 +563,7 @@ struct NewTastingFlow: View {
                                     HStack(spacing: 6) {
                                         FlavorIcon(aroma: a, size: 18)
                                         Text(a).font(.system(size: 14, weight: .bold)).foregroundStyle(Palette.ink)
-                                        Image(systemName: "xmark").font(.system(size: 10, weight: .heavy)).foregroundStyle(Palette.inkSoft)
+                                        Image(systemName: "xmark").font(.system(size: 10, weight: .bold)).foregroundStyle(Palette.inkSoft)
                                     }
                                     .padding(.horizontal, 12).padding(.vertical, 8)
                                     .background(Capsule().fill(Palette.card))
@@ -593,7 +586,7 @@ struct NewTastingFlow: View {
             }
             if !entry.wine.tastingNotes.isEmpty && q.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("TRY LOOKING FOR").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.pink)
+                    Text("TRY LOOKING FOR").font(.system(size: 10.5, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.pink)
                     FlowLayout(spacing: 8, lineSpacing: 8) {
                         ForEach(entry.wine.tastingNotes, id: \.self) { n in aromaToggle(n, highlighted: true) }
                     }
@@ -622,7 +615,7 @@ struct NewTastingFlow: View {
                 }
                 if let id = expandedFamily, let cat = cats.first(where: { $0.id == id }) {
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(cat.name.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                        Text(cat.name.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
                         FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(cat.items, id: \.self) { aromaToggle($0, highlighted: false) } }
                     }
                     .padding(16)
@@ -687,7 +680,7 @@ struct NewTastingFlow: View {
             Slider(value: Binding(get: { Double(entry.rating) }, set: { entry.rating = Int($0.rounded()); Haptics.tap() }), in: 1...10, step: 1)
                 .tint(Palette.pink)
             VStack(alignment: .leading, spacing: 8) {
-                Text("WHAT STOOD OUT").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                Text("WHAT STOOD OUT").font(.system(size: 10.5, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
                 FlowLayout(spacing: 8, lineSpacing: 8) {
                     ForEach(["Balanced", "Long finish", "Intense", "Complex", "Great value", "Would buy again", "Too oaky", "Too sweet", "Harsh"], id: \.self) { q in
                         let on = entry.quality.contains(q)
@@ -704,7 +697,7 @@ struct NewTastingFlow: View {
                 }
             }
             VStack(alignment: .leading, spacing: 8) {
-                Text("NOTES").font(.system(size: 10.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+                Text("NOTES").font(.system(size: 10.5, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
                 TextField("Where, with whom, with what…", text: $entry.notes, axis: .vertical)
                     .lineLimit(3...6)
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
@@ -747,7 +740,7 @@ struct NewTastingFlow: View {
 
     private func scale(_ title: String, value: Binding<Int>, labels: [String]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+            Text(title.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
             HStack(spacing: 6) {
                 ForEach(Array(labels.enumerated()), id: \.offset) { i, l in
                     let v = i + 1
@@ -785,7 +778,7 @@ struct EntryDetailView: View {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 6) {
                             Eyebrow(e.date.formatted(date: .abbreviated, time: .omitted))
-                            Text(e.title.uppercased()).font(.display(34)).foregroundStyle(Palette.ink)
+                            Text(e.title).font(.system(size: 24, weight: .semibold)).foregroundStyle(Palette.ink)
                             Text([e.wine.vintage, e.wine.producer, e.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                                 .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                         }
@@ -840,7 +833,7 @@ struct EntryDetailView: View {
 
     private func section<C: View>(_ title: String, @ViewBuilder _ c: () -> C) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(title.uppercased()).font(.system(size: 11, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.inkSoft)
+            Text(title.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.inkSoft)
             c()
         }
     }

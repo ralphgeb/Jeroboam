@@ -616,7 +616,7 @@ struct LessonComplete: View {
             }
             .padding(.bottom, 28)
             Eyebrow(session.lessonID == nil ? "Practice complete" : "Lesson complete", color: Palette.wine)
-            Text(headline.uppercased()).font(.display(40)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+            Text(headline).font(.system(size: 29, weight: .semibold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
                 .padding(.top, 8).padding(.horizontal, Metrics.margin)
 
             HStack(spacing: 0) {

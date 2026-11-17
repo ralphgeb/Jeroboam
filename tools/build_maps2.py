@@ -225,8 +225,9 @@ def label_point(g):
     p = g.representative_point()
     return p.x, p.y
 
-def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4):
+def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False):
     g = pr.geom(geom_ll)
+    if soft: g = soften(g, tol)
     shapes = enc_polys(g, tol, min_area, smooth=True)
     if not shapes: return None
     cx, cy = label_point(max(polys_of(g.simplify(tol * RES)), key=lambda p: p.area))
@@ -511,6 +512,93 @@ def build_usa():
             [("Pacific Ocean", 45.5, -124.4, "sea"), ("Columbia", 45.7, -121.0, "river"), ("WASHINGTON", 47.8, -120.2, "area"),
              ("OREGON", 43.8, -120.3, "area")])
 
+# ================================================================= admin-boundary countries (geoBoundaries)
+import specs_gb as GB
+_gb = {}
+def gb_units(iso, adm):
+    k = (iso, adm)
+    if k not in _gb:
+        _gb[k] = [(f["properties"]["shapeName"], shape(f["geometry"]).buffer(0)) for f in load(f"{GEO}/gb/{iso}-{adm}.geojson")]
+    return _gb[k]
+
+def km2deg(km): return km / 111.0
+
+def soften(g, tol):
+    """Pull a region slightly in from its admin edges and round it off, so it reads as a drawn area."""
+    if g.is_empty: return g
+    d = min(tol * RES * 2.2, math.sqrt(max(g.area, 1)) * 0.035)
+    out = g.buffer(d * 0.6, join_style=1).buffer(-d * 1.6, join_style=1).buffer(d * 0.7, join_style=1)
+    return out if not out.is_empty and out.area > g.area * 0.35 else g
+
+def build_gb(only=None):
+    print("admin-boundary countries…")
+    legacy = {m["id"]: m for m in LEGACY}
+    for mid, cfg in GB.COUNTRIES.items():
+        if only and mid not in only: continue
+        spec = legacy[mid]
+        isos = cfg["iso"] if isinstance(cfg["iso"], list) else [cfg["iso"]]
+        W, tol = 3000, 1.0
+        pr = Proj(spec["bbox"], W)
+        land, focus, lk, rv = base_layers(pr, spec["bbox"], spec["focus"], tol=tol)
+        sketches = {r["id"]: unary_union([Polygon(shape_latlon(s)).buffer(0) for s in r["shapes"]]) for r in spec["regions"]}
+        geoms = {}
+        for r in spec["regions"]:
+            rid = r["id"]
+            rs = cfg["regions"].get(rid)
+            sk = sketches[rid]
+            if rs is None:
+                print(f"   ! {mid}/{rid}: no spec, keeping sketch"); geoms[rid] = sk; continue
+            adm = rs["adm"]
+            iso = isos[0]
+            if "/" in adm: iso, adm = adm.split("/")
+            units = gb_units(iso, adm)
+            if rs["mode"] == "units":
+                near = sk.buffer(km2deg(90))
+                picked, missing = [], []
+                for n in rs["names"]:
+                    c = [g for nm, g in units if nm == n and g.intersects(near)]
+                    if not c: missing.append(n)
+                    picked += c
+                if missing: print(f"   ! {mid}/{rid}: missing {missing}")
+                g = unary_union(picked) if picked else sk
+                if rs["clip"] is not None:
+                    g = g.intersection(sk.buffer(km2deg(rs["clip"]))) if rs["clip"] > 0 else g.intersection(sk)
+            else:
+                zone = sk.buffer(km2deg(rs["km"])) if rs["km"] else sk
+                zp = prep(zone)
+                picked = [g for nm, g in units if zp.contains(g.representative_point())]
+                if not picked:
+                    picked = [g for nm, g in units if zp.intersects(g)]
+                g = unary_union(picked) if picked else sk
+            geoms[rid] = g
+        for r in spec["regions"]:
+            for m in cfg["regions"].get(r["id"], {}).get("minus", []):
+                geoms[r["id"]] = geoms[r["id"]].difference(geoms[m].buffer(km2deg(0.5)))
+        areas = []
+        for i, r in enumerate(spec["regions"]):
+            areas.append(area_record(pr, r["id"], r["name"], 1 if r["small"] else 0, cidx(None, i), geoms[r["id"]], tol,
+                                     min_area=1, soft=True))
+        fb = [g for iso in isos for _, g in gb_units(iso, "ADM1")]
+        cities = cities_of(pr, [(n, la, lo, 0 if i < 3 else 1) for i, (n, la, lo) in enumerate(spec["cities"])])
+        write(mid, doc(mid, spec["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, spec["labels"]),
+                       admin_borders(pr, spec["bbox"], fb, tol * 1.5)))
+
+def build_lebanon():
+    L = GB.LEBANON
+    print("Lebanon…")
+    pr = Proj(L["bbox"], 2400)
+    tol = 0.8
+    land, focus, lk, rv = base_layers(pr, L["bbox"], L["focus"], tol=tol)
+    units = gb_units("LBN", "ADM2")
+    areas = []
+    for i, (rid, name, cazas) in enumerate(L["regions"]):
+        g = unary_union([u for n, u in units if n in cazas])
+        areas.append(area_record(pr, rid, name, 0, cidx(None, i), g, tol, min_area=1, soft=True))
+    fb = [g for _, g in gb_units("LBN", "ADM1")]
+    cities = cities_of(pr, [(n, la, lo, 0 if i < 2 else 1) for i, (n, la, lo) in enumerate(L["cities"])])
+    write("lebanon", doc("lebanon", L["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, L["labels"]),
+                         admin_borders(pr, L["bbox"], fb, tol * 1.5)))
+
 # ================================================================= legacy maps → v2 (blob shapes, bold palette)
 def build_legacy(keep):
     print("other countries…")
@@ -541,6 +629,6 @@ if __name__ == "__main__":
     if not which or "fr" in which: build_france()
     if not which or "it" in which: build_italy()
     if not which or "us" in which: build_usa()
-    if not which or "legacy" in which:
-        build_legacy({"world", "spain", "portugal", "germany", "austria", "hungary", "greece", "south-america", "australia",
-                      "south-australia", "new-zealand", "south-africa"})
+    if not which or "legacy" in which: build_legacy({"world"})
+    if not which or "gb" in which: build_gb()
+    if not which or "lb" in which: build_lebanon()

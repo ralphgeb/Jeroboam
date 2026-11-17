@@ -48,11 +48,8 @@ struct StyleGuideScreen: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Eyebrow("Wine, explained in pictures")
-                    Text("STYLE GUIDE").font(.display(46)).foregroundStyle(Palette.ink)
-                    Text("Seven styles side by side. Swipe across the poster.").font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
-                }
+                ScreenHeader(eyebrow: "Wine, explained in pictures", title: "Style guide",
+                             subtitle: "Seven styles side by side. Swipe across the poster.")
                 .padding(.horizontal, Metrics.margin)
 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -63,7 +60,7 @@ struct StyleGuideScreen: View {
                                 VStack(spacing: 8) {
                                     WineGlass(color: s.color, fill: s.fill, sparkling: s.sparkling)
                                         .frame(width: s.glassWidth, height: s.glassHeight)
-                                    Text(s.name.uppercased()).font(.display(14, .heavy)).foregroundStyle(Palette.ink)
+                                    Text(s.name).font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
                                 }
                                 .frame(width: 112)
                             }
@@ -100,13 +97,13 @@ struct StyleGuideScreen: View {
                                         BottleShape(style: s.sparkling ? .sparkling : .bordeaux)
                                             .fill(s.color.opacity(0.85))
                                             .frame(width: 44, height: 150)
-                                        Text(s.name.uppercased()).font(.display(13, .black))
+                                        Text(s.name).font(.system(size: 9, weight: .semibold))
                                             .foregroundStyle(s.id == "bold-red" || s.id == "light-red" ? Color.white : Palette.ink.opacity(0.85))
                                             .fixedSize()
                                             .rotationEffect(.degrees(-90))
                                             .offset(y: 22)
                                     }
-                                    Text(s.food).font(.system(size: 14, weight: .heavy)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                                    Text(s.food).font(.system(size: 14, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
                                     Text(s.foods).font(.system(size: 11, weight: .medium)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                                     Text(s.wines).font(.system(size: 10.5, weight: .semibold).italic()).foregroundStyle(Palette.pink)
                                         .multilineTextAlignment(.center)
@@ -133,14 +130,14 @@ struct StyleGuideScreen: View {
     }
 
     private func ribbon(_ t: String) -> some View {
-        Text(t).font(.system(size: 14, weight: .heavy)).foregroundStyle(.white)
+        Text(t).font(.system(size: 14, weight: .bold)).foregroundStyle(.white)
             .padding(.leading, 12).padding(.trailing, 22).padding(.vertical, 6)
             .background(RibbonShape().fill(Palette.pink))
     }
 
     private func metricRow<C: View>(_ title: String, @ViewBuilder _ content: @escaping (Style) -> C) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(title).font(.system(size: 9.5, weight: .heavy)).kerning(1.4).foregroundStyle(Palette.inkSoft)
+            Text(title).font(.system(size: 9.5, weight: .semibold)).kerning(1.4).foregroundStyle(Palette.inkSoft)
             HStack(alignment: .center, spacing: 0) {
                 ForEach(styles) { s in content(s).frame(width: 112) }
             }

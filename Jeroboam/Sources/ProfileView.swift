@@ -15,7 +15,7 @@ struct ProfileView: View {
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                         Eyebrow("Your cellar")
-                        Text(progress.rank.uppercased()).font(.display(42)).foregroundStyle(Palette.ink)
+                        Text(progress.rank).font(.screenTitle).foregroundStyle(Palette.ink)
                         if let next = progress.nextRank {
                             VStack(alignment: .leading, spacing: 6) {
                                 GeometryReader { geo in
