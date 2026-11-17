@@ -83,7 +83,7 @@ jobs:
             for s in $SCREENS; do
               xcrun simctl terminate "$UDID" com.ralphgeb.jeroboam 2>/dev/null || true
               xcrun simctl launch "$UDID" com.ralphgeb.jeroboam -screen "$s" > /dev/null
-              sleep 5
+              sleep 8
               xcrun simctl io "$UDID" screenshot "shots/${mode}-${s}.png" > /dev/null 2>&1
             done
             [ "$mode" = light ] && SCREENS="learn lesson grape map"
