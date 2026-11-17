@@ -406,7 +406,7 @@ struct FlavorIcon: View {
         let color = Color(hex: cat?.color ?? "#A08890").mix(with: .black, 0.1)
         Canvas { ctx, sz in
             let s = min(sz.width, sz.height)
-            let lw = s * 0.07
+            let lw = s * 0.095
             let st = StrokeStyle(lineWidth: lw, lineCap: .round, lineJoin: .round)
             let c = CGPoint(x: sz.width / 2, y: sz.height / 2)
             func circle(_ x: CGFloat, _ y: CGFloat, _ r: CGFloat) -> Path { Path(ellipseIn: CGRect(x: x - r, y: y - r, width: 2 * r, height: 2 * r)) }

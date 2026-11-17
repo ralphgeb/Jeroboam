@@ -65,7 +65,7 @@ struct WineCardView: View {
                     HStack(alignment: .top, spacing: 0) {
                         ForEach(grape.aromas.prefix(5), id: \.self) { a in
                             VStack(spacing: 6) {
-                                FlavorIcon(aroma: a, size: compact ? 26 : 30)
+                                FlavorIcon(aroma: a, size: compact ? 30 : 36)
                                 Text(a).font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
                                     .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.8)
                             }

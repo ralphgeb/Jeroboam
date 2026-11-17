@@ -226,7 +226,8 @@ struct MapRenderer {
 
             var regions = layer
             regions.clip(to: g.landMask)
-            let anyHL = !highlight.isEmpty || selected != nil
+            let ids = Set(g.areas.map(\.id))
+            let anyHL = !highlight.intersection(ids).isEmpty || selected != nil
             for a in g.areas where a.level <= lv {
                 let parentIsZoomed = lv >= 1 && g.hasChildren.contains(a.id) && a.level < lv
                 var color = Palette.mapColor(a.color)
