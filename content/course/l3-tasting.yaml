@@ -1,0 +1,85 @@
+title: Tasting in depth
+summary: "Structured assessment, quality, readiness and faults: thinking like a sommelier."
+icon: checkmark.seal
+lessons:
+  - title: The structured approach
+    cards:
+      - learn: Measuring precisely
+        body: |
+          At an advanced level, each structural element gets a precise scale:
+
+          - Acidity, tannin, body and finish: **low, medium−, medium, medium+, high**.
+          - Alcohol: low (under 11%), medium, high (14%+).
+          - Tannin also has a **nature**: ripe or unripe, fine-grained or coarse.
+
+          Precise structure narrows down grape and origin much faster than aromas alone.
+      - learn: Development
+        visual: "wheel"
+        body: |
+          - **Youthful**: only primary (and secondary) aromas.
+          - **Developing**: tertiary notes appear alongside fresh fruit.
+          - **Fully developed**: mostly tertiary aromas.
+          - **Tired**: fruit fading, drying out.
+      - choice: "A wine showing fresh fruit with some leather and earth is…"
+        options: [Developing, Youthful, Tired, Faulty]
+        a: Developing
+        explain: "Tertiary notes alongside primary fruit mean the wine is on its way to maturity."
+      - choice: "High acidity, high tannin, pale garnet, tar and roses suggests…"
+        options: [Nebbiolo, Merlot, Grenache, Gamay]
+        a: Nebbiolo
+        explain: "Nebbiolo's unusual mix of pale color and fierce structure is a giveaway."
+      - tf: "Unripe tannins tend to feel green, coarse and astringent."
+        truth: true
+        explain: "Ripe tannins feel fine-grained and silky. Tannin texture is a clue to grape ripeness and winemaking."
+      - blank: "Alcohol above about ___% is described as high."
+        answers: ["14"]
+        options: ["10", "8", "11"]
+        explain: "Below 11% is low; 11–13.9% is medium."
+  - title: Quality & readiness
+    cards:
+      - learn: BLIC in practice
+        body: |
+          - **Balance**: fruit vs acid vs tannin vs alcohol vs sweetness.
+          - **Length**: medium+ or long for good wine.
+          - **Intensity**: pronounced aromas and flavors.
+          - **Complexity**: many layers: primary, secondary, tertiary.
+
+          Then decide readiness: **too young**, **can drink now but has potential**, **drink now**, or **too old**.
+      - choice: "A wine with intense fruit, high tannin and high acidity that is still very primary is probably…"
+        options: ["Too young / has ageing potential", "Too old", "Faulty", "Ready and at its peak"]
+        a: "Too young / has ageing potential"
+        explain: "Concentrated fruit plus structure is what allows a wine to improve with age."
+      - tf: "A short finish is a sign of outstanding quality."
+        truth: false
+        explain: "Great wines have long, complex finishes."
+      - match: "Match each BLIC element to its question"
+        pairs: [[Balance, "Does anything stick out?"], [Length, "How long does it last?"], [Intensity, "How powerful are the flavors?"], [Complexity, "How many layers are there?"]]
+        explain: "Four simple questions behind every professional quality call."
+      - choice: "Which wine is most likely to improve with bottle age?"
+        options: ["Grand Cru Burgundy", "Beaujolais Nouveau", "Pinot Grigio", "Prosecco"]
+        a: "Grand Cru Burgundy"
+        explain: "Concentration, acidity and structure let it evolve for decades. The others are made to drink young."
+  - title: Faults
+    cards:
+      - learn: When wine goes wrong
+        body: |
+          - **TCA (cork taint)**: musty, damp cardboard, muted fruit.
+          - **Oxidation**: brownish, flat, bruised apple.
+          - **Reduction**: struck match, rotten egg, rubber; sometimes fixed by aeration.
+          - **Brettanomyces**: barnyard, sticking plaster, sweaty saddle.
+          - **Volatile acidity (VA)**: vinegar, nail-varnish remover.
+          - **Heat damage**: cooked, stewed fruit.
+      - choice: "A wine smelling of nail-varnish remover and vinegar has…"
+        options: [Volatile acidity, Cork taint, Reduction, Brettanomyces]
+        a: Volatile acidity
+        explain: "Caused by acetic acid and ethyl acetate, usually from bacteria and oxygen exposure."
+      - choice: "Struck-match or rotten-egg aromas indicate…"
+        options: [Reduction, Oxidation, Cork taint, Heat damage]
+        a: Reduction
+        explain: "Sulfur compounds form when wine lacks oxygen during winemaking. Mild cases blow off with swirling or decanting."
+      - tf: "Brettanomyces can give barnyard and sticking-plaster aromas."
+        truth: true
+        explain: "A little can add complexity for some drinkers; a lot strips the fruit."
+      - match: "Match the fault to its smell"
+        pairs: [[TCA, Damp cardboard], [Oxidation, Bruised apple], [Brettanomyces, Barnyard], [Reduction, Struck match]]
+        explain: "Recognizing faults is part of every sommelier's training."

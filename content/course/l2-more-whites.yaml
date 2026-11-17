@@ -1,0 +1,85 @@
+title: More white grapes
+summary: "Chenin Blanc, Sémillon, the aromatic grapes and Europe's crisp coastal whites."
+icon: leaf
+lessons:
+  - title: Chenin Blanc & Sémillon
+    cards:
+      - learn: Chenin Blanc
+        visual: "grape:chenin-blanc"
+        body: |
+          High acidity, apple, quince and honey. The **Loire** makes it in every style: dry, off-dry, sweet and sparkling (**Vouvray**, **Savennières**). **South Africa** grows more Chenin than anywhere else, with riper, often oaked styles.
+      - learn: Sémillon
+        visual: "grape:semillon"
+        body: |
+          Thin-skinned and prone to **noble rot**, Sémillon is the heart of **Sauternes**. In Australia's **Hunter Valley** it is picked early for a light, lemony dry wine that ages into toast and honey.
+      - choice: "Vouvray is made from which grape?"
+        options: [Chenin Blanc, Sauvignon Blanc, Chardonnay, Melon de Bourgogne]
+        a: Chenin Blanc
+        visual: "map:loire:vouvray"
+        explain: "Vouvray, near Tours, makes Chenin Blanc from dry (sec) to sweet (moelleux), plus sparkling."
+      - choice: "Which country has the most Chenin Blanc vineyards?"
+        options: [South Africa, France, Argentina, Germany]
+        a: South Africa
+        explain: "Chenin Blanc (also called Steen) is South Africa's most planted grape."
+      - tf: "Sémillon is the main grape of sweet Sauternes."
+        truth: true
+        explain: "Its thin skins make it susceptible to Botrytis cinerea, which concentrates the grapes."
+      - blank: "Hunter Valley Sémillon is light when young but ages to flavors of ___ and honey."
+        answers: [toast]
+        options: [strawberry, pepper, banana]
+        explain: "Despite seeing no oak, it develops toasty notes after years in bottle."
+  - title: The aromatic grapes
+    cards:
+      - learn: Perfume in a glass
+        visual: "grape:gewurztraminer"
+        body: |
+          - **Gewürztraminer**: rose, lychee, ginger; low acidity, oily texture (Alsace).
+          - **Muscat**: smells of fresh grapes, orange blossom and peach (Moscato d'Asti, Alsace).
+          - **Viognier**: apricot, peach, honeysuckle; full and silky (Condrieu).
+      - choice: "Lychee and rose petal aromas are typical of…"
+        options: [Gewürztraminer, Cabernet Sauvignon, Chablis, Sauvignon Blanc]
+        a: Gewürztraminer
+        explain: "Gewürztraminer is one of the most aromatic grapes in the world."
+      - choice: "Which grape smells most like fresh grapes?"
+        options: [Muscat, Merlot, Chardonnay, Tempranillo]
+        a: Muscat
+        explain: "Muscat is famous for actually tasting grapey, along with orange blossom and peach."
+      - choice: "Condrieu, in the Northern Rhône, is made from…"
+        options: [Viognier, Syrah, Riesling, Marsanne]
+        a: Viognier
+        visual: "map:rhone:condrieu"
+        explain: "Condrieu is Viognier's spiritual home: apricot, peach and blossom with a rich, silky texture."
+      - tf: "Gewürztraminer typically has high acidity."
+        truth: false
+        explain: "It is notably low in acidity, with a rich, almost oily texture."
+      - match: "Match the aromatic grape to its classic note"
+        pairs: [[Viognier, Apricot], [Gewürztraminer, Lychee], [Muscat, Orange blossom]]
+        explain: "Three perfumed grapes with very distinct signatures."
+  - title: Coastal & mountain whites
+    cards:
+      - learn: Fresh and saline
+        visual: "map:spain:rias-baixas"
+        body: |
+          - **Albariño** (Rías Baixas, Spain): peach, grapefruit and a salty, sea-breeze tang.
+          - **Grüner Veltliner** (Austria): green apple, citrus and white pepper.
+          - **Melon de Bourgogne** (Muscadet): light, lemony and briny, often aged sur lie.
+      - choice: "Which grape is famous in Spain's Rías Baixas?"
+        options: [Albariño, Verdejo, Tempranillo, Palomino]
+        a: Albariño
+        explain: "On Galicia's cool, rainy Atlantic coast, Albariño makes fresh, saline whites perfect for seafood."
+      - choice: "White pepper is a signature aroma of…"
+        options: [Grüner Veltliner, Pinot Grigio, Chenin Blanc, Viognier]
+        a: Grüner Veltliner
+        explain: "Austria's signature grape combines green fruit with a peppery twist."
+      - blank: "Muscadet is often aged ___ lie, on its lees, for extra texture."
+        answers: [sur]
+        options: [sous, vin, cru]
+        explain: "'Sur lie' means on the lees. The wine is bottled straight off them, keeping freshness and a light yeasty note."
+      - tf: "Albariño is the same grape as Portugal's Alvarinho."
+        truth: true
+        explain: "Across the border it makes the finest Vinho Verde in Monção and Melgaço."
+      - choice: "The Wachau, famous for Grüner Veltliner and Riesling, lies along which river?"
+        options: [Danube, Rhine, Loire, Douro]
+        a: Danube
+        visual: "map:austria:wachau"
+        explain: "Steep stone terraces line the Danube west of Krems."

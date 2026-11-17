@@ -1,0 +1,97 @@
+title: In the vineyard
+summary: "The vine's year, climate and weather, and what terroir really means."
+icon: leaf
+lessons:
+  - title: The vine and its year
+    cards:
+      - learn: A year in the vineyard
+        visual: "diagram:vine-cycle"
+        body: |
+          A grapevine follows the same cycle every year:
+
+          - **Budburst**: green shoots emerge in spring.
+          - **Flowering & fruit set**: tiny flowers become berries.
+          - **Véraison**: berries soften and change color.
+          - **Harvest**: in autumn, when sugar, acid and flavor are in balance.
+          - **Dormancy**: the vine rests in winter and is pruned.
+      - learn: What a grape needs
+        body: |
+          Vines need **sunlight** (to make sugar), **warmth** (to ripen), **water** and **nutrients**. Most quality vineyards lie between **30° and 50°** latitude in both hemispheres.
+        visual: "diagram:wine-belt"
+      - choice: "What is véraison?"
+        options: ["When grapes change color and start to ripen", "When the vine flowers", "When the grapes are picked", "Winter pruning"]
+        a: "When grapes change color and start to ripen"
+        explain: "At véraison black grapes turn from green to purple, white grapes become translucent, and sugar starts to build fast."
+      - choice: "Most of the world's vineyards lie between which latitudes?"
+        options: ["30° and 50°", "0° and 20°", "50° and 70°", "10° and 30°"]
+        a: "30° and 50°"
+        visual: "diagram:wine-belt"
+        explain: "Closer to the equator it is too hot (no winter rest); closer to the poles it is too cold to ripen grapes."
+      - blank: "In the Northern Hemisphere, harvest usually happens in September and ___."
+        answers: [October]
+        options: [March, June, January]
+        explain: "In the Southern Hemisphere, the seasons flip: harvest falls around February to April."
+      - match: "Put each stage with its season (Northern Hemisphere)"
+        pairs: [[Budburst, Spring], [Véraison, Summer], [Harvest, Autumn], [Dormancy, Winter]]
+        explain: "Flowering also falls in late spring, and fruit set follows in early summer."
+  - title: Climate & weather
+    cards:
+      - learn: Cool vs warm climates
+        visual: "diagram:climate"
+        body: |
+          **Climate** is a region's long-term average; **weather** is what happens in a given year.
+
+          - **Cool climates**: higher acidity, lower alcohol, lighter body, green and citrus fruit (or red fruit in reds).
+          - **Warm climates**: lower acidity, higher alcohol, fuller body, stone, tropical and black fruit.
+      - learn: Natural air conditioning
+        body: |
+          Warm regions can still make fresh wines thanks to:
+
+          - **Altitude**: temperatures drop about 0.6 °C every 100 m.
+          - **Ocean currents and fog**: California's Pacific fog, Chile's Humboldt Current.
+          - **Large rivers and lakes**, which moderate temperatures.
+      - choice: "A cool-climate wine typically has…"
+        options: ["Higher acidity and lower alcohol", "Lower acidity and higher alcohol", "More tannin and sugar", "Black fruit and jammy flavors"]
+        a: "Higher acidity and lower alcohol"
+        explain: "Less heat means less sugar (so less alcohol) and more acid retained in the grapes."
+      - tf: "Weather explains why the same wine can vary from vintage to vintage."
+        truth: true
+        explain: "A cold spring, a hot summer or autumn rain can change a vintage. That is why vintages matter most in marginal climates."
+      - choice: "How do high-altitude vineyards in hot countries keep wines fresh?"
+        options: ["Cooler temperatures at altitude", "More rainfall", "Less sunlight", "Richer soils"]
+        a: "Cooler temperatures at altitude"
+        explain: "Argentina's Mendoza vineyards sit at 800–1,500 m, where cool nights preserve acidity."
+        visual: "map:south-america:uco-valley"
+      - blank: "Warm-climate Chardonnay tastes of tropical fruit; cool-climate Chardonnay tastes of green ___ and citrus."
+        answers: [apple]
+        options: [pepper, olive, banana]
+        explain: "The same grape can taste very different depending on how much warmth it receives."
+  - title: Terroir
+    cards:
+      - learn: A sense of place
+        visual: "map:burgundy"
+        body: |
+          **Terroir** is everything about a site: soil, slope, aspect, altitude, climate and water. In Burgundy, neighboring vineyards a few meters apart can make very different wines.
+      - learn: Slopes, soil and water
+        body: |
+          - **Slopes** facing the sun (south in the north, north in the south) get more heat.
+          - **Well-drained soils** (gravel, slate, chalk) stress vines gently, giving smaller, more concentrated berries.
+          - **Stony soils** store heat and release it at night.
+          - Too much water gives big, diluted grapes.
+      - choice: "In the Northern Hemisphere, which slope direction receives the most sun?"
+        options: [South-facing, North-facing, East only, It makes no difference]
+        a: South-facing
+        explain: "South-facing slopes catch more direct sunlight, which is vital in cool regions like the Mosel and Burgundy."
+      - tf: "Terroir includes soil, slope and local climate."
+        truth: true
+        explain: "Terroir is the whole natural environment of a vineyard, and many add the human traditions of a place."
+      - choice: "Why are well-drained gravel soils prized in the Médoc?"
+        options: ["They drain water and store heat", "They are rich in nutrients", "They keep vines very wet", "They block sunlight"]
+        a: "They drain water and store heat"
+        visual: "map:bordeaux:haut-medoc"
+        explain: "Gravel warms up and drains quickly, which helps late-ripening Cabernet Sauvignon."
+      - blank: "The Mosel's steep slate slopes absorb and reflect ___ onto the vines."
+        answers: [heat]
+        options: [rain, fog, shade]
+        explain: "In such a northerly region, every bit of warmth counts."
+        visual: "map:germany:mosel"

@@ -1,0 +1,27 @@
+- title: Appearance
+  icon: eye
+  items:
+    - {name: Clarity, scale: [Clear, Hazy], tip: "Most wines are clear. Haze can mean a fault, or an unfiltered natural wine."}
+    - {name: Intensity, scale: [Pale, Medium, Deep], tip: "Look down through the glass at the core. Can you see the stem through a red?"}
+    - {name: Color, scale: [Lemon-green, Lemon, Gold, Amber, Brown], tip: "For whites. Reds run **purple → ruby → garnet → tawny → brown**; rosés are **pink, salmon, orange**."}
+- title: Nose
+  icon: nose
+  items:
+    - {name: Condition, scale: [Clean, Unclean], tip: "Musty, wet-cardboard notes suggest cork taint (TCA). Flat bruised-apple notes suggest oxidation."}
+    - {name: Intensity, scale: [Light, Medium−, Medium, Medium+, Pronounced], tip: "Do the aromas leap out, or do you have to search for them?"}
+    - {name: Development, scale: [Youthful, Developing, Fully developed, Tired], tip: "Only fresh fruit means youthful. Tertiary notes (leather, honey, nuts) mean it is developing."}
+    - {name: Characteristics, scale: [Primary, Secondary, Tertiary], tip: "Work through the aroma families: fruit, floral, herbal, spice, then winemaking and ageing notes."}
+- title: Palate
+  icon: mouth
+  items:
+    - {name: Sweetness, scale: [Dry, Off-dry, Medium, Sweet, Luscious], tip: "Feel it on the tip of the tongue. Ripe fruit flavors can feel sweet in a dry wine, so be careful."}
+    - {name: Acidity, scale: [Low, Medium−, Medium, Medium+, High], tip: "How much does your mouth water? How sharp is it on the sides of the tongue?"}
+    - {name: Tannin, scale: [Low, Medium−, Medium, Medium+, High], tip: "The drying, gripping feeling on gums and teeth. Note its texture too: fine, ripe, coarse or green."}
+    - {name: Alcohol, scale: [Low, Medium, High], tip: "A warming feeling at the back of the throat. Below 11% is low; 14% and above is high."}
+    - {name: Body, scale: [Light, Medium−, Medium, Medium+, Full], tip: "The weight of the wine in your mouth: think skimmed milk versus whole milk versus cream."}
+    - {name: Finish, scale: [Short, Medium−, Medium, Medium+, Long], tip: "How long do pleasant flavors linger after swallowing or spitting?"}
+- title: Conclusions
+  icon: checkmark.seal
+  items:
+    - {name: Quality, scale: [Faulty, Poor, Acceptable, Good, Very good, Outstanding], tip: "Use **BLIC**: Balance, Length, Intensity and Complexity. The more boxes ticked, the higher the quality."}
+    - {name: Readiness, scale: [Too young, Can drink now, Drink now, Too old], tip: "Does it have the fruit, acid and tannin to improve? Or is it at its peak now?"}

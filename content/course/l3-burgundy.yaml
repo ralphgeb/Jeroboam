@@ -1,0 +1,88 @@
+title: Burgundy & Beaujolais
+summary: "The Côte d'Or hierarchy, Chablis, the Mâconnais and the Beaujolais crus."
+icon: square.grid.3x3
+lessons:
+  - title: The Côte d'Or
+    cards:
+      - learn: The golden slope
+        visual: "map:burgundy:cote-de-nuits,cote-de-beaune"
+        body: |
+          A narrow, east-facing escarpment of limestone and marl south of Dijon.
+
+          - **Côte de Nuits** (north): almost all red. Gevrey-Chambertin, Chambolle-Musigny, Vougeot, Vosne-Romanée, Nuits-Saint-Georges.
+          - **Côte de Beaune** (south): great whites (Meursault, Puligny- and Chassagne-Montrachet) and reds (Pommard, Volnay, Corton).
+      - learn: The quality pyramid
+        body: |
+          - **Grand Cru** (33 vineyards; names like Le Chambertin or Le Montrachet appear alone on the label)
+          - **Premier Cru** (village + vineyard, e.g. Meursault 1er Cru Perrières)
+          - **Village** (e.g. Gevrey-Chambertin)
+          - **Regional** (Bourgogne)
+
+          The best sites sit mid-slope, with ideal drainage and sun.
+      - choice: "Which half of the Côte d'Or is most famous for white wine?"
+        options: [Côte de Beaune, Côte de Nuits, Côte Chalonnaise, Mâconnais]
+        a: Côte de Beaune
+        explain: "Meursault, Puligny-Montrachet, Chassagne-Montrachet and Corton-Charlemagne make the world's most revered Chardonnay."
+      - choice: "Approximately how many Grand Cru vineyards does Burgundy have?"
+        options: ["33", "5", "150", "1,000"]
+        a: "33"
+        explain: "Together they make only about 1–2% of Burgundy's wine."
+      - tf: "In the Côte d'Or, the finest vineyards are usually at the bottom of the slope."
+        truth: false
+        explain: "Mid-slope sites usually have the best balance of drainage, soil depth and sun."
+      - match: "Match the wine to its part of Burgundy"
+        pairs: [[Meursault, Côte de Beaune], [Vosne-Romanée, Côte de Nuits], [Pouilly-Fuissé, Mâconnais], [Mercurey, Côte Chalonnaise]]
+        explain: "The Côte de Nuits is red country; the great whites shine in the southern Côte de Beaune; the Mâconnais and Chalonnaise offer value."
+  - title: Chablis & the south
+    cards:
+      - learn: Chablis
+        visual: "map:burgundy:chablis"
+        body: |
+          Far to the north-west, on **Kimmeridgian** limestone rich in fossilized oyster shells. Chardonnay here is **steely**, with green apple, lemon and wet stones. Levels: Petit Chablis, Chablis, Premier Cru and **seven Grand Cru** climats on one slope.
+
+          Frost is the big risk, fought with heaters and sprinklers.
+      - learn: Chalonnaise & Mâconnais
+        visual: "map:burgundy:cote-chalonnaise,maconnais"
+        body: |
+          - **Côte Chalonnaise**: Mercurey, Givry, Rully, Montagny. Value Burgundy.
+          - **Mâconnais**: warmer and riper Chardonnay: Mâcon-Villages, **Pouilly-Fuissé**, **Saint-Véran**.
+      - choice: "The soil of Chablis is famous for…"
+        options: ["Kimmeridgian limestone with fossil oyster shells", "Volcanic basalt", "Gravel banks", "Red terra rossa"]
+        a: "Kimmeridgian limestone with fossil oyster shells"
+        explain: "Many link its minerality to these ancient marine soils, also found in Sancerre and the Côte des Bar."
+      - tf: "Pouilly-Fuissé is a Chardonnay from the Mâconnais."
+        truth: true
+        explain: "Don't confuse it with Pouilly-Fumé, a Sauvignon Blanc from the Loire."
+      - choice: "What is the main climatic threat in Chablis?"
+        options: [Spring frost, Drought, Excessive heat, Hurricanes]
+        a: Spring frost
+        explain: "Being far north, Chablis often loses buds to spring frost."
+      - blank: "Chablis has ___ Grand Cru climats, all on a single slope."
+        answers: ["seven"]
+        options: ["three", "twenty", "one"]
+        explain: "Including Les Clos, Vaudésir and Valmur, on a south-west-facing hill above the town."
+  - title: Beaujolais
+    cards:
+      - learn: Gamay on granite
+        visual: "map:burgundy:beaujolais"
+        body: |
+          Granite hills in the north, clay and limestone in the south.
+
+          - **Beaujolais** and **Nouveau**: light, fruity, often carbonic.
+          - **Beaujolais-Villages**: a step up.
+          - **The ten crus** (Fleurie, Morgon, Moulin-à-Vent and more): more structure; some age for a decade.
+      - choice: "How many Beaujolais crus are there?"
+        options: ["10", "3", "33", "5"]
+        a: "10"
+        explain: "From north to south: Saint-Amour, Juliénas, Chénas, Moulin-à-Vent, Fleurie, Chiroubles, Morgon, Régnié, Brouilly and Côte de Brouilly."
+      - tf: "Beaujolais crus usually show the word 'Beaujolais' prominently on the label."
+        truth: false
+        explain: "Crus usually just show the village name, such as Morgon or Fleurie."
+      - choice: "Which cru is known for the most powerful, age-worthy Beaujolais?"
+        options: [Moulin-à-Vent, Chiroubles, Saint-Amour, Régnié]
+        a: Moulin-à-Vent
+        explain: "Named after its windmill. Its manganese-rich granite gives structured, long-lived wines."
+      - blank: "Most Beaujolais lies on ___ soils in the northern hills."
+        answers: [granite]
+        options: [chalk, gravel, slate]
+        explain: "Granite gives the crus their structure and floral perfume."

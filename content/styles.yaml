@@ -1,0 +1,176 @@
+- id: light-white
+  name: Light, crisp whites
+  category: Still wines
+  summary: "Pale, high in acidity, unoaked and refreshing."
+  how: "Cool climates or early picking keep acidity high and alcohol moderate. Fermented cool in stainless steel and released young."
+  taste: "Citrus, green apple and pear; light body; zesty finish."
+  examples: [Muscadet, Pinot Grigio, Chablis, Albariño, Vinho Verde, Picpoul de Pinet]
+  visual: "glass:lemon-green"
+- id: aromatic-white
+  name: Aromatic whites
+  category: Still wines
+  summary: "Perfumed grapes that smell of flowers, spice and fruit."
+  how: "Usually unoaked, so the grape's own aromas (terpenes) take center stage."
+  taste: "Rose, lychee, blossom, peach and citrus; dry to off-dry."
+  examples: [Riesling, Gewürztraminer, Muscat, Torrontés, Viognier]
+  visual: "grape:gewurztraminer"
+- id: full-white
+  name: Full-bodied whites
+  category: Still wines
+  summary: "Rich, round whites, often with oak and malolactic conversion."
+  how: "Riper fruit from warmer sites, fermentation or ageing in oak, lees stirring (bâtonnage) and malolactic conversion add weight and texture."
+  taste: "Ripe stone and tropical fruit, butter, vanilla, toast; creamy texture."
+  examples: [Oaked Chardonnay, Meursault, White Rioja, Marsanne-Roussanne, White Burgundy]
+  visual: "glass:gold"
+- id: rose
+  name: Rosé
+  category: Still wines
+  summary: "Pink wines made from black grapes with brief skin contact."
+  how: "Skins soak in the juice for hours rather than days (or are pressed directly), then the juice is fermented cool like a white wine."
+  taste: "Strawberry, raspberry, citrus and melon; usually dry and fresh."
+  examples: [Provence rosé, Tavel, Rosado from Navarra, White Zinfandel]
+  visual: "flow:rose-making"
+- id: orange-wine
+  name: Orange wine
+  category: Still wines
+  summary: "White grapes fermented on their skins like a red."
+  how: "Skin contact for days or months gives amber color, texture and some tannin. An ancient method from Georgia, where wines are made in clay qvevri."
+  taste: "Dried apricot, orange peel, tea and nuts; grippy, savory finish."
+  examples: [Georgian qvevri wines, Friuli Ribolla Gialla, Slovenian Rebula]
+  visual: "glass:amber"
+- id: light-red
+  name: Light reds
+  category: Still wines
+  summary: "Pale, fresh and fruity reds with soft tannins."
+  how: "Thin-skinned grapes, cooler climates and gentle extraction. Often best served lightly chilled."
+  taste: "Red cherry, raspberry, cranberry; high acidity, low tannin."
+  examples: [Beaujolais, Pinot Noir, Valpolicella, Zweigelt, Frappato]
+  visual: "colors:red"
+- id: medium-red
+  name: Medium-bodied reds
+  category: Still wines
+  summary: "The versatile middle: food-friendly reds with moderate tannin."
+  how: "Moderate climates and balanced extraction; often some oak."
+  taste: "Red and black fruit, sometimes herbs, spice and earth."
+  examples: [Chianti, Rioja Crianza, Merlot, Côtes du Rhône, Barbera]
+  visual: "grape:sangiovese"
+- id: full-red
+  name: Full-bodied reds
+  category: Still wines
+  summary: "Deep, powerful reds with high tannin and alcohol."
+  how: "Thick-skinned grapes, warm sunny climates, long extraction and new oak."
+  taste: "Black fruit, spice, vanilla, chocolate; firm tannins and a long finish."
+  examples: [Napa Cabernet, Barossa Shiraz, Barolo, Malbec, Amarone]
+  visual: "grape:cabernet-sauvignon"
+- id: champagne-style
+  name: Champagne
+  category: Sparkling wines
+  summary: "The benchmark sparkling wine, made by the traditional method in northern France."
+  how: "Second fermentation in bottle, then at least 15 months on lees (36 for vintage). Mostly Chardonnay, Pinot Noir and Meunier."
+  taste: "Citrus, apple, biscuit, brioche and toast; fine persistent bubbles; high acidity."
+  examples: [Non-vintage Brut, Blanc de Blancs, Blanc de Noirs, Rosé Champagne, Vintage Champagne]
+  visual: "flow:traditional-method"
+- id: cava
+  name: Cava
+  category: Sparkling wines
+  summary: "Spain's traditional-method sparkling wine, mostly from Penedès."
+  how: "Traditional method with native grapes Macabeo, Xarel·lo and Parellada; minimum nine months on lees."
+  taste: "Citrus, apple, almond and a gentle toastiness; great value."
+  examples: [Cava Brut, Cava de Guarda Superior, Corpinnat]
+  visual: "map:spain:penedes"
+- id: prosecco
+  name: Prosecco
+  category: Sparkling wines
+  summary: "Light, fruity Italian fizz from the Glera grape, made in tanks."
+  how: "Tank method: second fermentation in a pressure tank, keeping fresh pear, apple and floral aromas."
+  taste: "Pear, green apple, melon, white flowers; light body; often Extra Dry (slightly sweet)."
+  examples: [Prosecco DOC, Conegliano Valdobbiadene DOCG, Cartizze]
+  visual: "flow:tank-method"
+- id: cremant
+  name: Crémant & other traditional method
+  category: Sparkling wines
+  summary: "French traditional-method sparkling wines from outside Champagne, plus New World versions."
+  how: "Same method as Champagne, usually with shorter lees ageing and local grapes."
+  taste: "Fresh fruit with some bready notes; excellent value."
+  examples: [Crémant de Loire, Crémant d'Alsace, Crémant de Bourgogne, Franciacorta, English sparkling wine, Tasmanian sparkling]
+  visual: "flow:traditional-method"
+- id: asti
+  name: Asti & Moscato d'Asti
+  category: Sparkling wines
+  summary: "Sweet, low-alcohol, grapey sparklers from Piedmont."
+  how: "A single fermentation in a pressure tank, stopped early by chilling so sugar and some bubbles remain (Asti method)."
+  taste: "Grapes, peach, orange blossom; sweet, light, about 5–7.5% abv."
+  examples: ["Asti DOCG (fully sparkling)", "Moscato d'Asti (gently sparkling)"]
+  visual: "grape:muscat"
+- id: noble-sweet
+  name: Noble rot wines
+  category: Sweet wines
+  summary: "Luscious wines from grapes concentrated by Botrytis cinerea."
+  how: "In misty autumn mornings and sunny afternoons, botrytis pierces the skins; water evaporates and sugar, acid and flavor concentrate. Grapes are picked berry by berry over several passes."
+  taste: "Honey, apricot, marmalade, ginger and saffron; very sweet yet balanced by acidity."
+  examples: [Sauternes, Barsac, Tokaji Aszú, Beerenauslese, Trockenbeerenauslese]
+  visual: "flow:sweet-wines"
+- id: icewine
+  name: Icewine
+  category: Sweet wines
+  summary: "Pressed from grapes frozen on the vine."
+  how: "Grapes hang into winter and freeze at about −8 °C or below. Pressed while frozen, only a few drops of concentrated sugary juice emerge."
+  taste: "Pure, intense fruit (peach, lychee, citrus) with vivid acidity; no botrytis notes."
+  examples: ["Canadian Icewine (Vidal, Riesling)", "German Eiswein"]
+  visual: "diagram:sweetness"
+- id: dried-grape
+  name: Dried-grape wines
+  category: Sweet wines
+  summary: "Grapes dried after harvest to concentrate sugar."
+  how: "Bunches dry on mats, racks or in lofts for weeks or months (appassimento or passito) before pressing."
+  taste: "Raisin, fig, dried cherry, nuts; sweet, or dry and powerful if fully fermented (Amarone)."
+  examples: [Recioto della Valpolicella, Vin Santo, Passito di Pantelleria, Amarone (dry), Straw wine (vin de paille)]
+  visual: "glass:amber"
+- id: port-ruby
+  name: Ruby, Reserve & Vintage Port
+  category: Fortified wines
+  summary: "Deep, sweet, fruit-driven fortified reds from the Douro."
+  how: "Fortified mid-fermentation, then aged in large vessels or bottle to preserve fruit. Vintage Port spends about two years in wood, then ages for decades in bottle."
+  taste: "Blackberry, black cherry, chocolate, spice; sweet, tannic, about 20% abv."
+  examples: [Ruby, Reserve Ruby, Late Bottled Vintage (LBV), Single Quinta Vintage, Vintage Port]
+  visual: "flow:port"
+- id: port-tawny
+  name: Tawny Port
+  category: Fortified wines
+  summary: "Port aged in small casks for nutty, oxidative character."
+  how: "Long oxidative ageing in small barrels turns the wine tawny. Indications of age (10, 20, 30, 40 years) are blends showing an average character."
+  taste: "Walnut, toffee, caramel, dried fig and orange peel."
+  examples: [10 Year Old Tawny, 20 Year Old Tawny, Colheita]
+  visual: "glass:tawny"
+- id: sherry-dry
+  name: Fino & Manzanilla
+  category: Fortified wines
+  summary: "Bone-dry, pale Sherries aged under a blanket of flor yeast."
+  how: "Fortified to about 15% so flor can grow. The flor protects the wine from oxygen and adds bread dough and almond notes."
+  taste: "Almond, bread dough, chamomile, saline; dry and tangy. Serve chilled."
+  examples: [Fino, "Manzanilla (from Sanlúcar de Barrameda)", "Amontillado (flor, then oxidative)"]
+  visual: "flow:sherry"
+- id: sherry-oxidative
+  name: Oloroso & sweet Sherries
+  category: Fortified wines
+  summary: "Sherries aged in contact with oxygen; dry unless sweetened."
+  how: "Fortified to about 17%, which prevents flor. Oxidative ageing in a solera darkens the wine and builds nutty flavors. Sweet styles use PX or Moscatel, or are blended (Cream)."
+  taste: "Walnut, toffee, leather, dried fruit; PX is raisiny and syrupy."
+  examples: [Oloroso, Palo Cortado, Cream, Pedro Ximénez]
+  visual: "diagram:solera"
+- id: madeira
+  name: Madeira
+  category: Fortified wines
+  summary: "Heated, oxidized fortified wine from a Portuguese island; nearly indestructible."
+  how: "Fortified, then heated (estufagem in tanks, or canteiro in warm lofts for years). Styles run from dry Sercial to rich Malmsey."
+  taste: "Caramel, toffee, walnut, orange peel; tangy acidity whatever the sweetness."
+  examples: [Sercial (dry), Verdelho, Bual, Malmsey (sweet)]
+  visual: "glass:amber"
+- id: vdn
+  name: Vins doux naturels
+  category: Fortified wines
+  summary: "Southern French sweet wines fortified during fermentation."
+  how: "Grape spirit added early, like Port, keeping natural grape sugar. Made from Muscat (fresh, floral) or Grenache (Banyuls, Maury: red, sometimes oxidative)."
+  taste: "Muscat: orange blossom, grape, peach. Grenache: red fruit, chocolate, coffee."
+  examples: [Muscat de Beaumes-de-Venise, Muscat de Rivesaltes, Banyuls, Maury]
+  visual: "grape:muscat"

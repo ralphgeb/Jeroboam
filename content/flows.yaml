@@ -1,0 +1,92 @@
+- id: fermentation
+  title: Alcoholic fermentation
+  steps:
+    - {icon: circle.grid.3x3.fill, title: Sugar, text: "Ripe grapes are full of sugar (glucose and fructose)."}
+    - {icon: allergens, title: Yeast, text: "Yeast, natural or added, feeds on the sugar."}
+    - {icon: drop.fill, title: Alcohol, text: "Sugar becomes **alcohol** and **carbon dioxide**, plus heat and flavor compounds."}
+    - {icon: bubbles.and.sparkles, title: CO₂, text: "Usually escapes. Trap it and you get bubbles."}
+- id: white-making
+  title: White winemaking
+  steps:
+    - {icon: basket, title: Harvest, text: "Grapes picked at the right balance of sugar and acid, often in the cool of morning."}
+    - {icon: arrow.down.to.line, title: Crush & press, text: "Juice is separated from skins **before** fermentation, so the wine stays pale."}
+    - {icon: thermometer.low, title: Cool fermentation, text: "Usually 12–22 °C in stainless steel to keep fresh fruit aromas."}
+    - {icon: cylinder.split.1x2, title: Optional maturation, text: "On lees, in oak, or with malolactic conversion for richer styles."}
+    - {icon: line.3.horizontal.decrease, title: Clarify & bottle, text: "Fined, filtered, stabilized and bottled."}
+- id: red-making
+  title: Red winemaking
+  steps:
+    - {icon: basket, title: Harvest, text: "Black grapes picked when skins and seeds are ripe."}
+    - {icon: arrow.down.to.line, title: Crush, text: "Grapes are lightly crushed; juice stays **with the skins**."}
+    - {icon: thermometer.medium, title: Warm fermentation, text: "20–32 °C extracts color and tannin. The cap of skins is punched down or pumped over."}
+    - {icon: hourglass, title: Maceration, text: "Skins may stay in after fermentation to extract more."}
+    - {icon: arrow.down.to.line.compact, title: Press, text: "The new wine is drained and the skins pressed."}
+    - {icon: cylinder.split.1x2, title: Maturation, text: "Malolactic conversion, then months or years in tank or oak before bottling."}
+- id: rose-making
+  title: Rosé winemaking
+  steps:
+    - {icon: basket, title: Black grapes, text: "Rosé is made from black grapes."}
+    - {icon: clock, title: Short skin contact, text: "A few hours to a couple of days, just enough for a pink color."}
+    - {icon: arrow.down.to.line.compact, title: Run off or press, text: "Juice is separated from the skins, or grapes are pressed directly."}
+    - {icon: thermometer.low, title: Ferment like a white, text: "Cool temperatures keep fresh red-fruit aromas."}
+- id: traditional-method
+  title: Traditional method
+  steps:
+    - {icon: drop, title: Base wine, text: "A high-acid, still, dry wine, often a blend."}
+    - {icon: plus.circle, title: Liqueur de tirage, text: "Wine, sugar and yeast are added and the bottle is sealed with a crown cap."}
+    - {icon: bubbles.and.sparkles, title: Second fermentation, text: "In the bottle. The CO₂ is trapped and dissolves: the wine becomes sparkling."}
+    - {icon: hourglass, title: Ageing on lees, text: "Months to years in contact with dead yeast: biscuit, bread and brioche aromas (autolysis)."}
+    - {icon: arrow.triangle.2.circlepath, title: Riddling, text: "Bottles are turned and tilted until the yeast collects in the neck."}
+    - {icon: snowflake, title: Disgorgement, text: "The neck is frozen and the plug of yeast shoots out."}
+    - {icon: drop.halffull, title: Dosage, text: "A little wine and sugar sets the sweetness, from Brut Nature to Doux."}
+- id: tank-method
+  title: Tank method
+  steps:
+    - {icon: drop, title: Base wine, text: "Often from aromatic grapes such as Glera."}
+    - {icon: cylinder, title: Second fermentation in tank, text: "In a large sealed pressure tank, not in bottle."}
+    - {icon: line.3.horizontal.decrease, title: Filter & bottle, text: "Filtered and bottled under pressure, ready to drink."}
+    - {icon: leaf, title: Result, text: "Fresh, fruity and floral, with little or no yeasty character. Prosecco is the best-known example."}
+- id: carbonic
+  title: Carbonic maceration
+  steps:
+    - {icon: square.stack.3d.up, title: Whole bunches, text: "Uncrushed bunches go into a vessel filled with carbon dioxide."}
+    - {icon: bolt.horizontal, title: Fermentation inside the berry, text: "Without oxygen, an enzyme starts converting sugar to alcohol inside each grape."}
+    - {icon: arrow.down.to.line.compact, title: Press, text: "Berries burst or are pressed; fermentation finishes as normal."}
+    - {icon: heart, title: Result, text: "Deep color, soft tannins, and aromas of banana, kirsch and bubblegum: classic Beaujolais Nouveau."}
+- id: sweet-wines
+  title: Ways to make sweet wine
+  steps:
+    - {icon: hand.raised, title: Stop the fermentation, text: "Chill, filter or add alcohol (fortification) while sugar remains."}
+    - {icon: sun.max, title: Late harvest, text: "Leave grapes on the vine to ripen and shrivel: Spätlese, Vendanges Tardives."}
+    - {icon: allergens, title: Noble rot, text: "*Botrytis cinerea* pierces the skins and concentrates sugar and acid: Sauternes, Tokaji, Beerenauslese."}
+    - {icon: snowflake, title: Frozen grapes, text: "Grapes freeze on the vine and are pressed frozen, leaving concentrated juice: Icewine, Eiswein."}
+    - {icon: sun.haze, title: Dried grapes, text: "Grapes are dried after picking (passito): Recioto, Vin Santo, Pedro Ximénez."}
+    - {icon: plus.circle, title: Sweet reserve, text: "Unfermented grape juice blended back into dry wine."}
+- id: port
+  title: How Port is made
+  steps:
+    - {icon: basket, title: Douro grapes, text: "Touriga Nacional, Touriga Franca and other native black grapes."}
+    - {icon: figure.walk, title: Intense extraction, text: "Traditionally foot-trodden in stone lagares; now often robotic treaders."}
+    - {icon: drop.fill, title: Fortify early, text: "Halfway through fermentation, grape spirit (77% abv) is added. Yeast dies and sugar remains."}
+    - {icon: cylinder.split.1x2, title: Mature, text: "**Ruby** styles in large vessels to keep fruit; **tawny** styles in small casks for oxidative, nutty character."}
+- id: sherry
+  title: How Sherry is made
+  steps:
+    - {icon: basket, title: Palomino base wine, text: "A neutral, dry white from the chalky albariza soils around Jerez."}
+    - {icon: drop.fill, title: Fortification, text: "To 15–15.5% for biological ageing (fino) or 17% for oxidative ageing (oloroso)."}
+    - {icon: cloud, title: Flor or oxygen, text: "**Flor**, a layer of yeast, protects Fino and Manzanilla from oxygen. Without flor, Oloroso oxidizes and darkens."}
+    - {icon: square.stack.3d.down.right, title: Solera, text: "Fractional blending across rows of barrels keeps the style consistent year after year."}
+- id: tasting
+  title: The four steps of tasting
+  steps:
+    - {icon: eye, title: Look, text: "Clarity, intensity and color, against a white background."}
+    - {icon: nose, title: Smell, text: "Swirl, then sniff. Intensity first, then the aroma families."}
+    - {icon: mouth, title: Taste, text: "Sweetness, acidity, tannin, alcohol, body, flavors and the length of the finish."}
+    - {icon: checkmark.seal, title: Conclude, text: "Quality and readiness: is it balanced, intense, complex and long?"}
+- id: oak
+  title: What oak does
+  steps:
+    - {icon: cylinder.split.1x2, title: New barrels, text: "Add flavor: vanilla, toast, clove, coconut, smoke."}
+    - {icon: wind, title: Slow oxygen, text: "Tiny amounts of oxygen through the staves soften tannin and deepen color."}
+    - {icon: arrow.triangle.2.circlepath, title: Old barrels, text: "Add little flavor but still allow gentle oxygen exposure."}
+    - {icon: square.grid.3x3, title: Cheaper options, text: "Oak chips or staves in a tank add oak flavors quickly, without the oxygen effect."}

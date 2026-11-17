@@ -1,0 +1,114 @@
+title: The New World
+summary: "USA, Chile and Argentina, Australia, New Zealand and South Africa."
+icon: globe.americas
+lessons:
+  - title: California, Oregon & Washington
+    cards:
+      - learn: The West Coast
+        visual: "map:usa-west"
+        body: |
+          - **California**: Mediterranean climate cooled by Pacific fog. Napa (Cabernet), Sonoma (Pinot, Chardonnay, Zinfandel), the Central Coast (Pinot in the Santa Rita Hills, Rhône varieties in Paso Robles), Lodi (old-vine Zinfandel).
+          - **Oregon**: cool, wet Willamette Valley; Pinot Noir and Pinot Gris.
+          - **Washington**: dry, irrigated Columbia Valley east of the Cascades; Cabernet, Merlot, Syrah, Riesling.
+      - learn: Napa up close
+        visual: "map:napa-sonoma:napa-valley,oakville,rutherford,stags-leap"
+        body: |
+          Napa is cooler in the south (Carneros, near San Pablo Bay) and hotter up-valley toward Calistoga. Famous AVAs include Oakville, Rutherford and Stags Leap District, plus mountain AVAs like Howell Mountain.
+      - choice: "Why does Washington's Columbia Valley need irrigation?"
+        options: ["It lies in the rain shadow of the Cascades", "It is too cold", "The soils hold too much water", "It is on the coast"]
+        a: "It lies in the rain shadow of the Cascades"
+        explain: "Eastern Washington is semi-desert. The Columbia river and its tributaries supply water."
+      - choice: "Which Oregon region is famous for Pinot Noir?"
+        options: [Willamette Valley, Columbia Valley, Lodi, Paso Robles]
+        a: Willamette Valley
+        visual: "map:usa-west:willamette"
+        explain: "Its cool, cloudy climate echoes Burgundy."
+      - tf: "Carneros, in the south of Napa and Sonoma, is cooled by San Pablo Bay."
+        truth: true
+        explain: "Wind and fog from the bay make it ideal for Pinot Noir, Chardonnay and sparkling wine."
+        visual: "map:napa-sonoma:carneros"
+      - blank: "The 1976 Judgment of ___ put Napa Valley on the world map."
+        answers: [Paris]
+        options: [London, Napa, Bordeaux]
+        explain: "Stag's Leap Wine Cellars Cabernet and Chateau Montelena Chardonnay beat top French wines in a blind tasting."
+  - title: Chile & Argentina
+    cards:
+      - learn: Between ocean and Andes
+        visual: "map:south-america"
+        body: |
+          - **Chile**: a narrow strip cooled by the **Humboldt Current** and Andean air. Maipo (Cabernet), Colchagua (Carmenère), Casablanca and Leyda (cool whites, Pinot). Phylloxera-free.
+          - **Argentina**: high-altitude desert. **Mendoza** and the **Uco Valley** for Malbec; **Salta** (Cafayate) for Torrontés at up to 3,000 m.
+      - choice: "Why can Argentina make fresh wines despite intense sun?"
+        options: ["Very high altitude and cold nights", "Coastal fog", "High rainfall", "Northern latitude"]
+        a: "Very high altitude and cold nights"
+        explain: "Altitude gives a big diurnal range. Strong UV also builds thick skins and deep color."
+      - choice: "Which Chilean valley is known for cool-climate Sauvignon Blanc?"
+        options: [Casablanca, Maipo, Colchagua, Maule]
+        a: Casablanca
+        visual: "map:south-america:casablanca"
+        explain: "Morning fog from the Pacific keeps it cool."
+      - tf: "Argentina's vineyards are irrigated with Andean snowmelt."
+        truth: true
+        explain: "Rainfall in Mendoza is only about 200 mm a year."
+      - match: "Match the region to its signature"
+        pairs: [[Salta, Torrontés], [Uco Valley, High-altitude Malbec], [Colchagua, Carmenère], [Maipo, Cabernet Sauvignon]]
+        explain: "Four classic South American pairings."
+  - title: Australia & New Zealand
+    cards:
+      - learn: Australia
+        visual: "map:australia"
+        body: |
+          - **Barossa** & **McLaren Vale**: rich Shiraz, Grenache.
+          - **Clare** & **Eden Valley**: dry, lime-scented Riesling.
+          - **Coonawarra**: Cabernet on terra rossa.
+          - **Margaret River**: Cabernet, Chardonnay.
+          - **Yarra Valley**, **Tasmania**: Pinot, Chardonnay, sparkling.
+          - **Hunter Valley**: Sémillon.
+      - learn: New Zealand
+        visual: "map:new-zealand"
+        body: |
+          A cool maritime country. **Marlborough** Sauvignon Blanc (intense passion fruit and herbs); **Central Otago** and **Martinborough** Pinot Noir; **Hawke's Bay** Bordeaux blends and Syrah from the **Gimblett Gravels**.
+      - choice: "Coonawarra's famous red soil is called…"
+        options: [Terra rossa, Albariza, Llicorella, Kimmeridgian]
+        a: Terra rossa
+        visual: "map:south-australia:coonawarra"
+        explain: "A thin strip of red clay over limestone, about 15 km long, ideal for Cabernet."
+      - choice: "Which New Zealand region is the world's most southerly major wine region?"
+        options: [Central Otago, Marlborough, Hawke's Bay, Gisborne]
+        a: Central Otago
+        visual: "map:new-zealand:central-otago"
+        explain: "Its continental climate, the only one in New Zealand, makes ripe, intense Pinot Noir."
+      - tf: "Clare Valley is known for sweet, oaky Riesling."
+        truth: false
+        explain: "Clare and Eden Valley Rieslings are bone dry, lime-scented and unoaked, and age to toast."
+      - blank: "Hawke's Bay's Gimblett ___ are stony soils prized for Syrah and Bordeaux blends."
+        answers: [Gravels]
+        options: [Slopes, Clays, Sands]
+        explain: "Former riverbed stones that drain well and store heat."
+  - title: South Africa
+    cards:
+      - learn: The Cape
+        visual: "map:south-africa"
+        body: |
+          Mediterranean climate cooled by the **Benguela Current** and the south-easterly **Cape Doctor** wind.
+
+          - **Stellenbosch**: Cabernet, Bordeaux blends, Pinotage.
+          - **Swartland**: old-vine Chenin and Rhône blends.
+          - **Constantia**, **Elgin**, **Walker Bay**: cool-climate whites and Pinot.
+          - **Cap Classique**: traditional-method sparkling.
+      - choice: "What is the 'Cape Doctor'?"
+        options: ["A strong south-easterly wind", "A grape disease", "A winemaking technique", "A wine award"]
+        a: "A strong south-easterly wind"
+        explain: "It cools vineyards and blows away disease."
+      - choice: "Which region led South Africa's old-vine Chenin revival?"
+        options: [Swartland, Constantia, Elgin, Robertson]
+        a: Swartland
+        visual: "map:south-africa:swartland"
+        explain: "Dry-farmed bush vines in a hot, dry region, championed by a new wave of winemakers."
+      - tf: "Vin de Constance is a historic sweet wine once loved by Napoleon."
+        truth: true
+        explain: "Made from Muscat in Constantia since the 1700s and revived in the 1980s."
+      - blank: "South African traditional-method sparkling wine is called Cap ___."
+        answers: [Classique]
+        options: [Crémant, Cava, Brut]
+        explain: "Usually Chardonnay and Pinot Noir, with lees ageing like Champagne."

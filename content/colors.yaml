@@ -1,0 +1,13 @@
+# Appearance colors, following the systematic tasting scale.
+- {id: lemon-green, name: Lemon-green, family: white, hex: "#ECEBB0", rim: "#F6F6DC", note: "Pale with a green tinge. Very young, unoaked, cool-climate whites such as Muscadet, young Riesling or Grüner Veltliner."}
+- {id: lemon, name: Lemon, family: white, hex: "#F0E08E", rim: "#F7F0C6", note: "The most common white color. Most young dry whites, from Sauvignon Blanc to Pinot Grigio."}
+- {id: gold, name: Gold, family: white, hex: "#DDB54E", rim: "#EDD48C", note: "Richer and deeper. Oak-aged or older whites, warm-climate Chardonnay and sweet wines such as Sauternes."}
+- {id: amber, name: Amber, family: white, hex: "#C58132", rim: "#DDA766", note: "Long ageing or deliberate oxidation: old sweet wines, Tokaji, tawny-style fortified wines and orange wines."}
+- {id: brown, name: Brown, family: white, hex: "#7E4A22", rim: "#A87545", note: "Very old or heavily oxidized wine, such as old Oloroso or Pedro Ximénez Sherry. In a table wine, a sign it is past its best."}
+- {id: pink, name: Pink, family: rose, hex: "#F0B4C0", rim: "#F7D3DA", note: "Bright, youthful rosé. Often from Grenache, Pinot Noir or Sangiovese with very short skin contact."}
+- {id: salmon, name: Salmon, family: rose, hex: "#F0AA8E", rim: "#F6CDBA", note: "Pale pink-orange, the classic Provence look. Delicate, dry and fashionable."}
+- {id: orange-rose, name: Orange, family: rose, hex: "#DE8752", rim: "#EDB28C", note: "Deeper orange tones, from oak, age or certain grapes. Some traditional rosados and older rosés."}
+- {id: purple, name: Purple, family: red, hex: "#4B1239", rim: "#7C2E6C", note: "Very young red with a vivid violet rim. Young Syrah, Malbec, Beaujolais or barrel samples."}
+- {id: ruby, name: Ruby, family: red, hex: "#7A1428", rim: "#B03343", note: "The typical young red: bright red core. Most reds in their first few years."}
+- {id: garnet, name: Garnet, family: red, hex: "#76281F", rim: "#A65A42", note: "Red with an orange-brick rim. Older reds, or naturally pale, quick-to-age grapes such as Nebbiolo and Pinot Noir."}
+- {id: tawny, name: Tawny, family: red, hex: "#8C4A24", rim: "#BA7D4A", note: "Brownish orange. Long barrel-aged wines such as Tawny Port, or reds of considerable age."}

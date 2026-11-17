@@ -1,0 +1,96 @@
+title: Sweet & fortified
+summary: "Noble rot, icewine, Port and Sherry."
+icon: drop.halffull
+lessons:
+  - title: How sweet wines are made
+    cards:
+      - learn: Concentrate the sugar
+        visual: "flow:sweet-wines"
+        body: |
+          To make a sweet wine you need more sugar than yeast can ferment, or you stop fermentation early. Winemakers concentrate grapes by:
+
+          - **Late harvest**: leaving them to ripen and shrivel on the vine.
+          - **Noble rot**: Botrytis cinerea pierces the skins.
+          - **Freezing**: icewine.
+          - **Drying** after harvest: passito.
+      - choice: "What is Botrytis cinerea?"
+        options: ["A fungus that concentrates grapes", "A type of yeast for Champagne", "An oak tree species", "A vine pest"]
+        a: "A fungus that concentrates grapes"
+        explain: "Under the right conditions (misty mornings, dry afternoons) it is 'noble rot', making wines like Sauternes and Tokaji."
+      - choice: "Icewine is made from grapes that are…"
+        options: ["Frozen on the vine", "Dried on mats", "Picked unripe", "Fortified"]
+        a: "Frozen on the vine"
+        explain: "Pressed while frozen, only a little concentrated, sugary juice is released. Canada and Germany are famous for it."
+      - tf: "Sauternes is a sweet wine made with grapes affected by noble rot."
+        truth: true
+        explain: "Sémillon and Sauvignon Blanc from Sauternes and Barsac, in southern Bordeaux."
+        visual: "map:bordeaux:sauternes"
+      - blank: "Hungary's famous noble rot wine is Tokaji ___."
+        answers: [Aszú]
+        options: [Rosso, Brut, Fino]
+        explain: "Botrytized aszú berries are soaked in base wine or must, giving luscious, high-acid wines that live for decades."
+      - match: "Match the sweet wine to its method"
+        pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Recioto, Dried grapes]]
+        explain: "Three different routes to sweetness."
+  - title: Port
+    cards:
+      - learn: Fortified mid-fermentation
+        visual: "flow:port"
+        body: |
+          Port comes from Portugal's **Douro Valley**. Halfway through fermentation, **grape spirit** is added. This kills the yeast, leaving a **sweet, strong (about 20% abv)**, deeply colored wine.
+      - learn: Ruby vs tawny
+        visual: "glass:tawny"
+        body: |
+          - **Ruby** styles (Ruby, Reserve, LBV, Vintage): aged to keep fresh black fruit.
+          - **Tawny** styles: aged for years in small casks, becoming brownish with nutty, caramel notes.
+      - choice: "When is grape spirit added to Port?"
+        options: ["During fermentation", "After a year in bottle", "Before crushing", "Never"]
+        a: "During fermentation"
+        explain: "Adding spirit early stops fermentation and keeps the natural grape sugar."
+      - choice: "Port comes from which river valley?"
+        options: [Douro, Loire, Rhône, Mosel]
+        a: Douro
+        visual: "map:portugal:douro"
+        explain: "Grapes grow on steep schist terraces; wines were traditionally shipped down to Porto's lodges in Vila Nova de Gaia."
+      - tf: "Tawny Port gets its nutty flavors from long ageing in small wooden casks."
+        truth: true
+        explain: "Oxygen through the small casks turns the wine tawny and develops walnut, toffee and caramel notes."
+      - blank: "Port is typically about ___% alcohol."
+        answers: ["20"]
+        options: ["12", "8", "40"]
+        explain: "Usually 19–22% abv."
+  - title: Sherry
+    cards:
+      - learn: The world's most misunderstood wine
+        visual: "flow:sherry"
+        body: |
+          Sherry comes from the hot south of Spain around **Jerez**. Most is made from **Palomino** and is **dry**.
+
+          - **Fino & Manzanilla**: aged under **flor** (a layer of yeast); pale, bone dry, tangy, almond and bread.
+          - **Oloroso**: aged with oxygen; dark, nutty, dry.
+          - **Pedro Ximénez**: from sun-dried grapes; black, raisiny, very sweet.
+      - learn: The solera
+        visual: "diagram:solera"
+        body: |
+          Sherry ages in a **solera**, tiers of barrels where younger wine gradually refreshes older wine. The result is consistent year after year, so most Sherry has no vintage.
+      - choice: "What is flor?"
+        options: ["A layer of yeast that protects Fino from oxygen", "A type of oak", "The Sherry grape", "A sweetening agent"]
+        a: "A layer of yeast that protects Fino from oxygen"
+        explain: "It grows on the wine's surface in partly filled barrels, keeping it pale and adding bready, salty notes."
+      - tf: "Most Sherry is sweet."
+        truth: false
+        explain: "Fino, Manzanilla, Amontillado and Oloroso are naturally dry. Sweet styles are Pedro Ximénez, Moscatel and blended Cream Sherry."
+      - choice: "Which Sherry is darkest and sweetest?"
+        options: [Pedro Ximénez, Fino, Manzanilla, Amontillado]
+        a: Pedro Ximénez
+        visual: "glassonly:brown"
+        explain: "PX is made from sun-dried grapes: syrupy, raisined and almost black."
+      - choice: "Manzanilla is a Fino-style Sherry aged in which seaside town?"
+        options: [Sanlúcar de Barrameda, Porto, Reims, Bordeaux]
+        a: Sanlúcar de Barrameda
+        visual: "map:spain:jerez"
+        explain: "Sea air helps flor grow thickly, giving an extra-salty tang."
+      - blank: "Sherry is aged in a fractional blending system called a ___."
+        answers: [solera]
+        options: [barrique, quinta, lagar]
+        explain: "Wine is drawn from the oldest tier and replaced from the next-oldest, and so on."

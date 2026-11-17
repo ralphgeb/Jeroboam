@@ -1,0 +1,111 @@
+title: The great white grapes
+summary: "Chardonnay, Sauvignon Blanc, Riesling and Pinot Grigio: the four whites everyone should know."
+icon: leaf
+lessons:
+  - title: Chardonnay
+    cards:
+      - learn: The chameleon
+        visual: "grape:chardonnay"
+        body: |
+          **Chardonnay** takes on the character of where it grows and how it is made.
+
+          - **Cool climates** (Chablis, Champagne): green apple, lemon, high acidity.
+          - **Warm climates** (California, Australia): peach, pineapple, fuller body.
+          - **Oak and malolactic** add vanilla, toast and butter.
+      - learn: Its home, Burgundy
+        visual: "map:burgundy:chablis,cote-de-beaune,maconnais"
+        body: |
+          All white Burgundy is Chardonnay, from steely **Chablis** in the north to rich **Meursault** in the Côte de Beaune and the ripe wines of the **Mâconnais**.
+      - choice: "Which region makes crisp, unoaked Chardonnay with high acidity?"
+        options: [Chablis, Barossa, Napa Valley, Rioja]
+        a: Chablis
+        visual: "map:burgundy:chablis"
+        explain: "Chablis is Burgundy's coolest, northernmost corner. Its Chardonnay is lean and mineral with green apple and lemon, and often unoaked."
+      - choice: "Buttery aromas in Chardonnay usually come from…"
+        options: [Malolactic conversion, Cold fermentation, Screwcaps, Cool climate]
+        a: Malolactic conversion
+        explain: "During malolactic conversion, bacteria turn sharp malic acid into softer lactic acid, creating diacetyl, which smells of butter."
+      - blank: "Warm-climate Chardonnay shows riper flavors such as ___ and pineapple."
+        answers: [peach]
+        options: [gooseberry, grass, lime]
+        explain: "Warmth ripens the fruit toward stone and tropical flavors. Cool climates keep it in green apple and citrus."
+      - tf: "Chardonnay is one of the main grapes of Champagne."
+        truth: true
+        explain: "Alongside Pinot Noir and Meunier. Champagne made only from Chardonnay is called **Blanc de Blancs**."
+  - title: Sauvignon Blanc
+    cards:
+      - learn: Zesty and green
+        visual: "grape:sauvignon-blanc"
+        body: |
+          **Sauvignon Blanc** is aromatic with high acidity: grapefruit, gooseberry, cut grass and green bell pepper. It is almost always unoaked and drunk young.
+      - learn: Two classic homes
+        visual: "map:new-zealand:marlborough"
+        body: |
+          - **Loire Valley** (Sancerre, Pouilly-Fumé): restrained, flinty and mineral.
+          - **Marlborough, New Zealand**: pungent and exuberant, with passion fruit and fresh herbs.
+      - choice: "Which aroma is typical of Sauvignon Blanc?"
+        options: [Gooseberry, Blackcurrant, Banana, Leather]
+        a: Gooseberry
+        explain: "Gooseberry, grapefruit, grass and green pepper are its signature notes. The green aromas come from compounds called methoxypyrazines."
+      - choice: "Sancerre is a wine from which grape?"
+        options: [Sauvignon Blanc, Chardonnay, Riesling, Chenin Blanc]
+        a: Sauvignon Blanc
+        visual: "map:loire:sancerre"
+        explain: "Like most French wines, Sancerre is named after its place, not its grape. White Sancerre is 100% Sauvignon Blanc."
+      - tf: "Marlborough Sauvignon Blanc is famous for its intense passion fruit and herbaceous aromas."
+        truth: true
+        explain: "Sunny days and cold nights in Marlborough create very intense aromas and crisp acidity."
+      - blank: "Sauvignon Blanc typically has ___ acidity."
+        answers: [high]
+        options: [low, no, medium-minus]
+        explain: "Its crisp, mouthwatering acidity makes it a perfect match for goat cheese and seafood."
+  - title: Riesling
+    cards:
+      - learn: The aristocrat
+        visual: "grape:riesling"
+        body: |
+          **Riesling** has very high acidity and intense aromas of lime, green apple, peach and blossom. It is never oaked for flavor.
+
+          It is made in every style from bone dry to very sweet, and great examples age for decades, developing honey and a famous **petrol** note.
+      - learn: Germany and beyond
+        visual: "map:germany:mosel,rheingau"
+        body: |
+          Germany's **Mosel** makes delicate, low-alcohol Rieslings, often off-dry. **Alsace** and Australia's **Clare** and **Eden** valleys make dry, fuller styles.
+      - choice: "Which aroma is a classic sign of aged Riesling?"
+        options: [Petrol, Vanilla, Black pepper, Butter]
+        a: Petrol
+        explain: "A compound called TDN develops with age and sunlight, giving the distinctive petrol (kerosene) note that Riesling lovers prize."
+      - tf: "Riesling is usually aged in new oak to add vanilla flavors."
+        truth: false
+        explain: "Riesling is prized for pure fruit and acidity, so new oak is avoided. Large old casks or stainless steel are typical."
+      - choice: "Riesling is the most famous grape of which country?"
+        options: [Germany, Spain, Argentina, Italy]
+        a: Germany
+        explain: "Germany grows more Riesling than any other country, especially in the Mosel, Rheingau and Pfalz."
+      - blank: "Riesling can be made in every style from bone dry to very ___."
+        answers: [sweet]
+        options: [tannic, oaky, red]
+        explain: "Its high acidity balances sugar beautifully, so sweet Rieslings never feel cloying."
+  - title: Pinot Grigio
+    cards:
+      - learn: Two names, two styles
+        visual: "grape:pinot-grigio"
+        body: |
+          It is the same grape, with a greyish-pink skin, made in two styles:
+
+          - **Pinot Grigio** (northern Italy): light, crisp, neutral. Lemon, green apple and pear.
+          - **Pinot Gris** (Alsace): fuller, richer, with peach, honey and spice, sometimes off-dry.
+      - choice: "Italian Pinot Grigio is usually…"
+        options: ["Light, crisp and neutral", "Full-bodied and oaky", "Sweet and fortified", "Red and tannic"]
+        a: "Light, crisp and neutral"
+        explain: "Picked early from high-yielding vineyards in the Veneto and Friuli, it is easy, refreshing and drunk young."
+      - tf: "Pinot Gris and Pinot Grigio are the same grape variety."
+        truth: true
+        explain: "Gris (French) and Grigio (Italian) both mean grey. The style differs, not the grape."
+      - match: "Match the grape to its classic aroma"
+        pairs: [[Sauvignon Blanc, Gooseberry], [Riesling, Lime], [Chardonnay, Butter], [Pinot Grigio, Pear]]
+        explain: "Gooseberry and grass for Sauvignon, lime and petrol for Riesling, butter when Chardonnay goes through malolactic, and pear and lemon for Pinot Grigio."
+      - choice: "Alsace Pinot Gris compared to Italian Pinot Grigio is usually…"
+        options: ["Fuller and richer", "Lighter and leaner", "Red", "Sparkling"]
+        a: "Fuller and richer"
+        explain: "Alsace is one of France's sunniest, driest regions, and lower yields give riper, more textured wines."

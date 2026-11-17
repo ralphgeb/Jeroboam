@@ -1,0 +1,110 @@
+title: The great black grapes
+summary: "Cabernet Sauvignon, Merlot, Pinot Noir and Syrah: the reds behind the world's most famous wines."
+icon: circle.hexagongrid
+lessons:
+  - title: Cabernet Sauvignon
+    cards:
+      - learn: The king of reds
+        visual: "grape:cabernet-sauvignon"
+        body: |
+          Small, thick-skinned berries give **deep color, high tannin and high acidity**. Expect blackcurrant, black cherry, green pepper and mint, plus cedar, vanilla and toast from oak.
+      - learn: Bordeaux's Left Bank
+        visual: "map:bordeaux:haut-medoc,pauillac,margaux"
+        body: |
+          Cabernet ripens late, so it needs warmth. On the gravel soils of Bordeaux's **Left Bank** (Médoc, Pauillac, Margaux) it is blended with Merlot. **Napa Valley** and **Coonawarra** make riper single-varietal versions.
+      - choice: "Which aroma is most typical of Cabernet Sauvignon?"
+        options: [Blackcurrant, Lychee, Strawberry, Lemon]
+        a: Blackcurrant
+        explain: "Blackcurrant (cassis) is the signature. Green bell pepper and mint can also appear, and cedar with age."
+      - choice: "Cabernet Sauvignon typically has…"
+        options: ["High tannin", "Low tannin", "No tannin", "Low acidity and low color"]
+        a: "High tannin"
+        explain: "Thick skins and a high ratio of seeds to pulp mean lots of tannin, which is why it ages so well, especially in oak."
+      - tf: "Cabernet Sauvignon is a key grape of Bordeaux's Left Bank."
+        truth: true
+        explain: "Gravel soils drain well and store heat, helping late-ripening Cabernet to ripen fully."
+        visual: "map:bordeaux:medoc,haut-medoc"
+      - blank: "In cooler years, under-ripe Cabernet can smell of green bell ___."
+        answers: [pepper]
+        options: [apple, banana, lychee]
+        explain: "These herbaceous notes come from methoxypyrazines, which fade as grapes ripen."
+  - title: Merlot
+    cards:
+      - learn: Soft and plummy
+        visual: "grape:merlot"
+        body: |
+          **Merlot** gives fuller body, softer tannins and riper fruit than Cabernet: red and black plum, black cherry and chocolate. It ripens earlier, so it suits cooler clay soils.
+      - learn: Bordeaux's Right Bank
+        visual: "map:bordeaux:saint-emilion,pomerol"
+        body: |
+          Merlot is the most planted grape in Bordeaux and stars on the **Right Bank**: **Saint-Émilion** and **Pomerol** (home of Pétrus).
+      - choice: "Compared with Cabernet Sauvignon, Merlot usually has…"
+        options: ["Softer tannins", "Higher tannins", "Higher acidity", "Lighter color"]
+        a: "Softer tannins"
+        explain: "Merlot's thinner skins and plusher fruit make it rounder and more approachable young."
+      - choice: "Which Bordeaux area is dominated by Merlot?"
+        options: [Pomerol, Pauillac, Margaux, Sauternes]
+        a: Pomerol
+        visual: "map:bordeaux:pomerol"
+        explain: "Pomerol's clay soils suit Merlot. Pauillac and Margaux are Left Bank Cabernet country; Sauternes makes sweet whites."
+      - tf: "Merlot is the most widely planted grape in Bordeaux."
+        truth: true
+        explain: "Merlot covers over half of Bordeaux's vineyards, far more than Cabernet Sauvignon."
+      - blank: "Merlot's typical fruit flavors are red and black ___."
+        answers: [plum]
+        options: [currant, gooseberry, lime]
+        explain: "Plum and black cherry, often with chocolate and vanilla from oak."
+  - title: Pinot Noir
+    cards:
+      - learn: Elegance in a glass
+        visual: "grape:pinot-noir"
+        body: |
+          **Pinot Noir** is pale, light in tannin and high in acidity, with red cherry, raspberry and strawberry. With age it develops mushroom, forest floor and game.
+
+          It is thin-skinned and fussy, and does best in **cool climates**.
+      - learn: From Burgundy to the world
+        visual: "map:burgundy:cote-de-nuits,cote-de-beaune"
+        body: |
+          Red **Burgundy** is Pinot Noir. Other great sources include **Champagne** (for sparkling wine), **Oregon**, **Central Otago**, **Sonoma** and Germany (as Spätburgunder).
+      - choice: "Which statement fits Pinot Noir?"
+        options: ["Pale color, high acidity, low tannin", "Deep color, high tannin", "Low acidity, full body", "Always blended with Syrah"]
+        a: "Pale color, high acidity, low tannin"
+        explain: "Thin skins give less color and tannin; cool climates keep acidity high."
+      - choice: "Red Burgundy is made from…"
+        options: [Pinot Noir, Merlot, Gamay, Cabernet Sauvignon]
+        a: Pinot Noir
+        explain: "Red Burgundy from the Côte d'Or is 100% Pinot Noir. Gamay is the grape of Beaujolais, just to the south."
+      - tf: "Pinot Noir prefers hot climates."
+        truth: false
+        explain: "In heat it loses its delicacy and turns jammy. Cool to moderate climates suit it best."
+      - match: "Match the aged Pinot Noir aroma to its family"
+        pairs: [[Raspberry, Primary fruit], [Mushroom, Tertiary], [Vanilla, Oak]]
+        explain: "Fruit comes from the grape; oak adds vanilla; bottle age brings earthy, savory notes like mushroom."
+  - title: Syrah / Shiraz
+    cards:
+      - learn: One grape, two personalities
+        visual: "grape:syrah"
+        body: |
+          **Syrah** (France) and **Shiraz** (Australia) are the same grape.
+
+          - **Northern Rhône Syrah**: blackberry, black pepper, violet, savory and smoky.
+          - **Barossa Shiraz**: ripe blackberry, plum, chocolate and sweet spice, full and rich.
+      - learn: Its homes
+        visual: "map:rhone:hermitage,cote-rotie"
+        body: |
+          In the Northern Rhône, **Hermitage** and **Côte-Rôtie** make some of the world's greatest Syrah. In Australia the **Barossa Valley** made Shiraz famous.
+      - choice: "Which aroma is classic in cool-climate Syrah?"
+        options: [Black pepper, Lychee, Butter, Green apple]
+        a: Black pepper
+        explain: "A compound called rotundone gives the peppery note, strongest in cooler sites."
+      - tf: "Shiraz and Syrah are different grapes."
+        truth: false
+        explain: "They are the same variety. The name often signals the style: 'Shiraz' for riper New World wines, 'Syrah' for more restrained ones."
+      - choice: "Which Australian region is most famous for rich Shiraz?"
+        options: [Barossa Valley, Marlborough, Chablis, Mosel]
+        a: Barossa Valley
+        visual: "map:south-australia:barossa"
+        explain: "The warm Barossa has some of the world's oldest Shiraz vines, some planted in the 1840s."
+      - match: "Match the grape to its classic region"
+        pairs: [[Cabernet Sauvignon, Pauillac], [Merlot, Pomerol], [Pinot Noir, Burgundy], [Syrah, Hermitage]]
+        explain: "Four classic pairings every wine lover should know."

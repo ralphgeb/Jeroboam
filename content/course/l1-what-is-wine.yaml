@@ -1,0 +1,94 @@
+title: What is wine?
+summary: "From grape to glass: fermentation, the main styles and where color comes from."
+icon: drop
+lessons:
+  - title: From grape to glass
+    cards:
+      - learn: Wine is fermented grape juice
+        visual: "flow:fermentation"
+        body: |
+          Ripe grapes are full of sugar. When **yeast** meets that sugar, it turns it into **alcohol** and **carbon dioxide**. This is **alcoholic fermentation**, and it is how every wine begins.
+
+          Yeast lives naturally on grape skins and in wineries, but most winemakers add selected yeast for a reliable result.
+      - learn: Sugar decides strength and sweetness
+        body: |
+          - The more sugar in the grapes, the more alcohol the wine can have.
+          - If fermentation finishes, the wine is **dry**.
+          - If it stops early, some sugar remains and the wine tastes **sweet**.
+      - choice: "What does yeast convert into alcohol during fermentation?"
+        options: [Sugar, Acid, Tannin, Water]
+        a: Sugar
+        explain: "Yeast feeds on the grape's natural sugars (glucose and fructose), producing alcohol and carbon dioxide. Acid, tannin and water are not fermented."
+      - blank: "Fermentation produces alcohol and ___ ___."
+        answers: [carbon, dioxide]
+        options: [oxygen, tannin, sugar, nitrogen]
+        explain: "Carbon dioxide (CO₂) usually escapes as a gas. Trap it in a sealed bottle or tank and you get sparkling wine."
+      - tf: "A wine in which all the sugar has fermented is called dry."
+        truth: true
+        explain: "Dry simply means there is little or no sugar left. It has nothing to do with the drying feeling of tannin."
+      - choice: "If fermentation is stopped while sugar remains, the wine will be…"
+        options: [Sweet, Sparkling, Red, Oaked]
+        a: Sweet
+        explain: "Leftover sugar is called **residual sugar**. It can be kept by chilling and filtering out the yeast, or by adding alcohol, as with Port."
+      - tf: "Riper grapes with more sugar can produce wines with higher alcohol."
+        truth: true
+        explain: "More sugar means more fuel for yeast. That is why wines from hot, sunny regions often reach 14–15% abv, while cool regions give 11–12.5%."
+  - title: Types of wine
+    cards:
+      - learn: Three families of wine
+        body: |
+          - **Still wine**: no bubbles. Most wine is still, at roughly 8–15% alcohol.
+          - **Sparkling wine**: carbon dioxide is trapped in the wine, so it fizzes. Champagne, Prosecco and Cava are examples.
+          - **Fortified wine**: grape spirit is added, raising alcohol to 15–22%. Port and Sherry are the classics.
+      - learn: And three colors
+        visual: "diagram:glass-shapes"
+        body: |
+          Still wines come in **white**, **rosé** and **red**. Sparkling and fortified wines can be any color too. There is red sparkling Lambrusco, pink Champagne and white Port.
+      - choice: "Which of these is a fortified wine?"
+        options: [Port, Prosecco, Chablis, Beaujolais]
+        a: Port
+        explain: "Port has grape spirit added during fermentation, which stops it and leaves a sweet, strong wine (about 20% abv)."
+      - match: "Match each wine to its family"
+        pairs: [[Champagne, Sparkling], [Sherry, Fortified], [Rioja, Still]]
+        explain: "Champagne is sparkling, Sherry is fortified with grape spirit, and Rioja is a still red wine from Spain."
+      - tf: "Fortified wines usually have more alcohol than still wines."
+        truth: true
+        explain: "Adding grape spirit lifts them to about 15–22% abv, compared with about 11–15% for most still wines."
+      - blank: "Wine with bubbles is called ___ wine."
+        answers: [sparkling]
+        options: [still, fortified, rosé, dry]
+        explain: "The bubbles are carbon dioxide from fermentation, trapped in the wine under pressure."
+  - title: Where color comes from
+    cards:
+      - learn: Color lives in the skin
+        visual: "diagram:grape-anatomy"
+        body: |
+          Squeeze almost any grape, black or white, and the juice runs clear. Color, along with **tannin** and many aromas, sits in the **skins**.
+
+          - **White wine**: the juice is separated from the skins *before* fermentation.
+          - **Red wine**: black grapes ferment *with* their skins for days or weeks.
+          - **Rosé**: black grapes spend just a few hours to a couple of days on their skins.
+      - learn: The color spectrum
+        visual: "colors:red"
+        body: |
+          Young reds are purple or ruby and fade to garnet and tawny with age. Whites go the other way: they **deepen** from lemon to gold and amber.
+      - choice: "Where does red wine get its color?"
+        options: [Grape skins, Grape juice, Oak barrels, Grape seeds]
+        a: Grape skins
+        explain: "The pulp of nearly all black grapes is colorless. Pigments called **anthocyanins** in the skins dissolve into the wine during fermentation."
+      - tf: "White wine can be made from black grapes."
+        truth: true
+        explain: "Press black grapes gently and keep the juice away from the skins, and you get white wine. Much Champagne is made this way: Blanc de Noirs."
+      - choice: "How is most rosé made?"
+        options: ["Black grapes with brief skin contact", "Mixing white and red wine", "Adding red food coloring", "White grapes aged in oak"]
+        a: "Black grapes with brief skin contact"
+        explain: "A few hours on the skins gives a pink color. Blending red and white is banned for still rosé in the EU, with rosé Champagne the notable exception."
+      - blank: "Besides color, grape skins also give red wine ___."
+        answers: [tannin]
+        options: [sugar, acidity, bubbles, water]
+        explain: "Tannin is that drying, gripping sensation on your gums. It comes mainly from skins and seeds, and also from oak."
+      - choice: "As red wines age, their color tends to move toward…"
+        options: [Garnet and tawny, Purple, Lemon, Pink]
+        a: Garnet and tawny
+        explain: "Reds lose color with age: purple → ruby → garnet → tawny. Whites gain color: lemon → gold → amber."
+        visual: "colors:red"

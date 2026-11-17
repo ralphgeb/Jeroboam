@@ -1,0 +1,98 @@
+name: Simulator build and screenshots
+
+# Compiles the app for the iOS Simulator (no signing, no secrets needed),
+# launches it on each screen listed below and uploads the screenshots.
+on:
+  workflow_dispatch:
+    inputs:
+      screens:
+        description: "Space-separated screens to capture"
+        required: false
+        default: "onboarding learn lesson feedback blank match complete practice library grapes grape regions region map aromas colors profile"
+  push:
+    branches: [main]
+    paths: ["Jeroboam/**", ".github/workflows/preview.yml"]
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  simulator:
+    runs-on: macos-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: Jeroboam
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select the newest released Xcode
+        run: |
+          best=$(ls -d /Applications/Xcode_*.app 2>/dev/null | grep -viE "beta|rc|preview" | sort -V | tail -1)
+          if [ -n "$best" ]; then sudo xcode-select -s "$best/Contents/Developer"; fi
+          xcodebuild -version
+
+      - name: Generate Xcode project (XcodeGen)
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Pick a simulator
+        id: sim
+        run: |
+          udid=$(xcrun simctl list devices available -j | python3 -c '
+          import json,sys
+          d=json.load(sys.stdin)["devices"]
+          c=[(r,x) for r,l in d.items() if "iOS" in r for x in l if x["name"].startswith("iPhone")]
+          c.sort(key=lambda t:(t[0], "Pro" in t[1]["name"] and "Max" not in t[1]["name"]))
+          print(c[-1][1]["udid"])')
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+          xcrun simctl list devices | grep "$udid"
+
+      - name: Build for the simulator
+        run: |
+          mkdir -p build
+          set -o pipefail
+          xcodebuild build \
+            -project Jeroboam.xcodeproj -scheme Jeroboam -configuration Debug \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath build/dd CODE_SIGNING_ALLOWED=NO 2>&1 | tee build/build.log | grep -E "error:|warning:|BUILD" || true
+          if ! grep -q "BUILD SUCCEEDED" build/build.log; then
+            grep -E "error:" build/build.log | sed 's#.*/Sources/#Sources/#' | awk '!seen[$0]++' | head -40 | while IFS= read -r l; do echo "::error::$l"; done
+            exit 1
+          fi
+          grep -E "warning:" build/build.log | grep "/Sources/" | sed 's#.*/Sources/#Sources/#' | awk '!seen[$0]++' | head -30 | while IFS= read -r l; do echo "::warning::$l"; done
+
+      - name: Screenshots
+        run: |
+          UDID=${{ steps.sim.outputs.udid }}
+          APP=$(find build/dd/Build/Products -name "Jeroboam.app" -maxdepth 3 | head -1)
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl status_bar "$UDID" override --time "9:41" --batteryState charged --batteryLevel 100 --cellularBars 4 || true
+          xcrun simctl install "$UDID" "$APP"
+          mkdir -p shots
+          SCREENS="${{ github.event.inputs.screens }}"
+          [ -z "$SCREENS" ] && SCREENS="onboarding learn lesson feedback blank match complete practice library grapes grape regions region map aromas colors profile"
+          for mode in light dark; do
+            xcrun simctl ui "$UDID" appearance $mode
+            for s in $SCREENS; do
+              xcrun simctl terminate "$UDID" com.ralphgeb.jeroboam 2>/dev/null || true
+              xcrun simctl launch "$UDID" com.ralphgeb.jeroboam -screen "$s" > /dev/null
+              sleep 5
+              xcrun simctl io "$UDID" screenshot "shots/${mode}-${s}.png" > /dev/null 2>&1
+            done
+            [ "$mode" = light ] && SCREENS="learn lesson grape map"
+          done
+          xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
+          ls shots
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: |
+            Jeroboam/shots/*.png
+            Jeroboam/build/build.log
+          retention-days: 7

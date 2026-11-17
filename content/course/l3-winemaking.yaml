@@ -1,0 +1,76 @@
+title: Winemaking in depth
+summary: "Before, during and after fermentation: the choices that define style."
+icon: flask
+lessons:
+  - title: Before fermentation
+    cards:
+      - learn: Preparing the must
+        body: |
+          - **Sorting**: removing rotten or unripe fruit.
+          - **Destemming and crushing**, or keeping whole bunches.
+          - **SO₂**: added to protect against oxygen and bacteria.
+          - **Must adjustments**: in cool places, **chaptalization** (adding sugar to raise alcohol); in hot places, **acidification**.
+          - **Cold soak**: macerating black grapes before fermentation for color and fruit.
+      - choice: "What is chaptalization?"
+        options: ["Adding sugar to the must to raise alcohol", "Adding acid in hot climates", "Removing stems", "Stirring the lees"]
+        a: "Adding sugar to the must to raise alcohol"
+        explain: "Named after Jean-Antoine Chaptal. It is allowed in cooler regions such as Burgundy and Germany (with limits) and banned in many warm regions."
+      - tf: "Acidification is most common in hot regions."
+        truth: true
+        explain: "Grapes from hot climates lose acidity as they ripen, so winemakers add tartaric acid to restore balance."
+      - choice: "Why is sulfur dioxide (SO₂) used in winemaking?"
+        options: ["As an antioxidant and antimicrobial", "To add bubbles", "To sweeten the wine", "To add oak flavor"]
+        a: "As an antioxidant and antimicrobial"
+        explain: "Small amounts protect wine from oxidation and spoilage. Almost all wines contain some."
+      - blank: "Soaking black grapes before fermentation at low temperature is called a cold ___."
+        answers: [soak]
+        options: [press, stabilization, fining]
+        explain: "Popular for Pinot Noir to extract color and fruit before alcohol forms."
+  - title: Fermentation choices
+    cards:
+      - learn: Extraction methods
+        visual: "flow:carbonic"
+        body: |
+          - **Punch down** (pigeage) and **pump over** (remontage) control extraction.
+          - **Whole-bunch** fermentation adds fragrance, spice and structure.
+          - **Carbonic maceration** gives soft, fruity reds with kirsch and banana.
+          - **Fermentation temperature**: cooler for fruit, warmer for extraction.
+          - **Vessel**: steel, oak, concrete or clay (amphora, qvevri).
+      - choice: "Carbonic maceration is most associated with…"
+        options: [Beaujolais, Barolo, Sauternes, Champagne]
+        a: Beaujolais
+        explain: "Whole bunches in a CO₂-filled vessel give juicy, low-tannin wine with banana and bubblegum notes."
+      - tf: "Pigeage means punching the cap down into the wine."
+        truth: true
+        explain: "Traditional in Burgundy, sometimes even done by foot."
+      - choice: "Which vessel has been used for winemaking in Georgia for about 8,000 years?"
+        options: [Qvevri, Barrique, Stainless steel, Concrete egg]
+        a: Qvevri
+        explain: "Large egg-shaped clay jars buried underground. Georgian qvevri winemaking is on UNESCO's intangible heritage list."
+      - blank: "Fermenting with stems attached is called whole-___ fermentation."
+        answers: [bunch]
+        options: [berry, vine, cluster-free]
+        explain: "Popular for Pinot Noir and Syrah, adding aromatic lift and tannin."
+  - title: After fermentation
+    cards:
+      - learn: Finishing the wine
+        body: |
+          - **Maturation**: in steel (fresh), old oak (gentle oxygen) or new oak (flavor).
+          - **Blending**: varieties, vineyards, barrels.
+          - **Clarification**: racking, **fining** (bentonite, egg white) and **filtration**.
+          - **Stabilization**: cold stabilization prevents harmless tartrate crystals.
+          - **Closure**: natural cork, screwcap, synthetic or glass.
+      - choice: "What does fining do?"
+        options: ["Removes haze-causing particles", "Adds bubbles", "Raises alcohol", "Adds tannin"]
+        a: "Removes haze-causing particles"
+        explain: "Agents like bentonite clay or egg white bind to particles, which settle out. Note: egg white and milk proteins mean some wines are not vegan."
+      - tf: "Tartrate crystals in a bottle are a serious fault."
+        truth: false
+        explain: "Tartrates ('wine diamonds') are harmless. Cold stabilization prevents them for cosmetic reasons."
+      - choice: "Which closure best eliminates the risk of cork taint?"
+        options: [Screwcap, Natural cork, Agglomerated cork, Wax seal]
+        a: Screwcap
+        explain: "Screwcaps also keep aromatic whites fresh. They are standard in New Zealand and Australia."
+      - match: "Match the vessel to its effect"
+        pairs: [[Stainless steel, Fresh fruit], [New oak, Vanilla and toast], [Old oak, Gentle oxygen]]
+        explain: "The vessel is one of the winemaker's biggest stylistic choices."

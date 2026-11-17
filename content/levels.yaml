@@ -1,0 +1,12 @@
+- number: 1
+  title: Foundations
+  subtitle: "Level 1 · Beginner"
+  units: [l1-what-is-wine, l1-tasting, l1-white-grapes, l1-black-grapes, l1-food, l1-serving]
+- number: 2
+  title: Intermediate
+  subtitle: "Level 2 · Grapes & regions"
+  units: [l2-vineyard, l2-winery, l2-more-whites, l2-more-reds, l2-sparkling, l2-sweet-fortified, l2-labels]
+- number: 3
+  title: Advanced
+  subtitle: "Level 3 · In depth"
+  units: [l3-viticulture, l3-winemaking, l3-bordeaux, l3-burgundy, l3-france-more, l3-italy, l3-iberia, l3-central-europe, l3-new-world, l3-tasting]

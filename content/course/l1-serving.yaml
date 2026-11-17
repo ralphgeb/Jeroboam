@@ -1,0 +1,87 @@
+title: Serving & storing
+summary: "Temperatures, glasses, opening bottles, storing wine and spotting faults."
+icon: wineglass
+lessons:
+  - title: Temperature
+    cards:
+      - learn: Not too cold, not too warm
+        visual: "diagram:serving-temps"
+        body: |
+          Temperature changes how wine tastes. Too cold mutes aromas and makes tannins harsh; too warm makes alcohol stand out.
+
+          - **Sparkling & sweet**: well chilled, 6–10 °C
+          - **Light whites & rosé**: chilled, 7–10 °C
+          - **Full whites**: lightly chilled, 10–13 °C
+          - **Light reds**: 13 °C
+          - **Fuller reds**: room temperature, 15–18 °C
+      - choice: "At what temperature should sparkling wine be served?"
+        options: ["6–10 °C", "15–18 °C", "20–22 °C", "0 °C"]
+        a: "6–10 °C"
+        explain: "Well chilled keeps the bubbles fine and lively and the wine refreshing."
+      - tf: "Light reds like Beaujolais can be served slightly chilled."
+        truth: true
+        explain: "Around 13 °C brings out their juicy fruit and freshness."
+      - choice: "Serving a full-bodied red too cold will…"
+        options: ["Make tannins taste harsher", "Make it sweeter", "Increase the aromas", "Add bubbles"]
+        a: "Make tannins taste harsher"
+        explain: "Cold emphasizes tannin and bitterness and mutes the aromas. Serve fuller reds at 15–18 °C."
+      - blank: "Full-bodied whites such as oaked Chardonnay are best ___ chilled."
+        answers: [lightly]
+        options: [heavily, never, deeply]
+        explain: "At 10–13 °C, their richer aromas and texture can show."
+  - title: Glasses & opening
+    cards:
+      - learn: The right glass
+        visual: "diagram:glass-shapes"
+        body: |
+          - **Reds**: a large bowl gives room to swirl and gather aromas.
+          - **Whites & rosé**: medium-sized, to keep them cool.
+          - **Sparkling**: a tall flute or tulip keeps the bubbles longer.
+
+          Fill only to the widest part of the bowl, or less, so there is room to swirl.
+      - learn: Opening sparkling wine safely
+        body: |
+          The pressure in a Champagne bottle is about 5–6 atmospheres, roughly three times a car tire.
+
+          - Chill it well.
+          - Keep a thumb on the cork and point it away from people.
+          - Hold the cork and **turn the bottle**, easing it out with a gentle sigh, not a pop.
+      - choice: "Why do red wine glasses have a large bowl?"
+        options: ["To allow swirling and gather aromas", "To keep the wine cold", "To keep bubbles longer", "Tradition only"]
+        a: "To allow swirling and gather aromas"
+        explain: "Room to swirl releases aromas, and the wide bowl concentrates them toward your nose."
+      - tf: "When opening sparkling wine, you should twist the bottle, not the cork."
+        truth: true
+        explain: "Holding the cork still and turning the bottle gives you control and a quiet, safe opening."
+      - choice: "Which glass is best for sparkling wine?"
+        options: ["Flute or tulip", "Large bowl", "Tumbler", "Small sherry copita"]
+        a: "Flute or tulip"
+        explain: "A narrow glass reduces the surface area, so bubbles last longer."
+  - title: Storing & faults
+    cards:
+      - learn: Store wine like a cellar
+        body: |
+          - **Cool and steady**: about 10–15 °C, without big swings.
+          - **Dark**: light can damage wine.
+          - **On its side** for corked bottles, so the cork stays moist.
+          - Once open, re-seal and refrigerate. Most wines last 1–3 days; fortified wines last longer.
+      - learn: Common faults
+        body: |
+          - **Cork taint (TCA)**: musty, damp cardboard, muted fruit.
+          - **Oxidation**: brownish color, bruised apple, flat.
+          - **Heat damage**: cooked, jammy flavors, sometimes a pushed-up cork.
+      - choice: "A wine smelling of damp cardboard is probably…"
+        options: [Corked, Oxidized, Oaked, Young]
+        a: Corked
+        explain: "Cork taint is caused by TCA, a compound that can come from cork. It is not harmful, but it kills the fruit."
+      - tf: "Bottles with natural corks are best stored standing upright."
+        truth: false
+        explain: "Lie them on their side so the cork stays in contact with the wine and does not dry out and let air in."
+      - blank: "Wine should be stored somewhere cool, dark and at a ___ temperature."
+        answers: [steady]
+        options: [rising, warm, freezing]
+        explain: "Fluctuating temperatures make the wine expand and contract, pushing air past the cork."
+      - choice: "A white wine that has turned brownish and smells of bruised apples is probably…"
+        options: [Oxidized, Corked, Sparkling, Under-ripe]
+        a: Oxidized
+        explain: "Too much oxygen dulls the fruit and browns the color. Some styles, like Oloroso Sherry, are deliberately oxidative."

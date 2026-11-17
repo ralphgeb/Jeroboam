@@ -1,0 +1,72 @@
+title: Reading labels
+summary: "Place versus grape, quality categories and the label terms that matter."
+icon: text.book.closed
+lessons:
+  - title: Place or grape?
+    cards:
+      - learn: Two ways to name a wine
+        body: |
+          - **Old World** labels often name the **place**: Chablis, Rioja, Barolo. You are expected to know the grape.
+          - **New World** labels usually name the **grape**: Napa Cabernet Sauvignon, Marlborough Sauvignon Blanc.
+      - match: "Match the place-name wine to its grape"
+        pairs: [[Chablis, Chardonnay], [Sancerre, Sauvignon Blanc], [Barolo, Nebbiolo], [Rioja, Tempranillo]]
+        explain: "Learning these 'translations' unlocks most European wine lists."
+      - choice: "Red Burgundy is made from…"
+        options: [Pinot Noir, Gamay, Merlot, Syrah]
+        a: Pinot Noir
+        explain: "And white Burgundy is Chardonnay."
+      - tf: "In the USA, a wine labeled 'Merlot' must contain at least 75% Merlot."
+        truth: true
+        explain: "US law requires at least 75% of the named variety (the EU usually requires 85%)."
+      - choice: "Which country is considered New World?"
+        options: [New Zealand, Italy, Portugal, Germany]
+        a: New Zealand
+        explain: "New World countries include the USA, Australia, New Zealand, South Africa, Chile and Argentina."
+  - title: Quality categories
+    cards:
+      - learn: The EU system
+        body: |
+          European wine law has two main tiers:
+
+          - **PDO** (Protected Designation of Origin): strict rules on area, grapes, yields and methods. *AOC/AOP* in France, *DOC/DOCG* in Italy, *DO/DOCa* in Spain.
+          - **PGI** (Protected Geographical Indication): a wider area and more flexibility. *IGP / Vin de Pays*, *IGT*, *Vino de la Tierra*.
+      - choice: "Which is Italy's highest wine category?"
+        options: [DOCG, IGT, Vino, DO]
+        a: DOCG
+        explain: "Denominazione di Origine Controllata e Garantita, above DOC and IGT."
+      - tf: "PGI wines have stricter rules than PDO wines."
+        truth: false
+        explain: "PDO is stricter. PGI allows more freedom, which is why some ambitious producers choose it (as with early Super Tuscans)."
+      - match: "Match the label term to its country"
+        pairs: [[AOC, France], [DOCG, Italy], [DOCa, Spain]]
+        explain: "Each country has its own names for the EU PDO category."
+      - blank: "In Spain, Rioja and Priorat hold the top category, DOCa, also written ___ in Catalan."
+        answers: [DOQ]
+        options: [AOC, IGT, PDO]
+        explain: "Priorat uses the Catalan form, Denominació d'Origen Qualificada."
+  - title: Words on the bottle
+    cards:
+      - learn: Useful label terms
+        body: |
+          - **Vintage**: the harvest year.
+          - **Classico** (Italy): the historic heart of a region.
+          - **Riserva / Reserva**: aged longer before release.
+          - **Crianza, Reserva, Gran Reserva** (Spain): rising minimum ageing.
+          - **Grand Cru / Premier Cru**: top vineyard classifications (France).
+          - **Trocken**: dry (Germany). **Brut**: dry sparkling.
+      - choice: "On a Spanish label, which term means the longest ageing?"
+        options: [Gran Reserva, Crianza, Joven, Reserva]
+        a: Gran Reserva
+        explain: "Red Rioja Gran Reserva: at least five years, two in oak."
+      - choice: "What does 'Classico' mean on an Italian label?"
+        options: ["From the historic heart of the region", "Made from old vines", "Aged five years", "Sweet"]
+        a: "From the historic heart of the region"
+        visual: "map:tuscany:chianti-classico"
+        explain: "Chianti Classico is the original Chianti zone between Florence and Siena."
+      - tf: "The vintage on a label is the year the wine was bottled."
+        truth: false
+        explain: "Vintage is the year the grapes were harvested."
+      - blank: "On a German label, ___ means dry."
+        answers: [Trocken]
+        options: [Spätlese, Halbtrocken, Süss]
+        explain: "Halbtrocken means off-dry. Spätlese is a ripeness level, not a sweetness term."

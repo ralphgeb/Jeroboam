@@ -1,0 +1,86 @@
+title: Sparkling wines
+summary: "How the bubbles get in, Champagne, Prosecco, Cava and sweetness levels."
+icon: bubbles.and.sparkles
+lessons:
+  - title: The traditional method
+    cards:
+      - learn: A second fermentation in bottle
+        visual: "flow:traditional-method"
+        body: |
+          The finest sparkling wines are made by the **traditional method**: a still base wine gets yeast and sugar, then ferments **a second time inside its own bottle**. The trapped CO₂ makes the bubbles.
+      - learn: The magic of lees
+        body: |
+          The wine then rests on its dead yeast (**lees**) for months or years. As the yeast breaks down (**autolysis**), it gives **biscuit, bread and brioche** aromas and finer bubbles.
+      - choice: "In the traditional method, where does the second fermentation happen?"
+        options: [In the bottle, In a pressure tank, In oak barrels, There is no second fermentation]
+        a: In the bottle
+        explain: "That's what makes Champagne, Cava and Crémant special, and labor-intensive."
+      - choice: "Brioche and biscuit aromas in Champagne come from…"
+        options: [Ageing on the lees, New oak, The Chardonnay grape, Added sugar]
+        a: Ageing on the lees
+        explain: "Autolysis, the breakdown of dead yeast cells, releases these bready, toasty notes."
+      - blank: "Turning bottles so the yeast slides into the neck is called ___."
+        answers: [riddling]
+        options: [dosage, pruning, racking]
+        explain: "Riddling (remuage) used to be done by hand on wooden racks; today machines called gyropalettes do most of it."
+      - tf: "Dosage is the mix of wine and sugar added after disgorgement."
+        truth: true
+        explain: "Dosage sets the final sweetness, from Brut Nature (no added sugar) to Doux."
+  - title: Champagne
+    cards:
+      - learn: The original
+        visual: "map:champagne"
+        body: |
+          A cold, northerly region with **chalk** soils. Three main grapes:
+
+          - **Chardonnay**: finesse and citrus.
+          - **Pinot Noir**: body and red fruit.
+          - **Meunier**: fruity roundness.
+
+          Most Champagne is a **non-vintage** blend of many villages and years, made in a consistent house style.
+      - choice: "Which three grapes dominate Champagne?"
+        options: ["Chardonnay, Pinot Noir, Meunier", "Chardonnay, Sauvignon Blanc, Riesling", "Glera, Pinot Grigio, Chardonnay", "Macabeo, Xarel·lo, Parellada"]
+        a: "Chardonnay, Pinot Noir, Meunier"
+        explain: "Macabeo, Xarel·lo and Parellada make Cava; Glera makes Prosecco."
+      - choice: "A Champagne labeled Blanc de Blancs is made from…"
+        options: ["Chardonnay only", "Pinot Noir only", "Black grapes only", "Any grapes"]
+        a: "Chardonnay only"
+        explain: "'White from whites'. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier)."
+      - tf: "Non-vintage Champagne must age at least 15 months before release."
+        truth: true
+        explain: "At least 12 months of that on lees. Vintage Champagne needs at least three years."
+      - match: "Match the Champagne district to its main grape"
+        pairs: [[Côte des Blancs, Chardonnay], [Montagne de Reims, Pinot Noir], [Vallée de la Marne, Meunier]]
+        explain: "Each district is known for the grape that best suits its soils and frost risk."
+        visual: "map:champagne"
+  - title: Prosecco, Cava & more
+    cards:
+      - learn: The tank method
+        visual: "flow:tank-method"
+        body: |
+          **Prosecco** (from the **Glera** grape) gets its second fermentation in a large **pressure tank**. It's faster and cheaper, and keeps fresh **pear, apple and blossom** aromas without the bready notes.
+      - learn: Other traditional-method wines
+        body: |
+          - **Cava** (Spain): Macabeo, Xarel·lo and Parellada; citrus and almond.
+          - **Crémant** (France): Loire, Alsace and Burgundy.
+          - **Franciacorta** (Italy), **English sparkling**, **Tasmania**, **Cap Classique** (South Africa).
+      - choice: "Prosecco is mostly made by…"
+        options: [The tank method, The traditional method, Carbonic maceration, Fortification]
+        a: The tank method
+        explain: "Tank fermentation preserves Glera's fresh, fruity, floral character."
+      - choice: "Cava comes from which country?"
+        options: [Spain, Italy, France, Portugal]
+        a: Spain
+        visual: "map:spain:penedes"
+        explain: "Mostly from Penedès near Barcelona, made by the traditional method."
+      - tf: "Crémant is a French traditional-method sparkling wine made outside Champagne."
+        truth: true
+        explain: "Same method, different places and often local grapes: often great value."
+      - blank: "Prosecco is made from the ___ grape."
+        answers: [Glera]
+        options: [Garganega, Cortese, Macabeo]
+        explain: "Glera grows in the Veneto and Friuli. The best comes from the hills of Conegliano-Valdobbiadene."
+      - choice: "Which sparkling wine label term is drier: Brut or Extra Dry?"
+        options: [Brut, Extra Dry, They are the same, Neither; both are sweet]
+        a: Brut
+        explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L)."

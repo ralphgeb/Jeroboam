@@ -1,0 +1,115 @@
+title: Viticulture in depth
+summary: "Site selection, training and pruning, vineyard threats, yields and harvest decisions."
+icon: leaf.arrow.triangle.circlepath
+lessons:
+  - title: Choosing a site
+    cards:
+      - learn: Temperature is king
+        body: |
+          The growing season needs a mean temperature of roughly **13–21 °C**. Growers fine-tune heat with:
+
+          - **Latitude**: further from the equator is cooler.
+          - **Altitude**: about 0.6 °C cooler per 100 m.
+          - **Aspect**: slopes facing the equator get more sunlight.
+          - **Water bodies**: oceans, lakes and rivers moderate extremes and reflect light.
+          - **Diurnal range**: cool nights preserve acidity and aroma.
+      - learn: Sunlight, wind and fog
+        visual: "map:napa-sonoma"
+        body: |
+          Coastal fog and wind cool California's Sonoma Coast and Carneros, while inland Napa warms up. Chile's Humboldt Current and South Africa's Benguela Current do the same.
+      - choice: "Why is a large diurnal range valuable?"
+        options: ["Cool nights preserve acidity and aromas", "It increases yields", "It prevents phylloxera", "It speeds up ripening at night"]
+        a: "Cool nights preserve acidity and aromas"
+        explain: "Warm days ripen sugar; cool nights slow the loss of acid. High-altitude Argentina and Washington State rely on it."
+      - choice: "Approximately how much does temperature drop per 100 m of altitude?"
+        options: ["0.6 °C", "3 °C", "0.1 °C", "6 °C"]
+        a: "0.6 °C"
+        explain: "So a vineyard at 1,000 m is about 6 °C cooler than one at sea level, other things being equal."
+      - tf: "The cold Humboldt Current cools Chile's coastal vineyards."
+        truth: true
+        explain: "It brings cool air and morning fog to regions like Casablanca and San Antonio."
+        visual: "map:south-america:casablanca"
+      - blank: "In the Southern Hemisphere, the warmest slopes face ___."
+        answers: [north]
+        options: [south, east, west]
+        explain: "Slopes facing the equator get the most direct sun: south in the Northern Hemisphere, north in the Southern."
+  - title: Training & pruning
+    cards:
+      - learn: Shaping the vine
+        body: |
+          - **Bush vines** (gobelet): free-standing, low, for hot, dry, windy sites (Châteauneuf-du-Pape, Barossa old vines).
+          - **Cane pruning** (e.g. Guyot): one or two long canes tied to a wire each year (Burgundy, Bordeaux).
+          - **Spur pruning** (cordon): short spurs on a permanent arm, easier to mechanize.
+          - **VSP**: shoots trained upwards between wires for an even, sunny canopy.
+      - learn: Canopy management
+        body: |
+          Leaf removal, shoot positioning and trimming balance **sunlight** on the grapes (for ripeness and color) with **shade** (to prevent sunburn), and improve **airflow** to reduce disease.
+      - choice: "Bush vines are best suited to…"
+        options: ["Hot, dry, windy sites", "Very cool, wet sites", "High-yield machine harvesting", "Ice wine production"]
+        a: "Hot, dry, windy sites"
+        explain: "Low and sturdy with their own shade, they need no trellis and little water, as in the Southern Rhône and Spain."
+      - tf: "Guyot is a cane-pruned training system."
+        truth: true
+        explain: "Single or double Guyot is common in Burgundy and Bordeaux."
+      - choice: "Which is a main aim of canopy management?"
+        options: ["Balancing sunlight and airflow around the grapes", "Increasing the number of leaves", "Removing all leaves", "Raising alcohol directly"]
+        a: "Balancing sunlight and airflow around the grapes"
+        explain: "Good exposure helps ripening and color; airflow reduces fungal disease."
+      - blank: "Shoots trained vertically upward between wires is called ___."
+        answers: [VSP]
+        options: [Guyot, Gobelet, Pergola]
+        explain: "Vertical Shoot Positioning, widely used in the New World and much of Europe."
+  - title: Threats in the vineyard
+    cards:
+      - learn: Pests and diseases
+        body: |
+          - **Phylloxera**: an aphid-like louse that kills vine roots. Grafting onto **American rootstock** is the main defense.
+          - **Powdery mildew** (oidium) and **downy mildew**: fungal diseases.
+          - **Grey rot** (botrytis in wet weather): destroys bunches.
+          - **Viruses**, birds and animals.
+      - learn: Weather hazards
+        body: |
+          - **Spring frost** kills young shoots: use wind machines, heaters or sprinklers.
+          - **Hail** shreds leaves and bunches: use nets.
+          - **Drought** and **heatwaves** stop ripening or sunburn grapes.
+          - **Rain at harvest** dilutes and rots grapes.
+      - choice: "How do most vineyards protect against phylloxera?"
+        options: ["Grafting onto American rootstock", "Spraying copper", "Using bush vines", "Planting on slopes"]
+        a: "Grafting onto American rootstock"
+        explain: "American vine species tolerate the louse on their roots. European vines are grafted on top."
+      - tf: "Sprinklers can protect buds from spring frost."
+        truth: true
+        explain: "As water freezes on the buds it releases heat, holding them at about 0 °C inside a protective ice shell."
+      - choice: "Which region has never been affected by phylloxera?"
+        options: [Chile, Bordeaux, Napa Valley, Rioja]
+        a: Chile
+        explain: "Protected by the Andes, the Atacama Desert, the Pacific and Patagonian ice, Chile has never had it. South Australia is also free."
+      - match: "Match the hazard to the defense"
+        pairs: [[Spring frost, Wind machines], [Hail, Nets], [Phylloxera, Grafting], [Fungal disease, Canopy airflow]]
+        explain: "Growers combine many tools to protect a year's crop."
+  - title: Yields & harvest
+    cards:
+      - learn: Less is often more
+        body: |
+          Lower **yields** often mean more concentrated grapes, especially from **old vines**. But very low yields are not always better, and balance matters.
+
+          Harvest timing balances **sugar**, **acidity**, **tannin ripeness** and **flavor**. Pick early for freshness and sparkling base wines; pick late for richness or sweet wines.
+      - learn: Hand or machine?
+        body: |
+          - **Hand harvesting**: selective, gentle, keeps whole bunches (essential for Champagne and carbonic maceration); slow and costly.
+          - **Machine harvesting**: fast and cheap, can pick at night when it's cool; less selective, needs flat land and trellised vines.
+      - choice: "Why are grapes for sparkling base wine picked early?"
+        options: ["To keep high acidity and moderate alcohol", "To maximize sugar", "To develop tannins", "To allow botrytis"]
+        a: "To keep high acidity and moderate alcohol"
+        explain: "Fresh, high-acid, relatively neutral base wines are ideal, since the second fermentation adds more alcohol."
+      - tf: "Machine harvesters can work at night, when grapes are cool."
+        truth: true
+        explain: "Night picking keeps fruit fresh and reduces oxidation, which is useful in hot regions."
+      - choice: "Which wine style requires whole bunches, so hand harvesting is essential?"
+        options: ["Traditional-method sparkling wine", "Bulk table wine", "Fortified Port", "Most New World Cabernet"]
+        a: "Traditional-method sparkling wine"
+        explain: "Whole-bunch pressing gives clean, pale juice. Champagne rules require hand harvesting."
+      - blank: "Vines that are decades old usually give lower ___ of more concentrated fruit."
+        answers: [yields]
+        options: [prices, tannins, temperatures]
+        explain: "'Old vines' (vieilles vignes) is a common label term, though it has no legal definition in most places."

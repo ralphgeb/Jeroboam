@@ -1,0 +1,89 @@
+title: Bordeaux
+summary: "Left Bank, Right Bank, the 1855 Classification and Sauternes."
+icon: building.columns
+lessons:
+  - title: The Left Bank
+    cards:
+      - learn: Gravel and Cabernet
+        visual: "map:bordeaux:medoc,haut-medoc,pessac-leognan,graves"
+        body: |
+          West of the Gironde estuary and the Garonne river lie the **Médoc** and **Graves**. Deep **gravel** banks drain well and store heat, ideal for late-ripening **Cabernet Sauvignon**, which leads the blends.
+
+          The Haut-Médoc holds four famous communes, north to south: **Saint-Estèphe**, **Pauillac**, **Saint-Julien** and **Margaux**.
+      - learn: The communes
+        visual: "map:bordeaux:saint-estephe,pauillac,saint-julien,margaux"
+        body: |
+          - **Saint-Estèphe**: more clay, firmer, more rustic.
+          - **Pauillac**: powerful; three First Growths.
+          - **Saint-Julien**: balanced and consistent.
+          - **Margaux**: perfumed and silky.
+      - choice: "Which commune is home to three First Growths: Lafite, Latour and Mouton?"
+        options: [Pauillac, Margaux, Saint-Julien, Saint-Estèphe]
+        a: Pauillac
+        visual: "map:bordeaux:pauillac"
+        explain: "Pauillac is the heart of the Médoc's greatest Cabernet. The other First Growths are Château Margaux and Haut-Brion (Pessac-Léognan)."
+      - choice: "Which is the northernmost of the four famous Haut-Médoc communes?"
+        options: [Saint-Estèphe, Margaux, Pauillac, Saint-Julien]
+        a: Saint-Estèphe
+        explain: "From north to south: Saint-Estèphe, Pauillac, Saint-Julien, Margaux."
+      - tf: "Merlot is the dominant grape in most top Left Bank blends."
+        truth: false
+        explain: "On the Left Bank, Cabernet Sauvignon usually leads. Merlot dominates on the Right Bank."
+      - choice: "Which Left Bank area makes both top reds and fine oaked dry whites?"
+        options: [Pessac-Léognan, Pauillac, Saint-Émilion, Médoc]
+        a: Pessac-Léognan
+        visual: "map:bordeaux:pessac-leognan"
+        explain: "It sits on the city's southern edge; Haut-Brion and Domaine de Chevalier make great reds and whites."
+  - title: The Right Bank & beyond
+    cards:
+      - learn: Clay, limestone and Merlot
+        visual: "map:bordeaux:saint-emilion,pomerol,fronsac,castillon"
+        body: |
+          East of the Dordogne, cooler **clay and limestone** soils suit early-ripening **Merlot**, blended with **Cabernet Franc**.
+
+          - **Saint-Émilion**: a limestone plateau and slopes around a medieval town.
+          - **Pomerol**: a small clay-and-gravel plateau; Pétrus and Le Pin.
+          - Satellites: Fronsac, Castillon, Bourg, Blaye.
+      - learn: Entre-Deux-Mers
+        body: |
+          Between the Garonne and Dordogne lies **Entre-Deux-Mers**, best known for fresh, dry whites from Sauvignon Blanc and Sémillon. Much of the region's generic Bordeaux AOC red comes from here too.
+      - choice: "Which grape partners Merlot on the Right Bank?"
+        options: [Cabernet Franc, Syrah, Malbec, Petit Verdot]
+        a: Cabernet Franc
+        explain: "Cabernet Franc adds fragrance and structure. Château Cheval Blanc is famously Cabernet Franc-rich."
+      - tf: "Pomerol has an official classification of its châteaux."
+        truth: false
+        explain: "Pomerol has no classification, yet Pétrus and Le Pin are among the most expensive wines in the world."
+      - blank: "'Entre-Deux-Mers' means between two ___."
+        answers: [seas]
+        options: [rivers, hills, châteaux]
+        explain: "Poetically, the 'seas' are the tidal Garonne and Dordogne rivers."
+      - match: "Match the soil to the grape it favors"
+        pairs: [[Gravel, Cabernet Sauvignon], [Clay, Merlot]]
+        explain: "Warm, free-draining gravel helps late Cabernet; cool, water-retentive clay suits early Merlot."
+  - title: Classifications & sweet Bordeaux
+    cards:
+      - learn: 1855 and after
+        body: |
+          For the Paris Exposition of **1855**, Médoc châteaux (plus Haut-Brion) were ranked from **First** to **Fifth Growth**, based on price. Only one change has ever been made: **Mouton Rothschild** was promoted to First Growth in **1973**.
+
+          Sauternes was classified too, with **Château d'Yquem** alone as *Premier Cru Supérieur*. Saint-Émilion's classification is revised roughly every ten years.
+      - learn: Sauternes
+        visual: "map:bordeaux:sauternes"
+        body: |
+          Cool morning mists from the little **Ciron** river meet the warmer Garonne, encouraging **noble rot** on Sémillon and Sauvignon Blanc. Pickers make several passes, choosing only botrytized berries.
+      - choice: "Which château was promoted to First Growth in 1973?"
+        options: [Mouton Rothschild, Lafite Rothschild, Pétrus, Cheval Blanc]
+        a: Mouton Rothschild
+        explain: "The only change ever made to the 1855 red classification."
+      - choice: "What was the 1855 Classification based on?"
+        options: [Market price, Soil analysis, Blind tasting, Vineyard size]
+        a: Market price
+        explain: "Brokers ranked châteaux by the prices their wines fetched at the time."
+      - tf: "Château d'Yquem holds the unique rank of Premier Cru Supérieur in Sauternes."
+        truth: true
+        explain: "It was placed above all other Sauternes in 1855."
+      - blank: "Mists from the cool ___ river help noble rot develop in Sauternes."
+        answers: [Ciron]
+        options: [Loire, Dordogne, Rhône]
+        explain: "Cold Ciron water meeting the warmer Garonne creates the autumn fog botrytis needs."

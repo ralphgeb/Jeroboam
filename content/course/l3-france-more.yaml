@@ -1,0 +1,101 @@
+title: Rhône, Loire, Alsace & Champagne
+summary: "France beyond Bordeaux and Burgundy, in depth."
+icon: map
+lessons:
+  - title: Northern vs Southern Rhône
+    cards:
+      - learn: Two different worlds
+        visual: "map:rhone"
+        body: |
+          - **Northern Rhône**: moderate continental climate, steep **granite** terraces, **Syrah** alone (sometimes with a little white grape co-fermented). Côte-Rôtie, Hermitage, Cornas, Saint-Joseph, Crozes-Hermitage, plus Viognier in Condrieu.
+          - **Southern Rhône**: Mediterranean heat, the **Mistral** wind, **Grenache**-led blends. Châteauneuf-du-Pape, Gigondas, Vacqueyras, Côtes du Rhône, Tavel rosé.
+      - choice: "What is the Mistral?"
+        options: ["A cold, dry wind in the Southern Rhône", "A grape variety", "A type of oak", "A sparkling style"]
+        a: "A cold, dry wind in the Southern Rhône"
+        explain: "It reduces disease pressure and can damage vines, so many old vines are trained as low bush vines."
+      - choice: "Which Northern Rhône appellation may include Viognier co-fermented with Syrah?"
+        options: [Côte-Rôtie, Cornas, Châteauneuf-du-Pape, Tavel]
+        a: Côte-Rôtie
+        visual: "map:rhone:cote-rotie"
+        explain: "Up to 20% Viognier is allowed, adding perfume and stabilizing color, though most use far less."
+      - tf: "Châteauneuf-du-Pape's galets roulés are large stones that store and radiate heat."
+        truth: true
+        explain: "Rounded quartzite pebbles cover many vineyards, helping Grenache ripen."
+        visual: "map:rhone:chateauneuf-du-pape"
+      - match: "Match the appellation to its style"
+        pairs: [[Hermitage, Syrah], [Condrieu, Viognier], [Tavel, Rosé], [Gigondas, Grenache blend]]
+        explain: "North for single varietals; south for blends and rosé."
+  - title: The Loire in depth
+    cards:
+      - learn: Four sections
+        visual: "map:loire"
+        body: |
+          - **Pays Nantais**: Muscadet (Melon de Bourgogne), maritime.
+          - **Anjou-Saumur**: Chenin (dry Savennières, sweet Coteaux du Layon), Cabernet Franc, sparkling Saumur.
+          - **Touraine**: Vouvray, Montlouis, Chinon, Bourgueil.
+          - **Central Vineyards**: Sancerre and Pouilly-Fumé (Sauvignon Blanc).
+      - choice: "Which Loire sub-region is closest to the Atlantic?"
+        options: [Pays Nantais, Central Vineyards, Touraine, Anjou]
+        a: Pays Nantais
+        explain: "Around Nantes. Its maritime climate suits Muscadet."
+      - choice: "Coteaux du Layon is known for…"
+        options: ["Sweet Chenin Blanc", "Red Cabernet Franc", "Dry Sauvignon Blanc", "Rosé"]
+        a: "Sweet Chenin Blanc"
+        explain: "Autumn mists along the Layon river encourage noble rot. Quarts de Chaume and Bonnezeaux are top crus."
+      - tf: "Sancerre and Pouilly-Fumé face each other across the Loire."
+        truth: true
+        explain: "Sancerre on the west bank, Pouilly-sur-Loire on the east."
+        visual: "map:loire:sancerre,pouilly-fume"
+      - blank: "Pouilly-___ is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay."
+        answers: [Fumé]
+        options: [Fuissé, Blanc, Gris]
+        explain: "A classic exam trap!"
+  - title: Alsace
+    cards:
+      - learn: Sheltered and dry
+        visual: "map:france:alsace"
+        body: |
+          The **Vosges mountains** cast a rain shadow, making Alsace one of France's driest, sunniest regions. Wines are labeled by grape: **Riesling, Gewurztraminer, Pinot Gris, Muscat** (the four 'noble' grapes for Grand Cru), plus Pinot Blanc and Pinot Noir.
+
+          Special sweet styles: **Vendanges Tardives** (late harvest) and **Sélection de Grains Nobles** (botrytis).
+      - choice: "Why is Alsace so dry and sunny for its latitude?"
+        options: ["The Vosges mountains create a rain shadow", "It is near the Mediterranean", "It is at high altitude", "Warm ocean currents"]
+        a: "The Vosges mountains create a rain shadow"
+        explain: "Westerly rain falls on the mountains, leaving the eastern foothills dry."
+      - tf: "Alsace wines are usually labeled by grape variety."
+        truth: true
+        explain: "Unusually for France, the grape name is front and center, in tall flûte bottles."
+      - choice: "Sélection de Grains Nobles means…"
+        options: ["Botrytized sweet wine", "Dry Grand Cru", "Sparkling wine", "Rosé"]
+        a: "Botrytized sweet wine"
+        explain: "Made from individually selected noble-rot berries, rich and luscious."
+      - match: "Match the Alsace grape to its style"
+        pairs: [[Gewurztraminer, Lychee and rose], [Riesling, Dry and steely], [Pinot Gris, Rich and smoky]]
+        explain: "Muscat in Alsace is usually dry and grapey."
+  - title: Champagne in depth
+    cards:
+      - learn: Assemblage and house style
+        visual: "map:champagne"
+        body: |
+          Champagne is about **blending** (assemblage): grapes, villages and **reserve wines** from older vintages create a consistent non-vintage house style.
+
+          Villages are rated: **17 Grand Cru** and **42 Premier Cru**. Growers' own Champagnes ('grower Champagne') bear **RM** on the label; big houses use **NM**.
+      - learn: Sweetness ladder
+        visual: "diagram:sweetness"
+        body: |
+          From driest: **Brut Nature** (0–3 g/L), **Extra Brut**, **Brut** (under 12), **Extra Dry**, **Sec**, **Demi-Sec**, **Doux** (over 50).
+      - choice: "What do reserve wines give non-vintage Champagne?"
+        options: ["Consistency and complexity across years", "More bubbles", "Pink color", "Higher acidity only"]
+        a: "Consistency and complexity across years"
+        explain: "Older wines blended in smooth out vintage variation and add depth."
+      - choice: "Which is the driest sweetness term?"
+        options: [Brut Nature, Brut, Extra Dry, Demi-Sec]
+        a: Brut Nature
+        explain: "No sugar added at dosage, 0–3 g/L."
+      - tf: "'RM' on a Champagne label means the grower made the wine from their own grapes."
+        truth: true
+        explain: "Récoltant-Manipulant. NM (Négociant-Manipulant) is a house that buys grapes."
+      - blank: "Champagne has ___ Grand Cru villages."
+        answers: ["17"]
+        options: ["33", "7", "42"]
+        explain: "Including Aÿ, Bouzy, Cramant, Avize and Le Mesnil-sur-Oger."

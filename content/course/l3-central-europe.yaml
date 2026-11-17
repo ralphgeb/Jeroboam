@@ -1,0 +1,93 @@
+title: Germany, Austria, Hungary & Greece
+summary: "Prädikat levels, Austrian classics, Tokaji and Greece's revival."
+icon: mountain.2
+lessons:
+  - title: Germany
+    cards:
+      - learn: Ripeness levels
+        visual: "map:germany"
+        body: |
+          German **Prädikatswein** is classified by grape sugar at harvest:
+
+          - **Kabinett**: light, often off-dry.
+          - **Spätlese**: late harvest, riper.
+          - **Auslese**: selected bunches.
+          - **Beerenauslese (BA)**: selected berries, often botrytized.
+          - **Eiswein**: frozen grapes.
+          - **Trockenbeerenauslese (TBA)**: shriveled botrytized berries.
+
+          A ripeness level is not a sweetness level: a Spätlese can be **trocken** (dry).
+      - choice: "Which Prädikat is made from individually picked shriveled, botrytized berries?"
+        options: [Trockenbeerenauslese, Kabinett, Spätlese, Auslese]
+        a: Trockenbeerenauslese
+        explain: "TBA is one of the world's rarest, sweetest wines, sometimes with under 6% alcohol."
+      - tf: "A Spätlese is always sweet."
+        truth: false
+        explain: "Spätlese means late harvest, a ripeness level. It can be fermented dry (Spätlese trocken)."
+      - choice: "Which region is famous for delicate, low-alcohol Riesling on steep slate?"
+        options: [Mosel, Pfalz, Baden, Franken]
+        a: Mosel
+        visual: "map:germany:mosel"
+        explain: "The Mosel's blue and red slate slopes are among the steepest vineyards in the world."
+      - match: "Match the German region to its specialty"
+        pairs: [[Franken, Silvaner in Bocksbeutel], [Baden, Spätburgunder], [Rheingau, Classic Riesling]]
+        explain: "Germany's warmest region (Baden) excels with the Pinot family."
+  - title: Austria
+    cards:
+      - learn: Precision and purity
+        visual: "map:austria"
+        body: |
+          - **Niederösterreich**: Wachau, Kremstal, Kamptal: Grüner Veltliner and Riesling.
+          - **Wachau** ripeness categories: **Steinfeder** (light), **Federspiel**, **Smaragd** (richest).
+          - **Burgenland**: Blaufränkisch, Zweigelt and sweet wines around Lake Neusiedl.
+          - **Steiermark**: Sauvignon Blanc.
+
+          **DAC** labels show typical regional styles.
+      - choice: "In the Wachau, the ripest dry style is called…"
+        options: [Smaragd, Steinfeder, Federspiel, Kabinett]
+        a: Smaragd
+        explain: "Named after an emerald-green lizard that basks on the warm terraces."
+      - tf: "Lake Neusiedl's humidity helps produce botrytized sweet wines."
+        truth: true
+        explain: "Morning mists from the shallow lake encourage noble rot."
+        visual: "map:austria:neusiedlersee"
+      - choice: "Austria's most planted red grape is…"
+        options: [Zweigelt, Blaufränkisch, Pinot Noir, Merlot]
+        a: Zweigelt
+        explain: "A 1922 cross of St. Laurent and Blaufränkisch."
+      - blank: "DAC stands for Districtus Austriae ___."
+        answers: [Controllatus]
+        options: [Classicus, Communis, Certus]
+        explain: "It marks wines typical of their region."
+  - title: Tokaj & Greece
+    cards:
+      - learn: Tokaji
+        visual: "map:hungary:tokaj"
+        body: |
+          In north-east **Hungary**, volcanic hills and river mists favor noble rot on **Furmint** and Hárslevelű.
+
+          - **Tokaji Aszú**: aszú berries macerated in base wine; at least 120 g/L sugar.
+          - **Eszencia**: the free-run syrup of aszú berries; can be 500+ g/L sugar and as low as 3% alcohol.
+          - Increasingly fine **dry Furmint**.
+      - learn: Greece
+        visual: "map:greece"
+        body: |
+          - **Assyrtiko** (Santorini): mineral, high-acid white from basket-trained, ungrafted vines.
+          - **Xinomavro** (Naoussa): tannic, high-acid red.
+          - **Agiorgitiko** (Nemea): soft, plummy red.
+      - choice: "Tokaji's main grape is…"
+        options: [Furmint, Riesling, Assyrtiko, Grüner Veltliner]
+        a: Furmint
+        explain: "High acidity, smoky minerality and a strong affinity for botrytis."
+      - tf: "Santorini's vines are grafted onto American rootstock."
+        truth: false
+        explain: "Phylloxera cannot survive in Santorini's volcanic sand, so vines grow on their own roots, some very old."
+        visual: "map:greece:santorini"
+      - choice: "Which Greek grape is often compared to Nebbiolo?"
+        options: [Xinomavro, Agiorgitiko, Assyrtiko, Moschofilero]
+        a: Xinomavro
+        explain: "Pale, high in tannin and acidity, with tomato, olive and red fruit."
+      - blank: "Tokaji ___ is the rare syrup of aszú berries, one of the sweetest wines on earth."
+        answers: [Eszencia]
+        options: [Szamorodni, Furmint, Aszú]
+        explain: "It ferments for years and reaches only a few percent alcohol."

@@ -1,0 +1,102 @@
+title: Italy
+summary: "Piedmont, Tuscany, the North East and the South."
+icon: map
+lessons:
+  - title: Piedmont
+    cards:
+      - learn: The Langhe
+        visual: "map:piedmont"
+        body: |
+          Fog-wrapped hills around **Alba**. Continental climate; best sites face south.
+
+          - **Barolo**: Nebbiolo, minimum 38 months' ageing (18 in wood). Powerful, structured.
+          - **Barbaresco**: Nebbiolo, 26 months. Often more elegant.
+          - **Barbera d'Asti** and **Dolcetto d'Alba**: everyday reds.
+          - **Moscato d'Asti**: gently sparkling and sweet. **Gavi**: crisp Cortese.
+      - choice: "What is the minimum ageing for Barolo?"
+        options: ["38 months", "12 months", "6 months", "10 years"]
+        a: "38 months"
+        explain: "Including 18 months in wood. Riserva requires 62 months."
+      - choice: "Which Piedmont grape is deeply colored with high acidity but low tannin?"
+        options: [Barbera, Nebbiolo, Dolcetto, Cortese]
+        a: Barbera
+        explain: "Barbera's juicy acidity and soft tannin make it a perfect food wine."
+      - tf: "Barbaresco is made from Sangiovese."
+        truth: false
+        explain: "Barbaresco, like Barolo, is 100% Nebbiolo."
+        visual: "map:piedmont:barbaresco"
+      - blank: "Gavi is a crisp white wine from the ___ grape."
+        answers: [Cortese]
+        options: [Arneis, Garganega, Glera]
+        explain: "Lemon, green apple and almond; a classic with pesto from nearby Liguria."
+  - title: Tuscany
+    cards:
+      - learn: Sangiovese country
+        visual: "map:tuscany"
+        body: |
+          - **Chianti Classico**: the historic heart (black rooster symbol), ≥80% Sangiovese. Annata → Riserva → **Gran Selezione**.
+          - **Brunello di Montalcino**: 100% Sangiovese, released five years after harvest.
+          - **Vino Nobile di Montepulciano**: Sangiovese (Prugnolo Gentile).
+          - **Bolgheri**: coastal Super Tuscans from Bordeaux varieties.
+      - choice: "Brunello di Montalcino is made from…"
+        options: ["100% Sangiovese", "Cabernet and Merlot", "Montepulciano", "Nebbiolo"]
+        a: "100% Sangiovese"
+        visual: "map:tuscany:montalcino"
+        explain: "A local clone called Brunello. Warm, dry Montalcino gives power and longevity."
+      - choice: "What is a Super Tuscan?"
+        options: ["A Tuscan wine made outside traditional rules", "The oldest Chianti", "A sparkling wine", "A sweet Vin Santo"]
+        a: "A Tuscan wine made outside traditional rules"
+        explain: "Starting with Sassicaia and Tignanello in the 1970s, often with Cabernet or Merlot, first released as table wine."
+      - tf: "Vino Nobile di Montepulciano is made from the Montepulciano grape."
+        truth: false
+        explain: "It's Sangiovese from the town of Montepulciano. The Montepulciano grape is grown in Abruzzo."
+      - match: "Match the Tuscan wine to its place"
+        pairs: [[Sassicaia, Bolgheri], [Brunello, Montalcino], [Gran Selezione, Chianti Classico]]
+        explain: "Three of Tuscany's great names."
+  - title: The North East
+    cards:
+      - learn: Veneto and beyond
+        visual: "map:italy:veneto,friuli,trentino-alto-adige"
+        body: |
+          - **Valpolicella** (Corvina): light Valpolicella, **Ripasso**, dry **Amarone** and sweet **Recioto** from dried grapes (appassimento).
+          - **Soave** (Garganega). **Prosecco** (Glera).
+          - **Friuli**: fine whites and orange wines. **Alto Adige**: Alpine aromatic whites.
+      - choice: "How is Amarone made?"
+        options: ["From grapes dried for months before fermentation", "From frozen grapes", "By the traditional method", "With added grape spirit"]
+        a: "From grapes dried for months before fermentation"
+        explain: "Appassimento concentrates sugar; fermenting to dryness gives a powerful wine of about 15–16% abv."
+      - tf: "Ripasso is Valpolicella refermented on leftover Amarone skins."
+        truth: true
+        explain: "It adds body, alcohol and dried-fruit flavor: 'baby Amarone'."
+      - blank: "Soave is made mainly from the ___ grape."
+        answers: [Garganega]
+        options: [Glera, Corvina, Trebbiano]
+        explain: "From volcanic and limestone hills east of Verona."
+      - choice: "Which Italian region is known for skin-contact orange wines?"
+        options: [Friuli, Puglia, Tuscany, Sicily]
+        a: Friuli
+        explain: "Pioneers near the Slovenian border revived long skin maceration for white grapes such as Ribolla Gialla."
+  - title: The South & islands
+    cards:
+      - learn: Volcanoes and sunshine
+        visual: "map:italy:campania,basilicata,puglia,sicily"
+        body: |
+          - **Campania**: Taurasi (Aglianico), Fiano di Avellino, Greco di Tufo.
+          - **Basilicata**: Aglianico del Vulture.
+          - **Puglia**: Primitivo and Negroamaro.
+          - **Sicily**: Nero d'Avola, and elegant Etna wines (Nerello Mascalese, Carricante) from volcanic slopes.
+          - **Sardinia**: Cannonau (Grenache) and Vermentino.
+      - choice: "Taurasi is made from…"
+        options: [Aglianico, Nero d'Avola, Primitivo, Nebbiolo]
+        a: Aglianico
+        explain: "Often called the Barolo of the South, high in tannin and acidity."
+      - tf: "Cannonau, from Sardinia, is the same grape as Grenache."
+        truth: true
+        explain: "Sardinia has a long tradition of the grape, possibly as old as Spain's."
+      - choice: "Why are Mount Etna's wines fresher than much of Sicily's?"
+        options: ["High-altitude volcanic slopes", "Northern latitude", "Heavy rainfall", "Machine harvesting"]
+        a: "High-altitude volcanic slopes"
+        explain: "Vineyards climb above 1,000 m, giving cool nights and elegant wines."
+      - match: "Match the southern grape to its region"
+        pairs: [[Primitivo, Puglia], [Fiano, Campania], [Nero d'Avola, Sicily]]
+        explain: "Three of southern Italy's most important grapes."

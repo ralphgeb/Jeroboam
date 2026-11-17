@@ -1,0 +1,80 @@
+title: In the winery
+summary: "How white, red and rosé wines are made, and what oak, lees and malolactic conversion add."
+icon: cylinder.split.1x2
+lessons:
+  - title: White winemaking
+    cards:
+      - learn: Fresh and fruity
+        visual: "flow:white-making"
+        body: |
+          For white wine, grapes are crushed and **pressed straight away**. Only the juice is fermented, usually **cool (12–22 °C)** in stainless steel, to keep delicate fruit aromas.
+      - choice: "When are white grapes pressed?"
+        options: ["Before fermentation", "After fermentation", "Never", "After a year in oak"]
+        a: "Before fermentation"
+        explain: "Separating juice from skins early keeps white wine pale and low in tannin."
+      - tf: "White wines are usually fermented at cooler temperatures than reds."
+        truth: true
+        explain: "Cool fermentation preserves fresh, fruity and floral aromas."
+      - blank: "Most white wines are fermented in stainless ___ tanks."
+        answers: [steel]
+        options: [oak, clay, concrete-egg]
+        explain: "Steel is neutral and easy to keep cool. Oak barrels or concrete add texture and flavor for richer styles."
+      - choice: "Why might a winemaker ferment Chardonnay in oak barrels?"
+        options: ["To add richness, texture and toasty flavors", "To make it lighter", "To add bubbles", "To make it red"]
+        a: "To add richness, texture and toasty flavors"
+        explain: "Barrel fermentation integrates oak flavors and adds weight. It is classic in Burgundy and California."
+  - title: Red & rosé winemaking
+    cards:
+      - learn: Skins make the difference
+        visual: "flow:red-making"
+        body: |
+          For red wine, black grapes ferment **with their skins** at **20–32 °C**. Warmth and contact extract color and tannin. The floating cap of skins is punched down or pumped over to keep it in contact with the wine.
+
+          After fermentation, the wine is drained and the skins pressed.
+      - learn: Rosé
+        visual: "flow:rose-making"
+        body: |
+          Rosé uses black grapes but only **brief skin contact**, a few hours to two days, then ferments cool like a white.
+      - choice: "Why are red wines fermented warmer than whites?"
+        options: ["To extract color and tannin", "To keep fruity aromas", "To make them sweeter", "To add bubbles"]
+        a: "To extract color and tannin"
+        explain: "Higher temperatures help pull pigments and tannins out of the skins."
+      - blank: "The layer of skins floating on fermenting red wine is called the ___."
+        answers: [cap]
+        options: [lees, crust, must]
+        explain: "Winemakers punch it down or pump wine over it to extract color and keep it from drying out."
+      - tf: "Rosé is made by fermenting black grapes on their skins for several weeks."
+        truth: false
+        explain: "That is red winemaking. Rosé gets only hours to a couple of days of skin contact."
+      - match: "Match the process to the wine"
+        pairs: [[Press before fermentation, White], [Ferment on skins for weeks, Red], [Few hours on skins, Rosé]]
+        explain: "Skin contact is what separates the three."
+  - title: Oak, lees and malolactic
+    cards:
+      - learn: Shaping the style
+        visual: "flow:oak"
+        body: |
+          After fermentation, winemakers can add layers:
+
+          - **Oak**: new barrels add vanilla, toast, smoke and spice; any barrel lets in tiny amounts of oxygen that soften tannin.
+          - **Lees ageing**: contact with dead yeast adds texture and bready notes.
+          - **Malolactic conversion**: turns sharp malic acid into softer lactic acid and can add butter.
+      - choice: "Which flavor does new oak typically add?"
+        options: [Vanilla, Gooseberry, Lime, Strawberry]
+        a: Vanilla
+        explain: "Toasted oak adds vanilla, clove, coconut (especially American oak) and smoke."
+      - tf: "American oak typically gives stronger coconut and vanilla flavors than French oak."
+        truth: true
+        explain: "That's why traditional Rioja, aged in American oak, often smells of coconut and vanilla."
+      - blank: "Ageing wine on dead yeast cells, called the ___, adds texture and bready flavors."
+        answers: [lees]
+        options: [cap, must, solera]
+        explain: "Muscadet sur lie and Champagne are classic examples of lees influence."
+      - choice: "Malolactic conversion makes a wine taste…"
+        options: ["Softer and less tart", "More acidic", "More tannic", "Sparkling"]
+        a: "Softer and less tart"
+        explain: "Malic acid (think green apple) is converted into milder lactic acid (think milk). Almost all reds and many Chardonnays go through it."
+      - choice: "What is the cheaper alternative to aging in oak barrels?"
+        options: ["Oak chips or staves in a tank", "Plastic barrels", "Adding vanilla essence", "Freezing the wine"]
+        a: "Oak chips or staves in a tank"
+        explain: "They add oak flavor quickly, but without the slow oxygen exposure of a barrel."

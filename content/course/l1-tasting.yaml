@@ -1,0 +1,125 @@
+title: Tasting like a pro
+summary: "Look, smell, taste and describe: the systematic approach."
+icon: eye
+lessons:
+  - title: Look
+    cards:
+      - learn: Four steps, every time
+        visual: "flow:tasting"
+        body: |
+          Professionals taste the same way every time: **look**, **smell**, **taste**, **conclude**. A routine makes your notes consistent, and it helps you remember wines.
+      - learn: Reading the glass
+        visual: "colors:white"
+        body: |
+          Tilt the glass over something white.
+
+          - **Intensity**: pale, medium or deep. Look at the center (the core).
+          - **Color**: whites are lemon, gold or amber; rosés pink, salmon or orange; reds purple, ruby, garnet or tawny.
+          - **Clarity**: almost all wines should be clear.
+      - choice: "What is the first step when tasting wine?"
+        options: [Look, Smell, Taste, Swirl and spit]
+        a: Look
+        explain: "Appearance comes first: clarity, intensity and color give early clues about grape, age and winemaking."
+      - choice: "Which color describes a young red wine?"
+        options: [Purple, Tawny, Amber, Gold]
+        a: Purple
+        visual: "glassonly:purple"
+        explain: "Purple or ruby means youth. Tawny and garnet suggest age. Amber and gold are white wine colors."
+      - tf: "White wines get paler as they age."
+        truth: false
+        explain: "The opposite: whites deepen, moving from lemon toward gold and amber as they age or spend time in oak."
+      - blank: "To judge color, tilt the glass against a ___ background."
+        answers: [white]
+        options: [black, red, dark, blue]
+        explain: "A white tablecloth or sheet of paper shows the true color and lets you compare the core with the rim."
+  - title: Smell
+    cards:
+      - learn: Swirl, then sniff
+        body: |
+          Swirling releases aromas into the air above the wine. Take short sniffs and ask two questions:
+
+          - **How intense is it?** Light, medium or pronounced.
+          - **What does it smell of?** Start broad (fruit? flowers?), then get specific (lemon? raspberry? violet?).
+      - learn: The aroma families
+        visual: "wheel"
+        body: |
+          Most wine aromas fit into a few families: **fruit** (citrus, green, stone, tropical, red, black), **floral**, **herbal**, **spice**, **oak** (vanilla, toast) and **age** (honey, leather, earth).
+
+          You cannot be wrong: describe what *you* smell.
+      - choice: "Why do tasters swirl the wine in the glass?"
+        options: ["To release aromas", "To cool it down", "To remove alcohol", "To add bubbles"]
+        a: "To release aromas"
+        explain: "Swirling coats the glass and helps aromatic compounds evaporate, concentrating the smell above the wine."
+      - match: "Match the aroma to its family"
+        pairs: [[Lemon, Citrus fruit], [Blackcurrant, Black fruit], [Rose, Floral], [Vanilla, Oak]]
+        explain: "Thinking in families first makes it much easier to find the exact word."
+      - choice: "Vanilla and toast aromas most often come from…"
+        options: [Oak barrels, The grape skin, Cold fermentation, The cork]
+        a: Oak barrels
+        explain: "New oak, especially toasted barrels, gives vanilla, toast, smoke and sweet spice notes."
+      - tf: "Raspberry and strawberry are classed as black fruit aromas."
+        truth: false
+        explain: "They are **red fruit** aromas, typical of lighter reds such as Pinot Noir and Grenache. Black fruit means blackcurrant, blackberry and black plum."
+  - title: Taste
+    cards:
+      - learn: What your mouth tells you
+        visual: "diagram:tannin-acid"
+        body: |
+          - **Sweetness**: tip of the tongue. Dry, off-dry, medium or sweet.
+          - **Acidity**: makes your mouth water.
+          - **Tannin**: dries and grips your gums (reds).
+          - **Body**: the weight of the wine, light to full.
+          - **Finish**: how long the flavor lasts after you swallow.
+      - learn: Body is weight
+        body: |
+          Think of milk: skimmed milk is **light**, whole milk **medium**, cream **full**. Alcohol, sugar and extract all add body.
+      - choice: "Which sensation makes your mouth water?"
+        options: [Acidity, Tannin, Alcohol, Sweetness]
+        a: Acidity
+        explain: "Acidity triggers saliva. High-acid wines like Sauvignon Blanc and Riesling taste fresh and crisp."
+      - choice: "A drying, gripping feeling on the gums is caused by…"
+        options: [Tannin, Acidity, Sugar, Carbon dioxide]
+        a: Tannin
+        explain: "Tannin binds to proteins in your saliva, leaving that drying sensation, like strong black tea."
+      - blank: "The length of time flavors linger after swallowing is called the ___."
+        answers: [finish]
+        options: [body, nose, rim, legs]
+        explain: "A long finish is one of the clearest signs of a high-quality wine."
+      - tf: "A full-bodied wine feels heavier in the mouth than a light-bodied one."
+        truth: true
+        explain: "Body is about weight and texture. Alcohol, sugar and dissolved solids all make a wine feel fuller."
+      - match: "Match the sensation to where you feel it"
+        pairs: [[Sweetness, Tip of the tongue], [Tannin, Gums and teeth], [Alcohol, Warmth in the throat]]
+        explain: "Paying attention to *where* you feel something helps separate sensations, for example tannin from acidity."
+  - title: Describing wine
+    cards:
+      - learn: A simple tasting note
+        body: |
+          A useful note covers the essentials. For example:
+
+          *"Pale lemon. Pronounced aromas of grapefruit, gooseberry and grass. Dry, high acidity, light body, medium finish."*
+
+          That is all you need to recognize a classic Sauvignon Blanc.
+      - learn: Quality in four letters
+        body: |
+          Professionals judge quality with **BLIC**:
+
+          - **Balance**: nothing sticks out.
+          - **Length**: a long finish.
+          - **Intensity**: pronounced flavors.
+          - **Complexity**: many layers.
+      - choice: "In BLIC, what does the L stand for?"
+        options: [Length, Lightness, Legs, Lees]
+        a: Length
+        explain: "Length (the finish) is a key marker of quality. Great wines linger for a long time."
+      - tf: "'Legs' running down the glass show that a wine is high quality."
+        truth: false
+        explain: "Legs (or tears) show alcohol and sugar levels, not quality."
+      - blank: "A wine whose fruit, acidity, tannin and alcohol are in harmony is said to be ___."
+        answers: [balanced]
+        options: [corked, oxidized, sparkling, young]
+        explain: "Balance is the first test of quality. No single element should dominate."
+      - choice: "Which description fits a light, crisp white?"
+        options: ["High acidity, light body", "High tannin, full body", "Low acidity, full body", "Sweet, high alcohol"]
+        a: "High acidity, light body"
+        explain: "Think Muscadet, Pinot Grigio or Chablis: fresh, zesty and light."

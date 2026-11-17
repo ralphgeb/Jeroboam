@@ -1,0 +1,192 @@
+import SwiftUI
+
+struct ProfileView: View {
+    @Environment(GameProgress.self) private var progress
+    @State private var confirmReset = false
+
+    var body: some View {
+        @Bindable var p = progress
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 30) {
+                    // Rank
+                    VStack(alignment: .leading, spacing: 10) {
+                        Eyebrow("Your cellar")
+                        Text(progress.rank).font(.serif(34)).foregroundStyle(Palette.ink)
+                        if let next = progress.nextRank {
+                            VStack(alignment: .leading, spacing: 6) {
+                                GeometryReader { geo in
+                                    ZStack(alignment: .leading) {
+                                        Capsule().fill(Palette.line)
+                                        Capsule().fill(Palette.wine).frame(width: geo.size.width * progress.rankProgress)
+                                    }
+                                }
+                                .frame(height: 4)
+                                Text("\(next.xp - progress.data.xp) XP to \(next.title)").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                            }
+                            .padding(.top, 4)
+                        }
+                    }
+                    .padding(.top, 20)
+
+                    // Stats grid
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                        stat("\(progress.data.streak)", "Day streak", "flame.fill", Palette.flame)
+                        stat("\(progress.data.bestStreak)", "Best streak", "trophy", Palette.brass)
+                        stat("\(progress.data.xp)", "Total XP", "sparkle", Palette.brass)
+                        stat("\(progress.completedCount)/\(ContentStore.shared.totalLessons)", "Lessons", "book.closed", Palette.wine)
+                        stat("\(Int((progress.accuracy * 100).rounded()))%", "Accuracy", "scope", Palette.sage)
+                        stat("\(progress.data.freezes)", "Streak freezes", "snowflake", Palette.slate)
+                    }
+
+                    WeekStrip()
+
+                    // Achievements
+                    VStack(alignment: .leading, spacing: 14) {
+                        SectionTitle(text: "Achievements")
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12)], spacing: 16) {
+                            ForEach(Achievement.all) { a in
+                                let got = progress.data.achievements.contains(a.id)
+                                VStack(spacing: 8) {
+                                    ZStack {
+                                        Circle().fill(got ? Palette.wineSoft : Palette.cardAlt).frame(width: 58, height: 58)
+                                        Circle().strokeBorder(got ? Palette.brass : Palette.line, lineWidth: got ? 1.5 : 1).frame(width: 58, height: 58)
+                                        Image(systemName: a.icon).font(.system(size: 21, weight: .light))
+                                            .foregroundStyle(got ? Palette.wine : Palette.inkFaint)
+                                    }
+                                    Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
+                                        .multilineTextAlignment(.center).lineLimit(2)
+                                    Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
+                                        .multilineTextAlignment(.center).lineLimit(2)
+                                }
+                                .opacity(got ? 1 : 0.75)
+                            }
+                        }
+                    }
+
+                    // Settings
+                    VStack(alignment: .leading, spacing: 0) {
+                        SectionTitle(text: "Settings").padding(.bottom, 10)
+                        settingRow("Daily goal") {
+                            Picker("Daily goal", selection: $p.data.dailyGoal) {
+                                Text("Casual · 10 XP").tag(10)
+                                Text("Regular · 20 XP").tag(20)
+                                Text("Serious · 30 XP").tag(30)
+                                Text("Intense · 50 XP").tag(50)
+                            }
+                            .tint(Palette.wine)
+                        }
+                        Hairline()
+                        settingRow("Daily reminder") {
+                            Toggle("", isOn: Binding(get: { progress.data.reminders }, set: { progress.setReminders($0) }))
+                                .labelsHidden().tint(Palette.wine)
+                        }
+                        if progress.data.reminders {
+                            Hairline()
+                            settingRow("Remind me at") {
+                                Picker("Time", selection: Binding(get: { progress.data.reminderHour }, set: {
+                                    progress.data.reminderHour = $0
+                                    progress.setReminders(true)
+                                })) {
+                                    ForEach([8, 12, 17, 18, 19, 20, 21], id: \.self) { h in Text(hourString(h)).tag(h) }
+                                }
+                                .tint(Palette.wine)
+                            }
+                        }
+                        Hairline()
+                        settingRow("Appearance") {
+                            Picker("Appearance", selection: $p.data.appearance) {
+                                Text("Automatic").tag(0)
+                                Text("Light").tag(1)
+                                Text("Dark").tag(2)
+                            }
+                            .tint(Palette.wine)
+                        }
+                        Hairline()
+                        Button(role: .destructive) { confirmReset = true } label: {
+                            Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
+                                .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14)
+                        }
+                    }
+
+                    VStack(spacing: 6) {
+                        BrandDroplet(size: 34)
+                        Text("Jeroboam").font(.serif(15)).foregroundStyle(Palette.inkSoft)
+                        Text("Course structure inspired by the WSET levels. Not affiliated with or endorsed by WSET.")
+                            .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 10).padding(.bottom, 30)
+                }
+                .padding(.horizontal, Metrics.margin)
+            }
+            .scrollIndicators(.hidden)
+            .background(Palette.paper.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
+            .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
+                Button("Reset", role: .destructive) { progress.reset() }
+            } message: {
+                Text("Your streak, XP and finished lessons will be cleared.")
+            }
+        }
+    }
+
+    private func hourString(_ h: Int) -> String {
+        var c = DateComponents(); c.hour = h
+        let d = Calendar.current.date(from: c) ?? Date()
+        return d.formatted(date: .omitted, time: .shortened)
+    }
+
+    private func stat(_ v: String, _ label: String, _ icon: String, _ c: Color) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon).font(.system(size: 16)).foregroundStyle(c).frame(width: 22)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(v).font(.numeric(20, .semibold)).foregroundStyle(Palette.ink)
+                Text(label).font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+            }
+            Spacer(minLength: 0)
+        }
+        .cardStyle(padding: 14)
+    }
+
+    private func settingRow<C: View>(_ title: String, @ViewBuilder _ control: () -> C) -> some View {
+        HStack {
+            Text(title).font(.system(size: 16)).foregroundStyle(Palette.ink)
+            Spacer()
+            control()
+        }
+        .padding(.vertical, 8)
+        .frame(minHeight: 48)
+    }
+}
+
+/// The last seven days, with XP earned each day.
+struct WeekStrip: View {
+    @Environment(GameProgress.self) private var progress
+    var body: some View {
+        let cal = Calendar.current
+        let days: [Date] = (0..<7).reversed().compactMap { cal.date(byAdding: .day, value: -$0, to: Date()) }
+        let maxXP = max(progress.data.dailyGoal, days.map { progress.data.dailyXP[GameProgress.day($0)] ?? 0 }.max() ?? 0)
+        VStack(alignment: .leading, spacing: 14) {
+            SectionTitle(text: "This week")
+            HStack(alignment: .bottom, spacing: 10) {
+                ForEach(days, id: \.self) { d in
+                    let xp = progress.data.dailyXP[GameProgress.day(d)] ?? 0
+                    let isToday = cal.isDateInToday(d)
+                    VStack(spacing: 8) {
+                        Text(xp > 0 ? "\(xp)" : "").font(.numeric(10, .medium)).foregroundStyle(Palette.inkSoft).frame(height: 12)
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .fill(xp >= progress.data.dailyGoal ? Palette.wine : (xp > 0 ? Palette.wine.opacity(0.4) : Palette.line))
+                            .frame(height: max(6, 70 * CGFloat(xp) / CGFloat(max(1, maxXP))))
+                        Text(d.formatted(.dateTime.weekday(.narrow)))
+                            .font(.system(size: 12, weight: isToday ? .bold : .regular))
+                            .foregroundStyle(isToday ? Palette.ink : Palette.inkSoft)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+            }
+            .frame(height: 112, alignment: .bottom)
+            .cardStyle(padding: 16)
+        }
+    }
+}

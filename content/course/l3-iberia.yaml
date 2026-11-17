@@ -1,0 +1,81 @@
+title: Spain & Portugal
+summary: "Rioja and Ribera, Spain's diverse regions, and Portugal from Vinho Verde to the Douro."
+icon: sun.max
+lessons:
+  - title: Rioja & Ribera del Duero
+    cards:
+      - learn: Rioja
+        visual: "map:spain:rioja"
+        body: |
+          Along the **Ebro**, sheltered by mountains. Three zones: cooler **Rioja Alta** and **Rioja Alavesa**, warmer **Rioja Oriental**.
+
+          **Tempranillo** leads, with Garnacha, Graciano and Mazuelo (Carignan). Traditional producers age long in American oak; modern ones use French oak, riper fruit and single vineyards.
+      - learn: Ribera del Duero
+        visual: "map:spain:ribera-del-duero"
+        body: |
+          A high plateau (about 750–850 m) along the Duero. Hot days and very cold nights produce deep, powerful **Tinto Fino** (Tempranillo). Vega Sicilia and Pingus are icons.
+      - choice: "Which Rioja zone is the warmest?"
+        options: [Rioja Oriental, Rioja Alta, Rioja Alavesa, All are equal]
+        a: Rioja Oriental
+        explain: "Lower and more Mediterranean, it suits Garnacha."
+      - tf: "Ribera del Duero's vineyards are at high altitude, giving cold nights."
+        truth: true
+        explain: "Frost is a risk, but the diurnal range keeps acidity and color."
+      - choice: "Mazuelo, used in Rioja, is better known as…"
+        options: [Carignan, Grenache, Merlot, Mourvèdre]
+        a: Carignan
+        explain: "Also called Cariñena in Spain. It adds acidity and color to blends."
+      - blank: "A red Rioja Reserva must age at least ___ years, one in oak."
+        answers: ["three"]
+        options: ["five", "one", "ten"]
+        explain: "Crianza needs two years (one in oak); Gran Reserva needs five (two in oak)."
+  - title: Spain's other stars
+    cards:
+      - learn: From Galicia to Andalucía
+        visual: "map:spain"
+        body: |
+          - **Rías Baixas**: Albariño. **Rueda**: Verdejo. **Bierzo**: Mencía.
+          - **Priorat**: old-vine Garnacha and Cariñena on llicorella slate.
+          - **Penedès**: Cava (Macabeo, Xarel·lo, Parellada).
+          - **La Mancha**: the huge central plain. **Jumilla**: Monastrell.
+          - **Jerez**: Sherry.
+      - choice: "Priorat's famous slate soil is called…"
+        options: [Llicorella, Albariza, Terra rossa, Galets]
+        a: Llicorella
+        visual: "map:spain:priorat"
+        explain: "Dark, crumbly slate that forces roots deep and gives low yields of intense wine. Albariza is the white chalk of Jerez."
+      - match: "Match the Spanish region to its signature grape"
+        pairs: [[Rueda, Verdejo], [Bierzo, Mencía], [Jumilla, Monastrell], [Rías Baixas, Albariño]]
+        explain: "Spain is far more than Tempranillo."
+      - tf: "Albariza is the chalky white soil of the Sherry region."
+        truth: true
+        explain: "It holds winter rain like a sponge and bakes into a hard crust in summer."
+      - choice: "Which grapes make Cava?"
+        options: ["Macabeo, Xarel·lo and Parellada", "Palomino and PX", "Albariño and Verdejo", "Glera and Chardonnay"]
+        a: "Macabeo, Xarel·lo and Parellada"
+        explain: "Chardonnay and Pinot Noir are also permitted."
+  - title: Portugal
+    cards:
+      - learn: The Douro and beyond
+        visual: "map:portugal"
+        body: |
+          - **Vinho Verde**: rainy north-west; fresh, light whites, Alvarinho at its best.
+          - **Douro**: hot schist terraces; Port and powerful dry reds from Touriga Nacional, Touriga Franca and Tinta Roriz.
+          - **Dão**: granite plateau, elegant reds. **Bairrada**: Baga.
+          - **Alentejo**: hot plains; ripe reds; cork forests.
+      - choice: "The Douro's vineyards grow on…"
+        options: ["Steep schist terraces", "Flat sandy plains", "Chalk hills", "Volcanic islands"]
+        a: "Steep schist terraces"
+        visual: "map:portugal:douro"
+        explain: "The schist breaks into layers that let vine roots dig deep for water in the hot, dry summers."
+      - tf: "Portugal is the world's largest producer of cork."
+        truth: true
+        explain: "Most of it comes from cork oak forests in the Alentejo."
+      - choice: "Which grape is considered Portugal's finest black variety?"
+        options: [Touriga Nacional, Baga, Tempranillo, Castelão]
+        a: Touriga Nacional
+        explain: "Deep, floral and structured, it is key to both Port and Douro reds."
+      - blank: "LBV Port stands for Late Bottled ___."
+        answers: [Vintage]
+        options: [Valley, Variety, Velvet]
+        explain: "Single-vintage Port aged 4–6 years in wood, ready to drink sooner than Vintage Port."

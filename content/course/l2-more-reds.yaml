@@ -1,0 +1,104 @@
+title: More black grapes
+summary: "Grenache, Tempranillo, Italy's great reds, and the New World stars Malbec, Zinfandel, Carmenère and Pinotage."
+icon: circle.hexagongrid
+lessons:
+  - title: Grenache & Tempranillo
+    cards:
+      - learn: Grenache
+        visual: "grape:grenache"
+        body: |
+          Thin-skinned and heat-loving: **high alcohol, soft tannin**, strawberry, raspberry, white pepper and dried herbs. It is the backbone of **Châteauneuf-du-Pape** and Southern Rhône blends (GSM), and great for rosé.
+      - learn: Tempranillo
+        visual: "grape:tempranillo"
+        body: |
+          Spain's noble grape: red cherry, plum, leather and tobacco. In **Rioja** it is traditionally aged in **American oak**, adding vanilla and coconut. In **Ribera del Duero** it is darker and more powerful.
+      - choice: "What does GSM stand for?"
+        options: ["Grenache, Syrah, Mourvèdre", "Gamay, Sangiovese, Merlot", "Grüner, Sémillon, Muscat", "Garnacha, Sémillon, Malbec"]
+        a: "Grenache, Syrah, Mourvèdre"
+        explain: "The classic Southern Rhône blend, also popular in Australia's Barossa and McLaren Vale."
+      - choice: "Coconut and vanilla in traditional Rioja come from…"
+        options: [American oak, Malolactic conversion, The Tempranillo grape, Stainless steel]
+        a: American oak
+        explain: "American oak has more of the compounds that smell of coconut (lactones) and vanilla."
+      - tf: "Grenache usually produces wines with high alcohol and soft tannins."
+        truth: true
+        explain: "It accumulates sugar easily in hot climates, and its thin skins give gentle tannins."
+      - choice: "Which Spanish region is Tempranillo's most famous home?"
+        options: [Rioja, Rías Baixas, Jerez, Penedès]
+        a: Rioja
+        visual: "map:spain:rioja"
+        explain: "Rioja, along the Ebro river, is Spain's classic red region."
+  - title: Italy's great reds
+    cards:
+      - learn: Sangiovese
+        visual: "grape:sangiovese"
+        body: |
+          Italy's most planted grape: **sour cherry, tomato leaf and dried herbs**, with high acidity and firm tannin. The grape of **Chianti**, **Brunello di Montalcino** and **Vino Nobile di Montepulciano**.
+      - learn: Nebbiolo
+        visual: "grape:nebbiolo"
+        body: |
+          "Tar and roses." **Pale** yet ferociously **tannic and acidic**, it makes Piedmont's **Barolo** and **Barbaresco**, among the longest-lived wines in the world.
+      - choice: "Chianti is made mainly from…"
+        options: [Sangiovese, Nebbiolo, Barbera, Merlot]
+        a: Sangiovese
+        visual: "map:tuscany:chianti-classico"
+        explain: "Chianti Classico must be at least 80% Sangiovese."
+      - choice: "Barolo is made from which grape?"
+        options: [Nebbiolo, Sangiovese, Montepulciano, Corvina]
+        a: Nebbiolo
+        visual: "map:piedmont:barolo"
+        explain: "100% Nebbiolo, from hills south-west of Alba in Piedmont."
+      - tf: "Nebbiolo makes deeply colored, low-tannin wines."
+        truth: false
+        explain: "Nebbiolo is relatively pale, fades to garnet early, and is very high in tannin and acidity."
+      - blank: "Nebbiolo's classic aromas are summed up as 'tar and ___'."
+        answers: [roses]
+        options: [lemons, butter, bananas]
+        explain: "Rose petals and violets, with tar, liquorice and dried cherry."
+  - title: New World stars
+    cards:
+      - learn: Signature grapes
+        visual: "map:south-america:mendoza,uco-valley"
+        body: |
+          - **Malbec** (Argentina): inky, plush, blackberry and violet. Altitude in Mendoza keeps it fresh.
+          - **Zinfandel** (California): jammy blackberry, high alcohol. Called Primitivo in Italy.
+          - **Carmenère** (Chile): red plum and green pepper; rediscovered in 1994.
+          - **Pinotage** (South Africa): a 1925 cross of Pinot Noir and Cinsault.
+      - match: "Match the grape to its adopted home"
+        pairs: [[Malbec, Argentina], [Carmenère, Chile], [Pinotage, South Africa], [Zinfandel, California]]
+        explain: "Each of these became its country's signature red."
+      - choice: "Zinfandel is genetically identical to…"
+        options: [Primitivo, Sangiovese, Merlot, Gamay]
+        a: Primitivo
+        explain: "Both trace back to the Croatian grape Tribidrag (Crljenak Kaštelanski)."
+      - tf: "Malbec originally came from Cahors in South West France."
+        truth: true
+        explain: "It was once important in Bordeaux too, but Argentina made it world-famous."
+      - choice: "Pinotage is a cross of Pinot Noir and…"
+        options: [Cinsault, Syrah, Cabernet Sauvignon, Grenache]
+        a: Cinsault
+        explain: "Created in 1925 at Stellenbosch University; Cinsault was known in South Africa as Hermitage, hence the name."
+  - title: Gamay & Cabernet Franc
+    cards:
+      - learn: Light and fragrant
+        visual: "grape:gamay"
+        body: |
+          - **Gamay**: the grape of **Beaujolais**. Juicy red cherry and raspberry, low tannin, high acidity; often made by carbonic maceration (banana, bubblegum).
+          - **Cabernet Franc**: raspberry, violet and a leafy note; the star of the Loire (**Chinon**) and a partner in Bordeaux blends.
+      - choice: "Beaujolais is made from…"
+        options: [Gamay, Pinot Noir, Syrah, Grenache]
+        a: Gamay
+        visual: "map:burgundy:beaujolais"
+        explain: "Beaujolais lies just south of Burgundy and is almost entirely Gamay."
+      - choice: "Which technique gives Beaujolais Nouveau its banana and bubblegum notes?"
+        options: [Carbonic maceration, New oak, Malolactic conversion, Fortification]
+        a: Carbonic maceration
+        explain: "Whole bunches ferment inside the berries in a CO₂ atmosphere, making soft, fruity, aromatic reds."
+      - tf: "Chinon in the Loire Valley is made mainly from Cabernet Franc."
+        truth: true
+        explain: "Fragrant red fruit, violets and a leafy, pencil-shaving edge."
+        visual: "map:loire:chinon"
+      - blank: "Cabernet Franc is a parent of Cabernet ___."
+        answers: [Sauvignon]
+        options: [Franc, Noir, Gris]
+        explain: "Cabernet Franc × Sauvignon Blanc = Cabernet Sauvignon."

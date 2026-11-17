@@ -1,0 +1,1114 @@
+# Profile scales 1–5 (typical style). Tannin is 0 for whites.
+# ---------------------------------------------------------------- white
+- id: chardonnay
+  name: Chardonnay
+  berry: white
+  pronounce: shar-doh-NAY
+  origin: Burgundy, France
+  summary: "The world's most versatile white grape. A blank canvas that shows its place and its winemaker: steely in Chablis, creamy and oaky in California, toasty in Champagne."
+  body: 3
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Green apple, Lemon, Peach, Pineapple, Butter, Vanilla, Toast, Flint]
+  cool: "Green apple, lemon and wet stones with high acidity: Chablis, Champagne, Tasmania."
+  warm: "Peach, pineapple and banana with fuller body; often oaked: California, Australia."
+  regions: [burgundy, chablis, cote-de-beaune, maconnais, champagne, cote-des-blancs, napa-valley, carneros, sonoma-coast, russian-river, margaret-river, adelaide-hills, yarra-valley, casablanca, walker-bay, south-africa]
+  styles: "From unoaked and crisp (Chablis, Mâcon) to rich, oaked and buttery with malolactic conversion. Also the backbone of Blanc de Blancs Champagne."
+  food: [Roast chicken, Lobster, Creamy pasta, Scallops, Comté]
+  ageing: "Most are best within 3–5 years. Top white Burgundy can develop for 10–20 years, gaining nutty, honeyed notes."
+  glass: lemon
+  fact: "Chardonnay is the result of a cross between Pinot Noir and the obscure Gouais Blanc, a grape medieval nobles tried to ban."
+  level: 1
+- id: sauvignon-blanc
+  name: Sauvignon Blanc
+  berry: white
+  pronounce: SO-vin-yon BLONK
+  origin: Loire Valley & Bordeaux, France
+  summary: "Zesty, aromatic and instantly recognizable: high acidity with green, herbaceous aromas and citrus or tropical fruit."
+  body: 2
+  acidity: 5
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Grapefruit, Gooseberry, Grass, Green bell pepper, Asparagus, Passion fruit, Elderflower, Flint]
+  cool: "Gooseberry, grass and flint; lean and mineral: Sancerre, Pouilly-Fumé."
+  warm: "Passion fruit, melon and riper citrus: Marlborough, parts of Chile and South Africa."
+  regions: [loire, sancerre, pouilly-fume, touraine, bordeaux, graves, pessac-leognan, marlborough, casablanca, elgin, constantia, adelaide-hills, steiermark]
+  styles: "Usually unoaked and best young. In Bordeaux it is blended with Sémillon for dry whites (sometimes oaked) and for sweet Sauternes. Oaked California versions are called Fumé Blanc."
+  food: [Goat cheese, Asparagus, Oysters, Green salads, Thai dishes]
+  ageing: "Drink young, within 1–3 years. Oaked white Bordeaux can age longer."
+  glass: lemon-green
+  fact: "Sauvignon Blanc is a parent of Cabernet Sauvignon, after a chance crossing with Cabernet Franc in 17th-century Bordeaux."
+  level: 1
+- id: riesling
+  name: Riesling
+  berry: white
+  pronounce: REES-ling
+  origin: Rhine Valley, Germany
+  summary: "Thrillingly high acidity and intense aromas of citrus, stone fruit and flowers. Made bone dry to lusciously sweet, and one of the longest-lived whites."
+  body: 2
+  acidity: 5
+  tannin: 0
+  alcohol: 2
+  sweetness: 2
+  aromas: [Lime, Green apple, Peach, Apricot, Blossom, Wet stones, Petrol, Honey]
+  cool: "Green apple, lime and blossom; often off-dry with low alcohol: Mosel."
+  warm: "Riper peach and citrus, drier and fuller: Alsace, Clare and Eden Valley (lime), Pfalz."
+  regions: [germany, mosel, rheingau, pfalz, nahe, alsace, wachau, kamptal, kremstal, clare, eden-valley, great-southern, tasmania, marlborough, columbia-valley]
+  styles: "Never oaked for flavor. Dry (Trocken, Grosses Gewächs), off-dry (Kabinett), sweet (Spätlese, Auslese) and noble-rot or ice wines (Beerenauslese, Trockenbeerenauslese, Eiswein)."
+  food: [Spicy Asian food, Pork, Duck, Smoked fish, Sauerkraut]
+  ageing: "Exceptional. Good examples evolve for decades, developing honey, toast and the famous petrol note."
+  glass: lemon-green
+  fact: "The petrol aroma in aged Riesling comes from a compound called TDN, which builds up with sun exposure and age."
+  level: 1
+- id: pinot-grigio
+  name: Pinot Grigio
+  berry: pink
+  aka: [Pinot Gris, Grauburgunder]
+  pronounce: PEE-no GREE-jo
+  origin: Burgundy, France (a color mutation of Pinot Noir)
+  summary: "Two styles from one grape: light, crisp and neutral as Italian Pinot Grigio, or rich, spicy and textured as Alsace Pinot Gris."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Green apple, Pear, Peach, Honey, Almond, Sweet spice]
+  cool: "Pinot Grigio style: light, crisp, lemon and pear: northern Italy (Veneto, Friuli, Alto Adige)."
+  warm: "Pinot Gris style: fuller, honeyed, stone fruit and spice, sometimes off-dry: Alsace, Oregon, New Zealand."
+  regions: [veneto, friuli, trentino-alto-adige, alsace, willamette, baden]
+  styles: "Unoaked. Its skins are pinkish-grey, so long skin contact gives copper-tinted 'ramato' wines."
+  food: [Light pasta, Seafood salad, Mild curries, Pâté (Alsace style)]
+  ageing: "Pinot Grigio is for drinking young; Alsace Pinot Gris can age for a decade."
+  glass: lemon
+  fact: "'Grigio' and 'Gris' both mean grey, after the grape's dusky pink-grey skin."
+  level: 1
+- id: chenin-blanc
+  name: Chenin Blanc
+  berry: white
+  pronounce: SHEN-in BLONK
+  origin: Loire Valley, France
+  summary: "A chameleon with piercing acidity, made in every style: dry, off-dry, sweet and sparkling. Honeyed, apple-scented and capable of great age."
+  body: 3
+  acidity: 5
+  tannin: 0
+  alcohol: 3
+  sweetness: 2
+  aromas: [Green apple, Quince, Pear, Lemon, Honey, Wet wool, Hay]
+  cool: "Green apple, quince and wet wool; often off-dry or sparkling: Vouvray, Savennières."
+  warm: "Riper tropical and stone fruit, often oaked: South Africa (Swartland, Stellenbosch)."
+  regions: [loire, vouvray, montlouis, savennieres, anjou, saumur, south-africa, swartland, stellenbosch, paarl]
+  styles: "Dry (sec), off-dry (demi-sec), sweet (moelleux, often with botrytis) and traditional-method sparkling (Crémant de Loire). South Africa's most planted grape, where it is also called Steen."
+  food: [Pork with apples, Thai food, Goat cheese, Fruit tarts (sweet styles)]
+  ageing: "Top Loire Chenin, dry or sweet, can age for 20–50 years."
+  glass: lemon
+  level: 2
+- id: semillon
+  name: Sémillon
+  berry: white
+  pronounce: SEM-ee-yon
+  origin: Bordeaux, France
+  summary: "Low in aroma when young but rich in texture. The heart of Sauternes, and in Australia's Hunter Valley a unique dry wine that ages into toast and honey."
+  body: 3
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 2
+  aromas: [Lemon, Green apple, Grass, Honey, Toast, Marmalade, Apricot]
+  cool: "Hunter Valley: picked early at about 11% abv, lemon and grass, ageing to toast and honey."
+  warm: "Riper, waxy and fuller; susceptible to noble rot in Sauternes."
+  regions: [bordeaux, sauternes, graves, pessac-leognan, hunter-valley, margaret-river]
+  styles: "Blended with Sauvignon Blanc in dry white Bordeaux and in Sauternes and Barsac. Thin skins make it prone to botrytis."
+  food: [Foie gras (sweet), Blue cheese (sweet), Seafood (dry Hunter)]
+  ageing: "Sauternes and Hunter Sémillon both age for decades."
+  glass: gold
+  level: 2
+- id: gewurztraminer
+  name: Gewürztraminer
+  berry: pink
+  pronounce: geh-VURTZ-trah-mee-ner
+  origin: Alto Adige, Italy (Tramin) & Alsace
+  summary: "The most perfumed grape of all: rose petals, lychee and ginger. Low acidity, deep color and an oily texture."
+  body: 4
+  acidity: 2
+  tannin: 0
+  alcohol: 4
+  sweetness: 2
+  aromas: [Rose, Lychee, Peach, Orange blossom, Sweet spice, Honey]
+  regions: [alsace, trentino-alto-adige, germany, new-zealand]
+  styles: "Dry to sweet; in Alsace also late-harvest (Vendanges Tardives) and botrytized (Sélection de Grains Nobles)."
+  food: [Munster cheese, Spicy Asian dishes, Moroccan tagine, Foie gras]
+  ageing: "Mostly drink young; sweet Alsace versions age well."
+  glass: gold
+  fact: "'Gewürz' means spice in German; the grape is pink-skinned and its wines can look golden even when young."
+  level: 2
+- id: muscat
+  name: Muscat
+  berry: white
+  aka: [Moscato, Moscatel, Muskateller]
+  pronounce: MUSS-kat
+  origin: Ancient Mediterranean; a family of related grapes
+  summary: "The one grape whose wine smells exactly of grapes. Floral, peachy and orange-scented, from feather-light Moscato d'Asti to syrupy Rutherglen Muscat."
+  body: 2
+  acidity: 2
+  tannin: 0
+  alcohol: 2
+  sweetness: 4
+  aromas: [Green grape, Orange blossom, Rose, Peach, Apricot, Lychee]
+  regions: [piedmont, moscato-dasti, alsace, rutherglen, languedoc, rhone]
+  styles: "Sparkling and sweet (Asti), fortified (Muscat de Beaumes-de-Venise, Rutherglen Muscat), dry (Alsace) and sweet passito."
+  food: [Fruit desserts, Panettone, Blue cheese (fortified), Aperitif (dry)]
+  ageing: "Drink young, except fortified styles like Rutherglen Muscat."
+  glass: lemon
+  level: 2
+- id: viognier
+  name: Viognier
+  berry: white
+  pronounce: vee-oh-NYAY
+  origin: Northern Rhône, France
+  summary: "Full-bodied and heady with apricot, peach and honeysuckle. Low acidity, high alcohol and a silky texture."
+  body: 4
+  acidity: 2
+  tannin: 0
+  alcohol: 4
+  sweetness: 1
+  aromas: [Apricot, Peach, Honeysuckle, Violet, Orange blossom, Sweet spice]
+  regions: [rhone, condrieu, languedoc, eden-valley, central-coast]
+  styles: "Condrieu is the benchmark. A small amount is co-fermented with Syrah in Côte-Rôtie for color stability and perfume."
+  food: [Lobster, Apricot chicken, Mild curries, Crab]
+  ageing: "Best young, within about 3 years."
+  glass: gold
+  fact: "In the 1960s Condrieu was down to about 8 hectares and Viognier nearly vanished."
+  level: 2
+- id: albarino
+  name: Albariño
+  berry: white
+  aka: [Alvarinho]
+  pronounce: al-bah-REEN-yo
+  origin: Galicia, Spain & northern Portugal
+  summary: "Fresh, saline and aromatic: peach, grapefruit and a sea-breeze tang. The seafood wine of the Atlantic coast."
+  body: 2
+  acidity: 4
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Peach, Grapefruit, Lemon, Nectarine, Blossom, Saline]
+  regions: [rias-baixas, vinho-verde]
+  styles: "Usually unoaked, sometimes lees-aged for texture. As Alvarinho it makes Portugal's finest Vinho Verde in Monção and Melgaço."
+  food: [Grilled sardines, Octopus, Ceviche, Oysters]
+  ageing: "Drink within 2–4 years."
+  glass: lemon-green
+  level: 2
+- id: gruner-veltliner
+  name: Grüner Veltliner
+  berry: white
+  pronounce: GROO-ner felt-LEE-ner
+  origin: Austria
+  summary: "Austria's signature white: crisp green fruit with a twist of white pepper."
+  body: 3
+  acidity: 4
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Green apple, Lime, Grapefruit, White pepper, Grass]
+  regions: [austria, wachau, kremstal, kamptal, weinviertel, wagram]
+  styles: "From light, peppery everyday wines (Weinviertel DAC) to powerful, age-worthy Smaragd from the Wachau."
+  food: [Wiener schnitzel, Asparagus, Sushi, Vegetable dishes]
+  ageing: "Simple ones young; top single-vineyard wines age 10+ years."
+  glass: lemon-green
+  level: 2
+- id: torrontes
+  name: Torrontés
+  berry: white
+  pronounce: tor-ron-TEZ
+  origin: Argentina (a cross of Muscat of Alexandria and Criolla Chica)
+  summary: "Argentina's aromatic white: exuberantly floral like Muscat, but dry, with a bitter-citrus finish."
+  body: 3
+  acidity: 3
+  tannin: 0
+  alcohol: 4
+  sweetness: 1
+  aromas: [Rose, Orange blossom, Peach, Lemon zest, Lychee]
+  regions: [salta, argentina]
+  styles: "Best from high-altitude vineyards in Salta (Cafayate), where cool nights keep acidity."
+  food: [Empanadas, Spicy Asian dishes, Ceviche]
+  glass: lemon
+  level: 3
+- id: furmint
+  name: Furmint
+  berry: white
+  pronounce: FOOR-mint
+  origin: Hungary
+  summary: "The great grape of Tokaj: searing acidity, smoky minerality and a strong affinity for noble rot."
+  body: 3
+  acidity: 5
+  tannin: 0
+  alcohol: 3
+  sweetness: 3
+  aromas: [Lime, Pear, Quince, Smoke, Apricot, Marmalade, Honey]
+  regions: [tokaj, hungary, somlo]
+  styles: "Tokaji Aszú (sweet, botrytized), Szamorodni, late harvest and increasingly fine dry Furmint."
+  food: [Foie gras, Blue cheese, Roast pork]
+  ageing: "Aszú can age for a century."
+  glass: gold
+  level: 3
+- id: assyrtiko
+  name: Assyrtiko
+  berry: white
+  pronounce: ah-SEER-tee-ko
+  origin: Santorini, Greece
+  summary: "Bone-dry, mineral and saline, keeping high acidity even in hot sun. Grown on Santorini in basket-shaped vines (kouloura)."
+  body: 3
+  acidity: 5
+  tannin: 0
+  alcohol: 4
+  sweetness: 1
+  aromas: [Lemon, Grapefruit, Saline, Flint, Wet stones, Smoke]
+  regions: [santorini, greece, crete]
+  styles: "Dry, sometimes oaked (Nykteri); sweet Vinsanto from sun-dried grapes."
+  food: [Grilled fish, Octopus, Feta, Fava dip]
+  glass: lemon
+  fact: "Santorini's vines are ungrafted; phylloxera cannot survive in its volcanic sand."
+  level: 3
+- id: melon
+  name: Melon de Bourgogne
+  berry: white
+  aka: [Muscadet]
+  pronounce: meh-LON duh boor-GOYN
+  origin: Burgundy, France
+  summary: "The neutral grape behind Muscadet: light, lemony and briny, often given texture by ageing on its lees (sur lie)."
+  body: 1
+  acidity: 4
+  tannin: 0
+  alcohol: 2
+  sweetness: 1
+  aromas: [Lemon, Green apple, Saline, Bread dough, Wet stones]
+  regions: [muscadet, loire]
+  styles: "Muscadet Sèvre et Maine sur lie: bottled straight off the lees for freshness and a light yeasty note."
+  food: [Oysters, Moules marinière, Fish and chips]
+  glass: lemon-green
+  level: 3
+- id: garganega
+  name: Garganega
+  berry: white
+  pronounce: gar-GAH-neh-gah
+  origin: Veneto, Italy
+  summary: "The grape of Soave: almond, lemon and white flowers, with a gentle, textured finish."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Pear, Almond, Blossom, Peach]
+  regions: [veneto]
+  styles: "Soave Classico from volcanic hills; sweet Recioto di Soave from dried grapes."
+  food: [Risotto, Seafood pasta, Mild cheeses]
+  glass: lemon
+  level: 3
+- id: glera
+  name: Glera
+  berry: white
+  pronounce: GLAIR-ah
+  origin: Veneto & Friuli, Italy
+  summary: "The grape of Prosecco: light, fresh, with pear, apple and white flowers."
+  body: 1
+  acidity: 3
+  tannin: 0
+  alcohol: 2
+  sweetness: 2
+  aromas: [Pear, Green apple, Melon, Blossom, Acacia]
+  regions: [veneto, friuli]
+  styles: "Tank-method sparkling (spumante) and gently sparkling (frizzante)."
+  food: [Aperitivo, Prosciutto e melone, Fried snacks]
+  glass: lemon-green
+  level: 3
+- id: verdejo
+  name: Verdejo
+  berry: white
+  pronounce: vair-DAY-ho
+  origin: Rueda, Spain
+  summary: "Rueda's grape: herbaceous and citrusy with a slightly bitter almond finish."
+  body: 2
+  acidity: 4
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lime, Grapefruit, Fennel, Grass, Almond, Peach]
+  regions: [rueda]
+  styles: "Usually unoaked and fresh; often blended with Sauvignon Blanc."
+  food: [Tapas, Salads, White fish]
+  glass: lemon-green
+  level: 3
+- id: cortese
+  name: Cortese
+  berry: white
+  origin: Piedmont, Italy
+  summary: "The grape of Gavi: delicate, crisp and lemony with a hint of almond."
+  body: 2
+  acidity: 4
+  tannin: 0
+  alcohol: 2
+  sweetness: 1
+  aromas: [Lemon, Green apple, Almond, Blossom]
+  regions: [gavi, piedmont]
+  food: [Pesto, Seafood, Vitello tonnato]
+  glass: lemon-green
+  level: 3
+- id: verdicchio
+  name: Verdicchio
+  berry: white
+  origin: Marche, Italy
+  summary: "Central Italy's finest white: high acidity, lemon, green almond and a gently bitter finish; ages surprisingly well."
+  body: 3
+  acidity: 4
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Green apple, Almond, Fennel, Wet stones]
+  regions: [marche]
+  food: [Fish soup, Fried seafood, Pasta with clams]
+  glass: lemon
+  level: 3
+- id: fiano
+  name: Fiano
+  berry: white
+  origin: Campania, Italy
+  summary: "Waxy, nutty and honeyed southern Italian white with good acidity. Best from Fiano di Avellino."
+  body: 3
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Pear, Peach, Hazelnut, Honey, Acacia, Smoke]
+  regions: [campania, sicily]
+  food: [Seafood risotto, Buffalo mozzarella, Roast chicken]
+  glass: lemon
+  level: 3
+- id: greco
+  name: Greco
+  berry: white
+  origin: Campania, Italy
+  summary: "Greco di Tufo: firm, mineral and peachy with bright acidity and a light phenolic grip."
+  body: 3
+  acidity: 4
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Peach, Lemon, Almond, Wet stones]
+  regions: [campania]
+  food: [Grilled fish, Pizza bianca, Seafood]
+  glass: lemon
+  level: 3
+- id: palomino
+  name: Palomino
+  berry: white
+  aka: [Palomino Fino, Listán]
+  origin: Andalucía, Spain
+  summary: "A neutral, low-acid grape that is the perfect base for Sherry, where flor and oxygen create the flavors."
+  body: 2
+  acidity: 2
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Almond, Bread dough, Saline, Walnut]
+  regions: [jerez]
+  styles: "All dry Sherry styles: Fino, Manzanilla, Amontillado, Palo Cortado, Oloroso."
+  food: [Jamón, Olives, Almonds, Fried fish]
+  glass: lemon
+  level: 3
+- id: pedro-ximenez
+  name: Pedro Ximénez
+  berry: white
+  aka: [PX]
+  origin: Andalucía, Spain
+  summary: "Sun-dried in Jerez and Montilla to make PX: black, syrupy and intensely raisined."
+  body: 5
+  acidity: 2
+  tannin: 0
+  alcohol: 4
+  sweetness: 5
+  aromas: [Raisin, Fig, Prune, Coffee, Toffee, Chocolate]
+  regions: [jerez]
+  food: [Vanilla ice cream, Blue cheese, Chocolate desserts]
+  glass: brown
+  level: 3
+- id: marsanne
+  name: Marsanne & Roussanne
+  berry: white
+  origin: Northern Rhône, France
+  summary: "Rhône partners: Marsanne brings body and nutty richness, Roussanne aroma and acidity. White Hermitage is their peak."
+  body: 4
+  acidity: 2
+  tannin: 0
+  alcohol: 4
+  sweetness: 1
+  aromas: [Pear, Peach, Almond, Honey, Acacia, Sweet spice]
+  regions: [hermitage, crozes-hermitage, saint-joseph, chateauneuf-du-pape, rhone]
+  food: [Roast poultry, Lobster, Rich fish dishes]
+  ageing: "White Hermitage can age for decades."
+  glass: gold
+  level: 3
+- id: trebbiano
+  name: Trebbiano
+  berry: white
+  aka: [Ugni Blanc]
+  origin: Italy
+  summary: "High-yielding and neutral with high acidity. Across Italy it makes simple whites; in France, as Ugni Blanc, it is distilled into Cognac and Armagnac."
+  body: 2
+  acidity: 4
+  tannin: 0
+  alcohol: 2
+  sweetness: 1
+  aromas: [Lemon, Green apple, Pear, Almond]
+  regions: [abruzzo, tuscany, emilia-romagna]
+  food: [Light pasta, Salads]
+  glass: lemon-green
+  level: 3
+- id: vermentino
+  name: Vermentino
+  berry: white
+  aka: [Rolle]
+  origin: Mediterranean coast
+  summary: "Herbal, citrusy and saline: the Mediterranean seaside white of Sardinia, Liguria, coastal Tuscany and Provence (as Rolle)."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lime, Grapefruit, Green apple, Fennel, Saline, Almond]
+  regions: [sardinia, tuscany, provence]
+  food: [Grilled fish, Pesto, Bouillabaisse]
+  glass: lemon-green
+  level: 3
+- id: pinot-blanc
+  name: Pinot Blanc
+  berry: white
+  aka: [Pinot Bianco, Weissburgunder]
+  origin: Burgundy, France (a mutation of Pinot Noir)
+  summary: "Gentle, round and apple-scented, a softer cousin of Chardonnay. Widely used for Crémant d'Alsace."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red apple, Pear, Almond, Blossom]
+  regions: [alsace, trentino-alto-adige, baden, pfalz]
+  food: [Quiche, Light fish, Tarte flambée]
+  glass: lemon
+  level: 3
+- id: macabeo
+  name: Macabeo
+  berry: white
+  aka: [Viura]
+  origin: Spain
+  summary: "The main white grape of Rioja (as Viura) and a key Cava grape. Neutral and fresh, or nutty when aged in old oak."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Lemon, Green apple, Blossom, Almond, Hazelnut]
+  regions: [rioja, penedes]
+  styles: "Fresh young white Rioja, oxidatively aged traditional white Rioja, and Cava (with Xarel·lo and Parellada)."
+  food: [Tapas, Seafood paella, Croquetas]
+  glass: lemon
+  level: 3
+- id: silvaner
+  name: Silvaner
+  berry: white
+  origin: Central Europe
+  summary: "Earthy, herbal and quietly mineral; at its best in Franken, bottled in the squat Bocksbeutel flask."
+  body: 2
+  acidity: 3
+  tannin: 0
+  alcohol: 3
+  sweetness: 1
+  aromas: [Green apple, Pear, Grass, Wet stones]
+  regions: [franken, rheinhessen]
+  food: [Asparagus, Freshwater fish, Salads]
+  glass: lemon-green
+  level: 3
+# ---------------------------------------------------------------- black
+- id: cabernet-sauvignon
+  name: Cabernet Sauvignon
+  berry: black
+  pronounce: KAB-er-nay SO-vin-yon
+  origin: Bordeaux, France
+  summary: "The king of red grapes: small, thick-skinned berries give deep color, high tannin and blackcurrant fruit. Built to age, especially with oak."
+  body: 5
+  acidity: 4
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackcurrant, Black cherry, Green bell pepper, Mint, Cedar, Vanilla, Tobacco]
+  cool: "Leaner, with herbaceous green bell pepper and leafy notes; needs a warm site to ripen."
+  warm: "Riper black fruit, often mint or eucalyptus, fuller body: Napa, Coonawarra, Margaret River."
+  regions: [bordeaux, haut-medoc, pauillac, margaux, saint-julien, saint-estephe, pessac-leognan, napa-valley, oakville, rutherford, stags-leap, coonawarra, margaret-river, maipo, colchagua, stellenbosch, bolgheri, columbia-valley]
+  styles: "Often blended (Bordeaux blend) with Merlot and Cabernet Franc, which soften and add aroma. Usually matured in oak."
+  food: [Steak, Lamb, Hard cheeses, Mushrooms]
+  ageing: "Top examples develop over 10–30 years: cedar, tobacco, leather, forest floor."
+  glass: ruby
+  fact: "Cabernet Sauvignon ripens late, which is why it does best on the warm, free-draining gravel of Bordeaux's Left Bank."
+  level: 1
+- id: merlot
+  name: Merlot
+  berry: black
+  pronounce: mer-LOW
+  origin: Bordeaux, France
+  summary: "Plush and approachable: red and black plum, softer tannins and fuller body than Cabernet. The main grape of Bordeaux's Right Bank."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black plum, Red plum, Black cherry, Strawberry, Chocolate, Vanilla, Cloves]
+  cool: "Strawberry, red plum and herbal hints; medium body: Bordeaux in cool years, northern Italy."
+  warm: "Black plum and blackberry, fuller body, softer acidity: Chile, California, Australia."
+  regions: [bordeaux, saint-emilion, pomerol, fronsac, castillon, entre-deux-mers, napa-valley, columbia-valley, chile, maipo, colchagua, hawkes-bay, tuscany]
+  styles: "From easy-drinking and fruity to some of the world's most expensive wines (Pétrus). Blended with Cabernet Franc on the Right Bank."
+  food: [Roast pork, Duck, Mushroom risotto, Burgers]
+  ageing: "Most drink well within 5 years; top Pomerol and Saint-Émilion age for decades."
+  glass: ruby
+  level: 1
+- id: pinot-noir
+  name: Pinot Noir
+  berry: black
+  pronounce: PEE-no NWAHR
+  origin: Burgundy, France
+  summary: "Light in color and tannin, high in acidity, haunting in aroma. Fragile and hard to grow, but sublime when it works."
+  body: 2
+  acidity: 4
+  tannin: 2
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Raspberry, Strawberry, Cranberry, Violet, Mushroom, Forest floor, Cloves]
+  cool: "Cranberry, red cherry and earthy notes; high acidity: Burgundy, Germany, Oregon."
+  warm: "Riper black cherry, plum and spice; fuller body: Central Otago, California, Chile."
+  regions: [burgundy, cote-de-nuits, cote-de-beaune, cote-chalonnaise, champagne, montagne-de-reims, sancerre, alsace, baden, willamette, sonoma-coast, russian-river, carneros, central-otago, martinborough, marlborough, yarra-valley, tasmania, walker-bay, casablanca]
+  styles: "Still red from Burgundy and the New World; a key grape in Champagne and other traditional-method sparkling wines. Sometimes whole-bunch fermented."
+  food: [Duck, Salmon, Mushroom dishes, Coq au vin, Roast chicken]
+  ageing: "Grand cru Burgundy can age 20+ years, gaining forest floor, mushroom and game."
+  glass: ruby
+  fact: "Pinot Noir mutates easily: Pinot Gris and Pinot Blanc are its color mutations."
+  level: 1
+- id: syrah
+  name: Syrah
+  berry: black
+  aka: [Shiraz]
+  pronounce: sih-RAH
+  origin: Northern Rhône, France
+  summary: "Deep, spicy and dark-fruited. In the Rhône it is savory and peppery; as Australian Shiraz, ripe, rich and chocolatey."
+  body: 4
+  acidity: 3
+  tannin: 4
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Blueberry, Black pepper, Violet, Liquorice, Smoke, Meaty]
+  cool: "Syrah style: black pepper, violet, blackberry and savory meat: Northern Rhône, Hawke's Bay."
+  warm: "Shiraz style: ripe blackberry, plum, chocolate and sweet spice: Barossa, McLaren Vale."
+  regions: [rhone, hermitage, cote-rotie, crozes-hermitage, cornas, saint-joseph, barossa, mclaren-vale, hunter-valley, eden-valley, hawkes-bay, swartland, stellenbosch, columbia-valley, walla-walla]
+  styles: "Single varietal or blended (GSM with Grenache and Mourvèdre; with Cabernet in Australia). Also sparkling Shiraz in Australia."
+  food: [Barbecue, Lamb, Game, Pepper steak]
+  ageing: "Hermitage and top Barossa age 15–30 years."
+  glass: purple
+  level: 1
+- id: grenache
+  name: Grenache
+  berry: black
+  aka: [Garnacha, Cannonau]
+  pronounce: greh-NASH
+  origin: Spain (Aragón)
+  summary: "Thin-skinned and generous: high alcohol, soft tannin, ripe strawberry and raspberry with white pepper and herbs. Loves heat and wind."
+  body: 4
+  acidity: 2
+  tannin: 2
+  alcohol: 5
+  sweetness: 1
+  aromas: [Strawberry, Raspberry, Red cherry, White pepper, Dried herbs, Liquorice, Garrigue]
+  regions: [rhone, chateauneuf-du-pape, gigondas, vacqueyras, cotes-du-rhone, tavel, priorat, navarra, rioja, sardinia, mclaren-vale, barossa, languedoc, provence]
+  styles: "The backbone of Southern Rhône blends (GSM) and Priorat; excellent rosé (Tavel, Navarra, Provence) and fortified wines (Banyuls)."
+  food: [Roast lamb, Stews, Charcuterie, Mediterranean vegetables]
+  ageing: "Most drink young; Châteauneuf-du-Pape and Priorat age 10–20 years."
+  glass: ruby
+  level: 2
+- id: tempranillo
+  name: Tempranillo
+  berry: black
+  aka: [Tinta Roriz, Tinto Fino, Aragonez]
+  pronounce: tem-prah-NEE-yo
+  origin: Rioja, Spain
+  summary: "Spain's noble grape: red cherry, plum and leather, with vanilla and coconut from traditional American oak."
+  body: 4
+  acidity: 3
+  tannin: 4
+  alcohol: 4
+  sweetness: 1
+  aromas: [Red cherry, Red plum, Strawberry, Leather, Tobacco, Vanilla, Coconut, Dried herbs]
+  regions: [rioja, ribera-del-duero, toro, navarra, la-mancha, douro, alentejo]
+  styles: "Rioja and Ribera del Duero age categories: Joven, Crianza, Reserva, Gran Reserva. A component of Port (as Tinta Roriz)."
+  food: [Roast lamb, Chorizo, Manchego, Paella]
+  ageing: "Gran Reserva Rioja can age for decades."
+  glass: ruby
+  fact: "The name comes from 'temprano', early: it ripens weeks before many other Spanish grapes."
+  level: 2
+- id: sangiovese
+  name: Sangiovese
+  berry: black
+  aka: [Brunello, Prugnolo Gentile, Morellino]
+  pronounce: san-jo-VAY-zay
+  origin: Tuscany, Italy
+  summary: "Italy's most planted grape: sour cherry, tomato leaf and dried herbs, with high acidity and firm tannin. Made for food."
+  body: 3
+  acidity: 5
+  tannin: 4
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Red plum, Dried herbs, Tomato leaf, Leather, Earth]
+  regions: [tuscany, chianti, chianti-classico, montalcino, montepulciano, maremma, carmignano, bolgheri, umbria, emilia-romagna]
+  styles: "Chianti, Brunello di Montalcino (100% Sangiovese), Vino Nobile di Montepulciano and Super Tuscans (often with Cabernet or Merlot)."
+  food: [Tomato pasta, Pizza, Bistecca alla fiorentina, Pecorino]
+  ageing: "Brunello and Chianti Classico Riserva age 10–25 years."
+  glass: ruby
+  fact: "The name is said to come from 'sanguis Jovis', the blood of Jupiter."
+  level: 2
+- id: nebbiolo
+  name: Nebbiolo
+  berry: black
+  aka: [Spanna, Chiavennasca]
+  pronounce: neb-ee-OH-lo
+  origin: Piedmont, Italy
+  summary: "Tar and roses: pale in color yet ferociously high in tannin and acidity. The grape of Barolo and Barbaresco."
+  body: 4
+  acidity: 5
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Red cherry, Rose, Violet, Liquorice, Tobacco, Truffle, Leather]
+  regions: [piedmont, barolo, barbaresco, roero, lombardy]
+  styles: "Barolo and Barbaresco DOCG; lighter Langhe Nebbiolo; Valtellina in Lombardy."
+  food: [Truffle pasta, Braised beef, Mushroom risotto, Aged cheese]
+  ageing: "Barolo often needs 10+ years and can age for 50; it fades early to garnet."
+  glass: garnet
+  fact: "Named after 'nebbia', the fog that blankets the Langhe hills at harvest in October."
+  level: 2
+- id: malbec
+  name: Malbec
+  berry: black
+  aka: [Côt, Auxerrois]
+  pronounce: MAL-bek
+  origin: Cahors, South West France
+  summary: "Inky purple with ripe blackberry, plum and violet. Velvety tannins make Argentine Malbec one of the world's most loved reds."
+  body: 4
+  acidity: 3
+  tannin: 4
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Black cherry, Violet, Chocolate, Vanilla, Sweet spice]
+  regions: [mendoza, uco-valley, salta, argentina, southwest]
+  styles: "Argentina: ripe, plush, often oaked; high-altitude sites give more freshness. Cahors: firmer and more rustic."
+  food: [Grilled steak (asado), Empanadas, Barbecue]
+  ageing: "Most best within 5–8 years; top examples longer."
+  glass: purple
+  fact: "Once a major Bordeaux grape, Malbec almost disappeared there after the 1956 frost, while it flourished in Argentina."
+  level: 2
+- id: zinfandel
+  name: Zinfandel
+  berry: black
+  aka: [Primitivo, Crljenak Kaštelanski, Tribidrag]
+  pronounce: ZIN-fan-dell
+  origin: Croatia
+  summary: "Jammy and generous: blackberry, raspberry jam and sweet spice with high alcohol. California's heritage grape and Puglia's Primitivo."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 5
+  sweetness: 2
+  aromas: [Blackberry, Raspberry, Jammy fruit, Raisin, Black pepper, Sweet spice, Liquorice]
+  regions: [lodi, sierra-foothills, napa-valley, dry-creek, puglia]
+  styles: "Big oaked reds, old-vine Zinfandel, and off-dry pink 'White Zinfandel'. Ripens unevenly, so bunches can contain raisins and green berries together."
+  food: [Barbecue ribs, Pizza, Burgers, Chili]
+  glass: ruby
+  level: 2
+- id: cabernet-franc
+  name: Cabernet Franc
+  berry: black
+  aka: [Bouchet, Breton]
+  pronounce: KAB-er-nay FRONK
+  origin: Basque Country / Bordeaux
+  summary: "Lighter and more fragrant than its offspring Cabernet Sauvignon: red fruit, violet and a leafy, green pepper note."
+  body: 3
+  acidity: 4
+  tannin: 3
+  alcohol: 3
+  sweetness: 1
+  aromas: [Raspberry, Red cherry, Violet, Green bell pepper, Dried herbs]
+  regions: [loire, chinon, bourgueil, saumur, saint-emilion, pomerol, bordeaux]
+  styles: "Single-varietal in the Loire (Chinon, Bourgueil, Saumur-Champigny); blending partner in Bordeaux (Cheval Blanc is mostly Cabernet Franc)."
+  food: [Roast pork, Charcuterie, Goat cheese, Lentils]
+  glass: ruby
+  level: 2
+- id: gamay
+  name: Gamay
+  berry: black
+  pronounce: gam-AY
+  origin: Burgundy, France
+  summary: "The grape of Beaujolais: juicy, light and fragrant with red cherry, raspberry and banana. Best slightly chilled."
+  body: 2
+  acidity: 4
+  tannin: 1
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Raspberry, Strawberry, Banana, Violet, Kirsch]
+  regions: [beaujolais, loire, touraine]
+  styles: "Beaujolais Nouveau (carbonic maceration, released weeks after harvest), Beaujolais-Villages and the ten crus (Morgon, Fleurie, Moulin-à-Vent)."
+  food: [Charcuterie, Roast chicken, Picnic food, Salmon]
+  ageing: "Mostly young; top crus like Morgon and Moulin-à-Vent age 5–10 years."
+  glass: purple
+  fact: "In 1395 Duke Philip the Bold banned Gamay from Burgundy's best slopes, calling it 'very bad and very disloyal'."
+  level: 2
+- id: pinotage
+  name: Pinotage
+  berry: black
+  pronounce: PEE-no-tahj
+  origin: South Africa (Pinot Noir × Cinsault, 1925)
+  summary: "South Africa's own grape: dark fruit with smoky, earthy notes. Modern versions can be juicy or coffee-scented."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Smoke, Coffee, Earth, Banana]
+  regions: [stellenbosch, south-africa, swartland]
+  styles: "From light and fruity to oaked, age-worthy wines; also blended in 'Cape blends'."
+  food: [Braai (barbecue), Game, Smoky dishes]
+  glass: ruby
+  level: 2
+- id: carmenere
+  name: Carmenère
+  berry: black
+  pronounce: car-men-AIR
+  origin: Bordeaux, France
+  summary: "Chile's signature grape: red and black fruit with green pepper, paprika and herbs. Late ripening and soft."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Red plum, Blackberry, Green bell pepper, Dried herbs, Black pepper, Chocolate]
+  regions: [chile, colchagua, maipo, maule]
+  food: [Grilled vegetables, Chili con carne, Lamb]
+  glass: purple
+  fact: "Believed extinct after phylloxera, it was rediscovered in Chile in 1994, where it had been mistaken for Merlot for over a century."
+  level: 2
+- id: barbera
+  name: Barbera
+  berry: black
+  origin: Piedmont, Italy
+  summary: "Deep in color but low in tannin, with mouthwatering acidity and juicy black cherry: Piedmont's everyday red."
+  body: 3
+  acidity: 5
+  tannin: 2
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black cherry, Red plum, Blackberry, Dried herbs, Vanilla]
+  regions: [barbera-dasti, piedmont]
+  food: [Pizza, Pasta with ragù, Salami]
+  glass: ruby
+  level: 3
+- id: dolcetto
+  name: Dolcetto
+  berry: black
+  origin: Piedmont, Italy
+  summary: "'Little sweet one', yet dry: soft acidity, grippy tannin, black cherry and bitter almond. Drunk young in Piedmont."
+  body: 3
+  acidity: 2
+  tannin: 3
+  alcohol: 3
+  sweetness: 1
+  aromas: [Black cherry, Black plum, Liquorice, Almond]
+  regions: [dogliani, piedmont]
+  food: [Antipasti, Salumi, Pasta]
+  glass: purple
+  level: 3
+- id: montepulciano
+  name: Montepulciano
+  berry: black
+  origin: Abruzzo, Italy
+  summary: "Deeply colored, plummy and soft: Montepulciano d'Abruzzo. Not to be confused with the Tuscan town of Montepulciano."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black cherry, Black plum, Dried herbs, Liquorice]
+  regions: [abruzzo, marche]
+  food: [Lamb skewers, Pizza, Pasta with meat sauce]
+  glass: ruby
+  level: 3
+- id: aglianico
+  name: Aglianico
+  berry: black
+  origin: Southern Italy (Campania, Basilicata)
+  summary: "'The Barolo of the South': very high tannin and acidity, black fruit, smoke and leather. From volcanic soils in Taurasi and Vulture."
+  body: 5
+  acidity: 5
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black cherry, Black plum, Smoke, Leather, Black pepper, Earth]
+  regions: [campania, basilicata]
+  food: [Braised meats, Game, Aged cheeses]
+  glass: garnet
+  level: 3
+- id: nero-davola
+  name: Nero d'Avola
+  berry: black
+  origin: Sicily, Italy
+  summary: "Sicily's star red: ripe black cherry and plum, medium acidity and soft-to-firm tannins."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black cherry, Black plum, Liquorice, Sweet spice]
+  regions: [sicily]
+  food: [Caponata, Grilled meats, Pasta alla Norma]
+  glass: ruby
+  level: 3
+- id: corvina
+  name: Corvina
+  berry: black
+  origin: Veneto, Italy
+  summary: "The main grape of Valpolicella and Amarone: sour cherry and almond when fresh, dried cherry and chocolate when dried (appassimento)."
+  body: 3
+  acidity: 4
+  tannin: 2
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Almond, Dried herbs, Kirsch, Raisin, Chocolate]
+  regions: [veneto]
+  styles: "Valpolicella (light), Ripasso (refermented on Amarone skins), Amarone (dry, from dried grapes) and Recioto (sweet)."
+  food: [Risotto all'Amarone, Polenta, Aged Parmigiano]
+  glass: ruby
+  level: 3
+- id: mourvedre
+  name: Mourvèdre
+  berry: black
+  aka: [Monastrell, Mataro]
+  origin: Spain
+  summary: "Thick-skinned and sun-loving: blackberry, game, leather and herbs, with high tannin. The 'M' in GSM."
+  body: 5
+  acidity: 3
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Game, Leather, Black pepper, Garrigue]
+  regions: [provence, chateauneuf-du-pape, jumilla, barossa, mclaren-vale]
+  styles: "Bandol in Provence is its home; Jumilla in Spain (as Monastrell); Australia (as Mataro)."
+  food: [Game, Braised lamb, Barbecue]
+  glass: purple
+  level: 3
+- id: carignan
+  name: Carignan
+  berry: black
+  aka: [Cariñena, Mazuelo, Samsó]
+  origin: Aragón, Spain
+  summary: "High in acidity, tannin and color. Once a bulk grape; old bush vines in Priorat, Languedoc and Chile now make serious wines."
+  body: 4
+  acidity: 4
+  tannin: 4
+  alcohol: 4
+  sweetness: 1
+  aromas: [Red cherry, Blackberry, Dried herbs, Liquorice, Earth]
+  regions: [languedoc, priorat, rioja, maule]
+  food: [Cassoulet, Sausages, Stews]
+  glass: ruby
+  level: 3
+- id: cinsault
+  name: Cinsault
+  berry: black
+  origin: Southern France
+  summary: "Light, fragrant and low in tannin: strawberry and flowers. Important in rosé and as a parent of Pinotage."
+  body: 2
+  acidity: 3
+  tannin: 1
+  alcohol: 3
+  sweetness: 1
+  aromas: [Strawberry, Raspberry, Red cherry, Blossom]
+  regions: [provence, languedoc, itata-bio-bio, swartland]
+  food: [Mezze, Grilled fish, Rosé-friendly salads]
+  glass: pink
+  level: 3
+- id: touriga-nacional
+  name: Touriga Nacional
+  berry: black
+  origin: Portugal (Dão & Douro)
+  summary: "Portugal's finest black grape: deep, floral and concentrated, with violet, blackberry and firm tannin. A key Port grape."
+  body: 5
+  acidity: 4
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Violet, Liquorice, Dried herbs]
+  regions: [douro, dao, alentejo]
+  styles: "Port and dry Douro and Dão reds, usually in blends with Touriga Franca and Tinta Roriz."
+  food: [Roast kid, Hard cheese, Chocolate (Port)]
+  glass: purple
+  level: 3
+- id: petit-verdot
+  name: Petit Verdot
+  berry: black
+  origin: Bordeaux, France
+  summary: "A late-ripening Bordeaux blending grape: inky color, violet and spice, firm tannins. Used in small amounts for structure."
+  body: 5
+  acidity: 4
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Violet, Sweet spice, Dried herbs]
+  regions: [bordeaux, napa-valley]
+  food: [Grilled red meat, Hard cheeses]
+  glass: purple
+  level: 3
+- id: mencia
+  name: Mencía
+  berry: black
+  aka: [Jaen]
+  origin: North-west Spain
+  summary: "Fragrant, fresh and medium-bodied: red cherry, blackberry and herbs from steep slate slopes in Bierzo."
+  body: 3
+  acidity: 4
+  tannin: 3
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Blackberry, Violet, Dried herbs, Black pepper]
+  regions: [bierzo, dao]
+  food: [Roast pork, Grilled vegetables, Octopus]
+  glass: ruby
+  level: 3
+- id: blaufrankisch
+  name: Blaufränkisch
+  berry: black
+  aka: [Lemberger, Kékfrankos]
+  origin: Central Europe
+  summary: "Austria's serious red: dark cherry, pepper and mineral, with bright acidity and firm tannin."
+  body: 3
+  acidity: 4
+  tannin: 4
+  alcohol: 3
+  sweetness: 1
+  aromas: [Black cherry, Blackberry, Black pepper, Wet stones, Dried herbs]
+  regions: [mittelburgenland, leithaberg, neusiedlersee, eger, wurttemberg]
+  food: [Roast duck, Goulash, Game]
+  glass: ruby
+  level: 3
+- id: zweigelt
+  name: Zweigelt
+  berry: black
+  origin: Austria (St. Laurent × Blaufränkisch, 1922)
+  summary: "Austria's most planted red: juicy red cherry, soft tannins and fresh acidity."
+  body: 2
+  acidity: 3
+  tannin: 2
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Raspberry, Black pepper]
+  regions: [neusiedlersee, carnuntum, austria]
+  food: [Schnitzel, Charcuterie, Pizza]
+  glass: ruby
+  level: 3
+- id: xinomavro
+  name: Xinomavro
+  berry: black
+  origin: Northern Greece
+  summary: "'Acid-black': pale, high in acidity and tannin, with tomato, olive and red fruit. Often compared to Nebbiolo."
+  body: 3
+  acidity: 5
+  tannin: 5
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Tomato leaf, Dried herbs, Earth, Leather]
+  regions: [naoussa, amyndeo]
+  food: [Moussaka, Lamb, Stuffed tomatoes]
+  glass: garnet
+  level: 3
+- id: agiorgitiko
+  name: Agiorgitiko
+  berry: black
+  origin: Nemea, Greece
+  summary: "'St George's grape': soft, plummy and spicy, from medium to full bodied depending on altitude."
+  body: 3
+  acidity: 3
+  tannin: 3
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red plum, Red cherry, Sweet spice, Nutmeg]
+  regions: [nemea]
+  food: [Souvlaki, Tomato-based dishes, Lamb]
+  glass: ruby
+  level: 3
+- id: tannat
+  name: Tannat
+  berry: black
+  origin: South West France (Madiran)
+  summary: "As its name suggests, fiercely tannic: black fruit, spice and smoke. Madiran's grape and Uruguay's flagship."
+  body: 5
+  acidity: 4
+  tannin: 5
+  alcohol: 4
+  sweetness: 1
+  aromas: [Blackberry, Black plum, Liquorice, Smoke, Sweet spice]
+  regions: [southwest]
+  food: [Cassoulet, Duck confit, Grilled steak]
+  glass: purple
+  fact: "Tannat has some of the highest levels of procyanidins (a type of antioxidant) of any wine grape."
+  level: 3
+- id: negroamaro
+  name: Negroamaro
+  berry: black
+  origin: Puglia, Italy
+  summary: "'Black-bitter': dark plum, earth and a bitter twist, from the heel of Italy (Salice Salentino)."
+  body: 4
+  acidity: 3
+  tannin: 3
+  alcohol: 4
+  sweetness: 1
+  aromas: [Black plum, Black cherry, Earth, Dried herbs, Liquorice]
+  regions: [puglia]
+  food: [Orecchiette with sausage, Grilled meats]
+  glass: ruby
+  level: 3
+- id: baga
+  name: Baga
+  berry: black
+  origin: Bairrada, Portugal
+  summary: "High-acid, high-tannin grape of Bairrada, for age-worthy reds and fine traditional-method sparkling wines."
+  body: 3
+  acidity: 5
+  tannin: 5
+  alcohol: 3
+  sweetness: 1
+  aromas: [Red cherry, Cranberry, Tobacco, Smoke, Earth]
+  regions: [bairrada]
+  food: [Roast suckling pig (leitão)]
+  glass: garnet
+  level: 3
+- id: meunier
+  name: Meunier
+  berry: black
+  aka: [Pinot Meunier, Schwarzriesling]
+  origin: France (a mutation of Pinot Noir)
+  summary: "Champagne's third grape: buds late and ripens early, avoiding frost. Adds fruity roundness to young Champagne."
+  body: 2
+  acidity: 4
+  tannin: 1
+  alcohol: 2
+  sweetness: 1
+  aromas: [Red apple, Red cherry, Strawberry, Bread]
+  regions: [champagne, vallee-de-la-marne]
+  food: [Aperitif, Charcuterie, Fried chicken]
+  glass: pink
+  fact: "'Meunier' means miller: the undersides of its leaves are dusted with fine white hairs, as if floured."
+  level: 3

@@ -1,0 +1,140 @@
+- {term: Acidity, def: "The tart, mouthwatering quality of wine. It keeps wine fresh and helps it age.", level: 1}
+- {term: Alcohol by volume (abv), def: "The percentage of alcohol in a wine, usually 11–15% for table wines.", level: 1}
+- {term: Aroma, def: "A smell from the grape or fermentation; often used for any smell in wine.", level: 1}
+- {term: Body, def: "The sense of weight and richness in the mouth, from light to full.", level: 1}
+- {term: Dry, def: "A wine with little or no perceptible sugar.", level: 1}
+- {term: Finish, def: "How long the flavors linger after swallowing; a long finish is a sign of quality.", level: 1}
+- {term: Fortified wine, def: "Wine with added grape spirit, such as Port or Sherry.", level: 1}
+- {term: Rosé, def: "Pink wine made from black grapes with brief skin contact.", level: 1}
+- {term: Sparkling wine, def: "Wine with dissolved carbon dioxide bubbles.", level: 1}
+- {term: Still wine, def: "Wine without bubbles.", level: 1}
+- {term: Tannin, def: "Compounds from skins, seeds, stems and oak that dry and grip the gums.", level: 1}
+- {term: Variety, def: "A type of grape, such as Merlot or Chardonnay.", level: 1}
+- {term: Vintage, def: "The year the grapes were harvested.", level: 1}
+- {term: Fermentation, def: "Yeast converting sugar into alcohol and carbon dioxide.", level: 1}
+- {term: Corked, def: "A wine tainted by TCA, smelling of damp cardboard or wet dog, with muted fruit.", level: 1}
+- {term: Oxidized, def: "A wine spoiled by too much oxygen: dull, brownish, with bruised-apple notes.", level: 1}
+- {term: Decanting, def: "Pouring wine into another vessel to separate it from sediment or let it breathe.", level: 1}
+- {term: Sediment, def: "Solid deposits that form in some wines, especially older reds and Vintage Port.", level: 1}
+- {term: Off-dry, def: "Slightly sweet.", level: 1}
+- {term: Varietal wine, def: "A wine named after (and made mainly from) one grape variety.", level: 1}
+- {term: Blend, def: "Wine made from more than one grape variety, vineyard or vintage.", level: 1}
+- {term: Old World, def: "The traditional wine countries of Europe and the Mediterranean.", level: 1}
+- {term: New World, def: "Wine countries outside Europe, such as the USA, Australia, Chile and New Zealand.", level: 1}
+- {term: Nose, def: "The smell of a wine, or the act of smelling it.", level: 1}
+- {term: Palate, def: "The taste and texture of a wine in the mouth.", level: 1}
+- {term: Umami, def: "A savory taste found in mushrooms, cured meats, aged cheese and soy sauce.", level: 1}
+- {term: Appellation, def: "A legally defined wine region with rules on grapes and winemaking.", level: 2}
+- {term: AOC / AOP, def: "France's protected designation of origin: the highest category of French wine.", level: 2}
+- {term: DOCG, def: "Italy's highest quality category, Denominazione di Origine Controllata e Garantita.", level: 2}
+- {term: PDO, def: "Protected Designation of Origin: the EU's strictest category for regional wines.", level: 2}
+- {term: PGI, def: "Protected Geographical Indication: a broader EU regional category with more flexible rules (IGP, IGT, Vino de la Tierra).", level: 2}
+- {term: Terroir, def: "The whole natural environment of a vineyard (soil, slope, aspect, climate) and how it shapes the wine.", level: 2}
+- {term: Climate, def: "The average weather pattern of a region over many years.", level: 2}
+- {term: Weather, def: "Year-to-year conditions that create vintage variation.", level: 2}
+- {term: Continental climate, def: "Large differences between hot summers and cold winters, far from the sea.", level: 2}
+- {term: Maritime climate, def: "Small temperature differences between seasons, moderated by the sea, often with rain.", level: 2}
+- {term: Mediterranean climate, def: "Long, warm, dry summers and mild winters.", level: 2}
+- {term: Budburst, def: "When the first green shoots emerge from the buds in spring.", level: 2}
+- {term: Flowering, def: "When the vine's tiny flowers open and are pollinated, in late spring.", level: 2}
+- {term: Fruit set, def: "When pollinated flowers become tiny berries.", level: 2}
+- {term: Véraison, def: "When grapes soften and change color, marking the start of ripening.", level: 2}
+- {term: Harvest, def: "Picking the grapes, by hand or machine.", level: 2}
+- {term: Dormancy, def: "The vine's winter rest.", level: 2}
+- {term: Must, def: "Freshly pressed grape juice, with or without skins, before or during fermentation.", level: 2}
+- {term: Lees, def: "Dead yeast cells that settle after fermentation. Contact adds texture and bready flavors.", level: 2}
+- {term: Sur lie, def: "Aged on the lees, as in Muscadet sur lie.", level: 2}
+- {term: Malolactic conversion, def: "Bacteria turning tart malic acid into softer lactic acid, often adding a buttery note.", level: 2}
+- {term: Maceration, def: "Soaking grape skins in the juice or wine to extract color, tannin and flavor.", level: 2}
+- {term: Cap, def: "The layer of skins that floats to the top during red fermentation.", level: 2}
+- {term: Punching down, def: "Pushing the cap of skins back into the fermenting wine.", level: 2}
+- {term: Pumping over, def: "Pumping wine from the bottom of the tank over the cap.", level: 2}
+- {term: Chaptalization, def: "Adding sugar to the must to increase final alcohol; allowed in some cool regions.", level: 3}
+- {term: Acidification, def: "Adding acid to the must in hot regions where grapes lack it.", level: 3}
+- {term: Fining, def: "Adding an agent (bentonite, egg white) to remove haze-causing particles.", level: 3}
+- {term: Filtration, def: "Passing wine through a filter to remove particles and microbes.", level: 3}
+- {term: Barrique, def: "A 225-liter oak barrel, the Bordeaux standard.", level: 2}
+- {term: Bâtonnage, def: "Stirring the lees in a barrel to add creamy texture.", level: 3}
+- {term: Carbonic maceration, def: "Fermenting whole uncrushed bunches in CO₂, giving soft, fruity, bubblegum-scented reds.", level: 2}
+- {term: Whole-bunch fermentation, def: "Fermenting grapes with stems attached, for fragrance and structure.", level: 3}
+- {term: Botrytis cinerea, def: "Noble rot: a fungus that concentrates sugar and acid in grapes for sweet wines.", level: 2}
+- {term: Grey rot, def: "The harmful form of Botrytis that ruins grapes in wet conditions.", level: 3}
+- {term: Phylloxera, def: "A tiny louse that destroys vine roots; most vines are grafted onto resistant American rootstock.", level: 2}
+- {term: Rootstock, def: "The root part of a grafted vine, often American, chosen for pest resistance or vigor.", level: 3}
+- {term: Downy mildew, def: "A fungal disease that thrives in warm, wet weather, attacking leaves and fruit.", level: 3}
+- {term: Powdery mildew, def: "A fungal disease that coats green parts of the vine in grey powder, even in dry weather.", level: 3}
+- {term: Canopy, def: "The vine's shoots and leaves above ground.", level: 3}
+- {term: Canopy management, def: "Positioning shoots and leaves to control sunlight on the grapes and airflow.", level: 3}
+- {term: Guyot, def: "A cane-pruned training system with one or two canes tied along a wire.", level: 3}
+- {term: Bush vine, def: "A free-standing, head-trained vine, common in hot, dry regions (gobelet).", level: 3}
+- {term: VSP, def: "Vertical shoot positioning: shoots trained upwards between wires.", level: 3}
+- {term: Yield, def: "The amount of grapes or wine produced per hectare.", level: 3}
+- {term: Aspect, def: "The direction a vineyard slope faces.", level: 3}
+- {term: Diurnal range, def: "The difference between daytime and night-time temperatures.", level: 3}
+- {term: Irrigation, def: "Supplying water to vines artificially; banned or restricted in many European regions.", level: 3}
+- {term: Old vines, def: "Older vines (often 35+ years) with lower yields and more concentrated fruit.", level: 3}
+- {term: Primary aromas, def: "Aromas from the grape and alcoholic fermentation: fruit, floral, herbal, spice.", level: 2}
+- {term: Secondary aromas, def: "Aromas from winemaking: yeast, malolactic conversion, oak.", level: 2}
+- {term: Tertiary aromas, def: "Aromas from ageing: leather, earth, honey, nuts, dried fruit.", level: 2}
+- {term: Methoxypyrazines, def: "Compounds that give green pepper and grassy aromas.", level: 3}
+- {term: TDN, def: "The compound behind the petrol note in aged Riesling.", level: 3}
+- {term: Rotundone, def: "The compound responsible for black pepper aromas in Syrah and Grüner Veltliner.", level: 3}
+- {term: Traditional method, def: "Sparkling wine whose second fermentation happens in the bottle (méthode champenoise).", level: 2}
+- {term: Tank method, def: "Sparkling wine whose second fermentation happens in a pressure tank (Charmat).", level: 2}
+- {term: Autolysis, def: "The breakdown of dead yeast cells, giving bread, biscuit and brioche notes.", level: 2}
+- {term: Riddling, def: "Gradually turning and tilting bottles so sediment collects in the neck (remuage).", level: 2}
+- {term: Disgorgement, def: "Removing the frozen plug of yeast sediment from the bottle neck.", level: 2}
+- {term: Dosage, def: "Wine and sugar added after disgorgement to set the sweetness of sparkling wine.", level: 2}
+- {term: Brut, def: "Dry sparkling wine (0–12 g/L of sugar). Brut Nature has almost none.", level: 2}
+- {term: Extra Dry, def: "Confusingly, a sparkling wine slightly sweeter than Brut (12–17 g/L).", level: 2}
+- {term: Blanc de Blancs, def: "White wine from white grapes only; in Champagne, 100% Chardonnay.", level: 2}
+- {term: Blanc de Noirs, def: "White wine made from black grapes.", level: 2}
+- {term: Non-vintage (NV), def: "A blend of several years, made to a consistent house style.", level: 2}
+- {term: Crémant, def: "French traditional-method sparkling wine from outside Champagne.", level: 2}
+- {term: Cava, def: "Spanish traditional-method sparkling wine.", level: 2}
+- {term: Fortification, def: "Adding grape spirit to wine, during or after fermentation.", level: 2}
+- {term: Flor, def: "A film of yeast that grows on Fino and Manzanilla Sherry, protecting it from oxygen.", level: 2}
+- {term: Solera, def: "A system of fractional blending through tiers of barrels, used for Sherry.", level: 2}
+- {term: Tawny, def: "Port aged in small casks, becoming brownish and nutty.", level: 2}
+- {term: LBV, def: "Late Bottled Vintage Port: single-year Port aged 4–6 years in wood before bottling.", level: 3}
+- {term: Vintage Port, def: "Port from a declared exceptional year, bottled young to age for decades.", level: 3}
+- {term: Aszú, def: "Botrytized grapes used to make sweet Tokaji in Hungary.", level: 3}
+- {term: Eiswein / Icewine, def: "Sweet wine from grapes frozen on the vine.", level: 2}
+- {term: Passito, def: "Italian wine made from dried grapes.", level: 3}
+- {term: Appassimento, def: "Drying grapes after harvest to concentrate them, as for Amarone.", level: 3}
+- {term: Kabinett, def: "The lightest German Prädikat level, usually delicate and often off-dry.", level: 3}
+- {term: Spätlese, def: "German 'late harvest', riper than Kabinett.", level: 3}
+- {term: Auslese, def: "German 'selected harvest' of very ripe bunches.", level: 3}
+- {term: Trockenbeerenauslese, def: "Germany's rarest sweet wine, from individually picked shriveled botrytized berries.", level: 3}
+- {term: Trocken, def: "German for dry.", level: 3}
+- {term: Grand Cru, def: "'Great growth': the top vineyard classification in Burgundy, Alsace and Champagne.", level: 2}
+- {term: Premier Cru, def: "'First growth': in Burgundy, the level below Grand Cru; in Bordeaux, the very top estates.", level: 2}
+- {term: Château, def: "A Bordeaux wine estate, with or without a castle.", level: 2}
+- {term: Domaine, def: "A wine estate, especially in Burgundy.", level: 2}
+- {term: Négociant, def: "A merchant who buys grapes, juice or wine to blend, bottle and sell under their own label.", level: 3}
+- {term: Cru Bourgeois, def: "A Médoc classification of good estates outside the 1855 list.", level: 3}
+- {term: Left Bank, def: "Bordeaux's Médoc and Graves, west of the Gironde and Garonne: Cabernet-led.", level: 2}
+- {term: Right Bank, def: "Bordeaux's Saint-Émilion and Pomerol, east of the Dordogne: Merlot-led.", level: 2}
+- {term: Super Tuscan, def: "A Tuscan red made outside traditional rules, often with Cabernet or Merlot.", level: 3}
+- {term: Classico, def: "The historic heartland of an Italian wine area, such as Chianti Classico.", level: 2}
+- {term: Riserva / Reserva, def: "A wine aged longer before release, under Italian or Spanish rules.", level: 2}
+- {term: Crianza, def: "Spanish red aged at least two years, including six months to a year in oak.", level: 2}
+- {term: Gran Reserva, def: "Spain's longest-aged category: at least five years for red Rioja, two in oak.", level: 2}
+- {term: Garrigue, def: "Wild Mediterranean herbs (thyme, rosemary, lavender) and the aroma they lend southern French reds.", level: 3}
+- {term: Minerality, def: "A loose term for stony, saline or flinty notes, often in high-acid whites.", level: 3}
+- {term: Reduction, def: "Sulfur-like aromas (struck match, rubber) from too little oxygen during winemaking.", level: 3}
+- {term: Brettanomyces, def: "A spoilage yeast giving barnyard, plaster or sticking-plaster aromas.", level: 3}
+- {term: Volatile acidity, def: "Vinegary or nail-varnish aromas from acetic acid and ethyl acetate.", level: 3}
+- {term: BLIC, def: "Balance, Length, Intensity, Complexity: the four tests of wine quality.", level: 3}
+- {term: Balance, def: "When fruit, acidity, tannin, alcohol and sweetness are in harmony.", level: 3}
+- {term: Complexity, def: "Many different aromas and flavors working together.", level: 3}
+- {term: Sulfur dioxide (SO₂), def: "An antioxidant and antimicrobial added to almost all wines.", level: 3}
+- {term: Screwcap, def: "A metal closure that keeps wine fresh and avoids cork taint.", level: 2}
+- {term: Qvevri, def: "Large egg-shaped clay vessels buried in the ground, used in Georgia since ancient times.", level: 3}
+- {term: Magnum, def: "A 1.5-liter bottle: two standard bottles.", level: 2}
+- {term: Jeroboam, def: "A 3-liter bottle (four standard bottles) in Champagne and Burgundy; in Bordeaux traditionally 4.5 liters.", level: 2}
+- {term: Mouthfeel, def: "The texture of a wine: silky, creamy, grippy, coarse.", level: 2}
+- {term: Length, def: "Another word for the finish: how long the flavor lasts.", level: 2}
+- {term: Legs, def: "Streaks running down the glass after swirling; a sign of alcohol and sugar, not quality.", level: 1}
+- {term: Rim, def: "The edge of the wine in a tilted glass, which reveals age.", level: 2}
+- {term: Core, def: "The center of the wine in the glass, where color intensity is judged.", level: 2}

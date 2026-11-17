@@ -1,0 +1,73 @@
+title: Food & wine
+summary: "How food changes the taste of wine, and the few rules that make pairing easy."
+icon: fork.knife
+lessons:
+  - title: The key interactions
+    cards:
+      - learn: Food changes wine
+        body: |
+          A wine that tastes perfect alone can turn harsh with the wrong food, and vice versa. Some food components make wine taste **worse**, others **better**.
+
+          - **Tougher on wine**: sweetness and umami make wine taste more bitter, more acidic, less fruity.
+          - **Kinder to wine**: salt and acidity make wine taste softer, fruitier and less acidic.
+      - choice: "A sweet dessert makes a dry wine taste…"
+        options: ["More acidic and bitter", "Sweeter", "Fruitier", "Less alcoholic"]
+        a: "More acidic and bitter"
+        explain: "That is why dessert needs a wine at least as sweet as the dish, such as Sauternes or Moscato."
+      - choice: "Which food component makes wine taste softer and less bitter?"
+        options: [Salt, Sugar, Umami, Chili]
+        a: Salt
+        explain: "Salt is wine's friend: it reduces bitterness and acidity. Think salty Parmesan with Chianti, or oysters with Muscadet."
+      - tf: "Acidic foods make a wine taste less acidic."
+        truth: true
+        explain: "Match acid with acid: a tomato sauce or a vinaigrette can make a crisp wine seem rounder and fruitier."
+      - blank: "Mushrooms, cured meats and soy sauce are rich in ___."
+        answers: [umami]
+        options: [tannin, acidity, sugar]
+        explain: "Umami makes wine taste more bitter and acidic. Choose fruity, low-tannin wines, or season with salt."
+      - match: "Match the food to its effect on wine"
+        pairs: [[Sweetness, Wine tastes more acidic], [Salt, Wine tastes softer], [Chili, Burning increases]]
+        explain: "These three interactions explain most pairing successes and disasters."
+  - title: Heat, fat and tannin
+    cards:
+      - learn: Spice and protein
+        visual: "aromas:riesling"
+        body: |
+          - **Chili heat** makes alcohol burn more and tannin taste bitter. Pick low-alcohol, off-dry, fruity whites such as Riesling or Gewürztraminer.
+          - **Fat and protein** soften tannin. That is why a big Cabernet loves a steak.
+      - choice: "Which wine best suits a spicy Thai curry?"
+        options: ["Off-dry Riesling", "High-alcohol, tannic red", "Dry Fino Sherry", "Oaked Cabernet"]
+        a: "Off-dry Riesling"
+        explain: "A touch of sweetness and low alcohol calm the heat. High-alcohol, tannic wines make chili burn more."
+      - choice: "Why does a tannic red work well with steak?"
+        options: ["Protein and fat soften the tannin", "Steak adds sweetness", "Tannin makes steak spicier", "It doesn't; avoid it"]
+        a: "Protein and fat soften the tannin"
+        explain: "Tannin binds to protein, so the meat tames the wine's grip, and the wine cuts through the fat."
+      - tf: "Chili heat makes wines taste less alcoholic."
+        truth: false
+        explain: "The reverse: chili heightens the burning sensation of alcohol."
+      - blank: "With chili dishes, choose wines low in alcohol and ___."
+        answers: [tannin]
+        options: [acidity, color, fruit]
+        explain: "Tannin and alcohol both clash with spicy heat."
+  - title: Classic pairings
+    cards:
+      - learn: Match weight, then flavor
+        body: |
+          Pair **light with light** and **rich with rich**. A delicate sole would be crushed by a Barossa Shiraz; a beef stew would make a Pinot Grigio vanish.
+
+          And remember regional pairing: **what grows together goes together**.
+      - match: "Match the dish to the classic wine"
+        pairs: [[Oysters, Muscadet], [Goat cheese, Sancerre], [Steak, Cabernet Sauvignon], [Duck, Pinot Noir]]
+        explain: "Each is a textbook match: brine with crisp Muscadet, tangy goat cheese with high-acid Sauvignon Blanc, steak with tannic Cabernet, and rich duck with fresh, fruity Pinot Noir."
+      - choice: "Which wine suits a light seafood salad?"
+        options: [Albariño, Amarone, Vintage Port, Barolo]
+        a: Albariño
+        explain: "Light, fresh and saline, Albariño matches delicate seafood. The others are powerful and would overwhelm it."
+      - tf: "'What grows together goes together' means local wines often suit local food."
+        truth: true
+        explain: "Chianti with Tuscan steak, Sherry with tapas, Alsace Riesling with choucroute: centuries of trial and error."
+      - choice: "Which pairing follows the weight principle?"
+        options: ["Beef stew with Syrah", "Beef stew with Prosecco", "Sushi with Barolo", "Sole with Amarone"]
+        a: "Beef stew with Syrah"
+        explain: "A hearty stew needs a full-bodied red with enough flavor to stand up to it."
