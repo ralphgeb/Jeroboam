@@ -65,7 +65,7 @@ jobs:
             grep -E "error:" build/build.log | sed 's#.*/Sources/#Sources/#' | awk '!seen[$0]++' | head -40 | while IFS= read -r l; do echo "::error::$l"; done
             exit 1
           fi
-          grep -E "warning:" build/build.log | grep "/Sources/" | sed 's#.*/Sources/#Sources/#' | awk '!seen[$0]++' | head -30 | while IFS= read -r l; do echo "::warning::$l"; done
+          grep -E "warning:" build/build.log | grep "/Sources/" | sed 's#.*/Sources/#Sources/#' | awk '!seen[$0]++' | head -30 | while IFS= read -r l; do echo "::warning::$l"; done || true
 
       - name: Screenshots
         run: |
