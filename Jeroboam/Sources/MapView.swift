@@ -176,7 +176,7 @@ struct WineMapView: View {
                 var fill = Palette.regionFill(a.index, dark: dark)
                 if isHL { fill = dark ? Color(hex: "#D4738F") : Color(hex: "#7D1D3F") }
                 regions.fill(a.path, with: .color(dim ? fill.opacity(0.35) : fill))
-                regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.9)), lineWidth: hair * 1.2)
+                regions.stroke(a.path, with: .color(Palette.focusLand), lineWidth: hair * 1.8)
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
             for (r, w) in g.rivers {

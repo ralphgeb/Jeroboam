@@ -77,7 +77,7 @@ enum Palette {
 
     /// Tints of the brand color for map regions (alternating so neighbours differ).
     static func regionFill(_ index: Int, dark: Bool) -> Color {
-        let steps: [Double] = [0.30, 0.52, 0.18, 0.42, 0.62, 0.24]
+        let steps: [Double] = [0.34, 0.62, 0.20, 0.50, 0.76, 0.28, 0.44]
         let t = steps[index % steps.count]
         return dark ? Color(hex: "#D4738F").opacity(0.18 + t * 0.6)
                     : Color(hex: "#7D1D3F").mix(with: Color(hex: "#FBF8F4"), 1 - t)
