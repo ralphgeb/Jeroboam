@@ -453,11 +453,9 @@ struct AromaChip: View {
     var compact = false
 
     var body: some View {
-        let cat = ContentStore.shared.aromaCategory(forItem: text)
-        let tint = Color(hex: cat?.color ?? "#A08890")
-        HStack(spacing: 6) {
-            Circle().fill(tint).frame(width: compact ? 7 : 8, height: compact ? 7 : 8)
-            Text(text).font(.system(size: compact ? 13 : 14, weight: .semibold)).foregroundStyle(Palette.ink)
+        HStack(spacing: 5) {
+            FlavorIcon(aroma: text, size: compact ? 16 : 18)
+            Text(text).font(.system(size: compact ? 13 : 14)).foregroundStyle(Palette.ink)
         }
         .padding(.horizontal, compact ? 10 : 12)
         .padding(.vertical, compact ? 6 : 8)

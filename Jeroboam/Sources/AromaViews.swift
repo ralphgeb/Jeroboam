@@ -145,8 +145,7 @@ struct AromaWheelScreen: View {
                                     Circle().fill(Color(hex: cat.color)).frame(width: 9, height: 9)
                                     Text(cat.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
                                 }
-                                Text(cat.items.joined(separator: " · ")).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
-                                    .fixedSize(horizontal: false, vertical: true)
+                                iconGrid(cat.items)
                             }
                             .padding(.vertical, 6)
                         }
@@ -165,13 +164,25 @@ struct AromaWheelScreen: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 10) {
                 Image(systemName: cat.icon).font(.system(size: 16)).foregroundStyle(Color(hex: cat.color).mix(with: .black, 0.3))
-                Text(cat.name).font(.serif(22)).foregroundStyle(Palette.ink)
+                Text(cat.name).font(.sectionTitle).foregroundStyle(Palette.ink)
                 Spacer()
                 Button { selected = nil } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(Palette.inkFaint) }
             }
             if let n = cat.note { Text(rich(n)).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5) }
-            FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(cat.items, id: \.self) { AromaChip(text: $0, compact: true) } }
+            iconGrid(cat.items)
         }
         .cardStyle()
+    }
+
+    private func iconGrid(_ items: [String]) -> some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 5), alignment: .center, spacing: 12) {
+            ForEach(items, id: \.self) { a in
+                VStack(spacing: 5) {
+                    FlavorIcon(aroma: a, size: 30)
+                    Text(a).font(.system(size: 10.5)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                        .lineLimit(2).minimumScaleFactor(0.85)
+                }
+            }
+        }
     }
 }
