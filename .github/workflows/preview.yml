@@ -17,6 +17,9 @@ concurrency:
   group: preview-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   simulator:
     runs-on: macos-latest
@@ -87,6 +90,23 @@ jobs:
           done
           xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
           ls shots
+
+      - name: Publish screenshots to the ci-screenshots branch
+        if: always()
+        run: |
+          mkdir -p ../pub && cd ../pub
+          for f in ../Jeroboam/shots/*.png; do
+            [ -f "$f" ] || continue
+            sips -s format jpeg -s formatOptions 72 -Z 1400 "$f" --out "$(basename "${f%.png}").jpg" > /dev/null
+          done
+          cp ../Jeroboam/build/build.log . 2>/dev/null || true
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b ci-screenshots
+          git add -A
+          git commit -q -m "Screenshots for ${GITHUB_SHA::7} (run ${{ github.run_number }})" || exit 0
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-screenshots
 
       - uses: actions/upload-artifact@v4
         if: always()
