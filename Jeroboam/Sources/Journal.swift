@@ -322,9 +322,8 @@ struct NewTastingFlow: View {
     // ---- 1. photo
     private var photoStep: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("SNAP\nTHE LABEL").font(.display(52)).foregroundStyle(Palette.ink).lineSpacing(-8)
-            Text("Fill the frame with the front label. Good light helps the label reader.")
-                .font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.inkSoft)
+            ScreenHeader(eyebrow: "New tasting", title: "Snap the label",
+                         subtitle: "Fill the frame with the front label. Good light helps the label reader.")
             Button { showCamera = true } label: {
                 Label("Take a photo", systemImage: "camera.fill")
             }
@@ -710,9 +709,9 @@ struct NewTastingFlow: View {
         let typical = entry.wine.tastingNotes.map { $0.lowercased() }
         let found = entry.aromas.filter { typical.contains($0.lowercased()) }
         return VStack(alignment: .leading, spacing: 18) {
-            Text("SAVED").font(.display(56)).foregroundStyle(Palette.ink)
+            ScreenHeader(eyebrow: "Journal", title: "Saved")
             if !typical.isEmpty {
-                Text("You found \(found.count) of \(typical.count) typical aromas").font(.display(26)).foregroundStyle(Palette.bordeaux)
+                Text("You found \(found.count) of \(typical.count) typical aromas").font(.system(size: 19, weight: .semibold)).foregroundStyle(Palette.bordeaux)
                 Text(found.isEmpty ? "Next time, try smelling for: \(entry.wine.tastingNotes.prefix(3).joined(separator: ", "))."
                                    : "Nice nose. You spotted \(found.joined(separator: ", ")).")
                     .font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
@@ -733,7 +732,7 @@ struct NewTastingFlow: View {
 
     private func stepTitle(_ t: String, _ sub: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(t).font(.display(40)).foregroundStyle(Palette.ink)
+            Text(t).font(.screenTitle).kerning(-0.4).foregroundStyle(Palette.ink)
             Text(sub).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.inkSoft)
         }
     }
