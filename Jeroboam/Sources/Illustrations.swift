@@ -333,8 +333,10 @@ struct FlameBadge: View {
             Text("\(count)")
                 .font(.numeric(size + 1, .semibold))
                 .foregroundStyle(active ? Palette.ink : Palette.inkSoft)
+                .lineLimit(1)
                 .contentTransition(.numericText())
         }
+        .fixedSize()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(count) day streak")
     }
@@ -346,8 +348,9 @@ struct XPBadge: View {
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: "sparkle").font(.system(size: size - 1, weight: .medium)).foregroundStyle(Palette.brass)
-            Text("\(xp)").font(.numeric(size + 1, .semibold)).foregroundStyle(Palette.ink).contentTransition(.numericText())
+            Text("\(xp)").font(.numeric(size + 1, .semibold)).foregroundStyle(Palette.ink).lineLimit(1).contentTransition(.numericText())
         }
+        .fixedSize()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(xp) XP")
     }

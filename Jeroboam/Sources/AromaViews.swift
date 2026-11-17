@@ -29,7 +29,17 @@ struct AromaWheel: View {
                         // label on inner ring
                         let mid = (start + span / 2) * Double.pi / 180
                         let lp = CGPoint(x: c.x + CGFloat(cos(mid)) * (rIn + rMid) / 2, y: c.y + CGFloat(sin(mid)) * (rIn + rMid) / 2)
-                        ctx.draw(Text(g.name.uppercased()).font(.system(size: compact ? 7 : 8.5, weight: .bold)).kerning(0.8).foregroundColor(.white), at: lp)
+                        if !compact {
+                            var lt = ctx
+                            lt.translateBy(x: lp.x, y: lp.y)
+                            var tdeg = (start + span / 2 + 90).truncatingRemainder(dividingBy: 360)
+                            if tdeg > 180 { tdeg -= 360 }
+                            if tdeg < -180 { tdeg += 360 }
+                            if tdeg > 90 { tdeg -= 180 }
+                            if tdeg < -90 { tdeg += 180 }
+                            lt.rotate(by: .degrees(tdeg))
+                            lt.draw(Text(g.name.uppercased()).font(.system(size: 8, weight: .bold)).kerning(1.0).foregroundColor(.white), at: .zero)
+                        }
                         var a = start
                         for cat in g.categories {
                             let step = 360.0 / total
