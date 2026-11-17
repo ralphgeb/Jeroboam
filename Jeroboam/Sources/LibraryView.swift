@@ -149,8 +149,10 @@ struct LibraryView: View {
                         ForEach(0..<3, id: \.self) { i in
                             RoundedRectangle(cornerRadius: 4, style: .continuous)
                                 .fill([Color(hex: "#E9DDB0"), Color(hex: "#D98A9E"), Palette.bordeaux][i])
-                                .frame(width: 30, height: 42)
-                                .rotationEffect(.degrees(Double(i - 1) * 10), anchor: .bottom)
+                                .frame(width: 28, height: 40)
+                                .overlay(RoundedRectangle(cornerRadius: 4, style: .continuous).strokeBorder(.white.opacity(0.7), lineWidth: 0.75))
+                                .rotationEffect(.degrees(Double(i - 1) * 14), anchor: .bottom)
+                                .offset(x: CGFloat(i - 1) * 9)
                         }
                     }
                     .frame(width: 60, height: 58)

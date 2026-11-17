@@ -83,8 +83,13 @@ jobs:
             for s in $SCREENS; do
               xcrun simctl terminate "$UDID" com.ralphgeb.jero 2>/dev/null || true
               xcrun simctl launch "$UDID" com.ralphgeb.jero -screen "$s" > /dev/null
-              sleep 8
+              sleep 9
               xcrun simctl io "$UDID" screenshot "shots/${mode}-${s}.png" > /dev/null 2>&1
+              # a blank launch screen compresses tiny: wait and retake once
+              if [ "$(stat -f%z "shots/${mode}-${s}.png")" -lt 120000 ]; then
+                sleep 8
+                xcrun simctl io "$UDID" screenshot "shots/${mode}-${s}.png" > /dev/null 2>&1
+              fi
             done
             [ "$mode" = light ] && SCREENS="learn library map cards journal"
           done

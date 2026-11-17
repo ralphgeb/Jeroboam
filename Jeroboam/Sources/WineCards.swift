@@ -104,11 +104,13 @@ struct WineCardView: View {
 struct GrapeBadge: View {
     let grape: Grape
     var size: CGFloat = 76
+    @Environment(\.colorScheme) private var scheme
     var body: some View {
+        let grad = WineCardView.berryGradient(for: grape).map { scheme == .dark ? $0.mix(with: .white, 0.25) : $0 }
         ZStack {
             Circle().fill(WineCardView.tint(for: grape).opacity(0.09))
             Circle().strokeBorder(WineCardView.tint(for: grape).opacity(0.18), lineWidth: 0.75).padding(size * 0.06)
-            GrapeMark(gradient: WineCardView.berryGradient(for: grape))
+            GrapeMark(gradient: grad)
                 .frame(width: size * 0.44, height: size * 0.6)
                 .offset(y: size * 0.02)
         }

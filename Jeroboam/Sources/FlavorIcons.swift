@@ -8,10 +8,12 @@ struct FlavorIcon: View {
     let aroma: String
     var size: CGFloat = 30
     var color: Color? = nil
+    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         let cat = ContentStore.shared.aromaCategory(forItem: aroma)
-        let tint = color ?? Color(hex: cat?.color ?? "#A08890").mix(with: .black, 0.18)
+        let base = Color(hex: cat?.color ?? "#A08890")
+        let tint = color ?? (scheme == .dark ? base.mix(with: .white, 0.3) : base.mix(with: .black, 0.18))
         let kind = FlavorGlyph.kind(for: aroma, category: cat?.id)
         Canvas { ctx, sz in
             let s = min(sz.width, sz.height) / 24

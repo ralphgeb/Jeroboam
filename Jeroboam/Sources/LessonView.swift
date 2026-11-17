@@ -207,7 +207,7 @@ struct FeedbackPanel: View {
                     .font(.system(size: 24))
                     .foregroundStyle(tint)
                 Text(feedback.correct ? praise : "Not quite")
-                    .font(.serif(22, .medium))
+                    .font(.system(size: 19, weight: .semibold))
                     .foregroundStyle(tint)
                 Spacer()
             }
@@ -276,7 +276,7 @@ struct LearnCard: View {
         VStack(alignment: .leading, spacing: 20) {
             Eyebrow("Learn", color: Palette.wine)
             if let t = card.title {
-                Text(t).font(.heading(30, .heavy)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
             }
             if let v = card.visual {
                 VisualView(spec: v)
@@ -299,13 +299,13 @@ struct LearnCard: View {
                 ForEach(p.components(separatedBy: "\n").map { $0.hasPrefix("- ") ? String($0.dropFirst(2)) : $0 }, id: \.self) { line in
                     HStack(alignment: .firstTextBaseline, spacing: 10) {
                         Circle().fill(Palette.wine).frame(width: 4.5, height: 4.5).offset(y: -3)
-                        Text(rich(line)).font(.system(size: 16.5)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
+                        Text(rich(line)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
         } else {
-            Text(rich(p)).font(.system(size: 17)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4.5)
+            Text(rich(p)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -317,7 +317,7 @@ struct QuestionHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Eyebrow(label)
-            Text(rich(text)).font(.heading(23, .bold)).foregroundStyle(Palette.ink).lineSpacing(2)
+            Text(rich(text)).font(.system(size: 21, weight: .semibold)).foregroundStyle(Palette.ink).lineSpacing(2)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -471,7 +471,7 @@ struct BlankCard: View {
             ForEach(Array(tokens.enumerated()), id: \.offset) { _, t in
                 switch t {
                 case .word(let w):
-                    Text(w).font(.serif(22)).foregroundStyle(Palette.ink)
+                    Text(w).font(.system(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
                 case .slot(let i):
                     slot(i)
                 }

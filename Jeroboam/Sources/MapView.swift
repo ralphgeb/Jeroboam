@@ -249,10 +249,12 @@ struct MapRenderer {
             layer.translateBy(x: offset.width, y: offset.height)
             layer.scaleBy(x: s, y: s)
             layer.fill(g.focus, with: .color(Palette.focusLand))
-            layer.stroke(g.borders, with: .color(Palette.adminLine), lineWidth: hair * 0.8)
+            if showLabels || showCities {
+                layer.stroke(g.borders, with: .color(Palette.adminLine), lineWidth: hair * 0.8)
+            }
 
             if g.map.belts != nil {
-                layer.fill(g.focus, with: .color(Palette.bordeaux.opacity(dark ? 0.8 : 0.85)))
+                layer.fill(g.focus, with: .color(Palette.bordeaux.opacity(dark ? 0.75 : 0.62)))
             }
 
             var regions = layer
@@ -278,7 +280,7 @@ struct MapRenderer {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
-            for (r, w) in g.rivers {
+            for (r, w) in g.rivers where showLabels || showCities {
                 layer.stroke(r, with: .color(Palette.river), style: StrokeStyle(lineWidth: (w >= 2 ? 1.3 : 0.8) * hair, lineCap: .round, lineJoin: .round))
             }
             layer.stroke(g.focus, with: .color(Palette.border), lineWidth: hair * 1.2)
