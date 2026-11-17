@@ -51,7 +51,7 @@ enum DebugScreens {
         autoFinish = screen == "complete"
     }
 
-    static func learnHook(start: (Lesson) -> Void) {
+    static func learnHook(start: @escaping (Lesson) -> Void) {
         guard let screen, ["lesson", "feedback", "blank", "match", "complete"].contains(screen) else { return }
         let lessons = ContentStore.shared.orderedLessons
         func first(where test: (Card) -> Bool) -> Lesson? {
@@ -74,9 +74,9 @@ enum DebugScreens {
         }
     }
 
-    static func practiceHook(_ open: (Session) -> Void) {}
+    static func practiceHook(_ open: @escaping (Session) -> Void) {}
 
-    static func libraryHook(_ push: @escaping (AnyHashable) -> Void) {
+    static func libraryHook(_ push: @escaping (any Hashable) -> Void) {
         guard let screen else { return }
         let c = ContentStore.shared
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
