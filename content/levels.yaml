@@ -1,7 +1,7 @@
 - number: 1
   title: Foundations
   subtitle: "Level 1 · Beginner"
-  units: [l1-what-is-wine, l1-tasting, l1-white-grapes, l1-black-grapes, l1-food, l1-serving]
+  units: [l1-what-is-wine, l1-tasting, l1-white-grapes, l1-black-grapes, l1-world, l1-food, l1-serving]
 - number: 2
   title: Intermediate
   subtitle: "Level 2 · Grapes & regions"

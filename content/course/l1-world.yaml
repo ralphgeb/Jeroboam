@@ -1,0 +1,83 @@
+title: The wine world
+summary: "Where wine comes from: the wine belt, the classic countries and the names on bottles."
+icon: globe.europe.africa
+lessons:
+  - title: The wine belt
+    cards:
+      - learn: Two bands around the globe
+        visual: "diagram:wine-belt"
+        body: |
+          Most of the world's vineyards sit in two bands, roughly **30° to 50° latitude** north and south of the equator. Closer to the poles, grapes struggle to ripen; closer to the equator, vines never get the winter rest they need.
+      - learn: Old World and New World
+        body: |
+          - **Old World**: Europe and the Mediterranean, where winemaking goes back thousands of years: France, Italy, Spain, Portugal, Germany, Austria, Greece.
+          - **New World**: places where European vines arrived later: the USA, Chile, Argentina, Australia, New Zealand, South Africa.
+      - choice: "Between which latitudes are most vineyards found?"
+        options: ["30° and 50°", "0° and 15°", "55° and 70°", "15° and 25°"]
+        a: "30° and 50°"
+        visual: "diagram:wine-belt"
+        explain: "In both hemispheres. Altitude and ocean currents let some regions push beyond these limits."
+      - match: "Old World or New World?"
+        pairs: [[Italy, Old World], [Chile, New World]]
+        explain: "Italy has made wine for thousands of years; Chile's industry grew from Spanish missions in the 1500s."
+      - tf: "Australia is considered an Old World wine country."
+        truth: false
+        explain: "Australia is New World. Vines arrived with European settlers in 1788."
+      - choice: "Which country makes the most wine by volume in a typical year?"
+        options: [Italy, Japan, Brazil, Canada]
+        a: Italy
+        explain: "Italy and France usually trade first place, with Spain third. Spain has the largest vineyard area."
+  - title: France at a glance
+    cards:
+      - learn: The classic regions
+        visual: "map:france"
+        body: |
+          - **Bordeaux**: red blends of Cabernet Sauvignon and Merlot.
+          - **Burgundy**: Pinot Noir and Chardonnay.
+          - **Champagne**: sparkling wine.
+          - **Rhône**: Syrah in the north, Grenache blends in the south.
+          - **Loire**: Sauvignon Blanc, Chenin Blanc, Cabernet Franc.
+          - **Alsace**: aromatic whites.
+      - choice: "Which French region is famous for sparkling wine?"
+        options: [Champagne, Bordeaux, Rhône, Provence]
+        a: Champagne
+        visual: "map:france:champagne"
+        explain: "Only sparkling wine from the Champagne region in north-east France may be called Champagne."
+      - choice: "Highlighted on the map is…"
+        options: [Bordeaux, Burgundy, Alsace, Loire Valley]
+        a: Bordeaux
+        visual: "map:france:bordeaux"
+        explain: "Bordeaux lies on France's Atlantic coast, around the Gironde estuary."
+      - tf: "Provence is famous for pale, dry rosé."
+        truth: true
+        visual: "map:france:provence"
+        explain: "Provence is the world's rosé capital, along the Mediterranean coast."
+      - match: "Match the French region to its grape"
+        pairs: [[Burgundy, Pinot Noir], [Loire Valley, Sauvignon Blanc], [Northern Rhône, Syrah]]
+        explain: "French labels name places, so learning which grape grows where is essential."
+  - title: Beyond France
+    cards:
+      - learn: The big names
+        visual: "map:world"
+        body: |
+          - **Italy**: Chianti and Brunello (Sangiovese), Barolo (Nebbiolo), Prosecco.
+          - **Spain**: Rioja (Tempranillo), Cava, Sherry.
+          - **Germany**: Riesling.
+          - **USA**: Napa Valley Cabernet.
+          - **Argentina**: Malbec. **New Zealand**: Sauvignon Blanc. **Australia**: Shiraz.
+      - match: "Match the country to its signature grape"
+        pairs: [[Argentina, Malbec], [New Zealand, Sauvignon Blanc], [Australia, Shiraz], [Germany, Riesling]]
+        explain: "Each became famous worldwide for one star grape."
+      - choice: "Rioja comes from which country?"
+        options: [Spain, Italy, Portugal, Argentina]
+        a: Spain
+        visual: "map:spain:rioja"
+        explain: "Rioja lies in northern Spain along the Ebro river, and is made mainly from Tempranillo."
+      - choice: "Napa Valley is in…"
+        options: [California, Oregon, Australia, Chile]
+        a: California
+        visual: "map:usa-west:napa-sonoma"
+        explain: "North of San Francisco, and famous for Cabernet Sauvignon."
+      - tf: "Prosecco is a sparkling wine from Italy."
+        truth: true
+        explain: "From the Veneto and Friuli in north-east Italy, made from the Glera grape."
