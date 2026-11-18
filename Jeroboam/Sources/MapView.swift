@@ -661,7 +661,7 @@ struct ZoomableWineMap: View {
         var target: CGRect? = c.insetBy(dx: -c.width * 0.35, dy: -c.height * 0.35)
         if let f = focus, let a = g.areas.first(where: { $0.id == f }) {
             let b = a.path.boundingRect
-            let side = max(max(b.width, b.height) * 7, min(c.width, c.height) * 0.6)
+            let side = max(max(b.width, b.height) * 10, min(c.width, c.height) * 0.9)
             target = CGRect(x: b.midX - side / 2, y: b.midY - side / 2, width: side, height: side)
         }
         // leave room for the header and the bottom card

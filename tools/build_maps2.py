@@ -547,7 +547,10 @@ _gb = {}
 def gb_units(iso, adm):
     k = (iso, adm)
     if k not in _gb:
-        _gb[k] = [(f["properties"]["shapeName"], shape(f["geometry"]).buffer(0)) for f in load(f"{GEO}/gb/{iso}-{adm}.geojson")]
+        def fx(n):
+            try: return n.encode("latin1").decode("utf8")
+            except Exception: return n
+        _gb[k] = [(fx(f["properties"]["shapeName"]), shape(f["geometry"]).buffer(0)) for f in load(f"{GEO}/gb/{iso}-{adm}.geojson")]
     return _gb[k]
 
 def km2deg(km): return km / 111.0
@@ -607,15 +610,85 @@ def build_gb(only=None):
         for r in spec["regions"]:
             for m in cfg["regions"].get(r["id"], {}).get("minus", []):
                 geoms[r["id"]] = geoms[r["id"]].difference(geoms[m].buffer(km2deg(0.5)))
+        names = {r["id"]: r["name"] for r in spec["regions"]}
+        small = {r["id"]: r["small"] for r in spec["regions"]}
+
+        # ---- atlas hierarchy: big regions (level 0) with the appellations inside (level 1)
+        H = GB.HIERARCHY.get(mid, {})
+        def iso_adm(adm):
+            return adm.split("/") if "/" in adm else (isos[0], adm)
+        def units_union(gs):
+            iso, adm = iso_adm(gs["adm"])
+            pool = gb_units(iso, adm)
+            got, miss = [], []
+            for n in gs["names"]:
+                c = [g for nm, g in pool if nm == n]
+                if not c: miss.append(n)
+                got += c
+            if miss: print(f"   ! {mid}: missing {miss}")
+            return unary_union(got) if got else None
+        def blob_geom(b):
+            iso, adm = iso_adm(b["adm"] or H.get("snap", "ADM3"))
+            zone = Polygon(shape_latlon({"t": "blob", "c": b["c"], "r": (b["r"], b["r"]), "a": 0})).buffer(0)
+            zp = prep(zone)
+            picked = [g for _, g in gb_units(iso, adm) if zp.contains(g.representative_point())]
+            g = unary_union(picked).intersection(zone.buffer(km2deg(b["r"] * 0.35))) if picked else zone
+            for m in b.get("minus", []):
+                if m in geoms: g = g.difference(geoms[m].buffer(km2deg(0.3)))
+            return g
+        def geom_of(x):
+            return blob_geom(x) if "c" in x else units_union(x)
+
+        groups = []   # (id, name, geom)
+        for gid, (gname, gs) in H.get("groups", {}).items():
+            g = geom_of(gs)
+            if g is not None and not g.is_empty: groups.append((gid, gname, g))
+        lv0_extra = []
+        for gid, (gname, gs) in H.get("extra0", {}).items():
+            g = geom_of(gs)
+            if g is not None and not g.is_empty: lv0_extra.append((gid, gname, g))
+        for d in H.get("drop", []):
+            geoms.pop(d, None)
+        children = []   # (id, name, geom, parent or None)
+        for rid, g in geoms.items():
+            children.append((rid, names.get(rid, rid), g, None))
+        for rid, b in H.get("extra", {}).items():
+            children.append((rid, b["name"], blob_geom(b), None))
+        for rid, (n, gs) in H.get("units1", {}).items():
+            g = units_union(gs)
+            if g is not None: children.append((rid, n, g, None))
+        subs = []
+        for rid, (n, par, gs) in H.get("subs", {}).items():
+            g = geom_of(gs)
+            if g is not None: subs.append((rid, n, g, par))
+        for rid, (n, par, b) in H.get("extra1", {}).items():
+            subs.append((rid, n, blob_geom(b), par))
+
         areas = []
-        for i, r in enumerate(spec["regions"]):
-            areas.append(area_record(pr, r["id"], r["name"], 1 if r["small"] else 0, cidx(None, i), geoms[r["id"]], tol,
-                                     min_area=1, soft=True))
+        col = {}
+        if groups:
+            for i, (gid, gname, g) in enumerate(groups):
+                col[gid] = cidx(None, i)
+                areas.append(area_record(pr, gid, gname, 0, col[gid], g, tol, min_area=1, soft=True))
+            allg = unary_union([gr[2] for gr in groups]).buffer(km2deg(2))
+            for rid, n, g, _ in children:
+                g = g.intersection(allg)
+                if g.is_empty: continue
+                best = max(groups, key=lambda gr: gr[2].intersection(g).area if gr[2].intersects(g) else 0)
+                areas.append(area_record(pr, rid, n, 1, col[best[0]], g, tol, parent=best[0], min_area=1, soft=True))
+        else:
+            for i, (rid, n, g, _) in enumerate(children + [(a, b, c, None) for a, b, c in lv0_extra]):
+                col[rid] = cidx(None, i)
+                areas.append(area_record(pr, rid, n, 1 if small.get(rid) else 0, col[rid], g, tol, min_area=1, soft=True))
+        for rid, n, g, par in subs:
+            areas.append(area_record(pr, rid, n, 1, col.get(par, 0), g, tol, parent=par, min_area=1, soft=True))
+        areas = [a for a in areas if a]
+        areas.sort(key=lambda a: a["lv"])
         fb = [g for iso in isos for _, g in gb_units(iso, "ADM1")]
         tadm = [g for iso in isos for _, g in gb_units(iso, TINT_ADM.get(iso, "ADM2"))]
         cities = cities_of(pr, [(n, la, lo, 0 if i < 3 else 1) for i, (n, la, lo) in enumerate(spec["cities"])])
         write(mid, doc(mid, spec["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, spec["labels"]),
-                       admin_borders(pr, spec["bbox"], fb, tol * 1.5), extra={"tints": tints(pr, tadm, tol, areas)}))
+                       admin_borders(pr, spec["bbox"], fb, tol * 1.5), extra=None if groups else {"tints": tints(pr, tadm, tol, areas)}))
 
 def build_lebanon():
     L = GB.LEBANON
