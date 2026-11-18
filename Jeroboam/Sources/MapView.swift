@@ -639,15 +639,21 @@ struct ZoomableWineMap: View {
     /// Open centered on the wine areas (or the focused one), with the map covering the whole screen.
     private func fitInitial(size: CGSize, g: MapGeometry) {
         guard size.width > 0 else { return }
+        // detail levels are measured from the whole-map view
+        let (base, _) = g.fitLayout(size: size, padding: 0.14)
         var target: CGRect? = nil
         if let f = focus, let a = g.areas.first(where: { $0.id == f }) {
+            // show the area with plenty of its neighbours around it
             let b = a.path.boundingRect
-            target = b.insetBy(dx: -b.width * 0.8, dy: -b.height * 0.8)
+            let c = g.contentBounds
+            let side = max(b.width, b.height) * 3.5
+            target = CGRect(x: b.midX - side / 2, y: b.midY - side / 2, width: side, height: side)
+                .intersection(c.insetBy(dx: -c.width * 0.1, dy: -c.height * 0.1))
         }
         // leave room for the header and the bottom card
         let (z, o) = g.fitLayout(size: size, target: target, padding: 0.14)
-        absZoom = z; baseZoom = z; lodBase = z
-        zoom = 1
+        absZoom = z; baseZoom = z; lodBase = base
+        zoom = z / max(0.01, base)
         offset = clamp(CGSize(width: o.width, height: o.height + size.height * 0.04), size: size, g: g)
         baseOffset = offset
     }
