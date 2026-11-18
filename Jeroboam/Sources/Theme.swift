@@ -72,8 +72,8 @@ enum Palette {
     static let gold = brass
     static let goldDeep = brass
     // Maps (Wine Folly-style: white land, blue sea, grey neighbours)
-    static let sea = Color.dynamic("#A9D2EA", "#122633")
-    static let land = Color.dynamic("#E6E3E0", "#24111A")
+    static let sea = Color.dynamic("#B9CFDF", "#13222E")
+    static let land = Color.dynamic("#E3E1DE", "#24111A")
     static let focusLand = Color.dynamic("#FFFFFF", "#3A1925")
     static let border = Color.dynamic("#C9C2BD", "#5A3341")
     static let adminLine = Color.dynamic("#E2DCD8", "#4A2734")
@@ -82,8 +82,9 @@ enum Palette {
     static let lockedDeep = Color.dynamic("#D2CDC9", "#4A2230")
 
     /// Bold, wine-led map palette (indices are stored in the map files).
-    static let mapColors: [Color] = ["#9E1B3A", "#C2185B", "#E8708A", "#EE7B5A", "#F29A3D", "#D9A23B", "#E8C547", "#9AA549",
-                                     "#5FA35A", "#2E9C97", "#3A7BC8", "#7B4BA8", "#5B2049"].map { Color(hex: $0) }
+    /// Cool atlas pastels (lilac, periwinkle, sage, teal…), like printed wine atlases.
+    static let mapColors: [Color] = ["#8E7CC3", "#6F9BD1", "#7DB89A", "#A9C77B", "#5FA8A6", "#B49ACB", "#9BB6D9", "#8FBF6E",
+                                     "#7F8FC9", "#C7B3DA", "#6FB3C9", "#A3B86C", "#9C88B8"].map { Color(hex: $0) }
 
     static func mapColor(_ i: Int) -> Color { mapColors[((i % mapColors.count) + mapColors.count) % mapColors.count] }
 

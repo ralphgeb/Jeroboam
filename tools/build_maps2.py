@@ -232,7 +232,26 @@ def label_point(g):
     p = g.representative_point()
     return p.x, p.y
 
+_GEOMS = {}   # (id(proj), area id) -> (lon/lat geometry, color, level), for province tints
+
+def tints(pr, adm_geoms, tol, areas):
+    """Light tint of every province that holds vineyards, in the color of its main wine area."""
+    src = [(_GEOMS[(id(pr), a["id"])]) for a in areas if a and (id(pr), a["id"]) in _GEOMS and a["lv"] == 0]
+    out = []
+    for adm in adm_geoms:
+        if adm.is_empty: continue
+        best, best_a = None, 0.0
+        for g, c, lv in src:
+            if not g.intersects(adm): continue
+            a = g.intersection(adm).area
+            if a > best_a: best, best_a = c, a
+        if best is None or best_a < adm.area * 0.004: continue
+        shapes = enc_polys(soften(pr.geom(adm), tol), tol * 1.5, 8, smooth=True)
+        if shapes: out.append({"c": best, "shapes": shapes})
+    return out
+
 def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False):
+    _GEOMS[(id(pr), aid)] = (geom_ll, color, lv)
     g = pr.geom(geom_ll)
     if soft: g = soften(g, tol)
     shapes = enc_polys(g, tol, min_area, smooth=True)
@@ -355,6 +374,7 @@ def build_france():
         if s["id"] in other:
             areas.append(area_record(pr, s["id"], s["name"], 0, cidx(s["color"]), other[s["id"]][0], tol, label=s["label"], grapes=s["grapes"]))
     borders = admin_borders(pr, bbox, deps, tol * 1.5)
+    fr_tints = tints(pr, deps, tol, areas)
     cities = cities_of(pr, [("Paris", 48.857, 2.352, 0), ("Bordeaux", 44.84, -0.58, 0), ("Lyon", 45.76, 4.84, 0),
         ("Reims", 49.26, 4.03), ("Dijon", 47.32, 5.04), ("Strasbourg", 48.57, 7.75), ("Tours", 47.39, 0.69),
         ("Marseille", 43.30, 5.37, 0), ("Nantes", 47.22, -1.55), ("Montpellier", 43.61, 3.88), ("Toulouse", 43.60, 1.44, 0),
@@ -363,7 +383,7 @@ def build_france():
                             ("English Channel", 50.2, -2.3, "sea"), ("Loire", 47.55, 0.15, "river"), ("Rhône", 44.55, 4.55, "river"),
                             ("Garonne", 44.2, 0.4, "river"), ("SPAIN", 42.2, -1.5, "area"), ("ITALY", 44.9, 8.6, "area"),
                             ("GERMANY", 50.3, 8.4, "area"), ("SWITZ.", 46.8, 7.7, "area")])
-    write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders))
+    write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders, extra={"tints": fr_tints}))
 
     # ---- regional detail maps
     def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=()):
@@ -441,7 +461,9 @@ def build_italy():
         ("Bologna", 44.49, 11.34), ("Bari", 41.12, 16.87)])
     labels = labels_of(pr, [("Tyrrhenian Sea", 40.0, 11.8, "sea"), ("Adriatic Sea", 43.0, 15.4, "sea"), ("Ionian Sea", 38.0, 18.0, "sea"),
                             ("Po", 45.08, 10.5, "river")])
-    write("italy", doc("italy", "Italy", pr, land, focus, lk, rv, areas, cities, labels, admin_borders(pr, bbox, ita_regions, tol * 1.5)))
+    ita_prov = [shape(f["geometry"]) for f in admin1 if f["properties"]["adm0_a3"] == "ITA"]
+    write("italy", doc("italy", "Italy", pr, land, focus, lk, rv, areas, cities, labels, admin_borders(pr, bbox, ita_regions, tol * 1.5),
+                       extra={"tints": tints(pr, ita_prov, tol, areas)}))
 
     def detail(mid, title, specs, bbox, cities, labels, reg):
         pr = Proj(bbox, 3000)
@@ -537,6 +559,10 @@ def soften(g, tol):
     out = g.buffer(d * 0.6, join_style=1).buffer(-d * 1.6, join_style=1).buffer(d * 0.7, join_style=1)
     return out if not out.is_empty and out.area > g.area * 0.35 else g
 
+# admin level used for the light province tints, per country
+TINT_ADM = {"ESP": "ADM2", "PRT": "ADM1", "DEU": "ADM3", "AUT": "ADM2", "HUN": "ADM2", "GRC": "ADM2", "CHL": "ADM2",
+            "ARG": "ADM2", "AUS": "ADM2", "NZL": "ADM2", "ZAF": "ADM3", "LBN": "ADM2"}
+
 def build_gb(only=None):
     print("admin-boundary countries…")
     legacy = {m["id"]: m for m in LEGACY}
@@ -586,9 +612,10 @@ def build_gb(only=None):
             areas.append(area_record(pr, r["id"], r["name"], 1 if r["small"] else 0, cidx(None, i), geoms[r["id"]], tol,
                                      min_area=1, soft=True))
         fb = [g for iso in isos for _, g in gb_units(iso, "ADM1")]
+        tadm = [g for iso in isos for _, g in gb_units(iso, TINT_ADM.get(iso, "ADM2"))]
         cities = cities_of(pr, [(n, la, lo, 0 if i < 3 else 1) for i, (n, la, lo) in enumerate(spec["cities"])])
         write(mid, doc(mid, spec["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, spec["labels"]),
-                       admin_borders(pr, spec["bbox"], fb, tol * 1.5)))
+                       admin_borders(pr, spec["bbox"], fb, tol * 1.5), extra={"tints": tints(pr, tadm, tol, areas)}))
 
 def build_lebanon():
     L = GB.LEBANON
@@ -602,13 +629,25 @@ def build_lebanon():
         g = unary_union([u for n, u in units if n in cazas])
         zone = L.get("zones", {}).get(rid)
         if zone:  # vineyards only: trim the caza to where the vines actually are
-            z = unary_union([Polygon(shape_latlon(s)).buffer(0) for s in zone])
+            def zshape(sp):
+                if sp["t"] != "patches": return Polygon(shape_latlon(sp)).buffer(0)
+                import random as _r
+                rng = _r.Random(rid)
+                parts = []
+                for la, lo in sp["c"]:
+                    for _ in range(5):
+                        dla, dlo = rng.uniform(-1, 1) * sp["r"] / 111, rng.uniform(-1, 1) * sp["r"] / 92
+                        rr = sp["r"] * rng.uniform(0.35, 0.75)
+                        parts.append(Polygon(shape_latlon({"t": "blob", "c": (la + dla, lo + dlo), "r": (rr, rr * rng.uniform(0.6, 1.0)),
+                                                           "a": rng.uniform(0, 180)})).buffer(0))
+                return unary_union(parts)
+            z = unary_union([zshape(s) for s in zone])
             g = g.intersection(z) if g.intersects(z) else z
         areas.append(area_record(pr, rid, name, 0, cidx(None, i), g, tol, min_area=1, soft=True))
     fb = [g for _, g in gb_units("LBN", "ADM1")]
     cities = cities_of(pr, [(n, la, lo, 0 if i < 2 else 1) for i, (n, la, lo) in enumerate(L["cities"])])
     write("lebanon", doc("lebanon", L["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, L["labels"]),
-                         admin_borders(pr, L["bbox"], fb, tol * 1.5)))
+                         admin_borders(pr, L["bbox"], fb, tol * 1.5), extra={"tints": tints(pr, [g for _, g in units], tol, areas)}))
 
 # ================================================================= legacy maps → v2 (blob shapes, bold palette)
 def build_legacy(keep):

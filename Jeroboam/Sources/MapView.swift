@@ -20,6 +20,7 @@ struct WineMapV2: Decodable {
     struct Label: Decodable { let t: String; let x: Int; let y: Int; let k: String }
     struct River: Decodable { let w: Int; let p: [Int] }
     struct Village: Decodable { let n: String; let x: Int; let y: Int }
+    struct Tint: Decodable { let c: Int; let shapes: [[Int]] }
 
     let id: String
     let title: String
@@ -36,6 +37,7 @@ struct WineMapV2: Decodable {
     let communes: [[Int]]?
     let villages: [Village]?
     let belts: [Int]?
+    let tints: [Tint]?
 }
 
 /// Pre-built vector paths for a map, in map units.
@@ -65,6 +67,8 @@ final class MapGeometry {
     let areas: [Area]
     let hasChildren: Set<String>
     let maxLevel: Int
+    /// Light province tints behind the wine areas.
+    let tints: [(Path, Int)]
 
     private static var cache: [String: MapGeometry] = [:]
     private static let lock = NSLock()
@@ -140,6 +144,7 @@ final class MapGeometry {
                              grapes: a.g, area: total))
         }
         areas = list
+        tints = (m.tints ?? []).map { (Self.poly($0.shapes), $0.c) }
         hasChildren = Set(list.compactMap(\.parent))
         maxLevel = list.map(\.level).max() ?? 0
     }
@@ -264,6 +269,11 @@ struct MapRenderer {
 
             var regions = layer
             regions.clip(to: g.landMask)
+            for (p, c) in g.tints {
+                let col = dark ? Palette.mapColor(c).opacity(0.22) : Palette.mapColor(c).mix(with: .white, 0.74)
+                regions.fill(p, with: .color(col))
+                regions.stroke(p, with: .color(Palette.focusLand.opacity(0.9)), lineWidth: hair * 0.8)
+            }
             let ids = Set(g.areas.map(\.id))
             let anyHL = !highlight.intersection(ids).isEmpty || selected != nil
             for a in g.areas where a.level <= lv {
@@ -278,7 +288,7 @@ struct MapRenderer {
                 regions.fill(a.path, with: .color(color.opacity(opacity)))
                 regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.95)), lineWidth: hair * (a.level == 0 ? 1.4 : 1.1))
                 if isHL {
-                    regions.stroke(a.path, with: .color(Palette.ink), lineWidth: hair * 2.2)
+                    regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
             }
             if rel >= LOD.communes || (forcedLevel ?? 0) >= 2 {
