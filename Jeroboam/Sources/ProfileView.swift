@@ -129,6 +129,7 @@ struct ProfileView: View {
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .statusBarBackdrop()
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {

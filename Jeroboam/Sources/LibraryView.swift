@@ -73,6 +73,7 @@ struct LibraryView: View {
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .statusBarBackdrop()
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
             .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g).zoomDestination(ZoomID.grape(g.id), in: zoom) }
             .navigationDestination(for: Region.self) { r in RegionDetailView(region: r).zoomDestination(ZoomID.region(r.id), in: zoom) }

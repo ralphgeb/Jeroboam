@@ -181,6 +181,7 @@ struct JournalView: View {
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .statusBarBackdrop()
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
         }

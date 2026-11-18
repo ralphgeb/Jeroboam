@@ -41,7 +41,7 @@ lessons:
           - **Sparkling wine**: carbon dioxide is trapped in the wine, so it fizzes. Champagne, Prosecco and Cava are examples.
           - **Fortified wine**: grape spirit is added, raising alcohol to 15–22%. Port and Sherry are the classics.
       - learn: And three colors
-        visual: "diagram:glass-shapes"
+        visual: "diagram:three-colors"
         body: |
           Still wines come in **white**, **rosé** and **red**. Sparkling and fortified wines can be any color too. There is red sparkling Lambrusco, pink Champagne and white Port.
       - choice: "Which of these is a fortified wine?"

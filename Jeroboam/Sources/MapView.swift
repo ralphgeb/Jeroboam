@@ -201,6 +201,8 @@ struct MapRenderer {
     /// Zoom at which the map first appears; detail levels are relative to it.
     var lodBase: CGFloat = 1
     var rel: CGFloat { zoom / max(0.01, lodBase) }
+    /// Show a single highlighted area's name automatically (off in quiz questions).
+    var autoCallout = true
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
@@ -377,6 +379,7 @@ struct MapRenderer {
     /// The area whose name is shown in a callout: the tapped one, else a single highlighted area.
     var calloutArea: String? {
         if let s = selected { return s }
+        guard autoCallout else { return nil }
         let ids = highlight.intersection(Set(g.areas.map(\.id)))
         return ids.count == 1 ? ids.first : nil
     }
@@ -430,6 +433,7 @@ struct WineMapView: View {
     var labelScale: CGFloat = 1
     /// Fill the given frame, centered on the wine areas (cards); otherwise keep the map's own aspect ratio.
     var fill = false
+    var autoCallout = true
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
@@ -455,6 +459,7 @@ struct WineMapView: View {
                 r.offset = offset
                 r.highlight = highlight
                 r.selected = tapped
+                r.autoCallout = autoCallout
                 r.showLabels = showLabels && pins.isEmpty
                 r.showCities = showCities
                 r.labelScale = labelScale
@@ -641,14 +646,13 @@ struct ZoomableWineMap: View {
         guard size.width > 0 else { return }
         // detail levels are measured from the whole-map view
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
-        var target: CGRect? = nil
+        // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
+        let c = g.contentBounds
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.35, dy: -c.height * 0.35)
         if let f = focus, let a = g.areas.first(where: { $0.id == f }) {
-            // show the area with plenty of its neighbours around it
             let b = a.path.boundingRect
-            let c = g.contentBounds
-            let side = max(b.width, b.height) * 3.5
+            let side = max(max(b.width, b.height) * 7, min(c.width, c.height) * 0.6)
             target = CGRect(x: b.midX - side / 2, y: b.midY - side / 2, width: side, height: side)
-                .intersection(c.insetBy(dx: -c.width * 0.1, dy: -c.height * 0.1))
         }
         // leave room for the header and the bottom card
         let (z, o) = g.fitLayout(size: size, target: target, padding: 0.14)

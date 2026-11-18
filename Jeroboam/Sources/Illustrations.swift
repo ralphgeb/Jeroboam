@@ -604,7 +604,7 @@ struct GoalRing: View {
             Circle().stroke(Palette.line, lineWidth: lineWidth)
             Circle()
                 .trim(from: 0, to: max(0.001, min(1, progress)))
-                .stroke(progress >= 1 ? Palette.correct : Palette.pink, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .stroke(progress >= 1 ? Palette.correct : Palette.wine, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             if progress >= 1 {
                 Image(systemName: "checkmark").font(.system(size: lineWidth * 3, weight: .bold)).foregroundStyle(Palette.correct)

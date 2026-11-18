@@ -6,6 +6,8 @@ import SwiftUI
 struct VisualView: View {
     let spec: String
     var compact = false
+    /// Question cards: show the picture but never the name that would give the answer away.
+    var hideAnswers = false
     @State private var showMap: String? = nil
 
     var body: some View {
@@ -17,22 +19,28 @@ struct VisualView: View {
             switch kind {
             case "map":
                 let hl = Set(extra.split(separator: ",").map(String.init))
-                WineMapView(mapID: arg, highlight: hl, showCities: !compact, labelScale: compact ? 0.9 : 1)
+                WineMapView(mapID: arg, highlight: hl, showCities: !compact && !hideAnswers, labelScale: compact ? 0.9 : 1,
+                            fill: true, autoCallout: !hideAnswers)
+                    .frame(height: hideAnswers ? 200 : (compact ? 230 : 280))
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .overlay(alignment: .bottomTrailing) {
-                        Image(systemName: "arrow.up.left.and.arrow.down.right")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(Palette.inkSoft)
-                            .padding(7)
-                            .background(Circle().fill(Palette.card.opacity(0.9)))
-                            .padding(8)
+                        if !hideAnswers {
+                            Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Palette.inkSoft)
+                                .padding(7)
+                                .background(Circle().fill(Palette.card.opacity(0.9)))
+                                .padding(8)
+                        }
                     }
-                    .onTapGesture { showMap = arg }
+                    .onTapGesture { if !hideAnswers { showMap = arg } }
                     .fullScreenCover(item: Binding(get: { showMap.map { MapRef(id: $0, hl: hl) } }, set: { showMap = $0?.id })) { ref in
                         MapExplorer(mapID: ref.id, highlight: ref.hl)
                     }
             case "grape":
-                if let g = ContentStore.shared.grape(arg) {
+                if let g = ContentStore.shared.grape(arg), hideAnswers {
+                    GrapeBadge(grape: g, size: 120, disc: false).frame(maxWidth: .infinity)
+                } else if let g = ContentStore.shared.grape(arg) {
                     HStack(spacing: 18) {
                         GrapeBadge(grape: g, size: compact ? 96 : 128, disc: false)
                         VStack(alignment: .leading, spacing: 6) {
@@ -46,7 +54,9 @@ struct VisualView: View {
                     }
                 }
             case "glass":
-                if let c = ContentStore.shared.color(arg) {
+                if let c = ContentStore.shared.color(arg), hideAnswers {
+                    WineGlass(color: Color(hex: c.hex), rim: Color(hex: c.rim)).frame(height: 130).frame(maxWidth: .infinity)
+                } else if let c = ContentStore.shared.color(arg) {
                     HStack(spacing: 18) {
                         WineGlass(color: Color(hex: c.hex), rim: Color(hex: c.rim)).frame(height: compact ? 110 : 150)
                         VStack(alignment: .leading, spacing: 4) {
@@ -94,8 +104,9 @@ struct VisualView: View {
         case "serving-temps": ServingTempsDiagram()
         case "sweetness": SweetnessScale()
         case "solera": SoleraDiagram()
-        case "wine-belt": WineMapView(mapID: "world", showCities: false).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        case "wine-belt": WineMapView(mapID: "world", showCities: false, autoCallout: false).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         case "glass-shapes": GlassShapesDiagram()
+        case "three-colors": ThreeColorsDiagram()
         case "tannin-acid": TanninAcidDiagram()
         default: EmptyView()
         }
@@ -434,19 +445,114 @@ struct SoleraDiagram: View {
 
 // MARK: - Glass shapes
 
+/// Distinct glass silhouettes drawn at the same height and line weight.
+enum GlassKind { case red, white, flute
+
+    /// (top width, widest width, widest at y, bowl bottom y) as fractions of the frame.
+    var bowl: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        switch self {
+        case .red: return (0.56, 0.92, 0.30, 0.56)
+        case .white: return (0.46, 0.62, 0.26, 0.50)
+        case .flute: return (0.30, 0.34, 0.22, 0.60)
+        }
+    }
+
+    func bowlPath(in r: CGRect) -> Path {
+        let (top, widest, wy, by) = bowl
+        let cx = r.midX
+        let y0 = r.minY + r.height * 0.02, ym = r.minY + r.height * wy, yb = r.minY + r.height * by
+        let tw = r.width * top / 2, mw = r.width * widest / 2
+        var p = Path()
+        p.move(to: CGPoint(x: cx - tw, y: y0))
+        p.addCurve(to: CGPoint(x: cx, y: yb), control1: CGPoint(x: cx - mw * 1.02, y: ym - (ym - y0) * 0.1),
+                   control2: CGPoint(x: cx - mw * 0.95, y: yb))
+        p.addCurve(to: CGPoint(x: cx + tw, y: y0), control1: CGPoint(x: cx + mw * 0.95, y: yb),
+                   control2: CGPoint(x: cx + mw * 1.02, y: ym - (ym - y0) * 0.1))
+        return p
+    }
+}
+
+struct ShapedGlass: View {
+    let kind: GlassKind
+    var color: Color
+    var fill: CGFloat = 0.45
+    var sparkling = false
+
+    var body: some View {
+        Canvas { ctx, size in
+            let r = CGRect(origin: .zero, size: size)
+            let bowl = kind.bowlPath(in: r)
+            let (_, _, _, by) = kind.bowl
+            let yb = r.height * by
+            let y0 = r.height * 0.02
+            // wine
+            let level = yb - (yb - y0) * fill
+            var wine = ctx
+            wine.clip(to: bowl)
+            wine.fill(Path(CGRect(x: 0, y: level, width: r.width, height: yb - level + 2)),
+                      with: .linearGradient(Gradient(colors: [color.mix(with: .white, 0.12), color.mix(with: .black, 0.12)]),
+                                            startPoint: CGPoint(x: 0, y: level), endPoint: CGPoint(x: 0, y: yb)))
+            if sparkling {
+                for (fx, fy) in [(0.47, 0.82), (0.53, 0.66), (0.5, 0.5), (0.46, 0.36)] as [(CGFloat, CGFloat)] {
+                    let y = level + (yb - level) * fy
+                    wine.fill(Path(ellipseIn: CGRect(x: r.width * fx - 1.3, y: y - 1.3, width: 2.6, height: 2.6)), with: .color(.white.opacity(0.85)))
+                }
+            }
+            // glass outline, stem and foot — one line weight
+            let lw: CGFloat = 2
+            let ink = Palette.ink.opacity(0.85)
+            var bowlClosed = bowl
+            bowlClosed.closeSubpath()
+            ctx.stroke(bowlClosed, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineCap: .round, lineJoin: .round))
+            var stem = Path()
+            stem.move(to: CGPoint(x: r.midX, y: yb))
+            stem.addLine(to: CGPoint(x: r.midX, y: r.height * 0.97))
+            let foot = r.width * (kind == .flute ? 0.42 : 0.5) / 2
+            stem.move(to: CGPoint(x: r.midX - foot, y: r.height * 0.97))
+            stem.addLine(to: CGPoint(x: r.midX + foot, y: r.height * 0.97))
+            ctx.stroke(stem, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineCap: .round))
+            // a soft reflection
+            var shine = Path()
+            shine.move(to: CGPoint(x: r.midX - r.width * kind.bowl.0 * 0.32, y: r.height * 0.08))
+            shine.addQuadCurve(to: CGPoint(x: r.midX - r.width * kind.bowl.1 * 0.3, y: r.height * kind.bowl.2 * 1.1),
+                               control: CGPoint(x: r.midX - r.width * kind.bowl.1 * 0.36, y: r.height * 0.12))
+            ctx.stroke(shine, with: .color(.white.opacity(0.7)), style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+        }
+        .aspectRatio(0.62, contentMode: .fit)
+        .accessibilityHidden(true)
+    }
+}
+
 struct GlassShapesDiagram: View {
     var body: some View {
-        HStack(alignment: .bottom, spacing: 20) {
-            glass("Red", width: 1.0, color: Color(hex: "#7A1E3A"))
-            glass("White", width: 0.78, color: Color(hex: "#E1D58E"))
-            glass("Sparkling", width: 0.48, color: Color(hex: "#EADFA6"), sparkling: true)
+        HStack(alignment: .bottom, spacing: 26) {
+            item("Red", .red, Color(hex: "#7A1E3A"))
+            item("White", .white, Color(hex: "#E1D58E"))
+            item("Sparkling", .flute, Color(hex: "#EADFA6"), sparkling: true)
         }
         .frame(maxWidth: .infinity)
     }
-    private func glass(_ name: String, width: CGFloat, color: Color, sparkling: Bool = false) -> some View {
+    private func item(_ name: String, _ k: GlassKind, _ c: Color, sparkling: Bool = false) -> some View {
         VStack(spacing: 8) {
-            WineGlass(color: color, fill: sparkling ? 0.75 : 0.42, sparkling: sparkling)
-                .frame(width: 70 * width, height: 120)
+            ShapedGlass(kind: k, color: c, fill: sparkling ? 0.72 : 0.42, sparkling: sparkling).frame(height: 130)
+            Text(name).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
+        }
+    }
+}
+
+/// White, rosé and red, each in its usual glass.
+struct ThreeColorsDiagram: View {
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 26) {
+            item("White", .white, Color(hex: "#E3D48A"))
+            item("Rosé", .white, Color(hex: "#EBA3A0"))
+            item("Red", .red, Color(hex: "#7A1E3A"))
+        }
+        .frame(maxWidth: .infinity)
+    }
+    private func item(_ name: String, _ k: GlassKind, _ c: Color) -> some View {
+        VStack(spacing: 8) {
+            ShapedGlass(kind: k, color: c, fill: 0.42).frame(height: 130)
             Text(name).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
         }
     }

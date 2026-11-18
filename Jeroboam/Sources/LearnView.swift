@@ -6,45 +6,39 @@ struct LearnView: View {
     @State private var session: Session? = nil
     @State private var guidebook: Unit? = nil
     @State private var askUnlock: Level? = nil
-    @State private var compactTitle = false
+    @State private var collapse: CGFloat = 0
     private let content = ContentStore.shared
 
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
                 ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
-                        TopStatusBar()
-                            .padding(.horizontal, Metrics.margin)
-                            .padding(.top, 8)
-                            .padding(.bottom, 14)
-                        Section {
-                            if let level = currentLevel {
-                                levelIntro(level)
+                    VStack(alignment: .leading, spacing: 0) {
+                        if let level = currentLevel {
+                            levelIntro(level)
+                                .padding(.horizontal, Metrics.margin)
+                                .padding(.top, 18)
+                                .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).minY } action: { y in
+                                    // 0 at rest, 1 once the level title has scrolled under the header
+                                    let p = min(1, max(0, (18 - y) / 70))
+                                    if abs(p - collapse) > 0.01 { collapse = p }
+                                }
+                            if let next = progress.currentLesson(in: level), progress.isLevelUnlocked(level.number) {
+                                continueCard(next, level: level)
                                     .padding(.horizontal, Metrics.margin)
                                     .padding(.top, 22)
-                                    .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).maxY } action: { y in
-                                        let show = y < 70
-                                        if show != compactTitle { withAnimation(.easeOut(duration: 0.2)) { compactTitle = show } }
-                                    }
-                                if let next = progress.currentLesson(in: level), progress.isLevelUnlocked(level.number) {
-                                    continueCard(next, level: level)
-                                        .padding(.horizontal, Metrics.margin)
-                                        .padding(.top, 22)
-                                }
-                                ForEach(Array(level.units.enumerated()), id: \.element.id) { i, unit in
-                                    UnitSection(unit: unit, number: i + 1, level: level,
-                                                onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
-                                        .id(unit.id)
-                                        .padding(.top, 34)
-                                }
                             }
-                            Color.clear.frame(height: 40)
-                        } header: {
-                            pinnedHeader
+                            ForEach(Array(level.units.enumerated()), id: \.element.id) { i, unit in
+                                UnitSection(unit: unit, number: i + 1, level: level,
+                                            onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
+                                    .id(unit.id)
+                                    .padding(.top, 34)
+                            }
                         }
+                        Color.clear.frame(height: 40)
                     }
                 }
+                .safeAreaInset(edge: .top, spacing: 0) { fixedHeader }
                 .coordinateSpace(name: "learnScroll")
                 .scrollIndicators(.hidden)
                 .background(Palette.paper.ignoresSafeArea())
@@ -80,26 +74,36 @@ struct LearnView: View {
         session = Session(title: lesson.title, lessonID: lesson.id, cards: lesson.cards, accent: Palette.level(level?.number ?? 1))
     }
 
-    /// Stays at the top while scrolling: level tabs, plus the current level's name once its title has scrolled away.
-    private var pinnedHeader: some View {
+    /// Fixed-height header: the streak row cross-fades into the current level's name as you scroll;
+    /// the level tabs stay put. Nothing changes height, so the content never jumps.
+    private var fixedHeader: some View {
         VStack(alignment: .leading, spacing: 0) {
-            levelTabs.padding(.top, 6)
-            if compactTitle, let level = currentLevel {
-                HStack(spacing: 10) {
-                    Text(level.title).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+            ZStack(alignment: .leading) {
+                TopStatusBar()
+                    .opacity(1 - collapse)
+                    .offset(y: -8 * collapse)
+                    .allowsHitTesting(collapse < 0.5)
+                if let level = currentLevel {
                     let lessons = level.units.flatMap(\.lessons)
                     let done = lessons.filter { progress.isCompleted($0.id) }.count
-                    Spacer()
-                    Text("\(done)/\(lessons.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft)
-                    GoalRing(progress: progress.levelProgress(level), lineWidth: 2.5).frame(width: 16, height: 16)
+                    HStack(spacing: 10) {
+                        Text(level.title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Spacer()
+                        Text("\(done)/\(lessons.count)").font(.system(size: 12.5).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                        GoalRing(progress: progress.levelProgress(level), lineWidth: 2.5).frame(width: 18, height: 18)
+                    }
+                    .opacity(collapse)
+                    .offset(y: 8 * (1 - collapse))
+                    .allowsHitTesting(false)
                 }
-                .padding(.horizontal, Metrics.margin)
-                .padding(.vertical, 9)
-                .transition(.opacity.combined(with: .move(edge: .top)))
             }
+            .frame(height: 44)
+            .padding(.horizontal, Metrics.margin)
+            levelTabs.padding(.top, 2)
         }
-        .background(Palette.paper)
-        .overlay(alignment: .bottom) { if compactTitle { Hairline() } }
+        .padding(.top, 4)
+        .background(Palette.paper.ignoresSafeArea(edges: .top))
+        .overlay(alignment: .bottom) { Hairline().opacity(collapse) }
     }
 
     private var levelTabs: some View {
@@ -173,7 +177,7 @@ struct LearnView: View {
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous)
-                    .fill(LinearGradient(colors: [Palette.level(level.number), Palette.level(level.number).mix(with: .black, 0.25)],
+                    .fill(LinearGradient(colors: [Palette.bordeaux, Palette.bordeaux.mix(with: .black, 0.25)],
                                          startPoint: .topLeading, endPoint: .bottomTrailing))
             )
         }

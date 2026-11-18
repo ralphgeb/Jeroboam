@@ -108,7 +108,7 @@ def check_visual(v, where):
         if arg not in fset: err(f"{where}: unknown flow {arg}")
     elif kind == "diagram":
         if arg not in ("vine-cycle", "climate", "grape-anatomy", "bottle-sizes", "serving-temps", "sweetness", "solera",
-                       "wine-belt", "glass-shapes", "tannin-acid"):
+                       "wine-belt", "glass-shapes", "three-colors", "tannin-acid"):
             err(f"{where}: unknown diagram {arg}")
     elif kind == "wheel":
         pass

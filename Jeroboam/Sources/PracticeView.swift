@@ -62,6 +62,7 @@ struct PracticeView: View {
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .statusBarBackdrop()
         }
         .fullScreenCover(item: $session) { s in LessonPlayer(session: s) }
         .onAppear {

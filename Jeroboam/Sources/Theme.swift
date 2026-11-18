@@ -97,13 +97,8 @@ enum Palette {
         }
     }
 
-    static func level(_ n: Int) -> Color {
-        switch n {
-        case 1: return Color.dynamic("#C2185B", "#FF8DB3")
-        case 2: return Color.dynamic("#8B1538", "#F0D9C4")
-        default: return Color.dynamic("#4A1D3F", "#D7A7E0")
-        }
-    }
+    /// One accent for every level, so lessons, buttons and progress all match.
+    static func level(_ n: Int) -> Color { wine }
 }
 
 // MARK: - Type
@@ -418,5 +413,17 @@ struct IconRow<Icon: View>: View {
         .padding(.horizontal, 14).padding(.vertical, 11)
         .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 68) } }
         .contentShape(Rectangle())
+    }
+}
+
+
+// MARK: - Status bar backdrop (content never shows under the clock)
+
+extension View {
+    func statusBarBackdrop() -> some View {
+        safeAreaInset(edge: .top, spacing: 0) {
+            Color.clear.frame(height: 0)
+                .background(Palette.paper.ignoresSafeArea(edges: .top))
+        }
     }
 }

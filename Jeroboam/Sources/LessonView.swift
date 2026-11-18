@@ -336,7 +336,7 @@ struct ChoiceCard: View {
         VStack(alignment: .leading, spacing: 22) {
             QuestionHeader(label: "Choose the best answer", text: card.question ?? "")
             if let v = card.visual, v.hasPrefix("map") || v.hasPrefix("glassonly") || v.hasPrefix("grape") || v.hasPrefix("colors") || v.hasPrefix("diagram") {
-                VisualView(spec: v, compact: true)
+                VisualView(spec: v, compact: true, hideAnswers: true)
             }
             VStack(spacing: 10) {
                 ForEach(order, id: \.self) { i in
@@ -383,7 +383,7 @@ struct TrueFalseCard: View {
         VStack(alignment: .leading, spacing: 22) {
             QuestionHeader(label: "True or false", text: card.question ?? "")
             if let v = card.visual, v.hasPrefix("map") || v.hasPrefix("glassonly") || v.hasPrefix("grape") {
-                VisualView(spec: v, compact: true)
+                VisualView(spec: v, compact: true, hideAnswers: true)
             }
             HStack(spacing: 12) {
                 option(true)
@@ -428,7 +428,7 @@ struct BlankCard: View {
             Eyebrow("Fill in the blank")
             sentence
             if let v = card.visual, v.hasPrefix("map") || v.hasPrefix("glassonly") || v.hasPrefix("grape") {
-                VisualView(spec: v, compact: true)
+                VisualView(spec: v, compact: true, hideAnswers: true)
             }
             Hairline()
             FlowLayout(spacing: 10, lineSpacing: 10) {
