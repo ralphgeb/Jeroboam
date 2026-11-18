@@ -140,6 +140,9 @@ enum DebugScreens {
             case "styles": push(LibrarySection.styles)
             case "tasting": push(LibrarySection.tasting)
             case "cards": push(LibrarySection.cards)
+            case "wines": push(LibrarySection.wines)
+            case "wine": if let w = c.library.wines?.first(where: { $0.id == "chateauneuf" }) { push(w) }
+            case "style": if let st = c.library.styles.first(where: { $0.id == "full-red" }) { push(st) }
             case "boldness": push(LibrarySection.boldness)
             case "labels": push(LibrarySection.labels)
             case "guide": push(LibrarySection.guide)

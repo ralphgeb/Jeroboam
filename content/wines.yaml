@@ -1,0 +1,230 @@
+# Classic wines of the world. region = regions.yaml id, grapes = grapes.yaml ids, style = styles.yaml id,
+# glass = colors.yaml id, body 1 (light) .. 5 (full), price 1..4.
+- {id: champagne-brut, name: Champagne Brut, region: champagne, grapes: [chardonnay, pinot-noir, meunier], style: champagne-style, glass: lemon, body: 2, price: 3,
+   summary: "The benchmark sparkling wine: a blend of three grapes, second fermentation in bottle and long ageing on the lees.",
+   taste: [lemon, green apple, brioche, almond], food: [oysters, fried chicken, salty snacks]}
+- {id: blanc-de-blancs, name: Blanc de Blancs Champagne, region: cote-des-blancs, grapes: [chardonnay], style: champagne-style, glass: lemon-green, body: 2, price: 4,
+   summary: "Champagne made only from Chardonnay, often from the chalky Côte des Blancs: taut, precise and long-lived.",
+   taste: [lemon, white flowers, chalk, toast], food: [scallops, sushi, goat cheese]}
+- {id: chablis, name: Chablis, region: chablis, grapes: [chardonnay], style: light-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Unoaked (or lightly oaked) Chardonnay from cool, chalky slopes in northern Burgundy: steely and mineral.",
+   taste: [lemon, green apple, wet stone, oyster shell], food: [oysters, white fish, goat cheese]}
+- {id: meursault, name: Meursault, region: cote-de-beaune, grapes: [chardonnay], style: full-white, glass: gold, body: 4, price: 4,
+   summary: "Rich, nutty white Burgundy from the Côte de Beaune, fermented and aged in oak barrels.",
+   taste: [ripe apple, hazelnut, butter, toast], food: [roast chicken, lobster, creamy sauces]}
+- {id: red-burgundy, name: Bourgogne Pinot Noir, region: cote-de-nuits, grapes: [pinot-noir], style: light-red, glass: ruby, body: 2, price: 3,
+   summary: "Silky Pinot Noir from the Côte d'Or, where each village and vineyard shows a slightly different face.",
+   taste: [red cherry, raspberry, mushroom, forest floor], food: [duck, roast chicken, mushroom dishes]}
+- {id: beaujolais, name: Beaujolais (cru), region: beaujolais, grapes: [gamay], style: light-red, glass: purple, body: 2, price: 1,
+   summary: "Juicy, low-tannin Gamay; the ten crus such as Morgon and Fleurie are the most serious.",
+   taste: [red cherry, banana, violet, pepper], food: [charcuterie, picnic food, roast pork]}
+- {id: margaux, name: Margaux, region: margaux, grapes: [cabernet-sauvignon, merlot, petit-verdot], style: full-red, glass: ruby, body: 4, price: 4,
+   summary: "Left Bank Bordeaux on gravel soils: Cabernet-led, perfumed and elegant, built to age.",
+   taste: [blackcurrant, violet, cedar, tobacco], food: [lamb, steak, hard cheese]}
+- {id: pauillac, name: Pauillac, region: pauillac, grapes: [cabernet-sauvignon, merlot, cabernet-franc], style: full-red, glass: ruby, body: 5, price: 4,
+   summary: "Home of three first growths: powerful, tannic Cabernet blends with cassis and pencil shavings.",
+   taste: [blackcurrant, cedar, graphite, mint], food: [lamb, ribeye, venison]}
+- {id: saint-emilion, name: Saint-Émilion, region: saint-emilion, grapes: [merlot, cabernet-franc], style: medium-red, glass: ruby, body: 4, price: 3,
+   summary: "Right Bank Bordeaux on limestone and clay: Merlot-led, plush and plummy.",
+   taste: [plum, black cherry, chocolate, tobacco], food: [beef stew, duck, mushrooms]}
+- {id: pomerol, name: Pomerol, region: pomerol, grapes: [merlot, cabernet-franc], style: full-red, glass: ruby, body: 4, price: 4,
+   summary: "A tiny Right Bank appellation on clay with iron: velvety, rich Merlot.",
+   taste: [plum, truffle, chocolate, violet], food: [beef filet, game birds, truffle dishes]}
+- {id: sauternes, name: Sauternes, region: sauternes, grapes: [semillon, sauvignon-blanc], style: noble-sweet, glass: gold, body: 5, price: 3,
+   summary: "Sweet white from grapes shrivelled by noble rot in the autumn mists of the Ciron and Garonne.",
+   taste: [apricot, honey, marmalade, saffron], food: [foie gras, blue cheese, fruit tarts]}
+- {id: pessac-blanc, name: Pessac-Léognan blanc, region: pessac-leognan, grapes: [sauvignon-blanc, semillon], style: full-white, glass: lemon, body: 3, price: 3,
+   summary: "Barrel-fermented Sauvignon–Sémillon blends from the gravels south of Bordeaux city.",
+   taste: [grapefruit, lemon, beeswax, toast], food: [white fish, chicken, asparagus]}
+- {id: sancerre, name: Sancerre, region: sancerre, grapes: [sauvignon-blanc], style: light-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Crisp Loire Sauvignon Blanc from chalk, flint and clay: the classic match for goat cheese.",
+   taste: [grapefruit, gooseberry, cut grass, flint], food: [goat cheese, salads, white fish]}
+- {id: pouilly-fume, name: Pouilly-Fumé, region: pouilly-fume, grapes: [sauvignon-blanc], style: light-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Sancerre's neighbor across the Loire, often with a smoky, flinty note from silex soils.",
+   taste: [lime, gooseberry, smoke, flint], food: [trout, goat cheese, sushi]}
+- {id: vouvray, name: Vouvray, region: vouvray, grapes: [chenin-blanc], style: aromatic-white, glass: lemon, body: 3, price: 2,
+   summary: "Chenin Blanc from Touraine tuffeau, made dry, off-dry, sweet or sparkling.",
+   taste: [quince, apple, honey, lanolin], food: [pork, Thai dishes, fruit desserts]}
+- {id: muscadet, name: Muscadet Sèvre et Maine, region: muscadet, grapes: [melon], style: light-white, glass: lemon-green, body: 1, price: 1,
+   summary: "Bone-dry, salty white from the Atlantic end of the Loire, often aged 'sur lie' for texture.",
+   taste: [lemon, green apple, saline, bread], food: [oysters, mussels, fish and chips]}
+- {id: chinon, name: Chinon, region: chinon, grapes: [cabernet-franc], style: medium-red, glass: ruby, body: 3, price: 2,
+   summary: "Fresh, herbal Cabernet Franc from the Loire: red fruit with a touch of graphite and leaf.",
+   taste: [raspberry, red pepper, violet, graphite], food: [pork, roast chicken, charcuterie]}
+- {id: alsace-riesling, name: Alsace Riesling, region: alsace, grapes: [riesling], style: aromatic-white, glass: lemon, body: 3, price: 2,
+   summary: "Dry, full and mineral Riesling grown in the rain shadow of the Vosges.",
+   taste: [lime, white peach, flowers, wet stone], food: [choucroute, trout, pork]}
+- {id: alsace-gewurz, name: Alsace Gewürztraminer, region: alsace, grapes: [gewurztraminer], style: aromatic-white, glass: gold, body: 4, price: 2,
+   summary: "Pungent, low-acid and often off-dry: the most perfumed white of all.",
+   taste: [lychee, rose, ginger, honey], food: [Munster cheese, spicy curries, foie gras]}
+- {id: cote-rotie, name: Côte-Rôtie, region: cote-rotie, grapes: [syrah, viognier], style: full-red, glass: purple, body: 4, price: 4,
+   summary: "Steep northern Rhône Syrah, sometimes co-fermented with a little Viognier for perfume.",
+   taste: [blackberry, black olive, bacon, violet], food: [lamb, game, grilled meats]}
+- {id: hermitage, name: Hermitage, region: hermitage, grapes: [syrah], style: full-red, glass: purple, body: 5, price: 4,
+   summary: "A granite hill above Tain: the most powerful, long-lived Syrah of the northern Rhône.",
+   taste: [blackberry, black pepper, smoke, leather], food: [venison, beef, hard cheese]}
+- {id: condrieu, name: Condrieu, region: condrieu, grapes: [viognier], style: aromatic-white, glass: gold, body: 4, price: 3,
+   summary: "The original Viognier: heady apricot and blossom, rich texture, low acidity.",
+   taste: [apricot, peach, honeysuckle, violet], food: [lobster, Moroccan dishes, mild curries]}
+- {id: chateauneuf, name: Châteauneuf-du-Pape, region: chateauneuf-du-pape, grapes: [grenache, syrah, mourvedre], style: full-red, glass: garnet, body: 5, price: 3,
+   summary: "The classic GSM: Grenache-led southern Rhône blend from galets-strewn vineyards; 13 grape varieties are allowed.",
+   taste: [strawberry, plum, garrigue, leather], food: [lamb stew, game, Provençal dishes]}
+- {id: cotes-du-rhone, name: Côtes du Rhône, region: cotes-du-rhone, grapes: [grenache, syrah, mourvedre], style: medium-red, glass: ruby, body: 3, price: 1,
+   summary: "An everyday GSM blend: generous red fruit and a touch of spice.",
+   taste: [raspberry, cherry, pepper, herbs], food: [pizza, sausages, burgers]}
+- {id: tavel, name: Tavel rosé, region: tavel, grapes: [grenache, cinsault], style: rose, glass: pink, body: 3, price: 2,
+   summary: "France's only all-rosé appellation: deeper colored and more structured than most rosés.",
+   taste: [strawberry, cherry, orange peel, spice], food: [paella, grilled fish, bouillabaisse]}
+- {id: provence-rose, name: Provence rosé, region: provence, grapes: [grenache, cinsault, syrah], style: rose, glass: salmon, body: 2, price: 2,
+   summary: "Pale, dry and fresh: the style that made rosé fashionable around the world.",
+   taste: [strawberry, peach, citrus, herbs], food: [salads, seafood, Mediterranean dishes]}
+- {id: barolo, name: Barolo, region: barolo, grapes: [nebbiolo], style: full-red, glass: garnet, body: 5, price: 4,
+   summary: "The 'king of wines' from Piedmont: pale in color but high in tannin and acidity, aged for years.",
+   taste: [cherry, rose, tar, licorice], food: [truffle risotto, braised beef, aged cheese]}
+- {id: barbaresco, name: Barbaresco, region: barbaresco, grapes: [nebbiolo], style: full-red, glass: garnet, body: 4, price: 4,
+   summary: "Barolo's neighbor: Nebbiolo that is often a little more approachable and perfumed.",
+   taste: [red cherry, rose, tar, herbs], food: [veal, mushrooms, pasta with ragù]}
+- {id: barbera-dasti, name: Barbera d'Asti, region: barbera-dasti, grapes: [barbera], style: medium-red, glass: ruby, body: 3, price: 2,
+   summary: "Juicy, high-acid and low-tannin red: Piedmont's everyday wine.",
+   taste: [sour cherry, plum, herbs, vanilla], food: [pizza, tomato pasta, salumi]}
+- {id: moscato-dasti, name: Moscato d'Asti, region: moscato-dasti, grapes: [muscat], style: asti, glass: lemon, body: 1, price: 1,
+   summary: "Gently sparkling, sweet and only about 5% alcohol: grapes in a glass.",
+   taste: [grape, peach, orange blossom, sage], food: [fruit desserts, panettone, brunch]}
+- {id: gavi, name: Gavi, region: gavi, grapes: [cortese], style: light-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Crisp, delicate Cortese from southern Piedmont.",
+   taste: [lemon, green apple, almond, flowers], food: [pesto, seafood, light pasta]}
+- {id: chianti-classico, name: Chianti Classico, region: chianti-classico, grapes: [sangiovese], style: medium-red, glass: ruby, body: 3, price: 2,
+   summary: "Sangiovese from the hills between Florence and Siena, marked by the black rooster.",
+   taste: [sour cherry, tomato leaf, dried herbs, leather], food: [pasta with ragù, pizza, bistecca]}
+- {id: brunello, name: Brunello di Montalcino, region: montalcino, grapes: [sangiovese], style: full-red, glass: garnet, body: 4, price: 4,
+   summary: "100% Sangiovese from warm, dry Montalcino; at least five years before release.",
+   taste: [cherry, fig, leather, balsamic], food: [wild boar, roasts, pecorino]}
+- {id: bolgheri, name: Bolgheri (Super Tuscan), region: bolgheri, grapes: [cabernet-sauvignon, merlot, cabernet-franc], style: full-red, glass: ruby, body: 4, price: 4,
+   summary: "Bordeaux varieties on the Tuscan coast: the home of the original Super Tuscans.",
+   taste: [blackcurrant, cherry, Mediterranean herbs, cedar], food: [steak, lamb, roasted vegetables]}
+- {id: amarone, name: Amarone della Valpolicella, region: veneto, grapes: [corvina], style: dried-grape, glass: garnet, body: 5, price: 3,
+   summary: "Dry, powerful red from grapes dried for months before pressing (appassimento).",
+   taste: [raisin, black cherry, chocolate, fig], food: [braised meats, aged cheese, risotto]}
+- {id: prosecco, name: Prosecco Superiore, region: veneto, grapes: [glera], style: prosecco, glass: lemon-green, body: 1, price: 1,
+   summary: "Fresh, fruity sparkling wine made by the tank method in the hills of Conegliano Valdobbiadene.",
+   taste: [green apple, pear, white flowers, melon], food: [aperitivo, light snacks, spritz]}
+- {id: soave, name: Soave Classico, region: veneto, grapes: [garganega], style: light-white, glass: lemon, body: 2, price: 1,
+   summary: "Garganega from volcanic hills east of Verona: almond, pear and a saline finish.",
+   taste: [pear, almond, chamomile, saline], food: [risotto, seafood, light pasta]}
+- {id: nero-davola, name: Sicilian Nero d'Avola, region: sicily, grapes: [nero-davola], style: medium-red, glass: purple, body: 3, price: 1,
+   summary: "Sicily's signature red grape: ripe, dark fruit with fresh acidity from the island's hills.",
+   taste: [black cherry, plum, licorice, sweet spice], food: [tuna, pasta alla Norma, roast pork]}
+- {id: rioja-reserva, name: Rioja Reserva, region: rioja, grapes: [tempranillo, grenache], style: medium-red, glass: garnet, body: 3, price: 2,
+   summary: "Tempranillo-led blend aged at least three years, one in oak: the classic vanilla-and-strawberry Rioja.",
+   taste: [strawberry, dried fig, vanilla, dill], food: [lamb chops, chorizo, manchego]}
+- {id: ribera, name: Ribera del Duero, region: ribera-del-duero, grapes: [tempranillo], style: full-red, glass: purple, body: 4, price: 3,
+   summary: "Tempranillo (Tinto Fino) from a high, extreme plateau: dark, firm and concentrated.",
+   taste: [blackberry, plum, tobacco, clove], food: [roast lamb, steak, hard cheese]}
+- {id: priorat, name: Priorat, region: priorat, grapes: [grenache, carignan], style: full-red, glass: purple, body: 5, price: 4,
+   summary: "Old-vine Garnacha and Cariñena on steep slate (llicorella) terraces in Catalonia.",
+   taste: [black cherry, licorice, slate, herbs], food: [grilled meats, game, stews]}
+- {id: albarino, name: Rías Baixas Albariño, region: rias-baixas, grapes: [albarino], style: light-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Fresh, saline Albariño from rainy, Atlantic Galicia.",
+   taste: [lemon, peach, saline, blossom], food: [octopus, shellfish, ceviche]}
+- {id: rueda, name: Rueda Verdejo, region: rueda, grapes: [verdejo], style: light-white, glass: lemon-green, body: 2, price: 1,
+   summary: "Zesty, herbal Verdejo from the high plains of Castilla y León.",
+   taste: [lime, grapefruit, fennel, bitter almond], food: [tapas, salads, fish]}
+- {id: cava, name: Cava, region: penedes, grapes: [macabeo], style: cava, glass: lemon, body: 2, price: 1,
+   summary: "Traditional-method sparkling wine, mostly from Penedès, with Macabeo, Xarel·lo and Parellada.",
+   taste: [lemon, apple, almond, toast], food: [tapas, jamón, fried food]}
+- {id: fino, name: Fino sherry, region: jerez, grapes: [palomino], style: sherry-dry, glass: lemon, body: 2, price: 1,
+   summary: "Bone-dry sherry aged under a layer of flor yeast in the solera.",
+   taste: [almond, bread dough, saline, chamomile], food: [olives, almonds, jamón]}
+- {id: px, name: Pedro Ximénez sherry, region: jerez, grapes: [pedro-ximenez], style: sherry-oxidative, glass: brown, body: 5, price: 2,
+   summary: "Sun-dried PX grapes make an intensely sweet, syrupy, almost black sherry.",
+   taste: [raisin, fig, molasses, coffee], food: [vanilla ice cream, blue cheese, chocolate]}
+- {id: vinho-verde, name: Vinho Verde, region: vinho-verde, grapes: [albarino], style: light-white, glass: lemon-green, body: 1, price: 1,
+   summary: "Light, sometimes slightly spritzy white from Portugal's green north-west (Alvarinho, Loureiro).",
+   taste: [lime, green apple, blossom, saline], food: [grilled sardines, salads, seafood]}
+- {id: douro-red, name: Douro red, region: douro, grapes: [touriga-nacional], style: full-red, glass: purple, body: 4, price: 2,
+   summary: "Dry reds from the terraced schist valley of the Douro, the same grapes as port.",
+   taste: [blackberry, violet, rockrose, spice], food: [roast meats, bacalhau, stews]}
+- {id: vintage-port, name: Vintage Port, region: douro, grapes: [touriga-nacional], style: port-ruby, glass: purple, body: 5, price: 4,
+   summary: "Fortified wine from a declared great year, bottled young and aged for decades in bottle.",
+   taste: [blackberry, plum, chocolate, licorice], food: [Stilton, dark chocolate, walnuts]}
+- {id: tawny-port, name: 20 Year Old Tawny, region: douro, grapes: [touriga-nacional], style: port-tawny, glass: tawny, body: 4, price: 3,
+   summary: "Port aged in small casks until it turns amber, nutty and mellow.",
+   taste: [walnut, caramel, dried fig, orange peel], food: [crème brûlée, nuts, aged cheese]}
+- {id: madeira, name: Madeira (Malmsey), region: portugal, grapes: [], style: madeira, glass: amber, body: 4, price: 3,
+   summary: "Heated and oxidized fortified wine from the island of Madeira; practically indestructible.",
+   taste: [caramel, toffee, walnut, orange peel], food: [fruit cake, chocolate, cheese]}
+- {id: mosel-riesling, name: Mosel Riesling Kabinett, region: mosel, grapes: [riesling], style: aromatic-white, glass: lemon-green, body: 1, price: 2,
+   summary: "Light, off-dry Riesling from steep slate slopes: low alcohol, electric acidity.",
+   taste: [green apple, lime, peach, slate], food: [spicy Asian food, pork, smoked fish]}
+- {id: rheingau-riesling, name: Rheingau Riesling trocken, region: rheingau, grapes: [riesling], style: aromatic-white, glass: lemon, body: 3, price: 2,
+   summary: "Dry, firm Riesling from south-facing slopes above the Rhine.",
+   taste: [lime, apricot, flowers, stone], food: [trout, schnitzel, Asian dishes]}
+- {id: tba, name: Trockenbeerenauslese, region: germany, grapes: [riesling], style: noble-sweet, glass: amber, body: 5, price: 4,
+   summary: "Made from individually picked botrytized berries: rare, intensely sweet, with racy acidity.",
+   taste: [apricot, honey, marmalade, petrol], food: [blue cheese, fruit desserts, on its own]}
+- {id: gruner, name: Wachau Grüner Veltliner, region: wachau, grapes: [gruner-veltliner], style: light-white, glass: lemon-green, body: 3, price: 2,
+   summary: "Austria's signature white: peppery, citrusy and sometimes rich, from Danube terraces.",
+   taste: [white pepper, lime, green bean, apple], food: [schnitzel, asparagus, salads]}
+- {id: blaufrankisch, name: Blaufränkisch, region: mittelburgenland, grapes: [blaufrankisch], style: medium-red, glass: purple, body: 3, price: 2,
+   summary: "Spicy, fresh Austrian red from Burgenland.",
+   taste: [blackberry, sour cherry, pepper, spice], food: [goulash, duck, game]}
+- {id: tokaji, name: Tokaji Aszú, region: tokaj, grapes: [furmint], style: noble-sweet, glass: amber, body: 5, price: 3,
+   summary: "Hungary's legendary sweet wine from botrytized Furmint berries ('aszú').",
+   taste: [apricot, orange marmalade, honey, ginger], food: [foie gras, fruit tarts, blue cheese]}
+- {id: santorini, name: Santorini Assyrtiko, region: santorini, grapes: [assyrtiko], style: light-white, glass: lemon, body: 3, price: 2,
+   summary: "Bone-dry, salty white from basket-trained vines on volcanic soils.",
+   taste: [lemon, saline, flint, beeswax], food: [grilled fish, octopus, feta]}
+- {id: napa-cab, name: Napa Valley Cabernet, region: napa-valley, grapes: [cabernet-sauvignon], style: full-red, glass: purple, body: 5, price: 4,
+   summary: "Ripe, opulent Cabernet from California's most famous valley.",
+   taste: [blackcurrant, black cherry, vanilla, mocha], food: [steak, burgers, aged cheddar]}
+- {id: sonoma-chardonnay, name: Sonoma Coast Chardonnay, region: sonoma-coast, grapes: [chardonnay], style: full-white, glass: gold, body: 4, price: 3,
+   summary: "Cool-climate Californian Chardonnay, often barrel-fermented with malolactic conversion.",
+   taste: [yellow apple, pineapple, butter, vanilla], food: [lobster, roast chicken, crab]}
+- {id: zinfandel, name: Lodi Zinfandel, region: lodi, grapes: [zinfandel], style: full-red, glass: purple, body: 4, price: 1,
+   summary: "Jammy, high-alcohol old-vine Zinfandel from California's Central Valley.",
+   taste: [blackberry jam, raspberry, black pepper, sweet spice], food: [barbecue, ribs, pizza]}
+- {id: willamette-pinot, name: Willamette Valley Pinot Noir, region: willamette, grapes: [pinot-noir], style: light-red, glass: ruby, body: 2, price: 3,
+   summary: "Oregon's cool-climate Pinot Noir: bright red fruit and earthy depth.",
+   taste: [cranberry, cherry, earth, baking spice], food: [salmon, mushrooms, duck]}
+- {id: mendoza-malbec, name: Mendoza Malbec, region: uco-valley, grapes: [malbec], style: full-red, glass: purple, body: 4, price: 2,
+   summary: "High-altitude Argentine Malbec: deep purple, plush and generous.",
+   taste: [plum, blackberry, violet, cocoa], food: [asado, steak, empanadas]}
+- {id: torrontes, name: Salta Torrontés, region: salta, grapes: [torrontes], style: aromatic-white, glass: lemon, body: 2, price: 1,
+   summary: "Floral white from some of the world's highest vineyards.",
+   taste: [rose, peach, lemon zest, lychee], food: [ceviche, spicy dishes, empanadas]}
+- {id: carmenere, name: Colchagua Carmenère, region: colchagua, grapes: [carmenere], style: medium-red, glass: purple, body: 3, price: 1,
+   summary: "Chile's signature grape, once mistaken for Merlot: dark fruit and a green-pepper note.",
+   taste: [blackberry, green pepper, paprika, cocoa], food: [grilled meats, chili con carne, lamb]}
+- {id: barossa-shiraz, name: Barossa Shiraz, region: barossa, grapes: [syrah], style: full-red, glass: purple, body: 5, price: 2,
+   summary: "Rich, ripe Australian Shiraz, often from very old vines.",
+   taste: [blackberry, plum, chocolate, eucalyptus], food: [barbecue, beef, lamb]}
+- {id: clare-riesling, name: Clare Valley Riesling, region: clare, grapes: [riesling], style: aromatic-white, glass: lemon-green, body: 2, price: 2,
+   summary: "Dry, lime-scented Riesling that develops toast and petrol notes with age.",
+   taste: [lime, lemon, blossom, toast], food: [Thai food, oysters, salads]}
+- {id: hunter-semillon, name: Hunter Valley Sémillon, region: hunter-valley, grapes: [semillon], style: light-white, glass: lemon-green, body: 1, price: 2,
+   summary: "Picked early at about 11% alcohol, unoaked, yet turns honeyed and toasty after years in bottle.",
+   taste: [lemon, grass, honey, toast], food: [seafood, salads, sushi]}
+- {id: coonawarra-cab, name: Coonawarra Cabernet, region: coonawarra, grapes: [cabernet-sauvignon], style: full-red, glass: purple, body: 4, price: 2,
+   summary: "Cabernet from the famous strip of red 'terra rossa' soil.",
+   taste: [blackcurrant, mint, eucalyptus, cedar], food: [lamb, steak, roast vegetables]}
+- {id: marlborough-sb, name: Marlborough Sauvignon Blanc, region: marlborough, grapes: [sauvignon-blanc], style: light-white, glass: lemon-green, body: 2, price: 1,
+   summary: "The pungent, passion-fruit style that put New Zealand on the wine map.",
+   taste: [passion fruit, grapefruit, cut grass, jalapeño], food: [goat cheese, salads, Thai food]}
+- {id: central-otago-pinot, name: Central Otago Pinot Noir, region: central-otago, grapes: [pinot-noir], style: light-red, glass: ruby, body: 3, price: 3,
+   summary: "The world's southernmost wine region: vivid, fruity Pinot Noir.",
+   taste: [cherry, plum, thyme, spice], food: [lamb, salmon, duck]}
+- {id: stellenbosch-cab, name: Stellenbosch Cabernet, region: stellenbosch, grapes: [cabernet-sauvignon], style: full-red, glass: purple, body: 4, price: 2,
+   summary: "Structured Cape Cabernet, between Old and New World in style.",
+   taste: [blackcurrant, plum, tobacco, cedar], food: [steak, game, braai]}
+- {id: swartland-chenin, name: Swartland Chenin Blanc, region: swartland, grapes: [chenin-blanc], style: full-white, glass: gold, body: 3, price: 2,
+   summary: "Old-vine, dry-farmed Chenin: textured, honeyed and fresh.",
+   taste: [quince, yellow apple, honey, almond], food: [roast pork, curries, chicken]}
+- {id: pinotage, name: Pinotage, region: stellenbosch, grapes: [pinotage], style: medium-red, glass: purple, body: 4, price: 1,
+   summary: "South Africa's own crossing of Pinot Noir and Cinsault.",
+   taste: [plum, banana, smoke, coffee], food: [braai, sausages, barbecue]}
+- {id: bekaa-red, name: Bekaa Valley red, region: bekaa-valley, grapes: [cabernet-sauvignon, cinsault, syrah], style: full-red, glass: garnet, body: 4, price: 2,
+   summary: "High-altitude Lebanese blends, famous since Château Musar: spicy, savory and long-lived.",
+   taste: [plum, cherry, spice, leather], food: [lamb kebabs, mezze, roast meats]}
+- {id: obaideh, name: Lebanese Obaideh, region: lebanon, grapes: [obaideh], style: light-white, glass: lemon, body: 2, price: 2,
+   summary: "A native Lebanese white, also used for arak: fresh, nutty and lightly floral.",
+   taste: [lemon, almond, white flowers, pear], food: [mezze, grilled fish, fattoush]}

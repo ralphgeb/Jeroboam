@@ -210,6 +210,7 @@ struct Pairing: Decodable, Identifiable, Hashable {
 }
 
 struct Library: Decodable {
+    let wines: [Wine]?
     let grapes: [Grape]
     let regions: [Region]
     let aromas: [AromaGroup]

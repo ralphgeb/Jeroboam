@@ -1,12 +1,13 @@
 import SwiftUI
 
 enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
-    case grapes, regions, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels, guide
+    case grapes, regions, wines, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels, guide
     var id: String { rawValue }
     var title: String {
         switch self {
         case .grapes: return "Grapes"
         case .regions: return "Regions & maps"
+        case .wines: return "Wines of the world"
         case .aromas: return "Aroma wheel"
         case .colors: return "Wine colors"
         case .styles: return "Wine styles"
@@ -25,6 +26,7 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         switch self {
         case .grapes: return "\(lib.grapes.count) varieties"
         case .regions: return "\(lib.regions.count) places"
+        case .wines: return "\(lib.wines?.count ?? 0) classics"
         case .aromas: return "\(ContentStore.shared.allAromaCategories().reduce(0) { $0 + $1.items.count }) descriptors"
         case .colors: return "White, rosé, red"
         case .styles: return "\(lib.styles.count) styles"
@@ -47,7 +49,7 @@ struct LibraryView: View {
     var body: some View {
         NavigationStack(path: $path) {
             CollapsingPage(eyebrow: "Library", title: "Atlas", subtitle: "Every grape, place, aroma and term from the lessons.") {
-                    tileSection("Explore", [.regions, .grapes, .cards, .labels])
+                    tileSection("Explore", [.regions, .wines, .grapes, .labels])
                     tileSection("Taste", [.aromas, .colors, .tasting, .boldness])
                     tileSection("Serve", [.guide, .styles, .pairing, .bottles])
                     link(.glossary) {
@@ -70,6 +72,7 @@ struct LibraryView: View {
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
             .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g).zoomDestination(ZoomID.grape(g.id), in: zoom) }
             .navigationDestination(for: Region.self) { r in RegionDetailView(region: r).zoomDestination(ZoomID.region(r.id), in: zoom) }
+            .navigationDestination(for: Wine.self) { w in WineDetailView(wine: w) }
             .navigationDestination(for: WineStyle.self) { s in StyleDetailView(style: s).zoomDestination(ZoomID.style(s.id), in: zoom) }
             .debugDestinations()
             .onAppear {
@@ -98,6 +101,7 @@ struct LibraryView: View {
         switch s {
         case .grapes: GrapeListView()
         case .regions: RegionListView()
+        case .wines: WinesScreen()
         case .aromas: AromaWheelScreen()
         case .colors: ColorChartScreen()
         case .styles: StylesScreen()
@@ -132,6 +136,11 @@ struct LibraryView: View {
             case .regions:
                 WineMapView(mapID: "italy", showLabels: false, showCities: false, fill: true)
                     .clipShape(Circle()).allowsHitTesting(false)
+            case .wines:
+                HStack(alignment: .bottom, spacing: -3) {
+                    WineGlass(color: Color(hex: "#E3CF7A"), fill: 0.55).frame(width: 15, height: 28)
+                    WineGlass(color: Color(hex: "#7A1832"), fill: 0.55).frame(width: 19, height: 34)
+                }
             case .grapes:
                 GrapeCluster(berry: .black, seed: 3).frame(width: 46, height: 46)
             case .cards:
@@ -284,8 +293,20 @@ struct StyleDetailView: View {
                         Text(rich(t)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                     }
                 }
+                let wines = (ContentStore.shared.library.wines ?? []).filter { $0.style == style.id }
+                if !wines.isEmpty {
+                    VStack(alignment: .leading, spacing: 10) {
+                        SectionTitle(text: "Wines to try")
+                        GroupCard {
+                            ForEach(wines) { w in
+                                NavigationLink(value: w) { WineRow(wine: w, last: w == wines.last) }
+                                    .buttonStyle(RowPressStyle())
+                            }
+                        }
+                    }
+                }
                 VStack(alignment: .leading, spacing: 10) {
-                    SectionTitle(text: "Look for")
+                    SectionTitle(text: wines.isEmpty ? "Look for" : "Also look for")
                     FlowLayout(spacing: 8, lineSpacing: 8) {
                         ForEach(style.examples, id: \.self) { e in
                             Text(e).font(.system(size: 14, weight: .medium)).foregroundStyle(Palette.ink)

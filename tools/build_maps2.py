@@ -58,6 +58,7 @@ countries = load(f"{NE}/ne_10m_admin_0_countries.geojson")
 countries50 = load(f"{NE}/ne_50m_admin_0_countries.geojson")
 admin1 = load(f"{NE}/ne_10m_admin_1_states_provinces.geojson")
 lakes = load(f"{NE}/ne_10m_lakes.geojson")
+land10 = load(f"{NE}/ne_10m_land.geojson")
 rivers = load(f"{NE}/ne_10m_rivers_lake_centerlines.geojson") + load(f"{NE}/ne_10m_rivers_europe.geojson")
 
 def norm(s):
@@ -250,6 +251,39 @@ def tints(pr, adm_geoms, tol, areas):
         if shapes: out.append({"c": best, "shapes": shapes})
     return out
 
+def water_polys(pr, water, estuary, tol):
+    """Wide rivers and estuaries as smooth water polygons (drawn over the wine areas, like a printed atlas).
+    water = [(river name, half-width in km at the upstream end, half-width at the downstream end)];
+    estuary = (lon0, lat0, lon1, lat1): sea inside this box (from the 10m land) is smoothed and drawn as water."""
+    out = []
+    view = box(-20, -20, pr.W + 20, pr.H + 20)
+    la0, lo0, la1, lo1 = pr.bbox
+    clip = box(lo0, la0, lo1, la1)
+    for name, w0, w1 in water:
+        for f in rivers:
+            if f["properties"].get("name") != name: continue
+            for ln in lines_of(shape(f["geometry"]).intersection(clip)):
+                pts = list(ln.coords)
+                n = len(pts)
+                if n < 2: continue
+                # orient upstream -> downstream (rivers here flow west/north-west toward the sea)
+                if pts[0][0] < pts[-1][0]: pts = pts[::-1]
+                segs = []
+                for i in range(n - 1):
+                    t = i / max(1, n - 2)
+                    r = km2deg(w0 + (w1 - w0) * t)
+                    segs.append(LineString(pts[i:i + 2]).buffer(r, cap_style=1))
+                g = unary_union(segs).buffer(km2deg(0.15)).buffer(-km2deg(0.15))
+                out += enc_polys(pr.geom(g).intersection(view), tol * 0.6, 1, smooth=True)
+    if estuary:
+        eb = box(*estuary)
+        landg = unary_union([shape(f["geometry"]).intersection(eb.buffer(0.3)) for f in land10 if shape(f["geometry"]).intersects(eb)])
+        sea = eb.difference(landg)
+        r = km2deg(0.6)
+        sea = sea.buffer(-r).buffer(2 * r).buffer(-r)  # smooth the coarse coastline both ways
+        out += enc_polys(pr.geom(sea.intersection(eb)).intersection(view), tol * 0.6, 4, smooth=True)
+    return out
+
 def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False):
     _GEOMS[(id(pr), aid)] = (geom_ll, color, lv)
     g = pr.geom(geom_ll)
@@ -386,10 +420,11 @@ def build_france():
     write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders, extra={"tints": fr_tints}))
 
     # ---- regional detail maps
-    def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=()):
+    def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=(), water=(), estuary=None):
         pr = Proj(bbox, W)
         tol = 0.9
         land, focus, lk, rv = base_layers(pr, bbox, ["FRA"], tol=tol)
+        lk = lk + water_polys(pr, water, estuary, tol)
         specs = list(groups[g]) + list(extra_specs)
         r = dict(resolved[g])
         areas = []
@@ -411,23 +446,24 @@ def build_france():
                        admin_borders(pr, bbox, deps, tol * 1.5), communes=lay))
 
     detail("bordeaux", "Bordeaux", "bordeaux", (44.40, -1.35, 45.62, 0.35), 3000,
+           water=[("Garonne", 0.14, 0.55), ("Dordogne", 0.14, 0.55)], estuary=(-0.95, 44.98, -0.5, 45.62),
            cities=[("Bordeaux", 44.84, -0.58, 0), ("Libourne", 44.915, -0.243), ("Langon", 44.553, -0.249), ("Arcachon", 44.66, -1.17),
                    ("Blaye", 45.128, -0.662), ("Pauillac", 45.199, -0.748), ("Saint-Émilion", 44.894, -0.155)],
            labels=[("Atlantic Ocean", 45.0, -1.27, "sea"), ("Garonne", 44.66, -0.42, "river"), ("Dordogne", 44.82, 0.2, "river"),
                    ("Gironde", 45.37, -0.86, "river"), ("LEFT BANK", 45.2, -1.08, "area"), ("RIGHT BANK", 45.1, -0.05, "area")])
-    detail("burgundy", "Burgundy", "burgundy", (45.95, 3.45, 48.0, 5.45), 3000,
+    detail("burgundy", "Burgundy", "burgundy", (45.95, 3.45, 48.0, 5.45), 3000, water=[("Saône", 0.12, 0.16)],
            cities=[("Dijon", 47.32, 5.04, 0), ("Beaune", 47.025, 4.84), ("Mâcon", 46.31, 4.83), ("Auxerre", 47.8, 3.57),
                    ("Chalon-sur-Saône", 46.78, 4.85), ("Villefranche", 45.99, 4.72)],
            labels=[("Saône", 46.6, 5.0, "river"), ("Yonne", 47.62, 3.48, "river")])
-    detail("rhone", "Rhône Valley", "rhone", (43.75, 4.15, 45.65, 5.5), 3000,
+    detail("rhone", "Rhône Valley", "rhone", (43.75, 4.15, 45.65, 5.5), 3000, water=[("Rhône", 0.18, 0.22)],
            cities=[("Lyon", 45.76, 4.84, 0), ("Vienne", 45.52, 4.87), ("Valence", 44.93, 4.89), ("Montélimar", 44.56, 4.75),
                    ("Orange", 44.14, 4.81), ("Avignon", 43.95, 4.81, 0)],
            labels=[("Rhône", 44.75, 4.62, "river")])
-    detail("loire", "Loire Valley", "loire", (46.75, -2.2, 47.85, 3.2), 3600,
+    detail("loire", "Loire Valley", "loire", (46.75, -2.2, 47.85, 3.2), 3600, water=[("Loire", 0.12, 0.3)],
            cities=[("Nantes", 47.22, -1.55, 0), ("Angers", 47.47, -0.55), ("Saumur", 47.26, -0.08), ("Tours", 47.39, 0.69, 0),
                    ("Blois", 47.59, 1.33), ("Orléans", 47.90, 1.90), ("Sancerre", 47.33, 2.84)],
            labels=[("Loire", 47.47, 1.95, "river"), ("Atlantic", 47.0, -2.1, "sea")])
-    detail("champagne", "Champagne", "champagne", (47.85, 3.2, 49.45, 4.95), 3000,
+    detail("champagne", "Champagne", "champagne", (47.85, 3.2, 49.45, 4.95), 3000, water=[("Marne", 0.08, 0.1)],
            cities=[("Reims", 49.26, 4.03, 0), ("Épernay", 49.04, 3.96), ("Troyes", 48.30, 4.08, 0), ("Château-Thierry", 49.05, 3.40)],
            labels=[("Marne", 49.0, 4.45, "river"), ("Seine", 48.45, 4.0, "river")])
 

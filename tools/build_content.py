@@ -183,7 +183,19 @@ for lv in levels_meta:
         level["units"].append(unit)
     course["levels"].append(level)
 
-library = {"grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
+wines = load("wines.yaml")
+sids = {s["id"] for s in styles}
+wids = [w["id"] for w in wines]
+if len(set(wids)) != len(wids): err("duplicate wine ids")
+for w in wines:
+    if w["region"] not in rset: err(f"wine {w['id']}: unknown region {w['region']}")
+    if w["style"] not in sids: err(f"wine {w['id']}: unknown style {w['style']}")
+    if w["glass"] not in cset: err(f"wine {w['id']}: unknown glass color {w['glass']}")
+    for g in w["grapes"]:
+        if g not in gset: err(f"wine {w['id']}: unknown grape {g}")
+    w["summary"] = w["summary"].strip()
+
+library = {"wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 
 for w in warnings: print("warning:", w)

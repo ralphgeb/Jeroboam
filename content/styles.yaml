@@ -13,7 +13,7 @@
   how: "Usually unoaked, so the grape's own aromas (terpenes) take center stage."
   taste: "Rose, lychee, blossom, peach and citrus; dry to off-dry."
   examples: [Riesling, Gewürztraminer, Muscat, Torrontés, Viognier]
-  visual: "grape:gewurztraminer"
+  visual: "glass:lemon"
 - id: full-white
   name: Full-bodied whites
   category: Still wines
@@ -53,7 +53,7 @@
   how: "Moderate climates and balanced extraction; often some oak."
   taste: "Red and black fruit, sometimes herbs, spice and earth."
   examples: [Chianti, Rioja Crianza, Merlot, Côtes du Rhône, Barbera]
-  visual: "grape:sangiovese"
+  visual: "glass:ruby"
 - id: full-red
   name: Full-bodied reds
   category: Still wines
@@ -61,7 +61,7 @@
   how: "Thick-skinned grapes, warm sunny climates, long extraction and new oak."
   taste: "Black fruit, spice, vanilla, chocolate; firm tannins and a long finish."
   examples: [Napa Cabernet, Barossa Shiraz, Barolo, Malbec, Amarone]
-  visual: "grape:cabernet-sauvignon"
+  visual: "glass:purple"
 - id: champagne-style
   name: Champagne
   category: Sparkling wines
