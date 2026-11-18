@@ -10,19 +10,8 @@ struct RegionListView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 ScreenHeader(eyebrow: "Atlas", title: "Regions & maps",
-                             subtitle: "Most quality vineyards lie between 30° and 50° latitude, north and south.")
+                             subtitle: "Pick a country to see its wine regions on the map.")
                 if query.isEmpty {
-                    WineMapView(mapID: "world", showCities: false)
-                        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
-                        .overlay(alignment: .bottomTrailing) {
-                            Label("Explore", systemImage: "arrow.up.left.and.arrow.down.right")
-                                .font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.ink)
-                                .padding(.horizontal, 10).padding(.vertical, 6)
-                                .background(Capsule().fill(Palette.card.opacity(0.95)))
-                                .padding(10)
-                        }
-                        .onTapGesture { explore = MapRef(id: "world", hl: []) }
-
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Countries", detail: "\(countries.count)")
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
@@ -57,7 +46,7 @@ struct RegionListView: View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
                 if let m = c.map {
-                    WineMapView(mapID: m, showLabels: false, showCities: false)
+                    WineMapView(mapID: m, showLabels: false, showCities: false, fill: true)
                         .frame(height: 112)
                         .frame(maxWidth: .infinity)
                         .clipped()
@@ -96,9 +85,10 @@ struct RegionDetailView: View {
                     let pinIDs = (r.kind == "country" ? (r.sub ?? []) : [])
                         .filter { id in MapGeometry.get(m)?.areas.contains { $0.id == id } ?? false }
                     VStack(alignment: .leading, spacing: 8) {
-                        WineMapView(mapID: m, highlight: hl, pins: pinIDs) { id in
+                        WineMapView(mapID: m, highlight: hl, pins: pinIDs, fill: true) { id in
                             if let sub = ContentStore.shared.region(id), sub.id != r.id { openSub = sub } else { explore = MapRef(id: m, hl: [id]) }
                         }
+                        .frame(height: 360)
                         .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
                         if pinIDs.isEmpty { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
                         HStack {

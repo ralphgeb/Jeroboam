@@ -6,37 +6,46 @@ struct LearnView: View {
     @State private var session: Session? = nil
     @State private var guidebook: Unit? = nil
     @State private var askUnlock: Level? = nil
+    @State private var compactTitle = false
     private let content = ContentStore.shared
 
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 0) {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: [.sectionHeaders]) {
                         TopStatusBar()
                             .padding(.horizontal, Metrics.margin)
                             .padding(.top, 8)
-                        levelTabs
-                            .padding(.top, 22)
-                        if let level = currentLevel {
-                            levelIntro(level)
-                                .padding(.horizontal, Metrics.margin)
-                                .padding(.top, 26)
-                            if let next = progress.currentLesson(in: level), progress.isLevelUnlocked(level.number) {
-                                continueCard(next, level: level)
+                            .padding(.bottom, 14)
+                        Section {
+                            if let level = currentLevel {
+                                levelIntro(level)
                                     .padding(.horizontal, Metrics.margin)
                                     .padding(.top, 22)
+                                    .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).maxY } action: { y in
+                                        let show = y < 70
+                                        if show != compactTitle { withAnimation(.easeOut(duration: 0.2)) { compactTitle = show } }
+                                    }
+                                if let next = progress.currentLesson(in: level), progress.isLevelUnlocked(level.number) {
+                                    continueCard(next, level: level)
+                                        .padding(.horizontal, Metrics.margin)
+                                        .padding(.top, 22)
+                                }
+                                ForEach(Array(level.units.enumerated()), id: \.element.id) { i, unit in
+                                    UnitSection(unit: unit, number: i + 1, level: level,
+                                                onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
+                                        .id(unit.id)
+                                        .padding(.top, 34)
+                                }
                             }
-                            ForEach(Array(level.units.enumerated()), id: \.element.id) { i, unit in
-                                UnitSection(unit: unit, number: i + 1, level: level,
-                                            onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
-                                    .id(unit.id)
-                                    .padding(.top, 34)
-                            }
+                            Color.clear.frame(height: 40)
+                        } header: {
+                            pinnedHeader
                         }
-                        Color.clear.frame(height: 40)
                     }
                 }
+                .coordinateSpace(name: "learnScroll")
                 .scrollIndicators(.hidden)
                 .background(Palette.paper.ignoresSafeArea())
                 .toolbar(.hidden, for: .navigationBar)
@@ -69,6 +78,28 @@ struct LearnView: View {
     private func start(_ lesson: Lesson) {
         let level = content.level(ofLesson: lesson.id)
         session = Session(title: lesson.title, lessonID: lesson.id, cards: lesson.cards, accent: Palette.level(level?.number ?? 1))
+    }
+
+    /// Stays at the top while scrolling: level tabs, plus the current level's name once its title has scrolled away.
+    private var pinnedHeader: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            levelTabs.padding(.top, 6)
+            if compactTitle, let level = currentLevel {
+                HStack(spacing: 10) {
+                    Text(level.title).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                    let lessons = level.units.flatMap(\.lessons)
+                    let done = lessons.filter { progress.isCompleted($0.id) }.count
+                    Spacer()
+                    Text("\(done)/\(lessons.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                    GoalRing(progress: progress.levelProgress(level), lineWidth: 2.5).frame(width: 16, height: 16)
+                }
+                .padding(.horizontal, Metrics.margin)
+                .padding(.vertical, 9)
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+        }
+        .background(Palette.paper)
+        .overlay(alignment: .bottom) { if compactTitle { Hairline() } }
     }
 
     private var levelTabs: some View {

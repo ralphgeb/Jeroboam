@@ -28,6 +28,7 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "Jeroboam", "Resources", "Ma
 os.makedirs(OUT, exist_ok=True)
 
 RES = 2  # coordinate precision multiplier (smooth edges when zoomed)
+MAP_PAD = 0.16  # extra context around every map (fraction of the bbox on each side) so neighbours and sea show
 
 def chaikin(pts, it=2):
     """Corner-cutting smoothing for a closed ring (list of (x,y), first==last)."""
@@ -70,7 +71,12 @@ def norm(s):
 
 # ---------------------------------------------------------------- projection
 class Proj:
-    def __init__(self, bbox, W):
+    def __init__(self, bbox, W, pad=None):
+        la0, lo0, la1, lo1 = bbox
+        if pad is None: pad = 0.0 if lo1 - lo0 > 200 else MAP_PAD
+        dla, dlo = (la1 - la0) * pad, (lo1 - lo0) * pad
+        bbox = (la0 - dla, lo0 - dlo, la1 + dla, lo1 + dlo)
+        self.bbox = bbox
         self.la0, self.lo0, self.la1, self.lo1 = bbox
         self.k = math.cos(math.radians((self.la0 + self.la1) / 2))
         if self.lo1 - self.lo0 > 200: self.k = 1.0
@@ -178,6 +184,7 @@ def it_pool(s):
 
 # ---------------------------------------------------------------- base map
 def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
+    bbox = pr.bbox
     la0, lo0, la1, lo1 = bbox
     pad = 1.5
     clipbox = box(lo0 - pad, la0 - pad, lo1 + pad, la1 + pad)
@@ -210,7 +217,7 @@ def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
 
 def admin_borders(pr, bbox, geoms, tol):
     """Internal boundary lines of a set of admin polygons (lon/lat shapes)."""
-    la0, lo0, la1, lo1 = bbox
+    la0, lo0, la1, lo1 = pr.bbox
     clipbox = box(lo0 - 1, la0 - 1, lo1 + 1, la1 + 1)
     view = box(-20, -20, pr.W + 20, pr.H + 20)
     out = []
@@ -586,13 +593,17 @@ def build_gb(only=None):
 def build_lebanon():
     L = GB.LEBANON
     print("Lebanon…")
-    pr = Proj(L["bbox"], 2400)
+    pr = Proj(L["bbox"], 2400, pad=0.04)
     tol = 0.8
     land, focus, lk, rv = base_layers(pr, L["bbox"], L["focus"], tol=tol)
     units = gb_units("LBN", "ADM2")
     areas = []
     for i, (rid, name, cazas) in enumerate(L["regions"]):
         g = unary_union([u for n, u in units if n in cazas])
+        zone = L.get("zones", {}).get(rid)
+        if zone:  # vineyards only: trim the caza to where the vines actually are
+            z = unary_union([Polygon(shape_latlon(s)).buffer(0) for s in zone])
+            g = g.intersection(z) if g.intersects(z) else z
         areas.append(area_record(pr, rid, name, 0, cidx(None, i), g, tol, min_area=1, soft=True))
     fb = [g for _, g in gb_units("LBN", "ADM1")]
     cities = cities_of(pr, [(n, la, lo, 0 if i < 2 else 1) for i, (n, la, lo) in enumerate(L["cities"])])

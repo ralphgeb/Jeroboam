@@ -20,9 +20,9 @@ enum QuizGenerator {
         }
         var subtitle: String {
             switch self {
-            case .mixed: return "A blend of everything you have learned"
+            case .mixed: return "A bit of everything"
             case .grapes: return "Profiles, aromas and homelands"
-            case .regions: return "Where wines come from and what they are made of"
+            case .regions: return "Where wines come from"
             case .maps: return "Spot regions on the map"
             case .colors: return "Name the color in the glass"
             case .aromas: return "Primary, secondary and tertiary notes"

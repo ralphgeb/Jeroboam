@@ -100,19 +100,15 @@ struct WineCardView: View {
     }
 }
 
-/// The grape illustration used on cards: the brand cluster in the grape's own colors on a soft tinted disc.
+/// The grape illustration used on cards: a drawn bunch on a soft tinted disc.
 struct GrapeBadge: View {
     let grape: Grape
     var size: CGFloat = 76
-    @Environment(\.colorScheme) private var scheme
     var body: some View {
-        let grad = WineCardView.berryGradient(for: grape).map { scheme == .dark ? $0.mix(with: .white, 0.25) : $0 }
         ZStack {
-            Circle().fill(WineCardView.tint(for: grape).opacity(0.09))
-            Circle().strokeBorder(WineCardView.tint(for: grape).opacity(0.18), lineWidth: 0.75).padding(size * 0.06)
-            GrapeMark(gradient: grad)
-                .frame(width: size * 0.44, height: size * 0.6)
-                .offset(y: size * 0.02)
+            Circle().fill(WineCardView.tint(for: grape).opacity(0.08))
+            GrapeCluster(berry: grape.berry, seed: grape.name.count * 31 + grape.id.count)
+                .frame(width: size * 0.86, height: size * 0.86)
         }
         .frame(width: size, height: size)
     }
@@ -297,7 +293,7 @@ struct ColorChartScreen: View {
                 }
                 .pickerStyle(.segmented)
 
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 4), alignment: .leading, spacing: 18) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8, alignment: .top), count: 4), alignment: .leading, spacing: 18) {
                     ForEach(Array(colors.enumerated()), id: \.element.id) { i, c in
                         VStack(alignment: .leading, spacing: 6) {
                             Rectangle()
@@ -313,6 +309,7 @@ struct ColorChartScreen: View {
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
                     }
                 }
                 .animation(.easeInOut(duration: 0.25), value: family)

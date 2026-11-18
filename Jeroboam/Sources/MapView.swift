@@ -198,11 +198,14 @@ struct MapRenderer {
     var labelScale: CGFloat = 1
     var dark = false
     var forcedLevel: Int? = nil
+    /// Zoom at which the map first appears; detail levels are relative to it.
+    var lodBase: CGFloat = 1
+    var rel: CGFloat { zoom / max(0.01, lodBase) }
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
-        if zoom >= LOD.level2 { return 2 }
-        if zoom >= LOD.level1 { return 1 }
+        if rel >= LOD.level2 { return 2 }
+        if rel >= LOD.level1 { return 1 }
         return 0
     }
 
@@ -276,7 +279,7 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.ink), lineWidth: hair * 2.2)
                 }
             }
-            if zoom >= LOD.communes || (forcedLevel ?? 0) >= 2 {
+            if rel >= LOD.communes || (forcedLevel ?? 0) >= 2 {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
@@ -323,7 +326,7 @@ struct MapRenderer {
         let calloutID = calloutArea
         let candidates = g.areas.filter { a in
             if a.level > shownLevel { return false }
-            if g.hasChildren.contains(a.id) && a.level < shownLevel && zoom > LOD.level1 * 1.4 { return false }
+            if g.hasChildren.contains(a.id) && a.level < shownLevel && rel > LOD.level1 * 1.4 { return false }
             return true
         }.sorted { a, b in
             if a.level != b.level { return a.level > b.level }
@@ -347,7 +350,7 @@ struct MapRenderer {
             }
         }
 
-        if zoom >= LOD.villages || ((forcedLevel ?? 0) >= 2 && zoom >= 2), let vs = g.map.villages {
+        if rel >= LOD.villages || ((forcedLevel ?? 0) >= 2 && rel >= 2), let vs = g.map.villages {
             for v in vs {
                 let p = screen(CGPoint(x: CGFloat(v.x), y: CGFloat(v.y)))
                 guard full.contains(p) else { continue }
@@ -356,7 +359,7 @@ struct MapRenderer {
         }
 
         if showCities {
-            for c in g.map.cities where (c.r ?? 1) == 0 || zoom >= 1.5 {
+            for c in g.map.cities where (c.r ?? 1) == 0 || rel >= 1.5 {
                 let p = screen(CGPoint(x: CGFloat(c.x), y: CGFloat(c.y)))
                 let r: CGFloat = (c.r ?? 1) == 0 ? 3 : 2.3
                 let txt = Text(c.n).font(.system(size: ((c.r ?? 1) == 0 ? 10.5 : 9.5) * ls, weight: (c.r ?? 1) == 0 ? .semibold : .regular)).foregroundColor(Palette.ink)
@@ -425,70 +428,74 @@ struct WineMapView: View {
     var showLabels = true
     var showCities = true
     var labelScale: CGFloat = 1
+    /// Fill the given frame, centered on the wine areas (cards); otherwise keep the map's own aspect ratio.
+    var fill = false
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
     @State private var tapped: String? = nil
 
+    private func layout(_ g: MapGeometry, _ size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
+        guard fill else { return (1, .zero) }
+        let focusRect: CGRect? = {
+            let hl = g.areas.filter { highlight.contains($0.id) && $0.level == 0 }
+            guard !hl.isEmpty, pins.isEmpty else { return nil }
+            return hl.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
+        }()
+        return g.fitLayout(size: size, target: focusRect)
+    }
+
     var body: some View {
         if let g = MapGeometry.get(mapID) {
-            Canvas { ctx, size in
+            let canvas = Canvas { ctx, size in
+                let (zoom, offset) = layout(g, size)
                 var r = MapRenderer(g: g)
+                r.zoom = zoom
+                r.lodBase = zoom
+                r.offset = offset
                 r.highlight = highlight
                 r.selected = tapped
                 r.showLabels = showLabels && pins.isEmpty
                 r.showCities = showCities
                 r.labelScale = labelScale
                 r.dark = scheme == .dark
-                // highlighted deeper areas need their level visible
                 let deepest = g.areas.filter { highlight.contains($0.id) }.map(\.level).max() ?? 0
-                if deepest >= 2 { r.zoom = 1.0001 }
+                r.forcedLevel = deepest
                 r.draw(in: &ctx, size: size)
+                let s = size.width / CGFloat(g.map.w) * zoom
+                func screen(_ p: CGPoint) -> CGPoint { CGPoint(x: p.x * s + offset.width, y: p.y * s + offset.height) }
                 if !pins.isEmpty {
-                    let s = size.width / CGFloat(g.map.w)
                     for (i, id) in pins.enumerated() {
-                        guard let a = g.areas.first(where: { $0.id == id }) else { continue }
-                        let p = CGPoint(x: a.centroid.x * s, y: a.centroid.y * s)
-                        if id == tapped { continue }
-                        let r: CGFloat = 8.5
-                        let circle = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
+                        guard let a = g.areas.first(where: { $0.id == id }), id != tapped else { continue }
+                        let p = screen(a.centroid)
+                        let rr: CGFloat = 8.5
+                        let circle = Path(ellipseIn: CGRect(x: p.x - rr, y: p.y - rr, width: 2 * rr, height: 2 * rr))
                         ctx.fill(circle, with: .color(Palette.mapColor(a.color).mix(with: .black, 0.28)))
                         ctx.stroke(circle, with: .color(.white), lineWidth: 1)
                         ctx.draw(Text("\(i + 1)").font(.system(size: 9.5, weight: .bold).monospacedDigit()).foregroundColor(.white), at: p)
                     }
-                    if tapped != nil {
-                        var r2 = MapRenderer(g: g)
-                        r2.selected = tapped
-                        r2.dark = scheme == .dark
-                        r2.drawCallout(in: &ctx, size: size)
-                    }
-                }
-                if deepest >= 1 {
-                    // draw highlighted sub-areas on top even at zoom 1
-                    let s = size.width / CGFloat(g.map.w)
-                    ctx.drawLayer { layer in
-                        layer.scaleBy(x: s, y: s)
-                        for a in g.areas where highlight.contains(a.id) && a.level >= 1 {
-                            layer.fill(a.path, with: .color(Palette.mapColor(a.color).mix(with: .black, 0.2)))
-                            layer.stroke(a.path, with: .color(Palette.ink), lineWidth: 2 / s)
-                        }
-                    }
+                    if tapped != nil { r.drawCallout(in: &ctx, size: size) }
                 }
             }
-            .aspectRatio(CGFloat(g.map.w) / CGFloat(g.map.h), contentMode: .fit)
+            Group {
+                if fill { canvas } else { canvas.aspectRatio(CGFloat(g.map.w) / CGFloat(g.map.h), contentMode: .fit) }
+            }
             .overlay {
                 if let onSelect {
                     GeometryReader { geo in
                         Color.clear
                             .contentShape(Rectangle())
                             .onTapGesture { pt in
-                                let r = MapRenderer(g: g)
+                                let (zoom, offset) = layout(g, geo.size)
+                                var r = MapRenderer(g: g)
+                                r.zoom = zoom
+                                r.offset = offset
                                 let m = r.toMap(pt, size: geo.size)
-                                // numbered pins first, then areas
-                                let fit = geo.size.width / CGFloat(g.map.w)
-                                let pinHit = pins.compactMap { id in g.areas.first { $0.id == id } }
-                                    .min { hypot($0.centroid.x * fit - pt.x, $0.centroid.y * fit - pt.y) < hypot($1.centroid.x * fit - pt.x, $1.centroid.y * fit - pt.y) }
-                                    .flatMap { a in hypot(a.centroid.x * fit - pt.x, a.centroid.y * fit - pt.y) < 16 ? a : nil }
+                                let s = geo.size.width / CGFloat(g.map.w) * zoom
+                                func d(_ a: MapGeometry.Area) -> CGFloat {
+                                    hypot(a.centroid.x * s + offset.width - pt.x, a.centroid.y * s + offset.height - pt.y)
+                                }
+                                let pinHit = pins.compactMap { id in g.areas.first { $0.id == id } }.min { d($0) < d($1) }.flatMap { d($0) < 16 ? $0 : nil }
                                 if let a = pinHit ?? g.hit(m, maxLevel: 0) ?? g.hit(m, maxLevel: 2) {
                                     Haptics.tap()
                                     if tapped == a.id { onSelect(a.id) } else { withAnimation(.easeOut(duration: 0.15)) { tapped = a.id } }
@@ -508,6 +515,42 @@ struct WineMapView: View {
     }
 }
 
+extension MapGeometry {
+    /// Bounding box of the wine areas (map units); the focus country when there are none.
+    var contentBounds: CGRect {
+        let a = areas.filter { $0.level == 0 }.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
+        if !a.isNull, a.width > 1 { return a }
+        let f = focus.boundingRect
+        if !f.isNull, f.width > 1 { return f }
+        return CGRect(x: 0, y: 0, width: CGFloat(map.w), height: CGFloat(map.h))
+    }
+
+    /// Zoom and offset that center `target` (default: the wine areas) and always cover the whole view with map.
+    func fitLayout(size: CGSize, target: CGRect? = nil, padding: CGFloat = 0.1) -> (zoom: CGFloat, offset: CGSize) {
+        let W = CGFloat(map.w), H = CGFloat(map.h)
+        guard size.width > 0, size.height > 0 else { return (1, .zero) }
+        let t = target ?? contentBounds
+        let fit = size.width / W
+        let cover = max(size.width / W, size.height / H)
+        let content = min(size.width * (1 - 2 * padding) / max(1, t.width), size.height * (1 - 2 * padding) / max(1, t.height))
+        let s = min(max(cover, content), cover * 10)
+        func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
+            if content <= view { return (view - content) / 2 }
+            return min(0, max(view - content, v))
+        }
+        let off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
+                         height: axis(size.height / 2 - t.midY * s, view: size.height, content: H * s))
+        return (s / fit, off)
+    }
+
+    /// The smallest zoom (relative to fitting the width) that still covers the view.
+    func coverZoom(size: CGSize) -> CGFloat {
+        let W = CGFloat(map.w), H = CGFloat(map.h)
+        guard size.width > 0 else { return 1 }
+        return max(size.width / W, size.height / H) / (size.width / W)
+    }
+}
+
 // MARK: - Interactive, zoomable map
 
 struct ZoomableWineMap: View {
@@ -518,6 +561,8 @@ struct ZoomableWineMap: View {
     var zoomCommand: Int = 0
     @Binding var selected: String?
     @Binding var zoom: CGFloat
+    @State private var absZoom: CGFloat = 1
+    @State private var lodBase: CGFloat = 1
 
     @State private var offset: CGSize = .zero
     @State private var baseZoom: CGFloat = 1
@@ -533,7 +578,8 @@ struct ZoomableWineMap: View {
                 let size = geo.size
                 Canvas { ctx, sz in
                     var r = MapRenderer(g: g)
-                    r.zoom = zoom
+                    r.zoom = absZoom
+                    r.lodBase = lodBase
                     r.offset = offset
                     r.highlight = highlight
                     r.selected = selected
@@ -547,13 +593,13 @@ struct ZoomableWineMap: View {
                         MagnifyGesture()
                             .onChanged { v in
                                 let anchor = CGPoint(x: v.startAnchor.x * size.width, y: v.startAnchor.y * size.height)
-                                let newZoom = min(maxZoom, max(1, baseZoom * v.magnification))
+                                let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), baseZoom * v.magnification))
                                 let k = newZoom / baseZoom
-                                zoom = newZoom
+                                absZoom = newZoom
                                 offset = clamp(CGSize(width: anchor.x - (anchor.x - baseOffset.width) * k,
                                                       height: anchor.y - (anchor.y - baseOffset.height) * k), size: size, g: g)
                             }
-                            .onEnded { _ in baseZoom = zoom; baseOffset = offset },
+                            .onEnded { _ in baseZoom = absZoom; baseOffset = offset },
                         DragGesture(minimumDistance: 4)
                             .onChanged { v in
                                 offset = clamp(CGSize(width: baseOffset.width + v.translation.width,
@@ -570,7 +616,8 @@ struct ZoomableWineMap: View {
                 }
                 .onTapGesture { pt in
                     var r = MapRenderer(g: g)
-                    r.zoom = zoom
+                    r.zoom = absZoom
+                    r.lodBase = lodBase
                     r.offset = offset
                     let m = r.toMap(pt, size: size)
                     r.forcedLevel = forcedLevel
@@ -581,42 +628,43 @@ struct ZoomableWineMap: View {
                         selected = nil
                     }
                 }
-                .onAppear {
-                    offset = centeredOffset(size: size, g: g)
-                    baseOffset = offset
-                    if let f = focus, let a = g.areas.first(where: { $0.id == f }) {
-                        let fit = size.width / CGFloat(g.map.w)
-                        let b = a.path.boundingRect
-                        let z = min(10, max(1, min(size.width * 0.7 / (b.width * fit), size.height * 0.5 / (b.height * fit))))
-                        zoom = z; baseZoom = z
-                        let s = fit * z
-                        offset = clamp(CGSize(width: size.width / 2 - b.midX * s, height: size.height * 0.45 - b.midY * s), size: size, g: g)
-                        baseOffset = offset
-                    }
-                }
+                .onAppear { fitInitial(size: size, g: g) }
+                .onChange(of: size) { _, new in fitInitial(size: new, g: g) }
             }
         }
         .clipped()
+        .onChange(of: absZoom) { _, v in zoom = v / max(0.01, lodBase) }
     }
 
-    func reset(size: CGSize, g: MapGeometry) {
-        zoom = 1; baseZoom = 1
-        offset = centeredOffset(size: size, g: g); baseOffset = offset
+    /// Open centered on the wine areas (or the focused one), with the map covering the whole screen.
+    private func fitInitial(size: CGSize, g: MapGeometry) {
+        guard size.width > 0 else { return }
+        var target: CGRect? = nil
+        if let f = focus, let a = g.areas.first(where: { $0.id == f }) {
+            let b = a.path.boundingRect
+            target = b.insetBy(dx: -b.width * 0.8, dy: -b.height * 0.8)
+        }
+        // leave room for the header and the bottom card
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.14)
+        absZoom = z; baseZoom = z; lodBase = z
+        zoom = 1
+        offset = clamp(CGSize(width: o.width, height: o.height + size.height * 0.04), size: size, g: g)
+        baseOffset = offset
     }
 
     private func zoomBy(_ k: CGFloat, at pt: CGPoint, size: CGSize, g: MapGeometry) {
-        let newZoom = min(maxZoom, max(1, zoom * k))
-        let f = newZoom / zoom
+        let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), absZoom * k))
+        let f = newZoom / absZoom
         withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
-            zoom = newZoom
+            absZoom = newZoom
             offset = clamp(CGSize(width: pt.x - (pt.x - offset.width) * f, height: pt.y - (pt.y - offset.height) * f), size: size, g: g)
         }
-        baseZoom = zoom; baseOffset = offset
+        baseZoom = absZoom; baseOffset = offset
     }
 
     private func contentSize(_ size: CGSize, g: MapGeometry) -> CGSize {
         let fit = size.width / CGFloat(g.map.w)
-        return CGSize(width: CGFloat(g.map.w) * fit * zoom, height: CGFloat(g.map.h) * fit * zoom)
+        return CGSize(width: CGFloat(g.map.w) * fit * absZoom, height: CGFloat(g.map.h) * fit * absZoom)
     }
 
     private func centeredOffset(size: CGSize, g: MapGeometry) -> CGSize {
@@ -647,6 +695,7 @@ struct MapExplorer: View {
     @State private var resetToken = 0
     @State private var layer: Int? = nil
     @State private var zoomCommand = 0
+    @State private var listExpanded = false
 
     var body: some View {
         let g = MapGeometry.get(mapID)
@@ -699,24 +748,11 @@ struct MapExplorer: View {
                         .padding(.horizontal, 16)
                         .padding(.bottom, 12)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
-                } else {
-                    VStack(spacing: 10) {
-                        HStack(spacing: 8) {
-                            Image(systemName: "hand.pinch").font(.system(size: 13, weight: .semibold))
-                            Text("Pinch to zoom · tap a number for its name").font(.system(size: 12.5, weight: .medium))
-                        }
-                        .foregroundStyle(Palette.ink)
-                        .padding(.horizontal, 14).padding(.vertical, 8)
-                        .background(Capsule().fill(Palette.focusLand.opacity(0.94)))
-                        if let g {
-                            let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                MapLegend(mapID: mapID, level: lv) { id in selected = id }
-                                    .padding(.horizontal, 16)
-                            }
-                        }
-                    }
-                    .padding(.bottom, 16)
+                } else if let g {
+                    let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
+                    MapListCard(mapID: mapID, level: lv, expanded: $listExpanded) { id in selected = id }
+                        .padding(.horizontal, 12)
+                        .padding(.bottom, 8)
                 }
             }
         }
@@ -786,7 +822,7 @@ struct MapExplorer: View {
 }
 
 
-/// Numbered key for a map's areas (matches the badges drawn on the map).
+/// Numbered key for a map's areas (matches the badges drawn on the map): a tidy two-column list.
 struct MapLegend: View {
     let mapID: String
     var level: Int = 0
@@ -795,23 +831,88 @@ struct MapLegend: View {
     var body: some View {
         if let g = MapGeometry.get(mapID) {
             let list = g.numbered(level: level)
-            FlowLayout(spacing: 6, lineSpacing: 6) {
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10, alignment: .leading), GridItem(.flexible(), spacing: 10, alignment: .leading)],
+                      alignment: .leading, spacing: 8) {
                 ForEach(Array(list.enumerated()), id: \.element.id) { i, a in
                     Button { onSelect?(a.id) } label: {
-                        HStack(spacing: 5) {
+                        HStack(spacing: 8) {
                             Text("\(i + 1)").font(.system(size: 9.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
-                                .frame(width: 17, height: 17)
+                                .frame(width: 18, height: 18)
                                 .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.28)))
-                            Text(a.name).font(.system(size: 12.5)).foregroundStyle(Palette.ink)
+                            Text(a.name).font(.system(size: 13)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.85)
+                            Spacer(minLength: 0)
                         }
-                        .padding(.leading, 3).padding(.trailing, 9).padding(.vertical, 3)
-                        .background(Capsule().fill(Palette.card))
-                        .overlay(Capsule().strokeBorder(Palette.line, lineWidth: 0.5))
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                     .disabled(onSelect == nil)
                 }
             }
+            .padding(14)
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        }
+    }
+}
+
+/// Bottom card on the full map: numbered list of the areas shown, collapsible.
+struct MapListCard: View {
+    let mapID: String
+    var level: Int = 0
+    @Binding var expanded: Bool
+    var onSelect: (String) -> Void
+
+    var body: some View {
+        if let g = MapGeometry.get(mapID) {
+            let list = g.numbered(level: level)
+            let title = level == 0 ? "Regions" : (level == 1 ? "Appellations" : "Villages & crus")
+            VStack(spacing: 0) {
+                Capsule().fill(Palette.line).frame(width: 36, height: 4).padding(.top, 8)
+                Button {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) { expanded.toggle() }
+                } label: {
+                    HStack {
+                        Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("\(list.count)").font(.system(size: 13).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                        Spacer()
+                        Text("Pinch to zoom").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                        Image(systemName: expanded ? "chevron.down" : "chevron.up").font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(Palette.inkSoft).padding(.leading, 6)
+                    }
+                    .padding(.horizontal, 16).padding(.vertical, 10)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                Hairline()
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(Array(list.enumerated()), id: \.element.id) { i, a in
+                            Button { onSelect(a.id) } label: {
+                                HStack(spacing: 12) {
+                                    Text("\(i + 1)").font(.system(size: 10.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                                        .frame(width: 22, height: 22)
+                                        .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.28)))
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text(a.name).font(.system(size: 15)).foregroundStyle(Palette.ink).lineLimit(1)
+                                        if let gr = a.grapes ?? ContentStore.shared.region(a.id)?.grapes.prefix(2).compactMap({ ContentStore.shared.grape($0)?.name }).joined(separator: " · "), !gr.isEmpty {
+                                            Text(gr).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                                        }
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right").font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                                }
+                                .padding(.horizontal, 16).padding(.vertical, 8)
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(RowPressStyle())
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+                .frame(height: expanded ? 330 : 150)
+            }
+            .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Palette.card))
+            .shadow(color: .black.opacity(0.12), radius: 18, y: 4)
         }
     }
 }

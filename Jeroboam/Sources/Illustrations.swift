@@ -1,20 +1,37 @@
 import SwiftUI
 
-// MARK: - Brand mark: a grape cluster of eight berries in rows of 2 · 3 · 3, with a short stem
+// MARK: - Brand mark: a grape cluster resting on its side (rows 2 · 3 · 3, bottom row shifted right) with a stem and leaf
 
 struct GrapeMarkLayout {
-    static let g: CGFloat = 1.08
-    /// Centers in unit space where berry radius = 1; returns (center, toneIndex).
-    static let berries: [(CGPoint, Int)] = {
-        let dy: CGFloat = 2 * g * 0.866
-        return [
-            (CGPoint(x: -g, y: 0), 1), (CGPoint(x: g, y: 0), 2),
-            (CGPoint(x: -2 * g, y: dy), 2), (CGPoint(x: 0, y: dy), 0), (CGPoint(x: 2 * g, y: dy), 1),
-            (CGPoint(x: -1.86 * g, y: dy + 2 * g * 0.93), 0), (CGPoint(x: 0, y: dy + 2 * g), 1), (CGPoint(x: 1.86 * g, y: dy + 2 * g * 0.93), 2),
-        ]
-    }()
-    static let minX: CGFloat = -2 * g - 1, maxX: CGFloat = 2 * g + 1
-    static let minY: CGFloat = -1 - 1.25, maxY: CGFloat = 2 * g * 0.866 + 2 * g + 1
+    static let d: CGFloat = 2.12            // berry spacing (radius = 1)
+    static let dy: CGFloat = d * 0.866
+    /// Berry centers in unit space; returns (center, toneIndex).
+    static let berries: [(CGPoint, Int)] = [
+        (CGPoint(x: 0.5 * d, y: 0), 2), (CGPoint(x: 1.5 * d, y: 0), 1),
+        (CGPoint(x: 0, y: dy), 1), (CGPoint(x: d, y: dy), 0), (CGPoint(x: 2 * d, y: dy), 2),
+        (CGPoint(x: 0.5 * d, y: 2 * dy), 0), (CGPoint(x: 1.5 * d, y: 2 * dy), 1), (CGPoint(x: 2.5 * d, y: 2 * dy), 0),
+    ]
+    static let leafBase = CGPoint(x: 0.1 * d, y: -1.55)
+    static let leafTip = CGPoint(x: -1.05 * d, y: -3.35)
+    static let leafWidth: CGFloat = 1.05
+    static let minX: CGFloat = leafTip.x - 0.6, maxX: CGFloat = 2.5 * d + 1
+    static let minY: CGFloat = leafTip.y - 0.4, maxY: CGFloat = 2 * dy + 1
+
+    /// Pointed leaf from base to tip (unit space).
+    static func leaf(_ t: (CGPoint) -> CGPoint) -> Path {
+        let a = leafBase, b = leafTip
+        let dx = b.x - a.x, dyy = b.y - a.y
+        let len = (dx * dx + dyy * dyy).squareRoot()
+        let nx = -dyy / len * leafWidth * 1.35, ny = dx / len * leafWidth * 1.35
+        let m1 = CGPoint(x: a.x + dx * 0.42 + nx, y: a.y + dyy * 0.42 + ny)
+        let m2 = CGPoint(x: a.x + dx * 0.42 - nx, y: a.y + dyy * 0.42 - ny)
+        var p = Path()
+        p.move(to: t(a))
+        p.addQuadCurve(to: t(b), control: t(m1))
+        p.addQuadCurve(to: t(a), control: t(m2))
+        p.closeSubpath()
+        return p
+    }
 }
 
 struct GrapeMark: View {
@@ -22,29 +39,39 @@ struct GrapeMark: View {
     /// Optional vertical gradient (top → bottom) instead of tones.
     var gradient: [Color]? = nil
     var stem = true
+    var leafColor: Color? = nil
 
-    /// Brand gradient: beige to Bordeaux.
-    static let brandGradient: [Color] = ["#F2E3CF", "#E2A8B2", "#B42A50", "#6E0D2C"].map { Color(hex: $0) }
+    /// Brand gradient: rose to Bordeaux.
+    static let brandGradient: [Color] = ["#E9B8C2", "#C8506F", "#9B1D45", "#64102E"].map { Color(hex: $0) }
 
     var body: some View {
         Canvas { ctx, size in
-            let w = GrapeMarkLayout.maxX - GrapeMarkLayout.minX
-            let h = GrapeMarkLayout.maxY - GrapeMarkLayout.minY
+            let L = GrapeMarkLayout.self
+            let w = L.maxX - L.minX, h = L.maxY - L.minY
             let s = min(size.width / w, size.height / h)
-            let ox = size.width / 2
-            let oy = (size.height - h * s) / 2 - GrapeMarkLayout.minY * s
+            let ox = (size.width - w * s) / 2 - L.minX * s
+            let oy = (size.height - h * s) / 2 - L.minY * s
+            func t(_ p: CGPoint) -> CGPoint { CGPoint(x: ox + p.x * s, y: oy + p.y * s) }
+            let first = gradient?.first ?? tones[0]
+            let deep = gradient?.last ?? tones[1 % tones.count]
             if stem {
+                let green = leafColor ?? first.mix(with: deep, 0.25)
                 var st = Path()
-                st.move(to: CGPoint(x: ox + 0.05 * s, y: oy - 0.85 * s))
-                st.addQuadCurve(to: CGPoint(x: ox + 0.55 * s, y: oy - 2.15 * s), control: CGPoint(x: ox + 0.05 * s, y: oy - 1.7 * s))
-                let top = gradient?.first ?? tones[0]
-                ctx.stroke(st, with: .color(top.mix(with: gradient?.last ?? tones[0], 0.35)), style: StrokeStyle(lineWidth: max(1, 0.34 * s), lineCap: .round))
+                st.move(to: t(CGPoint(x: 0.5 * L.d - 0.1, y: -0.9)))
+                st.addQuadCurve(to: t(L.leafBase), control: t(CGPoint(x: 0.5 * L.d - 0.2, y: -1.7)))
+                ctx.stroke(st, with: .color(green), style: StrokeStyle(lineWidth: max(1, 0.3 * s), lineCap: .round))
+                let leaf = L.leaf(t)
+                ctx.fill(leaf, with: .color(green))
+                var vein = Path()
+                vein.move(to: t(L.leafBase))
+                vein.addLine(to: t(CGPoint(x: L.leafBase.x + (L.leafTip.x - L.leafBase.x) * 0.78, y: L.leafBase.y + (L.leafTip.y - L.leafBase.y) * 0.78)))
+                ctx.stroke(vein, with: .color(green.mix(with: deep, 0.45)), style: StrokeStyle(lineWidth: max(0.6, 0.14 * s), lineCap: .round))
             }
-            for (c, t) in GrapeMarkLayout.berries {
-                let r = CGRect(x: ox + (c.x - 1) * s, y: oy + (c.y - 1) * s, width: 2 * s, height: 2 * s)
-                var color = tones[t % tones.count]
+            for (c, ti) in L.berries {
+                let r = CGRect(x: t(c).x - s, y: t(c).y - s, width: 2 * s, height: 2 * s)
+                var color = tones[ti % tones.count]
                 if let grad = gradient, grad.count >= 2 {
-                    let f = Double((c.y - GrapeMarkLayout.minY - 1) / (GrapeMarkLayout.maxY - GrapeMarkLayout.minY - 2))
+                    let f = Double(c.y / (2 * L.dy))
                     let x = max(0, min(1, f)) * Double(grad.count - 1)
                     let i = min(grad.count - 2, Int(x))
                     color = grad[i].mix(with: grad[i + 1], x - Double(i))
@@ -69,8 +96,8 @@ struct GrapeMark: View {
 struct BrandDroplet: View {
     var size: CGFloat = 64
     var body: some View {
-        GrapeMark(gradient: GrapeMark.brandGradient)
-            .frame(width: size * 0.66, height: size * 0.8)
+        GrapeMark(gradient: GrapeMark.brandGradient, leafColor: Color(hex: "#7E9A5B"))
+            .frame(width: size * 0.8, height: size * 0.8)
     }
 }
 
@@ -89,20 +116,87 @@ struct DropletShape: Shape {
     func path(in r: CGRect) -> Path { Path(ellipseIn: r) }
 }
 
-// MARK: - Grape cluster illustration (same language as the logo)
+// MARK: - Grape cluster illustration (drawn bunch with shaded berries, stem and vine leaf)
 
 struct GrapeCluster: View {
     var berry: BerryColor
     var tint: Color? = nil
-    var leaf: Bool = false
+    var leaf: Bool = true
     var seed: Int = 0
 
-    var body: some View {
-        if let t = tint {
-            GrapeMark(tones: [t, t.mix(with: .black, 0.22), t.mix(with: .white, 0.18)])
-        } else {
-            GrapeMark(tones: GrapeMark.tones(for: berry))
+    static func base(_ b: BerryColor) -> Color {
+        switch b {
+        case .black: return Color(hex: "#43183F")
+        case .white: return Color(hex: "#BFC266")
+        case .pink: return Color(hex: "#B8667F")
         }
+    }
+
+    var body: some View {
+        Canvas { ctx, size in
+            let s = min(size.width, size.height)
+            let ox = (size.width - s) / 2, oy = (size.height - s) / 2
+            let base = tint ?? Self.base(berry)
+            let r = s * 0.07
+            let rows = [4, 5, 5, 4, 4, 3, 2, 1]
+            var berries: [(CGPoint, CGFloat, Double)] = []
+            var rng = SeededRandom(seed: UInt64(abs(seed) &+ 7))
+            for (i, n) in rows.enumerated() {
+                let y = oy + s * 0.3 + CGFloat(i) * r * 1.62
+                for k in 0..<n {
+                    let jx = CGFloat(rng.next() - 0.5) * r * 0.35
+                    let jy = CGFloat(rng.next() - 0.5) * r * 0.3
+                    let lean = CGFloat(i) * r * 0.12
+                    let x = ox + s * 0.46 + lean + (CGFloat(k) - CGFloat(n - 1) / 2) * r * 1.84 + jx
+                    berries.append((CGPoint(x: x, y: y + jy), r * (0.93 + CGFloat(rng.next()) * 0.12), rng.next()))
+                }
+            }
+            // stem
+            var stem = Path()
+            stem.move(to: CGPoint(x: ox + s * 0.46, y: oy + s * 0.3))
+            stem.addCurve(to: CGPoint(x: ox + s * 0.5, y: oy + s * 0.06),
+                          control1: CGPoint(x: ox + s * 0.45, y: oy + s * 0.2),
+                          control2: CGPoint(x: ox + s * 0.47, y: oy + s * 0.1))
+            ctx.stroke(stem, with: .color(Color(hex: "#7A6650")), style: StrokeStyle(lineWidth: s * 0.018, lineCap: .round))
+            if leaf {
+                let rect = CGRect(x: ox + s * 0.5, y: oy + s * 0.02, width: s * 0.34, height: s * 0.3)
+                let lp = VineLeaf.path(in: rect)
+                ctx.fill(lp, with: .linearGradient(Gradient(colors: [Color(hex: "#A9B887"), Color(hex: "#7F9260")]),
+                                                   startPoint: CGPoint(x: rect.minX, y: rect.minY), endPoint: CGPoint(x: rect.maxX, y: rect.maxY)))
+                var vein = Path()
+                let o = CGPoint(x: rect.minX + rect.width * 0.1, y: rect.minY + rect.height * 0.62)
+                for tip in [(0.68, 0.08), (0.94, 0.3), (0.97, 0.62), (0.6, 0.93)] {
+                    vein.move(to: o)
+                    vein.addLine(to: CGPoint(x: rect.minX + rect.width * tip.0, y: rect.minY + rect.height * tip.1))
+                }
+                ctx.stroke(vein, with: .color(Color(hex: "#5F7044").opacity(0.8)), lineWidth: max(0.5, s * 0.006))
+            }
+            // berries, back to front
+            for (c, rr, v) in berries {
+                let tone = base.mix(with: v > 0.5 ? .white : .black, 0.03 + v * 0.1)
+                let rect = CGRect(x: c.x - rr, y: c.y - rr, width: rr * 2, height: rr * 2)
+                ctx.fill(Path(ellipseIn: rect), with: .radialGradient(
+                    Gradient(colors: [tone.mix(with: .white, 0.28), tone, tone.mix(with: .black, 0.25)]),
+                    center: CGPoint(x: c.x - rr * 0.35, y: c.y - rr * 0.4), startRadius: 0, endRadius: rr * 1.5))
+                let hl = CGRect(x: c.x - rr * 0.55, y: c.y - rr * 0.6, width: rr * 0.42, height: rr * 0.3)
+                ctx.fill(Path(ellipseIn: hl), with: .color(.white.opacity(0.32)))
+            }
+        }
+        .aspectRatio(1, contentMode: .fit)
+        .accessibilityHidden(true)
+    }
+}
+
+enum VineLeaf {
+    /// A five-lobed vine leaf filling the rect.
+    static func path(in r: CGRect) -> Path {
+        let raw: [(CGFloat, CGFloat)] = [
+            (0.05, 0.62), (0.2, 0.52), (0.08, 0.32), (0.3, 0.33), (0.35, 0.08), (0.5, 0.25),
+            (0.68, 0.0), (0.72, 0.3), (0.95, 0.25), (0.85, 0.48), (1.0, 0.62), (0.78, 0.68),
+            (0.8, 0.92), (0.58, 0.8), (0.42, 1.0), (0.36, 0.78), (0.12, 0.85), (0.2, 0.68)
+        ]
+        let pts: [CGPoint] = raw.map { CGPoint(x: r.minX + r.width * $0.0, y: r.minY + r.height * $0.1) }
+        return smoothClosedPath(pts, tension: 0.35)
     }
 }
 

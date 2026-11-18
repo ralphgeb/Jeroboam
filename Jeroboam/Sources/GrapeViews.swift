@@ -37,7 +37,7 @@ struct GrapeListView: View {
     private func card(_ g: Grape) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .top) {
-                GrapeBadge(grape: g, size: 46)
+                GrapeBadge(grape: g, size: 58)
                 Spacer()
                 if g.level == 1 {
                     Text("Classic").font(.system(size: 10, weight: .semibold)).kerning(0.5).textCase(.uppercase)
