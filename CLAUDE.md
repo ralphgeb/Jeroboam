@@ -31,7 +31,13 @@ Jeroboam/Sources/        Swift app
 - Never quote WSET materials verbatim; the app says "inspired by", not affiliated.
 
 ## Journal & AI
-- Journal tab: photo -> Apple Vision OCR (free) -> label text to Claude Haiku 5.5 (`claude-haiku-5-5`, structured JSON) -> image fallback only if text is thin or confidence low.
+- Journal tab has two modes: **Scan a wine** (details + average price + add to Cellar with quantity; cellar totals its value) and
+  **Blind tasting** (label read but hidden; only the price shown; look/smell/taste, guess grape + country, reveal + score /100:
+  grape 30, country 20, aromas 30, structure 20 — `TastingScore`). Old journal JSON stays decodable (new fields optional).
+- Identification: photo -> Apple Vision OCR (free) -> label text to Claude Haiku 5.5 (`claude-haiku-5-5`, structured JSON) -> image fallback only if text is thin or confidence low.
+- Average price: `WineRecognizer.averagePrice` uses Claude's web search tool (`web_search_20250305`, max 2 uses, allowed_domains
+  wine-searcher.com + cellartracker.com), parses a JSON line; falls back to the model's estimate (source "Estimate").
+  ≈ $0.01 per search + ~$0.002 tokens. Not verifiable from CI (no key in Debug builds) — check on TestFlight.
 - Key: GitHub secret `ANTHROPIC_API_KEY` -> build setting JERO_API_KEY -> Info.plist `JeroAPIKey` (testing only; ships inside the binary — use a proxy before public release).
 - Cost ≈ $0.0003–0.0005 per text lookup, ≈ $0.0005–0.0008 with the image fallback (Haiku 5.5: $0.10/MTok in, $0.50/MTok out). Prices are model estimates, not live quotes.
 
@@ -42,15 +48,24 @@ Jeroboam/Sources/        Swift app
   `Font.display` is kept only for numbers and is scaled down.
 - Lists: `GroupCard` + `IconRow` (Settings-like). Cards open with a zoom transition: `.zoomSource(ZoomID…)` on the card,
   `.zoomDestination` on the navigationDestination (iOS 18+, plain push before).
-- Logo: grape cluster of 8 berries in rows 2·3·3 with a short stem (`GrapeMark`, `GrapeMark.brandGradient`); icon = beige grapes on Bordeaux.
-  Not the Vivino-like 1-at-the-bottom cluster. Grapes on cards use `GrapeBadge` (cluster in berry colors on a tinted disc).
+- Logo (owner's sketch): a cluster "resting on its side": rows 2·3·3 with the bottom row shifted right, stem + leaf top-left
+  (`GrapeMark`, `GrapeMark.brandGradient`); icon = beige grapes, pale leaf on Bordeaux (rendered by a PIL script mirroring GrapeMarkLayout).
+- Grape pictures: realistic rendered bunches per variety, `tools/build_grapes.py` -> Resources/Grapes/<id>.png (shaded berries,
+  bloom, vine leaf; color/shape per id). `GrapeBadge` shows them (falls back to the drawn `GrapeCluster`). Re-run after adding grapes.
 - Flavor icons: `FlavorIcons.swift`, one line icon per descriptor on a 24-pt grid (`FlavorGlyph.kind(for:)`); new aroma names need a mapping.
 - Maps: white focus country with a soft lift shadow, grey neighbours, blue sea, 13-color palette; areas are inset and rounded (`soften`).
+  Every map is built with 16% extra context (`MAP_PAD`). Cards use `WineMapView(fill: true)` (centered on the areas, always covering);
+  the full map opens centered, can't zoom out past "cover", detail levels are relative to the whole-map zoom (`lodBase`),
+  and has a collapsible numbered list card (`MapListCard`). Lebanon cazas are trimmed to vineyard zones (`specs_gb.LEBANON.zones`).
+- Learn tab: streak bar scrolls away; level tabs (+ compact level title once scrolled) stay pinned.
   Areas show small numbered badges only; tapping shows the name in a callout box (tap again to open). Legends list number + name.
 - Color chart: square swatches, no corner radius, four per row.
 
 ## Debug screenshots
-DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, profile) — see `DebugScreens.swift`. Not compiled into Release.
+DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
 
 ## Release procedure
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
+
+## Status
+- TestFlight build 2 uploaded (run 2 of build-ios.yml). App Store Connect app + secrets are set up.
