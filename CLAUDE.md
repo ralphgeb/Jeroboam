@@ -50,8 +50,9 @@ Jeroboam/Sources/        Swift app
   `.zoomDestination` on the navigationDestination (iOS 18+, plain push before).
 - Logo (owner's sketch): a cluster "resting on its side": rows 2·3·3 with the bottom row shifted right, stem + leaf top-left
   (`GrapeMark`, `GrapeMark.brandGradient`); icon = beige grapes, pale leaf on Bordeaux (rendered by a PIL script mirroring GrapeMarkLayout).
-- Grape pictures: realistic rendered bunches per variety, `tools/build_grapes.py` -> Resources/Grapes/<id>.png (shaded berries,
-  bloom, vine leaf; color/shape per id). `GrapeBadge` shows them (falls back to the drawn `GrapeCluster`). Re-run after adding grapes.
+- Grape pictures: Resources/Grapes/<id>.png are photo cutouts from the owner's supplied grid image (14 wine grapes have their
+  own photo; other varieties reuse the closest-looking one by color). `tools/build_grapes.py` (rendered bunches) is the
+  fallback generator — don't re-run it over the photos. `GrapeBadge` shows them (falls back to the drawn `GrapeCluster`).
 - Flavor icons: `FlavorIcons.swift`, one line icon per descriptor on a 24-pt grid (`FlavorGlyph.kind(for:)`); new aroma names need a mapping.
 - Maps: white focus country with a soft lift shadow, grey neighbours, blue sea, 13-color palette; areas are inset and rounded (`soften`).
   Every map is built with 16% extra context (`MAP_PAD`). Cards use `WineMapView(fill: true)` (centered on the areas, always covering);
@@ -77,5 +78,4 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 
 ## Status
 - TestFlight build 3 uploaded (run 3 of build-ios.yml). App Store Connect app + secrets are set up.
-- Waiting on owner: logo choice from the 10 options (in-app mark currently = option 1), and the grape photo grid image
-  to cut into PNGs (it was pasted inline and never saved to disk).
+- Waiting on owner: logo choice from the 10 options (in-app mark currently = option 1).

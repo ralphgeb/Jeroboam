@@ -123,7 +123,8 @@ struct GrapeBadge: View {
             if disc { Circle().fill(WineCardView.tint(for: grape).opacity(0.07)) }
             if let img = GrapeImages.image(grape.id) {
                 Image(uiImage: img).resizable().interpolation(.high).scaledToFit()
-                    .frame(width: size * 0.92, height: size * 0.92)
+                    .frame(width: size * 0.9, height: size * 0.9)
+                    .shadow(color: .black.opacity(0.12), radius: size * 0.04, y: size * 0.03)
             } else {
                 GrapeCluster(berry: grape.berry, seed: grape.name.count * 31 + grape.id.count)
                     .frame(width: size * 0.86, height: size * 0.86)
