@@ -100,15 +100,34 @@ struct WineCardView: View {
     }
 }
 
-/// The grape illustration used on cards: a drawn bunch on a soft tinted disc.
+/// Rendered bunch image for a grape (Resources/Grapes/<id>.png), cached.
+enum GrapeImages {
+    private static var cache: [String: UIImage] = [:]
+    static func image(_ id: String) -> UIImage? {
+        if let i = cache[id] { return i }
+        guard let url = Bundle.main.url(forResource: id, withExtension: "png", subdirectory: "Grapes")
+                ?? Bundle.main.url(forResource: id, withExtension: "png"),
+              let img = UIImage(contentsOfFile: url.path) else { return nil }
+        cache[id] = img
+        return img
+    }
+}
+
+/// The grape picture used on cards and lists: the rendered bunch, on a soft tinted disc.
 struct GrapeBadge: View {
     let grape: Grape
     var size: CGFloat = 76
+    var disc = true
     var body: some View {
         ZStack {
-            Circle().fill(WineCardView.tint(for: grape).opacity(0.08))
-            GrapeCluster(berry: grape.berry, seed: grape.name.count * 31 + grape.id.count)
-                .frame(width: size * 0.86, height: size * 0.86)
+            if disc { Circle().fill(WineCardView.tint(for: grape).opacity(0.07)) }
+            if let img = GrapeImages.image(grape.id) {
+                Image(uiImage: img).resizable().interpolation(.high).scaledToFit()
+                    .frame(width: size * 0.92, height: size * 0.92)
+            } else {
+                GrapeCluster(berry: grape.berry, seed: grape.name.count * 31 + grape.id.count)
+                    .frame(width: size * 0.86, height: size * 0.86)
+            }
         }
         .frame(width: size, height: size)
     }

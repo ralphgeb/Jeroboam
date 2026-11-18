@@ -22,6 +22,9 @@ targets:
       - path: Resources/Maps
         type: folder
         buildPhase: resources
+      - path: Resources/Grapes
+        type: folder
+        buildPhase: resources
       - Resources/Assets.xcassets
       - Resources/PrivacyInfo.xcprivacy
     info:

@@ -34,7 +34,7 @@ struct VisualView: View {
             case "grape":
                 if let g = ContentStore.shared.grape(arg) {
                     HStack(spacing: 18) {
-                        GrapeCluster(berry: g.berry, seed: g.id.count).frame(width: compact ? 90 : 120, height: compact ? 90 : 120)
+                        GrapeBadge(grape: g, size: compact ? 96 : 128, disc: false)
                         VStack(alignment: .leading, spacing: 6) {
                             Eyebrow(g.berry == .white ? "White grape" : (g.berry == .pink ? "Pink-skinned grape" : "Black grape"))
                             Text(g.name).font(.serif(24)).foregroundStyle(Palette.ink)
