@@ -57,6 +57,14 @@ Jeroboam/Sources/        Swift app
   Every map is built with 16% extra context (`MAP_PAD`). Cards use `WineMapView(fill: true)` (centered on the areas, always covering);
   the full map opens centered, can't zoom out past "cover", detail levels are relative to the whole-map zoom (`lodBase`),
   and has a collapsible numbered list card (`MapListCard`). Lebanon cazas are trimmed to vineyard zones (`specs_gb.LEBANON.zones`).
+  Atlas hierarchy (`specs_gb.HIERARCHY`, modelled on the owner's printed-atlas photos): level 0 = big wine regions from
+  provinces/states (Spain's autonomous regions, Chile/Argentina regions, Australian states, Austrian Länder…), level 1 =
+  appellations inside (existing regions find their parent by overlap; extra ones via B(lat, lon, km) snapped to municipalities).
+  Province tints (`tints`) are drawn only on maps without a level-0 hierarchy. Keep the original bold palette (owner's choice).
+- Quiz visuals in question cards use `hideAnswers` (no grape names, no map callouts, smaller maps).
+- Practice: `QuizGenerator` has ~30 templates across grapes/regions/maps/colors/aromas/styles/pairings/labels/terms and a
+  repeat memory (`QuizMemory`, last 400). Every unit ends with a "Going further" lesson (source in content/extras/*.yaml,
+  merged into the unit files).
   Areas show small numbered badges only; tapping shows the name in a callout box (tap again to open). Legends list number + name.
 - Learn tab: streak bar scrolls away; level tabs (+ compact level title once scrolled) stay pinned.
 - Color chart: square swatches, no corner radius, four per row.
@@ -68,4 +76,6 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, feedback, blank
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 2 uploaded (run 2 of build-ios.yml). App Store Connect app + secrets are set up.
+- TestFlight build 3 uploaded (run 3 of build-ios.yml). App Store Connect app + secrets are set up.
+- Waiting on owner: logo choice from the 10 options (in-app mark currently = option 1), and the grape photo grid image
+  to cut into PNGs (it was pasted inline and never saved to disk).
