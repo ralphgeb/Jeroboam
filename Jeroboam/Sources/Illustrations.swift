@@ -11,11 +11,14 @@ struct GrapeMarkLayout {
         (CGPoint(x: 0, y: dy), 1), (CGPoint(x: d, y: dy), 0), (CGPoint(x: 2 * d, y: dy), 2),
         (CGPoint(x: 0.5 * d, y: 2 * dy), 0), (CGPoint(x: 1.5 * d, y: 2 * dy), 1), (CGPoint(x: 2.5 * d, y: 2 * dy), 0),
     ]
-    static let leafBase = CGPoint(x: 0.1 * d, y: -1.55)
-    static let leafTip = CGPoint(x: -1.05 * d, y: -3.35)
-    static let leafWidth: CGFloat = 1.05
-    static let minX: CGFloat = leafTip.x - 0.6, maxX: CGFloat = 2.5 * d + 1
-    static let minY: CGFloat = leafTip.y - 0.4, maxY: CGFloat = 2 * dy + 1
+    /// Stem rises from between the two top berries; the leaf sits on it, to the right.
+    static let stemBase = CGPoint(x: d, y: -0.55)
+    static let stemTop = CGPoint(x: d + 0.25, y: -2.0)
+    static let leafBase = CGPoint(x: d + 0.2, y: -1.55)
+    static let leafTip = CGPoint(x: d + 2.8, y: -2.75)
+    static let leafWidth: CGFloat = 0.95
+    static let minX: CGFloat = -1, maxX: CGFloat = 2.5 * d + 1
+    static let minY: CGFloat = leafTip.y - 0.9, maxY: CGFloat = 2 * dy + 1
 
     /// Pointed leaf from base to tip (unit space).
     static func leaf(_ t: (CGPoint) -> CGPoint) -> Path {
@@ -57,8 +60,8 @@ struct GrapeMark: View {
             if stem {
                 let green = leafColor ?? first.mix(with: deep, 0.25)
                 var st = Path()
-                st.move(to: t(CGPoint(x: 0.5 * L.d - 0.1, y: -0.9)))
-                st.addQuadCurve(to: t(L.leafBase), control: t(CGPoint(x: 0.5 * L.d - 0.2, y: -1.7)))
+                st.move(to: t(L.stemBase))
+                st.addQuadCurve(to: t(L.stemTop), control: t(CGPoint(x: L.d - 0.15, y: -1.3)))
                 ctx.stroke(st, with: .color(green), style: StrokeStyle(lineWidth: max(1, 0.3 * s), lineCap: .round))
                 let leaf = L.leaf(t)
                 ctx.fill(leaf, with: .color(green))
