@@ -78,3 +78,59 @@ lessons:
         options: ["Oak chips or staves in a tank", "Plastic barrels", "Adding vanilla essence", "Freezing the wine"]
         a: "Oak chips or staves in a tank"
         explain: "They add oak flavor quickly, but without the slow oxygen exposure of a barrel."
+  - title: Going further
+    cards:
+      - learn: Making red wine
+        visual: flow:red-making
+        body: 'Black grapes are crushed and fermented **with their skins**. The skins give color, tannin and flavor. Winemakers punch down or pump over the cap of skins to extract them.
+      
+      
+          After fermentation the wine is pressed off the skins, then usually aged before bottling.
+      
+          '
+      - learn: Oak or stainless steel?
+        body: '**Stainless steel** keeps fruit pure and fresh. **Oak barrels** let in a little oxygen, soften tannins and, when new, add vanilla, toast and spice.
+      
+      
+          Small new barrels give the most flavor; large old casks give texture with little oak taste.
+      
+          '
+      - choice: Where does red wine get its color?
+        options:
+        - Fermenting with the skins
+        - Adding color after fermentation
+        - Ageing in oak
+        - Red grape juice
+        a: Fermenting with the skins
+        explain: Juice of almost all black grapes is clear; color comes from contact with the skins.
+      - tf: Small new oak barrels add more oak flavor than large old ones.
+        truth: true
+        explain: More wood surface per liter and fresh wood mean more vanilla, toast and spice.
+      - choice: What does 'punching down' do?
+        options:
+        - Pushes the skins back into the fermenting wine
+        - Removes the cork
+        - Adds sugar to the juice
+        - Filters the wine
+        a: Pushes the skins back into the fermenting wine
+        explain: The skins float up as a cap; pushing them down extracts color and tannin.
+      - match: Match the choice to its effect
+        pairs:
+        - - Stainless steel
+          - Pure fresh fruit
+        - - New oak
+          - Vanilla and toast
+        - - Lees ageing
+          - Bready texture
+        - - Malolactic conversion
+          - Softer acidity
+        explain: Each winemaking decision leaves a mark on the final wine.
+      - blank: After fermentation, red wine is separated from the skins by ___.
+        answers:
+        - pressing
+        options:
+        - freezing
+        - boiling
+        - chaptalization
+        - riddling
+        explain: The press squeezes out the wine trapped in the skins.

@@ -100,3 +100,52 @@ lessons:
       - match: "Match the southern grape to its region"
         pairs: [[Primitivo, Puglia], [Fiano, Campania], [Nero d'Avola, Sicily]]
         explain: "Three of southern Italy's most important grapes."
+  - title: Going further
+    cards:
+      - learn: Super Tuscans
+        body: 'In the 1970s, producers like Sassicaia and Tignanello broke DOC rules, using Cabernet Sauvignon and French oak. Sold as simple table wine, they became famous as **Super Tuscans**, and Bolgheri later got its own DOC.
+      
+          '
+      - learn: The Veneto
+        body: '**Valpolicella** blends Corvina with other local grapes. **Amarone** is made from grapes dried for months (appassimento), giving rich, high-alcohol, dry reds. **Ripasso** passes young Valpolicella over Amarone skins for extra body.
+      
+          '
+      - choice: What is 'appassimento'?
+        options:
+        - Drying grapes before fermentation
+        - Ageing in clay jars
+        - A type of sparkling wine
+        - Blending white and red
+        a: Drying grapes before fermentation
+        explain: Drying concentrates sugar and flavor; it's how Amarone and Recioto are made.
+      - match: Match the wine to its region
+        pairs:
+        - - Amarone
+          - Veneto
+        - - Barolo
+          - Piedmont
+        - - Brunello di Montalcino
+          - Tuscany
+        - - Etna Rosso
+          - Sicily
+        explain: Italy's twenty regions each have their own grapes and wines.
+      - tf: Super Tuscans often include Cabernet Sauvignon or Merlot.
+        truth: true
+        explain: International grapes are what made them break the old rules.
+      - choice: Which grape is the backbone of Valpolicella and Amarone?
+        options:
+        - Corvina
+        - Nebbiolo
+        - Aglianico
+        - Primitivo
+        a: Corvina
+        explain: Corvina gives sour cherry and almond notes and dries well for Amarone.
+      - blank: Sassicaia comes from the coastal Tuscan zone of ___.
+        answers:
+        - Bolgheri
+        options:
+        - Chianti
+        - Montalcino
+        - Montepulciano
+        - Maremma Sud
+        explain: Bolgheri, near the coast, became famous for Bordeaux-style blends.

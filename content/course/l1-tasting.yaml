@@ -123,3 +123,58 @@ lessons:
         options: ["High acidity, light body", "High tannin, full body", "Low acidity, full body", "Sweet, high alcohol"]
         a: "High acidity, light body"
         explain: "Think Muscadet, Pinot Grigio or Chablis: fresh, zesty and light."
+  - title: Going further
+    cards:
+      - learn: Describing the finish
+        body: 'After you swallow (or spit), notice how long the flavor lingers. That is the **finish**.
+      
+      
+          A short finish fades in a few seconds; a long one stays for ten or more. Long, pleasant finishes are one of the clearest signs of quality.
+      
+          '
+      - learn: Balance and quality
+        body: 'Judge quality with **BLIC**: **Balance** (fruit, acid, tannin, alcohol in harmony), **Length** (the finish), **Intensity** (flavor concentration) and **Complexity** (many different aromas).
+      
+      
+          A wine that scores well on all four is very good or outstanding.
+      
+          '
+      - choice: What does the 'finish' of a wine describe?
+        options:
+        - How long the flavor lasts after swallowing
+        - The last wine of a tasting
+        - The color at the rim
+        - The final step of winemaking
+        a: How long the flavor lasts after swallowing
+        explain: Finish, or length, is measured in seconds of pleasant flavor after the wine has gone.
+      - match: Match the letter of BLIC to its meaning
+        pairs:
+        - - B
+          - Balance
+        - - L
+          - Length
+        - - I
+          - Intensity
+        - - C
+          - Complexity
+        explain: BLIC is a simple checklist for judging quality.
+      - tf: A very long, pleasant finish is a sign of quality.
+        truth: true
+        explain: Length is one of the most reliable quality markers.
+      - choice: Which sensation tells you a wine has high acidity?
+        options:
+        - Your mouth waters
+        - Your gums feel dry
+        - Warmth in the throat
+        - A sweet taste on the tip of the tongue
+        a: Your mouth waters
+        explain: Acidity makes you salivate. Drying gums mean tannin; warmth means alcohol.
+      - blank: Warmth at the back of the throat is a sign of high ___.
+        answers:
+        - alcohol
+        options:
+        - acidity
+        - tannin
+        - sugar
+        - oak
+        explain: Alcohol feels warm. Wines above about 14% can feel hot if fruit and acidity don't balance them.

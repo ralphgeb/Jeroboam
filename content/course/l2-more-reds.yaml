@@ -102,3 +102,54 @@ lessons:
         answers: [Sauvignon]
         options: [Franc, Noir, Gris]
         explain: "Cabernet Franc × Sauvignon Blanc = Cabernet Sauvignon."
+  - title: Going further
+    cards:
+      - learn: Italy's great reds
+        body: '**Sangiovese** is the grape of Chianti and Brunello di Montalcino: red cherry, herbs and high acidity. **Nebbiolo** makes Barolo and Barbaresco: pale color, rose and tar aromas, and big tannin.
+      
+      
+          Both love food thanks to their acidity.
+      
+          '
+      - learn: Iberia's great reds
+        body: '**Tempranillo** leads Rioja and Ribera del Duero, often aged in oak for vanilla and leather notes. **Touriga Nacional** is Portugal''s star for Port and dry Douro reds, with violet and black fruit.
+      
+          '
+      - choice: Which grape makes Barolo?
+        options:
+        - Nebbiolo
+        - Sangiovese
+        - Barbera
+        - Dolcetto
+        a: Nebbiolo
+        explain: Barolo and Barbaresco are 100% Nebbiolo, from Piedmont.
+      - tf: Nebbiolo wines are usually deep, inky purple.
+        truth: false
+        explain: Nebbiolo is surprisingly pale, often garnet, despite huge tannin and acidity.
+      - match: Match the wine to its main grape
+        pairs:
+        - - Chianti
+          - Sangiovese
+        - - Rioja
+          - Tempranillo
+        - - Barbaresco
+          - Nebbiolo
+        - - Beaujolais
+          - Gamay
+        explain: European wines are named after the place, so knowing the grape behind each is key.
+      - choice: '''Tar and roses'' is a classic description of…'
+        options:
+        - Nebbiolo
+        - Merlot
+        - Grenache
+        - Zinfandel
+        a: Nebbiolo
+        explain: Rose petal and tar (or liquorice) are Nebbiolo's signature aromas.
+      - blank: Brunello di Montalcino is made from ___.
+        answers:
+        - Sangiovese
+        options:
+        - Nebbiolo
+        - Merlot
+        - Montepulciano
+        explain: Brunello is the local name for the Sangiovese clone grown around Montalcino.

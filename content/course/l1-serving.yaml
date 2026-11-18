@@ -85,3 +85,58 @@ lessons:
         options: [Oxidized, Corked, Sparkling, Under-ripe]
         a: Oxidized
         explain: "Too much oxygen dulls the fruit and browns the color. Some styles, like Oloroso Sherry, are deliberately oxidative."
+  - title: Going further
+    cards:
+      - learn: Opening and keeping
+        body: 'Once open, wine meets oxygen. Most still wines keep **2–5 days** with the cork back in, in the fridge. Sparkling wine keeps 1–3 days with a stopper.
+      
+      
+          Fortified wines like Tawny Port can keep for weeks.
+      
+          '
+      - learn: Decanting
+        body: '**Decanting** means pouring wine into another vessel. It separates an old wine from its **sediment**, and lets young, tannic wines breathe so they taste softer.
+      
+      
+          Pour slowly and stop when you see sediment reach the neck.
+      
+          '
+      - choice: Why would you decant an old red wine?
+        options:
+        - To separate it from sediment
+        - To make it colder
+        - To add bubbles
+        - To make it sweeter
+        a: To separate it from sediment
+        explain: Old reds throw a deposit of tannin and pigment; decanting leaves it behind.
+      - tf: Sparkling wine should be served colder than full-bodied red wine.
+        truth: true
+        explain: Sparkling wine is best well chilled (6–10 °C); full reds around 15–18 °C.
+      - choice: How long does an opened bottle of still wine usually keep in the fridge?
+        options:
+        - 2–5 days
+        - 2–5 weeks
+        - 2–5 hours
+        - Several months
+        a: 2–5 days
+        explain: Oxygen slowly flattens the fruit. Fortified wines last much longer.
+      - match: Match the wine to its serving temperature
+        pairs:
+        - - Sparkling
+          - 6–8 °C
+        - - Light white
+          - 8–10 °C
+        - - Light red
+          - 12–13 °C
+        - - Full red
+          - 15–18 °C
+        explain: Too cold mutes aromas; too warm makes alcohol stand out.
+      - blank: A wine that smells of wet cardboard is probably ___.
+        answers:
+        - corked
+        options:
+        - oxidized
+        - young
+        - sweet
+        - decanted
+        explain: Cork taint (TCA) gives a musty, damp-cardboard smell and flattens the fruit.

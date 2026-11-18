@@ -91,3 +91,52 @@ lessons:
         answers: [Eszencia]
         options: [Szamorodni, Furmint, Aszú]
         explain: "It ferments for years and reaches only a few percent alcohol."
+  - title: Going further
+    cards:
+      - learn: German Riesling styles
+        body: 'German Riesling ranges from bone-dry **Grosses Gewächs** to sweet **Beerenauslese** and **Trockenbeerenauslese**. The **Mosel** gives light, delicate, often off-dry wines on steep slate; the **Pfalz** and **Rheingau** give fuller, drier styles.
+      
+          '
+      - learn: Tokaji Aszú
+        body: 'In Hungary''s **Tokaj**, botrytized aszú berries are soaked in base wine or must. The result is one of the world''s great sweet wines, with apricot, orange peel and honey, kept fresh by Furmint''s acidity.
+      
+          '
+      - choice: Which German region is famous for steep slate slopes along a winding river?
+        options:
+        - Mosel
+        - Pfalz
+        - Baden
+        - Franken
+        a: Mosel
+        explain: The Mosel's slate slopes are among the steepest vineyards in the world.
+      - match: Match the wine to its main grape
+        pairs:
+        - - Tokaji Aszú
+          - Furmint
+        - - Wachau Smaragd
+          - Grüner Veltliner
+        - - Blaufränkisch Mittelburgenland
+          - Blaufränkisch
+        - - Mosel Kabinett
+          - Riesling
+        explain: Central Europe's classics rely on local stars.
+      - tf: Trockenbeerenauslese is a dry wine.
+        truth: false
+        explain: Despite 'trocken' in the name, TBA is made from shriveled botrytized berries and is intensely sweet.
+      - choice: In the Wachau, what is 'Smaragd'?
+        options:
+        - The ripest, fullest dry category
+        - A sweet wine
+        - A sparkling wine
+        - A type of soil
+        a: The ripest, fullest dry category
+        explain: Steinfeder, Federspiel and Smaragd rank Wachau's dry whites by ripeness.
+      - blank: Hungary's most famous sweet wine comes from ___.
+        answers:
+        - Tokaj
+        options:
+        - Eger
+        - Villány
+        - Szekszárd
+        - Somló
+        explain: Tokaj was the world's first classified wine region, in 1730.

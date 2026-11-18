@@ -83,3 +83,55 @@ lessons:
       - match: "Match the fault to its smell"
         pairs: [[TCA, Damp cardboard], [Oxidation, Bruised apple], [Brettanomyces, Barnyard], [Reduction, Struck match]]
         explain: "Recognizing faults is part of every sommelier's training."
+  - title: Going further
+    cards:
+      - learn: Assessing readiness
+        body: 'Ask: is the wine **too young** (tight, primary fruit, firm tannin), **ready** (fruit and developing notes in balance), or **past its best** (fading fruit, drying tannin)?
+      
+      
+          Long-lived wines need the structure to age: acidity, tannin or sugar, plus concentrated fruit.
+      
+          '
+      - learn: Deductive tasting
+        body: 'Blind tasters reason from clues. High acid and light color suggest a cool climate. Deep color, ripe black fruit and high alcohol suggest warmth. Vanilla and toast suggest new oak; leather and earth suggest age.
+      
+          '
+      - choice: Which wine is most likely from a cool climate?
+        options:
+        - Pale, high acidity, citrus fruit
+        - Deep, high alcohol, jammy fruit
+        - Low acidity, tropical fruit
+        - Dark, raisined, very ripe
+        a: Pale, high acidity, citrus fruit
+        explain: Cool climates keep acidity and give leaner, fresher fruit.
+      - match: Match the clue to what it suggests
+        pairs:
+        - - Vanilla and toast
+          - New oak
+        - - Leather and earth
+          - Bottle age
+        - - Jammy fruit
+          - Warm climate
+        - - Green bell pepper
+          - Unripe Cabernet
+        explain: Each clue narrows down the grape, place and winemaking.
+      - tf: Wines with high acidity or tannin often age well.
+        truth: true
+        explain: Structure protects a wine while its fruit slowly evolves.
+      - choice: A red tastes of dried fruit, leather and has drying tannin. It is probably…
+        options:
+        - Past its best
+        - Too young
+        - Unoaked
+        - Carbonic
+        a: Past its best
+        explain: Fading fruit and drying tannin are signs a wine has passed its peak.
+      - blank: Concentration of flavor, balance, length and complexity together judge a wine's ___.
+        answers:
+        - quality
+        options:
+        - vintage
+        - price
+        - color
+        - sweetness
+        explain: These BLIC factors let you judge quality objectively.

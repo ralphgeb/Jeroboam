@@ -87,3 +87,55 @@ lessons:
         answers: [Ciron]
         options: [Loire, Dordogne, Rhône]
         explain: "Cold Ciron water meeting the warmer Garonne creates the autumn fog botrytis needs."
+  - title: Going further
+    cards:
+      - learn: The 1855 Classification
+        body: 'In 1855, Médoc châteaux (plus Haut-Brion in Graves) were ranked into five growths by price. **First Growths**: Lafite, Latour, Margaux, Haut-Brion, and since 1973, Mouton Rothschild.
+      
+      
+          Sauternes was classified at the same time, with Yquem alone at the top.
+      
+          '
+      - learn: Bordeaux's dry whites and sweet wines
+        body: 'Sauvignon Blanc and Sémillon make crisp whites in Entre-Deux-Mers and serious oaked whites in Pessac-Léognan. In **Sauternes** and **Barsac**, autumn mists from the Ciron river bring noble rot for rich, honeyed sweet wines.
+      
+          '
+      - choice: Which château became a First Growth in 1973?
+        options:
+        - Mouton Rothschild
+        - Latour
+        - Margaux
+        - Pétrus
+        a: Mouton Rothschild
+        explain: The only change ever made to the 1855 red classification.
+      - tf: Pomerol has an official classification like the Médoc.
+        truth: false
+        explain: Pomerol has none, though Pétrus and Le Pin are among the world's most expensive wines.
+      - match: Match the appellation to its main grape
+        pairs:
+        - - Pauillac
+          - Cabernet Sauvignon
+        - - Pomerol
+          - Merlot
+        - - Sauternes
+          - Sémillon
+        - - Entre-Deux-Mers
+          - Sauvignon Blanc
+        explain: Left Bank leans Cabernet, Right Bank leans Merlot, sweet wines lean Sémillon.
+      - choice: What brings noble rot to Sauternes?
+        options:
+        - Autumn mists from the Ciron river
+        - Sea breezes
+        - Late frosts
+        - Very dry summers
+        a: Autumn mists from the Ciron river
+        explain: Misty mornings and sunny afternoons are perfect for botrytis.
+      - blank: Château ___ is the only Graves estate in the 1855 classification.
+        answers:
+        - Haut-Brion
+        options:
+        - Pape Clément
+        - Pétrus
+        - Cheval Blanc
+        - Yquem
+        explain: Haut-Brion was so famous in 1855 that it was included alongside the Médoc.

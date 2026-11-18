@@ -86,3 +86,52 @@ lessons:
         answers: [granite]
         options: [chalk, gravel, slate]
         explain: "Granite gives the crus their structure and floral perfume."
+  - title: Going further
+    cards:
+      - learn: The Côte d'Or
+        body: 'The **Côte de Nuits** (north) is mostly red Pinot Noir: Gevrey-Chambertin, Vosne-Romanée, Chambolle-Musigny. The **Côte de Beaune** (south) is famous for whites: Meursault, Puligny- and Chassagne-Montrachet, plus reds from Pommard and Volnay.
+      
+          '
+      - learn: Climats
+        body: 'Burgundy is divided into hundreds of named plots called **climats**, recognized by UNESCO. Many are split between several owners, so the producer matters as much as the vineyard.
+      
+          '
+      - choice: Which village is in the Côte de Beaune?
+        options:
+        - Meursault
+        - Gevrey-Chambertin
+        - Vosne-Romanée
+        - Nuits-Saint-Georges
+        a: Meursault
+        explain: Meursault is a great white-wine village of the Côte de Beaune.
+      - tf: The Côte de Nuits is best known for red wines.
+        truth: true
+        explain: Nearly all its Grand Crus are Pinot Noir; Musigny has a tiny white exception.
+      - match: Match the Grand Cru to its color
+        pairs:
+        - - Montrachet
+          - White
+        - - Chambertin
+          - Red
+        - - Corton-Charlemagne
+          - White wine
+        - - Romanée-Conti
+          - Red wine
+        explain: Côte de Beaune Grand Crus are mostly white; Côte de Nuits mostly red.
+      - choice: Why does the producer matter so much in Burgundy?
+        options:
+        - Many vineyards are split between owners
+        - All wines are blends
+        - Labels don't show vineyards
+        - Only one grape is allowed
+        a: Many vineyards are split between owners
+        explain: Clos de Vougeot alone has more than 80 owners, each making different wine.
+      - blank: Burgundy's named vineyard plots are called ___.
+        answers:
+        - climats
+        options:
+        - crus bourgeois
+        - châteaux
+        - terraces
+        - lieux-dits only
+        explain: The climats of Burgundy became a UNESCO World Heritage Site in 2015.

@@ -92,3 +92,59 @@ lessons:
         a: Garnet and tawny
         explain: "Reds lose color with age: purple → ruby → garnet → tawny. Whites gain color: lemon → gold → amber."
         visual: "colors:red"
+  - title: Going further
+    cards:
+      - learn: Where the flavor comes from
+        body: 'Three things shape every wine: the **grape** (its aromas and structure), the **place** (climate and soil, together called terroir) and the **winemaker** (choices like oak, temperature and timing).
+      
+      
+          The same grape can taste very different in Burgundy and California because two of those three things changed.
+      
+          '
+      - learn: Dry, off-dry, sweet
+        visual: diagram:sweetness
+        body: 'If yeast eats all the sugar, the wine is **dry**. Stop fermentation early, or start with very ripe or dried grapes, and some sugar remains: **off-dry**, **medium** or **sweet**.
+      
+      
+          Sweetness is about sugar, not fruitiness. A ripe, fruity wine can still be bone dry.
+      
+          '
+      - choice: Which three things shape the taste of a wine?
+        options:
+        - Grape, place and winemaker
+        - Bottle, cork and label
+        - Price, age and color
+        - Glass, temperature and food
+        a: Grape, place and winemaker
+        explain: Variety, terroir and winemaking decisions explain most of the differences between wines.
+      - tf: A fruity-smelling wine must contain sugar.
+        truth: false
+        explain: Fruitiness is aroma. Many very fruity wines, like New Zealand Sauvignon Blanc, are completely dry.
+      - blank: The combined effect of climate, soil and slope on a wine is called ___.
+        answers:
+        - terroir
+        options:
+        - vintage
+        - tannin
+        - malolactic
+        - blend
+        explain: Terroir is the French word for everything about a place that shows in the glass.
+      - choice: What makes a wine sweet?
+        options:
+        - Sugar left after fermentation
+        - Lots of alcohol
+        - Ageing in oak
+        - A warm serving temperature
+        a: Sugar left after fermentation
+        explain: Residual sugar is what yeast didn't convert. Alcohol and oak can feel rich, but they are not sweetness.
+      - match: Match the wine to how it's made
+        pairs:
+        - - Rosé
+          - Short skin contact
+        - - Sparkling
+          - Second fermentation
+        - - Fortified
+          - Spirit added
+        - - Orange wine
+          - White grapes on skins
+        explain: Small changes in the process create completely different styles from the same grapes.

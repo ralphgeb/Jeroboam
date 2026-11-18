@@ -102,3 +102,51 @@ lessons:
         a: "Geographical Indication"
         visual: "label:australia"
         explain: "Australia's system of zones, regions and subregions."
+  - title: Going further
+    cards:
+      - learn: Château, Domaine, Bodega
+        body: 'The producer''s name often starts with a word for estate: **Château** (Bordeaux), **Domaine** (Burgundy and elsewhere in France), **Bodega** (Spain), **Weingut** (Germany, Austria), **Quinta** (Portugal) and **Tenuta** (Italy).
+      
+          '
+      - learn: Burgundy's ladder
+        body: 'Burgundy labels climb a ladder: **Bourgogne** (regional), **village** (e.g. Gevrey-Chambertin), **Premier Cru** (a named vineyard plus the village) and **Grand Cru** (the vineyard name alone, e.g. Chambertin).
+      
+          '
+      - choice: On a Burgundy label, which level shows only the vineyard name?
+        options:
+        - Grand Cru
+        - Premier Cru
+        - Village
+        - Regional
+        a: Grand Cru
+        explain: 'Grand Crus are so famous they stand alone: Montrachet, Chambertin, Romanée-Conti.'
+      - match: Match the estate word to its country
+        pairs:
+        - - Quinta
+          - Portugal
+        - - Bodega
+          - Spain
+        - - Weingut
+          - Germany
+        - - Tenuta
+          - Italy
+        explain: Knowing these words helps you find the producer on any label.
+      - tf: '''Mis en bouteille au château'' means bottled at the estate.'
+        truth: true
+        explain: Estate bottling shows the same property grew the grapes and bottled the wine.
+      - choice: In Germany, which word tells you about ripeness at harvest?
+        options:
+        - Spätlese
+        - Weingut
+        - Trocken
+        - Gutsabfüllung
+        a: Spätlese
+        explain: Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness.
+      - blank: In Rioja, a wine aged at least two years, one in oak, is labeled ___.
+        answers:
+        - Crianza
+        options:
+        - Joven
+        - Gran Reserva
+        - Cosecha
+        explain: Crianza red Rioja spends at least two years ageing, with at least one in oak.

@@ -70,3 +70,51 @@ lessons:
         answers: [Trocken]
         options: [Spätlese, Halbtrocken, Süss]
         explain: "Halbtrocken means off-dry. Spätlese is a ripeness level, not a sweetness term."
+  - title: Going further
+    cards:
+      - learn: Quality pyramids
+        body: 'Most EU countries rank wines in a pyramid: **PDO** wines from tightly defined places with strict rules (AOC, DOC, DOCG, DO), **PGI** wines from wider areas with more freedom (IGP, IGT, Vino de la Tierra) and simple **wine** without a place.
+      
+          '
+      - learn: Ageing terms
+        body: 'Spanish and Italian labels often show ageing: **Crianza**, **Reserva** and **Gran Reserva** in Spain; **Riserva** in Italy. Each means a longer minimum time in barrel and bottle before release.
+      
+          '
+      - choice: Which Spanish term means the longest minimum ageing?
+        options:
+        - Gran Reserva
+        - Crianza
+        - Joven
+        - Reserva
+        a: Gran Reserva
+        explain: For reds, Gran Reserva means at least five years of ageing, with time in oak.
+      - match: Match the label term to its country
+        pairs:
+        - - AOC
+          - France
+        - - DOCG
+          - Italy
+        - - DO
+          - Spain
+        - - Prädikatswein
+          - Germany
+        explain: Each country has its own words for top-quality, place-based wines.
+      - tf: PGI wines have stricter rules than PDO wines.
+        truth: false
+        explain: PDO is the stricter, more specific category; PGI allows wider areas and more grapes.
+      - choice: What does 'Riserva' on an Italian label tell you?
+        options:
+        - Longer ageing before release
+        - A sweet wine
+        - A sparkling wine
+        - Organic grapes
+        a: Longer ageing before release
+        explain: Riserva wines meet a longer minimum ageing period set by each DOC/DOCG.
+      - blank: In Germany, a dry Prädikatswein is labeled ___.
+        answers:
+        - trocken
+        options:
+        - süss
+        - Spätlese
+        - Eiswein
+        explain: Trocken means dry; Spätlese and Auslese describe ripeness at harvest, not sweetness.

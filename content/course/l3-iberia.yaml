@@ -79,3 +79,52 @@ lessons:
         answers: [Vintage]
         options: [Valley, Variety, Velvet]
         explain: "Single-vintage Port aged 4–6 years in wood, ready to drink sooner than Vintage Port."
+  - title: Going further
+    cards:
+      - learn: Rioja's subregions
+        body: 'Rioja has three parts: **Rioja Alta** (cooler, elegant), **Rioja Alavesa** (limestone, finesse) and **Rioja Oriental** (warmer, Garnacha-rich). Traditional producers age in American oak; modern ones favor French oak and riper fruit.
+      
+          '
+      - learn: Port styles
+        body: '**Ruby** and **Vintage** Port age mostly in bottle and stay deep red with black fruit. **Tawny** ages in small casks, turning amber with nutty, caramel notes; 10, 20, 30 and 40 Year Old labels give an average age.
+      
+          '
+      - choice: Which Port style ages in small casks and turns amber?
+        options:
+        - Tawny
+        - Ruby
+        - Vintage
+        - White Port
+        a: Tawny
+        explain: Oxygen through the wood gives Tawny its color and nutty, caramel character.
+      - match: Match the Spanish region to its signature grape
+        pairs:
+        - - Ribera del Duero
+          - Tempranillo
+        - - Rías Baixas
+          - Albariño
+        - - Priorat
+          - Garnacha
+        - - Jerez
+          - Palomino
+        explain: Spain's regions each lean on a local hero grape.
+      - tf: American oak gives stronger coconut and vanilla notes than French oak.
+        truth: true
+        explain: That's why traditional Rioja often smells of vanilla and coconut.
+      - choice: What does '20 Year Old' on a Tawny Port mean?
+        options:
+        - A blend with an average age of about 20 years
+        - Every drop is exactly 20 years old
+        - The vines are 20 years old
+        - It must be drunk within 20 years
+        a: A blend with an average age of about 20 years
+        explain: Indicated-age Tawnies are blends that taste like the stated age.
+      - blank: Priorat's dark slate and quartz soil is called ___.
+        answers:
+        - llicorella
+        options:
+        - albariza
+        - galestro
+        - schist only
+        - terra rossa
+        explain: Llicorella forces vine roots deep and gives Priorat its mineral intensity.

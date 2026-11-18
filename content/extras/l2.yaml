@@ -1,0 +1,223 @@
+l2-vineyard:
+  - learn: The growing season
+    visual: "diagram:vine-cycle"
+    body: |
+      In the Northern Hemisphere: **budburst** in spring (March–April), **flowering** in early summer, **véraison** (grapes soften and change color) in midsummer, and **harvest** from September to October.
+
+      Spring frost at budburst and rain at flowering are among the biggest risks to a crop.
+  - learn: Sun, slope and water
+    body: |
+      South-facing slopes (north-facing in the Southern Hemisphere) catch more sun. Rivers and lakes reflect light and moderate temperature extremes.
+
+      Poor, well-drained soils make vines struggle a little, giving smaller crops with more concentrated flavor.
+  - choice: "What is 'véraison'?"
+    options: ["When grapes soften and change color", "The first leaves appearing", "The grape harvest", "Pruning in winter"]
+    a: "When grapes soften and change color"
+    explain: "At véraison black grapes turn from green to purple and sugar starts to build."
+  - tf: "Spring frost is a major risk around budburst."
+    truth: true
+    explain: "Young shoots are easily killed by frost; growers use wind machines, sprinklers or candles to protect them."
+  - match: "Match the stage to its season (Northern Hemisphere)"
+    pairs: [[Budburst, Spring], [Flowering, Early summer], [Véraison, Midsummer], [Harvest, Autumn]]
+    explain: "The vine's yearly cycle drives the whole calendar of a wine region."
+  - choice: "Why are poor, well-drained soils often prized for vines?"
+    options: ["Lower yields with more concentrated grapes", "They make vines grow faster", "They prevent all diseases", "They add sugar to the grapes"]
+    a: "Lower yields with more concentrated grapes"
+    explain: "Vines that struggle a little put their energy into fewer, more flavorful grapes."
+  - blank: "In the Northern Hemisphere, the best vineyard slopes usually face ___."
+    answers: [south]
+    options: [north, east only, downward, the sea always]
+    explain: "South-facing slopes get the most sun, helping grapes ripen in cool climates."
+l2-winery:
+  - learn: Making red wine
+    visual: "flow:red-making"
+    body: |
+      Black grapes are crushed and fermented **with their skins**. The skins give color, tannin and flavor. Winemakers punch down or pump over the cap of skins to extract them.
+
+      After fermentation the wine is pressed off the skins, then usually aged before bottling.
+  - learn: Oak or stainless steel?
+    body: |
+      **Stainless steel** keeps fruit pure and fresh. **Oak barrels** let in a little oxygen, soften tannins and, when new, add vanilla, toast and spice.
+
+      Small new barrels give the most flavor; large old casks give texture with little oak taste.
+  - choice: "Where does red wine get its color?"
+    options: ["Fermenting with the skins", "Adding color after fermentation", "Ageing in oak", "Red grape juice"]
+    a: "Fermenting with the skins"
+    explain: "Juice of almost all black grapes is clear; color comes from contact with the skins."
+  - tf: "Small new oak barrels add more oak flavor than large old ones."
+    truth: true
+    explain: "More wood surface per liter and fresh wood mean more vanilla, toast and spice."
+  - choice: "What does 'punching down' do?"
+    options: ["Pushes the skins back into the fermenting wine", "Removes the cork", "Adds sugar to the juice", "Filters the wine"]
+    a: "Pushes the skins back into the fermenting wine"
+    explain: "The skins float up as a cap; pushing them down extracts color and tannin."
+  - match: "Match the choice to its effect"
+    pairs: [[Stainless steel, Pure fresh fruit], [New oak, Vanilla and toast], [Lees ageing, Bready texture], [Malolactic conversion, Softer acidity]]
+    explain: "Each winemaking decision leaves a mark on the final wine."
+  - blank: "After fermentation, red wine is separated from the skins by ___."
+    answers: [pressing]
+    options: [freezing, boiling, chaptalization, riddling]
+    explain: "The press squeezes out the wine trapped in the skins."
+l2-more-whites:
+  - learn: Grapes of the Atlantic
+    body: |
+      Cool, damp Atlantic coasts favor fresh, salty whites: **Albariño** in Rías Baixas (Spain), **Alvarinho** in Vinho Verde (Portugal) and **Melon de Bourgogne** in Muscadet (France).
+
+      All three are classic partners for seafood.
+  - learn: Rhône and Mediterranean whites
+    body: |
+      **Viognier**, **Marsanne** and **Roussanne** make rich, textured whites in the Rhône. Around the Mediterranean, **Vermentino** gives herbal, saline whites, and **Assyrtiko** from Santorini combines ripeness with striking acidity.
+  - choice: "Albariño and Alvarinho are…"
+    options: ["The same grape in Spain and Portugal", "Two unrelated grapes", "A grape and a region", "Sweet wine styles"]
+    a: "The same grape in Spain and Portugal"
+    explain: "It is called Albariño in Rías Baixas and Alvarinho in Vinho Verde."
+  - match: "Match the grape to its homeland"
+    pairs: [[Assyrtiko, Santorini], [Grüner Veltliner, Austria], [Melon de Bourgogne, Muscadet], [Torrontés, Argentina]]
+    explain: "Each of these whites is closely tied to one place."
+  - tf: "Grüner Veltliner often shows white pepper notes."
+    truth: true
+    explain: "White pepper, green apple and lentil-like notes are typical of Austrian Grüner."
+  - choice: "Which white grape keeps high acidity even on hot, volcanic Santorini?"
+    options: [Assyrtiko, Viognier, Chardonnay, Muscat]
+    a: Assyrtiko
+    explain: "Assyrtiko is famous for keeping its fresh acidity in a hot climate."
+  - blank: "Muscadet is made from the ___ grape."
+    answers: ["Melon de Bourgogne"]
+    options: [Chenin Blanc, Sauvignon Blanc, Chardonnay]
+    explain: "Muscadet, near the mouth of the Loire, is made from Melon de Bourgogne."
+l2-more-reds:
+  - learn: Italy's great reds
+    body: |
+      **Sangiovese** is the grape of Chianti and Brunello di Montalcino: red cherry, herbs and high acidity. **Nebbiolo** makes Barolo and Barbaresco: pale color, rose and tar aromas, and big tannin.
+
+      Both love food thanks to their acidity.
+  - learn: Iberia's great reds
+    body: |
+      **Tempranillo** leads Rioja and Ribera del Duero, often aged in oak for vanilla and leather notes. **Touriga Nacional** is Portugal's star for Port and dry Douro reds, with violet and black fruit.
+  - choice: "Which grape makes Barolo?"
+    options: [Nebbiolo, Sangiovese, Barbera, Dolcetto]
+    a: Nebbiolo
+    explain: "Barolo and Barbaresco are 100% Nebbiolo, from Piedmont."
+  - tf: "Nebbiolo wines are usually deep, inky purple."
+    truth: false
+    explain: "Nebbiolo is surprisingly pale, often garnet, despite huge tannin and acidity."
+  - match: "Match the wine to its main grape"
+    pairs: [[Chianti, Sangiovese], [Rioja, Tempranillo], [Barbaresco, Nebbiolo], [Beaujolais, Gamay]]
+    explain: "European wines are named after the place, so knowing the grape behind each is key."
+  - choice: "'Tar and roses' is a classic description of…"
+    options: [Nebbiolo, Merlot, Grenache, Zinfandel]
+    a: Nebbiolo
+    explain: "Rose petal and tar (or liquorice) are Nebbiolo's signature aromas."
+  - blank: "Brunello di Montalcino is made from ___."
+    answers: [Sangiovese]
+    options: [Nebbiolo, Merlot, Montepulciano]
+    explain: "Brunello is the local name for the Sangiovese clone grown around Montalcino."
+l2-sparkling:
+  - learn: Bubble methods
+    visual: "flow:traditional-method"
+    body: |
+      **Traditional method**: second fermentation in the bottle, ageing on lees for toasty, fine-bubbled wines (Champagne, Cava, Crémant).
+
+      **Tank method**: second fermentation in a sealed tank for fresh, fruity wines (Prosecco).
+  - learn: How sweet is Brut?
+    body: |
+      Sparkling sweetness runs from **Brut Nature** (no added sugar) through **Extra Brut** and **Brut** (the most common, dry) to **Extra Dry**, **Dry**, **Demi-Sec** and **Doux** (sweet).
+
+      Confusingly, Extra Dry is slightly sweeter than Brut.
+  - choice: "Which wine is usually made by the tank method?"
+    options: [Prosecco, Champagne, Cava, Crémant de Loire]
+    a: Prosecco
+    explain: "Prosecco's second fermentation happens in pressurized tanks, keeping fresh pear and apple fruit."
+  - tf: "Extra Dry sparkling wine is drier than Brut."
+    truth: false
+    explain: "A historical quirk: Extra Dry has a little more sugar than Brut."
+  - match: "Match the sparkling wine to its country"
+    pairs: [[Champagne, France], [Cava, Spain], [Prosecco, Italy], [Sekt, Germany]]
+    explain: "Most wine countries have a sparkling tradition."
+  - choice: "Where does Champagne's toasty, bready character come from?"
+    options: ["Ageing on the lees", "New oak barrels", "Adding toast to the tank", "Very ripe grapes"]
+    a: "Ageing on the lees"
+    explain: "Dead yeast cells break down over months or years, giving brioche and biscuit notes."
+  - blank: "Removing the yeast plug from the neck of the bottle is called ___."
+    answers: [disgorgement]
+    options: [riddling, dosage, tirage, pressing]
+    explain: "The neck is frozen, the cap removed, and pressure pushes out the yeast plug."
+l2-sweet-fortified:
+  - learn: Three roads to sweetness
+    body: |
+      1. **Noble rot** (botrytis) shrivels grapes and concentrates sugar: Sauternes, Tokaji.
+      2. **Freezing**: grapes picked frozen give Icewine/Eiswein.
+      3. **Drying**: grapes dried after picking make Recioto and Vin Santo.
+
+      Stopping fermentation early, as in Port, is a fourth route.
+  - learn: Sherry styles
+    body: |
+      **Fino** and **Manzanilla** age under a layer of yeast called **flor**: pale, dry, salty, almond. **Oloroso** ages without flor, in contact with air: dark, nutty, dry. **Pedro Ximénez** is a dark, raisin-sweet dessert sherry.
+  - choice: "What is 'flor' in sherry-making?"
+    options: ["A layer of yeast on the wine", "A type of grape", "A sweet syrup", "The barrel cellar"]
+    a: "A layer of yeast on the wine"
+    explain: "Flor protects Fino and Manzanilla from oxygen and gives a tangy, bready, almond character."
+  - match: "Match the sweet wine to how it's made"
+    pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Vin Santo, Dried grapes], [Port, Spirit added]]
+    explain: "Different routes to sugar create very different sweet wines."
+  - tf: "Oloroso sherry ages under flor."
+    truth: false
+    explain: "Oloroso is fortified to a strength where flor can't survive, so it ages oxidatively and darkens."
+  - choice: "Which wine is fortified during fermentation, keeping natural sweetness?"
+    options: [Port, Fino Sherry, Sauternes, Champagne]
+    a: Port
+    explain: "Adding grape spirit stops fermentation, leaving sugar in the wine."
+  - blank: "Noble rot is caused by a fungus called ___."
+    answers: [Botrytis]
+    options: [Flor, Phylloxera, Oidium, Brettanomyces]
+    explain: "Botrytis cinerea, in the right conditions, shrivels grapes and concentrates sugar and acid."
+l2-labels:
+  - learn: Quality pyramids
+    body: |
+      Most EU countries rank wines in a pyramid: **PDO** wines from tightly defined places with strict rules (AOC, DOC, DOCG, DO), **PGI** wines from wider areas with more freedom (IGP, IGT, Vino de la Tierra) and simple **wine** without a place.
+  - learn: Ageing terms
+    body: |
+      Spanish and Italian labels often show ageing: **Crianza**, **Reserva** and **Gran Reserva** in Spain; **Riserva** in Italy. Each means a longer minimum time in barrel and bottle before release.
+  - choice: "Which Spanish term means the longest minimum ageing?"
+    options: [Gran Reserva, Crianza, Joven, Reserva]
+    a: Gran Reserva
+    explain: "For reds, Gran Reserva means at least five years of ageing, with time in oak."
+  - match: "Match the label term to its country"
+    pairs: [[AOC, France], [DOCG, Italy], [DO, Spain], [Prädikatswein, Germany]]
+    explain: "Each country has its own words for top-quality, place-based wines."
+  - tf: "PGI wines have stricter rules than PDO wines."
+    truth: false
+    explain: "PDO is the stricter, more specific category; PGI allows wider areas and more grapes."
+  - choice: "What does 'Riserva' on an Italian label tell you?"
+    options: ["Longer ageing before release", "A sweet wine", "A sparkling wine", "Organic grapes"]
+    a: "Longer ageing before release"
+    explain: "Riserva wines meet a longer minimum ageing period set by each DOC/DOCG."
+  - blank: "In Germany, a dry Prädikatswein is labeled ___."
+    answers: [trocken]
+    options: [süss, Spätlese, Eiswein]
+    explain: "Trocken means dry; Spätlese and Auslese describe ripeness at harvest, not sweetness."
+l2-label-decoder:
+  - learn: Château, Domaine, Bodega
+    body: |
+      The producer's name often starts with a word for estate: **Château** (Bordeaux), **Domaine** (Burgundy and elsewhere in France), **Bodega** (Spain), **Weingut** (Germany, Austria), **Quinta** (Portugal) and **Tenuta** (Italy).
+  - learn: Burgundy's ladder
+    body: |
+      Burgundy labels climb a ladder: **Bourgogne** (regional), **village** (e.g. Gevrey-Chambertin), **Premier Cru** (a named vineyard plus the village) and **Grand Cru** (the vineyard name alone, e.g. Chambertin).
+  - choice: "On a Burgundy label, which level shows only the vineyard name?"
+    options: [Grand Cru, Premier Cru, Village, Regional]
+    a: Grand Cru
+    explain: "Grand Crus are so famous they stand alone: Montrachet, Chambertin, Romanée-Conti."
+  - match: "Match the estate word to its country"
+    pairs: [[Quinta, Portugal], [Bodega, Spain], [Weingut, Germany], [Tenuta, Italy]]
+    explain: "Knowing these words helps you find the producer on any label."
+  - tf: "'Mis en bouteille au château' means bottled at the estate."
+    truth: true
+    explain: "Estate bottling shows the same property grew the grapes and bottled the wine."
+  - choice: "In Germany, which word tells you about ripeness at harvest?"
+    options: [Spätlese, Weingut, Trocken, Gutsabfüllung]
+    a: Spätlese
+    explain: "Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness."
+  - blank: "In Rioja, a wine aged at least two years, one in oak, is labeled ___."
+    answers: [Crianza]
+    options: [Joven, Gran Reserva, Cosecha]
+    explain: "Crianza red Rioja spends at least two years ageing, with at least one in oak."

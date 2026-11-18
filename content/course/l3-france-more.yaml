@@ -99,3 +99,52 @@ lessons:
         answers: ["17"]
         options: ["33", "7", "42"]
         explain: "Including Aÿ, Bouzy, Cramant, Avize and Le Mesnil-sur-Oger."
+  - title: Going further
+    cards:
+      - learn: Champagne houses and growers
+        body: 'Big **houses** (négociants) buy grapes from many villages and blend for a consistent house style. **Grower Champagnes** come from a single estate''s own vines, showing their village''s character. Look for "RM" (récoltant-manipulant) on the label.
+      
+          '
+      - learn: The Loire's many faces
+        body: 'From the Atlantic inland: **Muscadet** (Melon), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc) and the **Centre** (Sancerre and Pouilly-Fumé Sauvignon Blanc).
+      
+          '
+      - choice: What does 'RM' on a Champagne label mean?
+        options:
+        - A grower making wine from their own grapes
+        - A large house blend
+        - A rosé Champagne
+        - A vintage Champagne
+        a: A grower making wine from their own grapes
+        explain: 'Récoltant-manipulant: the same family grows, makes and bottles the wine.'
+      - match: Match the Loire wine to its grape
+        pairs:
+        - - Vouvray
+          - Chenin Blanc
+        - - Chinon
+          - Cabernet Franc
+        - - Sancerre
+          - Sauvignon Blanc
+        - - Muscadet
+          - Melon de Bourgogne
+        explain: The Loire grows mostly single varieties, each in its own district.
+      - tf: Alsace wines are usually labeled with the grape variety.
+        truth: true
+        explain: 'Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris.'
+      - choice: Which southern French region is known for Grenache-based Banyuls and Côtes du Roussillon?
+        options:
+        - Roussillon
+        - Alsace
+        - Jura
+        - Savoie
+        a: Roussillon
+        explain: Next to the Pyrenees, Roussillon makes powerful reds and sweet fortified Banyuls and Maury.
+      - blank: Jura's oxidative 'yellow wine' is called vin ___.
+        answers:
+        - jaune
+        options:
+        - doux
+        - santo
+        - gris
+        - rouge
+        explain: Vin jaune ages under a yeast veil for over six years, like a French cousin of Fino sherry.

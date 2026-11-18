@@ -71,3 +71,58 @@ lessons:
         options: ["Beef stew with Syrah", "Beef stew with Prosecco", "Sushi with Barolo", "Sole with Amarone"]
         a: "Beef stew with Syrah"
         explain: "A hearty stew needs a full-bodied red with enough flavor to stand up to it."
+  - title: Going further
+    cards:
+      - learn: Sweetness and spice
+        body: '**Sweet food** makes dry wine taste thin and sour, so pick a wine at least as sweet as the dish.
+      
+      
+          **Spicy heat** is made hotter by alcohol and tannin. Off-dry, low-alcohol whites like Riesling cool things down.
+      
+          '
+      - learn: Match the weight
+        body: 'Pair light with light and rich with rich. A delicate fish needs a light white; a braised beef stew wants a full-bodied red.
+      
+      
+          Then think of **acid**: acidic wines cut through fat and salt, and love tomato and lemon.
+      
+          '
+      - choice: What happens to a dry wine served with a sweet dessert?
+        options:
+        - It tastes thin and sour
+        - It tastes sweeter
+        - It tastes more alcoholic only
+        - Nothing changes
+        a: It tastes thin and sour
+        explain: Sweet food makes dry wine seem more acidic and bitter. The wine should be sweeter than the food.
+      - choice: Which wine suits a spicy Thai curry best?
+        options:
+        - Off-dry Riesling
+        - High-alcohol Zinfandel
+        - Tannic Cabernet Sauvignon
+        - Oaked Chardonnay
+        a: Off-dry Riesling
+        explain: A touch of sweetness and low alcohol soothe chili heat; tannin and alcohol amplify it.
+      - tf: High-acid wines go well with fatty and salty foods.
+        truth: true
+        explain: Acidity cuts through richness and is balanced by salt, like Champagne with fries.
+      - match: Match the dish to a classic wine
+        pairs:
+        - - Oysters
+          - Muscadet
+        - - Steak
+          - Cabernet Sauvignon
+        - - Goat cheese
+          - Sancerre
+        - - Blue cheese
+          - Sauternes
+        explain: These classic pairings work through acid, tannin, or sweet and salty contrast.
+      - blank: Tannic red wine can taste metallic with oily ___.
+        answers:
+        - fish
+        options:
+        - beef
+        - lamb
+        - cheese
+        - bread
+        explain: Fish oils and tannin clash; pick a white, a rosé or a light low-tannin red instead.

@@ -112,3 +112,51 @@ lessons:
         answers: [Classique]
         options: [Crémant, Cava, Brut]
         explain: "Usually Chardonnay and Pinot Noir, with lees ageing like Champagne."
+  - title: Going further
+    cards:
+      - learn: Cool spots in warm countries
+        body: 'New World producers chase cool sites for elegance: **Adelaide Hills** and **Tasmania** in Australia, **Casablanca** and **San Antonio** in Chile, **Sonoma Coast** in California and **Central Otago** in New Zealand.
+      
+          '
+      - learn: Signature styles
+        body: '**Marlborough Sauvignon Blanc**: passion fruit and cut grass. **Barossa Shiraz**: rich black fruit and chocolate. **Mendoza Malbec**: plum and violet. **Napa Cabernet**: ripe cassis and polished tannin. **Stellenbosch Chenin**: ripe stone fruit and honey.
+      
+          '
+      - choice: Which region makes intense, passion-fruit Sauvignon Blanc?
+        options:
+        - Marlborough
+        - Barossa Valley
+        - Napa Valley
+        - Mendoza
+        a: Marlborough
+        explain: Bright sun, cool nights and long seasons give Marlborough its pungent style.
+      - match: Match the region to its signature grape
+        pairs:
+        - - Barossa Valley
+          - Shiraz
+        - - Mendoza
+          - Malbec
+        - - Central Otago
+          - Pinot Noir
+        - - Napa Valley
+          - Cabernet Sauvignon
+        explain: Each region built its fame on one grape.
+      - tf: Chile's Casablanca Valley is cooled by the Pacific Ocean.
+        truth: true
+        explain: Morning fog and sea breezes make Casablanca ideal for Sauvignon Blanc and Chardonnay.
+      - choice: Why are Mendoza's vineyards good for Malbec despite the desert?
+        options:
+        - High altitude and snowmelt irrigation
+        - Constant rain
+        - Volcanic islands
+        - Ocean fog
+        a: High altitude and snowmelt irrigation
+        explain: Vineyards up to 1,500 m give cool nights; Andes snowmelt provides water.
+      - blank: Pinotage is a South African cross of Pinot Noir and ___.
+        answers:
+        - Cinsault
+        options:
+        - Syrah
+        - Merlot
+        - Chenin Blanc
+        explain: Created in 1925; Cinsault was then called Hermitage in South Africa, hence the name.

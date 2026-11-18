@@ -95,3 +95,59 @@ lessons:
         options: [rain, fog, shade]
         explain: "In such a northerly region, every bit of warmth counts."
         visual: "map:germany:mosel"
+  - title: Going further
+    cards:
+      - learn: The growing season
+        visual: diagram:vine-cycle
+        body: 'In the Northern Hemisphere: **budburst** in spring (March–April), **flowering** in early summer, **véraison** (grapes soften and change color) in midsummer, and **harvest** from September to October.
+      
+      
+          Spring frost at budburst and rain at flowering are among the biggest risks to a crop.
+      
+          '
+      - learn: Sun, slope and water
+        body: 'South-facing slopes (north-facing in the Southern Hemisphere) catch more sun. Rivers and lakes reflect light and moderate temperature extremes.
+      
+      
+          Poor, well-drained soils make vines struggle a little, giving smaller crops with more concentrated flavor.
+      
+          '
+      - choice: What is 'véraison'?
+        options:
+        - When grapes soften and change color
+        - The first leaves appearing
+        - The grape harvest
+        - Pruning in winter
+        a: When grapes soften and change color
+        explain: At véraison black grapes turn from green to purple and sugar starts to build.
+      - tf: Spring frost is a major risk around budburst.
+        truth: true
+        explain: Young shoots are easily killed by frost; growers use wind machines, sprinklers or candles to protect them.
+      - match: Match the stage to its season (Northern Hemisphere)
+        pairs:
+        - - Budburst
+          - Spring
+        - - Flowering
+          - Early summer
+        - - Véraison
+          - Midsummer
+        - - Harvest
+          - Autumn
+        explain: The vine's yearly cycle drives the whole calendar of a wine region.
+      - choice: Why are poor, well-drained soils often prized for vines?
+        options:
+        - Lower yields with more concentrated grapes
+        - They make vines grow faster
+        - They prevent all diseases
+        - They add sugar to the grapes
+        a: Lower yields with more concentrated grapes
+        explain: Vines that struggle a little put their energy into fewer, more flavorful grapes.
+      - blank: In the Northern Hemisphere, the best vineyard slopes usually face ___.
+        answers:
+        - south
+        options:
+        - north
+        - east only
+        - downward
+        - the sea always
+        explain: South-facing slopes get the most sun, helping grapes ripen in cool climates.

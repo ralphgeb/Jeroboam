@@ -1,0 +1,261 @@
+l3-viticulture:
+  - learn: Training and canopy
+    body: |
+      Vines are trained to control sun and air. **Bush vines** (gobelet) suit hot, dry places such as old Grenache in Châteauneuf. **Trellised** systems like Guyot and VSP spread leaves for sun in cool climates.
+
+      Removing leaves around the bunches improves ripening and airflow, cutting disease.
+  - learn: Threats in the vineyard
+    body: |
+      **Phylloxera**, a root-eating aphid, destroyed most of Europe's vineyards in the late 1800s. The fix: graft vines onto American rootstock.
+
+      Fungal diseases like **powdery** and **downy mildew** thrive in damp weather; **grey rot** spoils grapes unless conditions turn it into noble rot.
+  - choice: "How did growers defeat phylloxera?"
+    options: ["Grafting onto American rootstocks", "Spraying sulfur", "Planting on hills only", "Harvesting earlier"]
+    a: "Grafting onto American rootstocks"
+    explain: "American vine roots resist phylloxera, so European vines are grafted onto them."
+  - tf: "Bush vines are typical of hot, dry vineyards."
+    truth: true
+    explain: "The leafy bush shades the grapes from harsh sun; they are common in the southern Rhône, Spain and Australia."
+  - match: "Match the threat to what it attacks"
+    pairs: [[Phylloxera, Roots], [Powdery mildew, Leaves and berries], [Spring frost, Young shoots], [Hail, Leaves and bunches]]
+    explain: "Growers fight each threat in a different way."
+  - choice: "Why do growers remove leaves around the bunches in cool climates?"
+    options: ["More sun and air on the grapes", "To make the vine grow taller", "To add tannin", "To stop the grapes ripening"]
+    a: "More sun and air on the grapes"
+    explain: "Exposure helps ripening and reduces rot, but too much can sunburn grapes."
+  - blank: "Phylloxera is a tiny insect that feeds on vine ___."
+    answers: [roots]
+    options: [leaves, flowers, grapes, stems]
+    explain: "It sucks sap from the roots and slowly kills un-grafted European vines."
+l3-winemaking:
+  - learn: Whole bunch and carbonic
+    visual: "flow:carbonic"
+    body: |
+      **Carbonic maceration** ferments whole, uncrushed grapes inside a CO₂-filled tank. The result is soft, very fruity, low-tannin red with notes of banana, bubblegum and kirsch: classic Beaujolais Nouveau.
+  - learn: Fining, filtering, sulfur
+    body: |
+      Before bottling, wines are often **fined** (agents bind haze-causing particles) and **filtered**. A little **sulfur dioxide** protects against oxidation and microbes.
+
+      Some producers skip these steps for "natural" wines, accepting more risk and variation.
+  - choice: "Banana and bubblegum notes in a light red suggest…"
+    options: ["Carbonic maceration", "Long oak ageing", "Botrytis", "Fortification"]
+    a: "Carbonic maceration"
+    explain: "Whole-berry fermentation creates these fruity esters, typical of Beaujolais Nouveau."
+  - tf: "Sulfur dioxide protects wine from oxidation."
+    truth: true
+    explain: "SO₂ is an antioxidant and antimicrobial used in nearly all wines in small amounts."
+  - match: "Match the technique to its result"
+    pairs: [[Carbonic maceration, Soft fruity reds], [Bâtonnage, Creamier texture], [Cold soak, Deeper color], [Fortification, Higher alcohol]]
+    explain: "Each technique targets one part of the finished wine."
+  - choice: "What is 'bâtonnage'?"
+    options: ["Stirring the lees", "Punching down the cap", "Adding sugar before fermentation", "Toasting a barrel"]
+    a: "Stirring the lees"
+    explain: "Stirring dead yeast back into the wine adds body and a creamy, bready character."
+  - blank: "Adding sugar to the must to raise alcohol is called ___."
+    answers: [chaptalization]
+    options: [acidification, fining, riddling, malolactic]
+    explain: "Chaptalization is allowed in some cool regions where grapes struggle to ripen."
+l3-bordeaux:
+  - learn: The 1855 Classification
+    body: |
+      In 1855, Médoc châteaux (plus Haut-Brion in Graves) were ranked into five growths by price. **First Growths**: Lafite, Latour, Margaux, Haut-Brion, and since 1973, Mouton Rothschild.
+
+      Sauternes was classified at the same time, with Yquem alone at the top.
+  - learn: Bordeaux's dry whites and sweet wines
+    body: |
+      Sauvignon Blanc and Sémillon make crisp whites in Entre-Deux-Mers and serious oaked whites in Pessac-Léognan. In **Sauternes** and **Barsac**, autumn mists from the Ciron river bring noble rot for rich, honeyed sweet wines.
+  - choice: "Which château became a First Growth in 1973?"
+    options: [Mouton Rothschild, Latour, Margaux, Pétrus]
+    a: Mouton Rothschild
+    explain: "The only change ever made to the 1855 red classification."
+  - tf: "Pomerol has an official classification like the Médoc."
+    truth: false
+    explain: "Pomerol has none, though Pétrus and Le Pin are among the world's most expensive wines."
+  - match: "Match the appellation to its main grape"
+    pairs: [[Pauillac, Cabernet Sauvignon], [Pomerol, Merlot], [Sauternes, Sémillon], [Entre-Deux-Mers, Sauvignon Blanc]]
+    explain: "Left Bank leans Cabernet, Right Bank leans Merlot, sweet wines lean Sémillon."
+  - choice: "What brings noble rot to Sauternes?"
+    options: ["Autumn mists from the Ciron river", "Sea breezes", "Late frosts", "Very dry summers"]
+    a: "Autumn mists from the Ciron river"
+    explain: "Misty mornings and sunny afternoons are perfect for botrytis."
+  - blank: "Château ___ is the only Graves estate in the 1855 classification."
+    answers: [Haut-Brion]
+    options: [Pape Clément, Pétrus, Cheval Blanc, Yquem]
+    explain: "Haut-Brion was so famous in 1855 that it was included alongside the Médoc."
+l3-burgundy:
+  - learn: The Côte d'Or
+    body: |
+      The **Côte de Nuits** (north) is mostly red Pinot Noir: Gevrey-Chambertin, Vosne-Romanée, Chambolle-Musigny. The **Côte de Beaune** (south) is famous for whites: Meursault, Puligny- and Chassagne-Montrachet, plus reds from Pommard and Volnay.
+  - learn: Climats
+    body: |
+      Burgundy is divided into hundreds of named plots called **climats**, recognized by UNESCO. Many are split between several owners, so the producer matters as much as the vineyard.
+  - choice: "Which village is in the Côte de Beaune?"
+    options: [Meursault, Gevrey-Chambertin, Vosne-Romanée, Nuits-Saint-Georges]
+    a: Meursault
+    explain: "Meursault is a great white-wine village of the Côte de Beaune."
+  - tf: "The Côte de Nuits is best known for red wines."
+    truth: true
+    explain: "Nearly all its Grand Crus are Pinot Noir; Musigny has a tiny white exception."
+  - match: "Match the Grand Cru to its color"
+    pairs: [[Montrachet, White], [Chambertin, Red], [Corton-Charlemagne, White wine], [Romanée-Conti, Red wine]]
+    explain: "Côte de Beaune Grand Crus are mostly white; Côte de Nuits mostly red."
+  - choice: "Why does the producer matter so much in Burgundy?"
+    options: ["Many vineyards are split between owners", "All wines are blends", "Labels don't show vineyards", "Only one grape is allowed"]
+    a: "Many vineyards are split between owners"
+    explain: "Clos de Vougeot alone has more than 80 owners, each making different wine."
+  - blank: "Burgundy's named vineyard plots are called ___."
+    answers: [climats]
+    options: [crus bourgeois, châteaux, terraces, lieux-dits only]
+    explain: "The climats of Burgundy became a UNESCO World Heritage Site in 2015."
+l3-france-more:
+  - learn: Champagne houses and growers
+    body: |
+      Big **houses** (négociants) buy grapes from many villages and blend for a consistent house style. **Grower Champagnes** come from a single estate's own vines, showing their village's character. Look for "RM" (récoltant-manipulant) on the label.
+  - learn: The Loire's many faces
+    body: |
+      From the Atlantic inland: **Muscadet** (Melon), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc) and the **Centre** (Sancerre and Pouilly-Fumé Sauvignon Blanc).
+  - choice: "What does 'RM' on a Champagne label mean?"
+    options: ["A grower making wine from their own grapes", "A large house blend", "A rosé Champagne", "A vintage Champagne"]
+    a: "A grower making wine from their own grapes"
+    explain: "Récoltant-manipulant: the same family grows, makes and bottles the wine."
+  - match: "Match the Loire wine to its grape"
+    pairs: [[Vouvray, Chenin Blanc], [Chinon, Cabernet Franc], [Sancerre, Sauvignon Blanc], [Muscadet, Melon de Bourgogne]]
+    explain: "The Loire grows mostly single varieties, each in its own district."
+  - tf: "Alsace wines are usually labeled with the grape variety."
+    truth: true
+    explain: "Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris."
+  - choice: "Which southern French region is known for Grenache-based Banyuls and Côtes du Roussillon?"
+    options: [Roussillon, Alsace, Jura, Savoie]
+    a: Roussillon
+    explain: "Next to the Pyrenees, Roussillon makes powerful reds and sweet fortified Banyuls and Maury."
+  - blank: "Jura's oxidative 'yellow wine' is called vin ___."
+    answers: [jaune]
+    options: [doux, santo, gris, rouge]
+    explain: "Vin jaune ages under a yeast veil for over six years, like a French cousin of Fino sherry."
+l3-italy:
+  - learn: Super Tuscans
+    body: |
+      In the 1970s, producers like Sassicaia and Tignanello broke DOC rules, using Cabernet Sauvignon and French oak. Sold as simple table wine, they became famous as **Super Tuscans**, and Bolgheri later got its own DOC.
+  - learn: The Veneto
+    body: |
+      **Valpolicella** blends Corvina with other local grapes. **Amarone** is made from grapes dried for months (appassimento), giving rich, high-alcohol, dry reds. **Ripasso** passes young Valpolicella over Amarone skins for extra body.
+  - choice: "What is 'appassimento'?"
+    options: ["Drying grapes before fermentation", "Ageing in clay jars", "A type of sparkling wine", "Blending white and red"]
+    a: "Drying grapes before fermentation"
+    explain: "Drying concentrates sugar and flavor; it's how Amarone and Recioto are made."
+  - match: "Match the wine to its region"
+    pairs: [[Amarone, Veneto], [Barolo, Piedmont], [Brunello di Montalcino, Tuscany], [Etna Rosso, Sicily]]
+    explain: "Italy's twenty regions each have their own grapes and wines."
+  - tf: "Super Tuscans often include Cabernet Sauvignon or Merlot."
+    truth: true
+    explain: "International grapes are what made them break the old rules."
+  - choice: "Which grape is the backbone of Valpolicella and Amarone?"
+    options: [Corvina, Nebbiolo, Aglianico, Primitivo]
+    a: Corvina
+    explain: "Corvina gives sour cherry and almond notes and dries well for Amarone."
+  - blank: "Sassicaia comes from the coastal Tuscan zone of ___."
+    answers: [Bolgheri]
+    options: [Chianti, Montalcino, Montepulciano, Maremma Sud]
+    explain: "Bolgheri, near the coast, became famous for Bordeaux-style blends."
+l3-iberia:
+  - learn: Rioja's subregions
+    body: |
+      Rioja has three parts: **Rioja Alta** (cooler, elegant), **Rioja Alavesa** (limestone, finesse) and **Rioja Oriental** (warmer, Garnacha-rich). Traditional producers age in American oak; modern ones favor French oak and riper fruit.
+  - learn: Port styles
+    body: |
+      **Ruby** and **Vintage** Port age mostly in bottle and stay deep red with black fruit. **Tawny** ages in small casks, turning amber with nutty, caramel notes; 10, 20, 30 and 40 Year Old labels give an average age.
+  - choice: "Which Port style ages in small casks and turns amber?"
+    options: [Tawny, Ruby, Vintage, White Port]
+    a: Tawny
+    explain: "Oxygen through the wood gives Tawny its color and nutty, caramel character."
+  - match: "Match the Spanish region to its signature grape"
+    pairs: [[Ribera del Duero, Tempranillo], [Rías Baixas, Albariño], [Priorat, Garnacha], [Jerez, Palomino]]
+    explain: "Spain's regions each lean on a local hero grape."
+  - tf: "American oak gives stronger coconut and vanilla notes than French oak."
+    truth: true
+    explain: "That's why traditional Rioja often smells of vanilla and coconut."
+  - choice: "What does '20 Year Old' on a Tawny Port mean?"
+    options: ["A blend with an average age of about 20 years", "Every drop is exactly 20 years old", "The vines are 20 years old", "It must be drunk within 20 years"]
+    a: "A blend with an average age of about 20 years"
+    explain: "Indicated-age Tawnies are blends that taste like the stated age."
+  - blank: "Priorat's dark slate and quartz soil is called ___."
+    answers: [llicorella]
+    options: [albariza, galestro, schist only, terra rossa]
+    explain: "Llicorella forces vine roots deep and gives Priorat its mineral intensity."
+l3-central-europe:
+  - learn: German Riesling styles
+    body: |
+      German Riesling ranges from bone-dry **Grosses Gewächs** to sweet **Beerenauslese** and **Trockenbeerenauslese**. The **Mosel** gives light, delicate, often off-dry wines on steep slate; the **Pfalz** and **Rheingau** give fuller, drier styles.
+  - learn: Tokaji Aszú
+    body: |
+      In Hungary's **Tokaj**, botrytized aszú berries are soaked in base wine or must. The result is one of the world's great sweet wines, with apricot, orange peel and honey, kept fresh by Furmint's acidity.
+  - choice: "Which German region is famous for steep slate slopes along a winding river?"
+    options: [Mosel, Pfalz, Baden, Franken]
+    a: Mosel
+    explain: "The Mosel's slate slopes are among the steepest vineyards in the world."
+  - match: "Match the wine to its main grape"
+    pairs: [[Tokaji Aszú, Furmint], [Wachau Smaragd, Grüner Veltliner], [Blaufränkisch Mittelburgenland, Blaufränkisch], [Mosel Kabinett, Riesling]]
+    explain: "Central Europe's classics rely on local stars."
+  - tf: "Trockenbeerenauslese is a dry wine."
+    truth: false
+    explain: "Despite 'trocken' in the name, TBA is made from shriveled botrytized berries and is intensely sweet."
+  - choice: "In the Wachau, what is 'Smaragd'?"
+    options: ["The ripest, fullest dry category", "A sweet wine", "A sparkling wine", "A type of soil"]
+    a: "The ripest, fullest dry category"
+    explain: "Steinfeder, Federspiel and Smaragd rank Wachau's dry whites by ripeness."
+  - blank: "Hungary's most famous sweet wine comes from ___."
+    answers: [Tokaj]
+    options: [Eger, Villány, Szekszárd, Somló]
+    explain: "Tokaj was the world's first classified wine region, in 1730."
+l3-new-world:
+  - learn: Cool spots in warm countries
+    body: |
+      New World producers chase cool sites for elegance: **Adelaide Hills** and **Tasmania** in Australia, **Casablanca** and **San Antonio** in Chile, **Sonoma Coast** in California and **Central Otago** in New Zealand.
+  - learn: Signature styles
+    body: |
+      **Marlborough Sauvignon Blanc**: passion fruit and cut grass. **Barossa Shiraz**: rich black fruit and chocolate. **Mendoza Malbec**: plum and violet. **Napa Cabernet**: ripe cassis and polished tannin. **Stellenbosch Chenin**: ripe stone fruit and honey.
+  - choice: "Which region makes intense, passion-fruit Sauvignon Blanc?"
+    options: [Marlborough, Barossa Valley, Napa Valley, Mendoza]
+    a: Marlborough
+    explain: "Bright sun, cool nights and long seasons give Marlborough its pungent style."
+  - match: "Match the region to its signature grape"
+    pairs: [[Barossa Valley, Shiraz], [Mendoza, Malbec], [Central Otago, Pinot Noir], [Napa Valley, Cabernet Sauvignon]]
+    explain: "Each region built its fame on one grape."
+  - tf: "Chile's Casablanca Valley is cooled by the Pacific Ocean."
+    truth: true
+    explain: "Morning fog and sea breezes make Casablanca ideal for Sauvignon Blanc and Chardonnay."
+  - choice: "Why are Mendoza's vineyards good for Malbec despite the desert?"
+    options: ["High altitude and snowmelt irrigation", "Constant rain", "Volcanic islands", "Ocean fog"]
+    a: "High altitude and snowmelt irrigation"
+    explain: "Vineyards up to 1,500 m give cool nights; Andes snowmelt provides water."
+  - blank: "Pinotage is a South African cross of Pinot Noir and ___."
+    answers: [Cinsault]
+    options: [Syrah, Merlot, Chenin Blanc]
+    explain: "Created in 1925; Cinsault was then called Hermitage in South Africa, hence the name."
+l3-tasting:
+  - learn: Assessing readiness
+    body: |
+      Ask: is the wine **too young** (tight, primary fruit, firm tannin), **ready** (fruit and developing notes in balance), or **past its best** (fading fruit, drying tannin)?
+
+      Long-lived wines need the structure to age: acidity, tannin or sugar, plus concentrated fruit.
+  - learn: Deductive tasting
+    body: |
+      Blind tasters reason from clues. High acid and light color suggest a cool climate. Deep color, ripe black fruit and high alcohol suggest warmth. Vanilla and toast suggest new oak; leather and earth suggest age.
+  - choice: "Which wine is most likely from a cool climate?"
+    options: ["Pale, high acidity, citrus fruit", "Deep, high alcohol, jammy fruit", "Low acidity, tropical fruit", "Dark, raisined, very ripe"]
+    a: "Pale, high acidity, citrus fruit"
+    explain: "Cool climates keep acidity and give leaner, fresher fruit."
+  - match: "Match the clue to what it suggests"
+    pairs: [[Vanilla and toast, New oak], [Leather and earth, Bottle age], [Jammy fruit, Warm climate], [Green bell pepper, Unripe Cabernet]]
+    explain: "Each clue narrows down the grape, place and winemaking."
+  - tf: "Wines with high acidity or tannin often age well."
+    truth: true
+    explain: "Structure protects a wine while its fruit slowly evolves."
+  - choice: "A red tastes of dried fruit, leather and has drying tannin. It is probably…"
+    options: ["Past its best", "Too young", "Unoaked", "Carbonic"]
+    a: "Past its best"
+    explain: "Fading fruit and drying tannin are signs a wine has passed its peak."
+  - blank: "Concentration of flavor, balance, length and complexity together judge a wine's ___."
+    answers: [quality]
+    options: [vintage, price, color, sweetness]
+    explain: "These BLIC factors let you judge quality objectively."

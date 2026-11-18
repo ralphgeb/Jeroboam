@@ -81,3 +81,59 @@ lessons:
       - tf: "Prosecco is a sparkling wine from Italy."
         truth: true
         explain: "From the Veneto and Friuli in north-east Italy, made from the Glera grape."
+  - title: Going further
+    cards:
+      - learn: Old World and New World
+        body: '**Old World** means Europe''s traditional wine countries: France, Italy, Spain, Germany, Portugal. Wines are usually named after the **place**.
+      
+      
+          **New World** means countries like the USA, Australia, Chile and New Zealand. Wines are often named after the **grape**, and styles tend to be riper and fruitier.
+      
+          '
+      - learn: Latitude and climate
+        visual: diagram:wine-belt
+        body: 'Most vineyards lie between **30° and 50° latitude**. Closer to the poles, grapes struggle to ripen; closer to the equator, it is too hot for quality wine.
+      
+      
+          Altitude and cold ocean currents can cool a warm place: think of the high Andes or California''s foggy coast.
+      
+          '
+      - choice: Old World wines are usually labeled by…
+        options:
+        - Place
+        - Grape
+        - Winemaker's name
+        - Alcohol level
+        a: Place
+        explain: A Sancerre or a Chianti is named after where it comes from, not the grape.
+      - tf: Most quality vineyards lie between 30° and 50° latitude.
+        truth: true
+        explain: This 'wine belt' gives enough warmth to ripen grapes and enough cool to keep freshness.
+      - match: Match the country to a famous grape
+        pairs:
+        - - Argentina
+          - Malbec
+        - - New Zealand
+          - Sauvignon Blanc
+        - - South Africa
+          - Pinotage
+        - - Chile
+          - Carmenère
+        explain: Each New World country has a signature grape.
+      - choice: How can a region in a hot country still make fresh wines?
+        options:
+        - High altitude or cool ocean influence
+        - Using bigger barrels
+        - Picking at night only
+        - Adding more yeast
+        a: High altitude or cool ocean influence
+        explain: Mountains and cold currents lower temperatures, keeping acidity in the grapes.
+      - blank: Wine regions in Europe are often called the ___ World.
+        answers:
+        - Old
+        options:
+        - New
+        - Third
+        - Northern
+        - Classic
+        explain: Old World vs New World is shorthand for tradition-led versus fruit-led winemaking.

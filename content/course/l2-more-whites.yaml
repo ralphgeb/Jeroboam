@@ -83,3 +83,54 @@ lessons:
         a: Danube
         visual: "map:austria:wachau"
         explain: "Steep stone terraces line the Danube west of Krems."
+  - title: Going further
+    cards:
+      - learn: Grapes of the Atlantic
+        body: 'Cool, damp Atlantic coasts favor fresh, salty whites: **Albariño** in Rías Baixas (Spain), **Alvarinho** in Vinho Verde (Portugal) and **Melon de Bourgogne** in Muscadet (France).
+      
+      
+          All three are classic partners for seafood.
+      
+          '
+      - learn: Rhône and Mediterranean whites
+        body: '**Viognier**, **Marsanne** and **Roussanne** make rich, textured whites in the Rhône. Around the Mediterranean, **Vermentino** gives herbal, saline whites, and **Assyrtiko** from Santorini combines ripeness with striking acidity.
+      
+          '
+      - choice: Albariño and Alvarinho are…
+        options:
+        - The same grape in Spain and Portugal
+        - Two unrelated grapes
+        - A grape and a region
+        - Sweet wine styles
+        a: The same grape in Spain and Portugal
+        explain: It is called Albariño in Rías Baixas and Alvarinho in Vinho Verde.
+      - match: Match the grape to its homeland
+        pairs:
+        - - Assyrtiko
+          - Santorini
+        - - Grüner Veltliner
+          - Austria
+        - - Melon de Bourgogne
+          - Muscadet
+        - - Torrontés
+          - Argentina
+        explain: Each of these whites is closely tied to one place.
+      - tf: Grüner Veltliner often shows white pepper notes.
+        truth: true
+        explain: White pepper, green apple and lentil-like notes are typical of Austrian Grüner.
+      - choice: Which white grape keeps high acidity even on hot, volcanic Santorini?
+        options:
+        - Assyrtiko
+        - Viognier
+        - Chardonnay
+        - Muscat
+        a: Assyrtiko
+        explain: Assyrtiko is famous for keeping its fresh acidity in a hot climate.
+      - blank: Muscadet is made from the ___ grape.
+        answers:
+        - Melon de Bourgogne
+        options:
+        - Chenin Blanc
+        - Sauvignon Blanc
+        - Chardonnay
+        explain: Muscadet, near the mouth of the Loire, is made from Melon de Bourgogne.

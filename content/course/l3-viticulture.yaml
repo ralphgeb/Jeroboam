@@ -113,3 +113,58 @@ lessons:
         answers: [yields]
         options: [prices, tannins, temperatures]
         explain: "'Old vines' (vieilles vignes) is a common label term, though it has no legal definition in most places."
+  - title: Going further
+    cards:
+      - learn: Training and canopy
+        body: 'Vines are trained to control sun and air. **Bush vines** (gobelet) suit hot, dry places such as old Grenache in Châteauneuf. **Trellised** systems like Guyot and VSP spread leaves for sun in cool climates.
+      
+      
+          Removing leaves around the bunches improves ripening and airflow, cutting disease.
+      
+          '
+      - learn: Threats in the vineyard
+        body: '**Phylloxera**, a root-eating aphid, destroyed most of Europe''s vineyards in the late 1800s. The fix: graft vines onto American rootstock.
+      
+      
+          Fungal diseases like **powdery** and **downy mildew** thrive in damp weather; **grey rot** spoils grapes unless conditions turn it into noble rot.
+      
+          '
+      - choice: How did growers defeat phylloxera?
+        options:
+        - Grafting onto American rootstocks
+        - Spraying sulfur
+        - Planting on hills only
+        - Harvesting earlier
+        a: Grafting onto American rootstocks
+        explain: American vine roots resist phylloxera, so European vines are grafted onto them.
+      - tf: Bush vines are typical of hot, dry vineyards.
+        truth: true
+        explain: The leafy bush shades the grapes from harsh sun; they are common in the southern Rhône, Spain and Australia.
+      - match: Match the threat to what it attacks
+        pairs:
+        - - Phylloxera
+          - Roots
+        - - Powdery mildew
+          - Leaves and berries
+        - - Spring frost
+          - Young shoots
+        - - Hail
+          - Leaves and bunches
+        explain: Growers fight each threat in a different way.
+      - choice: Why do growers remove leaves around the bunches in cool climates?
+        options:
+        - More sun and air on the grapes
+        - To make the vine grow taller
+        - To add tannin
+        - To stop the grapes ripening
+        a: More sun and air on the grapes
+        explain: Exposure helps ripening and reduces rot, but too much can sunburn grapes.
+      - blank: Phylloxera is a tiny insect that feeds on vine ___.
+        answers:
+        - roots
+        options:
+        - leaves
+        - flowers
+        - grapes
+        - stems
+        explain: It sucks sap from the roots and slowly kills un-grafted European vines.

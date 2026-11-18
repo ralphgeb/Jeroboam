@@ -74,3 +74,56 @@ lessons:
       - match: "Match the vessel to its effect"
         pairs: [[Stainless steel, Fresh fruit], [New oak, Vanilla and toast], [Old oak, Gentle oxygen]]
         explain: "The vessel is one of the winemaker's biggest stylistic choices."
+  - title: Going further
+    cards:
+      - learn: Whole bunch and carbonic
+        visual: flow:carbonic
+        body: '**Carbonic maceration** ferments whole, uncrushed grapes inside a CO₂-filled tank. The result is soft, very fruity, low-tannin red with notes of banana, bubblegum and kirsch: classic Beaujolais Nouveau.
+      
+          '
+      - learn: Fining, filtering, sulfur
+        body: 'Before bottling, wines are often **fined** (agents bind haze-causing particles) and **filtered**. A little **sulfur dioxide** protects against oxidation and microbes.
+      
+      
+          Some producers skip these steps for "natural" wines, accepting more risk and variation.
+      
+          '
+      - choice: Banana and bubblegum notes in a light red suggest…
+        options:
+        - Carbonic maceration
+        - Long oak ageing
+        - Botrytis
+        - Fortification
+        a: Carbonic maceration
+        explain: Whole-berry fermentation creates these fruity esters, typical of Beaujolais Nouveau.
+      - tf: Sulfur dioxide protects wine from oxidation.
+        truth: true
+        explain: SO₂ is an antioxidant and antimicrobial used in nearly all wines in small amounts.
+      - match: Match the technique to its result
+        pairs:
+        - - Carbonic maceration
+          - Soft fruity reds
+        - - Bâtonnage
+          - Creamier texture
+        - - Cold soak
+          - Deeper color
+        - - Fortification
+          - Higher alcohol
+        explain: Each technique targets one part of the finished wine.
+      - choice: What is 'bâtonnage'?
+        options:
+        - Stirring the lees
+        - Punching down the cap
+        - Adding sugar before fermentation
+        - Toasting a barrel
+        a: Stirring the lees
+        explain: Stirring dead yeast back into the wine adds body and a creamy, bready character.
+      - blank: Adding sugar to the must to raise alcohol is called ___.
+        answers:
+        - chaptalization
+        options:
+        - acidification
+        - fining
+        - riddling
+        - malolactic
+        explain: Chaptalization is allowed in some cool regions where grapes struggle to ripen.

@@ -1,0 +1,205 @@
+l1-what-is-wine:
+  - learn: Where the flavor comes from
+    body: |
+      Three things shape every wine: the **grape** (its aromas and structure), the **place** (climate and soil, together called terroir) and the **winemaker** (choices like oak, temperature and timing).
+
+      The same grape can taste very different in Burgundy and California because two of those three things changed.
+  - learn: Dry, off-dry, sweet
+    visual: "diagram:sweetness"
+    body: |
+      If yeast eats all the sugar, the wine is **dry**. Stop fermentation early, or start with very ripe or dried grapes, and some sugar remains: **off-dry**, **medium** or **sweet**.
+
+      Sweetness is about sugar, not fruitiness. A ripe, fruity wine can still be bone dry.
+  - choice: "Which three things shape the taste of a wine?"
+    options: ["Grape, place and winemaker", "Bottle, cork and label", "Price, age and color", "Glass, temperature and food"]
+    a: "Grape, place and winemaker"
+    explain: "Variety, terroir and winemaking decisions explain most of the differences between wines."
+  - tf: "A fruity-smelling wine must contain sugar."
+    truth: false
+    explain: "Fruitiness is aroma. Many very fruity wines, like New Zealand Sauvignon Blanc, are completely dry."
+  - blank: "The combined effect of climate, soil and slope on a wine is called ___."
+    answers: [terroir]
+    options: [vintage, tannin, malolactic, blend]
+    explain: "Terroir is the French word for everything about a place that shows in the glass."
+  - choice: "What makes a wine sweet?"
+    options: ["Sugar left after fermentation", "Lots of alcohol", "Ageing in oak", "A warm serving temperature"]
+    a: "Sugar left after fermentation"
+    explain: "Residual sugar is what yeast didn't convert. Alcohol and oak can feel rich, but they are not sweetness."
+  - match: "Match the wine to how it's made"
+    pairs: [[Rosé, Short skin contact], [Sparkling, Second fermentation], [Fortified, Spirit added], [Orange wine, White grapes on skins]]
+    explain: "Small changes in the process create completely different styles from the same grapes."
+l1-tasting:
+  - learn: Describing the finish
+    body: |
+      After you swallow (or spit), notice how long the flavor lingers. That is the **finish**.
+
+      A short finish fades in a few seconds; a long one stays for ten or more. Long, pleasant finishes are one of the clearest signs of quality.
+  - learn: Balance and quality
+    body: |
+      Judge quality with **BLIC**: **Balance** (fruit, acid, tannin, alcohol in harmony), **Length** (the finish), **Intensity** (flavor concentration) and **Complexity** (many different aromas).
+
+      A wine that scores well on all four is very good or outstanding.
+  - choice: "What does the 'finish' of a wine describe?"
+    options: ["How long the flavor lasts after swallowing", "The last wine of a tasting", "The color at the rim", "The final step of winemaking"]
+    a: "How long the flavor lasts after swallowing"
+    explain: "Finish, or length, is measured in seconds of pleasant flavor after the wine has gone."
+  - match: "Match the letter of BLIC to its meaning"
+    pairs: [[B, Balance], [L, Length], [I, Intensity], [C, Complexity]]
+    explain: "BLIC is a simple checklist for judging quality."
+  - tf: "A very long, pleasant finish is a sign of quality."
+    truth: true
+    explain: "Length is one of the most reliable quality markers."
+  - choice: "Which sensation tells you a wine has high acidity?"
+    options: ["Your mouth waters", "Your gums feel dry", "Warmth in the throat", "A sweet taste on the tip of the tongue"]
+    a: "Your mouth waters"
+    explain: "Acidity makes you salivate. Drying gums mean tannin; warmth means alcohol."
+  - blank: "Warmth at the back of the throat is a sign of high ___."
+    answers: [alcohol]
+    options: [acidity, tannin, sugar, oak]
+    explain: "Alcohol feels warm. Wines above about 14% can feel hot if fruit and acidity don't balance them."
+l1-white-grapes:
+  - learn: Aromatic whites
+    body: |
+      Some white grapes are naturally perfumed: **Muscat** smells of grapes and orange blossom, **Gewürztraminer** of lychee and rose, **Viognier** of apricot and honeysuckle, and **Riesling** of lime and white flowers.
+
+      They are usually made without new oak, so the grape's own aromas stay center stage.
+  - learn: Neutral but versatile
+    body: |
+      **Chardonnay** is a blank canvas. Grown cool and made without oak, as in Chablis, it is crisp, with green apple and lemon. Grown warm and aged in new oak, it becomes rich, with peach, vanilla, butter and toast.
+
+      That flexibility is why it is planted almost everywhere.
+  - choice: "Which grape smells strongly of lychee and rose?"
+    options: [Gewürztraminer, Chardonnay, Sauvignon Blanc, Pinot Grigio]
+    a: Gewürztraminer
+    explain: "Lychee, rose and ginger are the classic Gewürztraminer signature, especially from Alsace."
+  - tf: "Chablis is made from Chardonnay."
+    truth: true
+    explain: "Chablis, in northern Burgundy, is crisp, mineral, usually unoaked Chardonnay."
+  - match: "Match the grape to its classic aroma"
+    pairs: [[Sauvignon Blanc, Gooseberry], [Riesling, Lime], [Viognier, Apricot], [Muscat, Orange blossom]]
+    explain: "Knowing one signature aroma per grape is a great way to start identifying them."
+  - choice: "Buttery notes in Chardonnay usually come from…"
+    options: ["Malolactic conversion", "Cold fermentation", "Botrytis", "Carbonic maceration"]
+    a: "Malolactic conversion"
+    explain: "Malolactic conversion softens acidity and creates diacetyl, the compound that smells of butter."
+  - blank: "Petrol notes in an older white wine are a famous sign of ___."
+    answers: [Riesling]
+    options: [Chardonnay, Pinot Grigio, Viognier, Muscat]
+    explain: "Aged Riesling often develops a petrol or kerosene note, prized by many fans."
+l1-black-grapes:
+  - learn: Thin skins, thick skins
+    body: |
+      Skin thickness explains a lot. Thin-skinned grapes like **Pinot Noir** and **Gamay** make pale, light, low-tannin reds. Thick-skinned grapes like **Cabernet Sauvignon**, **Syrah** and **Malbec** give deep color and firm tannin.
+
+      Color and tannin both come from the skins.
+  - learn: Blends
+    body: |
+      Many great reds are **blends**. Bordeaux mixes Cabernet Sauvignon and Merlot (often with Cabernet Franc); the southern Rhône blends Grenache, Syrah and Mourvèdre (GSM).
+
+      Blending lets winemakers balance one grape's weak points with another's strengths.
+  - choice: "Which grape usually gives the palest red wine?"
+    options: [Pinot Noir, Cabernet Sauvignon, Syrah, Malbec]
+    a: Pinot Noir
+    explain: "Pinot Noir has thin skins, so it gives less color and tannin than thick-skinned grapes."
+  - match: "Match the grape to a classic home"
+    pairs: [[Malbec, Mendoza], [Syrah, Northern Rhône], [Nebbiolo, Barolo], [Tempranillo, Rioja]]
+    explain: "Each of these places made its grape famous."
+  - tf: "GSM stands for Grenache, Syrah and Mourvèdre."
+    truth: true
+    explain: "The classic southern Rhône blend, also popular in Australia."
+  - choice: "Which grape is known for black pepper aromas?"
+    options: [Syrah, Merlot, Gamay, Pinot Noir]
+    a: Syrah
+    explain: "Cool-climate Syrah often shows black pepper, from a compound called rotundone."
+  - blank: "Color and tannin in red wine come from the grape ___."
+    answers: [skins]
+    options: [pulp, juice, seeds only, stems only]
+    explain: "Red wine gets its color by fermenting juice with the skins."
+l1-world:
+  - learn: Old World and New World
+    body: |
+      **Old World** means Europe's traditional wine countries: France, Italy, Spain, Germany, Portugal. Wines are usually named after the **place**.
+
+      **New World** means countries like the USA, Australia, Chile and New Zealand. Wines are often named after the **grape**, and styles tend to be riper and fruitier.
+  - learn: Latitude and climate
+    visual: "diagram:wine-belt"
+    body: |
+      Most vineyards lie between **30° and 50° latitude**. Closer to the poles, grapes struggle to ripen; closer to the equator, it is too hot for quality wine.
+
+      Altitude and cold ocean currents can cool a warm place: think of the high Andes or California's foggy coast.
+  - choice: "Old World wines are usually labeled by…"
+    options: ["Place", "Grape", "Winemaker's name", "Alcohol level"]
+    a: "Place"
+    explain: "A Sancerre or a Chianti is named after where it comes from, not the grape."
+  - tf: "Most quality vineyards lie between 30° and 50° latitude."
+    truth: true
+    explain: "This 'wine belt' gives enough warmth to ripen grapes and enough cool to keep freshness."
+  - match: "Match the country to a famous grape"
+    pairs: [[Argentina, Malbec], [New Zealand, Sauvignon Blanc], [South Africa, Pinotage], [Chile, Carmenère]]
+    explain: "Each New World country has a signature grape."
+  - choice: "How can a region in a hot country still make fresh wines?"
+    options: ["High altitude or cool ocean influence", "Using bigger barrels", "Picking at night only", "Adding more yeast"]
+    a: "High altitude or cool ocean influence"
+    explain: "Mountains and cold currents lower temperatures, keeping acidity in the grapes."
+  - blank: "Wine regions in Europe are often called the ___ World."
+    answers: [Old]
+    options: [New, Third, Northern, Classic]
+    explain: "Old World vs New World is shorthand for tradition-led versus fruit-led winemaking."
+l1-food:
+  - learn: Sweetness and spice
+    body: |
+      **Sweet food** makes dry wine taste thin and sour, so pick a wine at least as sweet as the dish.
+
+      **Spicy heat** is made hotter by alcohol and tannin. Off-dry, low-alcohol whites like Riesling cool things down.
+  - learn: Match the weight
+    body: |
+      Pair light with light and rich with rich. A delicate fish needs a light white; a braised beef stew wants a full-bodied red.
+
+      Then think of **acid**: acidic wines cut through fat and salt, and love tomato and lemon.
+  - choice: "What happens to a dry wine served with a sweet dessert?"
+    options: ["It tastes thin and sour", "It tastes sweeter", "It tastes more alcoholic only", "Nothing changes"]
+    a: "It tastes thin and sour"
+    explain: "Sweet food makes dry wine seem more acidic and bitter. The wine should be sweeter than the food."
+  - choice: "Which wine suits a spicy Thai curry best?"
+    options: ["Off-dry Riesling", "High-alcohol Zinfandel", "Tannic Cabernet Sauvignon", "Oaked Chardonnay"]
+    a: "Off-dry Riesling"
+    explain: "A touch of sweetness and low alcohol soothe chili heat; tannin and alcohol amplify it."
+  - tf: "High-acid wines go well with fatty and salty foods."
+    truth: true
+    explain: "Acidity cuts through richness and is balanced by salt, like Champagne with fries."
+  - match: "Match the dish to a classic wine"
+    pairs: [[Oysters, Muscadet], [Steak, Cabernet Sauvignon], [Goat cheese, Sancerre], [Blue cheese, Sauternes]]
+    explain: "These classic pairings work through acid, tannin, or sweet and salty contrast."
+  - blank: "Tannic red wine can taste metallic with oily ___."
+    answers: [fish]
+    options: [beef, lamb, cheese, bread]
+    explain: "Fish oils and tannin clash; pick a white, a rosé or a light low-tannin red instead."
+l1-serving:
+  - learn: Opening and keeping
+    body: |
+      Once open, wine meets oxygen. Most still wines keep **2–5 days** with the cork back in, in the fridge. Sparkling wine keeps 1–3 days with a stopper.
+
+      Fortified wines like Tawny Port can keep for weeks.
+  - learn: Decanting
+    body: |
+      **Decanting** means pouring wine into another vessel. It separates an old wine from its **sediment**, and lets young, tannic wines breathe so they taste softer.
+
+      Pour slowly and stop when you see sediment reach the neck.
+  - choice: "Why would you decant an old red wine?"
+    options: ["To separate it from sediment", "To make it colder", "To add bubbles", "To make it sweeter"]
+    a: "To separate it from sediment"
+    explain: "Old reds throw a deposit of tannin and pigment; decanting leaves it behind."
+  - tf: "Sparkling wine should be served colder than full-bodied red wine."
+    truth: true
+    explain: "Sparkling wine is best well chilled (6–10 °C); full reds around 15–18 °C."
+  - choice: "How long does an opened bottle of still wine usually keep in the fridge?"
+    options: ["2–5 days", "2–5 weeks", "2–5 hours", "Several months"]
+    a: "2–5 days"
+    explain: "Oxygen slowly flattens the fruit. Fortified wines last much longer."
+  - match: "Match the wine to its serving temperature"
+    pairs: [[Sparkling, 6–8 °C], [Light white, 8–10 °C], [Light red, 12–13 °C], [Full red, 15–18 °C]]
+    explain: "Too cold mutes aromas; too warm makes alcohol stand out."
+  - blank: "A wine that smells of wet cardboard is probably ___."
+    answers: [corked]
+    options: [oxidized, young, sweet, decanted]
+    explain: "Cork taint (TCA) gives a musty, damp-cardboard smell and flattens the fruit."

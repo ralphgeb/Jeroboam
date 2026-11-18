@@ -109,3 +109,58 @@ lessons:
         options: ["Fuller and richer", "Lighter and leaner", "Red", "Sparkling"]
         a: "Fuller and richer"
         explain: "Alsace is one of France's sunniest, driest regions, and lower yields give riper, more textured wines."
+  - title: Going further
+    cards:
+      - learn: Aromatic whites
+        body: 'Some white grapes are naturally perfumed: **Muscat** smells of grapes and orange blossom, **Gewürztraminer** of lychee and rose, **Viognier** of apricot and honeysuckle, and **Riesling** of lime and white flowers.
+      
+      
+          They are usually made without new oak, so the grape''s own aromas stay center stage.
+      
+          '
+      - learn: Neutral but versatile
+        body: '**Chardonnay** is a blank canvas. Grown cool and made without oak, as in Chablis, it is crisp, with green apple and lemon. Grown warm and aged in new oak, it becomes rich, with peach, vanilla, butter and toast.
+      
+      
+          That flexibility is why it is planted almost everywhere.
+      
+          '
+      - choice: Which grape smells strongly of lychee and rose?
+        options:
+        - Gewürztraminer
+        - Chardonnay
+        - Sauvignon Blanc
+        - Pinot Grigio
+        a: Gewürztraminer
+        explain: Lychee, rose and ginger are the classic Gewürztraminer signature, especially from Alsace.
+      - tf: Chablis is made from Chardonnay.
+        truth: true
+        explain: Chablis, in northern Burgundy, is crisp, mineral, usually unoaked Chardonnay.
+      - match: Match the grape to its classic aroma
+        pairs:
+        - - Sauvignon Blanc
+          - Gooseberry
+        - - Riesling
+          - Lime
+        - - Viognier
+          - Apricot
+        - - Muscat
+          - Orange blossom
+        explain: Knowing one signature aroma per grape is a great way to start identifying them.
+      - choice: Buttery notes in Chardonnay usually come from…
+        options:
+        - Malolactic conversion
+        - Cold fermentation
+        - Botrytis
+        - Carbonic maceration
+        a: Malolactic conversion
+        explain: Malolactic conversion softens acidity and creates diacetyl, the compound that smells of butter.
+      - blank: Petrol notes in an older white wine are a famous sign of ___.
+        answers:
+        - Riesling
+        options:
+        - Chardonnay
+        - Pinot Grigio
+        - Viognier
+        - Muscat
+        explain: Aged Riesling often develops a petrol or kerosene note, prized by many fans.

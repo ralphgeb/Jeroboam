@@ -261,7 +261,7 @@ HIERARCHY = {
         "at-niederosterreich": ("Niederösterreich", G("ADM1", ["Niederösterreich"])),
         "at-wien": ("Wien", G("ADM1", ["Wien"])),
         "at-burgenland": ("Burgenland", G("ADM1", ["Burgenland"])),
-        "at-steiermark": ("Steiermark", G("ADM1", ["Steiermark"])),
+        "steiermark": ("Steiermark", G("ADM1", ["Steiermark"])),
     }, "drop": ["steiermark"], "extra": {
         "traisental": B("Traisental", 48.30, 15.68, 9), "eisenberg": B("Eisenberg", 47.08, 16.45, 10),
         "sudsteiermark": B("Südsteiermark", 46.72, 15.50, 16), "vulkanland": B("Vulkanland Steiermark", 46.88, 15.90, 20),

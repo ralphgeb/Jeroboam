@@ -84,3 +84,59 @@ lessons:
         options: [Brut, Extra Dry, They are the same, Neither; both are sweet]
         a: Brut
         explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L)."
+  - title: Going further
+    cards:
+      - learn: Bubble methods
+        visual: flow:traditional-method
+        body: '**Traditional method**: second fermentation in the bottle, ageing on lees for toasty, fine-bubbled wines (Champagne, Cava, Crémant).
+      
+      
+          **Tank method**: second fermentation in a sealed tank for fresh, fruity wines (Prosecco).
+      
+          '
+      - learn: How sweet is Brut?
+        body: 'Sparkling sweetness runs from **Brut Nature** (no added sugar) through **Extra Brut** and **Brut** (the most common, dry) to **Extra Dry**, **Dry**, **Demi-Sec** and **Doux** (sweet).
+      
+      
+          Confusingly, Extra Dry is slightly sweeter than Brut.
+      
+          '
+      - choice: Which wine is usually made by the tank method?
+        options:
+        - Prosecco
+        - Champagne
+        - Cava
+        - Crémant de Loire
+        a: Prosecco
+        explain: Prosecco's second fermentation happens in pressurized tanks, keeping fresh pear and apple fruit.
+      - tf: Extra Dry sparkling wine is drier than Brut.
+        truth: false
+        explain: 'A historical quirk: Extra Dry has a little more sugar than Brut.'
+      - match: Match the sparkling wine to its country
+        pairs:
+        - - Champagne
+          - France
+        - - Cava
+          - Spain
+        - - Prosecco
+          - Italy
+        - - Sekt
+          - Germany
+        explain: Most wine countries have a sparkling tradition.
+      - choice: Where does Champagne's toasty, bready character come from?
+        options:
+        - Ageing on the lees
+        - New oak barrels
+        - Adding toast to the tank
+        - Very ripe grapes
+        a: Ageing on the lees
+        explain: Dead yeast cells break down over months or years, giving brioche and biscuit notes.
+      - blank: Removing the yeast plug from the neck of the bottle is called ___.
+        answers:
+        - disgorgement
+        options:
+        - riddling
+        - dosage
+        - tirage
+        - pressing
+        explain: The neck is frozen, the cap removed, and pressure pushes out the yeast plug.

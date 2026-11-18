@@ -94,3 +94,59 @@ lessons:
         answers: [solera]
         options: [barrique, quinta, lagar]
         explain: "Wine is drawn from the oldest tier and replaced from the next-oldest, and so on."
+  - title: Going further
+    cards:
+      - learn: Three roads to sweetness
+        body: '1. **Noble rot** (botrytis) shrivels grapes and concentrates sugar: Sauternes, Tokaji.
+      
+          2. **Freezing**: grapes picked frozen give Icewine/Eiswein.
+      
+          3. **Drying**: grapes dried after picking make Recioto and Vin Santo.
+      
+      
+          Stopping fermentation early, as in Port, is a fourth route.
+      
+          '
+      - learn: Sherry styles
+        body: '**Fino** and **Manzanilla** age under a layer of yeast called **flor**: pale, dry, salty, almond. **Oloroso** ages without flor, in contact with air: dark, nutty, dry. **Pedro Ximénez** is a dark, raisin-sweet dessert sherry.
+      
+          '
+      - choice: What is 'flor' in sherry-making?
+        options:
+        - A layer of yeast on the wine
+        - A type of grape
+        - A sweet syrup
+        - The barrel cellar
+        a: A layer of yeast on the wine
+        explain: Flor protects Fino and Manzanilla from oxygen and gives a tangy, bready, almond character.
+      - match: Match the sweet wine to how it's made
+        pairs:
+        - - Sauternes
+          - Noble rot
+        - - Icewine
+          - Frozen grapes
+        - - Vin Santo
+          - Dried grapes
+        - - Port
+          - Spirit added
+        explain: Different routes to sugar create very different sweet wines.
+      - tf: Oloroso sherry ages under flor.
+        truth: false
+        explain: Oloroso is fortified to a strength where flor can't survive, so it ages oxidatively and darkens.
+      - choice: Which wine is fortified during fermentation, keeping natural sweetness?
+        options:
+        - Port
+        - Fino Sherry
+        - Sauternes
+        - Champagne
+        a: Port
+        explain: Adding grape spirit stops fermentation, leaving sugar in the wine.
+      - blank: Noble rot is caused by a fungus called ___.
+        answers:
+        - Botrytis
+        options:
+        - Flor
+        - Phylloxera
+        - Oidium
+        - Brettanomyces
+        explain: Botrytis cinerea, in the right conditions, shrivels grapes and concentrates sugar and acid.

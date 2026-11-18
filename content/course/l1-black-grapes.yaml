@@ -108,3 +108,58 @@ lessons:
       - match: "Match the grape to its classic region"
         pairs: [[Cabernet Sauvignon, Pauillac], [Merlot, Pomerol], [Pinot Noir, Burgundy], [Syrah, Hermitage]]
         explain: "Four classic pairings every wine lover should know."
+  - title: Going further
+    cards:
+      - learn: Thin skins, thick skins
+        body: 'Skin thickness explains a lot. Thin-skinned grapes like **Pinot Noir** and **Gamay** make pale, light, low-tannin reds. Thick-skinned grapes like **Cabernet Sauvignon**, **Syrah** and **Malbec** give deep color and firm tannin.
+      
+      
+          Color and tannin both come from the skins.
+      
+          '
+      - learn: Blends
+        body: 'Many great reds are **blends**. Bordeaux mixes Cabernet Sauvignon and Merlot (often with Cabernet Franc); the southern Rhône blends Grenache, Syrah and Mourvèdre (GSM).
+      
+      
+          Blending lets winemakers balance one grape''s weak points with another''s strengths.
+      
+          '
+      - choice: Which grape usually gives the palest red wine?
+        options:
+        - Pinot Noir
+        - Cabernet Sauvignon
+        - Syrah
+        - Malbec
+        a: Pinot Noir
+        explain: Pinot Noir has thin skins, so it gives less color and tannin than thick-skinned grapes.
+      - match: Match the grape to a classic home
+        pairs:
+        - - Malbec
+          - Mendoza
+        - - Syrah
+          - Northern Rhône
+        - - Nebbiolo
+          - Barolo
+        - - Tempranillo
+          - Rioja
+        explain: Each of these places made its grape famous.
+      - tf: GSM stands for Grenache, Syrah and Mourvèdre.
+        truth: true
+        explain: The classic southern Rhône blend, also popular in Australia.
+      - choice: Which grape is known for black pepper aromas?
+        options:
+        - Syrah
+        - Merlot
+        - Gamay
+        - Pinot Noir
+        a: Syrah
+        explain: Cool-climate Syrah often shows black pepper, from a compound called rotundone.
+      - blank: Color and tannin in red wine come from the grape ___.
+        answers:
+        - skins
+        options:
+        - pulp
+        - juice
+        - seeds only
+        - stems only
+        explain: Red wine gets its color by fermenting juice with the skins.
