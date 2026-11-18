@@ -276,17 +276,22 @@ struct MapRenderer {
             }
             let ids = Set(g.areas.map(\.id))
             let anyHL = !highlight.intersection(ids).isEmpty || selected != nil
-            for a in g.areas where a.level <= lv {
-                let parentIsZoomed = lv >= 1 && g.hasChildren.contains(a.id) && a.level < lv
+            // Atlas style: big regions with appellations inside are pale washes, the appellations
+            // themselves carry the strong color (always visible, thumbnails included).
+            let drawLevel = max(lv, 1)
+            for a in g.areas where a.level <= drawLevel {
+                let isContainer = g.hasChildren.contains(a.id) && a.level < drawLevel
                 var color = Palette.mapColor(a.color)
-                if a.level >= 1 && a.parent != nil {
-                    color = color.mix(with: .black, a.level == 1 ? 0.18 : 0.32)
+                if a.level >= 2 { color = color.mix(with: .black, 0.18) }
+                if isContainer {
+                    color = dark ? color.opacity(0.30) : color.mix(with: .white, 0.78)
                 }
                 let isHL = highlight.contains(a.id) || selected == a.id
-                var opacity: Double = parentIsZoomed ? 0.38 : 1
-                if anyHL && !isHL && !(highlight.contains(a.parent ?? "") ) { opacity *= 0.28 }
+                var opacity: Double = 1
+                if anyHL && !isHL && !(highlight.contains(a.parent ?? "") ) && !isContainer { opacity *= 0.28 }
                 regions.fill(a.path, with: .color(color.opacity(opacity)))
-                regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.95)), lineWidth: hair * (a.level == 0 ? 1.4 : 1.1))
+                regions.stroke(a.path, with: .color(isContainer ? Palette.mapColor(a.color).opacity(0.55) : Palette.focusLand.opacity(0.95)),
+                               lineWidth: hair * (isContainer ? 0.9 : 1.1))
                 if isHL {
                     regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
@@ -541,20 +546,21 @@ extension MapGeometry {
     }
 
     /// Zoom and offset that center `target` (default: the wine areas) and always cover the whole view with map.
-    func fitLayout(size: CGSize, target: CGRect? = nil, padding: CGFloat = 0.1) -> (zoom: CGFloat, offset: CGSize) {
+    func fitLayout(size: CGSize, target: CGRect? = nil, padding: CGFloat = 0.1, top: CGFloat = 0, bottom: CGFloat = 0) -> (zoom: CGFloat, offset: CGSize) {
         let W = CGFloat(map.w), H = CGFloat(map.h)
         guard size.width > 0, size.height > 0 else { return (1, .zero) }
         let t = target ?? contentBounds
         let fit = size.width / W
         let cover = max(size.width / W, size.height / H)
-        let content = min(size.width * (1 - 2 * padding) / max(1, t.width), size.height * (1 - 2 * padding) / max(1, t.height))
+        let band = max(size.height * 0.35, size.height - top - bottom)
+        let content = min(size.width * (1 - 2 * padding) / max(1, t.width), band * (1 - 2 * padding) / max(1, t.height))
         let s = min(max(cover, content), cover * 10)
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))
         }
         let off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
-                         height: axis(size.height / 2 - t.midY * s, view: size.height, content: H * s))
+                         height: axis(top + band / 2 - t.midY * s, view: size.height, content: H * s))
         return (s / fit, off)
     }
 
@@ -658,14 +664,14 @@ struct ZoomableWineMap: View {
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
         let c = g.contentBounds
-        var target: CGRect? = c.insetBy(dx: -c.width * 0.35, dy: -c.height * 0.35)
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.22, dy: -c.height * 0.22)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
-        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.14)
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.08, top: 120, bottom: 200)
         absZoom = z; baseZoom = z; lodBase = base
         zoom = z / max(0.01, base)
-        offset = clamp(CGSize(width: o.width, height: o.height + size.height * 0.04), size: size, g: g)
+        offset = clamp(o, size: size, g: g)
         baseOffset = offset
     }
 

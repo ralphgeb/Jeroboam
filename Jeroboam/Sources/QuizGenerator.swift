@@ -53,7 +53,7 @@ enum QuizGenerator {
         var tries = 0
         while cards.count < count && tries < count * 14 {
             tries += 1
-            let k: Kind = kind == .mixed ? [.grapes, .grapes, .regions, .regions, .maps, .colors, .aromas, .terms].randomElement()! : kind
+            let k: Kind = kind == .mixed ? [.grapes, .grapes, .regions, .regions, .colors, .aromas, .terms, .terms].randomElement()! : kind
             guard let (key, c) = make(k, maxLevel: maxLevel) else { continue }
             // avoid repeats within the session, and recent ones while there is plenty else to ask
             if keys.contains(key) || cards.contains(where: { $0.question == c.question }) { continue }

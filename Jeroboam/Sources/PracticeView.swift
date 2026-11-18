@@ -6,11 +6,8 @@ struct PracticeView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    TopStatusBar().padding(.top, 8)
-                    ScreenHeader(eyebrow: "Practice", title: "Keep it fresh",
-                                 subtitle: "Short quizzes drawn from everything you have learned.")
+            CollapsingPage(eyebrow: "Keep it fresh", title: "Practice",
+                           subtitle: "Short quizzes drawn from everything you have learned.", showStatus: true) {
 
                     VStack(spacing: 12) {
                         GroupCard {
@@ -43,7 +40,7 @@ struct PracticeView: View {
 
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "By topic")
-                        let kinds = QuizGenerator.Kind.allCases.filter { $0 != .mixed }
+                        let kinds = QuizGenerator.Kind.allCases.filter { $0 != .mixed && $0 != .maps }
                         GroupCard {
                             ForEach(kinds) { k in
                                 Button { start(k) } label: {
@@ -56,13 +53,9 @@ struct PracticeView: View {
                         }
                     }
                     Color.clear.frame(height: 24)
-                }
-                .padding(.horizontal, Metrics.margin)
             }
-            .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
-            .statusBarBackdrop()
         }
         .fullScreenCover(item: $session) { s in LessonPlayer(session: s) }
         .onAppear {

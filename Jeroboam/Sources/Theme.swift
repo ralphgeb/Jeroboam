@@ -65,8 +65,8 @@ enum Palette {
     // Feedback
     static let correct = Color.dynamic("#2F8A4E", "#7FD39A")
     static let correctBG = Color.dynamic("#E7F5EC", "#173022")
-    static let wrong = Color.dynamic("#C81E3F", "#FF8DA1")
-    static let wrongBG = Color.dynamic("#FCE8EC", "#3D1522")
+    static let wrong = Color.dynamic("#E5484D", "#FF8A80")       // clear red, distinct from the Bordeaux brand color
+    static let wrongBG = Color.dynamic("#FDEEEE", "#3A1416")
     // Game
     static let flame = Color.dynamic("#E8571F", "#FF9A5C")
     static let gold = brass

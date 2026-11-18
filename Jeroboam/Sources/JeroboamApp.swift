@@ -52,7 +52,7 @@ struct RootView: View {
                         .tabItem { Label("Practice", systemImage: "target") }
                         .tag(1)
                     LibraryView()
-                        .tabItem { Label("Library", systemImage: "books.vertical") }
+                        .tabItem { Label("Atlas", systemImage: "globe.europe.africa") }
                         .tag(2)
                     JournalView()
                         .tabItem { Label("Journal", systemImage: "camera.aperture") }

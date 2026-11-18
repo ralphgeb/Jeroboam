@@ -46,10 +46,7 @@ struct LibraryView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 26) {
-                    ScreenHeader(eyebrow: "Library", title: "Atlas",
-                                 subtitle: "Every grape, place, aroma and term from the lessons.")
+            CollapsingPage(eyebrow: "Library", title: "Atlas", subtitle: "Every grape, place, aroma and term from the lessons.") {
                     tileSection("Explore", [.regions, .grapes, .cards, .labels])
                     tileSection("Taste", [.aromas, .colors, .tasting, .boldness])
                     tileSection("Serve", [.guide, .styles, .pairing, .bottles])
@@ -67,13 +64,9 @@ struct LibraryView: View {
                         .cardStyle(padding: 14)
                     }
                     Color.clear.frame(height: 12)
-                }
-                .padding(.horizontal, Metrics.margin)
             }
-            .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
-            .statusBarBackdrop()
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
             .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g).zoomDestination(ZoomID.grape(g.id), in: zoom) }
             .navigationDestination(for: Region.self) { r in RegionDetailView(region: r).zoomDestination(ZoomID.region(r.id), in: zoom) }

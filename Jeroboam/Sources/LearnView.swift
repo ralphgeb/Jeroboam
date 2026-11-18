@@ -211,12 +211,8 @@ struct TopStatusBar: View {
             }
             .padding(.horizontal, 12).padding(.vertical, 7)
             .background(Capsule().fill(Palette.card))
-            Button { showProfile = true } label: {
-                Image(systemName: "person.crop.circle.fill").font(.system(size: 26)).foregroundStyle(Palette.ink.opacity(0.85))
-            }
-            .accessibilityLabel("Profile and settings")
+            AvatarButton(size: 30)
         }
-        .sheet(isPresented: $showProfile) { ProfileView() }
     }
 }
 

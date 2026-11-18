@@ -12,6 +12,7 @@ struct ProfileView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
+                    AboutYouSection().padding(.top, 16)
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                         Eyebrow("Your cellar")

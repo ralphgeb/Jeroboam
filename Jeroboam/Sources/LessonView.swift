@@ -29,6 +29,7 @@ struct LessonPlayer: View {
     @State private var combo = 0
     @State private var confirmQuit = false
     @State private var started = Date()
+    @State private var panelHeight: CGFloat = 200
 
     struct Feedback: Equatable {
         let correct: Bool
@@ -49,16 +50,26 @@ struct LessonPlayer: View {
             } else if index < queue.count {
                 VStack(spacing: 0) {
                     header
-                    ScrollView {
-                        CardView(card: queue[index], locked: feedback != nil, onAnswer: answer)
-                            .id(queue[index].id + "\(index)")
-                            .padding(.horizontal, Metrics.margin)
-                            .padding(.top, 12)
-                            .padding(.bottom, 140)
-                            .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
-                                                    removal: .move(edge: .leading).combined(with: .opacity)))
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            VStack(spacing: 0) {
+                                CardView(card: queue[index], locked: feedback != nil, onAnswer: answer)
+                                    .id(queue[index].id + "\(index)")
+                                    .padding(.horizontal, Metrics.margin)
+                                    .padding(.top, 12)
+                                    .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity),
+                                                            removal: .move(edge: .leading).combined(with: .opacity)))
+                                Color.clear.frame(height: 1).id("cardEnd")
+                                // room for the feedback panel, so the chosen answer is never hidden under it
+                                Color.clear.frame(height: feedback == nil ? 140 : panelHeight + 16)
+                            }
+                        }
+                        .scrollIndicators(.hidden)
+                        .onChange(of: feedback) { _, fb in
+                            guard fb != nil else { return }
+                            withAnimation(.easeOut(duration: 0.3)) { proxy.scrollTo("cardEnd", anchor: .bottom) }
+                        }
                     }
-                    .scrollIndicators(.hidden)
                 }
                 .overlay(alignment: .bottom) {
                     if queue[index].kind == .learn && feedback == nil {
@@ -73,6 +84,7 @@ struct LessonPlayer: View {
                 .overlay(alignment: .bottom) {
                     if let fb = feedback {
                         FeedbackPanel(feedback: fb, combo: combo) { advance() }
+                            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { panelHeight = $0 }
                             .transition(.move(edge: .bottom))
                     }
                 }
@@ -201,10 +213,10 @@ struct FeedbackPanel: View {
 
     var body: some View {
         let tint = feedback.correct ? Palette.correct : Palette.wrong
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
                 Image(systemName: feedback.correct ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .font(.system(size: 24))
+                    .font(.system(size: 22))
                     .foregroundStyle(tint)
                 Text(feedback.correct ? praise : "Not quite")
                     .font(.system(size: 19, weight: .semibold))
@@ -218,28 +230,29 @@ struct FeedbackPanel: View {
                 }
             }
             if let e = feedback.explain {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 14) {
-                        Text(rich(e)).font(.system(size: 15)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(3.5)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                        if let v = feedback.visual, !v.hasPrefix("map"), !v.hasPrefix("glassonly") {
-                            VisualView(spec: v, compact: true)
-                        }
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(rich(e)).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
+                        .lineLimit(expanded ? nil : 2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if expanded, let v = feedback.visual, !v.hasPrefix("map"), !v.hasPrefix("glassonly") {
+                        VisualView(spec: v, compact: true)
+                    }
+                    if !expanded && e.count > 90 {
+                        Button("Why?") { withAnimation(.easeOut(duration: 0.2)) { expanded = true } }
+                            .font(.system(size: 13.5, weight: .semibold)).foregroundStyle(tint)
                     }
                 }
-                .frame(maxHeight: 260)
-                .scrollBounceBehavior(.basedOnSize)
             }
             Button("Continue", action: onContinue)
                 .buttonStyle(PrimaryButtonStyle(color: tint))
         }
         .padding(.horizontal, Metrics.margin)
-        .padding(.top, 22)
-        .padding(.bottom, 12)
+        .padding(.top, 16)
+        .padding(.bottom, 10)
         .frame(maxWidth: .infinity)
         .background(
-            UnevenRoundedRectangle(topLeadingRadius: 26, topTrailingRadius: 26, style: .continuous)
+            UnevenRoundedRectangle(topLeadingRadius: 22, topTrailingRadius: 22, style: .continuous)
                 .fill(feedback.correct ? Palette.correctBG : Palette.wrongBG)
                 .ignoresSafeArea(edges: .bottom)
                 .shadow(color: .black.opacity(0.06), radius: 16, y: -4)

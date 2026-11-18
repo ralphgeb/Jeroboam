@@ -157,10 +157,8 @@ struct JournalView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    ScreenHeader(eyebrow: "Your wines", title: "Journal",
-                                 subtitle: "Scan bottles into your cellar, or taste blind and see how close you get.")
+            CollapsingPage(eyebrow: "Your wines", title: "Journal",
+                           subtitle: "Scan bottles into your cellar, or taste blind and see how close you get.") {
 
                     HStack(spacing: 12) {
                         actionTile(icon: "camera.viewfinder", title: "Scan a wine", detail: "Details, price, add to cellar", primary: true) { scan = true }
@@ -175,13 +173,9 @@ struct JournalView: View {
 
                     if section == 0 { cellarSection } else { tastingsSection }
                     Color.clear.frame(height: 20)
-                }
-                .padding(.horizontal, Metrics.margin)
             }
-            .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
-            .statusBarBackdrop()
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
         }
@@ -403,6 +397,7 @@ struct CaptureStep: View {
 struct WineInfoCard: View {
     let wine: WineIdentity
     @State private var tab = 0
+    @State private var openGrape: Grape? = nil
 
     var body: some View {
         let w = wine
@@ -449,7 +444,7 @@ struct WineInfoCard: View {
                     Text("This region isn't in the atlas yet.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                 }
             default:
-                if !w.grapes.isEmpty { info("leaf", w.grapes.joined(separator: " · ")) }
+                if !w.grapes.isEmpty { grapeChips(w.grapes) }
                 info("wineglass", w.style.capitalized)
                 if let d = w.drinkWindow, !d.isEmpty { info("calendar", d) }
                 if !w.funFact.isEmpty {
@@ -463,6 +458,36 @@ struct WineInfoCard: View {
         .padding(16)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+    }
+
+    /// Grapes as chips; known varieties open their grape card.
+    private func grapeChips(_ names: [String]) -> some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 8) {
+                ForEach(names, id: \.self) { n in
+                    let g = matchGrape(n)
+                    Button { openGrape = g } label: {
+                        HStack(spacing: 6) {
+                            if let g { GrapeBadge(grape: g, size: 22) } else { Image(systemName: "leaf").font(.system(size: 12)) }
+                            Text(n).font(.system(size: 14, weight: .medium))
+                            if g != nil { Image(systemName: "chevron.right").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.inkFaint) }
+                        }
+                        .foregroundStyle(Palette.ink)
+                        .padding(.leading, 6).padding(.trailing, 12).padding(.vertical, 6)
+                        .background(Capsule().fill(Palette.wineSoft))
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(g == nil)
+                }
+            }
+        }
+        .scrollIndicators(.hidden)
+        .sheet(item: $openGrape) { g in
+            NavigationStack {
+                GrapeDetailView(grape: g)
+                    .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { openGrape = nil } } }
+            }
+        }
     }
 
     private func info(_ icon: String, _ text: String) -> some View {
