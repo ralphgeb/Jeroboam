@@ -17,7 +17,7 @@ enum DebugScreens {
         case "learn", "lesson", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
         case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal": return 2
-        case "journal", "profile": return 3
+        case "journal", "profile", "tastings", "scan", "blind": return 3
         default: return nil
         }
     }
@@ -75,6 +75,54 @@ enum DebugScreens {
     }
 
     static func practiceHook(_ open: @escaping (Session) -> Void) {}
+
+    /// Seeds a few sample bottles and tastings, and opens a flow, for journal screenshots.
+    static func journalHook(_ journal: JournalStore, open: @escaping (String) -> Void) {
+        guard let screen, ["journal", "tastings", "scan", "blind"].contains(screen) else { return }
+        func wine(_ name: String, _ producer: String, _ region: String, _ country: String, _ grapes: [String], _ vintage: String, _ style: String,
+                  _ notes: [String]) -> WineIdentity {
+            var w = WineIdentity.empty
+            w.found = true; w.name = name; w.producer = producer; w.region = region; w.country = country; w.grapes = grapes
+            w.vintage = vintage; w.style = style; w.tastingNotes = notes; w.confidence = "high"
+            w.palate = "Dry, fresh acidity, ripe fine tannins and a long finish."
+            w.food = ["Lamb", "Mushrooms"]; w.drinkWindow = "Now–2032"
+            return w
+        }
+        if journal.cellar.isEmpty {
+            let samples: [(WineIdentity, Int, Double, String)] = [
+                (wine("Château Musar", "Château Musar", "Bekaa Valley", "Lebanon", ["Cabernet Sauvignon", "Cinsault", "Carignan"], "2016", "red", ["Red cherry", "Dried fig", "Cloves", "Leather"]), 2, 58, "Wine-Searcher"),
+                (wine("Barolo Bussia", "Prunotto", "Barolo", "Italy", ["Nebbiolo"], "2019", "red", ["Red cherry", "Rose", "Tar", "Liquorice"]), 3, 72, "Wine-Searcher"),
+                (wine("Sancerre Les Monts Damnés", "Henri Bourgeois", "Sancerre", "France", ["Sauvignon Blanc"], "2022", "white", ["Grapefruit", "Gooseberry", "Flint"]), 4, 41, "CellarTracker"),
+                (wine("Brut Réserve", "Charles Heidsieck", "Champagne", "France", ["Chardonnay", "Pinot Noir"], "NV", "sparkling", ["Brioche", "Pear", "Almond"]), 1, 69, "Wine-Searcher"),
+            ]
+            for (w, q, p, src) in samples {
+                var b = CellarBottle()
+                b.wine = w; b.quantity = q
+                b.price = PriceInfo(average: p, low: p * 0.8, high: p * 1.3, currency: "USD", source: src)
+                journal.cellar.append(b)
+            }
+        }
+        if journal.entries.isEmpty {
+            var e = JournalEntry()
+            e.wine = journal.cellar[0].wine; e.identified = true; e.blind = true
+            e.aromas = ["Red cherry", "Cloves", "Earth"]; e.guessGrape = "Cabernet Sauvignon"; e.guessCountry = "France"
+            e.body = 4; e.acidity = 3; e.tannin = 4; e.rating = 8
+            e.price = journal.cellar[0].price
+            e.score = TastingScore.total(e)
+            journal.entries.append(e)
+            var f = JournalEntry()
+            f.wine = journal.cellar[2].wine; f.identified = true; f.aromas = ["Grapefruit", "Flint"]; f.rating = 9
+            journal.entries.append(f)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            switch screen {
+            case "tastings": open("tastings")
+            case "scan": open("scan")
+            case "blind": open("blind")
+            default: break
+            }
+        }
+    }
 
     static func libraryHook(_ push: @escaping (any Hashable) -> Void) {
         guard let screen else { return }

@@ -20,10 +20,12 @@ struct WineIdentity: Codable, Hashable {
     var currency: String
     var confidence: String
     var funFact: String
+    var drinkWindow: String? = nil
 
     enum CodingKeys: String, CodingKey {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
         case tastingNotes = "tasting_notes", priceLow = "price_low", priceHigh = "price_high", funFact = "fun_fact"
+        case drinkWindow = "drink_window"
     }
 
     static let empty = WineIdentity(found: false, name: "", producer: "", region: "", country: "", grapes: [], vintage: "",
@@ -144,7 +146,8 @@ enum WineRecognizer {
     palate: one sentence on structure (sweetness, acidity, tannin, body). \
     price_low/price_high: typical current retail price range for one 750 ml bottle in US dollars, as an estimate from your knowledge (0 if unknown). \
     style: one of red, white, rose, sparkling, fortified, sweet, orange. confidence: high, medium or low. \
-    fun_fact: one short, accurate sentence that teaches something about this wine, its region or grape. Keep every field concise.
+    fun_fact: one short, accurate sentence that teaches something about this wine, its region or grape. \
+    drink_window: when to drink it, e.g. "Now–2030" or "Drink now". Keep every field concise.
     """
 
     private static var schema: [String: Any] {
@@ -155,13 +158,13 @@ enum WineRecognizer {
             "type": "object",
             "additionalProperties": false,
             "required": ["found", "name", "producer", "region", "country", "grapes", "vintage", "style", "tasting_notes",
-                         "palate", "food", "price_low", "price_high", "currency", "confidence", "fun_fact"],
+                         "palate", "food", "price_low", "price_high", "currency", "confidence", "fun_fact", "drink_window"],
             "properties": [
                 "found": ["type": "boolean"], "name": str, "producer": str, "region": str, "country": str, "grapes": strArr,
                 "vintage": str,
                 "style": ["type": "string", "enum": ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"]],
                 "tasting_notes": strArr, "palate": str, "food": strArr, "price_low": num, "price_high": num, "currency": str,
-                "confidence": ["type": "string", "enum": ["high", "medium", "low"]], "fun_fact": str
+                "confidence": ["type": "string", "enum": ["high", "medium", "low"]], "fun_fact": str, "drink_window": str
             ]
         ]
     }
@@ -196,6 +199,99 @@ enum WineRecognizer {
         let usage = json["usage"] as? [String: Any] ?? [:]
         return RecognitionResult(identity: identity, usedImage: false,
                                  inputTokens: usage["input_tokens"] as? Int ?? 0, outputTokens: usage["output_tokens"] as? Int ?? 0)
+    }
+}
+
+// MARK: - Average price (web search on Wine-Searcher / CellarTracker)
+
+/// A bottle price, either looked up on the web or estimated by the model.
+struct PriceInfo: Codable, Hashable {
+    var average: Double
+    var low: Double
+    var high: Double
+    var currency: String
+    var source: String          // "Wine-Searcher", "CellarTracker" or "Estimate"
+    var url: String?
+    var checked: Date = Date()
+
+    var isEstimate: Bool { source == "Estimate" }
+
+    static func estimate(from w: WineIdentity) -> PriceInfo? {
+        guard w.priceHigh > 0 else { return nil }
+        let avg = w.priceLow > 0 ? (w.priceLow + w.priceHigh) / 2 : w.priceHigh
+        return PriceInfo(average: avg, low: w.priceLow, high: w.priceHigh, currency: w.currency.isEmpty ? "USD" : w.currency, source: "Estimate")
+    }
+
+    func format(_ v: Double) -> String {
+        let f = NumberFormatter()
+        f.numberStyle = .currency
+        f.currencyCode = currency.isEmpty ? "USD" : currency
+        f.maximumFractionDigits = v >= 100 ? 0 : 0
+        return f.string(from: NSNumber(value: v)) ?? "\(Int(v))"
+    }
+    var averageText: String { format(average) }
+}
+
+extension WineRecognizer {
+    /// Web search: $10 per 1,000 searches (pricing at time of writing; check current rates).
+    static let searchUSD = 0.01
+
+    /// Looks up the average retail price for one bottle on Wine-Searcher (or CellarTracker),
+    /// using Claude's web search tool limited to those sites. Falls back to the model's estimate.
+    static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
+        guard let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
+        let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
+        let prompt = """
+        Find the current average retail price of one 750 ml bottle of this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").
+        Prefer Wine-Searcher's "Avg Price (ex-tax)"; if Wine-Searcher has nothing, use CellarTracker's community valuation.
+        Use the exact vintage if listed, otherwise the wine across vintages.
+        Reply with only one JSON object and nothing else:
+        {"average": number, "low": number, "high": number, "currency": "USD", "source": "Wine-Searcher" or "CellarTracker", "url": "page used"}
+        Use 0 for numbers you could not find.
+        """
+        let body: [String: Any] = [
+            "model": model,
+            "max_tokens": 1500,
+            "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 2,
+                       "allowed_domains": ["wine-searcher.com", "cellartracker.com"]]],
+            "messages": [["role": "user", "content": prompt]]
+        ]
+        do {
+            var req = URLRequest(url: endpoint)
+            req.httpMethod = "POST"
+            req.timeoutInterval = 60
+            req.setValue("application/json", forHTTPHeaderField: "content-type")
+            req.setValue(key, forHTTPHeaderField: "x-api-key")
+            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            req.httpBody = try JSONSerialization.data(withJSONObject: body)
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard (resp as? HTTPURLResponse)?.statusCode == 200,
+                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (PriceInfo.estimate(from: w), 0) }
+            let usage = json["usage"] as? [String: Any] ?? [:]
+            let searches = ((usage["server_tool_use"] as? [String: Any])?["web_search_requests"] as? Int) ?? 0
+            let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000
+                + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000
+                + Double(searches) * searchUSD
+            if (json["stop_reason"] as? String) == "refusal" { return (PriceInfo.estimate(from: w), cost) }
+            let text = (json["content"] as? [[String: Any]] ?? [])
+                .filter { ($0["type"] as? String) == "text" }
+                .compactMap { $0["text"] as? String }
+                .joined()
+            guard let open = text.lastIndex(of: "{"), let close = text.lastIndex(of: "}"), open < close,
+                  let obj = try? JSONSerialization.jsonObject(with: Data(text[open...close].utf8)) as? [String: Any] else {
+                return (PriceInfo.estimate(from: w), cost)
+            }
+            func num(_ k: String) -> Double { (obj[k] as? NSNumber)?.doubleValue ?? 0 }
+            let avg = num("average")
+            guard avg > 0 else { return (PriceInfo.estimate(from: w), cost) }
+            let source = (obj["source"] as? String) ?? "Wine-Searcher"
+            return (PriceInfo(average: avg, low: num("low"), high: num("high"),
+                              currency: (obj["currency"] as? String) ?? "USD",
+                              source: source.localizedCaseInsensitiveContains("cellar") ? "CellarTracker" : "Wine-Searcher",
+                              url: obj["url"] as? String), cost)
+        } catch {
+            return (PriceInfo.estimate(from: w), 0)
+        }
     }
 }
 
