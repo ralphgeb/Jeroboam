@@ -227,7 +227,7 @@ def study_units(n):
         lessons.append({"title": title, "cards": [_grape_card(g) for g in part] + _grape_questions(part, grapes, rnd)})
     if lessons:
         units.append((f"study-l{n}-grapes", {"title": "Grape files", "summary": f"Every Level {n} grape on one card: aromas, structure, origin and where it grows.",
-                                            "icon": "leaf", "cover": "grape-bunch-red", "lessons": lessons}))
+                                            "icon": "leaf", "lessons": lessons}))
     rs = [r for r in regions if r["level"] == n]
     order = []
     for r in rs:
@@ -248,7 +248,7 @@ def study_units(n):
         ("Appellations: New World", "The Americas, South Africa, Australia and New Zealand, region by region.", [c for c in order if c not in EUROPE])]
     for i, (t, s, cs) in enumerate(groups):
         ls = app_lessons(cs)
-        if ls: units.append((f"study-l{n}-regions{i}", {"title": t, "summary": s, "icon": "map", "cover": "vineyard-rows", "lessons": ls}))
+        if ls: units.append((f"study-l{n}-regions{i}", {"title": t, "summary": s, "icon": "map", "lessons": ls}))
     terms = [t for t in glossary if t.get("level", 1) == n]
     lessons = []
     for i, part in enumerate(_chunks(terms, 8)):
@@ -269,10 +269,14 @@ def study_units(n):
             lessons.append({"title": "Styles: " + ", ".join(x["name"] for x in part[:2]) + "…", "cards": cards})
     if lessons:
         units.append((f"study-l{n}-words", {"title": "Words to know", "summary": "The vocabulary and styles the exams use, in short lists.",
-                                           "icon": "text.book.closed", "cover": "corks", "lessons": lessons}))
+                                           "icon": "text.book.closed", "lessons": lessons}))
     return units
 
 levels_meta = load("levels.yaml")
+# unique pictures: a new cover per unit and new photos for cards that used to repeat one (see photo_assign.yaml)
+ASSIGN = load("photo_assign.yaml") if os.path.exists(os.path.join(SRC, "photo_assign.yaml")) else {}
+UNIT_COVERS.update(ASSIGN.get("covers", {}))
+CARD_PHOTOS = ASSIGN.get("cards", {})
 course = {"levels": []}
 card_count = 0
 lesson_ids = set()
@@ -337,6 +341,9 @@ for lv in levels_meta:
                     continue
                 if c.get("explain"): out["explain"] = c["explain"].strip()
                 elif out["t"] != "learn": warn(f"{where}: question without explanation")
+                key = f"{ufile} | {ls['title']} | {c.get('learn', '')}"
+                if key in CARD_PHOTOS and CARD_PHOTOS[key] in photo_ids:
+                    c["visual"] = "photo:" + CARD_PHOTOS[key]
                 if c.get("visual"):
                     if check_visual(c["visual"], where) != "drop":
                         out["visual"] = c["visual"]
@@ -345,6 +352,25 @@ for lv in levels_meta:
             unit["lessons"].append({"id": lid, "title": ls["title"], "icon": ls.get("icon"), "cards": cards})
         level["units"].append(unit)
     course["levels"].append(level)
+
+# no picture twice: lesson cards keep their photo in course order; a later repeat (or a cover that
+# repeats any card) is dropped.
+seen_photos = set()
+for lvl in course["levels"]:
+    for u in lvl["units"]:
+        for ls in u["lessons"]:
+            for card in ls["cards"]:
+                v = card.get("visual") or ""
+                if v.startswith("photo:"):
+                    if v[6:] in seen_photos: del card["visual"]
+                    else: seen_photos.add(v[6:])
+dropped_covers = 0
+for lvl in course["levels"]:
+    for u in lvl["units"]:
+        cv = u.get("cover")
+        if cv and cv in seen_photos: del u["cover"]; dropped_covers += 1
+        elif cv: seen_photos.add(cv)
+if dropped_covers: warn(f"{dropped_covers} unit covers repeat a lesson photo and were dropped")
 
 wines = load("wines.yaml")
 sids = {s["id"] for s in styles}
