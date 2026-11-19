@@ -771,12 +771,12 @@ struct ZoomableWineMap: View {
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
         let c = g.contentBounds
-        var target: CGRect? = c.insetBy(dx: -c.width * 0.32, dy: -c.height * 0.32)
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.1, dy: -c.height * 0.1)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
         // the visible band sits between the header and the list card, with room to spare around the region
-        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.1, top: 130, bottom: 270, allowContain: true)
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.05, top: 130, bottom: 270, allowContain: true)
         absZoom = z; baseZoom = z; lodBase = base
         zoom = z / max(0.01, base)
         offset = o
