@@ -98,6 +98,7 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 7 uploaded (run 7): reference map images in lessons (Photos/map-*.jpg, `RefMaps`), new wine belt, illustrated glasses (`GlassArt`), Practice redesign + mock exams, unit cover photos.
-- Waiting on owner: pick from the Jeroboam bottle logos (8 options, scratchpad logo2/sheet.png; renderer tools in session only). App Store Connect app + secrets are set up.
-- Waiting on owner: logo/mascot choice from the brand board (in-app mark is still the grape cluster).
+- TestFlight build 8 uploaded (run 8): hatched big regions + country lift, full map zooms out to fit width and floats between
+  header and list card, interactive How to taste (`TastingStep` cards + sheet), more reference maps (29 regions).
+  No free reference map found yet for Portugal (whole), Douro, Chile, Argentina, Lebanon (3 search rounds: content/mapimgs*.json).
+- Logo: owner said keep the current mark for now; revisit later (8 Jeroboam bottle options were shown).
