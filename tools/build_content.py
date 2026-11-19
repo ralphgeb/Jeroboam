@@ -420,6 +420,24 @@ for src_file, ln, line in great_lines:
     gw.pop("photo", None)
     great.append(gw)
 if len({g["id"] for g in great}) != len(great): err("duplicate great wine ids")
+# real figures looked up on Wine-Searcher (content/great_prices.txt); the rest stay marked as estimates
+real = {}
+pp = os.path.join(SRC, "great_prices.txt")
+if os.path.exists(pp):
+    for line in open(pp, encoding="utf-8"):
+        if not line.strip() or line.startswith("#"): continue
+        f = [x.strip() for x in line.split("|")]
+        real[f[0]] = f
+gids_set = {g["id"] for g in great}
+for k in real:
+    if k not in gids_set: warn(f"great_prices.txt: unknown wine {k}")
+for gw in great:
+    f = real.get(gw["id"])
+    if f:
+        if f[1] not in ("-", ""): gw["avgPrice"] = int(f[1])
+        if f[2] not in ("-", ""): gw["criticScore"] = int(f[2])
+        gw["source"] = f[3]
+print(f"great wines with real figures: {sum(1 for g in great if g.get('source'))}/{len(great)}")
 for gw in great:
     if gw["region"] not in rset: err(f"great wine {gw['id']}: unknown region {gw['region']}")
     # grapes without a page in the app are kept as plain names

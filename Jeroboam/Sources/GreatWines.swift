@@ -15,6 +15,10 @@ struct GreatWine: Decodable, Identifiable, Hashable {
     let what: String
     let why: String
     var area: String = ""
+    /// Real figures from Wine-Searcher when looked up: average price per bottle and aggregated critic score.
+    var avgPrice: Int? = nil
+    var criticScore: Int? = nil
+    var source: String? = nil
     /// Grapes without their own page in the app, by name.
     var also: [String]? = nil
     /// A real photo of the bottle (Wikimedia Commons), shown on the detail page when there is one.
@@ -25,11 +29,16 @@ struct GreatWine: Decodable, Identifiable, Hashable {
 
     var regionInfo: Region? { ContentStore.shared.library.regions.first { $0.id == region } }
     var grapeInfos: [Grape] { grapes.compactMap { ContentStore.shared.grape($0) } }
+    var verified: Bool { source != nil }
+    /// "$920" when looked up, else the estimated range.
     var priceText: String {
+        if let a = avgPrice { return a >= 1000 ? "$\(a / 1000),\(String(format: "%03d", a % 1000))" : "$\(a)" }
         guard price.count == 2 else { return "" }
         func f(_ v: Int) -> String { v >= 1000 ? "$\(v / 1000),\(String(format: "%03d", v % 1000))" : "$\(v)" }
         return "\(f(price[0]))–\(f(price[1]))"
     }
+    var scoreText: String { criticScore.map { "\($0)" } ?? scores }
+
     var tint: Color {
         switch color {
         case "white": return Color(hex: "#E2CC72")
@@ -255,7 +264,7 @@ struct GreatWinesScreen: View {
                 }
                 .id(area)
                 .transition(.opacity)
-                Text("Prices are a rough US retail guide for a recent release; scores are the usual range critics give recent vintages. Bottles are drawn illustrations, not the producers' labels.")
+                Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottles are drawn illustrations, not the producers' labels.")
                     .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
                 Color.clear.frame(height: 10)
             }
@@ -272,7 +281,7 @@ struct GreatWinesScreen: View {
         VStack(alignment: .leading, spacing: 5) {
             GreatWineImage(wine: w)
                 .overlay(alignment: .topTrailing) {
-                    Text(w.scores).font(.system(size: 11, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                    Text(w.scoreText).font(.system(size: 11, weight: .bold).monospacedDigit()).foregroundStyle(.white)
                         .padding(.horizontal, 7).frame(height: 22)
                         .background(Capsule().fill(Palette.bordeaux.opacity(0.92)))
                         .padding(8)
@@ -299,8 +308,14 @@ struct GreatWineDetail: View {
                             .fixedSize(horizontal: false, vertical: true)
                         Text(w.producer).font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                         Spacer(minLength: 4)
-                        stat("Price", w.priceText, "tag")
-                        stat("Critics", "\(w.scores) pts", "star.fill")
+                        stat(w.verified && w.avgPrice != nil ? "Average price" : "Price (estimate)", w.priceText, "tag")
+                        stat(w.criticScore != nil ? "Critics (average)" : "Critics (estimate)", "\(w.scoreText)/100", "star.fill")
+                        if let src = w.source, let url = URL(string: src) {
+                            Link(destination: url) {
+                                Label("Wine-Searcher", systemImage: "arrow.up.right.square").font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(Palette.wine)
+                            }
+                        }
                     }
                 }
                 block("What it is", w.what)
