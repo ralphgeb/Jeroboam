@@ -98,7 +98,7 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 8 uploaded (run 8): hatched big regions + country lift, full map zooms out to fit width and floats between
+- TestFlight build 10 uploaded (run 10; 9 = Lebanon/Portugal first pass). Build 8 (run 8): hatched big regions + country lift, full map zooms out to fit width and floats between
   header and list card, interactive How to taste (`TastingStep` cards + sheet), more reference maps (29 regions).
   No free reference map found yet for Portugal (whole), Douro, Chile, Argentina, Lebanon (3 search rounds: content/mapimgs*.json).
 - Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
