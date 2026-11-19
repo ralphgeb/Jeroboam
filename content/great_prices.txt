@@ -483,3 +483,9 @@ prum-goldkapsel | 80 | - | https://www.jamessuckling.com/tasting-notes/280553/jo
 molitor-zeltinger | 80 | - | https://www.jamessuckling.com/tasting-notes/280582/markus-molitor-riesling-mosel-zeltinger-sonnenuhr-auslese-white-cap-2023
 leitz-dragonstone | 19 | 91 | https://www.jamessuckling.com/tasting-notes/160261/leitz-riesling-rheingau-dragonstone-2020
 knoll-riesling | 91 | - | https://www.jamessuckling.com/tasting-notes/235398/emmerich-knoll-riesling-wachau-vinothekfullung-smaragd-2022
+donnafugata-ben-rye | 82 | - | https://www.jamessuckling.com/tasting-notes/292851/donnafugata-passito-di-pantelleria-ben-rye-2022
+terlano | 169 | - | https://www.jamessuckling.com/tasting-notes/151253/cantina-terlan-alto-adige-terlaner-rarity-2008
+foradori-teroldego | 62 | - | https://www.jamessuckling.com/tasting-notes/227740/foradori-teroldego-vigneti-delle-dolomiti-granato-2020
+jermann-vintage-tunina | 139 | - | https://www.jamessuckling.com/tasting-notes/312746/jermann-venezia-giulia-vintage-tunina-2023
+caprai-25 | 82 | - | https://www.jamessuckling.com/tasting-notes/191685/arnaldo-caprai-montefalco-sagrantino-25-anni-2018
+mastroberardino-radici | 39 | - | https://www.jamessuckling.com/tasting-notes/305175/mastroberardino-taurasi-radici-2018
