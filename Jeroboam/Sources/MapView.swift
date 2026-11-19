@@ -846,7 +846,7 @@ struct MapExplorer: View {
     @State private var zoom: CGFloat = 1
     @State private var openRegion: Region? = nil
     @State private var resetToken = 0
-    @State private var layer: Int? = 1
+    @State private var layer: Int? = nil
     @State private var zoomCommand = 0
     @State private var listExpanded = false
 
@@ -869,7 +869,13 @@ struct MapExplorer: View {
                     if (g?.maxLevel ?? 0) > 0 {
                         HStack(spacing: 4) {
                             modeButton("Regions", 0)
-                            modeButton("Appellations", (g?.maxLevel ?? 1) >= 2 && (layer ?? 0) == 2 ? 2 : 1)
+                            if (g?.maxLevel ?? 1) >= 2 {
+                                // three steps: Bordeaux → Haut-Médoc → Pauillac
+                                modeButton("Zones", 1)
+                                modeButton("Appellations", 2)
+                            } else {
+                                modeButton("Appellations", 1)
+                            }
                         }
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
@@ -915,11 +921,15 @@ struct MapExplorer: View {
             .plusSheetHost()
         }
         .plusSheetHost()
-        .onAppear { if highlight.count == 1 { selected = highlight.first } }
+        .onAppear {
+            if highlight.count == 1 { selected = highlight.first }
+            // open on the appellations (the deepest level), with the regions as hatches behind
+            if layer == nil, let g = MapGeometry.get(mapID), g.maxLevel > 0 { layer = min(2, g.maxLevel) }
+        }
     }
 
     private func modeButton(_ title: String, _ value: Int) -> some View {
-        let on = (value == 0) == ((layer ?? 0) == 0)
+        let on = (layer ?? 0) == value
         return Button { withAnimation(.easeInOut(duration: 0.2)) { layer = value; selected = nil } } label: {
             Text(title).font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(on ? Palette.onWine : Palette.ink)
@@ -932,7 +942,10 @@ struct MapExplorer: View {
     private var levelHint: String {
         guard let g = MapGeometry.get(mapID) else { return "" }
         if g.maxLevel == 0 { return "Regions" }
-        if let l = layer { return ["The big wine regions", "Appellations inside the regions", "Villages & crus"][min(2, l)] }
+        if let l = layer {
+            if g.maxLevel >= 2 { return ["The big wine regions", "Zones inside the regions", "Appellations inside the zones"][min(2, l)] }
+            return ["The big wine regions", "Appellations inside the regions"][min(1, l)]
+        }
         if zoom >= 3.2 && g.maxLevel >= 2 { return "Villages & crus" }
         if zoom >= 1.9 { return "Appellations · zoom for more" }
         return "Regions · zoom in for appellations"

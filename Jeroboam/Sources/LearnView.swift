@@ -88,6 +88,7 @@ struct LearnView: View {
             if levelNumber == 1, progress.data.startLevel > 1 { levelNumber = progress.data.startLevel }
             #if DEBUG
             DebugScreens.learnHook(start: { start($0) })
+            if DebugScreens.screen == "freelearn" || DebugScreens.screen == "history" { levelNumber = DebugScreens.screen == "freelearn" ? 2 : 3 }
             #endif
         }
     }

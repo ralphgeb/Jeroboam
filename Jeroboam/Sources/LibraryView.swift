@@ -1,13 +1,14 @@
 import SwiftUI
 
 enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
-    case grapes, regions, wines, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels, guide
+    case grapes, regions, wines, great, aromas, colors, styles, tasting, pairing, glossary, bottles, cards, boldness, labels, guide
     var id: String { rawValue }
     var title: String {
         switch self {
         case .grapes: return "Grapes"
         case .regions: return "Regions & maps"
         case .wines: return "Wines of the world"
+        case .great: return "Great wines to try"
         case .aromas: return "Aroma wheel"
         case .colors: return "Wine colors"
         case .styles: return "Wine styles"
@@ -27,6 +28,7 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .grapes: return "\(lib.grapes.count) varieties"
         case .regions: return "\(lib.regions.count) places"
         case .wines: return "\(lib.wines?.count ?? 0) classics"
+        case .great: return "\(lib.great?.count ?? 0) icons, region by region"
         case .aromas: return "\(ContentStore.shared.allAromaCategories().reduce(0) { $0 + $1.items.count }) descriptors"
         case .colors: return "White, rosé, red"
         case .styles: return "\(lib.styles.count) styles"
@@ -49,7 +51,7 @@ struct LibraryView: View {
     var body: some View {
         NavigationStack(path: $path) {
             CollapsingPage(eyebrow: "Library", title: "Atlas", subtitle: "Every grape, place, aroma and term from the lessons.") {
-                    tileSection("Explore", [.regions, .wines, .grapes, .labels])
+                    tileSection("Explore", [.regions, .great, .wines, .grapes, .labels, .cards])
                     tileSection("Taste", [.aromas, .colors, .tasting, .boldness])
                     tileSection("Serve", [.guide, .styles, .pairing, .bottles])
                     link(.glossary) {
@@ -73,6 +75,7 @@ struct LibraryView: View {
             .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }
             .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) }.zoomDestination(ZoomID.region(r.id), in: zoom) }
             .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
+            .navigationDestination(for: GreatWine.self) { w in PlusGate(quota: "great", id: w.id) { GreatWineDetail(wine: w) } }
             .navigationDestination(for: WineStyle.self) { s in PlusGate(quota: "styles", id: s.id) { StyleDetailView(style: s) }.zoomDestination(ZoomID.style(s.id), in: zoom) }
             .debugDestinations()
             .onAppear {
@@ -102,6 +105,7 @@ struct LibraryView: View {
         case .grapes: GrapeListView()
         case .regions: RegionListView()
         case .wines: WinesScreen()
+        case .great: GreatWinesScreen()
         case .aromas: AromaWheelScreen()
         case .colors: ColorChartScreen()
         case .styles: StylesScreen()
@@ -137,6 +141,8 @@ struct LibraryView: View {
             switch s {
             case .regions:
                 Image(systemName: "globe.europe.africa").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine)
+            case .great:
+                Image(systemName: "star.fill").font(.system(size: 22)).foregroundStyle(Palette.brass)
             case .wines:
                 HStack(alignment: .bottom, spacing: -3) {
                     WineGlass(color: Color(hex: "#E3CF7A"), fill: 0.55).frame(width: 15, height: 28)

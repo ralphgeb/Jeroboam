@@ -1,0 +1,327 @@
+# "Great wines to try": icons region by region. Prices are a rough US retail guide for a recent release (750 ml unless noted);
+# scores are the typical range critics give recent vintages. Photo ids come from Wikimedia Commons (credits.json).
+- id: chateau-margaux
+  name: Château Margaux
+  producer: Château Margaux
+  region: margaux
+  zone: Bordeaux · Left Bank
+  grapes: [cabernet-sauvignon, merlot]
+  color: red
+  price: [650, 900]
+  scores: "96–100"
+  vintages: ["2000", "2005", "2010", "2015", "2016"]
+  photo: tw-margaux
+  what: "First Growth of the Margaux appellation: mostly Cabernet Sauvignon from gravel soils, aged in new French oak."
+  why: "The most perfumed and silky of the Médoc's First Growths: violets, cassis and cedar with a velvet texture. Lovers call it the iron fist in a velvet glove."
+- id: mouton-rothschild
+  name: Château Mouton Rothschild
+  producer: Baron Philippe de Rothschild
+  region: pauillac
+  zone: Bordeaux · Left Bank
+  grapes: [cabernet-sauvignon, merlot, cabernet-franc]
+  color: red
+  price: [600, 850]
+  scores: "95–100"
+  vintages: ["1945", "1982", "1986", "2010", "2016"]
+  photo: tw-mouton
+  what: "Pauillac First Growth (promoted in 1973), around 80% Cabernet Sauvignon."
+  why: "Opulent blackcurrant, cedar and coffee, and a new label by a famous artist every year: Picasso, Warhol, Bacon. A collector's wine as much as a drinker's."
+- id: petrus
+  name: Pétrus
+  producer: Pétrus
+  region: pomerol
+  zone: Bordeaux · Right Bank
+  grapes: [merlot]
+  color: red
+  price: [4000, 6500]
+  scores: "96–100"
+  vintages: ["1961", "1989", "1990", "2009", "2015"]
+  photo: tw-petrus
+  what: "A tiny Pomerol estate of pure Merlot on a buttonhole of blue clay."
+  why: "Merlot at its most profound: plum, truffle and chocolate with a creamy, endless texture. Scarce and outside any classification, it is one of the world's most expensive wines."
+- id: cheval-blanc
+  name: Château Cheval Blanc
+  producer: Château Cheval Blanc
+  region: saint-emilion
+  zone: Bordeaux · Right Bank
+  grapes: [cabernet-franc, merlot]
+  color: red
+  price: [650, 900]
+  scores: "95–100"
+  vintages: ["1947", "1998", "2010", "2015", "2016"]
+  photo: tw-cheval-blanc
+  what: "Saint-Émilion's great estate, unusual for its high share of Cabernet Franc on gravel and clay."
+  why: "Floral, spicy and silky, fresh even when young. The 1947, a legend, appears in the film Ratatouille."
+- id: yquem
+  name: Château d'Yquem
+  producer: Château d'Yquem
+  region: sauternes
+  zone: Bordeaux · Sauternes
+  grapes: [semillon, sauvignon-blanc]
+  color: sweet
+  price: [350, 600]
+  scores: "95–100"
+  vintages: ["1811", "1921", "2001", "2009", "2015"]
+  photo: tw-yquem
+  what: "The only Premier Cru Supérieur of 1855: botrytized Sémillon picked berry by berry, sometimes over many passes."
+  why: "Apricot, honey, saffron and crème brûlée with fresh acidity; it lives for a century. In poor years none is made."
+- id: romanee-conti
+  name: Romanée-Conti
+  producer: Domaine de la Romanée-Conti
+  region: cote-de-nuits
+  zone: Burgundy · Côte de Nuits
+  grapes: [pinot-noir]
+  color: red
+  price: [20000, 30000]
+  scores: "96–100"
+  vintages: ["1945", "1978", "1990", "2005", "2019"]
+  photo: tw-romanee-conti
+  what: "A 1.8-hectare Grand Cru in Vosne-Romanée, owned whole by the Domaine; only about 5,000–6,000 bottles a year."
+  why: "Pinot Noir's most famous vineyard: rose, spice and red fruit, weightless yet intense. Rarity makes it the most expensive wine at release."
+- id: chablis-les-clos
+  name: Chablis Grand Cru Les Clos
+  producer: Domaine William Fèvre
+  region: chablis
+  zone: Burgundy · Chablis
+  grapes: [chardonnay]
+  color: white
+  price: [100, 160]
+  scores: "93–97"
+  vintages: ["2014", "2017", "2019", "2020", "2022"]
+  photo: tw-chablis
+  what: "The biggest and grandest of Chablis' seven Grand Cru plots, on fossil-rich Kimmeridgian limestone."
+  why: "Chardonnay as pure as it gets: lemon, oyster shell and flint, ageing into honey and hazelnut. Great value next to Côte d'Or whites."
+- id: dom-perignon
+  name: Dom Pérignon
+  producer: Moët & Chandon
+  region: champagne
+  zone: Champagne
+  grapes: [chardonnay, pinot-noir]
+  color: sparkling
+  price: [230, 320]
+  scores: "94–98"
+  vintages: ["1996", "2002", "2008", "2012", "2013"]
+  photo: tw-dom-perignon
+  what: "Moët & Chandon's prestige cuvée, only ever vintage, roughly half Chardonnay and half Pinot Noir, aged seven years or more."
+  why: "Smoky, toasty and creamy with fine bubbles; the most famous Champagne name in the world, and it ages beautifully."
+- id: krug
+  name: Krug Grande Cuvée
+  producer: Krug
+  region: champagne
+  zone: Champagne
+  grapes: [pinot-noir, chardonnay, meunier]
+  color: sparkling
+  price: [230, 300]
+  scores: "94–98"
+  vintages: ["Each edition blends 100+ wines from 10+ years"]
+  photo: tw-krug
+  what: "A multi-vintage Champagne fermented in small old oak barrels and blended from a huge library of reserve wines."
+  why: "Rich, nutty, brioche and citrus with great depth: Champagne with the weight of fine white Burgundy. Each bottle carries an 'ID' to look up its blend."
+- id: beaucastel
+  name: Château de Beaucastel
+  producer: Famille Perrin
+  region: chateauneuf-du-pape
+  zone: Southern Rhône
+  grapes: [mourvedre, grenache, syrah]
+  color: red
+  price: [90, 140]
+  scores: "93–98"
+  vintages: ["1989", "1990", "2007", "2010", "2016"]
+  photo: tw-beaucastel
+  what: "One of the few Châteauneuf estates to use all 13 permitted grapes, with an unusually high share of Mourvèdre."
+  why: "Garrigue herbs, leather and dark berries; it ages for decades. Organic since the 1950s."
+- id: hermitage-la-chapelle
+  name: Hermitage La Chapelle
+  producer: Paul Jaboulet Aîné
+  region: hermitage
+  zone: Northern Rhône
+  grapes: [syrah]
+  color: red
+  price: [150, 300]
+  scores: "92–100"
+  vintages: ["1961", "1978", "1990", "2015", "2019"]
+  photo: tw-hermitage
+  what: "Syrah from the granite hill of Hermitage, named after the little chapel at its top."
+  why: "Black olive, violet, smoked meat and pepper: the benchmark of northern Rhône Syrah. The 1961 is one of the wines of the century."
+- id: sassicaia
+  name: Sassicaia
+  producer: Tenuta San Guido
+  region: bolgheri
+  zone: Tuscany · Bolgheri
+  grapes: [cabernet-sauvignon, cabernet-franc]
+  color: red
+  price: [250, 380]
+  scores: "94–100"
+  vintages: ["1985", "2015", "2016", "2018", "2019"]
+  photo: tw-sassicaia
+  what: "The first Super Tuscan: Cabernet from stony coastal soils, released in 1968, now with its own DOC."
+  why: "Elegant cassis, cedar and Mediterranean herbs; more Bordeaux than Tuscany, yet with Italian freshness. The 2015 was Wine Spectator's wine of the year."
+- id: tignanello
+  name: Tignanello
+  producer: Marchesi Antinori
+  region: chianti-classico
+  zone: Tuscany · Chianti Classico
+  grapes: [sangiovese, cabernet-sauvignon, cabernet-franc]
+  color: red
+  price: [130, 180]
+  scores: "93–97"
+  vintages: ["1971", "2015", "2016", "2019", "2021"]
+  photo: tw-tignanello
+  what: "Antinori's Sangiovese blended with Cabernet and aged in French barriques: a founding Super Tuscan (1971)."
+  why: "Cherry, spice and vanilla with polished tannins; a modern Tuscan classic that is easier to find than most icons."
+- id: biondi-santi
+  name: Brunello di Montalcino
+  producer: Biondi-Santi
+  region: montalcino
+  zone: Tuscany · Montalcino
+  grapes: [sangiovese]
+  color: red
+  price: [180, 320]
+  scores: "93–98"
+  vintages: ["1955", "2010", "2015", "2016", "2019"]
+  photo: tw-brunello
+  what: "The family that invented Brunello in the 19th century: 100% Sangiovese Grosso, long aged in large Slavonian oak."
+  why: "Austere when young, then sour cherry, leather and tobacco for decades; the classic, traditional face of Montalcino."
+- id: monfortino
+  name: Barolo Riserva Monfortino
+  producer: Giacomo Conterno
+  region: barolo
+  zone: Piedmont · Barolo
+  grapes: [nebbiolo]
+  color: red
+  price: [1100, 1800]
+  scores: "95–100"
+  vintages: ["1971", "2010", "2013", "2015", "2016"]
+  photo: tw-barolo
+  what: "Nebbiolo from the Cascina Francia vineyard in Serralunga, aged about seven years in huge old casks; only in great years."
+  why: "Rose, tar, cherry and iron, with tannins that need decades. The most revered traditional Barolo."
+- id: quintarelli-amarone
+  name: Amarone della Valpolicella Classico
+  producer: Giuseppe Quintarelli
+  region: veneto
+  zone: Veneto · Valpolicella
+  grapes: [corvina]
+  color: red
+  price: [450, 700]
+  scores: "94–99"
+  vintages: ["2003", "2007", "2009", "2011", "2012"]
+  photo: tw-amarone
+  what: "Corvina grapes dried for months, then fermented dry and aged for years in cask; released only when ready."
+  why: "Velvety dried cherry, fig, chocolate and spice: Amarone at its most refined, by a legendary perfectionist."
+- id: vega-sicilia
+  name: Vega Sicilia Único
+  producer: Vega Sicilia
+  region: ribera-del-duero
+  zone: Spain · Ribera del Duero
+  grapes: [tempranillo, cabernet-sauvignon]
+  color: red
+  price: [450, 650]
+  scores: "95–100"
+  vintages: ["1970", "1994", "2009", "2011", "2012"]
+  photo: tw-vega-sicilia
+  what: "Spain's most famous red: Tinto Fino (Tempranillo) with some Cabernet, aged about ten years before release."
+  why: "Majestic, layered and fresh: red fruit, cedar, tobacco and spice. For a century the wine of Spanish kings and statesmen."
+- id: tondonia
+  name: Viña Tondonia Reserva
+  producer: R. López de Heredia
+  region: rioja
+  zone: Spain · Rioja Alta
+  grapes: [tempranillo, grenache]
+  color: red
+  price: [55, 85]
+  scores: "92–96"
+  vintages: ["1964", "2001", "2006", "2008", "2010"]
+  photo: tw-rioja
+  what: "Classic Rioja from Haro (founded 1877): six years in old American oak barrels before release."
+  why: "Time-capsule Rioja: strawberry, dried herbs, leather and spice with bright acidity. Delicious, long-lived and still fairly priced."
+- id: taylors-vintage
+  name: Taylor's Vintage Port
+  producer: Taylor's
+  region: douro
+  zone: Portugal · Douro
+  grapes: [touriga-nacional]
+  color: sweet
+  price: [90, 160]
+  scores: "94–99"
+  vintages: ["1927", "1963", "1977", "2011", "2017"]
+  photo: tw-port
+  what: "Made only in declared years from the best Douro quintas, foot-trodden in granite lagares."
+  why: "Blackberry, violet and spice with firm grip; it needs 20 years and lasts 50+. The classic gift for a child's birth year."
+- id: egon-muller
+  name: Scharzhofberger Riesling Spätlese
+  producer: Egon Müller
+  region: mosel
+  zone: Germany · Saar (Mosel)
+  grapes: [riesling]
+  color: white
+  price: [90, 250]
+  scores: "94–99"
+  vintages: ["2001", "2015", "2019", "2020", "2021"]
+  photo: tw-riesling
+  what: "Riesling from the steep slate Scharzhofberg in the cool Saar valley; the estate's sweet Auslese and TBA are among the world's most expensive whites."
+  why: "Feather-light, a touch sweet and electric with acidity: peach, lime and slate that age for decades."
+- id: royal-tokaji
+  name: Tokaji Aszú 5 Puttonyos
+  producer: Royal Tokaji
+  region: tokaj
+  zone: Hungary · Tokaj
+  grapes: [furmint]
+  color: sweet
+  price: [45, 75]
+  scores: "91–95"
+  vintages: ["2013", "2016", "2017"]
+  photo: tw-tokaji
+  what: "Botrytized Aszú berries soaked in base wine, aged in cellars lined with black mould (500 ml bottle)."
+  why: "Apricot, marmalade, honey and tea with racy acidity: the 'wine of kings' at a fraction of the price of Sauternes' greats."
+- id: opus-one
+  name: Opus One
+  producer: Opus One Winery
+  region: oakville
+  zone: California · Napa Valley
+  grapes: [cabernet-sauvignon, merlot]
+  color: red
+  price: [400, 500]
+  scores: "93–98"
+  vintages: ["1987", "2013", "2016", "2018", "2019"]
+  photo: tw-opus-one
+  what: "A Bordeaux-style blend from Oakville, created in 1979 by Robert Mondavi and Baron Philippe de Rothschild."
+  why: "Polished cassis, mocha and cedar: Napa ripeness with Bordeaux structure, and a symbol of the Old World meeting the New."
+- id: grange
+  name: Penfolds Grange
+  producer: Penfolds
+  region: barossa
+  zone: South Australia
+  grapes: [syrah]
+  color: red
+  price: [700, 950]
+  scores: "95–100"
+  vintages: ["1955", "1971", "2008", "2010", "2018"]
+  photo: tw-grange
+  what: "Australia's icon, mostly Shiraz from several South Australian vineyards, aged in new American oak."
+  why: "Dense blackberry, mocha and spice; it lives for 50 years. Its first winemaker kept making it in secret after the bosses told him to stop."
+- id: cloudy-bay
+  name: Cloudy Bay Sauvignon Blanc
+  producer: Cloudy Bay
+  region: marlborough
+  zone: New Zealand · Marlborough
+  grapes: [sauvignon-blanc]
+  color: white
+  price: [28, 40]
+  scores: "88–92"
+  vintages: ["Drink the latest release"]
+  photo: tw-cloudy-bay
+  what: "The 1985 wine that put Marlborough and New Zealand Sauvignon Blanc on the map."
+  why: "Passion fruit, lime and cut grass with zesty acidity: the template for a whole style, and an easy, joyful bottle."
+- id: musar
+  name: Château Musar Red
+  producer: Château Musar
+  region: bekaa-valley
+  zone: Lebanon · Bekaa Valley
+  grapes: [cabernet-sauvignon, cinsault, carignan]
+  color: red
+  price: [55, 80]
+  scores: "91–95"
+  vintages: ["1969", "1982", "2000", "2005", "2016"]
+  photo: tw-musar
+  what: "Cabernet Sauvignon, Cinsault and Carignan from the high Bekaa, released seven years after the vintage."
+  why: "Unlike anything else: dried fig, red cherry, spice and leather, wild and elegant. Made through the civil war; it ages for decades."

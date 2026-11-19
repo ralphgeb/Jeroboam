@@ -77,7 +77,7 @@ jobs:
           xcrun simctl install "$UDID" "$APP"
           mkdir -p shots
           SCREENS="${{ github.event.inputs.screens }}"
-          [ -z "$SCREENS" ] && SCREENS="onboarding learn lesson photo belt glasses refmap grapemap feedback complete practice library wines wine style grapes grape boldness guide colors labels regions region tuscany map explorer aromas tasting tastestep journal journalempty icons lebanon lbexplorer portugal ptexplorer tastings scan blind profile"
+          [ -z "$SCREENS" ] && SCREENS="onboarding learn lesson photo belt glasses refmap grapemap feedback complete practice library wines wine style grapes grape boldness guide colors labels regions region tuscany map explorer aromas tasting tastestep journal journalempty icons lebanon lbexplorer portugal ptexplorer tastings scan blind profile great greatwine paywall freelearn journallocked freeregions francemap piedmont"
           for mode in light dark; do
             xcrun simctl ui "$UDID" appearance $mode
             for s in $SCREENS; do

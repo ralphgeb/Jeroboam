@@ -34,7 +34,9 @@ enum Distribution {
     private init() {
         #if targetEnvironment(simulator)
         // the simulator screenshot run shows everything, unless a screen asks to see the free version
-        active = !ProcessInfo.processInfo.arguments.contains("-free") || UserDefaults.standard.bool(forKey: Self.key)
+        let args = ProcessInfo.processInfo.arguments
+        let free = args.contains("-free") || ["freelearn", "journallocked", "freeregions", "paywall"].contains(args.firstIndex(of: "-screen").map { args[min($0 + 1, args.count - 1)] } ?? "")
+        active = !free || UserDefaults.standard.bool(forKey: Self.key)
         #else
         active = UserDefaults.standard.bool(forKey: Self.key)
         #endif

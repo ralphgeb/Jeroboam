@@ -228,6 +228,7 @@ struct Library: Decodable {
     let pairings: [Pairing]
     let labels: [WineLabel]?
     var facts: [String]? = nil
+    var great: [GreatWine]? = nil
 }
 
 struct WineLabel: Decodable, Identifiable, Hashable {

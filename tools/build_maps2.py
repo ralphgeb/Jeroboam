@@ -505,8 +505,8 @@ def build_france():
 
     # ---- country map
     bbox = (41.3, -5.3, 51.2, 9.8)
-    pr = Proj(bbox, 3000)
-    tol = 1.2
+    pr = Proj(bbox, 7000)   # fine enough for village appellations when zoomed in
+    tol = 1.0
     land, focus, lk, rv = base_layers(pr, bbox, ["FRA"], tol=tol)
     areas = []
     top = {"bordeaux": ("Bordeaux", "plum", (44.2, -2.6), "Bordeaux blends · Sauvignon · Sémillon"),
@@ -522,6 +522,11 @@ def build_france():
         for s in specs:
             if s["lv"] == 1 and s["id"] in resolved[g]:
                 areas.append(area_record(pr, s["id"], s["name"], 1, cidx(col), resolved[g][s["id"]][0], tol, parent=g, grapes=s.get("grapes")))
+        # the appellations inside each zone (Pauillac in the Haut-Médoc, Gevrey-Chambertin in the Côte de Nuits…)
+        for s in specs:
+            if s["lv"] == 2 and s["id"] in resolved[g] and s.get("parent") in resolved[g]:
+                areas.append(area_record(pr, s["id"], s["name"], 2, cidx(s.get("color") or col), resolved[g][s["id"]][0], tol,
+                                         parent=s["parent"], grapes=s.get("grapes"), min_area=1))
     bj = resolved["burgundy"].get("beaujolais")
     if bj: areas.append(area_record(pr, "beaujolais", "Beaujolais", 0, cidx("rose"), bj[0], tol, label=(45.85, 3.6), grapes="Gamay"))
     for s in FR.OTHER:
@@ -639,7 +644,10 @@ def build_italy():
             if not ps: continue
             for n, g in it_comuni(reg):
                 if norm(n) in {norm(c) for c in ps["communes"]}:
-                    areas.append(area_record(pr, slug(n), n, 1, cidx(ps["color"]), g, tol, parent=parent, min_area=2))
+                    # a village named like its zone (Barolo, Barbaresco) gets its own id, or it would hide the zone
+                    vid = slug(n) if slug(n) != parent else slug(n) + "-village"
+                    areas.append(area_record(pr, vid, n + (" (village)" if vid != slug(n) else ""), 1, cidx(ps["color"]), g, tol,
+                                             parent=parent, min_area=2))
         areas.sort(key=lambda a: (a["lv"], -sum(len(s) for s in a["shapes"])))
         named = [(n, g) for n, g in it_comuni(reg) if n in names]
         lay = commune_layer(pr, named, tol)

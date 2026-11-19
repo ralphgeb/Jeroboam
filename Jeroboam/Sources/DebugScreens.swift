@@ -9,15 +9,18 @@ enum DebugScreens {
         return args[i + 1]
     }()
 
+    /// Screens that show the free version (no Jero Plus).
+    static var showsFree: Bool { ["freelearn", "journallocked", "freeregions", "paywall"].contains(screen ?? "") }
+
     static var autoAnswerWrong = false
     static var autoFinish = false
 
     static var initialTab: Int? {
         switch screen {
-        case "learn", "lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete": return 0
+        case "learn", "lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete", "freelearn", "paywall", "history": return 0
         case "practice": return 1
-        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style", "tastestep", "lbexplorer", "ptexplorer": return 2
-        case "journal", "journalempty", "profile", "tastings", "scan", "blind": return 3
+        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style", "tastestep", "lbexplorer", "ptexplorer", "great", "greatwine", "freeregions", "francemap", "piedmont": return 2
+        case "journal", "journalempty", "profile", "tastings", "scan", "blind", "journallocked", "ratingguide": return 3
         default: return nil
         }
     }
@@ -156,6 +159,10 @@ enum DebugScreens {
             case "lebanon", "lbexplorer": if let r = c.region("lebanon") { push(r) }
             case "portugal", "ptexplorer": if let r = c.region("portugal") { push(r) }
             case "icons": push("icons")
+            case "great": push(LibrarySection.great)
+            case "greatwine": if let w = c.library.great?.first { push(w) }
+            case "freeregions": push(LibrarySection.regions)
+            case "francemap", "piedmont": if let r = c.region(screen == "piedmont" ? "piedmont" : "france") { push(r) }
             default: break
             }
         }
