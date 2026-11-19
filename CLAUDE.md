@@ -7,7 +7,12 @@ Duolingo-style wine course (Levels 1–3, WSET-inspired) plus a wine atlas: grap
 
 ## Layout
 ```
-content/            SOURCE of all text: YAML (course/*.yaml units, grapes, regions, aromas, colors, glossary, styles, flows, sat, pairings, levels)
+content/            SOURCE of all text: YAML (course/*.yaml units, grapes, regions, aromas, colors, glossary, styles, flows, sat, pairings, levels,
+                    wines.yaml = "Wines of the world" catalog; deep/<unit>.yaml = deep-dive lessons merged before "Going further";
+                    photos.json = Wikimedia Commons queries)
+tools/fetch_photos.py + .github/workflows/photos.yml   fetch CC/PD photos from Commons on a runner (this container's IP is
+                    rate-limited) -> pushed to the `photos` branch; pick, resize to 900 px and copy into Resources/Photos
+                    (+ credits.json). Lessons use `visual: "photo:<id>"`; missing ids are hidden with a warning.
 tools/build_content.py   YAML -> Jeroboam/Resources/Content/{course,library}.json + validation (run after every content edit)
 tools/build_maps2.py     map builder v2 (zoomable, levels 0/1/2). Sources in /home/user/ne (Natural Earth) and /home/user/geo:
                          fr/communes-<dept>.geojson (gregoiredavid/france-geojson), it_comuni.geojson (openpolis/geojson-italy),
@@ -26,7 +31,7 @@ Jeroboam/Sources/        Swift app
 
 ## Content rules
 - Card YAML: `learn` (title/body/visual), `choice` (options + `a` = correct text), `blank` (`___` per answer, `answers`, distractor `options`), `tf` (`truth`), `match` (`pairs`, all items unique). Every question needs `explain`.
-- Visual specs: `map:<mapId>[:<area,area>]`, `grape:<id>`, `glass:<colorId>`, `glassonly:<colorId>`, `colors:white|rose|red`, `profile:<grape>`, `aromas:<grape>`, `wheel`, `flow:<flowId>`, `diagram:<vine-cycle|climate|grape-anatomy|bottle-sizes|serving-temps|sweetness|solera|wine-belt|glass-shapes|tannin-acid>`.
+- Visual specs: `photo:<id>`, `map:<mapId>[:<area,area>]`, `grape:<id>`, `glass:<colorId>`, `glassonly:<colorId>`, `colors:white|rose|red`, `profile:<grape>`, `aromas:<grape>`, `wheel`, `flow:<flowId>`, `diagram:<vine-cycle|climate|grape-anatomy|bottle-sizes|serving-temps|sweetness|solera|wine-belt|glass-shapes|tannin-acid>`.
 - Region ids == map area ids, so tapping a map area opens its guide. The builder warns about map areas without a region entry.
 - Never quote WSET materials verbatim; the app says "inspired by", not affiliated.
 
@@ -68,14 +73,23 @@ Jeroboam/Sources/        Swift app
   merged into the unit files).
   Areas show small numbered badges only; tapping shows the name in a callout box (tap again to open). Legends list number + name.
 - Learn tab: streak bar scrolls away; level tabs (+ compact level title once scrolled) stay pinned.
+  Practice/Atlas/Journal use `CollapsingPage` (big title collapses into a top bar with the profile avatar).
+- Maps, atlas style (owner's choice, "like the Rioja card"): big regions with appellations inside are pale washes,
+  appellations strong; level-0 regions without children are a soft wash; highlighted areas full color.
+  French and Italian detail maps draw rivers/estuaries as water (`water_polys`: buffered NE centerlines + smoothed estuary).
+  The explorer frames the map between the header (120) and the list card (200).
+- Quiz feedback: compact panel, answers scroll into view; wrong = #E5484D, right = teal.
+- Atlas: "Wines of the world" (`Wines.swift`, 76 wines, tappable grapes/region/style); style pages list their wines.
+- Journal: `JournalExtras` (how it works, palate passport, tonight's challenge, classics carousel).
+- Brand board (round 1: identity, 20 logo directions, mascot "Jero" the puppy): claude.ai/artifact/LyWjNCyGSqKQ9jCXADvFJn
 - Color chart: square swatches, no corner radius, four per row.
 
 ## Debug screenshots
-DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
+DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, wine, style, journalempty, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
 
 ## Release procedure
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
 - TestFlight build 4 uploaded (run 4 of build-ios.yml): grape photos. App Store Connect app + secrets are set up.
-- Waiting on owner: logo choice from the 10 options (in-app mark currently = option 1).
+- Waiting on owner: logo/mascot choice from the brand board (in-app mark is still the grape cluster).
