@@ -56,7 +56,7 @@
   icon: mountain.2
   cards:
     - learn: What soil really does
-      visual: "photo:soil-limestone"
+      visual: "photo:champagne-vineyards"
       body: |
         Soil matters less for "flavor" than for **water and heat**.
 
@@ -64,13 +64,13 @@
         - **Water-holding** soils (clay) keep vines going in drought but can be cold and late in wet years.
         - **Limestone** and chalk drain well yet hold water in their pores, keeping acidity fresh. Champagne, Chablis and Saint-Émilion sit on it.
     - learn: Stones that store heat
-      visual: "photo:soil-slate"
+      visual: "photo:mosel-slope"
       body: |
         Dark **slate** in the Mosel and big rounded **galets** in Châteauneuf-du-Pape soak up the sun by day and give warmth back at night, helping grapes ripen in marginal places.
 
         Light-colored chalk does the opposite: it reflects light up into the canopy.
     - learn: Slope, aspect and water
-      visual: "photo:mosel-slope"
+      visual: "photo:rhone-hermitage"
       body: |
         In cool regions, a **south-facing slope** (north-facing in the Southern Hemisphere) catches more sun at a better angle. Slopes also drain cold air and water away.
 
