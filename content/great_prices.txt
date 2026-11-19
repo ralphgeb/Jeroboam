@@ -410,3 +410,9 @@ voerzio-brunate | 288 | - | https://www.jamessuckling.com/tasting-notes/246968/r
 ceretto-bricco | 249 | - | https://www.jamessuckling.com/tasting-notes/60223/ceretto-barolo-bricco-rocche-2013
 la-spinetta | 149 | - | https://www.jamessuckling.com/tasting-notes/247595/la-spinetta-barbaresco-vursu-starderi-2021
 tenuta-san-guido-guidalberto | 64 | - | https://www.jamessuckling.com/tasting-notes/251080/tenuta-san-guido-toscana-guidalberto-2022
+quintarelli-amarone | 340 | - | https://www.jamessuckling.com/tasting-notes/261766/giuseppe-quintarelli-amarone-della-valpolicella-classico-2017
+allegrini-amarone | 82 | - | https://www.jamessuckling.com/tasting-notes/255878/allegrini-amarone-della-valpolicella-classico-2020
+masi-costasera | 47 | - | https://www.jamessuckling.com/tasting-notes/337281/masi-amarone-della-valpolicella-classico-costasera
+pieropan-soave | 43 | - | https://www.jamessuckling.com/tasting-notes/188123/pieropan-soave-classico-la-rocca-2020
+ca-del-bosco | 41 | - | https://www.jamessuckling.com/tasting-notes/264244/ca-del-bosco-franciacorta-cuvee-prestige-46a-edizione-extra-brut
+ferrari-giulio | 177 | - | https://www.jamessuckling.com/tasting-notes/227770/giulio-ferrari-trento-riserva-del-fondatore-2012
