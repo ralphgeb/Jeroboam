@@ -468,3 +468,9 @@ dujac-morey | 257 | - | https://www.jamessuckling.com/tasting-notes/254413/domai
 bouchard-enfant-jesus | 192 | - | https://www.jamessuckling.com/tasting-notes/265306/bouchard-pere-fils-beaune-1er-cru-greves-vigne-de-lenfant-jesus-2022
 henri-giraud | 500 | - | https://www.jamessuckling.com/tasting-notes/186768/henri-giraud-champagne-argonne-brut-2014
 bruno-paillard | 386 | - | https://www.jamessuckling.com/tasting-notes/43430/bruno-paillard-champagne-nee-plus-ultra-1999
+ridge-geyserville | 52 | - | https://www.jamessuckling.com/tasting-notes/338301/ridge-vineyards-alexander-valley-geyserville
+diamond-creek | 331 | - | https://www.jamessuckling.com/tasting-notes/7476/diamond-creek-cabernet-sauvignon-napa-valley-volcanic-hill-2008
+saxum | 215 | - | https://www.jamessuckling.com/tasting-notes/9762/saxum-paso-robles-james-berry-vineyard-2009
+clonakilla | 113 | - | https://www.jamessuckling.com/tasting-notes/111414/clonakilla-shiraz-viognier-canberra-district-2018
+musar | 122 | - | https://www.jamessuckling.com/tasting-notes/45942/chateau-musar-bekaa-valley-2004
+kanonkop-paul-sauer | 58 | - | https://www.jamessuckling.com/tasting-notes/274402/kanonkop-simonsberg-stellenbosch-paul-sauer-2021
