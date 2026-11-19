@@ -1,0 +1,31 @@
+- title: "Deep dive: farming philosophies and climate change"
+  icon: leaf.arrow.triangle.circlepath
+  cards:
+    - learn: Organic, biodynamic, sustainable
+      visual: "photo:vineyard-rows"
+      body: |
+        - **Organic**: no synthetic herbicides, pesticides or fertilizers. Copper and sulfur are allowed against mildew.
+        - **Biodynamic**: organic plus a whole-farm system from Rudolf Steiner's 1924 lectures: herbal preparations and a calendar following the moon. Followers include Domaine Leflaive and Zind-Humbrecht.
+        - **Sustainable**: certified programs balancing environment, people and cost (Napa Green, Sustainable Wine South Africa, HVE in France).
+    - learn: Yield and quality
+      body: |
+        Yields are measured in **hectoliters per hectare** (hl/ha). Grand Cru Burgundy is limited to about 35 hl/ha; bulk vineyards can exceed 150.
+
+        Lower yields often mean more concentrated grapes, but a healthy, balanced vine matters more than any number. Old vines naturally give small crops of small berries.
+    - learn: Climate change in the vineyard
+      visual: "photo:mosel-slope"
+      body: |
+        Harvests in Europe now come two to three weeks earlier than in the 1980s. Riper grapes mean **higher alcohol** and **lower acidity**.
+
+        Growers respond by planting on **higher, cooler sites**, facing slopes away from the sun, keeping more leaves for shade, and trying heat-tolerant grapes. England, Tasmania and southern Chile are booming as cool places get warm enough.
+    - choice: "What does biodynamic farming add to organic farming?"
+      options: ["Herbal preparations and a lunar calendar", "Synthetic fertilizers", "Irrigation only at night", "Machine harvesting"]
+      a: "Herbal preparations and a lunar calendar"
+      explain: "It treats the vineyard as a self-sustaining farm organism."
+    - choice: "How is yield usually measured?"
+      options: ["Hectoliters per hectare", "Bottles per vine", "Tons per bottle", "Liters per barrel"]
+      a: "Hectoliters per hectare"
+      explain: "1 hl = 100 liters, or about 133 standard bottles."
+    - tf: "Climate change has made European harvests later."
+      truth: false
+      explain: "They now start two to three weeks earlier than in the 1980s."

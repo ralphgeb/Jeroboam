@@ -1,0 +1,48 @@
+- title: "Deep dive: the winemaker's choices"
+  icon: slider.horizontal.3
+  cards:
+    - learn: "Yeast: wild or cultured"
+      visual: "photo:fermentation-tank"
+      body: |
+        **Ambient** (wild) yeasts from the vineyard and cellar give complexity but can stall or make off-flavors. **Cultured** yeasts are reliable and can be chosen for aroma, speed or tolerance to alcohol.
+
+        Many top estates start with wild yeast and keep a cultured strain in reserve.
+    - learn: Temperature and time
+      body: |
+        - **Cool** (12–16 °C) whites keep fruity esters: think Sauvignon Blanc and Riesling.
+        - **Warm** (25–32 °C) reds extract color and tannin quickly.
+        - **Extended maceration** after fermentation polymerizes tannins so they feel softer.
+        - **Cold soak** before fermentation extracts color and fruit without harsh tannin.
+    - learn: "Oxygen: friend and foe"
+      visual: "photo:barrel-cellar"
+      body: |
+        **Reductive** winemaking keeps oxygen out (inert gas, sealed steel tanks, screw caps) for pure, fresh fruit.
+
+        **Oxidative** winemaking lets air in on purpose: barrels, racking, open vats, or the extreme cases of oloroso sherry and tawny port. A little oxygen softens tannin and builds complexity; too much makes wine flat and bruised-apple brown.
+    - learn: Barrels in detail
+      visual: "photo:barrel-making"
+      body: |
+        - **Size**: a 225 L *barrique* gives more oak per liter than a 500 L *puncheon* or a 2,000 L *foudre*.
+        - **Age**: new oak gives the most flavor; after three or four fills it is almost neutral.
+        - **Origin**: French oak (tight grain: spice, toast, silkier) vs American oak (vanilla, coconut, dill).
+        - **Toast**: light (fresh wood, coconut) to heavy (coffee, smoke).
+    - learn: Alternatives
+      visual: "photo:qvevri"
+      body: |
+        **Concrete eggs**, **clay amphorae** and Georgia's buried **qvevri** let wine breathe without oak flavor. Georgia has made wine in qvevri for about 8,000 years; it is on UNESCO's list of intangible heritage.
+
+        Cheaper wines may use **oak chips or staves** in steel tanks for a fast oak note.
+    - choice: "Which barrel gives the strongest oak flavor?"
+      options: ["A new 225 L barrique", "A 2,000 L foudre", "A fourth-fill barrel", "A concrete egg"]
+      a: "A new 225 L barrique"
+      explain: "Small and new means the most wood contact per liter and the most fresh oak compounds."
+    - choice: "What does reductive winemaking aim to do?"
+      options: ["Keep oxygen away for pure, fresh fruit", "Age the wine under flor", "Add oak flavors", "Raise the alcohol"]
+      a: "Keep oxygen away for pure, fresh fruit"
+      explain: "Steel, inert gas and screw caps are the reductive toolkit."
+    - match: "Match the vessel to its effect"
+      pairs: [[New French barrique, Toast and spice], [Stainless steel, Pure fruit], [Qvevri, Ancient clay texture], [Foudre, Gentle oxygen with little oak flavor]]
+      explain: "The vessel shapes texture as much as flavor."
+    - tf: "American oak tends to show more coconut and vanilla than French oak."
+      truth: true
+      explain: "It contains more of the lactones behind coconut aromas."
