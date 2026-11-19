@@ -440,3 +440,9 @@ cloudy-bay | 34 | - | https://www.jamessuckling.com/tasting-notes/166952/cloudy-
 felton-road | 175 | - | https://www.jamessuckling.com/tasting-notes/40839/felton-road-pinot-noir-central-otago-block-3-2013
 klein-constantia-vdc | 103 | - | https://www.jamessuckling.com/tasting-notes/265442/klein-constantia-constantia-vin-de-constance-natural-sweet-wine-2021
 catena-adrianna-mundus | 215 | - | https://www.jamessuckling.com/tasting-notes/128372/catena-zapata-malbec-mendoza-adrianna-vineyard-mundus-bacillus-terrae-2018
+trotanoy | 257 | - | https://www.jamessuckling.com/tasting-notes/125026/chateau-trotanoy-pomerol-2017
+giscours | 66 | - | https://www.jamessuckling.com/tasting-notes/183094/chateau-giscours-margaux-2021
+pichon-baron | 163 | - | https://www.jamessuckling.com/tasting-notes/247019/chateau-pichon-longueville-baron-pauillac-2021
+pol-roger-vintage | 95 | - | https://www.jamessuckling.com/tasting-notes/310087/pol-roger-champagne-vintage-brut-2018
+ruinart-dom | 243 | - | https://www.jamessuckling.com/tasting-notes/54554/ruinart-dom-ruinart-blanc-de-blancs-brut-2004
+guigal-ex-voto | 326 | - | https://www.jamessuckling.com/tasting-notes/192135/e-guigal-hermitage-ex-voto-2018
