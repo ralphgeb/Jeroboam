@@ -54,7 +54,7 @@ Jeroboam/Sources/        Swift app
 
 ## Design rules (owner feedback: elegant and refined, "not too bold, not too big", coherent; Wine Folly as reference)
 - Light: porcelain #F5F4F2 + Bordeaux #8B1538 (+ pink #D8285A accents). Dark: deep Bordeaux #1A0910 with beige #F0D9C4 actions.
-- Type: SF Pro only, one scale (`TypeScale`): screen title 30 bold, section 19 semibold, card title 17 semibold, body 16, secondary 14, caption 12.
+- Type: SF Pro only, one scale (`TypeScale`): screen title 33 bold (eyebrow sits right on top), section 19 semibold, card title 17 semibold, body 16, secondary 14, caption 12.
   Every screen starts with `ScreenHeader(eyebrow:title:subtitle:)`; sections use `SectionTitle`. No uppercase poster titles, no heavy/black weights.
   `Font.display` is kept only for numbers and is scaled down.
 - Lists: `GroupCard` + `IconRow` (Settings-like). Cards open with a zoom transition: `.zoomSource(ZoomID…)` on the card,

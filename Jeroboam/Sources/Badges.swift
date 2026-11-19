@@ -90,15 +90,11 @@ struct AchievementBadge: View {
                 .foregroundStyle((Self.style[achievement.id]?.1 ?? .silver).colors[2])
                 .shadow(color: .white.opacity(0.7), radius: 0, x: 0, y: 1)
                 .offset(y: -size * 0.06)
-            if !unlocked {
-                Image(systemName: "lock.fill").font(.system(size: size * 0.13, weight: .bold)).foregroundStyle(.white)
-                    .padding(size * 0.05).background(Circle().fill(Palette.ink.opacity(0.75)))
-                    .offset(x: size * 0.26, y: size * 0.18)
-            }
         }
         .frame(width: size, height: size)
-        .saturation(unlocked ? 1 : 0)
-        .opacity(unlocked ? 1 : 0.55)
+        .compositingGroup()
+        // Locked: a faint flat silhouette of the medal; it shows in full once earned.
+        .modifier(SilhouetteIf(on: !unlocked))
         .accessibilityLabel(achievement.title + (unlocked ? ", unlocked" : ", locked"))
     }
 
@@ -154,5 +150,16 @@ struct RankEmblem: View {
                 .offset(y: size * 0.02)
         }
         .frame(width: size, height: size)
+    }
+}
+
+private struct SilhouetteIf: ViewModifier {
+    let on: Bool
+    func body(content: Content) -> some View {
+        if on {
+            Palette.ink.opacity(0.09).mask(content)
+        } else {
+            content
+        }
     }
 }

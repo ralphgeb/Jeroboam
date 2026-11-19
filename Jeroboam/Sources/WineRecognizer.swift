@@ -100,14 +100,16 @@ enum WineRecognizer {
         let lines = await readText(image)
         if let text = usefulText(lines) {
             var r = try await call(key: key, content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
-            if r.identity.found && r.identity.confidence != "low" { return r }
+            // Text alone is enough only for a confident, named answer; otherwise look at the photo too
+            // (script or curved labels such as López de Heredia often defeat OCR).
+            if r.identity.found && !r.identity.name.isEmpty && r.identity.confidence == "high" { return r }
             // fall back to the image, adding the cost of the first call
             if let jpeg = small(image) {
                 var r2 = try await call(key: key, content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text))
                 r2.inputTokens += r.inputTokens
                 r2.outputTokens += r.outputTokens
                 r2.usedImage = true
-                return r2.identity.found ? r2 : r
+                return (r2.identity.found && !r2.identity.name.isEmpty) || !r.identity.found ? r2 : r
             }
             r.usedImage = false
             return r
@@ -131,17 +133,19 @@ enum WineRecognizer {
 
     /// Downscale so the image costs roughly 1,000–1,500 input tokens.
     private static func small(_ image: UIImage) -> Data? {
-        let maxSide: CGFloat = 1024
+        let maxSide: CGFloat = 1400
         let s = min(1, maxSide / max(image.size.width, image.size.height))
         let size = CGSize(width: image.size.width * s, height: image.size.height * s)
         let r = UIGraphicsImageRenderer(size: size)
         let img = r.image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
-        return img.jpegData(compressionQuality: 0.6)
+        return img.jpegData(compressionQuality: 0.72)
     }
 
     private static let system = """
     You identify wines from label text or label photos for a wine-learning journal app. \
-    Return your best identification. If you cannot tell which wine it is, set found=false and fill what you can (for example the region or grape). \
+    Return your best identification. Read the producer and wine name carefully, including script, cursive or curved lettering \
+    (for example "López de Heredia Viña Tondonia"). If you can name the producer or the wine, set found=true and give your best guess, \
+    lowering confidence when unsure. Only if you cannot name it at all, set found=false and fill what you can (for example the region or grape). \
     tasting_notes: 4-6 short aroma/flavor descriptors typical of this wine (e.g. "Black cherry", "Vanilla"). \
     palate: one sentence on structure (sweetness, acidity, tannin, body). \
     price_low/price_high: typical current retail price range for one 750 ml bottle in US dollars, as an estimate from your knowledge (0 if unknown). \
@@ -238,8 +242,11 @@ extension WineRecognizer {
 
     /// Looks up the average retail price for one bottle on Wine-Searcher (or CellarTracker),
     /// using Claude's web search tool limited to those sites. Falls back to the model's estimate.
+    /// Live price lookups are off for now: the app shows Claude's estimate from the identification (no extra cost).
+    static let livePrices = false
+
     static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
-        guard let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
+        guard livePrices, let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let prompt = """
         Find the current average retail price of one 750 ml bottle of this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").

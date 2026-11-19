@@ -160,7 +160,7 @@ struct PracticeView: View {
 
     @ViewBuilder private func art(_ k: QuizGenerator.Kind) -> some View {
         switch k {
-        case .grapes: GrapeCluster(berry: .black, seed: 5).frame(width: 40, height: 40)
+        case .grapes: GrapeArt(id: "cabernet-sauvignon", size: 42)
         case .regions, .maps:
             WineMapView(mapID: "spain", showLabels: false, showCities: false, fill: true, thumbnail: true)
                 .clipShape(Circle()).allowsHitTesting(false)

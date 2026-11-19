@@ -262,7 +262,7 @@ struct MapRenderer {
             layer.stroke(g.land, with: .color(Palette.border.opacity(0.7)), lineWidth: hair * 0.7)
         }
         // The focus country "pops out": a soft lift shadow under bright land, neighbours stay muted.
-        if g.map.belts == nil {
+        if g.map.belts == nil && !thumb {
             let t = CGAffineTransform(translationX: offset.width, y: offset.height).scaledBy(x: s, y: s)
             let fp = g.focus.applying(t)
             ctx.drawLayer { l in
@@ -312,10 +312,14 @@ struct MapRenderer {
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
                 let isHL = highlight.contains(a.id) || selected == a.id
                 if regionsOnly {
+                    // regions view: each region as a hatch in its color, no solid fill
                     let base = Palette.mapColor(a.color)
                     let dim = anyHL && !isHL ? 0.45 : 1.0
-                    regions.fill(a.path, with: .color((dark ? base.opacity(0.75) : base.mix(with: .white, 0.18)).opacity(dim)))
-                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.95)), lineWidth: hair * 1.2)
+                    regions.fill(a.path, with: .color(dark ? base.opacity(0.16 * dim) : base.mix(with: .white, 0.88).opacity(dim)))
+                    var hc = regions
+                    hc.clip(to: a.path)
+                    hc.stroke(hatch, with: .color(base.opacity((dark ? 0.7 : 0.62) * dim)), lineWidth: hair * 1.1)
+                    regions.stroke(a.path, with: .color(base.opacity(0.85 * dim)), lineWidth: hair * 1.2)
                     if isHL { regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.6) }
                     continue
                 }
@@ -339,7 +343,11 @@ struct MapRenderer {
                 if anyHL && !isHL && !(highlight.contains(a.parent ?? "") ) && !isContainer { opacity *= 0.28 }
                 regions.fill(a.path, with: .color(color.opacity(opacity)))
                 regions.stroke(a.path, with: .color(isContainer ? Palette.mapColor(a.color).opacity(0.55) : Palette.focusLand.opacity(0.95)),
-                               lineWidth: hair * (isContainer ? 0.9 : 1.1))
+                               lineWidth: hair * (isContainer ? 0.9 : 1.6))
+                if !isContainer {
+                    // a fine dark edge inside the white gap, so neighbouring appellations always read as separate
+                    regions.stroke(a.path, with: .color(color.mix(with: .black, 0.35).opacity(opacity * 0.8)), lineWidth: hair * 0.6)
+                }
                 if isHL {
                     regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
@@ -782,8 +790,10 @@ struct ZoomableWineMap: View {
         // detail levels are measured from the whole-map view
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
-        let c = g.contentBounds
-        var target: CGRect? = c.insetBy(dx: -c.width * 0.06, dy: -c.height * 0.06)
+        var c = g.contentBounds
+        let f = g.focus.boundingRect
+        if !f.isEmpty && f.width * f.height < c.width * c.height * 6 { c = c.union(f) }
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.03, dy: -c.height * 0.03)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
@@ -836,7 +846,7 @@ struct MapExplorer: View {
     @State private var zoom: CGFloat = 1
     @State private var openRegion: Region? = nil
     @State private var resetToken = 0
-    @State private var layer: Int? = 0
+    @State private var layer: Int? = 1
     @State private var zoomCommand = 0
     @State private var listExpanded = false
 

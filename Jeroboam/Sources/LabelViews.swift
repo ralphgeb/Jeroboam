@@ -168,35 +168,51 @@ struct LabelDecoderCard: View {
 }
 
 struct LabelsScreen: View {
-    @State private var selected: String = "bordeaux"
+    @State private var selected: String? = "bordeaux"
     var body: some View {
         let labels = ContentStore.shared.library.labels ?? []
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeader(eyebrow: "Read any bottle", title: "Label decoder",
-                             subtitle: "Pick a region, then tap a numbered part of the label to see what it tells you.")
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(labels) { l in
-                            Button { withAnimation(.easeInOut(duration: 0.2)) { selected = l.id } } label: {
-                                Text(l.title).font(.system(size: 14, weight: .medium))
-                                    .foregroundStyle(selected == l.id ? Palette.onWine : Palette.ink)
-                                    .padding(.horizontal, 14).padding(.vertical, 8)
-                                    .background(Capsule().fill(selected == l.id ? Palette.wine : Palette.cardAlt))
+                             subtitle: "Swipe between regions, then tap a numbered part of the label to see what it tells you.")
+                    .padding(.horizontal, Metrics.margin)
+                ScrollViewReader { chips in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(labels) { l in
+                                Button { withAnimation(.smooth(duration: 0.35)) { selected = l.id } } label: {
+                                    Text(l.title).font(.system(size: 14, weight: .medium))
+                                        .foregroundStyle(selected == l.id ? Palette.onWine : Palette.ink)
+                                        .padding(.horizontal, 14).padding(.vertical, 8)
+                                        .background(Capsule().fill(selected == l.id ? Palette.wine : Palette.cardAlt))
+                                }
+                                .buttonStyle(.plain)
+                                .id(l.id)
                             }
-                            .buttonStyle(.plain)
+                        }
+                        .padding(.horizontal, Metrics.margin)
+                    }
+                    .onChange(of: selected) { _, id in withAnimation(.smooth) { chips.scrollTo(id, anchor: .center) } }
+                }
+                // One page per label: swipe left and right, the cards slide whole.
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(alignment: .top, spacing: 0) {
+                        ForEach(labels) { l in
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                LabelDecoderCard(label: l)
+                            }
+                            .padding(.horizontal, Metrics.margin)
+                            .containerRelativeFrame(.horizontal)
+                            .id(l.id)
                         }
                     }
+                    .scrollTargetLayout()
                 }
-                if let l = labels.first(where: { $0.id == selected }) {
-                    Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
-                        .fixedSize(horizontal: false, vertical: true)
-                    LabelDecoderCard(label: l)
-                        .id(l.id)
-                        .transition(.opacity)
-                }
+                .scrollTargetBehavior(.paging)
+                .scrollPosition(id: $selected)
             }
-            .padding(.horizontal, Metrics.margin)
             .padding(.vertical, 12)
             .padding(.bottom, 30)
         }

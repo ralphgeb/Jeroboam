@@ -518,25 +518,25 @@ struct PriceCard: View {
                 if loading {
                     HStack(spacing: 8) {
                         ProgressView().controlSize(.small)
-                        Text("Finding the average price…").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                        Text("Estimating the price…").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                     }
                 } else if let p = price {
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text(p.averageText).font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
                         Text("avg. per bottle").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
                     }
-                    Text(p.isEstimate ? "Estimate (no listing found)" :
+                    Text(p.isEstimate ? (p.low > 0 && p.high > 0 ? "Estimated by Claude · \(p.format(p.low))–\(p.format(p.high))" : "Estimated by Claude") :
                             (p.low > 0 && p.high > 0 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
                         .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
                     if let q = quantity, q > 1 {
                         Text("\(q) bottles · \(p.format(p.average * Double(q)))").font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
                     }
                 } else {
-                    Text("No price found").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    Text("No price estimate for this wine").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                 }
             }
             Spacer()
-            if let onRefresh, !loading {
+            if let onRefresh, !loading, WineRecognizer.livePrices {
                 Button(action: onRefresh) {
                     Image(systemName: "arrow.clockwise").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                         .frame(width: 32, height: 32).background(Circle().fill(Palette.cardAlt))

@@ -55,6 +55,15 @@ struct LearnView: View {
                 .background(Palette.paper.ignoresSafeArea())
                 .toolbar(.hidden, for: .navigationBar)
                 .onChange(of: levelNumber) { _, _ in proxy.scrollTo("top", anchor: .top) }
+                // Tapping Learn again: back to the top of the level you are working on.
+                .onReceive(NotificationCenter.default.publisher(for: .learnTabReselected)) { _ in
+                    let unlocked = content.course.levels.filter { progress.isLevelUnlocked($0.number) }
+                    let target = unlocked.first { progress.levelProgress($0) < 1 } ?? unlocked.last
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        if let t = target, t.number != levelNumber { levelNumber = t.number }
+                        proxy.scrollTo("top", anchor: .top)
+                    }
+                }
             }
         }
         .fullScreenCover(item: $session) { s in
@@ -412,4 +421,8 @@ struct StudyGuideHeader: View {
         .padding(16)
         .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Palette.card))
     }
+}
+
+extension Notification.Name {
+    static let learnTabReselected = Notification.Name("jero.learnTabReselected")
 }

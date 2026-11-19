@@ -48,11 +48,12 @@ struct LiquidSwatch: View {
     let core: Color
     let rim: Color
     var level: Double = 0.84
+    var live = true
     var tilt = Tilt.shared
 
     var body: some View {
         // Read the tilt here so SwiftUI redraws when it changes.
-        let a = tilt.angle, wave = tilt.wave, phase = tilt.phase
+        let a = live ? tilt.angle : 0, wave = live ? tilt.wave : 0, phase = live ? tilt.phase : 1.2
         Canvas { ctx, size in
             let w = size.width, h = size.height
             let s = max(w, h)
@@ -113,7 +114,7 @@ struct ColorChartScreen: View {
                     ForEach(Array(colors.enumerated()), id: \.element.id) { i, c in
                         Button { picked = c } label: {
                             VStack(alignment: .leading, spacing: 6) {
-                                LiquidSwatch(core: Color(hex: c.hex), rim: Color(hex: c.rim))
+                                LiquidSwatch(core: Color(hex: c.hex), rim: Color(hex: c.rim), level: 1.2, live: false)
                                     .aspectRatio(1, contentMode: .fit)
                                     .overlay(Rectangle().strokeBorder(Palette.ink.opacity(0.06), lineWidth: 0.5))
                                 Text(String(format: "%02d", i + 1)).font(.system(size: 10, weight: .medium).monospacedDigit()).foregroundStyle(Palette.inkFaint)
@@ -133,8 +134,6 @@ struct ColorChartScreen: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear { Tilt.shared.start() }
-        .onDisappear { Tilt.shared.stop() }
         .sheet(item: $picked) { c in ColorDetailSheet(color: c) }
     }
 }
@@ -147,13 +146,8 @@ struct ColorDetailSheet: View {
         let grapes = Self.grapes(for: c)
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                LiquidSwatch(core: Color(hex: c.hex), rim: Color(hex: c.rim), level: 0.7)
-                    .frame(height: 190)
-                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                    .overlay(alignment: .bottomLeading) {
-                        Text("Tilt to move the wine").font(.system(size: 11.5, weight: .medium))
-                            .foregroundStyle(.white.opacity(0.9)).padding(12)
-                    }
+                GlassPool(color: c)
+                    .frame(maxWidth: .infinity)
                 VStack(alignment: .leading, spacing: 6) {
                     Eyebrow(c.family == "rose" ? "Rosé" : c.family.capitalized)
                     Text(c.name).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
@@ -222,5 +216,39 @@ struct ColorDetailSheet: View {
         default: hue = "Reds fade with age: purple rims are young, ruby is the prime of life, and garnet or tawny rims show years in bottle or barrel."
         }
         return depth + "\n\n" + hue
+    }
+}
+
+/// The opened color as wine in a glass seen from above: it sloshes when the phone tilts, with the paler rim and a glassy shine.
+struct GlassPool: View {
+    let color: WineColor
+    var body: some View {
+        let core = Color(hex: color.hex), rim = Color(hex: color.rim)
+        VStack(spacing: 10) {
+            ZStack {
+                Circle().fill(Palette.card)
+                    .shadow(color: .black.opacity(0.12), radius: 14, y: 8)
+                LiquidSwatch(core: core, rim: rim, level: 0.62)
+                    .clipShape(Circle())
+                    .padding(10)
+                // rim of the bowl: paler where the wine thins out, then the glass edge
+                Circle().strokeBorder(rim.opacity(0.55), lineWidth: 6).padding(10)
+                Circle().strokeBorder(.white.opacity(0.9), lineWidth: 2).padding(9)
+                Circle().strokeBorder(Palette.line.opacity(0.8), lineWidth: 0.6)
+                Circle().trim(from: 0.58, to: 0.72)
+                    .stroke(.white.opacity(0.55), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .padding(24)
+            }
+            .frame(width: 210, height: 210)
+            HStack(spacing: 8) {
+                Circle().fill(core).frame(width: 12, height: 12)
+                Text("Core").font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+                Circle().fill(rim).frame(width: 12, height: 12).overlay(Circle().strokeBorder(Palette.line, lineWidth: 0.5))
+                    .padding(.leading, 8)
+                Text("Rim").font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+                Text("· Tilt your phone").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+            }
+        }
+        .padding(.vertical, 6)
     }
 }

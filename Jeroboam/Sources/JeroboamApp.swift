@@ -45,7 +45,10 @@ struct RootView: View {
     var body: some View {
         Group {
             if progress.data.onboarded {
-                TabView(selection: $tab) {
+                TabView(selection: Binding(get: { tab }, set: { new in
+                    if new == tab && new == 0 { NotificationCenter.default.post(name: .learnTabReselected, object: nil) }
+                    tab = new
+                })) {
                     LearnView()
                         .tabItem { Label("Learn", systemImage: "book.closed") }
                         .tag(0)

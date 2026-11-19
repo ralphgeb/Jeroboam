@@ -136,15 +136,14 @@ struct LibraryView: View {
             Circle().fill(Palette.wineSoft.opacity(0.7)).frame(width: 56, height: 56)
             switch s {
             case .regions:
-                WineMapView(mapID: "italy", showLabels: false, showCities: false, fill: true, thumbnail: true)
-                    .clipShape(Circle()).allowsHitTesting(false)
+                Image(systemName: "globe.europe.africa").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine)
             case .wines:
                 HStack(alignment: .bottom, spacing: -3) {
                     WineGlass(color: Color(hex: "#E3CF7A"), fill: 0.55).frame(width: 15, height: 28)
                     WineGlass(color: Color(hex: "#7A1832"), fill: 0.55).frame(width: 19, height: 34)
                 }
             case .grapes:
-                GrapeCluster(berry: .black, seed: 3).frame(width: 46, height: 46)
+                GrapeArt(id: "cabernet-sauvignon", size: 48)
             case .cards:
                 ZStack {
                     ForEach(0..<3, id: \.self) { i in

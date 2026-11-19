@@ -54,16 +54,18 @@ struct ProfileView: View {
                     // Achievements
                     VStack(alignment: .leading, spacing: 14) {
                         SectionTitle(text: "Achievements")
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12)], spacing: 16) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12, alignment: .top), count: 3), alignment: .center, spacing: 18) {
                             ForEach(Achievement.all) { a in
                                 let got = progress.data.achievements.contains(a.id)
                                 VStack(spacing: 6) {
                                     AchievementBadge(achievement: a, unlocked: got, size: 78)
+                                        .frame(width: 78, height: 78)
                                     Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
-                                        .multilineTextAlignment(.center).lineLimit(2)
+                                        .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
                                     Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
-                                        .multilineTextAlignment(.center).lineLimit(2)
+                                        .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .top)
                             }
                         }
                     }

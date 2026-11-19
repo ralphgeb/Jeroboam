@@ -108,7 +108,7 @@ enum Palette {
 // Poster type (`display`) is reserved for numbers and short posters and is kept small and bold, not heavy.
 
 enum TypeScale {
-    static let title: CGFloat = 30
+    static let title: CGFloat = 33
     static let section: CGFloat = 19
     static let cardTitle: CGFloat = 17
     static let body: CGFloat = 16
@@ -160,9 +160,9 @@ struct ScreenHeader: View {
     let title: String
     var subtitle: String? = nil
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 1) {
             Eyebrow(eyebrow, color: Palette.wine)
-            Text(title).font(.screenTitle).kerning(-0.4).foregroundStyle(Palette.ink)
+            Text(title).font(.screenTitle).kerning(-0.5).foregroundStyle(Palette.ink)
                 .fixedSize(horizontal: false, vertical: true)
             if let s = subtitle {
                 Text(rich(s)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5)

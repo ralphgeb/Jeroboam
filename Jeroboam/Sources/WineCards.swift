@@ -297,3 +297,18 @@ struct BoldnessScreen: View {
 
 // MARK: - Color chart (square swatches, four per row)
 
+
+/// The owner's grape photo cutout as a small icon (falls back to the drawn bunch).
+struct GrapeArt: View {
+    let id: String
+    var size: CGFloat = 44
+    var body: some View {
+        if let img = GrapeImages.image(id) {
+            Image(uiImage: img).resizable().interpolation(.high).scaledToFit()
+                .frame(width: size, height: size)
+                .shadow(color: .black.opacity(0.12), radius: 1.5, y: 1)
+        } else {
+            GrapeCluster(berry: .black, seed: 3).frame(width: size, height: size)
+        }
+    }
+}

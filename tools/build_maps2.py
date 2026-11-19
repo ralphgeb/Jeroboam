@@ -88,6 +88,18 @@ class Proj:
                 extra = ((bbox[2] - bbox[0]) * MIN_ASPECT / k - (bbox[3] - bbox[1])) / 2
                 W = min(W * 3, W * ((bbox[3] - bbox[1]) + 2 * extra) / (bbox[3] - bbox[1]))  # keep detail per degree
                 bbox = (bbox[0], bbox[1] - extra, bbox[2], bbox[3] + extra)
+            # phone rule: with the whole region fitted between the explorer's header and list card
+            # (about 361 x 385 pt), the map must still cover a 400 x 870 pt screen, so it never runs out at the edges
+            k0 = math.cos(math.radians((la0 + la1) / 2))
+            dpp = max((lo1 - lo0) * k0 / 361, (la1 - la0) / 385)  # degrees per point at that fit
+            need_w, need_h = 400 * dpp / k, 870 * dpp
+            if bbox[3] - bbox[1] < need_w:
+                e = (need_w - (bbox[3] - bbox[1])) / 2
+                W = min(W * 3, W * need_w / (bbox[3] - bbox[1]))
+                bbox = (bbox[0], bbox[1] - e, bbox[2], bbox[3] + e)
+            if bbox[2] - bbox[0] < need_h:
+                e = (need_h - (bbox[2] - bbox[0])) / 2
+                bbox = (bbox[0] - e, bbox[1], bbox[2] + e, bbox[3])
         self.bbox = bbox
         self.la0, self.lo0, self.la1, self.lo1 = bbox
         self.k = math.cos(math.radians((self.la0 + self.la1) / 2))
@@ -226,8 +238,8 @@ def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
                           and shape(f["geometry"]).intersects(clipbox)]).buffer(0)
         fgf = fg.buffer(0.03).difference(nb).intersection(fine)
         others = fine.difference(fgf)
-        focus.extend(enc_polys(pr.geom(fgf).intersection(view), tol, tol * tol * 4))
-        land.extend(enc_polys(pr.geom(others).intersection(view), tol, tol * tol * 4))
+        focus.extend(enc_polys(pr.geom(fgf).buffer(0).intersection(view), tol, tol * tol * 4))
+        land.extend(enc_polys(pr.geom(others).buffer(0).intersection(view), tol, tol * tol * 4))
     for f in ([] if fine is not None else (countries50 if world else countries)):
         g = shape(f["geometry"])
         if not g.intersects(clipbox): continue
