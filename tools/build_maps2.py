@@ -597,8 +597,8 @@ def build_italy():
     print("Italy…")
     ita_regions = [shape(f["geometry"]) for f in admin1 if f["properties"]["adm0_a3"] == "ITA"]
     bbox = (36.5, 6.5, 47.2, 18.7)
-    pr = Proj(bbox, 3000)
-    tol = 1.2
+    pr = Proj(bbox, 6000)   # fine enough for the Barolo and Chianti villages
+    tol = 1.0
     land, focus, lk, rv = base_layers(pr, bbox, ["ITA"], tol=tol)
     areas = []
     for z in WD.ITALY:
@@ -617,6 +617,17 @@ def build_italy():
         for s in specs:
             if s["id"] in r:
                 areas.append(area_record(pr, s["id"], s["name"], 1, cidx(s["color"]), r[s["id"]][0], tol, parent=par, grapes=s.get("grapes")))
+        # one step further: the villages of Barolo, Barbaresco and Chianti Classico
+        reg = "Piemonte" if par == "piedmont" else "Toscana"
+        for parent in ("barolo", "barbaresco", "chianti-classico"):
+            ps = next((s for s in specs if s["id"] == parent), None)
+            if not ps or parent not in r: continue
+            want = {norm(c) for c in ps["communes"]}
+            for n, g in it_comuni(reg):
+                if norm(n) in want:
+                    vid = slug(n) if slug(n) != parent else slug(n) + "-village"
+                    areas.append(area_record(pr, vid, n + (" (village)" if vid != slug(n) else ""), 2, cidx(ps["color"]), g, tol,
+                                             parent=parent, min_area=1))
     cities = cities_of(pr, [("Rome", 41.9, 12.5, 0), ("Milan", 45.46, 9.19, 0), ("Turin", 45.07, 7.69), ("Florence", 43.77, 11.25, 0),
         ("Venice", 45.44, 12.33, 0), ("Naples", 40.85, 14.27, 0), ("Verona", 45.44, 10.99), ("Palermo", 38.12, 13.36),
         ("Bologna", 44.49, 11.34), ("Bari", 41.12, 16.87)])
