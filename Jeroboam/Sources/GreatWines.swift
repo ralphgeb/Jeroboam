@@ -23,6 +23,8 @@ struct GreatWine: Decodable, Identifiable, Hashable {
     var also: [String]? = nil
     /// A real photo of the bottle (Wikimedia Commons), shown on the detail page when there is one.
     var snapshot: String? = nil
+    /// A real bottle photo (Wikimedia Commons) when one was found.
+    var bottle: String? = nil
 
     static func == (a: GreatWine, b: GreatWine) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }
@@ -265,11 +267,33 @@ struct BottleShot: View {
     }
 }
 
-/// The picture used everywhere for a great wine: the studio packshot.
+/// The picture used everywhere for a great wine: a real photo of the bottle when one exists
+/// (Wikimedia Commons, credited on the detail page), otherwise a plain typographic tile. Never a drawing.
 struct GreatWineImage: View {
     let wine: GreatWine
     var corner: CGFloat = 16
-    var body: some View { BottleShot(wine: wine, corner: corner) }
+    var body: some View {
+        Group {
+            if let b = wine.bottle, let img = Photos.image(b) {
+                Color.white
+                    .overlay(Image(uiImage: img).resizable().scaledToFit().padding(8))
+            } else {
+                ZStack {
+                    LinearGradient(colors: [Palette.cardAlt, Palette.card], startPoint: .top, endPoint: .bottom)
+                    VStack(spacing: 6) {
+                        Text(wine.producer.uppercased()).font(.system(size: 9.5, weight: .semibold)).kerning(1.1)
+                            .foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).lineLimit(2)
+                        Hairline().frame(width: 24)
+                        Text(wine.name).font(.serif(17)).foregroundStyle(Palette.ink).multilineTextAlignment(.center).lineLimit(3)
+                    }
+                    .padding(14)
+                }
+            }
+        }
+        .aspectRatio(0.78, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: corner, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
+    }
 }
 
 // MARK: - Screens
@@ -360,7 +384,12 @@ struct GreatWineDetail: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 HStack(alignment: .top, spacing: 16) {
-                    GreatWineImage(wine: w, corner: 20).frame(width: 150)
+                    VStack(spacing: 4) {
+                        GreatWineImage(wine: w, corner: 20).frame(width: 150)
+                        if let b = w.bottle, let c = Photos.creditLine(b) {
+                            Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 150)
+                        }
+                    }
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow(w.zone, color: Palette.wine)
                         Text(w.name).font(.system(size: 24, weight: .bold)).foregroundStyle(Palette.ink)

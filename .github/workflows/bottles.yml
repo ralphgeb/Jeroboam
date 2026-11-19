@@ -1,0 +1,30 @@
+name: Fetch bottle photos
+# Looks for real, openly licensed bottle photos on Wikimedia Commons for every wine in tools/wine_list.txt.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch
+        run: python3 tools/fetch_bottles.py tools/wine_list.txt out ${{ matrix.shard }} 6 | tee out.log; ls out | wc -l
+      - name: Publish
+        if: always()
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b bottles-${{ github.run_number }}-${{ matrix.shard }}
+          cp ../out.log fetch.log || true
+          git add -A
+          git commit -qm "Bottle photos shard ${{ matrix.shard }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" bottles-${{ github.run_number }}-${{ matrix.shard }}

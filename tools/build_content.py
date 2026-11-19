@@ -446,6 +446,7 @@ for gw in great:
     gw["grapes"] = known
     if other: gw["also"] = other
     if gw.get("snapshot") and gw["snapshot"] not in photo_ids: gw["snapshot"] = None
+    if "bw-" + gw["id"] in photo_ids: gw["bottle"] = "bw-" + gw["id"]
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 
