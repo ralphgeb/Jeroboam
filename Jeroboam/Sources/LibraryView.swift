@@ -326,42 +326,188 @@ struct StyleDetailView: View {
 // MARK: - Tasting (SAT)
 
 struct TastingScreen: View {
+    @State private var open: TastingStep? = nil
+
     var body: some View {
+        let secs = ContentStore.shared.library.sat
         ScrollView {
-            VStack(alignment: .leading, spacing: 28) {
+            VStack(alignment: .leading, spacing: 24) {
                 ScreenHeader(eyebrow: "Systematic approach", title: "How to taste",
-                             subtitle: "Look, smell, taste, conclude. The same four steps every time make your notes consistent and comparable, the way professional tasters work.")
-                if let f = ContentStore.shared.flow("tasting") { FlowDiagram(flow: f).cardStyle() }
-                ForEach(ContentStore.shared.library.sat) { sec in
-                    VStack(alignment: .leading, spacing: 14) {
-                        HStack(spacing: 10) {
-                            Image(systemName: sec.icon).font(.system(size: 16)).foregroundStyle(Palette.wine)
-                            SectionTitle(text: sec.title)
-                        }
-                        ForEach(sec.items, id: \.name) { item in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(item.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                                HStack(spacing: 4) {
-                                    ForEach(Array(item.scale.enumerated()), id: \.offset) { i, s in
-                                        Text(s).font(.system(size: 11, weight: .medium))
-                                            .foregroundStyle(Palette.ink.opacity(0.8))
-                                            .lineLimit(1).minimumScaleFactor(0.7)
-                                            .padding(.vertical, 6).frame(maxWidth: .infinity)
-                                            .background(RoundedRectangle(cornerRadius: 6).fill(Palette.wine.opacity(0.06 + 0.1 * Double(i) / Double(max(1, item.scale.count - 1)))))
-                                    }
-                                }
-                                Text(rich(item.tip)).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                             subtitle: "Four steps, the same every time. Tap a step to learn what to look for.")
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    ForEach(Array(TastingStep.all.enumerated()), id: \.offset) { i, step in
+                        Button { open = step } label: { TastingStepCard(step: step, number: i + 1) }
+                            .buttonStyle(PressableStyle())
+                    }
+                }
+                VStack(alignment: .leading, spacing: 10) {
+                    SectionTitle(text: "Remember it as")
+                    HStack(spacing: 8) {
+                        ForEach(["Look", "Smell", "Taste", "Conclude"], id: \.self) { w in
+                            VStack(spacing: 2) {
+                                Text(String(w.prefix(1))).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.wine)
+                                Text(w).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
                             }
-                            .padding(.vertical, 4)
+                            .frame(maxWidth: .infinity).padding(.vertical, 12)
+                            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
                         }
                     }
-                    Hairline()
+                    Text("Write a word or two for each step and your notes become comparable from one bottle to the next.")
+                        .font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $open) { step in
+            TastingStepSheet(step: step, section: secs.first { $0.title == step.satTitle })
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        }
+        .onAppear {
+            #if DEBUG
+            if DebugScreens.screen == "tastestep" { DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { open = TastingStep.all[1] } }
+            #endif
+        }
+    }
+}
+
+struct TastingStep: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let satTitle: String
+    let icon: String
+    let line: String
+    let how: [String]
+    let tint: String
+
+    static let all: [TastingStep] = [
+        TastingStep(id: "look", title: "Look", satTitle: "Appearance", icon: "eye", line: "Clarity, depth and color",
+                    how: ["Tilt the glass over something white.", "Check it is clear, then judge how deep the color is at the core.",
+                          "Read the rim: wines turn paler and browner there first as they age."], tint: "#C9A227"),
+        TastingStep(id: "smell", title: "Smell", satTitle: "Nose", icon: "nose", line: "Condition, intensity, aromas",
+                    how: ["Sniff once before swirling, then swirl to release more aroma.", "Take short sniffs: is it clean, light or pronounced?",
+                          "Work through families: fruit, flowers, herbs, spice, then oak and age."], tint: "#D8285A"),
+        TastingStep(id: "taste", title: "Taste", satTitle: "Palate", icon: "mouth", line: "Sweetness, acid, tannin, body",
+                    how: ["Take a medium sip and move it around your whole mouth.", "Sweetness on the tip, acidity on the sides, tannin on the gums.",
+                          "Feel the alcohol's warmth and the body's weight, then time the finish."], tint: "#8B1538"),
+        TastingStep(id: "conclude", title: "Conclude", satTitle: "Conclusions", icon: "checkmark.seal", line: "Quality and readiness",
+                    how: ["Use BLIC: Balance, Length, Intensity, Complexity.", "The more boxes ticked, the higher the quality.",
+                          "Decide whether it will improve with age or is best now."], tint: "#2E9C97"),
+    ]
+}
+
+struct TastingStepCard: View {
+    let step: TastingStep
+    let number: Int
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            ZStack {
+                Circle().fill(Color(hex: step.tint).opacity(0.12))
+                illustration
+            }
+            .frame(width: 64, height: 64)
+            Spacer(minLength: 14)
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text("\(number)").font(.system(size: 13, weight: .bold).monospacedDigit()).foregroundStyle(Color(hex: step.tint))
+                Text(step.title).font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.ink)
+            }
+            Text(step.line).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(2, reservesSpace: true).padding(.top, 2)
+            HStack(spacing: 4) {
+                Text("Learn").font(.system(size: 12.5, weight: .semibold))
+                Image(systemName: "chevron.right").font(.system(size: 10, weight: .bold))
+            }
+            .foregroundStyle(Palette.wine).padding(.top, 8)
+        }
+        .frame(maxWidth: .infinity, minHeight: 186, alignment: .topLeading)
+        .cardStyle(padding: 14)
+    }
+
+    @ViewBuilder private var illustration: some View {
+        switch step.id {
+        case "look":
+            WineGlass(color: Color(hex: "#E3C766"), fill: 0.5).frame(width: 26, height: 44).rotationEffect(.degrees(-28))
+        case "smell":
+            ZStack {
+                WineGlass(color: Color(hex: "#7A1832"), fill: 0.4).frame(width: 24, height: 40).offset(y: 6)
+                Image(systemName: "wind").font(.system(size: 14, weight: .medium)).foregroundStyle(Color(hex: step.tint)).offset(x: 6, y: -18)
+            }
+        case "taste":
+            HStack(alignment: .bottom, spacing: 3) {
+                ForEach([10.0, 18.0, 26.0, 14.0, 22.0], id: \.self) { h in
+                    Capsule().fill(Color(hex: step.tint).opacity(0.35 + h / 60)).frame(width: 5, height: h)
+                }
+            }
+        default:
+            Image(systemName: step.icon).font(.system(size: 26, weight: .regular)).foregroundStyle(Color(hex: step.tint))
+        }
+    }
+}
+
+struct TastingStepSheet: View {
+    let step: TastingStep
+    let section: SATSection?
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                HStack(spacing: 12) {
+                    Image(systemName: step.icon).font(.system(size: 20)).foregroundStyle(Color(hex: step.tint))
+                        .frame(width: 46, height: 46).background(Circle().fill(Color(hex: step.tint).opacity(0.12)))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Eyebrow("Step \((TastingStep.all.firstIndex(of: step) ?? 0) + 1) of 4")
+                        Text(step.title).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                    }
+                }
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(Array(step.how.enumerated()), id: \.offset) { i, t in
+                        HStack(alignment: .top, spacing: 12) {
+                            Text("\(i + 1)").font(.system(size: 12, weight: .bold)).foregroundStyle(.white)
+                                .frame(width: 22, height: 22).background(Circle().fill(Color(hex: step.tint)))
+                            Text(t).font(.system(size: 15)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+                .cardStyle(padding: 16)
+                if let section {
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionTitle(text: "What to note")
+                        Text("Tap a level to see what it means.").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                        ForEach(section.items, id: \.name) { item in SATScaleRow(item: item, tint: Color(hex: step.tint)) }
+                    }
+                }
+            }
+            .padding(Metrics.margin).padding(.top, 8)
+        }
+        .background(Palette.paper.ignoresSafeArea())
+    }
+}
+
+struct SATScaleRow: View {
+    let item: SATItem
+    let tint: Color
+    @State private var picked: Int? = nil
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(item.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+            HStack(spacing: 4) {
+                ForEach(Array(item.scale.enumerated()), id: \.offset) { i, s in
+                    let on = picked == i
+                    Button { withAnimation(.snappy) { picked = on ? nil : i } } label: {
+                        Text(s).font(.system(size: 11, weight: on ? .semibold : .medium))
+                            .foregroundStyle(on ? .white : Palette.ink.opacity(0.8))
+                            .lineLimit(1).minimumScaleFactor(0.7)
+                            .padding(.vertical, 8).frame(maxWidth: .infinity)
+                            .background(RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .fill(on ? tint : tint.opacity(0.06 + 0.14 * Double(i) / Double(max(1, item.scale.count - 1)))))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            Text(rich(item.tip)).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+        }
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
     }
 }
 

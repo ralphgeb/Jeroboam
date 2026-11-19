@@ -253,7 +253,7 @@ struct MapRenderer {
             let t = CGAffineTransform(translationX: offset.width, y: offset.height).scaledBy(x: s, y: s)
             let fp = g.focus.applying(t)
             ctx.drawLayer { l in
-                l.addFilter(.shadow(color: .black.opacity(dark ? 0.55 : 0.16), radius: thumb ? 3 : 7, x: 0, y: thumb ? 1 : 3))
+                l.addFilter(.shadow(color: .black.opacity(dark ? 0.6 : 0.24), radius: thumb ? 3 : 10, x: 0, y: thumb ? 1 : 4))
                 l.fill(fp, with: .color(Palette.focusLand))
             }
         }
@@ -281,6 +281,18 @@ struct MapRenderer {
             // Atlas style: big regions with appellations inside are pale washes, the appellations
             // themselves carry the strong color (always visible, thumbnails included).
             let drawLevel = max(lv, 1)
+            // diagonal hatch (screen spacing ~5 pt) for the big regions: a faded texture instead of a solid fill
+            let hatch: Path = {
+                var p = Path()
+                let vis = CGRect(x: -offset.width / s, y: -offset.height / s, width: size.width / s, height: size.height / s)
+                let step = 5.0 / s
+                var x = vis.minX - vis.height
+                while x < vis.maxX {
+                    p.move(to: CGPoint(x: x, y: vis.maxY)); p.addLine(to: CGPoint(x: x + vis.height, y: vis.minY))
+                    x += step
+                }
+                return p
+            }()
             for a in g.areas where a.level <= drawLevel {
                 let isContainer = g.hasChildren.contains(a.id) && a.level < drawLevel
                 var color = Palette.mapColor(a.color)
@@ -300,11 +312,16 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.8)), lineWidth: hair * 0.6)
                     continue
                 }
-                if isContainer {
-                    color = dark ? color.opacity(0.30) : color.mix(with: .white, 0.78)
-                } else if a.level == 0 && !isHL {
-                    // big regions without appellations: a soft wash, never loud
-                    color = dark ? color.opacity(0.62) : color.mix(with: .white, 0.38)
+                if (isContainer || a.level == 0) && !isHL {
+                    // big regions: a faint tint plus a faded hatch in the region's color; appellations stay solid
+                    let base = Palette.mapColor(a.color)
+                    let dim = anyHL && !(highlight.contains(a.parent ?? "")) ? 0.5 : 1.0
+                    regions.fill(a.path, with: .color(dark ? base.opacity(0.14 * dim) : base.mix(with: .white, 0.9).opacity(dim)))
+                    var hc = regions
+                    hc.clip(to: a.path)
+                    hc.stroke(hatch, with: .color(base.opacity((dark ? 0.45 : 0.38) * dim)), lineWidth: hair * 0.9)
+                    regions.stroke(a.path, with: .color(base.opacity(0.6 * dim)), lineWidth: hair * 1.0)
+                    continue
                 }
                 var opacity: Double = 1
                 if anyHL && !isHL && !(highlight.contains(a.parent ?? "") ) && !isContainer { opacity *= 0.28 }
@@ -322,9 +339,26 @@ struct MapRenderer {
             for (r, w) in g.rivers where showLabels || showCities {
                 layer.stroke(r, with: .color(Palette.river), style: StrokeStyle(lineWidth: (w >= 2 ? 1.3 : 0.8) * hair, lineCap: .round, lineJoin: .round))
             }
-            layer.stroke(g.focus, with: .color(Palette.border), lineWidth: hair * 1.2)
+            layer.stroke(g.focus, with: .color(Palette.border.mix(with: .black, 0.15)), lineWidth: hair * 1.6)
         }
 
+        if !thumb {
+            let mr = CGRect(x: offset.width, y: offset.height, width: CGFloat(g.map.w) * s, height: CGFloat(g.map.h) * s)
+            let f: CGFloat = 36
+            let sea = Palette.sea
+            if mr.minY > 0.5 {
+                ctx.fill(Path(CGRect(x: 0, y: mr.minY, width: size.width, height: f)), with: .linearGradient(Gradient(colors: [sea, sea.opacity(0)]), startPoint: CGPoint(x: 0, y: mr.minY), endPoint: CGPoint(x: 0, y: mr.minY + f)))
+            }
+            if mr.maxY < size.height - 0.5 {
+                ctx.fill(Path(CGRect(x: 0, y: mr.maxY - f, width: size.width, height: f)), with: .linearGradient(Gradient(colors: [sea.opacity(0), sea]), startPoint: CGPoint(x: 0, y: mr.maxY - f), endPoint: CGPoint(x: 0, y: mr.maxY)))
+            }
+            if mr.minX > 0.5 {
+                ctx.fill(Path(CGRect(x: mr.minX, y: 0, width: f, height: size.height)), with: .linearGradient(Gradient(colors: [sea, sea.opacity(0)]), startPoint: CGPoint(x: mr.minX, y: 0), endPoint: CGPoint(x: mr.minX + f, y: 0)))
+            }
+            if mr.maxX < size.width - 0.5 {
+                ctx.fill(Path(CGRect(x: mr.maxX - f, y: 0, width: f, height: size.height)), with: .linearGradient(Gradient(colors: [sea.opacity(0), sea]), startPoint: CGPoint(x: mr.maxX - f, y: 0), endPoint: CGPoint(x: mr.maxX, y: 0)))
+            }
+        }
         guard showLabels else { return }
         var taken: [CGRect] = []
         let inset = full.insetBy(dx: 2, dy: 2)
@@ -569,7 +603,7 @@ extension MapGeometry {
     }
 
     /// Zoom and offset that center `target` (default: the wine areas) and always cover the whole view with map.
-    func fitLayout(size: CGSize, target: CGRect? = nil, padding: CGFloat = 0.1, top: CGFloat = 0, bottom: CGFloat = 0) -> (zoom: CGFloat, offset: CGSize) {
+    func fitLayout(size: CGSize, target: CGRect? = nil, padding: CGFloat = 0.1, top: CGFloat = 0, bottom: CGFloat = 0, allowContain: Bool = false) -> (zoom: CGFloat, offset: CGSize) {
         let W = CGFloat(map.w), H = CGFloat(map.h)
         guard size.width > 0, size.height > 0 else { return (1, .zero) }
         let t = target ?? contentBounds
@@ -577,13 +611,17 @@ extension MapGeometry {
         let cover = max(size.width / W, size.height / H)
         let band = max(size.height * 0.35, size.height - top - bottom)
         let content = min(size.width * (1 - 2 * padding) / max(1, t.width), band * (1 - 2 * padding) / max(1, t.height))
-        let s = min(max(cover, content), cover * 10)
+        let s = min(max(allowContain ? fit : cover, content), cover * 10)
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))
         }
-        let off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
+        var off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
                          height: axis(top + band / 2 - t.midY * s, view: size.height, content: H * s))
+        if allowContain && H * s <= size.height {
+            // the whole map is shorter than the screen: center it in the band between header and card
+            off.height = max(0, min(size.height - H * s, top + (band - H * s) / 2))
+        }
         return (s / fit, off)
     }
 
@@ -658,7 +696,7 @@ struct ZoomableWineMap: View {
                         MagnifyGesture()
                             .onChanged { v in
                                 let anchor = CGPoint(x: v.startAnchor.x * size.width, y: v.startAnchor.y * size.height)
-                                let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), baseZoom * v.magnification))
+                                let newZoom = min(lodBase * 12, max(1, baseZoom * v.magnification))
                                 let k = newZoom / baseZoom
                                 absZoom = newZoom
                                 offset = clamp(CGSize(width: anchor.x - (anchor.x - baseOffset.width) * k,
@@ -708,19 +746,20 @@ struct ZoomableWineMap: View {
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
         let c = g.contentBounds
-        var target: CGRect? = c.insetBy(dx: -c.width * 0.22, dy: -c.height * 0.22)
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.32, dy: -c.height * 0.32)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
-        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.08, top: 120, bottom: 200)
+        // the visible band sits between the header and the list card, with room to spare around the region
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.1, top: 130, bottom: 270, allowContain: true)
         absZoom = z; baseZoom = z; lodBase = base
         zoom = z / max(0.01, base)
-        offset = clamp(o, size: size, g: g)
+        offset = o
         baseOffset = offset
     }
 
     private func zoomBy(_ k: CGFloat, at pt: CGPoint, size: CGSize, g: MapGeometry) {
-        let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), absZoom * k))
+        let newZoom = min(lodBase * 12, max(1, absZoom * k))
         let f = newZoom / absZoom
         withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
             absZoom = newZoom
@@ -741,12 +780,12 @@ struct ZoomableWineMap: View {
 
     private func clamp(_ o: CGSize, size: CGSize, g: MapGeometry) -> CGSize {
         let c = contentSize(size, g: g)
-        func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
-            if content <= view { return (view - content) / 2 }
+        func axis(_ v: CGFloat, view: CGFloat, content: CGFloat, lo: CGFloat, hi: CGFloat) -> CGFloat {
+            if content <= view { return max(0, min(view - content, lo + (view - lo - hi - content) / 2)) }
             return min(0, max(view - content, v))
         }
-        return CGSize(width: axis(o.width, view: size.width, content: c.width),
-                      height: axis(o.height, view: size.height, content: c.height))
+        return CGSize(width: axis(o.width, view: size.width, content: c.width, lo: 0, hi: 0),
+                      height: axis(o.height, view: size.height, content: c.height, lo: 130, hi: 270))
     }
 }
 

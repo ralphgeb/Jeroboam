@@ -16,7 +16,7 @@ enum DebugScreens {
         switch screen {
         case "learn", "lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
-        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style": return 2
+        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style", "tastestep": return 2
         case "journal", "journalempty", "profile", "tastings", "scan", "blind": return 3
         default: return nil
         }
@@ -144,7 +144,7 @@ enum DebugScreens {
             case "aromas": push(LibrarySection.aromas)
             case "colors": push(LibrarySection.colors)
             case "styles": push(LibrarySection.styles)
-            case "tasting": push(LibrarySection.tasting)
+            case "tasting", "tastestep": push(LibrarySection.tasting)
             case "cards": push(LibrarySection.cards)
             case "wines": push(LibrarySection.wines)
             case "wine": if let w = c.library.wines?.first(where: { $0.id == "chateauneuf" }) { push(w) }
