@@ -1,0 +1,22 @@
+name: Fetch map images
+# Searches Wikimedia Commons for wine-region map images (content/mapimgs.json) and publishes candidates to the mapimgs branch.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/fetch_mapimgs.py content/mapimgs.json out
+      - name: Publish
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b mapimgs
+          git add -A
+          git commit -qm "Map image candidates"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" mapimgs
