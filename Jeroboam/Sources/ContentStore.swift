@@ -20,7 +20,7 @@ final class ContentStore {
     private init() {
         course = Self.load("course", as: Course.self) ?? Course(levels: [])
         library = Self.load("library", as: Library.self)
-            ?? Library(grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [], labels: [])
+            ?? Library(wines: [], grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [], labels: [])
         for g in library.grapes { grapesByID[g.id] = g }
         for r in library.regions { regionsByID[r.id] = r }
         for c in library.colors { colorsByID[c.id] = c }

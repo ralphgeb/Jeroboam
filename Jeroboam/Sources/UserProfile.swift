@@ -142,7 +142,7 @@ struct CollapsingPage<Content: View>: View {
             VStack(alignment: .leading, spacing: 22) {
                 ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
                     .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("collapsingPage")).minY } action: { y in
-                        let p = min(1, max(0, (8 - y) / 60))
+                        let p = min(1, max(0, (-12 - y) / 50))
                         if abs(p - collapse) > 0.01 { collapse = p }
                     }
                 content

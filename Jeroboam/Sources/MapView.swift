@@ -283,10 +283,13 @@ struct MapRenderer {
                 let isContainer = g.hasChildren.contains(a.id) && a.level < drawLevel
                 var color = Palette.mapColor(a.color)
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
+                let isHL = highlight.contains(a.id) || selected == a.id
                 if isContainer {
                     color = dark ? color.opacity(0.30) : color.mix(with: .white, 0.78)
+                } else if a.level == 0 && !isHL {
+                    // big regions without appellations: a soft wash, never loud
+                    color = dark ? color.opacity(0.62) : color.mix(with: .white, 0.38)
                 }
-                let isHL = highlight.contains(a.id) || selected == a.id
                 var opacity: Double = 1
                 if anyHL && !isHL && !(highlight.contains(a.parent ?? "") ) && !isContainer { opacity *= 0.28 }
                 regions.fill(a.path, with: .color(color.opacity(opacity)))
