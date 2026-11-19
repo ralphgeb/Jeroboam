@@ -262,5 +262,113 @@
   "license": "CC BY-SA 2.0",
   "artist": "Pebble",
   "page": "https://commons.wikimedia.org/wiki/File:Vineyard_row_-_geograph.org.uk_-_7619028.jpg"
+ },
+ "map-bordeaux": {
+  "title": "Bordeaux Vineyards.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Cmo007",
+  "page": "https://commons.wikimedia.org/wiki/File:Bordeaux_Vineyards.svg"
+ },
+ "map-medoc": {
+  "title": "Vignobles medoc-fr.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM¿!i?",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_medoc-fr.svg"
+ },
+ "map-champagne": {
+  "title": "Vignobles champagne.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM¿!i?",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_champagne.svg"
+ },
+ "map-loire": {
+  "title": "Vignobles val de loire-fr.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM¿!i?",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_val_de_loire-fr.svg"
+ },
+ "map-france": {
+  "title": "Map of France's wines-regions and appelations-fr.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Yug, Paul Denuit, Christian Denuit (2013).",
+  "page": "https://commons.wikimedia.org/wiki/File:Map_of_France%27s_wines-regions_and_appelations-fr.svg"
+ },
+ "map-italy": {
+  "title": "Italian Wine Regions.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Italian_Wine_Regions.jpg"
+ },
+ "map-valpolicella": {
+  "title": "MappaValpolicella.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Adert",
+  "page": "https://commons.wikimedia.org/wiki/File:MappaValpolicella.jpg"
+ },
+ "map-spain": {
+  "title": "Vinos DO de España.png",
+  "license": "CC BY-SA 3.0",
+  "artist": "Tyk based on Image:Comunidades autónomas de España.svg created by Emilio Gómez F",
+  "page": "https://commons.wikimedia.org/wiki/File:Vinos_DO_de_Espa%C3%B1a.png"
+ },
+ "map-rioja": {
+  "title": "DOCa Rioja.svg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Té y kriptonita based on Rioja - Mapa municipal.svg created by Emilio Gómez Fern",
+  "page": "https://commons.wikimedia.org/wiki/File:DOCa_Rioja.svg"
+ },
+ "map-austria": {
+  "title": "Weinbaugebiete 2019 ohne dac mit wachau.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Österreich Wein Marketing GmbH",
+  "page": "https://commons.wikimedia.org/wiki/File:Weinbaugebiete_2019_ohne_dac_mit_wachau.jpg"
+ },
+ "map-hungary": {
+  "title": "Wine regions Hungary.svg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Té y kriptonita. Based on file:HU_counties_blank.svg &amp; file:Hungary map blan",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_regions_Hungary.svg"
+ },
+ "map-greece": {
+  "title": "Greece wine regions de.png",
+  "license": "CC BY 3.0",
+  "artist": "Pitichinaccio (talk)",
+  "page": "https://commons.wikimedia.org/wiki/File:Greece_wine_regions_de.png"
+ },
+ "map-napa": {
+  "title": "TTB Map Napa Valley AVA.png",
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "page": "https://commons.wikimedia.org/wiki/File:TTB_Map_Napa_Valley_AVA.png"
+ },
+ "map-oregon": {
+  "title": "Oregon AVAs.png",
+  "license": "CC BY-SA 4.0",
+  "artist": "Oregon Wine Board",
+  "page": "https://commons.wikimedia.org/wiki/File:Oregon_AVAs.png"
+ },
+ "map-australia": {
+  "title": "Map of wine production in Australia-fr.svg",
+  "license": "CC BY-SA 3.0",
+  "artist": "historicair 16:18, 17 October 2007 (UTC)",
+  "page": "https://commons.wikimedia.org/wiki/File:Map_of_wine_production_in_Australia-fr.svg"
+ },
+ "map-new-zealand": {
+  "title": "New zealand wine map.svg",
+  "license": "CC BY 3.0",
+  "artist": "Mick Stephenson (mixpix) based on original by Plamen Georgiev",
+  "page": "https://commons.wikimedia.org/wiki/File:New_zealand_wine_map.svg"
+ },
+ "map-marlborough": {
+  "title": "Marlborough wine region map.svg",
+  "license": "CC0",
+  "artist": "Jonathan Harker",
+  "page": "https://commons.wikimedia.org/wiki/File:Marlborough_wine_region_map.svg"
+ },
+ "map-beaujolais": {
+  "title": "Carte vignoble beaujolais.png",
+  "license": "CC BY-SA 3.0",
+  "artist": "Cyril5555",
+  "page": "https://commons.wikimedia.org/wiki/File:Carte_vignoble_beaujolais.png"
  }
 }

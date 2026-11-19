@@ -7,52 +7,21 @@ struct PracticeView: View {
     var body: some View {
         NavigationStack {
             CollapsingPage(eyebrow: "Keep it fresh", title: "Practice",
-                           subtitle: "Short quizzes drawn from everything you have learned.", showStatus: true) {
-
-                    VStack(spacing: 12) {
-                        GroupCard {
-                            HStack(spacing: 14) {
-                                GoalRing(progress: Double(progress.todayXP) / Double(max(1, progress.data.dailyGoal)), lineWidth: 4)
-                                    .frame(width: 40, height: 40)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(progress.goalReached ? "Daily goal reached" : "Daily goal").font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
-                                    Text("\(progress.todayXP) of \(progress.data.dailyGoal) XP today").font(.system(size: 13).monospacedDigit()).foregroundStyle(Palette.inkSoft)
-                                }
-                                Spacer()
-                                FlameBadge(count: progress.data.streak, active: progress.activeToday, size: 15)
-                            }
-                            .padding(.horizontal, 14).padding(.vertical, 12)
-                            if !progress.data.mistakes.isEmpty {
-                                Hairline().padding(.leading, 68)
-                                Button { session = QuizGenerator.mistakes(progress.data.mistakes) } label: {
-                                    IconRow(title: "Review mistakes", detail: "\(progress.data.mistakes.count) to revisit", last: true) {
-                                        Image(systemName: "arrow.uturn.backward").font(.system(size: 15)).foregroundStyle(Palette.wrong)
-                                    }
-                                }
-                                .buttonStyle(RowPressStyle())
+                           subtitle: "Short quizzes from everything you have learned, and mock exams for each level.", showStatus: true) {
+                dailyHero
+                if !progress.data.mistakes.isEmpty {
+                    GroupCard {
+                        Button { session = QuizGenerator.mistakes(progress.data.mistakes) } label: {
+                            IconRow(title: "Review mistakes", detail: "\(progress.data.mistakes.count) questions to revisit", last: true) {
+                                Image(systemName: "arrow.uturn.backward").font(.system(size: 15)).foregroundStyle(Palette.wrong)
                             }
                         }
-                        Button { start(.mixed) } label: {
-                            Label("Start daily mix", systemImage: "shuffle")
-                        }
-                        .buttonStyle(PrimaryButtonStyle())
+                        .buttonStyle(RowPressStyle())
                     }
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        SectionTitle(text: "By topic")
-                        let kinds = QuizGenerator.Kind.allCases.filter { $0 != .mixed && $0 != .maps }
-                        GroupCard {
-                            ForEach(kinds) { k in
-                                Button { start(k) } label: {
-                                    IconRow(title: k.title, detail: k.subtitle, last: k == kinds.last) {
-                                        Image(systemName: k.icon).font(.system(size: 16)).foregroundStyle(Palette.wine)
-                                    }
-                                }
-                                .buttonStyle(RowPressStyle())
-                            }
-                        }
-                    }
-                    Color.clear.frame(height: 24)
+                }
+                exams
+                topics
+                Color.clear.frame(height: 24)
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
@@ -65,9 +34,137 @@ struct PracticeView: View {
         }
     }
 
+    // MARK: daily mix
+
+    private var dailyHero: some View {
+        let goal = Double(progress.todayXP) / Double(max(1, progress.data.dailyGoal))
+        return Button { start(.mixed) } label: {
+            HStack(alignment: .center, spacing: 16) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Eyebrow("Daily mix", color: .white.opacity(0.75))
+                    Text(progress.goalReached ? "Goal reached, keep going" : "Today’s 10 questions")
+                        .font(.system(size: 21, weight: .bold)).foregroundStyle(.white).multilineTextAlignment(.leading)
+                    Text("\(progress.todayXP) of \(progress.data.dailyGoal) XP today · about 3 min")
+                        .font(.system(size: 13).monospacedDigit()).foregroundStyle(.white.opacity(0.8))
+                    HStack(spacing: 6) {
+                        Image(systemName: "shuffle").font(.system(size: 12, weight: .semibold))
+                        Text("Start daily mix").font(.system(size: 14, weight: .semibold))
+                    }
+                    .foregroundStyle(Palette.bordeaux)
+                    .padding(.horizontal, 14).padding(.vertical, 8)
+                    .background(Capsule().fill(.white))
+                    .padding(.top, 8)
+                }
+                Spacer(minLength: 0)
+                ZStack {
+                    Circle().stroke(.white.opacity(0.25), lineWidth: 6)
+                    Circle().trim(from: 0, to: min(1, goal)).stroke(.white, style: StrokeStyle(lineWidth: 6, lineCap: .round)).rotationEffect(.degrees(-90))
+                    VStack(spacing: 0) {
+                        Image(systemName: "flame.fill").font(.system(size: 15)).foregroundStyle(.white)
+                        Text("\(progress.data.streak)").font(.system(size: 17, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                    }
+                }
+                .frame(width: 68, height: 68)
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+                ZStack {
+                    LinearGradient(colors: [Palette.bordeaux, Palette.bordeaux.mix(with: .black, 0.25)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    if let img = Photos.image("sommelier") {
+                        Color.clear.overlay(Image(uiImage: img).resizable().scaledToFill())
+                        LinearGradient(stops: [.init(color: Palette.bordeaux.opacity(0.95), location: 0),
+                                               .init(color: Palette.bordeaux.opacity(0.82), location: 0.55),
+                                               .init(color: Palette.bordeaux.opacity(0.45), location: 1)],
+                                       startPoint: .leading, endPoint: .trailing)
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous))
+            }
+        }
+        .buttonStyle(PressableStyle())
+    }
+
+    // MARK: mock exams
+
+    private var exams: some View {
+        let unlocked = max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1)
+        let names = ["Foundations", "Intermediate", "Advanced"]
+        return VStack(alignment: .leading, spacing: 10) {
+            SectionTitle(text: "Mock exams")
+            HStack(spacing: 10) {
+                ForEach(1...3, id: \.self) { lv in
+                    let open = lv <= unlocked
+                    Button { if open { session = QuizGenerator.exam(level: lv) } } label: {
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text("L\(lv)").font(.system(size: 13, weight: .bold)).foregroundStyle(open ? Palette.onWine : Palette.inkFaint)
+                                    .frame(width: 30, height: 30)
+                                    .background(Circle().fill(open ? Palette.wine : Palette.cardAlt))
+                                Spacer()
+                                Image(systemName: open ? "timer" : "lock.fill").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                            }
+                            Spacer(minLength: 10)
+                            Text(names[lv - 1]).font(.system(size: 14.5, weight: .semibold)).foregroundStyle(open ? Palette.ink : Palette.inkFaint)
+                                .lineLimit(1).minimumScaleFactor(0.85)
+                            Text("30 questions").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 108, alignment: .topLeading)
+                        .cardStyle(padding: 12)
+                    }
+                    .buttonStyle(PressableStyle())
+                    .disabled(!open)
+                }
+            }
+        }
+    }
+
+    // MARK: topics
+
+    private var topics: some View {
+        let kinds = QuizGenerator.Kind.allCases.filter { $0 != .mixed && $0 != .maps }
+        return VStack(alignment: .leading, spacing: 10) {
+            SectionTitle(text: "By topic")
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                ForEach(kinds) { k in
+                    Button { start(k) } label: {
+                        VStack(alignment: .leading, spacing: 0) {
+                            ZStack {
+                                Circle().fill(Palette.wineSoft.opacity(0.7))
+                                art(k)
+                            }
+                            .frame(width: 52, height: 52)
+                            Spacer(minLength: 12)
+                            Text(k.title).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                            Text(k.subtitle).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(2, reservesSpace: true)
+                                .multilineTextAlignment(.leading).padding(.top, 2)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
+                        .cardStyle(padding: 14)
+                    }
+                    .buttonStyle(PressableStyle())
+                }
+            }
+        }
+    }
+
+    @ViewBuilder private func art(_ k: QuizGenerator.Kind) -> some View {
+        switch k {
+        case .grapes: GrapeCluster(berry: .black, seed: 5).frame(width: 40, height: 40)
+        case .regions, .maps:
+            WineMapView(mapID: "spain", showLabels: false, showCities: false, fill: true, thumbnail: true)
+                .clipShape(Circle()).allowsHitTesting(false)
+        case .colors:
+            HStack(spacing: 2) {
+                ForEach(["#E6D68C", "#E9A6A2", "#7A1832"], id: \.self) { Rectangle().fill(Color(hex: $0)).frame(width: 8, height: 22) }
+            }
+        case .aromas: AromaWheelMini().frame(width: 40, height: 40)
+        default: WineGlass(color: Color(hex: "#8E1E3F"), fill: 0.45).frame(width: 20, height: 34)
+        }
+    }
+
     private func start(_ k: QuizGenerator.Kind) {
         let maxLevel = max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1)
         session = QuizGenerator.session(k, maxLevel: maxLevel)
     }
-
 }

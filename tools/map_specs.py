@@ -30,7 +30,11 @@ def M(id, title, bbox, focus, regions, cities=(), labels=(), river_rank=10, worl
                  "cities": list(cities), "labels": list(labels), "river_rank": river_rank, "world": world})
 
 # ---------------------------------------------------------------- world
-M("world", "The wine world", (-56, -170, 72, 180), WINE_COUNTRIES, [], cities=[], labels=[
+M("world", "The wine world", (-56, -170, 72, 180), WINE_COUNTRIES, [], cities=[
+    ("Bordeaux", 44.84, -0.58), ("Champagne", 49.05, 4.0), ("Mosel", 49.9, 6.9), ("Tuscany", 43.4, 11.2), ("Rioja", 42.45, -2.45),
+    ("Douro", 41.16, -7.6), ("Tokaj", 48.12, 21.4), ("Napa", 38.5, -122.3), ("Willamette", 45.1, -123.1), ("Finger Lakes", 42.6, -77.0),
+    ("Mendoza", -33.0, -68.8), ("Maipo", -33.7, -70.7), ("Stellenbosch", -33.9, 18.85), ("Barossa", -34.5, 138.95),
+    ("Marlborough", -41.5, 173.9), ("Bekaa", 33.85, 35.9), ("Ningxia", 38.5, 106.2)], labels=[
     ("30°–50° N", 52.5, -160, "area"), ("30°–50° S", -27, -160, "area"),
     ("Atlantic Ocean", 25, -40, "sea"), ("Pacific Ocean", 5, -140, "sea"), ("Indian Ocean", -20, 80, "sea"),
 ], world=True)

@@ -255,38 +255,9 @@ struct WineGlass: View {
                           control1: CGPoint(x: r.minX + w * 0.08, y: bowlBottom),
                           control2: CGPoint(x: r.minX + w * 0.02, y: r.minY + r.height * 0.36))
             bowl.closeSubpath()
-            ctx.fill(bowl, with: .color(Palette.card.opacity(0.6)))
-            // wine with a gentle wave
-            let top = bowlBottom - r.height * 0.56 * fill
-            var clip = ctx
-            clip.clip(to: bowl)
-            var liquid = Path()
-            liquid.move(to: CGPoint(x: r.minX - 4, y: top))
-            liquid.addCurve(to: CGPoint(x: r.maxX + 4, y: top),
-                            control1: CGPoint(x: r.minX + w * 0.35, y: top - r.height * 0.05),
-                            control2: CGPoint(x: r.minX + w * 0.62, y: top + r.height * 0.05))
-            liquid.addLine(to: CGPoint(x: r.maxX + 4, y: r.maxY))
-            liquid.addLine(to: CGPoint(x: r.minX - 4, y: r.maxY))
-            liquid.closeSubpath()
-            clip.fill(liquid, with: .linearGradient(Gradient(colors: [rim ?? color.mix(with: .white, 0.15), color]),
-                                                     startPoint: CGPoint(x: r.midX, y: top), endPoint: CGPoint(x: r.midX, y: bowlBottom)))
-            if sparkling {
-                var rng = SeededRandom(seed: 3)
-                for _ in 0..<10 {
-                    let bx = r.minX + w * (0.3 + 0.4 * CGFloat(rng.next()))
-                    let by = top + CGFloat(rng.next()) * (bowlBottom - top) * 0.85 + 4
-                    let br = w * 0.028 * CGFloat(0.6 + rng.next())
-                    clip.fill(Path(ellipseIn: CGRect(x: bx - br, y: by - br, width: br * 2, height: br * 2)), with: .color(.white.opacity(0.8)))
-                }
-            }
-            let ink = outline ?? Palette.ink
-            ctx.stroke(bowl, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineJoin: .round))
-            var stem = Path()
-            stem.move(to: CGPoint(x: r.midX, y: bowlBottom))
-            stem.addLine(to: CGPoint(x: r.midX, y: r.maxY - lw / 2))
-            stem.move(to: CGPoint(x: r.midX - w * 0.28, y: r.maxY - lw / 2))
-            stem.addLine(to: CGPoint(x: r.midX + w * 0.28, y: r.maxY - lw / 2))
-            ctx.stroke(stem, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineCap: .round))
+            GlassArt.draw(&ctx, bowl: bowl, top: r.minY + lw, bottom: bowlBottom, stemX: r.midX,
+                          footY: r.maxY - w * 0.12, footHalf: w * 0.3, fill: fill, color: color, rim: rim,
+                          sparkling: sparkling, ink: outline ?? Palette.ink, scale: h)
         }
         .aspectRatio(0.6, contentMode: .fit)
         .accessibilityHidden(true)

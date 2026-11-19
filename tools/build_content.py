@@ -125,6 +125,15 @@ def check_visual(v, where):
 for s in styles: check_visual(s.get("visual"), f"style {s['id']}")
 
 # ---------------- course
+UNIT_COVERS = {
+    "l1-what-is-wine": "harvest", "l1-tasting": "sommelier", "l1-white-grapes": "loire-sancerre", "l1-black-grapes": "grape-bunch-red",
+    "l1-world": "napa-valley", "l1-food": "corks", "l1-serving": "barrel-cellar",
+    "l2-vineyard": "vineyard-rows", "l2-winery": "fermentation-tank", "l2-more-whites": "santorini-kouloura", "l2-more-reds": "barolo-langhe",
+    "l2-sparkling": "riddling", "l2-sweet-fortified": "port-lodge", "l2-labels": "bottle-shapes", "l2-label-decoder": "bordeaux-chateau",
+    "l3-viticulture": "pruning", "l3-winemaking": "barrel-making", "l3-bordeaux": "saint-emilion", "l3-burgundy": "burgundy-cote",
+    "l3-france-more": "rhone-hermitage", "l3-italy": "tuscany-chianti", "l3-iberia": "douro-terraces", "l3-central-europe": "wachau",
+    "l3-new-world": "mendoza-andes", "l3-tasting": "veraison",
+}
 levels_meta = load("levels.yaml")
 course = {"levels": []}
 card_count = 0
@@ -142,6 +151,10 @@ for lv in levels_meta:
             u["lessons"] = [l for l in u["lessons"] if l["title"] != "Going further"] + extra + tail
         uid = f"l{lv['number']}u{ui + 1}"
         unit = {"id": uid, "title": u["title"], "summary": u["summary"], "icon": u.get("icon", "book"), "lessons": []}
+        cover = u.get("cover") or UNIT_COVERS.get(ufile)
+        if cover:
+            if cover in photo_ids: unit["cover"] = cover
+            else: warn(f"{ufile}: cover photo {cover} missing")
         for li, ls in enumerate(u["lessons"]):
             lid = f"{uid}{chr(97 + li)}"
             if lid in lesson_ids: err(f"dup lesson {lid}")

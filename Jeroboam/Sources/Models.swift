@@ -24,6 +24,7 @@ struct Unit: Decodable, Identifiable, Hashable {
     let summary: String
     let icon: String
     let lessons: [Lesson]
+    var cover: String? = nil
 
     static func == (a: Unit, b: Unit) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }

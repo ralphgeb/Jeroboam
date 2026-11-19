@@ -17,6 +17,9 @@ struct VisualView: View {
         let extra = parts.count > 2 ? parts[2] : ""
         Group {
             switch kind {
+            case "map" where !hideAnswers && RefMaps.image(for: arg, highlight: Set(extra.split(separator: ",").map(String.init))) != nil:
+                let hl = Set(extra.split(separator: ",").map(String.init))
+                RefMapCard(imageID: RefMaps.image(for: arg, highlight: hl)!, mapID: arg, highlight: hl)
             case "map":
                 let hl = Set(extra.split(separator: ",").map(String.init))
                 WineMapView(mapID: arg, highlight: hl, showCities: !compact && !hideAnswers, labelScale: compact ? 0.9 : 1,
@@ -43,6 +46,7 @@ struct VisualView: View {
                 if let g = ContentStore.shared.grape(arg), hideAnswers {
                     GrapeBadge(grape: g, size: 120, disc: false).frame(maxWidth: .infinity)
                 } else if let g = ContentStore.shared.grape(arg) {
+                  VStack(alignment: .leading, spacing: 14) {
                     HStack(spacing: 18) {
                         GrapeBadge(grape: g, size: compact ? 96 : 128, disc: false)
                         VStack(alignment: .leading, spacing: 6) {
@@ -54,6 +58,8 @@ struct VisualView: View {
                         }
                         Spacer(minLength: 0)
                     }
+                    if !compact { GrapeHomeMap(grape: g) }
+                  }
                 }
             case "glass":
                 if let c = ContentStore.shared.color(arg), hideAnswers {
@@ -106,7 +112,7 @@ struct VisualView: View {
         case "serving-temps": ServingTempsDiagram()
         case "sweetness": SweetnessScale()
         case "solera": SoleraDiagram()
-        case "wine-belt": WineMapView(mapID: "world", showCities: false, autoCallout: false).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        case "wine-belt": WineBeltDiagram()
         case "glass-shapes": GlassShapesDiagram()
         case "three-colors": ThreeColorsDiagram()
         case "tannin-acid": TanninAcidDiagram()
@@ -487,38 +493,9 @@ struct ShapedGlass: View {
             let (_, _, _, by) = kind.bowl
             let yb = r.height * by
             let y0 = r.height * 0.02
-            // wine
-            let level = yb - (yb - y0) * fill
-            var wine = ctx
-            wine.clip(to: bowl)
-            wine.fill(Path(CGRect(x: 0, y: level, width: r.width, height: yb - level + 2)),
-                      with: .linearGradient(Gradient(colors: [color.mix(with: .white, 0.12), color.mix(with: .black, 0.12)]),
-                                            startPoint: CGPoint(x: 0, y: level), endPoint: CGPoint(x: 0, y: yb)))
-            if sparkling {
-                for (fx, fy) in [(0.47, 0.82), (0.53, 0.66), (0.5, 0.5), (0.46, 0.36)] as [(CGFloat, CGFloat)] {
-                    let y = level + (yb - level) * fy
-                    wine.fill(Path(ellipseIn: CGRect(x: r.width * fx - 1.3, y: y - 1.3, width: 2.6, height: 2.6)), with: .color(.white.opacity(0.85)))
-                }
-            }
-            // glass outline, stem and foot — one line weight
-            let lw: CGFloat = 2
-            let ink = Palette.ink.opacity(0.85)
-            var bowlClosed = bowl
-            bowlClosed.closeSubpath()
-            ctx.stroke(bowlClosed, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineCap: .round, lineJoin: .round))
-            var stem = Path()
-            stem.move(to: CGPoint(x: r.midX, y: yb))
-            stem.addLine(to: CGPoint(x: r.midX, y: r.height * 0.97))
             let foot = r.width * (kind == .flute ? 0.42 : 0.5) / 2
-            stem.move(to: CGPoint(x: r.midX - foot, y: r.height * 0.97))
-            stem.addLine(to: CGPoint(x: r.midX + foot, y: r.height * 0.97))
-            ctx.stroke(stem, with: .color(ink), style: StrokeStyle(lineWidth: lw, lineCap: .round))
-            // a soft reflection
-            var shine = Path()
-            shine.move(to: CGPoint(x: r.midX - r.width * kind.bowl.0 * 0.32, y: r.height * 0.08))
-            shine.addQuadCurve(to: CGPoint(x: r.midX - r.width * kind.bowl.1 * 0.3, y: r.height * kind.bowl.2 * 1.1),
-                               control: CGPoint(x: r.midX - r.width * kind.bowl.1 * 0.36, y: r.height * 0.12))
-            ctx.stroke(shine, with: .color(.white.opacity(0.7)), style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+            GlassArt.draw(&ctx, bowl: bowl, top: y0, bottom: yb, stemX: r.midX, footY: r.height * 0.95, footHalf: foot,
+                          fill: fill, color: color, rim: nil, sparkling: sparkling, ink: Palette.ink, scale: r.height)
         }
         .aspectRatio(0.62, contentMode: .fit)
         .accessibilityHidden(true)
