@@ -358,7 +358,10 @@ for w in wines:
         if g not in gset: err(f"wine {w['id']}: unknown grape {g}")
     w["summary"] = w["summary"].strip()
 
-library = {"wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
+facts = [str(f).strip() for f in load("facts.yaml")]
+if len(set(facts)) != len(facts): err("duplicate fun facts")
+if len(facts) < 100: warn(f"only {len(facts)} fun facts (want 100+ so mornings don't repeat)")
+library = {"facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 
 for w in warnings: print("warning:", w)

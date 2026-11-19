@@ -18,6 +18,11 @@ struct LearnView: View {
                             levelIntro(level)
                                 .padding(.horizontal, Metrics.margin)
                                 .padding(.top, 18)
+                            if plusLocked(level.number) {
+                                PlusLevelBanner(level: level)
+                                    .padding(.horizontal, Metrics.margin)
+                                    .padding(.top, 16)
+                            }
                                 .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).minY } action: { y in
                                     // 0 at rest, 1 once the level title has scrolled under the header
                                     let p = min(1, max(0, (18 - y) / 70))
@@ -30,7 +35,7 @@ struct LearnView: View {
                             }
                             ForEach(Array(level.courseUnits.enumerated()), id: \.element.id) { i, unit in
                                 UnitSection(unit: unit, number: i + 1, level: level,
-                                            onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
+                                            onStart: { start($0) }, onGuide: { openGuide(unit, level) }, onLocked: { locked(level) })
                                     .id(unit.id)
                                     .padding(.top, 34)
                             }
@@ -41,7 +46,7 @@ struct LearnView: View {
                             }
                             ForEach(Array(level.studyUnits.enumerated()), id: \.element.id) { i, unit in
                                 UnitSection(unit: unit, number: i + 1, level: level,
-                                            onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
+                                            onStart: { start($0) }, onGuide: { openGuide(unit, level) }, onLocked: { locked(level) })
                                     .id(unit.id)
                                     .padding(.top, 30)
                             }
@@ -89,8 +94,25 @@ struct LearnView: View {
 
     private var currentLevel: Level? { content.course.levels.first { $0.number == levelNumber } }
 
+    /// Levels 2 and 3 (lessons and guidebooks) are part of Jero Plus.
+    private func plusLocked(_ n: Int) -> Bool { n > 1 && Plus.shared.locked }
+
+    private func openGuide(_ unit: Unit, _ level: Level) {
+        if plusLocked(level.number) { PaywallPresenter.shared.show("Level \(level.number) guidebooks come with Jero Plus.") }
+        else { guidebook = unit }
+    }
+
+    private func locked(_ level: Level) {
+        if plusLocked(level.number) { PaywallPresenter.shared.show("Level \(level.number) · \(level.title) comes with Jero Plus.") }
+        else { askUnlock = level }
+    }
+
     private func start(_ lesson: Lesson) {
         let level = content.level(ofLesson: lesson.id)
+        if let n = level?.number, plusLocked(n) {
+            PaywallPresenter.shared.show("Level \(n) · \(level?.title ?? "") comes with Jero Plus.")
+            return
+        }
         session = Session(title: lesson.title, lessonID: lesson.id, cards: lesson.cards, accent: Palette.level(level?.number ?? 1))
     }
 
@@ -425,4 +447,27 @@ struct StudyGuideHeader: View {
 
 extension Notification.Name {
     static let learnTabReselected = Notification.Name("jero.learnTabReselected")
+}
+
+/// At the top of Levels 2 and 3 for free users.
+struct PlusLevelBanner: View {
+    let level: Level
+    var body: some View {
+        Button { PaywallPresenter.shared.show("Level \(level.number) · \(level.title) comes with Jero Plus.") } label: {
+            HStack(spacing: 14) {
+                LockDot(size: 40)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Unlock Level \(level.number)").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text("Every lesson, guidebook and exam with Jero Plus · \(Plus.shared.price)/month")
+                        .font(.system(size: 12.5)).foregroundStyle(.white.opacity(0.8))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white.opacity(0.7))
+            }
+            .padding(16)
+            .background(HeroCardBackground().clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)))
+        }
+        .buttonStyle(PressableStyle())
+    }
 }

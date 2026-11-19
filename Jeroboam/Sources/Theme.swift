@@ -56,6 +56,7 @@ enum Palette {
     static let wineSoft = Color.dynamic("#F6E3E8", "#3E1724")
     static let wineDeep = Color(hex: "#4C0B22")
     static let bordeaux = Color(hex: "#8B1538")
+    static let cork = Color(hex: "#F0D9C4")
     static let grape = Color.dynamic("#4A1D3F", "#E6B8C8")
     static let pink = Color(hex: "#D8285A")
     static let beige = Color(hex: "#F0E2D2")

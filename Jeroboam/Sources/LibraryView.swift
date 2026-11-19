@@ -70,10 +70,10 @@ struct LibraryView: View {
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
-            .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g).zoomDestination(ZoomID.grape(g.id), in: zoom) }
-            .navigationDestination(for: Region.self) { r in RegionDetailView(region: r).zoomDestination(ZoomID.region(r.id), in: zoom) }
-            .navigationDestination(for: Wine.self) { w in WineDetailView(wine: w) }
-            .navigationDestination(for: WineStyle.self) { s in StyleDetailView(style: s).zoomDestination(ZoomID.style(s.id), in: zoom) }
+            .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }
+            .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) }.zoomDestination(ZoomID.region(r.id), in: zoom) }
+            .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
+            .navigationDestination(for: WineStyle.self) { s in PlusGate(quota: "styles", id: s.id) { StyleDetailView(style: s) }.zoomDestination(ZoomID.style(s.id), in: zoom) }
             .debugDestinations()
             .onAppear {
                 #if DEBUG
@@ -263,6 +263,7 @@ struct StylesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "styles") } }
     }
 }
 

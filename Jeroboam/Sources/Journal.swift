@@ -68,6 +68,42 @@ final class JournalStore {
         return d
     }
 
+    /// False for the made-up journal shown to free users (never written to disk).
+    @ObservationIgnored var persist = true
+
+    /// A made-up cellar and tastings, shown greyed out behind the Jero Plus lock.
+    static let sample: JournalStore = {
+        let j = JournalStore(empty: true)
+        func wine(_ name: String, _ producer: String, _ region: String, _ country: String, _ grapes: [String], _ vintage: String,
+                  _ style: String, _ notes: [String]) -> WineIdentity {
+            var w = WineIdentity.empty
+            w.found = true; w.name = name; w.producer = producer; w.region = region; w.country = country; w.grapes = grapes
+            w.vintage = vintage; w.style = style; w.tastingNotes = notes; w.confidence = "high"
+            return w
+        }
+        let bottles: [(WineIdentity, Int, Double)] = [
+            (wine("Château Musar", "Château Musar", "Bekaa Valley", "Lebanon", ["Cabernet Sauvignon", "Cinsault", "Carignan"], "2016", "red", ["Red cherry", "Dried fig", "Cloves"]), 2, 58),
+            (wine("Barolo Bussia", "Prunotto", "Barolo", "Italy", ["Nebbiolo"], "2019", "red", ["Rose", "Tar", "Red cherry"]), 3, 72),
+            (wine("Sancerre Les Monts Damnés", "Henri Bourgeois", "Sancerre", "France", ["Sauvignon Blanc"], "2022", "white", ["Grapefruit", "Flint"]), 4, 41),
+            (wine("Brut Réserve", "Charles Heidsieck", "Champagne", "France", ["Chardonnay", "Pinot Noir"], "NV", "sparkling", ["Brioche", "Pear"]), 1, 69),
+        ]
+        for (w, q, p) in bottles {
+            var b = CellarBottle(); b.wine = w; b.quantity = q
+            b.price = PriceInfo(average: p, low: p * 0.85, high: p * 1.2, currency: "USD", source: "Estimate")
+            j.cellar.append(b)
+        }
+        var e = JournalEntry()
+        e.wine = bottles[0].0; e.identified = true; e.blind = true; e.aromas = ["Red cherry", "Cloves", "Earth"]
+        e.guessGrape = "Cabernet Sauvignon"; e.guessCountry = "France"; e.body = 4; e.tannin = 4; e.rating = 9
+        e.score = TastingScore.total(e)
+        j.entries.append(e)
+        var f = JournalEntry(); f.wine = bottles[2].0; f.identified = true; f.aromas = ["Grapefruit", "Flint"]; f.rating = 9
+        j.entries.append(f)
+        return j
+    }()
+
+    private init(empty: Bool) { persist = false }
+
     init() {
         if let data = try? Data(contentsOf: url), let e = try? JSONDecoder().decode([JournalEntry].self, from: data) { entries = e }
         if let data = try? Data(contentsOf: cellarURL), let c = try? JSONDecoder().decode([CellarBottle].self, from: data) { cellar = c }
@@ -75,8 +111,8 @@ final class JournalStore {
         spentUSD = UserDefaults.standard.double(forKey: "jero.spent")
     }
 
-    private func save() { if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) } }
-    private func saveCellar() { if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) } }
+    private func save() { guard persist else { return }; if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) } }
+    private func saveCellar() { guard persist else { return }; if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) } }
 
     func savePhoto(_ image: UIImage, id: UUID) -> String? {
         let name = id.uuidString + ".jpg"
@@ -149,7 +185,27 @@ func styleColor(_ s: String) -> Color {
 
 // MARK: - Journal tab
 
+/// The Journal is part of Jero Plus: free users see a made-up cellar, greyed out, under the Bordeaux lock.
 struct JournalView: View {
+    var body: some View {
+        if Plus.shared.active {
+            JournalHome()
+        } else {
+            JournalHome()
+                .environment(JournalStore.sample)
+                .allowsHitTesting(false)
+                .saturation(0.25)
+                .opacity(0.5)
+                .overlay {
+                    PlusCallout(title: "Your wine journal",
+                                message: "Scan bottles into your cellar with their price, and taste blind, scored out of 100.")
+                        .onTapGesture { PaywallPresenter.shared.show("Scan, keep a cellar and taste blind with Jero Plus.") }
+                }
+        }
+    }
+}
+
+struct JournalHome: View {
     @Environment(JournalStore.self) private var journal
     @State private var section = 0
     @State private var scan = false
@@ -179,10 +235,10 @@ struct JournalView: View {
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
-            .navigationDestination(for: Wine.self) { w in WineDetailView(wine: w) }
-            .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g) }
-            .navigationDestination(for: Region.self) { r in RegionDetailView(region: r) }
-            .navigationDestination(for: WineStyle.self) { st in StyleDetailView(style: st) }
+            .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
+            .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
+            .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
+            .navigationDestination(for: WineStyle.self) { st in PlusGate(quota: "styles", id: st.id) { StyleDetailView(style: st) } }
         }
         .fullScreenCover(isPresented: $scan) { ScanFlow() }
         .fullScreenCover(isPresented: $blind) { TastingFlow(blind: true) }

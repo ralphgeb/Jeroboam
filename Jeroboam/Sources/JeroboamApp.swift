@@ -37,6 +37,9 @@ struct JeroboamApp: App {
                     }
                 }
                 .tint(Palette.wine)
+                .plusSheetHost()
+                .task { await Plus.shared.refresh() }
+                .task { await Plus.shared.listen() }
                 .onAppear {
                     QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
                     CloudSync.shared.start(progress)
@@ -78,7 +81,7 @@ struct RootView: View {
         }
         .animation(.easeInOut(duration: 0.4), value: progress.data.onboarded)
         .onChange(of: phase) { _, p in
-            if p == .active { progress.refreshStreakState() }
+            if p == .active { progress.refreshStreakState(); progress.scheduleReminder() }
         }
         .onAppear {
             #if DEBUG

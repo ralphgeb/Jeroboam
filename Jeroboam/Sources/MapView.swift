@@ -909,10 +909,12 @@ struct MapExplorer: View {
         .sheet(item: $openRegion) { r in
             NavigationStack {
                 RegionDetailView(region: r)
-                    .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g) }
-                    .navigationDestination(for: Region.self) { r in RegionDetailView(region: r) }
+                    .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
+                    .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
             }
+            .plusSheetHost()
         }
+        .plusSheetHost()
         .onAppear { if highlight.count == 1 { selected = highlight.first } }
     }
 

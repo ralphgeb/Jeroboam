@@ -168,12 +168,12 @@ struct OnboardingView: View {
                 Image(systemName: "bell").font(.system(size: 44, weight: .light)).foregroundStyle(Palette.wine)
             }
             Text("A gentle nudge?").font(.serif(30)).foregroundStyle(Palette.ink).padding(.top, 32)
-            Text("One quiet reminder in the evening helps keep your streak alive. You can change this in your profile.")
+            Text("A fun wine fact each morning, and a quiet nudge to practice in the evening. You can change this in your profile.")
                 .font(.system(size: 15.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                 .lineSpacing(3).padding(.horizontal, 20).padding(.top, 10)
             Spacer()
             VStack(spacing: 10) {
-                Button("Remind me at 7 pm") { finish(reminders: true) }
+                Button("Turn on notifications") { finish(reminders: true) }
                     .buttonStyle(PrimaryButtonStyle())
                 Button("Not now") { finish(reminders: false) }
                     .buttonStyle(SecondaryButtonStyle(color: Palette.inkSoft))

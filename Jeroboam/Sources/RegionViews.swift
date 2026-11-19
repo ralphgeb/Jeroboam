@@ -16,7 +16,15 @@ struct RegionListView: View {
                         SectionTitle(text: "Countries", detail: "\(countries.count)")
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                             ForEach(countries) { c in
-                                NavigationLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
+                                if Plus.shared.active || Plus.freeCountries.contains(c.country) {
+                                    NavigationLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
+                                } else {
+                                    // locked countries open the Jero Plus sheet straight away
+                                    Button { PaywallPresenter.shared.show("France and Italy are free. \(c.name) and every other country come with Jero Plus.") } label: {
+                                        countryCard(c).overlay(alignment: .topTrailing) { LockDot(size: 26).padding(10) }
+                                    }
+                                    .buttonStyle(PressableStyle())
+                                }
                             }
                         }
                         Text("Map sources: official EU wine appellation boundaries (Candiago et al. 2022, Scientific Data, CC BY 4.0); © OpenStreetMap contributors (ODbL); Natural Earth; UC Davis AVA project; geoBoundaries; Australian GIs via WineRegions (CC0).")

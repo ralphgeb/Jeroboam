@@ -116,6 +116,7 @@ struct WinesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "wines") } }
     }
 }
 

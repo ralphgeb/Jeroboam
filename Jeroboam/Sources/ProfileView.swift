@@ -4,6 +4,7 @@ struct ProfileView: View {
     @Environment(GameProgress.self) private var progress
     @Environment(JournalStore.self) private var journal
     @State private var confirmReset = false
+    @Environment(\.dismiss) private var dismiss
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
 
@@ -70,6 +71,8 @@ struct ProfileView: View {
                         }
                     }
 
+                    PlusStatusCard()
+
                     // Settings
                     VStack(alignment: .leading, spacing: 0) {
                         SectionTitle(text: "Settings").padding(.bottom, 10)
@@ -83,13 +86,20 @@ struct ProfileView: View {
                             .tint(Palette.wine)
                         }
                         Hairline()
-                        settingRow("Daily reminder") {
+                        settingRow("Notifications") {
                             Toggle("", isOn: Binding(get: { progress.data.reminders }, set: { progress.setReminders($0) }))
                                 .labelsHidden().tint(Palette.wine)
                         }
                         if progress.data.reminders {
                             Hairline()
-                            settingRow("Remind me at") {
+                            settingRow("Morning fun fact") {
+                                Toggle("", isOn: Binding(get: { progress.data.morningFacts ?? true }, set: {
+                                    progress.data.morningFacts = $0; progress.scheduleReminder()
+                                }))
+                                .labelsHidden().tint(Palette.wine)
+                            }
+                            Hairline()
+                            settingRow("Evening practice at") {
                                 Picker("Time", selection: Binding(get: { progress.data.reminderHour }, set: {
                                     progress.data.reminderHour = $0
                                     progress.setReminders(true)
@@ -115,6 +125,24 @@ struct ProfileView: View {
                         }
                     }
 
+                    // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.
+                    if Distribution.isTestFlight {
+                        VStack(alignment: .leading, spacing: 0) {
+                            SectionTitle(text: "TestFlight").padding(.bottom, 10)
+                            Button {
+                                dismiss()
+                                Task { try? await Task.sleep(for: .milliseconds(500)); progress.data.onboarded = false }
+                            } label: { testRow("Replay the welcome", "arrow.counterclockwise") }
+                            Hairline()
+                            Button { Plus.shared.reset() } label: { testRow(Plus.shared.active ? "Reset Jero Plus (back to free)" : "Jero Plus is off", "creditcard") }
+                                .disabled(!Plus.shared.active)
+                            Hairline()
+                            Button { AtlasQuota.reset() } label: { testRow("Reset the free atlas cards", "rectangle.stack") }
+                            Hairline()
+                            Button { Notifications.shared.sendTestFact() } label: { testRow("Send a fun fact now", "bell.badge") }
+                        }
+                    }
+
                     VStack(spacing: 6) {
                         Wordmark(size: 18)
                         if journalLookups > 0 {
@@ -133,6 +161,7 @@ struct ProfileView: View {
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
             .statusBarBackdrop()
+            .plusSheetHost()
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -157,6 +186,16 @@ struct ProfileView: View {
             Spacer(minLength: 0)
         }
         .cardStyle(padding: 14)
+    }
+
+    private func testRow(_ title: String, _ icon: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon).font(.system(size: 15)).foregroundStyle(Palette.wine).frame(width: 22)
+            Text(title).font(.system(size: 16)).foregroundStyle(Palette.ink)
+            Spacer()
+        }
+        .padding(.vertical, 12)
+        .contentShape(Rectangle())
     }
 
     private func settingRow<C: View>(_ title: String, @ViewBuilder _ control: () -> C) -> some View {
@@ -197,6 +236,44 @@ struct WeekStrip: View {
             }
             .frame(height: 112, alignment: .bottom)
             .cardStyle(padding: 16)
+        }
+    }
+}
+
+/// Jero Plus in the profile: what you have, or what it adds.
+struct PlusStatusCard: View {
+    var body: some View {
+        if Plus.shared.active {
+            HStack(spacing: 14) {
+                SplashMark(color: .white, surface: Palette.cork).frame(width: 34, height: 34)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Jero Plus").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text("Everything is unlocked. Thank you!").font(.system(size: 13)).foregroundStyle(.white.opacity(0.8))
+                }
+                Spacer()
+                Link(destination: URL(string: "https://apps.apple.com/account/subscriptions")!) {
+                    Text("Manage").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.bordeaux)
+                        .padding(.horizontal, 12).frame(height: 30).background(Capsule().fill(.white))
+                }
+            }
+            .padding(16)
+            .background(HeroCardBackground().clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)))
+        } else {
+            Button { PaywallPresenter.shared.show("Levels 2 and 3, the whole atlas and your journal.") } label: {
+                HStack(spacing: 14) {
+                    SplashMark(color: .white, surface: Palette.cork).frame(width: 34, height: 34)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Get Jero Plus").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                        Text("Levels 2 and 3, every country, your journal · \(Plus.shared.price)/month")
+                            .font(.system(size: 13)).foregroundStyle(.white.opacity(0.8)).fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right").foregroundStyle(.white.opacity(0.7))
+                }
+                .padding(16)
+                .background(HeroCardBackground().clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)))
+            }
+            .buttonStyle(PressableStyle())
         }
     }
 }

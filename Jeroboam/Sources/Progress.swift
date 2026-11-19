@@ -29,6 +29,8 @@ struct ProgressData: Codable {
     var achievements: [String] = []
     var reminders = false
     var reminderHour = 19
+    var morningFacts: Bool? = nil        // nil = on with reminders
+    var factHour: Int? = nil
     var appearance = 0                    // 0 auto, 1 light, 2 dark
     var practiceSessions = 0
     var perfectLessons = 0
@@ -279,17 +281,66 @@ final class GameProgress {
     }
 
     func scheduleReminder() {
-        guard data.reminders else { return }
-        let content = UNMutableNotificationContent()
-        content.title = "Time for a glass of knowledge 🍷"
-        content.body = "A five-minute lesson keeps your streak alive."
-        content.sound = .default
-        var comps = DateComponents()
-        comps.hour = data.reminderHour
-        comps.minute = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-        let req = UNNotificationRequest(identifier: "daily-reminder", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(req)
+        Notifications.shared.reschedule(self)
+    }
+}
+
+/// Two gentle notifications a day: a wine fun fact in the morning, a nudge to practice in the evening.
+/// Scheduled four weeks ahead (iOS keeps at most 64), and refreshed whenever Jero opens.
+final class Notifications {
+    static let shared = Notifications()
+    private let center = UNUserNotificationCenter.current()
+
+    private let evening: [(String, String)] = [
+        ("Time for a glass of knowledge 🍷", "A five-minute lesson keeps your streak alive."),
+        ("Quick tasting quiz?", "Ten questions, three minutes. How sharp is your palate tonight?"),
+        ("Your streak is waiting", "One short lesson and you're done for the day."),
+        ("Pop the cork on a quiz", "A daily mix of grapes, regions and styles is ready."),
+        ("Before dinner…", "Brush up on food and wine in a quick practice round."),
+        ("A little wine homework", "Review the questions you missed: it's the fastest way to learn."),
+        ("Ready for a mock exam?", "Thirty questions to see how close you are to the next level."),
+    ]
+
+    func reschedule(_ p: GameProgress) {
+        let ids = (0..<64).flatMap { ["fact-\($0)", "practice-\($0)"] } + ["daily-reminder"]
+        center.removePendingNotificationRequests(withIdentifiers: ids)
+        guard p.data.reminders else { return }
+        let facts = ContentStore.shared.library.facts ?? []
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        let dayNumber = Int(today.timeIntervalSince1970 / 86400)
+        for d in 0..<28 {
+            guard let day = cal.date(byAdding: .day, value: d, to: today) else { continue }
+            if p.data.morningFacts ?? true, !facts.isEmpty {
+                let c = UNMutableNotificationContent()
+                c.title = "Did you know? 🍇"
+                c.body = facts[(dayNumber + d) % facts.count]
+                c.sound = .default
+                add("fact-\(d)", c, day, hour: p.data.factHour ?? 9, minute: 0)
+            }
+            let (t, b) = evening[(dayNumber + d) % evening.count]
+            let c = UNMutableNotificationContent()
+            c.title = t; c.body = b; c.sound = .default
+            add("practice-\(d)", c, day, hour: p.data.reminderHour, minute: 0)
+        }
+    }
+
+    private func add(_ id: String, _ c: UNMutableNotificationContent, _ day: Date, hour: Int, minute: Int) {
+        var comps = Calendar.current.dateComponents([.year, .month, .day], from: day)
+        comps.hour = hour; comps.minute = minute
+        guard let fire = Calendar.current.date(from: comps), fire > Date() else { return }
+        center.add(UNNotificationRequest(identifier: id, content: c, trigger: UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)))
+    }
+
+    /// TestFlight: a fun fact in five seconds.
+    func sendTestFact() {
+        let facts = ContentStore.shared.library.facts ?? []
+        center.requestAuthorization(options: [.alert, .sound]) { ok, _ in
+            guard ok, let f = facts.randomElement() else { return }
+            let c = UNMutableNotificationContent()
+            c.title = "Did you know? 🍇"; c.body = f; c.sound = .default
+            self.center.add(UNNotificationRequest(identifier: "fact-test", content: c, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)))
+        }
     }
 }
 

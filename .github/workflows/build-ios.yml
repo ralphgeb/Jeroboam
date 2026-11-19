@@ -126,6 +126,79 @@ jobs:
               print("::warning::Could not list profiles", e.code)
           PY
 
+      - name: Set up the Jero Plus subscription in App Store Connect ($0.99 a month)
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import os, time, json, urllib.request, urllib.error, urllib.parse
+          import jwt
+          key = open(os.environ["RUNNER_TEMP"] + "/AuthKey.p8").read()
+          token = jwt.encode({"iss": os.environ["ASC_ISSUER_ID"].strip(), "iat": int(time.time()), "exp": int(time.time()) + 1100,
+                              "aud": "appstoreconnect-v1"}, key, algorithm="ES256", headers={"kid": os.environ["ASC_KEY_ID"].strip(), "typ": "JWT"})
+          API = "https://api.appstoreconnect.apple.com"
+          def call(method, path, body=None):
+              req = urllib.request.Request(path if path.startswith("http") else API + path, method=method,
+                                           data=json.dumps(body).encode() if body else None,
+                                           headers={"Authorization": "Bearer " + token, "Content-Type": "application/json"})
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      b = r.read(); return json.loads(b) if b else {}
+              except urllib.error.HTTPError as e:
+                  print("::warning::", method, path.split("?")[0], e.code, e.read().decode()[:500]); return None
+          def rel(t, i): return {"data": {"type": t, "id": i}}
+          PID, GROUP = "com.ralphgeb.jero.plus.monthly", "Jero Plus"
+          apps = (call("GET", "/v1/apps?" + urllib.parse.urlencode({"filter[bundleId]": "com.ralphgeb.jero"})) or {}).get("data", [])
+          if not apps: print("::warning::Jero isn't in App Store Connect yet"); raise SystemExit
+          app = apps[0]["id"]
+          groups = (call("GET", f"/v1/apps/{app}/subscriptionGroups?limit=50") or {}).get("data", [])
+          g = next((x for x in groups if x["attributes"]["referenceName"] == GROUP), None)
+          if not g:
+              g = (call("POST", "/v1/subscriptionGroups", {"data": {"type": "subscriptionGroups", "attributes": {"referenceName": GROUP},
+                                                                   "relationships": {"app": rel("apps", app)}}}) or {}).get("data")
+              if not g: raise SystemExit
+              call("POST", "/v1/subscriptionGroupLocalizations", {"data": {"type": "subscriptionGroupLocalizations",
+                   "attributes": {"name": "Jero Plus", "locale": "en-US"}, "relationships": {"subscriptionGroup": rel("subscriptionGroups", g["id"])}}})
+              print("Created subscription group")
+          subs = (call("GET", f"/v1/subscriptionGroups/{g['id']}/subscriptions?limit=50") or {}).get("data", [])
+          sub = next((x for x in subs if x["attributes"]["productId"] == PID), None)
+          if not sub:
+              sub = (call("POST", "/v1/subscriptions", {"data": {"type": "subscriptions", "attributes": {
+                  "name": "Jero Plus Monthly", "productId": PID, "subscriptionPeriod": "ONE_MONTH", "groupLevel": 1, "familySharable": False,
+                  "reviewNote": "Unlocks Levels 2 and 3, every country in the atlas, unlimited atlas cards and the wine journal."},
+                  "relationships": {"group": rel("subscriptionGroups", g["id"])}}}) or {}).get("data")
+              if not sub: raise SystemExit
+              call("POST", "/v1/subscriptionLocalizations", {"data": {"type": "subscriptionLocalizations", "attributes": {
+                  "name": "Jero Plus", "locale": "en-US", "description": "Levels 2-3, the whole atlas and your journal"},
+                  "relationships": {"subscription": rel("subscriptions", sub["id"])}}})
+              print("Created subscription", PID)
+          sid = sub["id"]
+          print("Subscription state:", sub["attributes"].get("state"))
+          have = (call("GET", f"/v1/subscriptions/{sid}/prices?limit=1") or {}).get("data", [])
+          if not have:
+              pts = call("GET", f"/v1/subscriptions/{sid}/pricePoints?" + urllib.parse.urlencode({"filter[territory]": "USA", "limit": "200"})) or {}
+              pp = next((x for x in pts.get("data", []) if x["attributes"].get("customerPrice") == "0.99"), None)
+              if pp:
+                  todo = [pp["id"]]
+                  url = f"/v1/subscriptionPricePoints/{pp['id']}/equalizations?limit=200"
+                  while url:
+                      r = call("GET", url) or {}
+                      todo += [x["id"] for x in r.get("data", [])]
+                      url = (r.get("links") or {}).get("next")
+                  ok = 0
+                  for i in todo:
+                      if call("POST", "/v1/subscriptionPrices", {"data": {"type": "subscriptionPrices", "attributes": {"preserveCurrentPrice": False},
+                              "relationships": {"subscription": rel("subscriptions", sid), "subscriptionPricePoint": rel("subscriptionPricePoints", i)}}}) is not None:
+                          ok += 1
+                  print("Set $0.99 (and equivalents) in", ok, "territories")
+              else:
+                  print("::warning::no $0.99 price point found")
+          terr = [t["id"] for t in (call("GET", "/v1/territories?limit=200") or {}).get("data", [])]
+          if terr:
+              call("POST", "/v1/subscriptionAvailabilities", {"data": {"type": "subscriptionAvailabilities", "attributes": {"availableInNewTerritories": True},
+                   "relationships": {"subscription": rel("subscriptions", sid), "availableTerritories": {"data": [{"type": "territories", "id": t} for t in terr]}}}})
+          print("Done. A review screenshot can be added in App Store Connect; until the product loads, the app uses its test checkout.")
+          PY
+
       - name: Select the newest released Xcode 
         run: |
           echo "Installed Xcodes:"; ls -d /Applications/Xcode*.app
