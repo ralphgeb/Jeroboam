@@ -406,3 +406,7 @@ brun-terres-dorees | 18 | - | https://www.jamessuckling.com/tasting-notes/176415
 mas-daumas-gassac | 57 | - | https://www.jamessuckling.com/tasting-notes/265598/mas-de-daumas-gassac-saint-guilhem-le-desert-rouge-2022
 whispering-angel | 28 | - | https://www.jamessuckling.com/tasting-notes/133496/chateau-desclans-cotes-de-provence-whispering-angel-rose-2019
 cahors-cedre | 43 | - | https://www.jamessuckling.com/tasting-notes/246443/chateau-du-cedre-cahors-le-cedre-2020
+voerzio-brunate | 288 | - | https://www.jamessuckling.com/tasting-notes/246968/roberto-voerzio-barolo-brunate-2020
+ceretto-bricco | 249 | - | https://www.jamessuckling.com/tasting-notes/60223/ceretto-barolo-bricco-rocche-2013
+la-spinetta | 149 | - | https://www.jamessuckling.com/tasting-notes/247595/la-spinetta-barbaresco-vursu-starderi-2021
+tenuta-san-guido-guidalberto | 64 | - | https://www.jamessuckling.com/tasting-notes/251080/tenuta-san-guido-toscana-guidalberto-2022
