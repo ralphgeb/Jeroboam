@@ -416,3 +416,9 @@ masi-costasera | 47 | - | https://www.jamessuckling.com/tasting-notes/337281/mas
 pieropan-soave | 43 | - | https://www.jamessuckling.com/tasting-notes/188123/pieropan-soave-classico-la-rocca-2020
 ca-del-bosco | 41 | - | https://www.jamessuckling.com/tasting-notes/264244/ca-del-bosco-franciacorta-cuvee-prestige-46a-edizione-extra-brut
 ferrari-giulio | 177 | - | https://www.jamessuckling.com/tasting-notes/227770/giulio-ferrari-trento-riserva-del-fondatore-2012
+tua-rita-redigaffi | 263 | - | https://www.jamessuckling.com/tasting-notes/273463/tua-rita-toscana-redigaffi-2022
+querciabella | 130 | - | https://www.jamessuckling.com/tasting-notes/69641/querciabella-toscana-camartina-2013
+montevertine | 182 | - | https://www.jamessuckling.com/tasting-notes/73687/Montevertine%20Toscana%202013
+banfi-poggio-oro | 186 | - | https://www.jamessuckling.com/tasting-notes/49726/castello-banfi-brunello-di-montalcino-poggio-alloro-riserva-2010
+rosso-di-montalcino | 24 | - | https://www.jamessuckling.com/tasting-notes/263164/il-poggione-rosso-di-montalcino-2022
+isole-chianti | 34 | - | https://www.jamessuckling.com/tasting-notes/266455/isole-e-olena-chianti-classico-2021
