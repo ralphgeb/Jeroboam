@@ -501,10 +501,11 @@ def build_italy():
     write("italy", doc("italy", "Italy", pr, land, focus, lk, rv, areas, cities, labels, admin_borders(pr, bbox, ita_regions, tol * 1.5),
                        extra={"tints": tints(pr, ita_prov, tol, areas)}))
 
-    def detail(mid, title, specs, bbox, cities, labels, reg):
+    def detail(mid, title, specs, bbox, cities, labels, reg, water=()):
         pr = Proj(bbox, 3000)
         tol = 0.9
         land, focus, lk, rv = base_layers(pr, bbox, ["ITA"], tol=tol)
+        lk = lk + water_polys(pr, water, None, tol)
         r = resolve(specs, it_pool, {})
         areas, names = [], set()
         for s in specs:
@@ -526,11 +527,13 @@ def build_italy():
                        communes=lay))
     detail("piedmont", "Piedmont", WD.PIEDMONT, (44.35, 7.55, 45.12, 9.05),
            [("Alba", 44.70, 8.035, 0), ("Asti", 44.90, 8.21, 0), ("Bra", 44.70, 7.85), ("Novi Ligure", 44.76, 8.79), ("Acqui Terme", 44.68, 8.47)],
-           [("Tanaro", 44.83, 8.42, "river"), ("LANGHE", 44.55, 8.12, "area"), ("MONFERRATO", 45.0, 8.45, "area")], "Piemonte")
+           [("Tanaro", 44.83, 8.42, "river"), ("LANGHE", 44.55, 8.12, "area"), ("MONFERRATO", 45.0, 8.45, "area")], "Piemonte",
+           water=[("Tanaro", 0.08, 0.12), ("Po", 0.12, 0.16)])
     detail("tuscany", "Tuscany", WD.TUSCANY, (42.3, 10.0, 44.1, 12.3),
            [("Florence", 43.77, 11.25, 0), ("Siena", 43.32, 11.33, 0), ("Pisa", 43.72, 10.40), ("Livorno", 43.55, 10.31), ("Grosseto", 42.76, 11.11),
             ("Arezzo", 43.46, 11.88)],
-           [("Tyrrhenian Sea", 42.7, 10.35, "sea"), ("Arno", 43.72, 10.75, "river")], "Toscana")
+           [("Tyrrhenian Sea", 42.7, 10.35, "sea"), ("Arno", 43.72, 10.75, "river")], "Toscana",
+           water=[("Arno", 0.08, 0.14)])
 
 # ================================================================= USA (AVAs)
 def build_usa():
