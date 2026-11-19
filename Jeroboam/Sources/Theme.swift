@@ -72,7 +72,7 @@ enum Palette {
     static let gold = brass
     static let goldDeep = brass
     // Maps (Wine Folly-style: white land, blue sea, grey neighbours)
-    static let sea = Color.dynamic("#A9D2EA", "#122633")
+    static let sea = Color.dynamic("#A9D2EA", "#1C1D21")
     static let land = Color.dynamic("#E6E3E0", "#24111A")
     static let focusLand = Color.dynamic("#FFFFFF", "#3A1925")
     static let border = Color.dynamic("#C9C2BD", "#5A3341")

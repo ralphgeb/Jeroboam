@@ -218,12 +218,9 @@ struct WineDetailView: View {
                 if let r = w.regionInfo {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Where it’s from")
-                        NavigationLink(value: r) {
-                            VStack(alignment: .leading, spacing: 0) {
-                                if let m = r.map {
-                                    WineMapView(mapID: m, highlight: Set(r.highlight ?? [r.id]), showCities: false, labelScale: 0.85, fill: true)
-                                        .frame(height: 190).allowsHitTesting(false)
-                                }
+                        VStack(alignment: .leading, spacing: 0) {
+                            WineLocationMap(region: r)
+                            NavigationLink(value: r) {
                                 HStack {
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(r.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
@@ -233,12 +230,13 @@ struct WineDetailView: View {
                                     Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
                                 }
                                 .padding(14)
+                                .contentShape(Rectangle())
                             }
-                            .background(Palette.card)
-                            .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
-                            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+                            .buttonStyle(RowPressStyle())
                         }
-                        .buttonStyle(PressableStyle())
+                        .background(Palette.card)
+                        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+                        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
                     }
                 }
 
@@ -285,5 +283,52 @@ struct WineDetailView: View {
             value()
         }
         .padding(.horizontal, 14).padding(.vertical, 12)
+    }
+}
+
+/// Where a wine comes from: the whole country, with only its appellation (or the region holding it) highlighted;
+/// everything else stays a quiet outline. Tap to open the zoomable map on the appellation itself.
+struct WineLocationMap: View {
+    let region: Region
+    @State private var explore = false
+
+    var body: some View {
+        let lib = ContentStore.shared.library
+        let r = region
+        let own = Set(r.highlight ?? [r.id])
+        let countryMap = lib.regions.first { $0.kind == "country" && $0.country == r.country }?.map
+        // the country map shows the appellation itself, or failing that the nearest region that contains it
+        let shown: (String, Set<String>)? = {
+            guard let cm = countryMap, let g = MapGeometry.get(cm) else { return r.map.map { ($0, own) } }
+            let ids = Set(g.areas.map(\.id))
+            if !own.intersection(ids).isEmpty { return (cm, own.intersection(ids)) }
+            var cur = r.id
+            for _ in 0..<4 {
+                guard let parent = lib.regions.first(where: { $0.kind != "country" && ($0.sub ?? []).contains(cur) }) else { break }
+                if ids.contains(parent.id) { return (cm, [parent.id]) }
+                cur = parent.id
+            }
+            return r.map.map { ($0, own) }
+        }()
+        if let (mapID, hl) = shown {
+            ZStack(alignment: .bottomTrailing) {
+                WineMapView(mapID: mapID, highlight: hl, showCities: true, labelScale: 0.85, fill: true,
+                            thumbnail: true, focusOnly: true)
+                    .frame(height: 220)
+                    .allowsHitTesting(false)
+                if r.map != nil {
+                    Label("Zoom in", systemImage: "plus.magnifyingglass").font(.system(size: 12.5, weight: .semibold))
+                        .foregroundStyle(Palette.wine)
+                        .padding(.horizontal, 10).padding(.vertical, 6)
+                        .background(Capsule().fill(Palette.card.opacity(0.92)))
+                        .padding(10)
+                }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture { if r.map != nil { explore = true } }
+            .fullScreenCover(isPresented: $explore) {
+                if let m = r.map { MapExplorer(mapID: m, highlight: own) }
+            }
+        }
     }
 }

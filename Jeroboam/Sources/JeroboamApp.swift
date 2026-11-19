@@ -28,6 +28,14 @@ struct JeroboamApp: App {
                 .environment(progress)
                 .environment(journal)
                 .preferredColorScheme(progress.colorScheme)
+                // preferredColorScheme(nil) does not undo an earlier override and misses open sheets,
+                // so the choice is also set on every window.
+                .onChange(of: progress.data.appearance, initial: true) { _, v in
+                    let style: UIUserInterfaceStyle = v == 1 ? .light : (v == 2 ? .dark : .unspecified)
+                    for scene in UIApplication.shared.connectedScenes {
+                        (scene as? UIWindowScene)?.windows.forEach { $0.overrideUserInterfaceStyle = style }
+                    }
+                }
                 .tint(Palette.wine)
                 .onAppear {
                     QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
