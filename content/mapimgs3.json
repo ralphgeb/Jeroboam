@@ -1,0 +1,22 @@
+{
+ "portugal": ["intitle:Portugal wine regions", "intitle:Regiões vinícolas Portugal", "intitle:Vinhos Portugal mapa", "Portuguese wine regions map svg", "intitle:Weinbaugebiete Portugal", "intitle:Vignobles Portugal"],
+ "douro": ["intitle:Douro wine region map", "intitle:Região Demarcada do Douro", "intitle:Alto Douro Vinhateiro mapa", "intitle:Douro Weinbaugebiet", "Douro sub-regions Baixo Corgo Cima Corgo map"],
+ "vinho-verde": ["intitle:Vinho Verde map", "intitle:Região dos Vinhos Verdes"],
+ "chile": ["intitle:Chilean wine regions", "intitle:Weinbau in Chile Karte", "intitle:Vignobles Chili", "intitle:Valles vitivinícolas Chile", "Chile wine valleys map svg"],
+ "argentina": ["intitle:Weinbau in Argentinien Karte", "intitle:Vignobles Argentine", "intitle:Regiones vitivinícolas de Argentina", "Argentina wine provinces map svg"],
+ "mendoza": ["intitle:Mendoza wine map", "intitle:Valle de Uco mapa", "Mendoza departamentos vino mapa"],
+ "lebanon": ["intitle:Lebanese wine", "intitle:Weinbau im Libanon", "intitle:Vignobles Liban", "Bekaa valley map svg"],
+ "piedmont": ["intitle:Weinbau im Piemont Karte", "intitle:Vignobles Piémont", "intitle:Langhe map", "intitle:Barbaresco map"],
+ "tuscany": ["intitle:Weinbau in der Toskana Karte", "intitle:Vignobles Toscane", "intitle:Chianti zone map", "intitle:Chianti Classico mappa"],
+ "mosel": ["intitle:Weinbaugebiet Mosel Karte", "intitle:Mosel wine region", "intitle:Vignobles Moselle allemande"],
+ "rheingau": ["intitle:Weinbaugebiet Rheingau", "intitle:Rheinhessen Weinbaugebiet Karte", "intitle:Pfalz Weinbaugebiet Karte"],
+ "washington": ["intitle:Washington wine AVA", "intitle:Columbia Valley AVA", "Washington state wine regions map svg"],
+ "california": ["intitle:California wine regions", "intitle:Vignobles Californie", "intitle:Weinbau in Kalifornien Karte"],
+ "chablis": ["intitle:Chablis grand cru", "intitle:Vignoble de Chablis carte"],
+ "cote-dor": ["intitle:Côte de Nuits carte", "intitle:Côte de Beaune carte", "intitle:Côte-d'Or vignoble"],
+ "jerez": ["intitle:Marco de Jerez", "intitle:Jerez sherry triangle map"],
+ "priorat": ["intitle:Priorat DOQ", "intitle:Priorat mapa"],
+ "tokaj": ["intitle:Tokaj wine region map", "intitle:Tokaji borvidék térkép"],
+ "south-australia": ["intitle:South Australia wine regions", "intitle:Barossa wine map"],
+ "uruguay": ["intitle:Uruguay wine regions"]
+}
