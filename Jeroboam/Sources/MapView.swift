@@ -212,6 +212,10 @@ struct MapRenderer {
     var autoCallout = true
     /// Small card thumbnails: whole country, clean colors, no specks, hairline borders.
     var thumb = false
+    /// Explorer "Regions" mode: only the big regions, solid; appellations hidden.
+    var regionsOnly = false
+    /// Lesson maps: everything except the highlighted areas (and their parents) as outlines only.
+    var focusOnly = false
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
@@ -302,23 +306,44 @@ struct MapRenderer {
                 }
                 return p
             }()
-            for a in g.areas where a.level <= drawLevel {
+            let thumbHatch: Path = {
+                guard thumb else { return Path() }
+                var p = Path()
+                let vis = CGRect(x: -offset.width / s, y: -offset.height / s, width: size.width / s, height: size.height / s)
+                let step = 3.2 / s
+                var x = vis.minX - vis.height
+                while x < vis.maxX { p.move(to: CGPoint(x: x, y: vis.maxY)); p.addLine(to: CGPoint(x: x + vis.height, y: vis.minY)); x += step }
+                return p
+            }()
+            for a in g.areas where a.level <= (regionsOnly ? 0 : drawLevel) {
                 let isContainer = g.hasChildren.contains(a.id) && a.level < drawLevel
                 var color = Palette.mapColor(a.color)
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
                 let isHL = highlight.contains(a.id) || selected == a.id
                 if thumb {
-                    // thumbnails: only the big regions, as solid shapes; nothing smaller than ~6 pt
+                    // thumbnails: only the big regions, as a colored hatch with an outline
                     if a.level > 0 { continue }
                     let bb = a.path.boundingRect
-                    if max(bb.width, bb.height) * s < 6 { continue }
-                    let c = dark ? color.opacity(0.9) : color.mix(with: .white, 0.06)
-                    if max(bb.width, bb.height) * s < 60 {
-                        // thin or scattered appellations read as one soft shape at thumbnail size
-                        regions.stroke(a.path, with: .color(c.opacity(0.55)), style: StrokeStyle(lineWidth: hair * 5, lineCap: .round, lineJoin: .round))
-                    }
-                    regions.fill(a.path, with: .color(c))
-                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.8)), lineWidth: hair * 0.6)
+                    if max(bb.width, bb.height) * s < 4 { continue }
+                    let base = Palette.mapColor(a.color)
+                    regions.fill(a.path, with: .color(dark ? base.opacity(0.18) : base.mix(with: .white, 0.86)))
+                    var hc = regions
+                    hc.clip(to: a.path)
+                    hc.stroke(thumbHatch, with: .color(base.opacity(dark ? 0.75 : 0.7)), lineWidth: hair * 1.0)
+                    regions.stroke(a.path, with: .color(base.opacity(0.9)), lineWidth: hair * 1.1)
+                    continue
+                }
+                if regionsOnly {
+                    let base = Palette.mapColor(a.color)
+                    let dim = anyHL && !isHL ? 0.45 : 1.0
+                    regions.fill(a.path, with: .color((dark ? base.opacity(0.75) : base.mix(with: .white, 0.18)).opacity(dim)))
+                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.95)), lineWidth: hair * 1.2)
+                    if isHL { regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.6) }
+                    continue
+                }
+                if focusOnly && !isHL && !highlight.contains(a.parent ?? "") && !g.areas.contains(where: { highlight.contains($0.id) && $0.parent == a.id }) {
+                    // not part of the lesson: a quiet outline only
+                    regions.stroke(a.path, with: .color(Palette.mapColor(a.color).opacity(0.35)), lineWidth: hair * 0.8)
                     continue
                 }
                 if (isContainer || a.level == 0) && !isHL {
@@ -529,6 +554,8 @@ struct WineMapView: View {
     var autoCallout = true
     /// Card thumbnail: shows the whole country with clean colors.
     var thumbnail = false
+    /// Lesson map: zoom onto the highlighted areas; everything else as outlines.
+    var focusOnly = false
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
@@ -538,10 +565,13 @@ struct WineMapView: View {
         if thumbnail { return g.thumbLayout(size: size) }
         guard fill else { return (1, .zero) }
         let focusRect: CGRect? = {
-            let hl = g.areas.filter { highlight.contains($0.id) && $0.level == 0 }
+            let hl = g.areas.filter { highlight.contains($0.id) && (focusOnly || $0.level == 0) }
             guard !hl.isEmpty, pins.isEmpty else { return nil }
             return hl.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
         }()
+        if focusOnly, let f = focusRect {
+            return g.fitLayout(size: size, target: f.insetBy(dx: -f.width * 0.25 - 40, dy: -f.height * 0.25 - 40))
+        }
         return g.fitLayout(size: size, target: focusRect)
     }
 
@@ -561,6 +591,7 @@ struct WineMapView: View {
                 r.labelScale = labelScale
                 r.dark = scheme == .dark
                 r.thumb = thumbnail
+                r.focusOnly = focusOnly && !highlight.isEmpty
                 let deepest = g.areas.filter { highlight.contains($0.id) }.map(\.level).max() ?? 0
                 r.forcedLevel = deepest
                 r.draw(in: &ctx, size: size)
@@ -686,6 +717,7 @@ struct ZoomableWineMap: View {
     var highlight: Set<String> = []
     var focus: String? = nil
     var forcedLevel: Int? = nil
+    var regionsOnly = false
     var zoomCommand: Int = 0
     @Binding var selected: String?
     @Binding var zoom: CGFloat
@@ -713,6 +745,7 @@ struct ZoomableWineMap: View {
                     r.selected = selected
                     r.dark = scheme == .dark
                     r.forcedLevel = forcedLevel
+                    r.regionsOnly = regionsOnly
                     r.draw(in: &ctx, size: sz)
                 }
                 .contentShape(Rectangle())
@@ -721,7 +754,7 @@ struct ZoomableWineMap: View {
                         MagnifyGesture()
                             .onChanged { v in
                                 let anchor = CGPoint(x: v.startAnchor.x * size.width, y: v.startAnchor.y * size.height)
-                                let newZoom = min(lodBase * 12, max(1, baseZoom * v.magnification))
+                                let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), baseZoom * v.magnification))
                                 let k = newZoom / baseZoom
                                 absZoom = newZoom
                                 offset = clamp(CGSize(width: anchor.x - (anchor.x - baseOffset.width) * k,
@@ -749,6 +782,7 @@ struct ZoomableWineMap: View {
                     r.offset = offset
                     let m = r.toMap(pt, size: size)
                     r.forcedLevel = forcedLevel
+                    r.regionsOnly = regionsOnly
                     if let a = g.hit(m, maxLevel: r.visibleLevel()) {
                         Haptics.tap()
                         withAnimation(.easeInOut(duration: 0.2)) { selected = a.id }
@@ -771,20 +805,20 @@ struct ZoomableWineMap: View {
         let (base, _) = g.fitLayout(size: size, padding: 0.14)
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
         let c = g.contentBounds
-        var target: CGRect? = c.insetBy(dx: -c.width * 0.1, dy: -c.height * 0.1)
+        var target: CGRect? = c.insetBy(dx: -c.width * 0.06, dy: -c.height * 0.06)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
         // the visible band sits between the header and the list card, with room to spare around the region
-        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.05, top: 130, bottom: 270, allowContain: true)
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.04, top: 175, bottom: 250, allowContain: false)
         absZoom = z; baseZoom = z; lodBase = base
         zoom = z / max(0.01, base)
-        offset = o
+        offset = clamp(o, size: size, g: g)
         baseOffset = offset
     }
 
     private func zoomBy(_ k: CGFloat, at pt: CGPoint, size: CGSize, g: MapGeometry) {
-        let newZoom = min(lodBase * 12, max(1, absZoom * k))
+        let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), absZoom * k))
         let f = newZoom / absZoom
         withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
             absZoom = newZoom
@@ -824,7 +858,7 @@ struct MapExplorer: View {
     @State private var zoom: CGFloat = 1
     @State private var openRegion: Region? = nil
     @State private var resetToken = 0
-    @State private var layer: Int? = nil
+    @State private var layer: Int? = 0
     @State private var zoomCommand = 0
     @State private var listExpanded = false
 
@@ -833,7 +867,8 @@ struct MapExplorer: View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
-                            forcedLevel: layer, zoomCommand: zoomCommand, selected: $selected, zoom: $zoom)
+                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0,
+                            zoomCommand: zoomCommand, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .ignoresSafeArea()
 
@@ -842,7 +877,16 @@ struct MapExplorer: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Eyebrow("Wine map", color: Palette.wine)
                     Text(g?.map.title ?? "").font(.system(size: 22, weight: .bold)).foregroundStyle(Palette.ink)
-                    Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                        Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                    if (g?.maxLevel ?? 0) > 0 {
+                        HStack(spacing: 4) {
+                            modeButton("Regions", 0)
+                            modeButton("Appellations", (g?.maxLevel ?? 1) >= 2 && (layer ?? 0) == 2 ? 2 : 1)
+                        }
+                        .padding(3)
+                        .background(Capsule().fill(Palette.cardAlt))
+                        .padding(.top, 8)
+                    }
                 }
                 .padding(.horizontal, 16).padding(.vertical, 12)
                 .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.focusLand.opacity(0.94)))
@@ -853,20 +897,6 @@ struct MapExplorer: View {
                     Spacer().frame(height: 6)
                     circleButton("plus") { zoomCommand += 1 }
                     circleButton("minus") { zoomCommand -= 1 }
-                    if (g?.maxLevel ?? 0) > 0 {
-                        Menu {
-                            Picker("Detail", selection: $layer) {
-                                Text("Automatic").tag(Int?.none)
-                                Text("Regions").tag(Int?.some(0))
-                                Text("Appellations").tag(Int?.some(1))
-                                if (g?.maxLevel ?? 0) >= 2 { Text("Villages & crus").tag(Int?.some(2)) }
-                            }
-                        } label: {
-                            Image(systemName: "square.3.layers.3d").font(.system(size: 15, weight: .bold)).foregroundStyle(Palette.ink)
-                                .frame(width: 42, height: 42)
-                                .background(Circle().fill(Palette.focusLand.opacity(0.94)))
-                        }
-                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -898,10 +928,21 @@ struct MapExplorer: View {
         .onAppear { if highlight.count == 1 { selected = highlight.first } }
     }
 
+    private func modeButton(_ title: String, _ value: Int) -> some View {
+        let on = (value == 0) == ((layer ?? 0) == 0)
+        return Button { withAnimation(.easeInOut(duration: 0.2)) { layer = value; selected = nil } } label: {
+            Text(title).font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(on ? Palette.onWine : Palette.ink)
+                .padding(.horizontal, 14).padding(.vertical, 7)
+                .background(Capsule().fill(on ? Palette.wine : .clear))
+        }
+        .buttonStyle(.plain)
+    }
+
     private var levelHint: String {
         guard let g = MapGeometry.get(mapID) else { return "" }
         if g.maxLevel == 0 { return "Regions" }
-        if let l = layer { return ["Regions", "Appellations", "Villages & crus"][min(2, l)] }
+        if let l = layer { return ["The big wine regions", "Appellations inside the regions", "Villages & crus"][min(2, l)] }
         if zoom >= 3.2 && g.maxLevel >= 2 { return "Villages & crus" }
         if zoom >= 1.9 { return "Appellations · zoom for more" }
         return "Regions · zoom in for appellations"

@@ -29,7 +29,7 @@ os.makedirs(OUT, exist_ok=True)
 
 RES = 2  # coordinate precision multiplier (smooth edges when zoomed)
 MIN_ASPECT = 1.3  # width / height
-MAP_PAD = 0.16  # extra context around every map (fraction of the bbox on each side) so neighbours and sea show
+MAP_PAD = 0.5  # extra context around every map (fraction of the bbox on each side) so neighbours and sea show
 
 def chaikin(pts, it=2):
     """Corner-cutting smoothing for a closed ring (list of (x,y), first==last)."""
@@ -76,6 +76,8 @@ class Proj:
     def __init__(self, bbox, W, pad=None):
         la0, lo0, la1, lo1 = bbox
         if pad is None: pad = 0.0 if lo1 - lo0 > 200 else MAP_PAD
+        # more context, same detail per degree: the full map can fill a tall phone screen centered on the region
+        W = W * (1 + 2 * pad) / 1.32 if lo1 - lo0 < 200 else W
         dla, dlo = (la1 - la0) * pad, (lo1 - lo0) * pad
         bbox = (la0 - dla, lo0 - dlo, la1 + dla, lo1 + dlo)
         if lo1 - lo0 < 200:
@@ -84,13 +86,13 @@ class Proj:
             asp = (bbox[3] - bbox[1]) * k / (bbox[2] - bbox[0])
             if asp < MIN_ASPECT:
                 extra = ((bbox[2] - bbox[0]) * MIN_ASPECT / k - (bbox[3] - bbox[1])) / 2
-                W = round(min(W * 3, W * ((bbox[3] - bbox[1]) + 2 * extra) / (bbox[3] - bbox[1])))  # keep detail per degree
+                W = min(W * 3, W * ((bbox[3] - bbox[1]) + 2 * extra) / (bbox[3] - bbox[1]))  # keep detail per degree
                 bbox = (bbox[0], bbox[1] - extra, bbox[2], bbox[3] + extra)
         self.bbox = bbox
         self.la0, self.lo0, self.la1, self.lo1 = bbox
         self.k = math.cos(math.radians((self.la0 + self.la1) / 2))
         if self.lo1 - self.lo0 > 200: self.k = 1.0
-        W = W * RES
+        W = round(min(W, 16000) * RES) if lo1 - lo0 < 200 else W * RES
         self.W = W
         self.s = W / ((self.lo1 - self.lo0) * self.k)
         self.H = round((self.la1 - self.la0) * self.s)

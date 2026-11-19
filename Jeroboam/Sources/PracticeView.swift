@@ -68,19 +68,7 @@ struct PracticeView: View {
             }
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background {
-                ZStack {
-                    LinearGradient(colors: [Palette.bordeaux, Palette.bordeaux.mix(with: .black, 0.25)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    if let img = Photos.image("sommelier") {
-                        Color.clear.overlay(Image(uiImage: img).resizable().scaledToFill())
-                        LinearGradient(stops: [.init(color: Palette.bordeaux.opacity(0.95), location: 0),
-                                               .init(color: Palette.bordeaux.opacity(0.82), location: 0.55),
-                                               .init(color: Palette.bordeaux.opacity(0.45), location: 1)],
-                                       startPoint: .leading, endPoint: .trailing)
-                    }
-                }
-                .clipShape(RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous))
-            }
+            .background { HeroCardBackground() }
         }
         .buttonStyle(PressableStyle())
     }

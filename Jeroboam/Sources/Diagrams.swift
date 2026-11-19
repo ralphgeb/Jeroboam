@@ -17,9 +17,8 @@ struct VisualView: View {
         let extra = parts.count > 2 ? parts[2] : ""
         Group {
             switch kind {
-            case "map" where !hideAnswers && RefMaps.image(for: arg, highlight: Set(extra.split(separator: ",").map(String.init))) != nil:
-                let hl = Set(extra.split(separator: ",").map(String.init))
-                RefMapCard(imageID: RefMaps.image(for: arg, highlight: hl)!, mapID: arg, highlight: hl)
+            case "map" where !hideAnswers:
+                LessonMap(mapID: arg, highlight: Set(extra.split(separator: ",").map(String.init)), compact: compact)
             case "map":
                 let hl = Set(extra.split(separator: ",").map(String.init))
                 WineMapView(mapID: arg, highlight: hl, showCities: !compact && !hideAnswers, labelScale: compact ? 0.9 : 1,
@@ -487,18 +486,7 @@ struct ShapedGlass: View {
     var sparkling = false
 
     var body: some View {
-        Canvas { ctx, size in
-            let r = CGRect(origin: .zero, size: size)
-            let bowl = kind.bowlPath(in: r)
-            let (_, _, _, by) = kind.bowl
-            let yb = r.height * by
-            let y0 = r.height * 0.02
-            let foot = r.width * (kind == .flute ? 0.42 : 0.5) / 2
-            GlassArt.draw(&ctx, bowl: bowl, top: y0, bottom: yb, stemX: r.midX, footY: r.height * 0.95, footHalf: foot,
-                          fill: fill, color: color, rim: nil, sparkling: sparkling, ink: Palette.ink, scale: r.height)
-        }
-        .aspectRatio(0.62, contentMode: .fit)
-        .accessibilityHidden(true)
+        SilhouetteGlass(shape: kind == .red ? .red : (kind == .white ? .white : .flute), color: color, fill: fill, sparkling: sparkling)
     }
 }
 

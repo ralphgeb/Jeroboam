@@ -167,31 +167,18 @@ struct LearnView: View {
                         Text("Start lesson").font(.system(size: 14, weight: .semibold))
                         Image(systemName: "arrow.right").font(.system(size: 12, weight: .semibold))
                     }
-                    .foregroundStyle(.white)
-                    .padding(.top, 10)
+                    .foregroundStyle(Palette.bordeaux)
+                    .padding(.horizontal, 14).padding(.vertical, 8)
+                    .background(Capsule().fill(.white))
+                    .padding(.top, 8)
                 }
                 Spacer(minLength: 0)
-                if unit?.cover == nil {
-                    GrapeMark(tones: [.white.opacity(0.9), .white.opacity(0.55), .white.opacity(0.75)])
-                        .frame(width: 46, height: 60)
-                }
+                SplashMark(color: .white, surface: Palette.wineSoft.opacity(0.9))
+                    .frame(width: 58, height: 58)
             }
             .padding(20)
             .frame(maxWidth: .infinity, minHeight: 150, alignment: .leading)
-            .background {
-                ZStack {
-                    LinearGradient(colors: [Palette.bordeaux, Palette.bordeaux.mix(with: .black, 0.25)],
-                                   startPoint: .topLeading, endPoint: .bottomTrailing)
-                    if let id = unit?.cover, let img = Photos.image(id) {
-                        Color.clear.overlay(Image(uiImage: img).resizable().scaledToFill())
-                        LinearGradient(stops: [.init(color: Palette.bordeaux.opacity(0.96), location: 0),
-                                               .init(color: Palette.bordeaux.opacity(0.78), location: 0.45),
-                                               .init(color: Palette.bordeaux.opacity(0.15), location: 1)],
-                                       startPoint: .leading, endPoint: .trailing)
-                    }
-                }
-                .clipShape(RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous))
-            }
+            .background { HeroCardBackground() }
         }
         .buttonStyle(PressableStyle())
     }

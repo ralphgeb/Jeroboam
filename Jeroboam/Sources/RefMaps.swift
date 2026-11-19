@@ -111,14 +111,7 @@ struct GrapeHomeMap: View {
             let onMap = Set(regions.filter { $0.map == mapID }.map(\.id))
             VStack(alignment: .leading, spacing: 8) {
                 Eyebrow("Where it grows")
-                if let ref = RefMaps.image(for: mapID, highlight: onMap) {
-                    RefMapCard(imageID: ref, mapID: mapID, highlight: onMap)
-                } else {
-                    WineMapView(mapID: mapID, highlight: onMap, showCities: false, labelScale: 0.85, fill: true)
-                        .frame(height: 190)
-                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                        .allowsHitTesting(false)
-                }
+                LessonMap(mapID: mapID, highlight: onMap, compact: true)
                 FlowLayout(spacing: 6, lineSpacing: 6) {
                     ForEach(regions.prefix(6)) { r in
                         Text(r.name).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.ink)
@@ -129,3 +122,41 @@ struct GrapeHomeMap: View {
         }
     }
 }
+
+/// Lesson map: our map zoomed onto the areas being taught (others as outlines), with the atlas and the printed map one tap away.
+struct LessonMap: View {
+    let mapID: String
+    let highlight: Set<String>
+    var compact = false
+    @State private var atlas = false
+    @State private var printed: String? = nil
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            WineMapView(mapID: mapID, highlight: highlight, showCities: !compact, labelScale: compact ? 0.9 : 1, fill: true,
+                        autoCallout: highlight.count == 1, focusOnly: true)
+                .frame(height: compact ? 230 : 270)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .onTapGesture { atlas = true }
+            HStack(spacing: 8) {
+                Button { atlas = true } label: { chip("Open in the atlas", "map") }.buttonStyle(.plain)
+                if let ref = RefMaps.image(for: mapID, highlight: highlight) {
+                    Button { printed = ref } label: { chip("Printed map", "photo") }.buttonStyle(.plain)
+                }
+                Spacer()
+            }
+        }
+        .fullScreenCover(isPresented: $atlas) { MapExplorer(mapID: mapID, highlight: highlight) }
+        .fullScreenCover(item: Binding(get: { printed.map { IDBox(id: $0) } }, set: { printed = $0?.id })) { box in
+            if let img = Photos.image(box.id) { ZoomableImage(image: img, credit: Photos.creditLine(box.id)) }
+        }
+    }
+
+    private func chip(_ t: String, _ icon: String) -> some View {
+        Label(t, systemImage: icon).font(.system(size: 12.5, weight: .semibold)).foregroundStyle(Palette.wine)
+            .padding(.horizontal, 10).padding(.vertical, 6)
+            .background(Capsule().fill(Palette.wineSoft))
+    }
+}
+
+struct IDBox: Identifiable { let id: String }

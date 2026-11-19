@@ -1,97 +1,105 @@
 import SwiftUI
 
-/// Shared illustrated-glass renderer: translucent bowl, wine with depth and a lit surface,
-/// highlights, tapered stem, perspective foot and a soft shadow.
+/// Bold silhouette glasses (owner's reference): a dark glass outline with an open bowl,
+/// a flat pool of wine inside and a flared stem and foot. One renderer for every glass in the app.
 enum GlassArt {
-    static func draw(_ ctx: inout GraphicsContext, bowl: Path, top: CGFloat, bottom: CGFloat, stemX: CGFloat,
-                     footY: CGFloat, footHalf: CGFloat, fill: CGFloat, color: Color, rim: Color?, sparkling: Bool,
-                     ink: Color, scale: CGFloat) {
-        let bb = bowl.boundingRect
-        let lw = max(0.9, scale * 0.028)
-        // shadow under the foot
-        let sh = CGRect(x: stemX - footHalf * 1.15, y: footY - footHalf * 0.12, width: footHalf * 2.3, height: footHalf * 0.36)
-        ctx.drawLayer { l in
-            l.addFilter(.blur(radius: max(1, footHalf * 0.12)))
-            l.fill(Path(ellipseIn: sh), with: .color(.black.opacity(0.16)))
-        }
-        // foot (ellipse) and tapered stem
-        let footRect = CGRect(x: stemX - footHalf, y: footY - footHalf * 0.2, width: footHalf * 2, height: footHalf * 0.4)
-        ctx.fill(Path(ellipseIn: footRect), with: .linearGradient(Gradient(colors: [.white.opacity(0.85), Color(white: 0.86).opacity(0.7)]),
-                                                                   startPoint: CGPoint(x: footRect.minX, y: footRect.minY), endPoint: CGPoint(x: footRect.maxX, y: footRect.maxY)))
-        ctx.stroke(Path(ellipseIn: footRect), with: .color(ink.opacity(0.45)), lineWidth: lw * 0.8)
-        let sw0 = max(1.2, scale * 0.022), sw1 = max(2, scale * 0.05)
-        var stem = Path()
-        stem.move(to: CGPoint(x: stemX - sw0, y: bottom - lw))
-        stem.addLine(to: CGPoint(x: stemX + sw0, y: bottom - lw))
-        stem.addQuadCurve(to: CGPoint(x: stemX + sw1, y: footY), control: CGPoint(x: stemX + sw0 * 0.8, y: footY - (footY - bottom) * 0.15))
-        stem.addLine(to: CGPoint(x: stemX - sw1, y: footY))
-        stem.addQuadCurve(to: CGPoint(x: stemX - sw0, y: bottom - lw), control: CGPoint(x: stemX - sw0 * 0.8, y: footY - (footY - bottom) * 0.15))
-        stem.closeSubpath()
-        ctx.fill(stem, with: .linearGradient(Gradient(colors: [Color(white: 0.8).opacity(0.8), .white.opacity(0.95), Color(white: 0.78).opacity(0.8)]),
-                                              startPoint: CGPoint(x: stemX - sw1, y: 0), endPoint: CGPoint(x: stemX + sw1, y: 0)))
-        ctx.stroke(stem, with: .color(ink.opacity(0.4)), lineWidth: lw * 0.7)
+    struct Shape {
+        var rim: CGFloat      // half-width at the rim (fraction of width)
+        var widest: CGFloat   // half-width at the widest point
+        var widestY: CGFloat  // y of the widest point (fraction of height)
+        var bottom: CGFloat   // y of the inner bowl bottom
+        var stemTop: CGFloat  // y where the stem starts
+        static let red = Shape(rim: 0.33, widest: 0.47, widestY: 0.30, bottom: 0.53, stemTop: 0.62)
+        static let white = Shape(rim: 0.29, widest: 0.39, widestY: 0.27, bottom: 0.50, stemTop: 0.59)
+        static let flute = Shape(rim: 0.19, widest: 0.21, widestY: 0.22, bottom: 0.60, stemTop: 0.67)
+        static let tasting = Shape(rim: 0.30, widest: 0.44, widestY: 0.32, bottom: 0.54, stemTop: 0.63)
+    }
 
-        // the empty glass: a faint cool tint
-        ctx.fill(bowl, with: .linearGradient(Gradient(colors: [Color.white.opacity(0.55), Color(red: 0.9, green: 0.93, blue: 0.96).opacity(0.35)]),
-                                              startPoint: CGPoint(x: bb.minX, y: bb.minY), endPoint: CGPoint(x: bb.maxX, y: bb.maxY)))
-        // wine
+    static func bowl(_ s: Shape, in r: CGRect, inset: CGFloat = 0, topInset: CGFloat = 0) -> Path {
+        let cx = r.midX, w = r.width, h = r.height
+        let y0 = r.minY + topInset, ym = r.minY + h * s.widestY, yb = r.minY + h * s.bottom - inset
+        let tw = w * s.rim - inset, mw = w * s.widest - inset
+        var p = Path()
+        p.move(to: CGPoint(x: cx - tw, y: y0))
+        p.addCurve(to: CGPoint(x: cx - mw, y: ym), control1: CGPoint(x: cx - tw - (mw - tw) * 0.55, y: y0 + (ym - y0) * 0.35),
+                   control2: CGPoint(x: cx - mw, y: ym - (ym - y0) * 0.45))
+        p.addCurve(to: CGPoint(x: cx, y: yb), control1: CGPoint(x: cx - mw, y: ym + (yb - ym) * 0.62),
+                   control2: CGPoint(x: cx - mw * 0.55, y: yb))
+        p.addCurve(to: CGPoint(x: cx + mw, y: ym), control1: CGPoint(x: cx + mw * 0.55, y: yb),
+                   control2: CGPoint(x: cx + mw, y: ym + (yb - ym) * 0.62))
+        p.addCurve(to: CGPoint(x: cx + tw, y: y0), control1: CGPoint(x: cx + mw, y: ym - (ym - y0) * 0.45),
+                   control2: CGPoint(x: cx + tw + (mw - tw) * 0.55, y: y0 + (ym - y0) * 0.35))
+        p.closeSubpath()
+        return p
+    }
+
+    static func draw(_ ctx: inout GraphicsContext, in r: CGRect, shape s: Shape, fill: CGFloat, color: Color,
+                     sparkling: Bool, ink: Color, inner: Color) {
+        let w = r.width, h = r.height, cx = r.midX
+        let wall = max(1.3, w * 0.06)
+        // outer glass: bowl grown by the wall, heavier towards the bottom like hand-blown glass
+        var outerShape = s
+        outerShape.bottom = s.bottom + (s.stemTop - s.bottom) * 0.75
+        let outer = bowl(outerShape, in: r.insetBy(dx: -wall * 0.5, dy: 0))
+        ctx.fill(outer, with: .color(ink))
+        // stem and foot
+        let yStem = r.minY + h * s.stemTop
+        let yFoot = r.minY + h * 0.955
+        let sw = max(1.5, w * 0.055)
+        var stem = Path()
+        stem.move(to: CGPoint(x: cx - w * 0.16, y: yStem - h * 0.04))
+        stem.addQuadCurve(to: CGPoint(x: cx - sw, y: yStem + h * 0.07), control: CGPoint(x: cx - sw * 1.2, y: yStem - h * 0.01))
+        stem.addLine(to: CGPoint(x: cx - sw, y: yFoot - h * 0.07))
+        stem.addQuadCurve(to: CGPoint(x: cx - w * 0.32, y: yFoot), control: CGPoint(x: cx - sw, y: yFoot - h * 0.01))
+        stem.addLine(to: CGPoint(x: cx - w * 0.33, y: yFoot + h * 0.03))
+        stem.addLine(to: CGPoint(x: cx + w * 0.33, y: yFoot + h * 0.03))
+        stem.addLine(to: CGPoint(x: cx + w * 0.32, y: yFoot))
+        stem.addQuadCurve(to: CGPoint(x: cx + sw, y: yFoot - h * 0.07), control: CGPoint(x: cx + sw, y: yFoot - h * 0.01))
+        stem.addLine(to: CGPoint(x: cx + sw, y: yStem + h * 0.07))
+        stem.addQuadCurve(to: CGPoint(x: cx + w * 0.16, y: yStem - h * 0.04), control: CGPoint(x: cx + sw * 1.2, y: yStem - h * 0.01))
+        stem.closeSubpath()
+        ctx.fill(stem, with: .color(ink))
+        var foot = Path(roundedRect: CGRect(x: cx - w * 0.34, y: yFoot, width: w * 0.68, height: max(1.5, h * 0.03)), cornerRadius: h * 0.015)
+        foot.closeSubpath()
+        ctx.fill(foot, with: .color(ink))
+        // the open bowl
+        let innerBowl = bowl(s, in: r.insetBy(dx: wall * 0.5, dy: 0), topInset: max(1, wall * 0.55))
+        ctx.fill(innerBowl, with: .color(inner))
+        // wine: a flat pool with a small gap from the glass
+        let gap = max(1, w * 0.04)
+        let wineBowl = bowl(s, in: r.insetBy(dx: wall * 0.5, dy: 0), inset: gap)
+        let top = r.minY + h * 0.06, bottom = r.minY + h * s.bottom - gap
         let level = bottom - (bottom - top) * fill
-        var w = ctx
-        w.clip(to: bowl)
-        let deep = color.mix(with: .black, 0.28)
-        w.fill(Path(CGRect(x: bb.minX - 2, y: level, width: bb.width + 4, height: bottom - level + 4)),
-               with: .linearGradient(Gradient(stops: [.init(color: rim ?? color.mix(with: .white, 0.18), location: 0),
-                                                      .init(color: color, location: 0.35),
-                                                      .init(color: deep, location: 1)]),
-                                     startPoint: CGPoint(x: 0, y: level), endPoint: CGPoint(x: 0, y: bottom)))
-        // depth: darker core, lighter rim at the sides
-        w.fill(Path(CGRect(x: bb.minX - 2, y: level, width: bb.width + 4, height: bottom - level + 4)),
-               with: .linearGradient(Gradient(stops: [.init(color: .white.opacity(0.22), location: 0), .init(color: .clear, location: 0.22),
-                                                      .init(color: .clear, location: 0.78), .init(color: .white.opacity(0.14), location: 1)]),
-                                     startPoint: CGPoint(x: bb.minX, y: 0), endPoint: CGPoint(x: bb.maxX, y: 0)))
-        // lit surface (an ellipse across the bowl at the wine level)
-        var xs: [CGFloat] = []
-        let steps = 60
-        for i in 0...steps {
-            let x = bb.minX + bb.width * CGFloat(i) / CGFloat(steps)
-            if bowl.contains(CGPoint(x: x, y: level + 0.5)) { xs.append(x) }
-        }
-        if let x0 = xs.first, let x1 = xs.last, x1 - x0 > 2 {
-            let sh = max(2, (x1 - x0) * 0.14)
-            let surf = CGRect(x: x0, y: level - sh / 2, width: x1 - x0, height: sh)
-            w.fill(Path(ellipseIn: surf), with: .linearGradient(Gradient(colors: [color.mix(with: .white, 0.45), color.mix(with: .white, 0.12)]),
-                                                                 startPoint: CGPoint(x: surf.minX, y: surf.minY), endPoint: CGPoint(x: surf.maxX, y: surf.maxY)))
-            w.stroke(Path(ellipseIn: surf), with: .color(color.mix(with: .black, 0.2).opacity(0.5)), lineWidth: lw * 0.6)
-        }
+        var wctx = ctx
+        wctx.clip(to: wineBowl)
+        wctx.fill(Path(CGRect(x: r.minX, y: level, width: w, height: bottom - level + 2)), with: .color(color))
         if sparkling {
             var rng = SeededRandom(seed: 5)
-            for _ in 0..<14 {
-                let bx = bb.midX + bb.width * 0.32 * CGFloat(rng.next() - 0.5)
-                let by = level + CGFloat(rng.next()) * (bottom - level) * 0.92 + 3
-                let br = scale * 0.016 * CGFloat(0.5 + rng.next())
-                w.stroke(Path(ellipseIn: CGRect(x: bx - br, y: by - br, width: br * 2, height: br * 2)), with: .color(.white.opacity(0.85)), lineWidth: max(0.6, br * 0.5))
+            for _ in 0..<9 {
+                let bx = cx + w * 0.18 * CGFloat(rng.next() - 0.5)
+                let by = level + CGFloat(rng.next()) * (bottom - level) * 0.85 + 2
+                let br = max(0.8, w * 0.022 * CGFloat(0.6 + rng.next()))
+                wctx.fill(Path(ellipseIn: CGRect(x: bx - br, y: by - br, width: br * 2, height: br * 2)), with: .color(.white.opacity(0.85)))
             }
         }
-        // highlights on the glass
-        var hl = ctx
-        hl.clip(to: bowl)
-        var shine = Path()
-        shine.move(to: CGPoint(x: bb.minX + bb.width * 0.2, y: bb.minY + bb.height * 0.1))
-        shine.addQuadCurve(to: CGPoint(x: bb.minX + bb.width * 0.24, y: bb.minY + bb.height * 0.72),
-                           control: CGPoint(x: bb.minX + bb.width * 0.08, y: bb.minY + bb.height * 0.42))
-        hl.stroke(shine, with: .color(.white.opacity(0.75)), style: StrokeStyle(lineWidth: max(1.2, scale * 0.045), lineCap: .round))
-        var shine2 = Path()
-        shine2.move(to: CGPoint(x: bb.maxX - bb.width * 0.17, y: bb.minY + bb.height * 0.22))
-        shine2.addQuadCurve(to: CGPoint(x: bb.maxX - bb.width * 0.2, y: bb.minY + bb.height * 0.42),
-                            control: CGPoint(x: bb.maxX - bb.width * 0.1, y: bb.minY + bb.height * 0.32))
-        hl.stroke(shine2, with: .color(.white.opacity(0.5)), style: StrokeStyle(lineWidth: max(0.8, scale * 0.022), lineCap: .round))
-        // outline: fine, slightly darker at the rim
-        ctx.stroke(bowl, with: .color(ink.opacity(0.55)), style: StrokeStyle(lineWidth: lw, lineCap: .round, lineJoin: .round))
-        var rimLine = Path()
-        rimLine.move(to: CGPoint(x: bb.minX + 1, y: bb.minY + lw / 2))
-        rimLine.addLine(to: CGPoint(x: bb.maxX - 1, y: bb.minY + lw / 2))
-        if bowl.contains(CGPoint(x: bb.midX, y: bb.minY + lw * 2)) {
-            ctx.stroke(rimLine, with: .color(ink.opacity(0.35)), lineWidth: lw * 0.8)
+    }
+}
+
+/// A silhouette glass of a given shape.
+struct SilhouetteGlass: View {
+    var shape: GlassArt.Shape = .red
+    var color: Color
+    var fill: CGFloat = 0.5
+    var sparkling = false
+    var ink: Color = Palette.ink
+    var inner: Color = Palette.card
+    var body: some View {
+        Canvas { ctx, size in
+            let w = min(size.width, size.height * 0.56)
+            let r = CGRect(x: (size.width - w) / 2, y: (size.height - w / 0.56) / 2, width: w, height: w / 0.56)
+            GlassArt.draw(&ctx, in: r, shape: shape, fill: fill, color: color, sparkling: sparkling, ink: ink, inner: inner)
         }
+        .aspectRatio(0.56, contentMode: .fit)
+        .accessibilityHidden(true)
     }
 }

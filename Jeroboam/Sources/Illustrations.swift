@@ -99,8 +99,8 @@ struct GrapeMark: View {
 struct BrandDroplet: View {
     var size: CGFloat = 64
     var body: some View {
-        GrapeMark(gradient: GrapeMark.brandGradient, leafColor: Color(hex: "#7E9A5B"))
-            .frame(width: size * 0.8, height: size * 0.8)
+        SplashMark()
+            .frame(width: size * 0.9, height: size * 0.9)
     }
 }
 
@@ -238,29 +238,8 @@ struct WineGlass: View {
     var outline: Color? = nil
 
     var body: some View {
-        Canvas { ctx, size in
-            let w = min(size.width, size.height * 0.6)
-            let h = w / 0.6
-            let r = CGRect(x: (size.width - w) / 2, y: (size.height - h) / 2, width: w, height: h)
-            let lw = max(1.4, w * 0.055)
-            let bowlBottom = r.minY + r.height * 0.6
-            // bowl: straight-ish sides into a round bottom
-            var bowl = Path()
-            bowl.move(to: CGPoint(x: r.minX + w * 0.16, y: r.minY + lw / 2))
-            bowl.addLine(to: CGPoint(x: r.maxX - w * 0.16, y: r.minY + lw / 2))
-            bowl.addCurve(to: CGPoint(x: r.midX, y: bowlBottom),
-                          control1: CGPoint(x: r.maxX - w * 0.02, y: r.minY + r.height * 0.36),
-                          control2: CGPoint(x: r.maxX - w * 0.08, y: bowlBottom))
-            bowl.addCurve(to: CGPoint(x: r.minX + w * 0.16, y: r.minY + lw / 2),
-                          control1: CGPoint(x: r.minX + w * 0.08, y: bowlBottom),
-                          control2: CGPoint(x: r.minX + w * 0.02, y: r.minY + r.height * 0.36))
-            bowl.closeSubpath()
-            GlassArt.draw(&ctx, bowl: bowl, top: r.minY + lw, bottom: bowlBottom, stemX: r.midX,
-                          footY: r.maxY - w * 0.12, footHalf: w * 0.3, fill: fill, color: color, rim: rim,
-                          sparkling: sparkling, ink: outline ?? Palette.ink, scale: h)
-        }
-        .aspectRatio(0.6, contentMode: .fit)
-        .accessibilityHidden(true)
+        SilhouetteGlass(shape: sparkling ? .flute : .tasting, color: color, fill: min(0.9, fill), sparkling: sparkling,
+                        ink: outline ?? Palette.ink)
     }
 }
 
