@@ -397,3 +397,6 @@ hugel-classic | 17 | - | https://www.jamessuckling.com/tasting-notes/117137/fami
 foillard-morgon | 83 | 95 | https://www.jamessuckling.com/tasting-notes/78897/jean-foillard-morgon-cote-du-py-2016
 thevenet-morgon | 36 | - | https://www.jamessuckling.com/tasting-notes/177372/jean-paul-charly-thevenet-morgon-vieilles-vignes-2020
 chignard-fleurie | 31 | 93 | https://www.jamessuckling.com/tasting-notes/291340/domaine-chignard-fleurie-les-moriers-2023
+clos-roilette | 24 | - | https://www.jamessuckling.com/tasting-notes/299816/clos-de-la-roilette-fleurie-2023
+dutraive-fleurie | 39 | - | https://www.jamessuckling.com/tasting-notes/253256/domaine-de-la-grand-cour-fleurie-clos-de-la-grand-cour-2022
+domaine-tempier | 54 | - | https://www.jamessuckling.com/tasting-notes/154361/domaine-tempier-bandol-2018
