@@ -271,7 +271,7 @@ struct MapRenderer {
 
             var regions = layer
             regions.clip(to: g.landMask)
-            for (p, c) in g.tints {
+            for (p, c) in g.tints where !thumb {
                 let col = dark ? Palette.mapColor(c).opacity(0.22) : Palette.mapColor(c).mix(with: .white, 0.74)
                 regions.fill(p, with: .color(col))
                 regions.stroke(p, with: .color(Palette.focusLand.opacity(0.9)), lineWidth: hair * 0.8)
@@ -287,12 +287,17 @@ struct MapRenderer {
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
                 let isHL = highlight.contains(a.id) || selected == a.id
                 if thumb {
-                    // skip specks smaller than ~3 pt on screen
+                    // thumbnails: only the big regions, as solid shapes; nothing smaller than ~6 pt
+                    if a.level > 0 { continue }
                     let bb = a.path.boundingRect
-                    if max(bb.width, bb.height) * s < 3 { continue }
-                    let c = isContainer ? (dark ? color.opacity(0.42) : color.mix(with: .white, 0.6)) : (dark ? color.opacity(0.9) : color.mix(with: .white, 0.08))
+                    if max(bb.width, bb.height) * s < 6 { continue }
+                    let c = dark ? color.opacity(0.9) : color.mix(with: .white, 0.06)
+                    if max(bb.width, bb.height) * s < 60 {
+                        // thin or scattered appellations read as one soft shape at thumbnail size
+                        regions.stroke(a.path, with: .color(c.opacity(0.55)), style: StrokeStyle(lineWidth: hair * 5, lineCap: .round, lineJoin: .round))
+                    }
                     regions.fill(a.path, with: .color(c))
-                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(isContainer ? 0.9 : 0.7)), lineWidth: hair * 0.6)
+                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(0.8)), lineWidth: hair * 0.6)
                     continue
                 }
                 if isContainer {

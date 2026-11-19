@@ -28,6 +28,7 @@ OUT = os.path.join(os.path.dirname(__file__), "..", "Jeroboam", "Resources", "Ma
 os.makedirs(OUT, exist_ok=True)
 
 RES = 2  # coordinate precision multiplier (smooth edges when zoomed)
+MIN_ASPECT = 1.3  # width / height
 MAP_PAD = 0.16  # extra context around every map (fraction of the bbox on each side) so neighbours and sea show
 
 def chaikin(pts, it=2):
@@ -77,6 +78,14 @@ class Proj:
         if pad is None: pad = 0.0 if lo1 - lo0 > 200 else MAP_PAD
         dla, dlo = (la1 - la0) * pad, (lo1 - lo0) * pad
         bbox = (la0 - dla, lo0 - dlo, la1 + dla, lo1 + dlo)
+        if lo1 - lo0 < 200:
+            # tall countries (Portugal, Chile, Italy…) get extra width so a wide card can show them whole
+            k = math.cos(math.radians((bbox[0] + bbox[2]) / 2))
+            asp = (bbox[3] - bbox[1]) * k / (bbox[2] - bbox[0])
+            if asp < MIN_ASPECT:
+                extra = ((bbox[2] - bbox[0]) * MIN_ASPECT / k - (bbox[3] - bbox[1])) / 2
+                W = round(min(W * 3, W * ((bbox[3] - bbox[1]) + 2 * extra) / (bbox[3] - bbox[1])))  # keep detail per degree
+                bbox = (bbox[0], bbox[1] - extra, bbox[2], bbox[3] + extra)
         self.bbox = bbox
         self.la0, self.lo0, self.la1, self.lo1 = bbox
         self.k = math.cos(math.radians((self.la0 + self.la1) / 2))
