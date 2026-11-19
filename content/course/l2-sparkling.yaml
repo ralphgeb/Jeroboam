@@ -61,6 +61,7 @@ lessons:
         body: |
           **Prosecco** (from the **Glera** grape) gets its second fermentation in a large **pressure tank**. It's faster and cheaper, and keeps fresh **pear, apple and blossom** aromas without the bready notes.
       - learn: Other traditional-method wines
+        visual: "photo:winery-disgorging"
         body: |
           - **Cava** (Spain): Macabeo, Xarel·lo and Parellada; citrus and almond.
           - **Crémant** (France): Loire, Alsace and Burgundy.
@@ -96,6 +97,7 @@ lessons:
       
           '
       - learn: How sweet is Brut?
+        visual: "photo:winery-disgorging"
         body: 'Sparkling sweetness runs from **Brut Nature** (no added sugar) through **Extra Brut** and **Brut** (the most common, dry) to **Extra Dry**, **Dry**, **Demi-Sec** and **Doux** (sweet).
       
       

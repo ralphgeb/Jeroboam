@@ -102,10 +102,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Champagne houses and growers
+        visual: "photo:champagne-vineyards"
         body: 'Big **houses** (négociants) buy grapes from many villages and blend for a consistent house style. **Grower Champagnes** come from a single estate''s own vines, showing their village''s character. Look for "RM" (récoltant-manipulant) on the label.
       
           '
       - learn: The Loire's many faces
+        visual: "photo:grape-chenin"
         body: 'From the Atlantic inland: **Muscadet** (Melon), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc) and the **Centre** (Sancerre and Pouilly-Fumé Sauvignon Blanc).
       
           '

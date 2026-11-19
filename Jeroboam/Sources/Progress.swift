@@ -57,7 +57,7 @@ final class GameProgress {
     }
 
     private func save() {
-        if let raw = try? JSONEncoder().encode(data) { defaults.set(raw, forKey: key) }
+        if let raw = try? JSONEncoder().encode(data) { defaults.set(raw, forKey: key); CloudSync.shared.pushProgress(raw) }
     }
 
     // MARK: Days

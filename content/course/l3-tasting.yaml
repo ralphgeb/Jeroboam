@@ -5,6 +5,7 @@ lessons:
   - title: The structured approach
     cards:
       - learn: Measuring precisely
+        visual: "photo:wine-pour"
         body: |
           At an advanced level, each structural element gets a precise scale:
 
@@ -38,6 +39,7 @@ lessons:
   - title: Quality & readiness
     cards:
       - learn: BLIC in practice
+        visual: "photo:winery-tasting-room"
         body: |
           - **Balance**: fruit vs acid vs tannin vs alcohol vs sweetness.
           - **Length**: medium+ or long for good wine.
@@ -62,6 +64,7 @@ lessons:
   - title: Faults
     cards:
       - learn: When wine goes wrong
+        visual: "photo:winery-lab"
         body: |
           - **TCA (cork taint)**: musty, damp cardboard, muted fruit.
           - **Oxidation**: brownish, flat, bruised apple.
@@ -86,6 +89,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Assessing readiness
+        visual: "photo:decanter"
         body: 'Ask: is the wine **too young** (tight, primary fruit, firm tannin), **ready** (fruit and developing notes in balance), or **past its best** (fading fruit, drying tannin)?
       
       
@@ -93,6 +97,7 @@ lessons:
       
           '
       - learn: Deductive tasting
+        visual: "photo:winery-tasting-room"
         body: 'Blind tasters reason from clues. High acid and light color suggest a cool climate. Deep color, ripe black fruit and high alcohol suggest warmth. Vanilla and toast suggest new oak; leather and earth suggest age.
       
           '

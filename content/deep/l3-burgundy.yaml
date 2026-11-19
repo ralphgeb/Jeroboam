@@ -11,16 +11,19 @@
         3. **Village** (about 37%): *Meursault*, *Vosne-Romanée*.
         4. **Regional** (about half): *Bourgogne*, *Mâcon-Villages*.
     - learn: Climats and clos
+      visual: "photo:burgundy-cote"
       body: |
         A named vineyard plot is a **climat**; there are over 1,200, listed by UNESCO since 2015. A **clos** is a vineyard enclosed by a stone wall, often built by medieval monks.
 
         Because of Napoleonic inheritance laws, one vineyard is usually split between **many owners**: Clos de Vougeot's 50 hectares have around 80.
     - learn: Domaine or négociant
+      visual: "photo:winery-cellar-bottles"
       body: |
         A **domaine** grows and bottles its own grapes. A **négociant** (merchant house such as Louis Jadot, Joseph Drouhin, Bouchard) buys grapes or wine and bottles under its name.
 
         So the same vineyard name can appear on dozens of different labels: the producer matters as much as the plot.
     - learn: How red Burgundy is made
+      visual: "photo:grape-must"
       body: |
         Pinot Noir is thin-skinned and delicate. Winemakers often do a **cold soak** before fermentation for color, use gentle **punch-downs**, and may keep some **whole bunches** for perfume.
 

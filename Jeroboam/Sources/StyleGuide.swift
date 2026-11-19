@@ -45,104 +45,96 @@ struct StyleGuideScreen: View {
               food: "Desserts", foods: "Blue cheese, tarts, chocolate", wines: "Port, Sauternes, Sherry"),
     ]
 
+    @State private var open: String? = "light-red"
+
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
                 ScreenHeader(eyebrow: "Wine, explained in pictures", title: "Style guide",
-                             subtitle: "Seven styles side by side. Swipe across the poster.")
-                .padding(.horizontal, Metrics.margin)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ribbon("Wine glasses")
-                        HStack(alignment: .bottom, spacing: 0) {
-                            ForEach(styles) { s in
-                                VStack(spacing: 8) {
-                                    WineGlass(color: s.color, fill: s.fill, sparkling: s.sparkling)
-                                        .frame(width: s.glassWidth, height: s.glassHeight)
-                                    Text(s.name).font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
-                                }
-                                .frame(width: 112)
-                            }
-                        }
-                        .padding(.vertical, 14)
-                        rowDivider
-                        metricRow("ALCOHOL") { s in Text(s.abv).font(.display(20, .black)).foregroundStyle(Palette.ink) }
-                        rowDivider
-                        metricRow("SERVE AT") { s in
-                            VStack(spacing: 6) {
-                                Thermometer(level: s.tempLevel).frame(width: 12, height: 40)
-                                Text(s.temp).font(.system(size: 12.5, weight: .bold)).foregroundStyle(Palette.ink)
-                            }
-                        }
-                        rowDivider
-                        metricRow("KEEPS OPEN") { s in
-                            VStack(spacing: 6) {
-                                ClockGlyph(level: s.keepsLevel).frame(width: 30, height: 30)
-                                Text(s.keeps).font(.system(size: 12.5, weight: .bold)).foregroundStyle(Palette.ink)
-                            }
-                        }
-                        rowDivider
-                        metricRow("CALORIES") { s in
-                            VStack(spacing: 2) {
-                                Text(s.calories).font(.display(18, .black)).foregroundStyle(Palette.ink)
-                                Text("per 150 ml").font(.system(size: 9.5, weight: .semibold)).foregroundStyle(Palette.inkFaint)
-                            }
-                        }
-                        ribbon("Wine with food").padding(.top, 18)
-                        HStack(alignment: .top, spacing: 0) {
-                            ForEach(styles) { s in
-                                VStack(spacing: 10) {
-                                    ZStack {
-                                        BottleShape(style: s.sparkling ? .sparkling : .bordeaux)
-                                            .fill(s.color.opacity(0.85))
-                                            .frame(width: 44, height: 150)
-                                        Text(s.name).font(.system(size: 9, weight: .semibold))
-                                            .foregroundStyle(s.id == "bold-red" || s.id == "light-red" ? Color.white : Palette.ink.opacity(0.85))
-                                            .fixedSize()
-                                            .rotationEffect(.degrees(-90))
-                                            .offset(y: 22)
-                                    }
-                                    Text(s.food).font(.system(size: 14, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
-                                    Text(s.foods).font(.system(size: 11, weight: .medium)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
-                                    Text(s.wines).font(.system(size: 10.5, weight: .semibold).italic()).foregroundStyle(Palette.pink)
-                                        .multilineTextAlignment(.center)
-                                }
-                                .frame(width: 112)
-                                .padding(.vertical, 12)
-                            }
-                        }
-                        Text("* Dessert wines per 75 ml serving. Figures are typical ranges.")
-                            .font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint).padding(.top, 6)
-                    }
-                    .padding(.horizontal, Metrics.margin)
-                }
+                             subtitle: "Seven styles from light to rich. Tap one to see how to serve it and what to eat with it.")
+                    .padding(.bottom, 8)
+                ForEach(styles) { st in styleCard(st) }
             }
-            .padding(.top, 8)
-            .padding(.bottom, 30)
+            .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
+        .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private var rowDivider: some View {
-        Rectangle().fill(Palette.line).frame(width: CGFloat(styles.count) * 112, height: 1)
+    private func shape(_ st: Style) -> GlassArt.Shape {
+        st.sparkling ? .flute : (st.id.contains("red") ? .red : (st.id == "dessert" ? .flute : .white))
     }
 
-    private func ribbon(_ t: String) -> some View {
-        Text(t).font(.system(size: 14, weight: .bold)).foregroundStyle(.white)
-            .padding(.leading, 12).padding(.trailing, 22).padding(.vertical, 6)
-            .background(RibbonShape().fill(Palette.pink))
-    }
-
-    private func metricRow<C: View>(_ title: String, @ViewBuilder _ content: @escaping (Style) -> C) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title).font(.system(size: 9.5, weight: .semibold)).kerning(1.4).foregroundStyle(Palette.inkSoft)
-            HStack(alignment: .center, spacing: 0) {
-                ForEach(styles) { s in content(s).frame(width: 112) }
+    private func styleCard(_ st: Style) -> some View {
+        let isOpen = open == st.id
+        return VStack(alignment: .leading, spacing: 0) {
+            Button { withAnimation(.snappy) { open = isOpen ? nil : st.id } } label: {
+                HStack(spacing: 14) {
+                    SilhouetteGlass(shape: shape(st), color: st.color, fill: st.fill, sparkling: st.sparkling)
+                        .frame(width: 34, height: 58)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(st.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(st.wines).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                    }
+                    Spacer(minLength: 6)
+                    Text(st.abv).font(.system(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                        .padding(.horizontal, 8).padding(.vertical, 4).background(Capsule().fill(Palette.wineSoft))
+                    Image(systemName: "chevron.down").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                        .rotationEffect(.degrees(isOpen ? 180 : 0))
+                }
+                .padding(14)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            if isOpen {
+                VStack(alignment: .leading, spacing: 14) {
+                    Hairline()
+                    meter("Serve at", st.temp, st.tempLevel, icon: "thermometer.medium", from: Color(hex: "#5BA4D9"), to: Color(hex: "#E5484D"))
+                    meter("Keeps once open", st.keeps, st.keepsLevel, icon: "clock", from: Palette.wineSoft, to: Palette.wine)
+                    HStack(spacing: 12) {
+                        stat("Alcohol", st.abv, "drop")
+                        stat("Calories", st.calories + " / glass", "flame")
+                    }
+                    VStack(alignment: .leading, spacing: 6) {
+                        Label("Great with " + st.food.lowercased(), systemImage: "fork.knife").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(st.foods).font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    }
+                }
+                .padding(.horizontal, 14).padding(.bottom, 14)
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
-        .padding(.vertical, 12)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(isOpen ? st.color.opacity(0.6) : Palette.line.opacity(0.6), lineWidth: isOpen ? 1.2 : 0.5))
+    }
+
+    private func meter(_ title: String, _ value: String, _ level: Double, icon: String, from: Color, to: Color) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Label(title, systemImage: icon).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                Spacer()
+                Text(value).font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+            }
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Palette.cardAlt)
+                    Capsule().fill(LinearGradient(colors: [from, to], startPoint: .leading, endPoint: .trailing))
+                        .frame(width: max(10, geo.size.width * level))
+                }
+            }
+            .frame(height: 6)
+        }
+    }
+
+    private func stat(_ t: String, _ v: String, _ icon: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Label(t, systemImage: icon).font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+            Text(v).font(.system(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.cardAlt.opacity(0.6)))
     }
 }
 

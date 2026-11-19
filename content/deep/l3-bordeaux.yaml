@@ -8,11 +8,13 @@
 
         Blending is insurance: if one grape suffers from spring frost or autumn rain, the others carry the vintage.
     - learn: Grand vin and second wine
+      visual: "photo:winery-sorting"
       body: |
         Each château makes its **grand vin** from the best plots and barrels. Lots that don't make the cut go into a **second wine**: Carruades de Lafite, Pavillon Rouge de Château Margaux, Les Forts de Latour.
 
         Top grands vins spend **18–24 months** in barrels, often **mostly new French oak**, and are racked every few months to clear the sediment.
     - learn: En primeur
+      visual: "photo:barrel-cellar"
       body: |
         Every spring, merchants and critics taste the new vintage from barrel. Châteaux then release a part of the wine **en primeur**: buyers pay now and receive bottles about two years later.
 
@@ -51,11 +53,13 @@
   icon: clock
   cards:
     - learn: Why vintages matter here
+      visual: "photo:grape-merlot"
       body: |
         Bordeaux sits on the Atlantic: some years are warm and dry, others wet and cool. A great **vintage** needs a warm summer, a dry September and no rain at harvest.
 
         Recent stars include **2005, 2009, 2010, 2015, 2016, 2019, 2020** and **2022**. In cooler years, Merlot on the Right Bank often does better than late-ripening Cabernet.
     - learn: How claret ages
+      visual: "photo:winery-cellar-bottles"
       body: |
         Young top Bordeaux is **dark, tannic and oaky**: blackcurrant, cedar and vanilla.
 

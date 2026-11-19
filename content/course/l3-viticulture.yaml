@@ -5,6 +5,7 @@ lessons:
   - title: Choosing a site
     cards:
       - learn: Temperature is king
+        visual: "photo:vineyard-winter"
         body: |
           The growing season needs a mean temperature of roughly **13–21 °C**. Growers fine-tune heat with:
 
@@ -36,12 +37,14 @@ lessons:
   - title: Training & pruning
     cards:
       - learn: Shaping the vine
+        visual: "photo:vine-guyot"
         body: |
           - **Bush vines** (gobelet): free-standing, low, for hot, dry, windy sites (Châteauneuf-du-Pape, Barossa old vines).
           - **Cane pruning** (e.g. Guyot): one or two long canes tied to a wire each year (Burgundy, Bordeaux).
           - **Spur pruning** (cordon): short spurs on a permanent arm, easier to mechanize.
           - **VSP**: shoots trained upwards between wires for an even, sunny canopy.
       - learn: Canopy management
+        visual: "photo:vine-pergola"
         body: |
           Leaf removal, shoot positioning and trimming balance **sunlight** on the grapes (for ripeness and color) with **shade** (to prevent sunburn), and improve **airflow** to reduce disease.
       - choice: "Bush vines are best suited to…"
@@ -68,6 +71,7 @@ lessons:
           - **Grey rot** (botrytis in wet weather): destroys bunches.
           - **Viruses**, birds and animals.
       - learn: Weather hazards
+        visual: "photo:vineyard-winter"
         body: |
           - **Spring frost** kills young shoots: use wind machines, heaters or sprinklers.
           - **Hail** shreds leaves and bunches: use nets.
@@ -90,11 +94,13 @@ lessons:
   - title: Yields & harvest
     cards:
       - learn: Less is often more
+        visual: "photo:vine-old"
         body: |
           Lower **yields** often mean more concentrated grapes, especially from **old vines**. But very low yields are not always better, and balance matters.
 
           Harvest timing balances **sugar**, **acidity**, **tannin ripeness** and **flavor**. Pick early for freshness and sparkling base wines; pick late for richness or sweet wines.
       - learn: Hand or machine?
+        visual: "photo:harvest-bins"
         body: |
           - **Hand harvesting**: selective, gentle, keeps whole bunches (essential for Champagne and carbonic maceration); slow and costly.
           - **Machine harvesting**: fast and cheap, can pick at night when it's cool; less selective, needs flat land and trellised vines.
@@ -116,6 +122,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Training and canopy
+        visual: "photo:vine-pergola"
         body: 'Vines are trained to control sun and air. **Bush vines** (gobelet) suit hot, dry places such as old Grenache in Châteauneuf. **Trellised** systems like Guyot and VSP spread leaves for sun in cool climates.
       
       

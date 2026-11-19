@@ -346,6 +346,8 @@ struct ChoiceCard: View {
 
     var body: some View {
         let options = card.options ?? []
+        // wine-color answers get a small glass of that color, unless the question itself shows the glass
+        let showColorGlasses = !(card.visual ?? "").hasPrefix("glass")
         VStack(alignment: .leading, spacing: 22) {
             QuestionHeader(label: "Choose the best answer", text: card.question ?? "")
             if let v = card.visual, v.hasPrefix("map") || v.hasPrefix("glassonly") || v.hasPrefix("grape") || v.hasPrefix("colors") || v.hasPrefix("diagram") {
@@ -360,6 +362,10 @@ struct ChoiceCard: View {
                         onAnswer(correct, options[safe: card.answer ?? 0])
                     } label: {
                         HStack(spacing: 12) {
+                            if showColorGlasses, let c = ContentStore.shared.library.colors.first(where: { $0.name.caseInsensitiveCompare(options[i]) == .orderedSame }) {
+                                SilhouetteGlass(shape: c.family == "red" ? .red : .white, color: Color(hex: c.hex), fill: 0.55)
+                                    .frame(width: 18, height: 30)
+                            }
                             Text(rich(options[i])).fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)
                             if let p = picked {

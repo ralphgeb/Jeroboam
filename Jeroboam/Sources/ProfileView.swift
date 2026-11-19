@@ -13,10 +13,16 @@ struct ProfileView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     AboutYouSection().padding(.top, 16)
+                    AccountCard()
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
-                        Eyebrow("Your cellar")
+                      HStack(spacing: 16) {
+                        RankEmblem(rankIndex: GameProgress.ranks.lastIndex { progress.data.xp >= $0.xp } ?? 0)
+                        VStack(alignment: .leading, spacing: 4) {
+                        Eyebrow("Your cellar · " + RankEmblem.bottles[min(7, GameProgress.ranks.lastIndex { progress.data.xp >= $0.xp } ?? 0)])
                         Text(progress.rank).font(.screenTitle).foregroundStyle(Palette.ink)
+                        }
+                      }
                         if let next = progress.nextRank {
                             VStack(alignment: .leading, spacing: 6) {
                                 GeometryReader { geo in
@@ -51,19 +57,13 @@ struct ProfileView: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12)], spacing: 16) {
                             ForEach(Achievement.all) { a in
                                 let got = progress.data.achievements.contains(a.id)
-                                VStack(spacing: 8) {
-                                    ZStack {
-                                        Circle().fill(got ? Palette.wineSoft : Palette.cardAlt).frame(width: 58, height: 58)
-                                        Circle().strokeBorder(got ? Palette.brass : Palette.line, lineWidth: got ? 1.5 : 1).frame(width: 58, height: 58)
-                                        Image(systemName: a.icon).font(.system(size: 21, weight: .light))
-                                            .foregroundStyle(got ? Palette.wine : Palette.inkFaint)
-                                    }
+                                VStack(spacing: 6) {
+                                    AchievementBadge(achievement: a, unlocked: got, size: 78)
                                     Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
                                         .multilineTextAlignment(.center).lineLimit(2)
                                     Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
                                         .multilineTextAlignment(.center).lineLimit(2)
                                 }
-                                .opacity(got ? 1 : 0.75)
                             }
                         }
                     }

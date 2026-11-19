@@ -81,6 +81,39 @@ jobs:
               print("::warning::Certificate cleanup skipped:", e.code, e.read().decode()[:300])
           PY
 
+      - name: Enable app capabilities (Sign in with Apple, iCloud key-value store)
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import os, time, json, urllib.request, urllib.error, urllib.parse
+          import jwt
+          key = open(os.environ["RUNNER_TEMP"] + "/AuthKey.p8").read()
+          token = jwt.encode({"iss": os.environ["ASC_ISSUER_ID"].strip(), "iat": int(time.time()), "exp": int(time.time()) + 600,
+                              "aud": "appstoreconnect-v1"}, key, algorithm="ES256", headers={"kid": os.environ["ASC_KEY_ID"].strip(), "typ": "JWT"})
+          def call(method, url, body=None):
+              req = urllib.request.Request(url, method=method, data=json.dumps(body).encode() if body else None,
+                                           headers={"Authorization": "Bearer " + token, "Content-Type": "application/json"})
+              with urllib.request.urlopen(req) as r:
+                  b = r.read(); return json.loads(b) if b else {}
+          q = urllib.parse.urlencode({"filter[identifier]": "com.ralphgeb.jero", "include": "bundleIdCapabilities"})
+          res = call("GET", "https://api.appstoreconnect.apple.com/v1/bundleIds?" + q)
+          ids = [d for d in res.get("data", []) if d["attributes"]["identifier"] == "com.ralphgeb.jero"]
+          if not ids: print("::warning::bundle id not found"); raise SystemExit
+          bid = ids[0]["id"]
+          have = {i["attributes"]["capabilityType"] for i in res.get("included", []) if i["type"] == "bundleIdCapabilities"}
+          print("Existing capabilities:", sorted(have))
+          wanted = {"APPLE_ID_AUTH": [{"key": "APPLE_ID_AUTH_APP_CONSENT", "options": [{"key": "PRIMARY_APP_CONSENT"}]}],
+                    "ICLOUD": [{"key": "ICLOUD_VERSION", "options": [{"key": "XCODE_6"}]}]}
+          for cap, settings in wanted.items():
+              if cap in have: continue
+              body = {"data": {"type": "bundleIdCapabilities", "attributes": {"capabilityType": cap, "settings": settings},
+                               "relationships": {"bundleId": {"data": {"type": "bundleIds", "id": bid}}}}}
+              try:
+                  call("POST", "https://api.appstoreconnect.apple.com/v1/bundleIdCapabilities", body); print("Enabled", cap)
+              except urllib.error.HTTPError as e:
+                  print("::warning::Could not enable", cap, e.code, e.read().decode()[:400])
+          PY
+
       - name: Select the newest released Xcode 
         run: |
           echo "Installed Xcodes:"; ls -d /Applications/Xcode*.app

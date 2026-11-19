@@ -9,6 +9,7 @@ lessons:
         body: |
           Most of the world's vineyards sit in two bands, roughly **30° to 50° latitude** north and south of the equator. Closer to the poles, grapes struggle to ripen; closer to the equator, vines never get the winter rest they need.
       - learn: Old World and New World
+        visual: "photo:vineyard-autumn"
         body: |
           - **Old World**: Europe and the Mediterranean, where winemaking goes back thousands of years: France, Italy, Spain, Portugal, Germany, Austria, Greece.
           - **New World**: places where European vines arrived later: the USA, Chile, Argentina, Australia, New Zealand, South Africa.
@@ -84,6 +85,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Old World and New World
+        visual: "photo:vineyard-autumn"
         body: '**Old World** means Europe''s traditional wine countries: France, Italy, Spain, Germany, Portugal. Wines are usually named after the **place**.
       
       

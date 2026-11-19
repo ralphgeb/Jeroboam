@@ -112,6 +112,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Aromatic whites
+        visual: "photo:grape-riesling"
         body: 'Some white grapes are naturally perfumed: **Muscat** smells of grapes and orange blossom, **Gewürztraminer** of lychee and rose, **Viognier** of apricot and honeysuckle, and **Riesling** of lime and white flowers.
       
       
@@ -119,6 +120,7 @@ lessons:
       
           '
       - learn: Neutral but versatile
+        visual: "photo:grape-chardonnay"
         body: '**Chardonnay** is a blank canvas. Grown cool and made without oak, as in Chablis, it is crisp, with green apple and lemon. Grown warm and aged in new oak, it becomes rich, with peach, vanilla, butter and toast.
       
       

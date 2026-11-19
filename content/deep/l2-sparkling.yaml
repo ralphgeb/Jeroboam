@@ -8,12 +8,13 @@
 
         The juice ferments into a dry, sharp, low-alcohol **base wine**. Many base wines from different villages, grapes and years are blended into the house style: this is the **assemblage**.
     - learn: 2. Second fermentation in bottle
+      visual: "photo:winery-cellar-bottles"
       body: |
         The blend is bottled with the **liqueur de tirage**: wine, sugar and yeast. A crown cap seals it.
 
         Yeast eats the sugar, making about **1.5% more alcohol** and carbon dioxide that cannot escape: around **6 atmospheres** of pressure, three times a car tire.
     - learn: 3. Ageing on the lees
-      visual: "photo:champagne-cellar"
+      visual: "photo:winery-cellar-bottles"
       body: |
         Dead yeast cells (lees) slowly break down (**autolysis**), giving bread, brioche, biscuit and toast notes and a finer, creamier mousse.
 
@@ -62,6 +63,7 @@
 
         Villages are rated: 17 are **Grand Cru**, 42 **Premier Cru**.
     - learn: Who makes it
+      visual: "photo:winery-tasting-room"
       body: |
         Labels carry a code:
         - **NM** (négociant-manipulant): a house that buys grapes, like Moët or Bollinger.
@@ -74,6 +76,7 @@
 
         **Prosecco** (Glera, Veneto and Friuli) is the best known; Conegliano Valdobbiadene is its hilly heartland. **Asti** and **Moscato d'Asti** use a single fermentation stopped early, so they stay sweet and low in alcohol.
     - learn: Other great sparklers
+      visual: "photo:winery-disgorging"
       body: |
         - **Cava** (Spain, mostly Penedès): traditional method with Macabeo, Xarel·lo, Parellada.
         - **Crémant** (France: Loire, Alsace, Burgundy, Limoux…): traditional method, at least 9 months on lees.

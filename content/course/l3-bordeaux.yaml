@@ -45,6 +45,7 @@ lessons:
           - **Pomerol**: a small clay-and-gravel plateau; Pétrus and Le Pin.
           - Satellites: Fronsac, Castillon, Bourg, Blaye.
       - learn: Entre-Deux-Mers
+        visual: "photo:grape-sauvignon"
         body: |
           Between the Garonne and Dordogne lies **Entre-Deux-Mers**, best known for fresh, dry whites from Sauvignon Blanc and Sémillon. Much of the region's generic Bordeaux AOC red comes from here too.
       - choice: "Which grape partners Merlot on the Right Bank?"
@@ -64,6 +65,7 @@ lessons:
   - title: Classifications & sweet Bordeaux
     cards:
       - learn: 1855 and after
+        visual: "photo:winery-cellar-bottles"
         body: |
           For the Paris Exposition of **1855**, Médoc châteaux (plus Haut-Brion) were ranked from **First** to **Fifth Growth**, based on price. Only one change has ever been made: **Mouton Rothschild** was promoted to First Growth in **1973**.
 
@@ -90,6 +92,7 @@ lessons:
   - title: Going further
     cards:
       - learn: The 1855 Classification
+        visual: "photo:bordeaux-chateau"
         body: 'In 1855, Médoc châteaux (plus Haut-Brion in Graves) were ranked into five growths by price. **First Growths**: Lafite, Latour, Margaux, Haut-Brion, and since 1973, Mouton Rothschild.
       
       
@@ -97,6 +100,7 @@ lessons:
       
           '
       - learn: Bordeaux's dry whites and sweet wines
+        visual: "photo:botrytis"
         body: 'Sauvignon Blanc and Sémillon make crisp whites in Entre-Deux-Mers and serious oaked whites in Pessac-Léognan. In **Sauternes** and **Barsac**, autumn mists from the Ciron river bring noble rot for rich, honeyed sweet wines.
       
           '

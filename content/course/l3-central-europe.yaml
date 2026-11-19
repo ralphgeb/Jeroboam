@@ -94,10 +94,12 @@ lessons:
   - title: Going further
     cards:
       - learn: German Riesling styles
+        visual: "photo:grape-riesling"
         body: 'German Riesling ranges from bone-dry **Grosses Gewächs** to sweet **Beerenauslese** and **Trockenbeerenauslese**. The **Mosel** gives light, delicate, often off-dry wines on steep slate; the **Pfalz** and **Rheingau** give fuller, drier styles.
       
           '
       - learn: Tokaji Aszú
+        visual: "photo:tokaj"
         body: 'In Hungary''s **Tokaj**, botrytized aszú berries are soaked in base wine or must. The result is one of the world''s great sweet wines, with apricot, orange peel and honey, kept fresh by Furmint''s acidity.
       
           '

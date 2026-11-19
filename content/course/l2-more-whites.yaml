@@ -86,6 +86,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Grapes of the Atlantic
+        visual: "photo:grape-sauvignon"
         body: 'Cool, damp Atlantic coasts favor fresh, salty whites: **Albariño** in Rías Baixas (Spain), **Alvarinho** in Vinho Verde (Portugal) and **Melon de Bourgogne** in Muscadet (France).
       
       
@@ -93,6 +94,7 @@ lessons:
       
           '
       - learn: Rhône and Mediterranean whites
+        visual: "photo:grape-muscat"
         body: '**Viognier**, **Marsanne** and **Roussanne** make rich, textured whites in the Rhône. Around the Mediterranean, **Vermentino** gives herbal, saline whites, and **Assyrtiko** from Santorini combines ripeness with striking acidity.
       
           '

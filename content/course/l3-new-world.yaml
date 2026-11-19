@@ -115,10 +115,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Cool spots in warm countries
+        visual: "photo:marlborough"
         body: 'New World producers chase cool sites for elegance: **Adelaide Hills** and **Tasmania** in Australia, **Casablanca** and **San Antonio** in Chile, **Sonoma Coast** in California and **Central Otago** in New Zealand.
       
           '
       - learn: Signature styles
+        visual: "photo:grape-malbec"
         body: '**Marlborough Sauvignon Blanc**: passion fruit and cut grass. **Barossa Shiraz**: rich black fruit and chocolate. **Mendoza Malbec**: plum and violet. **Napa Cabernet**: ripe cassis and polished tannin. **Stellenbosch Chenin**: ripe stone fruit and honey.
       
           '

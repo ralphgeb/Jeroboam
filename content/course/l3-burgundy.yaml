@@ -89,10 +89,12 @@ lessons:
   - title: Going further
     cards:
       - learn: The Côte d'Or
+        visual: "photo:burgundy-cote"
         body: 'The **Côte de Nuits** (north) is mostly red Pinot Noir: Gevrey-Chambertin, Vosne-Romanée, Chambolle-Musigny. The **Côte de Beaune** (south) is famous for whites: Meursault, Puligny- and Chassagne-Montrachet, plus reds from Pommard and Volnay.
       
           '
       - learn: Climats
+        visual: "photo:vine-guyot"
         body: 'Burgundy is divided into hundreds of named plots called **climats**, recognized by UNESCO. Many are split between several owners, so the producer matters as much as the vineyard.
       
           '

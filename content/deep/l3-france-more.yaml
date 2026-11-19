@@ -40,12 +40,13 @@
 
         Chenin Blanc can be bone dry, sparkling, or lusciously sweet, sometimes from the same village.
     - learn: "Alsace: French wines, German grapes"
+      visual: "photo:grape-riesling"
       body: |
         Sheltered by the Vosges mountains, Alsace is one of France's **driest** regions. Wines are labeled by **grape**, unusual for France: Riesling, Gewurztraminer, Pinot Gris and Muscat are the four "noble" ones, with 51 **Grands Crus**.
 
         Wines come in the tall, slender **flûte** bottle. *Vendanges Tardives* (late harvest) and *Sélection de Grains Nobles* (botrytis) are the sweet styles. Most wines skip new oak and many skip malolactic conversion to keep acidity.
     - learn: Champagne's great houses
-      visual: "photo:champagne-cellar"
+      visual: "photo:winery-cellar-bottles"
       body: |
         Big houses (*grandes marques*) aim for a consistent **non-vintage** style year after year by blending many villages and **reserve wines** from older years.
 

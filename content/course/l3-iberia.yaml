@@ -82,10 +82,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Rioja's subregions
+        visual: "photo:grape-tempranillo"
         body: 'Rioja has three parts: **Rioja Alta** (cooler, elegant), **Rioja Alavesa** (limestone, finesse) and **Rioja Oriental** (warmer, Garnacha-rich). Traditional producers age in American oak; modern ones favor French oak and riper fruit.
       
           '
       - learn: Port styles
+        visual: "photo:port-lodge"
         body: '**Ruby** and **Vintage** Port age mostly in bottle and stay deep red with black fruit. **Tawny** ages in small casks, turning amber with nutty, caramel notes; 10, 20, 30 and 40 Year Old labels give an average age.
       
           '

@@ -436,5 +436,185 @@
   "license": "CC BY-SA 2.0",
   "artist": "* base map: OpenStreetMap contributors\nVine yards: mrjane, based on own GPS trac",
   "page": "https://commons.wikimedia.org/wiki/File:The_Grand_Crus_Of_Chablis_with_its_vineyards.png"
+ },
+ "decanter": {
+  "title": "New Decanter.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Geoff Parsons from Portsmouth, VA",
+  "page": "https://commons.wikimedia.org/wiki/File:New_Decanter.jpg"
+ },
+ "grape-cabernet": {
+  "title": "Bordeaux Chateau Smith Haut Lafitte Cabernet Sauvignon vines.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Megan Mallen",
+  "page": "https://commons.wikimedia.org/wiki/File:Bordeaux_Chateau_Smith_Haut_Lafitte_Cabernet_Sauvignon_vines.jpg"
+ },
+ "grape-chardonnay": {
+  "title": "Chardonnay Grapes on the vine 2023 - Flickr - Harold Litwiler, Poppy.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Harold Litwiler from Orcutt/Istanbul, USA",
+  "page": "https://commons.wikimedia.org/wiki/File:Chardonnay_Grapes_on_the_vine_2023_-_Flickr_-_Harold_Litwiler,_Poppy.jpg"
+ },
+ "grape-chenin": {
+  "title": "Chenin blanc with Botrytis.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Simon Bonaventure",
+  "page": "https://commons.wikimedia.org/wiki/File:Chenin_blanc_with_Botrytis.jpg"
+ },
+ "grape-grenache": {
+  "title": "Grenache noir grapes.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Josh McFadden",
+  "page": "https://commons.wikimedia.org/wiki/File:Grenache_noir_grapes.jpg"
+ },
+ "grape-malbec": {
+  "title": "Malbec grapes.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Ian L",
+  "page": "https://commons.wikimedia.org/wiki/File:Malbec_grapes.jpg"
+ },
+ "grape-merlot": {
+  "title": "Merlot Grape.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Merlot_Grape.jpg"
+ },
+ "grape-muscat": {
+  "title": "マスカット・オブ・アレキサンドリア.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Akiramorimoto85",
+  "page": "https://commons.wikimedia.org/wiki/File:%E3%83%9E%E3%82%B9%E3%82%AB%E3%83%83%E3%83%88%E3%83%BB%E3%82%AA%E3%83%96%E3%83%BB%E3%82%A2%E3%83%AC%E3%82%AD%E3%82%B5%E3%83%B3%E3%83%89%E3%83%AA%E3%82%A2.jpg"
+ },
+ "grape-must": {
+  "title": "Composite fermentation tanks.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Cjp24",
+  "page": "https://commons.wikimedia.org/wiki/File:Composite_fermentation_tanks.jpg"
+ },
+ "grape-nebbiolo": {
+  "title": "Nebbiolo grapes after Harvest.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Hanna",
+  "page": "https://commons.wikimedia.org/wiki/File:Nebbiolo_grapes_after_Harvest.jpg"
+ },
+ "grape-riesling": {
+  "title": "Ripe grapes on the vine at Sweet Cheeks Winery.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "RickObst",
+  "page": "https://commons.wikimedia.org/wiki/File:Ripe_grapes_on_the_vine_at_Sweet_Cheeks_Winery.jpg"
+ },
+ "grape-sauvignon": {
+  "title": "Sauvignon blanc vlasotince vineyards.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "User:Vl",
+  "page": "https://commons.wikimedia.org/wiki/File:Sauvignon_blanc_vlasotince_vineyards.jpg"
+ },
+ "grape-syrah": {
+  "title": "Syrah Grapes on the Vine.jpg",
+  "license": "CC0",
+  "artist": "U.S. Geological Survey",
+  "page": "https://commons.wikimedia.org/wiki/File:Syrah_Grapes_on_the_Vine.jpg"
+ },
+ "grape-tempranillo": {
+  "title": "Tempranillo grapes from Rioja Alavesa.jpg",
+  "license": "CC BY 2.0",
+  "artist": "María Jesús Tomé",
+  "page": "https://commons.wikimedia.org/wiki/File:Tempranillo_grapes_from_Rioja_Alavesa.jpg"
+ },
+ "harvest-bins": {
+  "title": "Grape harvest in Chateaux Luna vineyard 3.jpg",
+  "license": "CC0",
+  "artist": "W.carter",
+  "page": "https://commons.wikimedia.org/wiki/File:Grape_harvest_in_Chateaux_Luna_vineyard_3.jpg"
+ },
+ "vine-guyot": {
+  "title": "Grapevines in Chablis.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Peter",
+  "page": "https://commons.wikimedia.org/wiki/File:Grapevines_in_Chablis.jpg"
+ },
+ "vine-old": {
+  "title": "Scottsdale Vineyard - Zinfandel - planted early 1900s and early 1960s.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Randy Caparoso",
+  "page": "https://commons.wikimedia.org/wiki/File:Scottsdale_Vineyard_-_Zinfandel_-_planted_early_1900s_and_early_1960s.jpg"
+ },
+ "vine-pergola": {
+  "title": "Detail of pergola in vineyard.jpg",
+  "license": "CC0",
+  "artist": "W.carter",
+  "page": "https://commons.wikimedia.org/wiki/File:Detail_of_pergola_in_vineyard.jpg"
+ },
+ "vineyard-autumn": {
+  "title": "MOMC04 Autumn colors.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Mustafa Orhon",
+  "page": "https://commons.wikimedia.org/wiki/File:MOMC04_Autumn_colors.jpg"
+ },
+ "vineyard-winter": {
+  "title": "Sanssouci Castle with vineyard and stairs, snow, winter 3.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Angel Miklashevsky",
+  "page": "https://commons.wikimedia.org/wiki/File:Sanssouci_Castle_with_vineyard_and_stairs,_snow,_winter_3.jpg"
+ },
+ "wine-pour": {
+  "title": "Wine being poured into a glass.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Fabio Ingrosso",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_being_poured_into_a_glass.jpg"
+ },
+ "winery-bottling": {
+  "title": "Bottling line for Torrontes in Argentina.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Tjeerd Wiersma",
+  "page": "https://commons.wikimedia.org/wiki/File:Bottling_line_for_Torrontes_in_Argentina.jpg"
+ },
+ "winery-cellar-bottles": {
+  "title": "Wine was valuable then-just look at the secure storage! (27318152680).jpg",
+  "license": "CC BY 2.0",
+  "artist": "shankar s. from Dubai, united arab emirates",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_was_valuable_then-just_look_at_the_secure_storage!_(27318152680).jpg"
+ },
+ "winery-concrete": {
+  "title": "Concrete fermentors at Calvet-Thunevin winery in Maury.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Ryan O'Connell",
+  "page": "https://commons.wikimedia.org/wiki/File:Concrete_fermentors_at_Calvet-Thunevin_winery_in_Maury.jpg"
+ },
+ "winery-disgorging": {
+  "title": "Pol Roger disgorgement line 5-dosage.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Tomas er",
+  "page": "https://commons.wikimedia.org/wiki/File:Pol_Roger_disgorgement_line_5-dosage.jpg"
+ },
+ "winery-lab": {
+  "title": "Set of automatic titrators for wine analysis, in CAFIA laboratory, Czech Republic.png",
+  "license": "CC BY-SA 4.0",
+  "artist": "Sarka Na kopci",
+  "page": "https://commons.wikimedia.org/wiki/File:Set_of_automatic_titrators_for_wine_analysis,_in_CAFIA_laboratory,_Czech_Republic.png"
+ },
+ "winery-sorting": {
+  "title": "Chateau Kirwan Merlot grapes being sorted.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Ryan O'Connell",
+  "page": "https://commons.wikimedia.org/wiki/File:Chateau_Kirwan_Merlot_grapes_being_sorted.jpg"
+ },
+ "winery-tanks": {
+  "title": "Stainless steel and large wood barrel fermenters.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Lyn Gateley",
+  "page": "https://commons.wikimedia.org/wiki/File:Stainless_steel_and_large_wood_barrel_fermenters.jpg"
+ },
+ "winery-tasting-room": {
+  "title": "Te Kairanga Winery tasting room.jpg",
+  "license": "CC0",
+  "artist": "Siobhan Leachman",
+  "page": "https://commons.wikimedia.org/wiki/File:Te_Kairanga_Winery_tasting_room.jpg"
+ },
+ "winery-venencia": {
+  "title": "Venenciadora serving Sherry.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Jesus Solana",
+  "page": "https://commons.wikimedia.org/wiki/File:Venenciadora_serving_Sherry.jpg"
  }
 }

@@ -30,6 +30,11 @@ targets:
         buildPhase: resources
       - Resources/Assets.xcassets
       - Resources/PrivacyInfo.xcprivacy
+    entitlements:
+      path: Sources/Jeroboam.entitlements
+      properties:
+        com.apple.developer.applesignin: [Default]
+        com.apple.developer.ubiquity-kvstore-identifier: $(TeamIdentifierPrefix)$(CFBundleIdentifier)
     info:
       path: Sources/Info.plist
       properties:

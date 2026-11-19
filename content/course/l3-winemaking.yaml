@@ -5,6 +5,7 @@ lessons:
   - title: Before fermentation
     cards:
       - learn: Preparing the must
+        visual: "photo:winery-sorting"
         body: |
           - **Sorting**: removing rotten or unripe fruit.
           - **Destemming and crushing**, or keeping whole bunches.
@@ -54,6 +55,7 @@ lessons:
   - title: After fermentation
     cards:
       - learn: Finishing the wine
+        visual: "photo:winery-bottling"
         body: |
           - **Maturation**: in steel (fresh), old oak (gentle oxygen) or new oak (flavor).
           - **Blending**: varieties, vineyards, barrels.
@@ -82,6 +84,7 @@ lessons:
       
           '
       - learn: Fining, filtering, sulfur
+        visual: "photo:winery-lab"
         body: 'Before bottling, wines are often **fined** (agents bind haze-causing particles) and **filtered**. A little **sulfur dioxide** protects against oxidation and microbes.
       
       

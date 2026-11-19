@@ -31,6 +31,7 @@ struct JeroboamApp: App {
                 .tint(Palette.wine)
                 .onAppear {
                     QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
+                    CloudSync.shared.start(progress)
                 }
         }
     }

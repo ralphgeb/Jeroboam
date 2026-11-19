@@ -103,10 +103,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Super Tuscans
+        visual: "photo:tuscany-chianti"
         body: 'In the 1970s, producers like Sassicaia and Tignanello broke DOC rules, using Cabernet Sauvignon and French oak. Sold as simple table wine, they became famous as **Super Tuscans**, and Bolgheri later got its own DOC.
       
           '
       - learn: The Veneto
+        visual: "photo:grape-must"
         body: '**Valpolicella** blends Corvina with other local grapes. **Amarone** is made from grapes dried for months (appassimento), giving rich, high-alcohol, dry reds. **Ripasso** passes young Valpolicella over Amarone skins for extra body.
       
           '

@@ -49,9 +49,10 @@ struct LibraryView: View {
     var body: some View {
         NavigationStack(path: $path) {
             CollapsingPage(eyebrow: "Library", title: "Atlas", subtitle: "Every grape, place, aroma and term from the lessons.") {
-                    tileSection("Explore", [.regions, .wines, .grapes, .labels])
-                    tileSection("Taste", [.aromas, .colors, .tasting, .boldness])
-                    tileSection("Serve", [.guide, .styles, .pairing, .bottles])
+                    link(.regions) { regionsHero }
+                    photoSection("Explore", [(.wines, "wine-pour"), (.grapes, "grape-cabernet"), (.labels, "bordeaux-chateau"), (.styles, "winery-cellar-bottles")])
+                    photoSection("Taste", [(.tasting, "sommelier"), (.aromas, nil), (.colors, nil), (.boldness, nil)])
+                    photoSection("Serve", [(.pairing, "winery-tasting-room"), (.guide, nil), (.bottles, "barrel-cellar")])
                     link(.glossary) {
                         HStack(spacing: 14) {
                             Text("Aa").font(.system(size: 20, weight: .semibold)).foregroundStyle(Palette.wine)
@@ -86,6 +87,53 @@ struct LibraryView: View {
 
     private func link<V: View>(_ s: LibrarySection, @ViewBuilder _ label: () -> V) -> some View {
         NavigationLink(value: s) { label().zoomSource(ZoomID.section(s.rawValue)) }.buttonStyle(PressableStyle())
+    }
+
+    private var regionsHero: some View {
+        ZStack(alignment: .bottomLeading) {
+            WineMapView(mapID: "france", showLabels: false, showCities: false, fill: true, thumbnail: true)
+                .allowsHitTesting(false)
+            LinearGradient(colors: [.clear, .black.opacity(0.55)], startPoint: .center, endPoint: .bottom)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(LibrarySection.regions.title).font(.system(size: 22, weight: .bold)).foregroundStyle(.white)
+                Text("\(ContentStore.shared.library.regions.filter { $0.kind == "country" }.count) countries · \(LibrarySection.regions.subtitle)")
+                    .font(.system(size: 13)).foregroundStyle(.white.opacity(0.85))
+            }
+            .padding(16)
+        }
+        .frame(height: 190)
+        .frame(maxWidth: .infinity)
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius + 2, style: .continuous))
+    }
+
+    private func photoSection(_ title: String, _ items: [(LibrarySection, String?)]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            SectionTitle(text: title)
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                ForEach(items, id: \.0) { item in link(item.0) { photoTile(item.0, photo: item.1) } }
+            }
+        }
+    }
+
+    private func photoTile(_ s: LibrarySection, photo: String?) -> some View {
+        ZStack(alignment: .bottomLeading) {
+            if let photo, let img = Photos.image(photo) {
+                Color.clear.overlay(Image(uiImage: img).resizable().scaledToFill())
+                LinearGradient(colors: [.clear, .black.opacity(0.65)], startPoint: .center, endPoint: .bottom)
+            } else {
+                LinearGradient(colors: [Palette.wineSoft, Palette.wineSoft.mix(with: Palette.wine, 0.25)], startPoint: .top, endPoint: .bottom)
+                art(s).scaleEffect(1.7).frame(maxWidth: .infinity, maxHeight: .infinity).offset(y: -22)
+                LinearGradient(colors: [.clear, Palette.bordeaux.opacity(0.75)], startPoint: .center, endPoint: .bottom)
+            }
+            VStack(alignment: .leading, spacing: 1) {
+                Text(s.title).font(.system(size: 16, weight: .semibold)).foregroundStyle(.white).lineLimit(1).minimumScaleFactor(0.85)
+                Text(s.subtitle).font(.system(size: 12)).foregroundStyle(.white.opacity(0.85)).lineLimit(1)
+            }
+            .padding(12)
+        }
+        .frame(height: 170)
+        .frame(maxWidth: .infinity)
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
     }
 
     private func tileSection(_ title: String, _ items: [LibrarySection]) -> some View {
@@ -131,7 +179,6 @@ struct LibraryView: View {
     /// Small illustration for each tile, all drawn on the same 56-pt disc.
     @ViewBuilder private func art(_ s: LibrarySection) -> some View {
         ZStack {
-            Circle().fill(Palette.wineSoft.opacity(0.7))
             switch s {
             case .regions:
                 WineMapView(mapID: "italy", showLabels: false, showCities: false, fill: true, thumbnail: true)
@@ -244,35 +291,68 @@ struct StylesScreen: View {
         let styles = ContentStore.shared.library.styles
         let cats = styles.reduce(into: [String]()) { if !$0.contains($1.category) { $0.append($1.category) } }
         ScrollView {
-            VStack(alignment: .leading, spacing: 28) {
-                ScreenHeader(eyebrow: "Styles", title: "Wine styles", subtitle: "Still, sparkling, sweet and fortified: how each style is made and what to expect in the glass.")
+            VStack(alignment: .leading, spacing: 26) {
+                ScreenHeader(eyebrow: "Styles", title: "Wine styles", subtitle: "Still, sparkling, sweet and fortified. Tap a style to see how it is made and which wines to try.")
                 ForEach(cats, id: \.self) { cat in
-                    VStack(alignment: .leading, spacing: 0) {
-                        SectionTitle(text: cat).padding(.bottom, 8)
-                        ForEach(styles.filter { $0.category == cat }) { s in
-                            NavigationLink(value: s) {
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 3) {
-                                        Text(s.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                                        Text(s.summary).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineLimit(2)
-                                            .multilineTextAlignment(.leading)
-                                    }
-                                    Spacer()
-                                    Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
-                                }
-                                .padding(.vertical, 13)
-                                .contentShape(Rectangle())
+                    VStack(alignment: .leading, spacing: 10) {
+                        SectionTitle(text: cat)
+                        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                            ForEach(styles.filter { $0.category == cat }) { st in
+                                NavigationLink(value: st) { StyleTile(style: st) }.buttonStyle(PressableStyle())
                             }
-                            .buttonStyle(.plain)
-                            Hairline()
                         }
                     }
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
+        .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct StyleTile: View {
+    let style: WineStyle
+    var body: some View {
+        let count = (ContentStore.shared.library.wines ?? []).filter { $0.style == style.id }.count
+        VStack(alignment: .leading, spacing: 0) {
+            ZStack {
+                StyleTile.tint(style).opacity(0.14)
+                SilhouetteGlass(shape: StyleTile.shape(style), color: StyleTile.tint(style), fill: 0.55,
+                                sparkling: style.category.hasPrefix("Sparkling"))
+                    .frame(height: 70)
+            }
+            .frame(height: 96)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(style.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
+                    .multilineTextAlignment(.leading)
+                Text(count > 0 ? "\(count) wines to try" : style.summary).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+            }
+            .padding(12)
+        }
+        .background(Palette.card)
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
+    }
+
+    static func tint(_ s: WineStyle) -> Color {
+        if let v = s.visual, v.hasPrefix("glass:"), let c = ContentStore.shared.library.colors.first(where: { $0.id == String(v.dropFirst(6)) }) {
+            return Color(hex: c.hex)
+        }
+        switch s.id {
+        case let id where id.contains("rose"): return Color(hex: "#EE9AA8")
+        case let id where id.contains("red") || id.contains("port-ruby"): return Color(hex: "#7A1832")
+        case let id where id.contains("tawny") || id.contains("madeira") || id.contains("oxidative"): return Color(hex: "#A0602A")
+        case let id where id.contains("sweet") || id.contains("icewine") || id.contains("vdn") || id.contains("asti"): return Color(hex: "#D9A23B")
+        default: return Color(hex: "#E3D48A")
+        }
+    }
+    static func shape(_ s: WineStyle) -> GlassArt.Shape {
+        if s.category.hasPrefix("Sparkling") { return .flute }
+        if s.id.contains("red") { return .red }
+        if s.category.hasPrefix("Fortified") || s.category.hasPrefix("Sweet") { return .tasting }
+        return .white
     }
 }
 
@@ -514,28 +594,103 @@ struct SATScaleRow: View {
 // MARK: - Pairing
 
 struct PairingScreen: View {
+    @State private var open: Pairing? = nil
+    @State private var dish = "Steak"
+    private let dishes: [(String, String, [String])] = [
+        ("Steak", "flame", ["steak", "ribeye", "beef", "asado"]), ("Oysters", "drop", ["oyster", "shellfish", "seafood"]),
+        ("Goat cheese", "circle.grid.2x1", ["goat cheese"]), ("Spicy food", "flame.fill", ["spicy", "curr", "thai"]),
+        ("Salmon", "fish", ["salmon", "trout"]), ("Mushrooms", "leaf", ["mushroom", "truffle"]),
+        ("Pizza & pasta", "circle.dashed", ["pizza", "pasta", "ragù"]), ("Lamb", "flame", ["lamb"]),
+        ("Roast chicken", "bird", ["chicken"]), ("Dessert", "birthday.cake", ["dessert", "tart", "chocolate", "crème brûlée"]),
+        ("Blue cheese", "square.grid.3x3", ["blue cheese", "stilton"]), ("Tapas", "takeoutbag.and.cup.and.straw", ["tapas", "jamón", "olives", "almonds"]),
+    ]
+
     var body: some View {
+        let lib = ContentStore.shared.library
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                ScreenHeader(eyebrow: "Food & wine", title: "Pairing principles",
-                             subtitle: "Food changes how wine tastes. Learn the few interactions that matter and pairing stops being guesswork.")
-                ForEach(ContentStore.shared.library.pairings) { p in
-                    HStack(alignment: .top, spacing: 16) {
-                        Image(systemName: p.icon).font(.system(size: 17)).foregroundStyle(Palette.wine)
-                            .frame(width: 40, height: 40).background(Circle().fill(Palette.wineSoft))
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(p.food).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                            Text(rich(p.effect)).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
-                            Text(rich(p.tip)).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+            VStack(alignment: .leading, spacing: 26) {
+                ScreenHeader(eyebrow: "Food & wine", title: "Pairing made simple",
+                             subtitle: "Food changes how wine tastes. Learn the few effects that matter, then pick a dish and see what to pour.")
+                VStack(alignment: .leading, spacing: 10) {
+                    SectionTitle(text: "What food does to wine")
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                        ForEach(lib.pairings) { p in
+                            Button { open = p } label: {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Image(systemName: p.icon).font(.system(size: 20)).foregroundStyle(Palette.wine)
+                                        .frame(width: 44, height: 44).background(Circle().fill(Palette.wineSoft))
+                                    Text(p.food).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                                    Text(headline(p.effect)).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                        .lineLimit(3, reservesSpace: true).multilineTextAlignment(.leading)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                                .cardStyle(padding: 14)
+                            }
+                            .buttonStyle(PressableStyle())
                         }
                     }
-                    Hairline()
+                }
+                VStack(alignment: .leading, spacing: 12) {
+                    SectionTitle(text: "Pick your dish")
+                    FlowLayout(spacing: 8, lineSpacing: 8) {
+                        ForEach(dishes, id: \.0) { d in
+                            Button { withAnimation(.snappy) { dish = d.0 } } label: {
+                                Label(d.0, systemImage: d.1).font(.system(size: 13.5, weight: .medium))
+                                    .foregroundStyle(dish == d.0 ? Palette.onWine : Palette.ink)
+                                    .padding(.horizontal, 12).padding(.vertical, 8)
+                                    .background(Capsule().fill(dish == d.0 ? Palette.wine : Palette.card))
+                                    .overlay(Capsule().strokeBorder(Palette.line.opacity(dish == d.0 ? 0 : 0.7), lineWidth: 0.5))
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    let keys = dishes.first { $0.0 == dish }?.2 ?? []
+                    let matches = (lib.wines ?? []).filter { w in w.food.contains { f in keys.contains { f.lowercased().contains($0) } } }
+                    if matches.isEmpty {
+                        Text("No classic match in the catalog yet.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    } else {
+                        GroupCard {
+                            ForEach(Array(matches.prefix(6))) { w in
+                                NavigationLink(value: w) { WineRow(wine: w, last: w == matches.prefix(6).last) }.buttonStyle(RowPressStyle())
+                            }
+                        }
+                    }
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
+        .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $open) { p in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack(spacing: 12) {
+                        Image(systemName: p.icon).font(.system(size: 22)).foregroundStyle(Palette.wine)
+                            .frame(width: 52, height: 52).background(Circle().fill(Palette.wineSoft))
+                        Text(p.food).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                    }
+                    VStack(alignment: .leading, spacing: 8) {
+                        Eyebrow("What it does")
+                        Text(rich(p.effect)).font(.system(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
+                    }
+                    .cardStyle(padding: 16)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Eyebrow("What to pour")
+                        Text(rich(p.tip)).font(.system(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
+                    }
+                    .cardStyle(padding: 16)
+                }
+                .padding(Metrics.margin).padding(.top, 10)
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .presentationDetents([.medium])
+            .presentationDragIndicator(.visible)
+        }
+    }
+
+    private func headline(_ effect: String) -> String {
+        effect.replacingOccurrences(of: "**", with: "")
     }
 }
 
@@ -577,36 +732,63 @@ struct GlossaryScreen: View {
 // MARK: - Bottles
 
 struct BottlesScreen: View {
+    private struct Format: Identifiable {
+        let name: String; let liters: Double; let bottles: String; let note: String
+        var id: String { name }
+    }
+    private let formats: [Format] = [
+        Format(name: "Piccolo", liters: 0.1875, bottles: "¼", note: "A single glass of fizz, the airline and minibar size."),
+        Format(name: "Half bottle", liters: 0.375, bottles: "½", note: "Common for sweet wines like Sauternes and Tokaji."),
+        Format(name: "Standard", liters: 0.75, bottles: "1", note: "Six glasses. The size almost every wine is made in."),
+        Format(name: "Magnum", liters: 1.5, bottles: "2", note: "Collectors' favorite: ages more slowly and gracefully."),
+        Format(name: "Jeroboam", liters: 3, bottles: "4", note: "A king of Israel, and this app's namesake. 4.5 L in Bordeaux."),
+        Format(name: "Rehoboam", liters: 4.5, bottles: "6", note: "Son of Solomon. Mostly Champagne."),
+        Format(name: "Methuselah", liters: 6, bottles: "8", note: "The longest-lived man in the Bible. Called Imperial in Bordeaux."),
+        Format(name: "Salmanazar", liters: 9, bottles: "12", note: "An Assyrian king. A whole case in one bottle."),
+        Format(name: "Balthazar", liters: 12, bottles: "16", note: "One of the three wise men."),
+        Format(name: "Nebuchadnezzar", liters: 15, bottles: "20", note: "King of Babylon. Takes two people to pour."),
+    ]
+
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 12) {
                 ScreenHeader(eyebrow: "Formats", title: "Bottle sizes",
-                             subtitle: "Large formats age more slowly because there is less oxygen per drop of wine. Most are named after Biblical kings; a **Jeroboam** holds 3 litres in Champagne and Burgundy (4.5 litres in Bordeaux).")
-                BottleSizesDiagram().cardStyle()
-                VStack(spacing: 0) {
-                    ForEach(rows, id: \.0) { r in
-                        HStack {
-                            Text(r.0).font(.system(size: 15, weight: r.0 == "Jeroboam" ? .semibold : .regular))
-                                .foregroundStyle(r.0 == "Jeroboam" ? Palette.wine : Palette.ink)
-                            Spacer()
-                            Text(r.1).font(.numeric(14, .regular)).foregroundStyle(Palette.inkSoft)
-                            Text(r.2).font(.numeric(14, .regular)).foregroundStyle(Palette.inkSoft).frame(width: 92, alignment: .trailing)
-                        }
-                        .padding(.vertical, 11)
-                        Hairline()
-                    }
-                }
+                             subtitle: "Big bottles age more slowly: there is less air per drop of wine. Most are named after Biblical kings.")
+                    .padding(.bottom, 8)
+                ForEach(formats) { f in row(f) }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
+        .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    private let rows: [(String, String, String)] = [
-        ("Piccolo / Split", "0.1875 L", "¼ bottle"), ("Demi / Half", "0.375 L", "½ bottle"), ("Standard", "0.75 L", "1 bottle"),
-        ("Magnum", "1.5 L", "2 bottles"), ("Jeroboam", "3 L", "4 bottles"), ("Rehoboam", "4.5 L", "6 bottles"),
-        ("Methuselah", "6 L", "8 bottles"), ("Salmanazar", "9 L", "12 bottles"), ("Balthazar", "12 L", "16 bottles"),
-        ("Nebuchadnezzar", "15 L", "20 bottles")
-    ]
+    private func row(_ f: Format) -> some View {
+        let isJ = f.name == "Jeroboam"
+        // height grows with the cube root of the volume, like real bottles
+        let h = 30 + 70 * (pow(f.liters / 15, 1.0 / 3) - pow(0.1875 / 15, 1.0 / 3)) / (1 - pow(0.1875 / 15, 1.0 / 3))
+        return HStack(alignment: .center, spacing: 16) {
+            ZStack(alignment: .bottom) {
+                Color.clear.frame(width: 54, height: 104)
+                BottleShape().fill(isJ ? Palette.bordeaux : Palette.ink.opacity(0.82))
+                    .frame(width: h * 0.34, height: h)
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(f.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(isJ ? Palette.wine : Palette.ink)
+                    Text(f.liters < 1 ? String(format: "%.0f cl", f.liters * 100) : String(format: f.liters == floor(f.liters) ? "%.0f L" : "%.1f L", f.liters))
+                        .font(.system(size: 13, weight: .medium).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                }
+                Text(f.note).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                Text("= \(f.bottles) standard bottle\(f.bottles == "1" || f.bottles.contains("¼") || f.bottles.contains("½") ? "" : "s")")
+                    .font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
+                    .padding(.horizontal, 8).padding(.vertical, 3).background(Capsule().fill(Palette.wineSoft))
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(isJ ? Palette.wine.opacity(0.5) : Palette.line.opacity(0.6), lineWidth: isJ ? 1.2 : 0.5))
+    }
 }
