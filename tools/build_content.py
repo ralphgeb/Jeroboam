@@ -392,12 +392,35 @@ for rid, h in hist.items():
     r = next((x for x in regions if x["id"] == rid), None)
     if r is None: warn(f"history for unknown region {rid}"); continue
     r["history"] = str(h).strip()
-great = load("greatwines.yaml")
+great_base = {g["id"]: g for g in load("greatwines.yaml")}
+great, area, area_vintages = [], None, []
+rname = {r["id"]: r["name"] for r in regions}
+for ln, line in enumerate(open(os.path.join(SRC, "greatwines_more.txt"), encoding="utf-8"), 1):
+    line = line.strip()
+    if not line or line.startswith("# "): continue
+    if line.startswith("## "):
+        area, vs = [x.strip() for x in line[3:].split("|")]
+        area_vintages = [v.strip() for v in vs.split(",")]
+        continue
+    if line.startswith("= "):
+        gw = dict(great_base[line[2:].strip()])
+        gw["snapshot"] = gw.get("photo")   # the real photo, shown on the detail page
+    else:
+        f = [x.strip() for x in line.split("|")]
+        if len(f) != 10: err(f"greatwines_more.txt:{ln}: {len(f)} fields"); continue
+        lo, hi = [int(x) for x in f[6].split("-")]
+        gw = {"id": f[0], "name": f[1], "producer": f[2], "region": f[3], "grapes": [g.strip() for g in f[4].split(",")],
+              "color": f[5], "price": [lo, hi], "scores": f[7], "what": f[8], "why": f[9], "vintages": area_vintages}
+    gw["area"] = area
+    gw["zone"] = f"{area} · {rname.get(gw['region'], gw['region'])}" if rname.get(gw["region"]) not in (None, area) else area
+    gw.pop("photo", None)
+    great.append(gw)
+if len({g["id"] for g in great}) != len(great): err("duplicate great wine ids")
 for gw in great:
     if gw["region"] not in rset: err(f"great wine {gw['id']}: unknown region {gw['region']}")
     for g in gw["grapes"]:
         if g not in gset: err(f"great wine {gw['id']}: unknown grape {g}")
-    if gw.get("photo") and gw["photo"] not in photo_ids: warn(f"great wine {gw['id']}: photo {gw['photo']} missing"); gw["photo"] = None
+    if gw.get("snapshot") and gw["snapshot"] not in photo_ids: gw["snapshot"] = None
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 
