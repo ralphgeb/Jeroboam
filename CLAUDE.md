@@ -91,5 +91,5 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 4 uploaded (run 4 of build-ios.yml): grape photos. App Store Connect app + secrets are set up.
+- TestFlight build 5 uploaded (run 5 of build-ios.yml): iterations 1-5 (atlas maps, wines catalog, deep dives, photos, journal). App Store Connect app + secrets are set up.
 - Waiting on owner: logo/mascot choice from the brand board (in-app mark is still the grape cluster).
