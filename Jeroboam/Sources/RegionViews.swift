@@ -144,6 +144,7 @@ struct RegionDetailView: View {
                     }
                 }
 
+                if let h = r.history { textBlock("History", h) }
                 if let s = r.styles { textBlock("Styles", s) }
                 if let c = r.classification { textBlock("Classification", c) }
                 if let l = ContentStore.shared.label(forRegion: r.id) {

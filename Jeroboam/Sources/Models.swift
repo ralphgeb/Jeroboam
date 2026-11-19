@@ -130,6 +130,7 @@ struct Region: Decodable, Identifiable, Hashable {
     let styles: String?
     let classification: String?
     let facts: [String]?
+    var history: String? = nil
     let sub: [String]?
     let level: Int
 

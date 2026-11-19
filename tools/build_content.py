@@ -387,6 +387,11 @@ for w in wines:
 facts = [str(f).strip() for f in load("facts.yaml")]
 if len(set(facts)) != len(facts): err("duplicate fun facts")
 if len(facts) < 100: warn(f"only {len(facts)} fun facts (want 100+ so mornings don't repeat)")
+hist = load("region_history.yaml")
+for rid, h in hist.items():
+    r = next((x for x in regions if x["id"] == rid), None)
+    if r is None: warn(f"history for unknown region {rid}"); continue
+    r["history"] = str(h).strip()
 great = load("greatwines.yaml")
 for gw in great:
     if gw["region"] not in rset: err(f"great wine {gw['id']}: unknown region {gw['region']}")
