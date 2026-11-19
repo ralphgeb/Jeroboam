@@ -489,3 +489,6 @@ foradori-teroldego | 62 | - | https://www.jamessuckling.com/tasting-notes/227740
 jermann-vintage-tunina | 139 | - | https://www.jamessuckling.com/tasting-notes/312746/jermann-venezia-giulia-vintage-tunina-2023
 caprai-25 | 82 | - | https://www.jamessuckling.com/tasting-notes/191685/arnaldo-caprai-montefalco-sagrantino-25-anni-2018
 mastroberardino-radici | 39 | - | https://www.jamessuckling.com/tasting-notes/305175/mastroberardino-taurasi-radici-2018
+gerard-bertrand-hospitalet | 45 | - | https://www.jamessuckling.com/tasting-notes/156387/gerard-bertrand-la-clape-chateau-lhospitalet-2018
+cornelissen-magma | 447 | - | https://www.jamessuckling.com/tasting-notes/236040/frank-cornelissen-nerello-mascalese-sicilia-magma-barbabecchi-2021
+planeta-santa-cecilia | 35 | - | https://www.jamessuckling.com/tasting-notes/306971/planeta-noto-santa-cecilia-2021
