@@ -100,7 +100,9 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 12 uploaded (run 12; run 11 never got a macOS runner). Brand from the owner's Illustrator file, Sign in with
+- Study guide: build_content.py generates per-level units (Grape files, Appellations, Words to know; `unit.study`), open as soon as the level is, not counted for level progress. Every grape/region/term the exams ask is taught there.
+- Chile and Argentina are separate maps (`chile`, `argentina`); Lebanon has 4 level-1 zones built from winery clusters (`LEBANON.zones` = km radius).
+- TestFlight build 15 uploaded (run 15; runs 13–14 failed on a stale provisioning profile, now cleared by the workflow before archiving). Brand from the owner's Illustrator file, Sign in with
   Apple + iCloud key-value sync (`Account.swift`; capabilities APPLE_ID_AUTH + ICLOUD enabled by the build workflow), redesigned
   Style guide / Bottle sizes / Wine styles / Food & wine / Atlas home, medals, focused lesson maps, Regions|Appellations switch.
 - Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
