@@ -9,6 +9,7 @@ enum RefMaps {
                      "map-chablis": ["chablis"]],
         "spain": ["map-rioja": ["rioja", "es-la-rioja"]],
         "italy": ["map-valpolicella": ["veneto"]],
+        "tuscany": ["map-chianti": ["chianti", "chianti-classico", "chianti-rufina", "colli-fiorentini", "colli-senesi"]],
         "new-zealand": ["map-marlborough": ["marlborough"]],
     ]
     private static let byMap: [String: String] = [

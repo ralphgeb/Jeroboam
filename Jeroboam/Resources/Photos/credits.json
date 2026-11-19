@@ -418,5 +418,23 @@
   "license": "CC0",
   "artist": "Kned Wiki",
   "page": "https://commons.wikimedia.org/wiki/File:Wine_in_Sicily.svg"
+ },
+ "map-vinho-verde": {
+  "title": "Vignoble du vinho verde.svg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Vignoble_du_vinho_verde.png: Cyril5555\nderivative work: Bourrichon (talk)",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignoble_du_vinho_verde.svg"
+ },
+ "map-chianti": {
+  "title": "Sottozone chianti it.jpg",
+  "license": "CC BY 2.5",
+  "artist": "User:Kattivik",
+  "page": "https://commons.wikimedia.org/wiki/File:Sottozone_chianti_it.jpg"
+ },
+ "map-chablis": {
+  "title": "The Grand Crus Of Chablis with its vineyards.png",
+  "license": "CC BY-SA 2.0",
+  "artist": "* base map: OpenStreetMap contributors\nVine yards: mrjane, based on own GPS trac",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Grand_Crus_Of_Chablis_with_its_vineyards.png"
  }
 }
