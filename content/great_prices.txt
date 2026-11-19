@@ -434,3 +434,9 @@ colgin-cariad | 531 | - | https://www.jamessuckling.com/tasting-notes/147702/col
 inglenook-rubicon | 182 | - | https://www.jamessuckling.com/tasting-notes/278058/inglenook-napa-valley-rubicon-2014/
 silver-oak | 225 | - | https://www.jamessuckling.com/tasting-notes/302526/silver-oak-cabernet-sauvignon-napa-valley
 domaine-serene | 97 | - | https://www.jamessuckling.com/tasting-notes/252643/domaine-serene-pinot-noir-willamette-valley-evenstad-reserve-2021
+penfolds-yattarna | 148 | - | https://www.jamessuckling.com/tasting-notes/116640/penfolds-chardonnay-south-australia-yattarna-2017
+penfolds-st-henri | 97 | - | https://www.jamessuckling.com/tasting-notes/268045/penfolds-shiraz-south-australia-st-henri-2021
+cloudy-bay | 34 | - | https://www.jamessuckling.com/tasting-notes/166952/cloudy-bay-sauvignon-blanc-marlborough-2021
+felton-road | 175 | - | https://www.jamessuckling.com/tasting-notes/40839/felton-road-pinot-noir-central-otago-block-3-2013
+klein-constantia-vdc | 103 | - | https://www.jamessuckling.com/tasting-notes/265442/klein-constantia-constantia-vin-de-constance-natural-sweet-wine-2021
+catena-adrianna-mundus | 215 | - | https://www.jamessuckling.com/tasting-notes/128372/catena-zapata-malbec-mendoza-adrianna-vineyard-mundus-bacillus-terrae-2018
