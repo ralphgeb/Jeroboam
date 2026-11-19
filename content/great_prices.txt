@@ -451,3 +451,9 @@ leflaive-chevalier | 2330 | - | https://www.jamessuckling.com/tasting-notes/1579
 latour-corton | 141 | - | https://www.jamessuckling.com/tasting-notes/189348/louis-latour-corton-grand-cru-clos-du-roi-2020
 drouhin-chablis | 100 | - | https://www.jamessuckling.com/tasting-notes/102813/joseph-drouhin-chablis-grand-cru-vaudesir-2017
 louis-roederer-bdb | 99 | - | https://www.jamessuckling.com/tasting-notes/283924/louis-roederer-champagne-blanc-de-blancs
+branaire-ducru | 52 | - | https://www.jamessuckling.com/tasting-notes/266208/chateau-branaire-ducru-st-julien-2021
+beychevelle | 105 | - | https://www.jamessuckling.com/tasting-notes/183199/chateau-beychevelle-st-julien-2021
+conseillante | 239 | - | https://www.jamessuckling.com/tasting-notes/246988/chateau-la-conseillante-pomerol-2021
+troplong-mondot | 106 | - | https://www.jamessuckling.com/tasting-notes/246406/chateau-troplong-mondot-st-emilion-2021
+chasse-spleen | 39 | - | https://www.jamessuckling.com/tasting-notes/204782/chateau-chasse-spleen-moulis-en-medoc-2020
+brane-cantenac | 84 | - | https://www.jamessuckling.com/tasting-notes/204250/chateau-brane-cantenac-margaux-2020
