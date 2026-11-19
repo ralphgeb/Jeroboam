@@ -28,17 +28,27 @@ struct AromaWheel: View {
                         ctx.stroke(ring(c, rIn, rMid, start, start + span), with: .color(Palette.paper), lineWidth: 1.5)
                         // label on inner ring
                         let mid = (start + span / 2) * Double.pi / 180
-                        let lp = CGPoint(x: c.x + CGFloat(cos(mid)) * (rIn + rMid) / 2, y: c.y + CGFloat(sin(mid)) * (rIn + rMid) / 2)
                         if !compact {
-                            var lt = ctx
-                            lt.translateBy(x: lp.x, y: lp.y)
-                            var tdeg = (start + span / 2 + 90).truncatingRemainder(dividingBy: 360)
-                            if tdeg > 180 { tdeg -= 360 }
-                            if tdeg < -180 { tdeg += 360 }
-                            if tdeg > 90 { tdeg -= 180 }
-                            if tdeg < -90 { tdeg += 180 }
-                            lt.rotate(by: .degrees(tdeg))
-                            lt.draw(Text(g.name.uppercased()).font(.system(size: 8, weight: .bold)).kerning(1.0).foregroundColor(.white), at: .zero)
+                            // Written along the ring, letter by letter, reading upright on top and bottom.
+                            let r = (rIn + rMid) / 2
+                            let letters = Array(g.name.uppercased()).map { ch in
+                                ctx.resolve(Text(String(ch)).font(.system(size: 8.5, weight: .bold)).foregroundColor(.white))
+                            }
+                            let gap: CGFloat = 1.2
+                            let widths = letters.map { $0.measure(in: CGSize(width: 100, height: 100)).width + gap }
+                            let textW = widths.reduce(0, +) - gap
+                            let top = sin(mid) < 0
+                            var run: CGFloat = 0
+                            for (i, t) in letters.enumerated() {
+                                let along = Double((run + widths[i] / 2 - gap / 2) / r)
+                                let half = Double(textW / 2 / r)
+                                let th = top ? mid - half + along : mid + half - along
+                                var lt = ctx
+                                lt.translateBy(x: c.x + CGFloat(cos(th)) * r, y: c.y + CGFloat(sin(th)) * r)
+                                lt.rotate(by: .radians(top ? th + .pi / 2 : th - .pi / 2))
+                                lt.draw(t, at: .zero, anchor: .center)
+                                run += widths[i]
+                            }
                         }
                         var a = start
                         for cat in g.categories {

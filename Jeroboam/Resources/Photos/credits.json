@@ -664,5 +664,33 @@
   "license": "Public domain",
   "artist": "Titus Tscharntke",
   "page": "https://commons.wikimedia.org/wiki/File:Bluemetal_coarse_granite_gravel_texture.jpg"
+ },
+ "taste-look": {
+  "title": "File:Sediment in wine.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Sediment_in_wine.jpg/960px-Sediment_in_wine.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC BY 2.0",
+  "artist": "Monica Yichoy",
+  "page": "https://commons.wikimedia.org/wiki/File:Sediment_in_wine.jpg"
+ },
+ "taste-smell": {
+  "title": "File:Dégustation vin - lamper.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/D%C3%A9gustation_vin_-_lamper.jpg/960px-D%C3%A9gustation_vin_-_lamper.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC BY-SA 3.0",
+  "artist": "Véronique PAGNIER",
+  "page": "https://commons.wikimedia.org/wiki/File:D%C3%A9gustation_vin_-_lamper.jpg"
+ },
+ "taste-taste": {
+  "title": "File:Vino-atardecer.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Vino-atardecer.jpg/960px-Vino-atardecer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC BY 2.0",
+  "artist": "jenny downing",
+  "page": "https://commons.wikimedia.org/wiki/File:Vino-atardecer.jpg"
+ },
+ "taste-conclude": {
+  "title": "File:Reif Estates ice wine tasting.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Reif_Estates_ice_wine_tasting.jpg/960px-Reif_Estates_ice_wine_tasting.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC BY 2.0",
+  "artist": "Craig Hatfield",
+  "page": "https://commons.wikimedia.org/wiki/File:Reif_Estates_ice_wine_tasting.jpg"
  }
 }

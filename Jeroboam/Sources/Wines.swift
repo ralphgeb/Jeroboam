@@ -98,7 +98,7 @@ struct WinesScreen: View {
                 ForEach(countries, id: \.self) { c in
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: c)
-                        let items = shown.filter { $0.country == c }
+                        let items = shown.filter { $0.country == c }.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
                         GroupCard {
                             ForEach(items) { w in
                                 NavigationLink(value: w) {

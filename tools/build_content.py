@@ -134,6 +134,144 @@ UNIT_COVERS = {
     "l3-france-more": "rhone-hermitage", "l3-italy": "tuscany-chianti", "l3-iberia": "douro-terraces", "l3-central-europe": "wachau",
     "l3-new-world": "mendoza-andes", "l3-tasting": "veraison",
 }
+# ---------------- study guides (generated): everything the practice and mock exams can ask is taught here
+import random as _rnd
+rbyid = {r["id"]: r for r in regions}
+gbyid = {g["id"]: g for g in grapes}
+def _plain(s): return re.sub(r"\*+", "", s or "").strip()
+def _lvl(v): return ["low", "low", "medium-low", "medium", "medium-high", "high"][max(0, min(5, v))]
+EUROPE = {"France", "Italy", "Spain", "Portugal", "Germany", "Austria", "Hungary", "Greece", "Lebanon"}
+
+def _grape_card(g):
+    rs = [rbyid[r]["name"] for r in g.get("regions", []) if r in rbyid][:6]
+    struct = [f"{_lvl(g['body'])} body", f"{_lvl(g['acidity'])} acidity"]
+    if g["berry"] != "white" and g.get("tannin"): struct.append(f"{_lvl(g['tannin'])} tannin")
+    lines = [_plain(g["summary"]), "",
+             f"- **Aromas:** {', '.join(a.lower() for a in g['aromas'][:6])}.",
+             f"- **Structure:** {', '.join(struct)}.",
+             f"- **Origin:** {g['origin']}."]
+    if g.get("aka"): lines.append(f"- **Also called:** {', '.join(g['aka'])}.")
+    if rs: lines.append(f"- **Where it grows:** {', '.join(rs)}.")
+    if g.get("food"): lines.append(f"- **Food:** {', '.join(f.lower() for f in g['food'][:4])}.")
+    return {"learn": g["name"], "visual": f"grape:{g['id']}", "body": "\n".join(lines)}
+
+def _grape_questions(gs, pool, rnd):
+    qs = []
+    for g in gs[:3]:
+        same = [x["name"] for x in pool if x["berry"] == g["berry"] and x["id"] != g["id"]]
+        if len(same) < 3: same = [x["name"] for x in pool if x["id"] != g["id"]]
+        wrong = rnd.sample(same, 3)
+        opts = wrong + [g["name"]]; rnd.shuffle(opts)
+        qs.append({"choice": f"Which grape shows **{', '.join(a.lower() for a in g['aromas'][:3])}**?",
+                   "options": opts, "a": g["name"], "explain": _plain(g["summary"])})
+    if len(gs) >= 3:
+        pairs, used = [], set()
+        for g in gs:
+            r = next((rbyid[r]["name"] for r in g.get("regions", []) if r in rbyid and rbyid[r]["name"] not in used), None)
+            if r and len(pairs) < 4 and g["name"] not in used:
+                used |= {r, g["name"]}; pairs.append([g["name"], r])
+        if len(pairs) >= 3:
+            qs.append({"match": "Match each grape to a place where it grows", "pairs": pairs,
+                       "explain": "Each grape is matched with one of its key regions from the cards above."})
+    return qs
+
+def _region_card(r):
+    gs = [gbyid[x]["name"] for x in r.get("grapes", []) if x in gbyid]
+    lines = [_plain(r["summary"]), ""]
+    parent = next((p for p in regions if r["id"] in (p.get("sub") or []) and p["kind"] != "country"), None)
+    if r["kind"] != "country": lines.append(f"- **Where:** {parent['name'] + ', ' if parent else ''}{r['country']}.")
+    if gs: lines.append(f"- **Grapes:** {', '.join(gs[:5])}.")
+    if r.get("climate"): lines.append(f"- **Climate:** {_plain(r['climate'])}")
+    if r.get("classification"): lines.append(f"- **Quality system:** {_plain(r['classification'])}")
+    for f in (r.get("facts") or [])[:2]: lines.append(f"- {_plain(f)}")
+    c = {"learn": r["name"], "body": "\n".join(lines)}
+    if r.get("map"):
+        hl = ",".join(a for a in (r.get("highlight") or ([] if r["kind"] == "country" else [r["id"]])) if a in maps.get(r["map"], ()))
+        c["visual"] = f"map:{r['map']}" + (f":{hl}" if hl else "")
+    return c
+
+def _region_questions(rs, rnd):
+    qs = []
+    named = [r for r in rs if r["kind"] != "country"]
+    for r in named[:2]:
+        gs = [gbyid[x] for x in r.get("grapes", []) if x in gbyid]
+        if not gs: continue
+        g = gs[0]
+        wrong = [x["name"] for x in grapes if x["berry"] == g["berry"] and x["id"] not in r.get("grapes", [])]
+        if len(wrong) < 3: wrong = [x["name"] for x in grapes if x["id"] not in r.get("grapes", [])]
+        opts = rnd.sample(wrong, 3) + [g["name"]]; rnd.shuffle(opts)
+        qs.append({"choice": f"Which grape is most associated with **{r['name']}**?", "options": opts, "a": g["name"],
+                   "explain": f"{r['name']}: {_plain(r['summary'])}"})
+    if len(named) >= 3:
+        pairs, used = [], set()
+        for r in named:
+            g = next((gbyid[x]["name"] for x in r.get("grapes", []) if x in gbyid and gbyid[x]["name"] not in used), None)
+            if g and r["name"] not in used and len(pairs) < 4:
+                used |= {g, r["name"]}; pairs.append([r["name"], g])
+        if len(pairs) >= 3:
+            qs.append({"match": "Match each region to its signature grape", "pairs": pairs,
+                       "explain": "Each region is matched with a grape it is known for, as in the cards above."})
+    return qs
+
+def _chunks(xs, n):
+    k = max(1, -(-len(xs) // n)); size = -(-len(xs) // k)
+    return [xs[i:i + size] for i in range(0, len(xs), size)]
+
+def study_units(n):
+    rnd = _rnd.Random(n * 7919)
+    units = []
+    gs = [g for g in grapes if g["level"] == n]
+    lessons = []
+    for part in _chunks(gs, 6):
+        title = "Grape files: " + ", ".join(g["name"] for g in part[:2]) + ("…" if len(part) > 2 else "")
+        lessons.append({"title": title, "cards": [_grape_card(g) for g in part] + _grape_questions(part, grapes, rnd)})
+    if lessons:
+        units.append((f"study-l{n}-grapes", {"title": "Grape files", "summary": f"Every Level {n} grape on one card: aromas, structure, origin and where it grows.",
+                                            "icon": "leaf", "cover": "grape-bunch-red", "lessons": lessons}))
+    rs = [r for r in regions if r["level"] == n]
+    order = []
+    for r in rs:
+        if r["country"] not in order: order.append(r["country"])
+    def app_lessons(countries):
+        out = []
+        for c in countries:
+            items = sorted([r for r in rs if r["country"] == c], key=lambda r: (r["kind"] != "country", r["kind"] != "region"))
+            parts = _chunks(items, 8)
+            for i, part in enumerate(parts):
+                names = [r["name"] for r in part if r["kind"] != "country"]
+                t = c + (": " + ", ".join(names[:2]) + ("…" if len(names) > 2 else "") if names else "")
+                out.append({"title": t, "cards": [_region_card(r) for r in part] + _region_questions(part, rnd)})
+        return out
+    groups = [("Appellations to know", "Every Level %d region on a card, with its map, grapes and climate." % n, order)] if n < 3 else [
+        ("Appellations: France", "Every French appellation in Level 3, on its map.", [c for c in order if c == "France"]),
+        ("Appellations: rest of Europe", "Italy, Iberia, central Europe, Greece and Lebanon, region by region.", [c for c in order if c in EUROPE and c != "France"]),
+        ("Appellations: New World", "The Americas, South Africa, Australia and New Zealand, region by region.", [c for c in order if c not in EUROPE])]
+    for i, (t, s, cs) in enumerate(groups):
+        ls = app_lessons(cs)
+        if ls: units.append((f"study-l{n}-regions{i}", {"title": t, "summary": s, "icon": "map", "cover": "vineyard-rows", "lessons": ls}))
+    terms = [t for t in glossary if t.get("level", 1) == n]
+    lessons = []
+    for i, part in enumerate(_chunks(terms, 8)):
+        body = "\n".join(f"- **{t['term']}:** {_plain(t['def'])}" for t in part)
+        cards = [{"learn": "Words to know", "body": body}]
+        for t in rnd.sample(part, min(3, len(part))):
+            wrong = rnd.sample([x["def"] for x in terms if x["term"] != t["term"]], 3)
+            opts = wrong + [t["def"]]; rnd.shuffle(opts)
+            cards.append({"choice": f"What does **{t['term']}** mean?", "options": opts, "a": t["def"], "explain": f"{t['term']}: {_plain(t['def'])}"})
+        lessons.append({"title": f"Vocabulary {i + 1}: {part[0]['term']} to {part[-1]['term']}", "cards": cards})
+    if n == 2:
+        for part in _chunks(styles, 6):
+            cards = [{"learn": s["name"], "body": f"{_plain(s['summary'])}\n\n- **How:** {_plain(s['how'])}\n- **Examples:** {', '.join(s['examples'][:4])}.",
+                      **({"visual": s["visual"]} if s.get("visual") else {})} for s in part]
+            s = rnd.choice(part)
+            opts = rnd.sample([x["name"] for x in styles if x["id"] != s["id"]], 3) + [s["name"]]; rnd.shuffle(opts)
+            cards.append({"choice": f"**{s['examples'][0]}** is an example of which style?", "options": opts, "a": s["name"], "explain": _plain(s["summary"])})
+            lessons.append({"title": "Styles: " + ", ".join(x["name"] for x in part[:2]) + "…", "cards": cards})
+    if lessons:
+        units.append((f"study-l{n}-words", {"title": "Words to know", "summary": "The vocabulary and styles the exams use, in short lists.",
+                                           "icon": "text.book.closed", "cover": "corks", "lessons": lessons}))
+    return units
+
 levels_meta = load("levels.yaml")
 course = {"levels": []}
 card_count = 0
@@ -141,8 +279,8 @@ lesson_ids = set()
 for lv in levels_meta:
     level = {"id": f"l{lv['number']}", "number": lv["number"], "title": lv["title"], "subtitle": lv["subtitle"],
              "color": lv.get("color", "#7D1D3F"), "units": []}
-    for ui, ufile in enumerate(lv["units"]):
-        u = load(os.path.join("course", ufile + ".yaml"))
+    sources = [(f, load(os.path.join("course", f + ".yaml"))) for f in lv["units"]] + study_units(lv["number"])
+    for ui, (ufile, u) in enumerate(sources):
         deep = os.path.join(SRC, "deep", ufile + ".yaml")
         if os.path.exists(deep):
             # deep-dive lessons go before the closing "Going further" lesson
@@ -151,6 +289,7 @@ for lv in levels_meta:
             u["lessons"] = [l for l in u["lessons"] if l["title"] != "Going further"] + extra + tail
         uid = f"l{lv['number']}u{ui + 1}"
         unit = {"id": uid, "title": u["title"], "summary": u["summary"], "icon": u.get("icon", "book"), "lessons": []}
+        if ufile.startswith("study-"): unit["study"] = True
         cover = u.get("cover") or UNIT_COVERS.get(ufile)
         if cover:
             if cover in photo_ids: unit["cover"] = cover

@@ -853,27 +853,14 @@ def build_lebanon():
         areas.append(area_record(pr, rid, name, 0, cidx(None, i + 3), g, tol, min_area=1))
     for i, (rid, name, cazas) in enumerate(L["regions"]):
         g = unary_union([u for n, u in units if n in cazas])
-        zone = L.get("zones", {}).get(rid)
-        if zone:  # vineyards only: trim the caza to where the vines actually are
-            def zshape(sp):
-                if sp["t"] != "patches": return Polygon(shape_latlon(sp)).buffer(0)
-                import random as _r
-                rng = _r.Random(rid)
-                parts = []
-                for la, lo in sp["c"]:
-                    for _ in range(5):
-                        dla, dlo = rng.uniform(-1, 1) * sp["r"] / 111, rng.uniform(-1, 1) * sp["r"] / 92
-                        rr = sp["r"] * rng.uniform(0.35, 0.75)
-                        parts.append(Polygon(shape_latlon({"t": "blob", "c": (la + dla, lo + dlo), "r": (rr, rr * rng.uniform(0.6, 1.0)),
-                                                           "a": rng.uniform(0, 180)})).buffer(0))
-                return unary_union(parts)
-            if any(s.get("t") == "patches" for s in zone) and L.get("wineries"):
-                # hillside vineyards: soft zones around the wineries inside this area
-                pts = [Point(lo, la) for _, la, lo in L["wineries"] if g.buffer(0.01).contains(Point(lo, la))]
-                z = unary_union([p.buffer(0.03, 16) for p in pts]).buffer(0.012).buffer(-0.012) if pts else unary_union([zshape(s) for s in zone])
-            else:
-                z = unary_union([zshape(s) for s in zone])
-            g = g.intersection(z) if g.intersects(z) else z
+        km = L.get("zones", {}).get(rid)
+        if km and L.get("wineries"):
+            # vineyards only: soft zones around the wineries inside this region, clipped to it
+            pts = [Point(lo, la) for _, la, lo in L["wineries"] if g.buffer(0.01).contains(Point(lo, la))]
+            if pts:
+                r = km / 100
+                z = unary_union([p.buffer(r, 24) for p in pts]).buffer(r * 0.6).buffer(-r * 0.6)
+                g = g.intersection(z)
         parent = max(big, key=lambda k: big[k].intersection(g).area) if big else None
         areas.append(area_record(pr, rid, name, 1 if big else 0, cidx(None, i), g, tol, min_area=1, soft=True, parent=parent))
     fb = [g for _, g in gb_units("LBN", "ADM1")]

@@ -29,7 +29,7 @@ lessons:
       - tf: "The cold Humboldt Current cools Chile's coastal vineyards."
         truth: true
         explain: "It brings cool air and morning fog to regions like Casablanca and San Antonio."
-        visual: "map:south-america:casablanca"
+        visual: "map:chile:casablanca"
       - blank: "In the Southern Hemisphere, the warmest slopes face ___."
         answers: [north]
         options: [south, east, west]

@@ -77,33 +77,55 @@ struct PracticeView: View {
 
     private var exams: some View {
         let unlocked = max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1)
-        let names = ["Foundations", "Intermediate", "Advanced"]
+        let info: [(String, String, String, CGFloat)] = [
+            ("Foundations", "Bottle", "Tasting, the great grapes, the classic regions", 0.62),
+            ("Intermediate", "Magnum", "Vineyard, winery, sparkling, labels, more grapes", 0.8),
+            ("Advanced", "Jeroboam", "Every appellation, viticulture and winemaking", 1.0),
+        ]
         return VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: "Mock exams")
-            HStack(spacing: 10) {
+            VStack(spacing: 0) {
                 ForEach(1...3, id: \.self) { lv in
                     let open = lv <= unlocked
+                    let i = info[lv - 1]
                     Button { if open { session = QuizGenerator.exam(level: lv) } } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Text("L\(lv)").font(.system(size: 13, weight: .bold)).foregroundStyle(open ? Palette.onWine : Palette.inkFaint)
-                                    .frame(width: 30, height: 30)
-                                    .background(Circle().fill(open ? Palette.wine : Palette.cardAlt))
-                                Spacer()
-                                Image(systemName: open ? "timer" : "lock.fill").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                        HStack(spacing: 14) {
+                            ZStack(alignment: .bottom) {
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .fill(open ? Palette.wineSoft.opacity(0.75) : Palette.cardAlt)
+                                BottleShape().fill(open ? Palette.bordeaux : Palette.inkFaint.opacity(0.5))
+                                    .frame(width: 17 * i.3, height: 50 * i.3)
+                                    .padding(.bottom, 9)
                             }
-                            Spacer(minLength: 10)
-                            Text(names[lv - 1]).font(.system(size: 14.5, weight: .semibold)).foregroundStyle(open ? Palette.ink : Palette.inkFaint)
-                                .lineLimit(1).minimumScaleFactor(0.85)
-                            Text("30 questions").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                            .frame(width: 52, height: 64)
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text("Level \(lv) · \(i.1)").font(.system(size: 12, weight: .semibold))
+                                    .foregroundStyle(open ? Palette.wine : Palette.inkFaint)
+                                Text(i.0).font(.system(size: 17, weight: .semibold)).foregroundStyle(open ? Palette.ink : Palette.inkFaint)
+                                Text(open ? i.2 : "Finish Level \(lv - 1) to unlock").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                                    .lineLimit(2).multilineTextAlignment(.leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                            Spacer(minLength: 6)
+                            VStack(spacing: 2) {
+                                if open {
+                                    Text("30").font(.system(size: 17, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                                    Text("questions").font(.system(size: 10.5)).foregroundStyle(Palette.inkSoft)
+                                } else {
+                                    Image(systemName: "lock.fill").font(.system(size: 13)).foregroundStyle(Palette.inkFaint)
+                                }
+                            }
+                            .frame(width: 56)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 108, alignment: .topLeading)
-                        .cardStyle(padding: 12)
+                        .padding(.vertical, 12).padding(.horizontal, 14)
+                        .contentShape(Rectangle())
                     }
-                    .buttonStyle(PressableStyle())
+                    .buttonStyle(RowPressStyle())
                     .disabled(!open)
+                    if lv < 3 { Hairline().padding(.leading, 80) }
                 }
             }
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         }
     }
 

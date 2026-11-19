@@ -13,6 +13,8 @@ struct Level: Decodable, Identifiable, Hashable {
     let subtitle: String
     let color: String
     let units: [Unit]
+    var courseUnits: [Unit] { units.filter { !$0.isStudy } }
+    var studyUnits: [Unit] { units.filter(\.isStudy) }
 
     static func == (a: Level, b: Level) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }
@@ -25,6 +27,9 @@ struct Unit: Decodable, Identifiable, Hashable {
     let icon: String
     let lessons: [Lesson]
     var cover: String? = nil
+    /// Generated study-guide units (grape files, appellations, vocabulary): open as soon as the level is.
+    var study: Bool? = nil
+    var isStudy: Bool { study == true }
 
     static func == (a: Unit, b: Unit) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }

@@ -33,11 +33,14 @@ lessons:
         explain: "Stag's Leap Wine Cellars Cabernet and Chateau Montelena Chardonnay beat top French wines in a blind tasting."
   - title: Chile & Argentina
     cards:
-      - learn: Between ocean and Andes
-        visual: "map:south-america"
+      - learn: "Chile: between ocean and Andes"
+        visual: "map:chile"
         body: |
-          - **Chile**: a narrow strip cooled by the **Humboldt Current** and Andean air. Maipo (Cabernet), Colchagua (Carmenère), Casablanca and Leyda (cool whites, Pinot). Phylloxera-free.
-          - **Argentina**: high-altitude desert. **Mendoza** and the **Uco Valley** for Malbec; **Salta** (Cafayate) for Torrontés at up to 3,000 m.
+          A narrow strip cooled by the **Humboldt Current** and Andean air. **Maipo** for Cabernet, **Colchagua** for Carmenère, **Casablanca** and Leyda for cool whites and Pinot Noir. Chile is phylloxera-free.
+      - learn: "Argentina: wine in the high desert"
+        visual: "map:argentina"
+        body: |
+          High-altitude desert at the foot of the Andes. **Mendoza** and the **Uco Valley** for Malbec; **Salta** (Cafayate) for Torrontés at up to 3,000 m.
       - choice: "Why can Argentina make fresh wines despite intense sun?"
         options: ["Very high altitude and cold nights", "Coastal fog", "High rainfall", "Northern latitude"]
         a: "Very high altitude and cold nights"
@@ -45,7 +48,7 @@ lessons:
       - choice: "Which Chilean valley is known for cool-climate Sauvignon Blanc?"
         options: [Casablanca, Maipo, Colchagua, Maule]
         a: Casablanca
-        visual: "map:south-america:casablanca"
+        visual: "map:chile:casablanca"
         explain: "Morning fog from the Pacific keeps it cool."
       - tf: "Argentina's vineyards are irrigated with Andean snowmelt."
         truth: true

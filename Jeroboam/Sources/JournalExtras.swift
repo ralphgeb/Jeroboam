@@ -135,8 +135,8 @@ struct JournalExtras: View {
                 }
                 Spacer(minLength: 0)
                 HStack(alignment: .bottom, spacing: -4) {
-                    WineGlass(color: Color(hex: "#E8D27A"), fill: 0.5).frame(width: 22, height: 44)
-                    WineGlass(color: Color(hex: "#F3E7B0"), fill: 0.5).frame(width: 22, height: 44)
+                    WineGlass(color: Color(hex: "#E8D27A"), fill: 0.5, outline: .white).frame(width: 22, height: 44)
+                    WineGlass(color: Color(hex: "#F3E7B0"), fill: 0.5, outline: .white).frame(width: 22, height: 44)
                 }
                 .opacity(0.95)
             }

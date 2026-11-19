@@ -344,7 +344,8 @@ enum QuizGenerator {
             }
 
         case .terms:
-            switch Int.random(in: 0..<6) {
+            // Styles and labels are taught from Level 2 on.
+            switch Int.random(in: 0..<(maxLevel >= 2 ? 6 : 2)) {
             case 0, 1:
                 let terms = lib.glossary.filter { ($0.level ?? 1) <= maxLevel }
                 guard let t = terms.randomElement() else { return nil }

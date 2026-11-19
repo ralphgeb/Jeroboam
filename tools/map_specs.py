@@ -316,7 +316,7 @@ M("napa-sonoma", "Napa & Sonoma", (38.1, -123.2, 38.85, -122.15), ["USA"], [
   labels=[("Pacific Ocean", 38.25, -123.1, "sea"), ("San Pablo Bay", 38.08, -122.4, "sea")])
 
 # ---------------------------------------------------------------- South America
-M("south-america", "Chile & Argentina", (-41.0, -76.0, -22.0, -62.0), ["CHL", "ARG"], [
+M("chile", "Chile", (-41.5, -75.5, -27.0, -69.0), ["CHL"], [
     R("elqui-limari", "Elqui & Limarí", blob(-30.4, -71.2, (18, 40))),
     R("aconcagua", "Aconcagua", blob(-32.8, -70.8, 18)),
     R("casablanca", "Casablanca", blob(-33.32, -71.4, 12)),
@@ -324,14 +324,17 @@ M("south-america", "Chile & Argentina", (-41.0, -76.0, -22.0, -62.0), ["CHL", "A
     R("colchagua", "Colchagua", blob(-34.6, -71.25, 25)),
     R("maule", "Maule", blob(-35.6, -71.6, 35)),
     R("itata-bio-bio", "Itata & Bío Bío", blob(-36.9, -72.4, (25, 50))),
+], cities=[("Santiago", -33.45, -70.67), ("Valparaíso", -33.05, -71.62), ("Talca", -35.43, -71.66), ("Concepción", -36.83, -73.05)],
+  labels=[("Pacific Ocean", -33.5, -74.3, "sea"), ("ANDES", -31.0, -69.6, "area")])
+
+M("argentina", "Argentina", (-40.5, -71.5, -23.5, -63.5), ["ARG"], [
     R("salta", "Salta (Cafayate)", blob(-26.07, -65.98, 28)),
     R("san-juan", "San Juan", blob(-31.6, -68.6, 30)),
     R("mendoza", "Mendoza", blob(-33.05, -68.85, 32)),
     R("uco-valley", "Uco Valley", strip([(-33.3, -69.2), (-33.7, -69.22), (-34.0, -69.25)], 25)),
     R("patagonia", "Patagonia", blob(-38.95, -67.9, (55, 30))),
-], cities=[("Santiago", -33.45, -70.67), ("Mendoza", -32.89, -68.84), ("Valparaíso", -33.05, -71.62)],
-  labels=[("Pacific Ocean", -30.5, -74.5, "sea"), ("ANDES", -28.5, -69.0, "area"), ("CHILE", -24.5, -70.0, "area"),
-          ("ARGENTINA", -30.0, -64.5, "area")])
+], cities=[("Mendoza", -32.89, -68.84), ("San Juan", -31.54, -68.53), ("Salta", -24.79, -65.41), ("Neuquén", -38.95, -68.06)],
+  labels=[("ANDES", -29.0, -70.2, "area")])
 
 # ---------------------------------------------------------------- Oceania & Africa
 M("australia", "Australia", (-44.0, 112.0, -25.0, 154.5), ["AUS"], [

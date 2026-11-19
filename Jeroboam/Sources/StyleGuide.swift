@@ -69,7 +69,7 @@ struct StyleGuideScreen: View {
     private func styleCard(_ st: Style) -> some View {
         let isOpen = open == st.id
         return VStack(alignment: .leading, spacing: 0) {
-            Button { withAnimation(.snappy) { open = isOpen ? nil : st.id } } label: {
+            Button { withAnimation(.smooth(duration: 0.32)) { open = isOpen ? nil : st.id } } label: {
                 HStack(spacing: 14) {
                     SilhouetteGlass(shape: shape(st), color: st.color, fill: st.fill, sparkling: st.sparkling)
                         .frame(width: 34, height: 58)
@@ -87,8 +87,8 @@ struct StyleGuideScreen: View {
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            if isOpen {
-                VStack(alignment: .leading, spacing: 14) {
+            // Always laid out at full size and revealed by the card's own height, so the text stays fixed to the card.
+            VStack(alignment: .leading, spacing: 14) {
                     Hairline()
                     meter("Serve at", st.temp, st.tempLevel, icon: "thermometer.medium", from: Color(hex: "#5BA4D9"), to: Color(hex: "#E5484D"))
                     meter("Keeps once open", st.keeps, st.keepsLevel, icon: "clock", from: Palette.wineSoft, to: Palette.wine)
@@ -102,10 +102,14 @@ struct StyleGuideScreen: View {
                     }
                 }
                 .padding(.horizontal, 14).padding(.bottom, 14)
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(height: isOpen ? nil : 0, alignment: .top)
+                .opacity(isOpen ? 1 : 0)
+                .clipped()
+                .allowsHitTesting(isOpen)
         }
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(isOpen ? st.color.opacity(0.6) : Palette.line.opacity(0.6), lineWidth: isOpen ? 1.2 : 0.5))
     }
 

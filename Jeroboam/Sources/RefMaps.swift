@@ -14,7 +14,7 @@ enum RefMaps {
     ]
     private static let byMap: [String: String] = [
         "napa-sonoma": "map-napa", "pacific-northwest": "map-oregon", "south-australia": "map-australia",
-        "south-america": "map-south-america",
+        "chile": "map-south-america", "argentina": "map-south-america",
     ]
     static func image(for mapID: String, highlight: Set<String>) -> String? {
         for h in highlight.sorted() where Photos.image("map-" + h) != nil { return "map-" + h }
@@ -101,25 +101,50 @@ struct ZoomableImage: View {
 }
 
 /// "Where it grows": the grape's home region on a reference map (or the atlas map), plus its key regions.
+/// Where a grape grows, shown after the grape itself: one or two places get their name and their own map each;
+/// more places are listed by name, then shown together on the map that holds most of them.
 struct GrapeHomeMap: View {
     let grape: Grape
     var body: some View {
         let lib = ContentStore.shared.library
         let regions = grape.regions.compactMap { id in lib.regions.first { $0.id == id } }
-        if let home = regions.first(where: { $0.map != nil && $0.kind != "country" }) ?? regions.first(where: { $0.map != nil }),
-           let mapID = home.map {
-            let onMap = Set(regions.filter { $0.map == mapID }.map(\.id))
-            VStack(alignment: .leading, spacing: 8) {
+        let mapped = regions.filter { $0.map != nil }
+        if !mapped.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
                 Eyebrow("Where it grows")
-                LessonMap(mapID: mapID, highlight: onMap, compact: true)
-                FlowLayout(spacing: 6, lineSpacing: 6) {
-                    ForEach(regions.prefix(6)) { r in
-                        Text(r.name).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.ink)
-                            .padding(.horizontal, 9).padding(.vertical, 4).background(Capsule().fill(Palette.cardAlt))
+                if mapped.count <= 2 {
+                    ForEach(mapped) { r in
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                                Text(r.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Text(r.country).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                            }
+                            LessonMap(mapID: r.map!, highlight: Self.areas(r), compact: true)
+                        }
+                    }
+                } else {
+                    FlowLayout(spacing: 6, lineSpacing: 6) {
+                        ForEach(regions.prefix(10)) { r in
+                            Text(r.name).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
+                                .padding(.horizontal, 9).padding(.vertical, 4).background(Capsule().fill(Palette.cardAlt))
+                        }
+                    }
+                    let counts = Dictionary(grouping: mapped, by: { $0.map! })
+                    if let best = counts.max(by: { a, b in
+                        a.value.count != b.value.count ? a.value.count < b.value.count
+                            : (mapped.firstIndex { $0.map == a.key } ?? 0) > (mapped.firstIndex { $0.map == b.key } ?? 0)
+                    }) {
+                        LessonMap(mapID: best.key, highlight: Set(best.value.flatMap(Self.areas)), compact: true)
+                            .padding(.top, 2)
                     }
                 }
             }
         }
+    }
+
+    static func areas(_ r: Region) -> Set<String> {
+        if let h = r.highlight, !h.isEmpty { return Set(h) }
+        return r.kind == "country" ? [] : [r.id]
     }
 }
 

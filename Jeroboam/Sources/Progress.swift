@@ -165,7 +165,7 @@ final class GameProgress {
         data.lessons[id] = r
         // Finishing a whole level unlocks the next one.
         for level in ContentStore.shared.course.levels {
-            let ids = level.units.flatMap { $0.lessons.map(\.id) }
+            let ids = level.courseUnits.flatMap { $0.lessons.map(\.id) }
             if !ids.isEmpty && ids.allSatisfy({ data.lessons[$0] != nil }) && !data.unlockedLevels.contains(level.number + 1) {
                 data.unlockedLevels.append(level.number + 1)
             }
@@ -182,19 +182,20 @@ final class GameProgress {
 
     /// The first lesson not yet completed in a level (its "current" node).
     func currentLesson(in level: Level) -> Lesson? {
-        level.units.flatMap(\.lessons).first { !isCompleted($0.id) }
+        level.courseUnits.flatMap(\.lessons).first { !isCompleted($0.id) }
     }
 
     func isUnlocked(_ lesson: Lesson, in level: Level) -> Bool {
         guard isLevelUnlocked(level.number) else { return false }
-        let all = level.units.flatMap(\.lessons)
+        if level.studyUnits.contains(where: { $0.lessons.contains(lesson) }) { return true }
+        let all = level.courseUnits.flatMap(\.lessons)
         guard let i = all.firstIndex(of: lesson) else { return false }
         if i == 0 { return true }
         return isCompleted(all[i - 1].id) || isCompleted(lesson.id)
     }
 
     func levelProgress(_ level: Level) -> Double {
-        let all = level.units.flatMap(\.lessons)
+        let all = level.courseUnits.flatMap(\.lessons)
         guard !all.isEmpty else { return 0 }
         return Double(all.filter { isCompleted($0.id) }.count) / Double(all.count)
     }

@@ -58,7 +58,7 @@ lessons:
   - title: New World stars
     cards:
       - learn: Signature grapes
-        visual: "map:south-america:mendoza,uco-valley"
+        visual: "map:argentina:mendoza,uco-valley"
         body: |
           - **Malbec** (Argentina): inky, plush, blackberry and violet. Altitude in Mendoza keeps it fresh.
           - **Zinfandel** (California): jammy blackberry, high alcohol. Called Primitivo in Italy.

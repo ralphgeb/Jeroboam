@@ -374,7 +374,7 @@
   name: Chile
   country: Chile
   kind: country
-  map: south-america
+  map: chile
   highlight: [elqui-limari, aconcagua, casablanca, maipo, colchagua, maule, itata-bio-bio]
   level: 2
   climate: "Mediterranean. The cold Humboldt Current cools the coast; the Andes send cold air down at night."
@@ -382,29 +382,29 @@
   summary: "A long, thin country between the Andes and the Pacific. Reliable sunshine gives ripe, fruity Cabernet and Carmenère; cool coastal valleys make crisp whites and Pinot."
   facts: ["Chile has never been hit by phylloxera, thanks to natural barriers: desert, mountains, ocean and ice.", "Regions are now also labeled Costa (coastal), Entre Cordilleras (between the ranges) and Andes."]
   sub: [maipo, colchagua, casablanca, aconcagua, maule, itata-bio-bio, elqui-limari]
-- {id: maipo, name: Maipo Valley, country: Chile, kind: region, map: south-america, highlight: [maipo], level: 2, grapes: [cabernet-sauvignon, carmenere, merlot], summary: "Around Santiago: Chile's classic Cabernet Sauvignon, often with a minty edge in Alto Maipo."}
-- {id: colchagua, name: Colchagua, country: Chile, kind: region, map: south-america, highlight: [colchagua], level: 3, grapes: [carmenere, cabernet-sauvignon, syrah], summary: "Warm valley famous for rich reds, especially Carmenère."}
-- {id: casablanca, name: Casablanca Valley, country: Chile, kind: region, map: south-america, highlight: [casablanca], level: 2, climate: "Cool, with morning fog from the Pacific.", grapes: [sauvignon-blanc, chardonnay, pinot-noir], summary: "Chile's original cool-climate region, between Santiago and the coast: crisp whites and Pinot Noir."}
-- {id: aconcagua, name: Aconcagua, country: Chile, kind: region, map: south-america, highlight: [aconcagua], level: 3, grapes: [cabernet-sauvignon, syrah], summary: "Named after the Americas' highest peak: warm-valley reds and cool coastal whites."}
-- {id: maule, name: Maule, country: Chile, kind: region, map: south-america, highlight: [maule], level: 3, grapes: [carignan, carmenere], summary: "Large southern region with old, dry-farmed bush vines of Carignan and País."}
-- {id: itata-bio-bio, name: Itata & Bío Bío, country: Chile, kind: region, map: south-america, highlight: [itata-bio-bio], level: 3, grapes: [cinsault], summary: "Cool, rainy south: old-vine Cinsault and País, plus aromatic whites."}
-- {id: elqui-limari, name: Elqui & Limarí, country: Chile, kind: region, map: south-america, highlight: [elqui-limari], level: 3, grapes: [chardonnay, syrah], summary: "Desert north: limestone-rich Limarí makes mineral Chardonnay."}
+- {id: maipo, name: Maipo Valley, country: Chile, kind: region, map: chile, highlight: [maipo], level: 2, grapes: [cabernet-sauvignon, carmenere, merlot], summary: "Around Santiago: Chile's classic Cabernet Sauvignon, often with a minty edge in Alto Maipo."}
+- {id: colchagua, name: Colchagua, country: Chile, kind: region, map: chile, highlight: [colchagua], level: 3, grapes: [carmenere, cabernet-sauvignon, syrah], summary: "Warm valley famous for rich reds, especially Carmenère."}
+- {id: casablanca, name: Casablanca Valley, country: Chile, kind: region, map: chile, highlight: [casablanca], level: 2, climate: "Cool, with morning fog from the Pacific.", grapes: [sauvignon-blanc, chardonnay, pinot-noir], summary: "Chile's original cool-climate region, between Santiago and the coast: crisp whites and Pinot Noir."}
+- {id: aconcagua, name: Aconcagua, country: Chile, kind: region, map: chile, highlight: [aconcagua], level: 3, grapes: [cabernet-sauvignon, syrah], summary: "Named after the Americas' highest peak: warm-valley reds and cool coastal whites."}
+- {id: maule, name: Maule, country: Chile, kind: region, map: chile, highlight: [maule], level: 3, grapes: [carignan, carmenere], summary: "Large southern region with old, dry-farmed bush vines of Carignan and País."}
+- {id: itata-bio-bio, name: Itata & Bío Bío, country: Chile, kind: region, map: chile, highlight: [itata-bio-bio], level: 3, grapes: [cinsault], summary: "Cool, rainy south: old-vine Cinsault and País, plus aromatic whites."}
+- {id: elqui-limari, name: Elqui & Limarí, country: Chile, kind: region, map: chile, highlight: [elqui-limari], level: 3, grapes: [chardonnay, syrah], summary: "Desert north: limestone-rich Limarí makes mineral Chardonnay."}
 - id: argentina
   name: Argentina
   country: Argentina
   kind: country
-  map: south-america
+  map: argentina
   highlight: [salta, san-juan, mendoza, uco-valley, patagonia]
   level: 2
   climate: "High-altitude desert at the foot of the Andes: intense sun, big day–night temperature swings, irrigation from snowmelt."
   grapes: [malbec, torrontes, cabernet-sauvignon]
   summary: "The world's Malbec capital. Altitude is everything: vineyards lie from about 600 m to over 3,000 m above sea level."
   sub: [mendoza, uco-valley, salta, san-juan, patagonia]
-- {id: mendoza, name: Mendoza, country: Argentina, kind: region, map: south-america, highlight: [mendoza], level: 2, grapes: [malbec, cabernet-sauvignon], summary: "About 70% of Argentina's wine: ripe, velvety Malbec from Luján de Cuyo and Maipú."}
-- {id: uco-valley, name: Uco Valley, country: Argentina, kind: region, map: south-america, highlight: [uco-valley], level: 2, climate: "High (900–1,500 m) and cool at night.", grapes: [malbec, chardonnay], summary: "Mendoza's high-altitude star: fresher, more floral Malbec and fine Chardonnay."}
-- {id: salta, name: Salta, country: Argentina, kind: region, map: south-america, highlight: [salta], level: 3, grapes: [torrontes, malbec], summary: "Some of the highest vineyards in the world around Cafayate: aromatic Torrontés and intense reds."}
-- {id: san-juan, name: San Juan, country: Argentina, kind: region, map: south-america, highlight: [san-juan], level: 3, grapes: [malbec], summary: "Hot region north of Mendoza, known for Syrah."}
-- {id: patagonia, name: Patagonia, country: Argentina, kind: region, map: south-america, highlight: [patagonia], level: 3, grapes: [malbec, pinot-noir], summary: "Cooler, windy south (Neuquén, Río Negro): Pinot Noir and fresh Malbec."}
+- {id: mendoza, name: Mendoza, country: Argentina, kind: region, map: argentina, highlight: [mendoza], level: 2, grapes: [malbec, cabernet-sauvignon], summary: "About 70% of Argentina's wine: ripe, velvety Malbec from Luján de Cuyo and Maipú."}
+- {id: uco-valley, name: Uco Valley, country: Argentina, kind: region, map: argentina, highlight: [uco-valley], level: 2, climate: "High (900–1,500 m) and cool at night.", grapes: [malbec, chardonnay], summary: "Mendoza's high-altitude star: fresher, more floral Malbec and fine Chardonnay."}
+- {id: salta, name: Salta, country: Argentina, kind: region, map: argentina, highlight: [salta], level: 3, grapes: [torrontes, malbec], summary: "Some of the highest vineyards in the world around Cafayate: aromatic Torrontés and intense reds."}
+- {id: san-juan, name: San Juan, country: Argentina, kind: region, map: argentina, highlight: [san-juan], level: 3, grapes: [malbec], summary: "Hot region north of Mendoza, known for Syrah."}
+- {id: patagonia, name: Patagonia, country: Argentina, kind: region, map: argentina, highlight: [patagonia], level: 3, grapes: [malbec, pinot-noir], summary: "Cooler, windy south (Neuquén, Río Negro): Pinot Noir and fresh Malbec."}
 # ======================================================================= AUSTRALIA & NZ
 - id: australia
   name: Australia
@@ -494,10 +494,8 @@
     - "**Château Ksara**, founded by Jesuits in 1857, keeps its wine in Roman-era limestone caves."
     - "Most vineyards lie in the **Bekaa Valley**, a high plateau between the Mount Lebanon and Anti-Lebanon ranges."
     - "**Obaideh** and **Merwah** are native white grapes, sometimes compared to Chardonnay and Sémillon."
-  sub: [bekaa-valley, west-bekaa, baalbek, mount-lebanon, batroun, jezzine]
-- {id: bekaa-valley, name: Bekaa Valley, country: Lebanon, kind: region, map: lebanon, highlight: [bekaa-valley], level: 3, climate: "High plateau (about 1,000 m): sunny, dry summers with cool nights.", grapes: [cabernet-sauvignon, cinsault, syrah], summary: "The heart of Lebanese wine around Zahlé, home to Ksara and many leading estates: ripe, spicy red blends with fresh acidity from the altitude."}
-- {id: west-bekaa, name: West Bekaa, country: Lebanon, kind: region, map: lebanon, highlight: [west-bekaa], level: 3, grapes: [cabernet-sauvignon, syrah, cinsault], summary: "The southern Bekaa around Kefraya and Ammiq: higher, cooler sites on the slopes of Mount Barouk, giving elegant reds."}
+  sub: [bekaa-valley, baalbek, mount-lebanon, batroun]
+- {id: bekaa-valley, name: Bekaa Valley, country: Lebanon, kind: region, map: lebanon, highlight: [bekaa-valley], level: 3, climate: "High plateau (about 1,000 m): sunny, dry summers with cool nights.", grapes: [cabernet-sauvignon, cinsault, syrah], summary: "The heart of Lebanese wine, from Zahlé south to the West Bekaa (Kefraya, Ammiq): home to Ksara and many leading estates. Ripe, spicy red blends with fresh acidity from the altitude."}
 - {id: baalbek, name: Baalbek, country: Lebanon, kind: region, map: lebanon, highlight: [baalbek], level: 3, grapes: [cinsault, carignan], summary: "The northern Bekaa, near the Roman Temple of Bacchus. Drier and higher, with old bush vines and a growing number of new estates."}
-- {id: mount-lebanon, name: Mount Lebanon, country: Lebanon, kind: region, map: lebanon, highlight: [mount-lebanon], level: 3, grapes: [obaideh, merwah, cinsault], summary: "Terraced mountain vineyards above Beirut and Byblos; Château Musar's winery is in Ghazir. Fresh whites and lighter reds."}
+- {id: mount-lebanon, name: Mount Lebanon, country: Lebanon, kind: region, map: lebanon, highlight: [mount-lebanon], level: 3, grapes: [obaideh, merwah, cinsault], summary: "Terraced mountain vineyards above Beirut and Byblos, south to the green hills of Jezzine; Château Musar's winery is in Ghazir. Fresh whites and lighter reds."}
 - {id: batroun, name: Batroun, country: Lebanon, kind: region, map: lebanon, highlight: [batroun], level: 3, grapes: [syrah, cabernet-sauvignon], summary: "Coastal hills in the north with a cluster of small family wineries; sea breezes and limestone soils."}
-- {id: jezzine, name: Jezzine, country: Lebanon, kind: region, map: lebanon, highlight: [jezzine], level: 3, grapes: [cinsault, syrah], summary: "High, green hills in the south, an emerging area for fresh, aromatic wines."}

@@ -28,11 +28,22 @@ struct LearnView: View {
                                     .padding(.horizontal, Metrics.margin)
                                     .padding(.top, 22)
                             }
-                            ForEach(Array(level.units.enumerated()), id: \.element.id) { i, unit in
+                            ForEach(Array(level.courseUnits.enumerated()), id: \.element.id) { i, unit in
                                 UnitSection(unit: unit, number: i + 1, level: level,
                                             onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
                                     .id(unit.id)
                                     .padding(.top, 34)
+                            }
+                            if !level.studyUnits.isEmpty {
+                                StudyGuideHeader(level: level)
+                                    .padding(.horizontal, Metrics.margin)
+                                    .padding(.top, 44)
+                            }
+                            ForEach(Array(level.studyUnits.enumerated()), id: \.element.id) { i, unit in
+                                UnitSection(unit: unit, number: i + 1, level: level,
+                                            onStart: { start($0) }, onGuide: { guidebook = unit }, onLocked: { askUnlock = level })
+                                    .id(unit.id)
+                                    .padding(.top, 30)
                             }
                         }
                         Color.clear.frame(height: 40)
@@ -84,7 +95,7 @@ struct LearnView: View {
                     .offset(y: -8 * collapse)
                     .allowsHitTesting(collapse < 0.5)
                 if let level = currentLevel {
-                    let lessons = level.units.flatMap(\.lessons)
+                    let lessons = level.courseUnits.flatMap(\.lessons)
                     let done = lessons.filter { progress.isCompleted($0.id) }.count
                     HStack(spacing: 10) {
                         Text(level.title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
@@ -137,7 +148,7 @@ struct LearnView: View {
         VStack(alignment: .leading, spacing: 8) {
             Eyebrow(level.subtitle, color: Palette.level(level.number))
             Text(level.title).font(.screenTitle).kerning(-0.4).foregroundStyle(Palette.ink)
-            let lessons = level.units.flatMap(\.lessons)
+            let lessons = level.courseUnits.flatMap(\.lessons)
             let done = lessons.filter { progress.isCompleted($0.id) }.count
             HStack(spacing: 12) {
                 GeometryReader { geo in
@@ -376,5 +387,29 @@ struct GuidebookView: View {
                 ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() }.foregroundStyle(Palette.wine) }
             }
         }
+    }
+}
+
+/// Separates the course from the study guide: reference lessons that cover everything the exams ask.
+struct StudyGuideHeader: View {
+    let level: Level
+    var body: some View {
+        HStack(alignment: .top, spacing: 14) {
+            ZStack {
+                Circle().fill(Palette.level(level.number).opacity(0.12))
+                Image(systemName: "books.vertical").font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(Palette.level(level.number))
+            }
+            .frame(width: 44, height: 44)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Study guide").font(.sectionTitle).foregroundStyle(Palette.ink)
+                Text("Every grape, region and term the Level \(level.number) exam can ask about. Open in any order.")
+                    .font(.system(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(16)
+        .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Palette.card))
     }
 }

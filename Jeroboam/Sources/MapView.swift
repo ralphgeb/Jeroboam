@@ -306,33 +306,11 @@ struct MapRenderer {
                 }
                 return p
             }()
-            let thumbHatch: Path = {
-                guard thumb else { return Path() }
-                var p = Path()
-                let vis = CGRect(x: -offset.width / s, y: -offset.height / s, width: size.width / s, height: size.height / s)
-                let step = 3.2 / s
-                var x = vis.minX - vis.height
-                while x < vis.maxX { p.move(to: CGPoint(x: x, y: vis.maxY)); p.addLine(to: CGPoint(x: x + vis.height, y: vis.minY)); x += step }
-                return p
-            }()
             for a in g.areas where a.level <= (regionsOnly ? 0 : drawLevel) {
                 let isContainer = g.hasChildren.contains(a.id) && a.level < drawLevel
                 var color = Palette.mapColor(a.color)
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
                 let isHL = highlight.contains(a.id) || selected == a.id
-                if thumb {
-                    // thumbnails: only the big regions, as a colored hatch with an outline
-                    if a.level > 0 { continue }
-                    let bb = a.path.boundingRect
-                    if max(bb.width, bb.height) * s < 4 { continue }
-                    let base = Palette.mapColor(a.color)
-                    regions.fill(a.path, with: .color(dark ? base.opacity(0.18) : base.mix(with: .white, 0.86)))
-                    var hc = regions
-                    hc.clip(to: a.path)
-                    hc.stroke(thumbHatch, with: .color(base.opacity(dark ? 0.75 : 0.7)), lineWidth: hair * 1.0)
-                    regions.stroke(a.path, with: .color(base.opacity(0.9)), lineWidth: hair * 1.1)
-                    continue
-                }
                 if regionsOnly {
                     let base = Palette.mapColor(a.color)
                     let dim = anyHL && !isHL ? 0.45 : 1.0
@@ -689,10 +667,10 @@ extension MapGeometry {
         let c = contentBounds
         if t.isEmpty || t.width * t.height > c.width * c.height * 6 { t = c }
         let fit = size.width / W
-        let cover = max(size.width / W, size.height / H)
         let pad: CGFloat = 0.07
         let content = min(size.width * (1 - 2 * pad) / max(1, t.width), size.height * (1 - 2 * pad) / max(1, t.height))
-        let s = max(cover, content)
+        // Always fit the whole country (tall ones like Portugal included); the edges fade if the map runs short.
+        let s = content
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))

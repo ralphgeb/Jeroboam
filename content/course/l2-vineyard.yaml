@@ -62,7 +62,7 @@ lessons:
         options: ["Cooler temperatures at altitude", "More rainfall", "Less sunlight", "Richer soils"]
         a: "Cooler temperatures at altitude"
         explain: "Argentina's Mendoza vineyards sit at 800–1,500 m, where cool nights preserve acidity."
-        visual: "map:south-america:uco-valley"
+        visual: "map:argentina:uco-valley"
       - blank: "Warm-climate Chardonnay tastes of tropical fruit; cool-climate Chardonnay tastes of green ___ and citrus."
         answers: [apple]
         options: [pepper, olive, banana]

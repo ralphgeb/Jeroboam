@@ -73,7 +73,7 @@ COUNTRIES = {
         "saale-unstrut": U("ADM3", ["Burgenlandkreis", "Saalekreis"]),
         "sachsen": U("ADM3", ["Meißen", "Dresden, Kreisfreie Stadt"]),
     }},
-    "south-america": {"iso": ["CHL", "ARG"], "regions": {
+    "chile": {"iso": ["CHL"], "regions": {
         "elqui-limari": U("CHL/ADM2", ["Provincia de Elqui", "Provincia de Limarí"]),
         "aconcagua": U("CHL/ADM2", ["Provincia de Los Andes", "Provincia de San Felipe de Aconcagua", "Provincia de Quillota"]),
         "casablanca": U("CHL/ADM3", ["Casablanca"]),
@@ -82,6 +82,8 @@ COUNTRIES = {
         "maule": U("CHL/ADM2", ["Provincia de Talca", "Provincia de Linares", "Provincia de Cauquenes"]),
         "itata-bio-bio": U("CHL/ADM2", ["Provincia de Itata", "Provincia de Diguillín", "Provincia de Punilla",
                                         "Provincia de Bío-Bío"]),
+    }},
+    "argentina": {"iso": ["ARG"], "regions": {
         "salta": U("ARG/ADM2", ["Cafayate", "San Carlos", "Molinos", "Cachi"]),
         "san-juan": U("ARG/ADM2", ["Pocito", "Rawson", "Sarmiento", "25 de Mayo", "Caucete", "San Martín", "Angaco",
                                    "Albardón", "Chimbas", "Rivadavia", "Santa Lucía", "9 de julio", "Ullum", "Zonda",
@@ -130,24 +132,15 @@ COUNTRIES = {
 LEBANON = {
     "id": "lebanon", "title": "Lebanon", "bbox": (32.95, 34.95, 34.75, 36.75), "focus": ["LBN"],
     "regions": [  # (id, name, cazas)
-        ("bekaa-valley", "Bekaa Valley", ["Zahle"]),
-        ("west-bekaa", "West Bekaa", ["West Bekaa", "Rachaya"]),
+        ("bekaa-valley", "Bekaa Valley", ["Zahle", "West Bekaa", "Rachaya"]),
         ("baalbek", "Baalbek", ["Baalbek"]),
-        ("mount-lebanon", "Mount Lebanon", ["Aley", "Baabda", "El Metn", "Kesrouan", "Chouf", "Jbail"]),
+        ("mount-lebanon", "Mount Lebanon", ["Aley", "Baabda", "El Metn", "Kesrouan", "Chouf", "Jbail", "Jezzine"]),
         ("batroun", "Batroun", ["Batroun", "Koura"]),
-        ("jezzine", "Jezzine", ["Jezzine"]),
     ],
     # vineyard zones (valley floor / hill pockets) the cazas are trimmed to
     # vineyard zones the cazas are trimmed to: the Bekaa valley floor between the two ranges, the western slopes, coastal hills
-    "zones": {
-        "bekaa-valley": [{"t": "poly", "p": [(33.50,35.66),(33.60,35.71),(33.70,35.79),(33.80,35.86),(33.88,35.93),(33.97,36.02),(34.06,36.11),(34.16,36.22),(34.24,36.32),(34.20,36.42),(34.08,36.30),(33.98,36.17),(33.88,36.06),(33.78,35.97),(33.68,35.90),(33.58,35.82),(33.48,35.76)]}],
-        "west-bekaa": [{"t": "poly", "p": [(33.50,35.66),(33.60,35.71),(33.70,35.79),(33.80,35.86),(33.88,35.93),(33.97,36.02),(34.06,36.11),(34.16,36.22),(34.24,36.32),(34.20,36.42),(34.08,36.30),(33.98,36.17),(33.88,36.06),(33.78,35.97),(33.68,35.90),(33.58,35.82),(33.48,35.76)]}],
-        "baalbek": [{"t": "poly", "p": [(33.50,35.66),(33.60,35.71),(33.70,35.79),(33.80,35.86),(33.88,35.93),(33.97,36.02),(34.06,36.11),(34.16,36.22),(34.24,36.32),(34.20,36.42),(34.08,36.30),(33.98,36.17),(33.88,36.06),(33.78,35.97),(33.68,35.90),(33.58,35.82),(33.48,35.76)]}],
-        # scattered hillside vineyards: clusters of small patches around the wine villages
-        "mount-lebanon": [{"t": "patches", "c": [(34.02, 35.66), (33.97, 35.70), (33.88, 35.70), (33.83, 35.64), (33.70, 35.60), (33.66, 35.66)], "r": 2.6}],
-        "batroun": [{"t": "patches", "c": [(34.26, 35.70), (34.23, 35.75), (34.20, 35.79), (34.28, 35.78)], "r": 2.4}],
-        "jezzine": [{"t": "patches", "c": [(33.55, 35.58), (33.52, 35.62), (33.58, 35.55)], "r": 2.2}],
-    },
+    # vineyard zones = soft areas around the wineries inside each region (no hand-drawn shapes); km radius per region
+    "zones": {"bekaa-valley": 4.5, "baalbek": 4.5, "mount-lebanon": 3.2, "batroun": 3.2},
     # level 0: the four wine regions on the owner's winery map (governorates)
     "regions0": [("lb-north", "North Lebanon", ["Liban-Nord", "Aakkâr"]), ("lb-mount", "Mount Lebanon", ["Mont-Liban", "Beyrouth", "Keserwan-Jbeil"]),
                  ("lb-bekaa", "Bekaa", ["Béqaa", "Baalbek-Hermel"]), ("lb-south", "South Lebanon", ["Liban-Sud", "Nabatîyé"])],
@@ -317,7 +310,7 @@ HIERARCHY = {
         "portalegre-sub": ("Portalegre", "alentejo", G("ADM2", ["Portalegre"])),
         "moura-sub": ("Moura", "alentejo", G("ADM2", ["Moura", "Serpa"])),
     }},
-    "south-america": {"snap": "CHL/ADM3", "groups": {
+    "chile": {"snap": "CHL/ADM3", "groups": {
         "cl-atacama": ("Atacama", G("CHL/ADM1", ["Región de Atacama"])),
         "cl-coquimbo": ("Coquimbo", G("CHL/ADM1", ["Región de Coquimbo"])),
         "cl-aconcagua": ("Aconcagua", G("CHL/ADM1", ["Región de Valparaíso"])),
@@ -325,6 +318,15 @@ HIERARCHY = {
                                                                 "Región del Maule"])),
         "cl-south": ("South", G("CHL/ADM1", ["Región de Ñuble", "Región del Bío-Bío", "Región de La Araucanía"])),
         "cl-austral": ("Austral", G("CHL/ADM1", ["Región de Los Ríos", "Región de Los Lagos"])),
+    }, "units1": {
+        "choapa": ("Choapa", G("CHL/ADM2", ["Provincia de Choapa"])),
+        "san-antonio": ("San Antonio", G("CHL/ADM2", ["Provincia de San Antonio"])),
+        "cachapoal": ("Cachapoal", G("CHL/ADM2", ["Provincia de Cachapoal"])),
+        "curico": ("Curicó", G("CHL/ADM2", ["Provincia de Curicó"])),
+        "malleco": ("Malleco", G("CHL/ADM2", ["Provincia de Malleco"])),
+        "osorno": ("Osorno", G("CHL/ADM2", ["Provincia de Osorno"])),
+    }},
+    "argentina": {"snap": "ARG/ADM2", "groups": {
         "ar-salta": ("Salta", G("ARG/ADM1", ["Salta"])),
         "ar-tucuman": ("Tucumán", G("ARG/ADM1", ["Tucumán"])),
         "ar-catamarca": ("Catamarca", G("ARG/ADM1", ["Catamarca"])),
@@ -333,12 +335,6 @@ HIERARCHY = {
         "ar-mendoza": ("Mendoza", G("ARG/ADM1", ["Mendoza"])),
         "ar-patagonia": ("Patagonia", G("ARG/ADM1", ["Neuquén", "Río Negro"])),
     }, "units1": {
-        "choapa": ("Choapa", G("CHL/ADM2", ["Provincia de Choapa"])),
-        "san-antonio": ("San Antonio", G("CHL/ADM2", ["Provincia de San Antonio"])),
-        "cachapoal": ("Cachapoal", G("CHL/ADM2", ["Provincia de Cachapoal"])),
-        "curico": ("Curicó", G("CHL/ADM2", ["Provincia de Curicó"])),
-        "malleco": ("Malleco", G("CHL/ADM2", ["Provincia de Malleco"])),
-        "osorno": ("Osorno", G("CHL/ADM2", ["Provincia de Osorno"])),
         "san-rafael": ("San Rafael", G("ARG/ADM2", ["San Rafael", "General Alvear"])),
         "famatina": ("Famatina", G("ARG/ADM2", ["Chilecito", "Famatina"])),
         "calchaqui-catamarca": ("Santa María", G("ARG/ADM2", ["Santa María", "Belén"])),
