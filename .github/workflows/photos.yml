@@ -2,6 +2,8 @@ name: Fetch photos
 # Downloads openly licensed photos from Wikimedia Commons (content/photos.json) with credits.
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -12,7 +14,13 @@ jobs:
           mkdir -p out
           python3 tools/fetch_photos.py content/photos.json out
           ls -la out
-      - uses: actions/upload-artifact@v4
-        with:
-          name: photos
-          path: out
+      - name: Publish to the photos branch
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b photos
+          git add -A
+          git commit -qm "Photos from Wikimedia Commons"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" photos
