@@ -173,6 +173,12 @@ jobs:
               print("Created subscription", PID)
           sid = sub["id"]
           print("Subscription state:", sub["attributes"].get("state"))
+          # territories first: Apple refuses prices in places the subscription isn't sold yet
+          terr = [t["id"] for t in (call("GET", "/v1/territories?limit=200") or {}).get("data", [])]
+          if terr and call("GET", f"/v1/subscriptions/{sid}/subscriptionAvailability") is None:
+              r = call("POST", "/v1/subscriptionAvailabilities", {"data": {"type": "subscriptionAvailabilities", "attributes": {"availableInNewTerritories": True},
+                   "relationships": {"subscription": rel("subscriptions", sid), "availableTerritories": {"data": [{"type": "territories", "id": t} for t in terr]}}}})
+              print("Availability set in", len(terr), "territories" if r is not None else "territories (failed)")
           have = (call("GET", f"/v1/subscriptions/{sid}/prices?limit=1") or {}).get("data", [])
           if not have:
               pts = call("GET", f"/v1/subscriptions/{sid}/pricePoints?" + urllib.parse.urlencode({"filter[territory]": "USA", "limit": "200"})) or {}
@@ -192,10 +198,6 @@ jobs:
                   print("Set $0.99 (and equivalents) in", ok, "territories")
               else:
                   print("::warning::no $0.99 price point found")
-          terr = [t["id"] for t in (call("GET", "/v1/territories?limit=200") or {}).get("data", [])]
-          if terr:
-              call("POST", "/v1/subscriptionAvailabilities", {"data": {"type": "subscriptionAvailabilities", "attributes": {"availableInNewTerritories": True},
-                   "relationships": {"subscription": rel("subscriptions", sid), "availableTerritories": {"data": [{"type": "territories", "id": t} for t in terr]}}}})
           print("Done. A review screenshot can be added in App Store Connect; until the product loads, the app uses its test checkout.")
           PY
 
