@@ -428,3 +428,9 @@ riscal-baron | 110 | - | https://www.jamessuckling.com/tasting-notes/227019/marq
 roda-reserva | 57 | - | https://www.jamessuckling.com/tasting-notes/271041/bodegas-roda-rioja-roda-i-reserva-2020
 barca-velha | 930 | - | https://www.jamessuckling.com/tasting-notes/194653/casa-ferreirinha-douro-barca-velha-1999
 egon-muller-kabinett | 219 | - | https://www.jamessuckling.com/tasting-notes/247583/egon-muller-scharzhof-riesling-mosel-scharzhofberg-kabinett-2022
+f-x-pichler-kellerberg | 98 | - | https://www.jamessuckling.com/tasting-notes/71423/f-x-pichler-riesling-wachau-ried-kellerberg-smaragd-2016
+royal-tokaji | 85 | - | https://www.jamessuckling.com/tasting-notes/275999/royal-tokaji-tokaji-aszu-5-puttonyos-2018
+colgin-cariad | 531 | - | https://www.jamessuckling.com/tasting-notes/147702/colgin-cellars-napa-valley-cariad-2018
+inglenook-rubicon | 182 | - | https://www.jamessuckling.com/tasting-notes/278058/inglenook-napa-valley-rubicon-2014/
+silver-oak | 225 | - | https://www.jamessuckling.com/tasting-notes/302526/silver-oak-cabernet-sauvignon-napa-valley
+domaine-serene | 97 | - | https://www.jamessuckling.com/tasting-notes/252643/domaine-serene-pinot-noir-willamette-valley-evenstad-reserve-2021
