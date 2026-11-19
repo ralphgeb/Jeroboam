@@ -51,9 +51,9 @@ get("https://osmdata.openstreetmap.de/download/simplified-land-polygons-complete
 zipfile.ZipFile("dl/land.zip").extractall("dl/land")
 shp = glob.glob("dl/land/**/*.shp", recursive=True)[0]
 land = gpd.read_file(shp).to_crs(4326)
-boxes = {"europe": (-11, 34, 30, 56), "lebanon": (34, 32.5, 37, 35),
-         "usa-west": (-125, 32, -116, 49.5), "southamerica": (-76, -46, -62, -22), "australia": (113, -44, 154, -25),
-         "nz": (165, -48, 179, -34), "safrica": (17, -35.5, 23, -31)}
+boxes = {"europe": (-26, 28, 38, 62), "lebanon": (32.5, 31.5, 38.5, 36),
+         "usa-west": (-130, 28, -110, 52), "southamerica": (-82, -50, -56, -16), "australia": (108, -47, 160, -20),
+         "nz": (162, -50, 182, -32), "safrica": (13, -37, 27, -28)}
 from shapely.geometry import box
 for k, b in boxes.items():
     sub = land[land.intersects(box(*b))].copy()
