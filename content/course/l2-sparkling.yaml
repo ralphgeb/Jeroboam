@@ -15,18 +15,18 @@ lessons:
       - choice: "In the traditional method, where does the second fermentation happen?"
         options: [In the bottle, In a pressure tank, In oak barrels, There is no second fermentation]
         a: In the bottle
-        explain: "That's what makes Champagne, Cava and Crémant special, and labor-intensive."
+        explain: "In the traditional method, the second fermentation happens inside the bottle itself. Sugar and yeast are added to a still base wine, the bottle is capped, and the CO₂ stays trapped as bubbles. It is labor-intensive, which is part of why Champagne, Cava and Crémant cost more."
       - choice: "Brioche and biscuit aromas in Champagne come from…"
         options: [Ageing on the lees, New oak, The Chardonnay grape, Added sugar]
         a: Ageing on the lees
-        explain: "Autolysis, the breakdown of dead yeast cells, releases these bready, toasty notes."
+        explain: "Autolysis, the breakdown of dead yeast cells (lees) over months and years, releases bready, toasty notes such as brioche and biscuit. The longer a Champagne rests on its lees, the more of these flavors it develops."
       - blank: "Turning bottles so the yeast slides into the neck is called ___."
         answers: [riddling]
         options: [dosage, pruning, racking]
         explain: "Riddling (remuage) used to be done by hand on wooden racks; today machines called gyropalettes do most of it."
       - tf: "Dosage is the mix of wine and sugar added after disgorgement."
         truth: true
-        explain: "Dosage sets the final sweetness, from Brut Nature (no added sugar) to Doux."
+        explain: "Dosage is the mix of wine and sugar added after disgorgement. It sets the final sweetness, from Brut Nature (no added sugar) to Doux (over 50 g/L), and balances Champagne's very high acidity."
   - title: Champagne
     cards:
       - learn: The original
@@ -42,17 +42,17 @@ lessons:
       - choice: "Which three grapes dominate Champagne?"
         options: ["Chardonnay, Pinot Noir, Meunier", "Chardonnay, Sauvignon Blanc, Riesling", "Glera, Pinot Grigio, Chardonnay", "Macabeo, Xarel·lo, Parellada"]
         a: "Chardonnay, Pinot Noir, Meunier"
-        explain: "Macabeo, Xarel·lo and Parellada make Cava; Glera makes Prosecco."
+        explain: "Champagne is made mainly from Chardonnay, Pinot Noir and Pinot Meunier. Macabeo, Xarel·lo and Parellada make Cava; Glera makes Prosecco. Two black grapes and one white make most Champagne, which is why Blanc de Blancs is the exception."
       - choice: "A Champagne labeled Blanc de Blancs is made from…"
         options: ["Chardonnay only", "Pinot Noir only", "Black grapes only", "Any grapes"]
         a: "Chardonnay only"
-        explain: "'White from whites'. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier)."
+        explain: "A Blanc de Blancs is made from Chardonnay only: white from whites, usually fine, citrusy and long-lived. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier), fuller and richer."
       - tf: "Non-vintage Champagne must age at least 15 months before release."
         truth: true
-        explain: "At least 12 months of that on lees. Vintage Champagne needs at least three years."
+        explain: "Non-vintage Champagne must age at least 15 months before release, with at least 12 months of that on lees. Vintage Champagne needs at least three years, and most houses age it much longer."
       - match: "Match the Champagne district to its main grape"
         pairs: [[Côte des Blancs, Chardonnay], [Montagne de Reims, Pinot Noir], [Vallée de la Marne, Meunier]]
-        explain: "Each district is known for the grape that best suits its soils and frost risk."
+        explain: "Each district is known for the grape that best suits its soils and frost risk: Montagne de Reims for Pinot Noir, the Côte des Blancs for Chardonnay, and the Vallée de la Marne for Meunier, which ripens earlier and resists spring frost."
         visual: "map:champagne"
   - title: Prosecco, Cava & more
     cards:
@@ -69,23 +69,23 @@ lessons:
       - choice: "Prosecco is mostly made by…"
         options: [The tank method, The traditional method, Carbonic maceration, Fortification]
         a: The tank method
-        explain: "Tank fermentation preserves Glera's fresh, fruity, floral character."
+        explain: "Prosecco is mostly made by the tank method (Charmat), where the second fermentation happens in a large pressurized tank. This preserves Glera's fresh, fruity, floral character and keeps it cheaper than traditional-method wines."
       - choice: "Cava comes from which country?"
         options: [Spain, Italy, France, Portugal]
         a: Spain
         visual: "map:spain:penedes"
-        explain: "Mostly from Penedès near Barcelona, made by the traditional method."
+        explain: "Cava comes from Spain, mostly from Penedès near Barcelona, and is made by the traditional method, like Champagne, usually from Macabeo, Xarel·lo and Parellada. It is one of the best-value sparkling wines in the world."
       - tf: "Crémant is a French traditional-method sparkling wine made outside Champagne."
         truth: true
-        explain: "Same method, different places and often local grapes: often great value."
+        explain: "Crémant uses the same method as Champagne but in other places and often with local grapes: Crémant d'Alsace, de Loire, de Bourgogne. It is often great value, since the land is cheaper."
       - blank: "Prosecco is made from the ___ grape."
         answers: [Glera]
         options: [Garganega, Cortese, Macabeo]
-        explain: "Glera grows in the Veneto and Friuli. The best comes from the hills of Conegliano-Valdobbiadene."
+        explain: "Glera grows in the Veneto and Friuli. The best Prosecco comes from the steep hills of Conegliano-Valdobbiadene, a UNESCO World Heritage landscape, and is labeled DOCG."
       - choice: "Which sparkling wine label term is drier: Brut or Extra Dry?"
         options: [Brut, Extra Dry, They are the same, Neither; both are sweet]
         a: Brut
-        explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L)."
+        explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L). The sparkling sweetness scale runs Brut Nature, Extra Brut, Brut, Extra Dry, Sec, Demi-sec, Doux: dry is not the driest."
   - title: Going further
     cards:
       - learn: Bubble methods
@@ -111,10 +111,10 @@ lessons:
         - Cava
         - Crémant de Loire
         a: Prosecco
-        explain: Prosecco's second fermentation happens in pressurized tanks, keeping fresh pear and apple fruit.
+        explain: "Prosecco's second fermentation happens in pressurized tanks, keeping fresh pear and apple fruit. This gives a light, fruity wine, unlike the toasty notes of bottle-fermented Champagne."
       - tf: Extra Dry sparkling wine is drier than Brut.
         truth: false
-        explain: 'A historical quirk: Extra Dry has a little more sugar than Brut.'
+        explain: "A historical quirk: Extra Dry has a little more sugar than Brut, because in the 19th century sparkling wines were much sweeter, and Brut was invented as a new, drier style."
       - match: Match the sparkling wine to its country
         pairs:
         - - Champagne
@@ -125,7 +125,7 @@ lessons:
           - Italy
         - - Sekt
           - Germany
-        explain: Most wine countries have a sparkling tradition.
+        explain: "Most wine countries have a sparkling tradition: Champagne in France, Cava in Spain, Prosecco and Franciacorta in Italy, Sekt in Germany, Cap Classique in South Africa. The method varies, the bubbles do not."
       - choice: Where does Champagne's toasty, bready character come from?
         options:
         - Ageing on the lees
@@ -133,7 +133,7 @@ lessons:
         - Adding toast to the tank
         - Very ripe grapes
         a: Ageing on the lees
-        explain: Dead yeast cells break down over months or years, giving brioche and biscuit notes.
+        explain: "Dead yeast cells break down over months or years, giving brioche, biscuit and toast notes. That is autolysis, and it is why a long-aged Champagne tastes richer and creamier than a young one."
       - blank: Removing the yeast plug from the neck of the bottle is called ___.
         answers:
         - disgorgement
@@ -142,4 +142,4 @@ lessons:
         - dosage
         - tirage
         - pressing
-        explain: The neck is frozen, the cap removed, and pressure pushes out the yeast plug.
+        explain: "Disgorgement: the neck is frozen, the cap removed, and the pressure pushes out the plug of dead yeast. The bottle is then topped up with dosage and corked."

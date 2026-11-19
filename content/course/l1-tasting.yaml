@@ -19,19 +19,19 @@ lessons:
       - choice: "What is the first step when tasting wine?"
         options: [Look, Smell, Taste, Swirl and spit]
         a: Look
-        explain: "Appearance comes first: clarity, intensity and color give early clues about grape, age and winemaking."
+        explain: "Appearance comes first: clarity, intensity and color give early clues about the grape, age and winemaking, even before you smell. Then come nose, palate and finally your conclusion. Following the same order each time is what makes tasting skills improve."
       - choice: "Which color describes a young red wine?"
         options: [Purple, Tawny, Amber, Gold]
         a: Purple
         visual: "glassonly:purple"
-        explain: "Purple or ruby means youth. Tawny and garnet suggest age. Amber and gold are white wine colors."
+        explain: "Purple or ruby suggests youth, while garnet and tawny suggest age, as the pigments change and fall out over time. Amber and gold are white-wine colors, so they are not used to describe young reds."
       - tf: "White wines get paler as they age."
         truth: false
-        explain: "The opposite: whites deepen, moving from lemon toward gold and amber as they age or spend time in oak."
+        explain: "The opposite: whites deepen, moving from lemon toward gold and amber with age or time in oak, because slow oxidation browns them. Reds lose color with age, so the two move in opposite directions."
       - blank: "To judge color, tilt the glass against a ___ background."
         answers: [white]
         options: [black, red, dark, blue]
-        explain: "A white tablecloth or sheet of paper shows the true color and lets you compare the core with the rim."
+        explain: "A white tablecloth or sheet of paper shows the true color and lets you compare the core with the rim. A watery rim in a red is a sign of age, and a pale, thin core is a clue to a light grape such as Pinot Noir."
   - title: Smell
     cards:
       - learn: Swirl, then sniff
@@ -50,14 +50,14 @@ lessons:
       - choice: "Why do tasters swirl the wine in the glass?"
         options: ["To release aromas", "To cool it down", "To remove alcohol", "To add bubbles"]
         a: "To release aromas"
-        explain: "Swirling coats the glass and helps aromatic compounds evaporate, concentrating the smell above the wine."
+        explain: "Swirling coats the glass and helps aromatic compounds evaporate, concentrating the smell above the wine. It also adds a little oxygen, which opens up young wines. Smell once before and once after swirling to compare."
       - match: "Match the aroma to its family"
         pairs: [[Lemon, Citrus fruit], [Blackcurrant, Black fruit], [Rose, Floral], [Vanilla, Oak]]
-        explain: "Thinking in families first makes it much easier to find the exact word."
+        explain: "Thinking in families first makes it much easier to find the exact word. Fruit, flowers, spices, earth and oak are the main families, so ask which family a smell belongs to, then narrow down."
       - choice: "Vanilla and toast aromas most often come from…"
         options: [Oak barrels, The grape skin, Cold fermentation, The cork]
         a: Oak barrels
-        explain: "New oak, especially toasted barrels, gives vanilla, toast, smoke and sweet spice notes."
+        explain: "New oak, especially toasted barrels, gives vanilla, toast, smoke and sweet spice notes. Older barrels give little flavor but let in a little oxygen, so if you smell vanilla, the wine probably spent time in new oak."
       - tf: "Raspberry and strawberry are classed as black fruit aromas."
         truth: false
         explain: "They are **red fruit** aromas, typical of lighter reds such as Pinot Noir and Grenache. Black fruit means blackcurrant, blackberry and black plum."
@@ -77,21 +77,21 @@ lessons:
       - choice: "Which sensation makes your mouth water?"
         options: [Acidity, Tannin, Alcohol, Sweetness]
         a: Acidity
-        explain: "Acidity triggers saliva. High-acid wines like Sauvignon Blanc and Riesling taste fresh and crisp."
+        explain: "Acidity triggers saliva. High-acid wines like Sauvignon Blanc and Riesling taste fresh and crisp and make your mouth water, especially on the sides of your tongue. A wine without enough acid tastes flat and flabby."
       - choice: "A drying, gripping feeling on the gums is caused by…"
         options: [Tannin, Acidity, Sugar, Carbon dioxide]
         a: Tannin
-        explain: "Tannin binds to proteins in your saliva, leaving that drying sensation, like strong black tea."
+        explain: "Tannin binds to proteins in your saliva, leaving that drying sensation on the gums, like strong black tea. It comes from skins, seeds, stems and oak, and it is the structure that lets reds age."
       - blank: "The length of time flavors linger after swallowing is called the ___."
         answers: [finish]
         options: [body, nose, rim, legs]
-        explain: "A long finish is one of the clearest signs of a high-quality wine."
+        explain: "A long finish is one of the clearest signs of a high-quality wine. Count the seconds that pleasant flavor lingers after swallowing: a few means simple; 10 to 30 or more means complex and fine."
       - tf: "A full-bodied wine feels heavier in the mouth than a light-bodied one."
         truth: true
-        explain: "Body is about weight and texture. Alcohol, sugar and dissolved solids all make a wine feel fuller."
+        explain: "Body is about weight and texture. Alcohol, sugar and dissolved solids all make a wine feel fuller, and a good analogy is skimmed milk (light), whole milk (medium) and cream (full)."
       - match: "Match the sensation to where you feel it"
         pairs: [[Sweetness, Tip of the tongue], [Tannin, Gums and teeth], [Alcohol, Warmth in the throat]]
-        explain: "Paying attention to *where* you feel something helps separate sensations, for example tannin from acidity."
+        explain: "Paying attention to where you feel something helps separate sensations: acidity makes the sides of your tongue tingle, tannin dries the gums and cheeks, and alcohol warms the throat. Telling them apart is the heart of tasting."
   - title: Describing wine
     cards:
       - learn: A simple tasting note
@@ -112,18 +112,18 @@ lessons:
       - choice: "In BLIC, what does the L stand for?"
         options: [Length, Lightness, Legs, Lees]
         a: Length
-        explain: "Length (the finish) is a key marker of quality. Great wines linger for a long time."
+        explain: "BLIC stands for Balance, Length, Intensity and Complexity, the four quality markers. Length (the finish) is the one that separates ordinary from great: great wines linger for a long time."
       - tf: "'Legs' running down the glass show that a wine is high quality."
         truth: false
-        explain: "Legs (or tears) show alcohol and sugar levels, not quality."
+        explain: "Legs (or tears) show alcohol and sugar levels, not quality. They form because alcohol evaporates faster than water at the glass wall, so a thicker, slower leg means more alcohol or sugar."
       - blank: "A wine whose fruit, acidity, tannin and alcohol are in harmony is said to be ___."
         answers: [balanced]
         options: [corked, oxidized, sparkling, young]
-        explain: "Balance is the first test of quality. No single element should dominate."
+        explain: "Balance is the first test of quality: no single element, whether fruit, acidity, tannin or alcohol, should dominate. A balanced wine tastes harmonious and can age well."
       - choice: "Which description fits a light, crisp white?"
         options: ["High acidity, light body", "High tannin, full body", "Low acidity, full body", "Sweet, high alcohol"]
         a: "High acidity, light body"
-        explain: "Think Muscadet, Pinot Grigio or Chablis: fresh, zesty and light."
+        explain: "Think Muscadet, Pinot Grigio or Chablis: fresh, zesty and light in body, with high acidity and little or no oak. They are the ideal aperitif and match seafood."
   - title: Going further
     cards:
       - learn: Describing the finish
@@ -147,7 +147,7 @@ lessons:
         - The color at the rim
         - The final step of winemaking
         a: How long the flavor lasts after swallowing
-        explain: Finish, or length, is measured in seconds of pleasant flavor after the wine has gone.
+        explain: "Finish, or length, is how many seconds of pleasant flavor remain after swallowing. Great wines can linger a minute; simple wines vanish quickly."
       - match: Match the letter of BLIC to its meaning
         pairs:
         - - B
@@ -158,10 +158,10 @@ lessons:
           - Intensity
         - - C
           - Complexity
-        explain: BLIC is a simple checklist for judging quality.
+        explain: "BLIC is a simple checklist for judging quality: Balance, Length, Intensity, Complexity. A wine that scores well on all four is generally considered high quality."
       - tf: A very long, pleasant finish is a sign of quality.
         truth: true
-        explain: Length is one of the most reliable quality markers.
+        explain: "A very long, pleasant finish is one of the most reliable quality markers: complex wines continue to unfold after you swallow. A short or bitter finish suggests a simple wine."
       - choice: Which sensation tells you a wine has high acidity?
         options:
         - Your mouth waters
@@ -169,7 +169,7 @@ lessons:
         - Warmth in the throat
         - A sweet taste on the tip of the tongue
         a: Your mouth waters
-        explain: Acidity makes you salivate. Drying gums mean tannin; warmth means alcohol.
+        explain: "Acidity makes you salivate and the sides of your tongue tingle. Drying gums mean tannin, and warmth means alcohol. Knowing which sensation belongs to which component helps you describe a wine."
       - blank: Warmth at the back of the throat is a sign of high ___.
         answers:
         - alcohol
@@ -178,4 +178,4 @@ lessons:
         - tannin
         - sugar
         - oak
-        explain: Alcohol feels warm. Wines above about 14% can feel hot if fruit and acidity don't balance them.
+        explain: "Alcohol feels warm in the throat. Wines above about 14% can feel hot if fruit and acidity do not balance them. Look for warmth on the finish in wines from hot regions such as Barossa or Priorat."

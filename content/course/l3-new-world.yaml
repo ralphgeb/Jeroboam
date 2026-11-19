@@ -17,15 +17,15 @@ lessons:
       - choice: "Why does Washington's Columbia Valley need irrigation?"
         options: ["It lies in the rain shadow of the Cascades", "It is too cold", "The soils hold too much water", "It is on the coast"]
         a: "It lies in the rain shadow of the Cascades"
-        explain: "Eastern Washington is semi-desert. The Columbia river and its tributaries supply water."
+        explain: "Eastern Washington is semi-desert, receiving less than 200 mm of rain a year, so vineyards need irrigation. The Columbia river and its tributaries supply water, and the dry climate means little rot or disease."
       - choice: "Which Oregon region is famous for Pinot Noir?"
         options: [Willamette Valley, Columbia Valley, Lodi, Paso Robles]
         a: Willamette Valley
         visual: "map:pacific-northwest:willamette"
-        explain: "Its cool, cloudy climate echoes Burgundy."
+        explain: "The Willamette Valley is famous for Pinot Noir. Its cool, cloudy climate echoes Burgundy, and it is the same latitude as Burgundy, about 45° north."
       - tf: "Carneros, in the south of Napa and Sonoma, is cooled by San Pablo Bay."
         truth: true
-        explain: "Wind and fog from the bay make it ideal for Pinot Noir, Chardonnay and sparkling wine."
+        explain: "Carneros, in the south of Napa and Sonoma, is cooled by San Pablo Bay. Wind and fog from the bay make it ideal for Pinot Noir, Chardonnay and sparkling wine, not Cabernet."
         visual: "map:napa-sonoma:carneros"
       - blank: "The 1976 Judgment of ___ put Napa Valley on the world map."
         answers: [Paris]
@@ -44,18 +44,18 @@ lessons:
       - choice: "Why can Argentina make fresh wines despite intense sun?"
         options: ["Very high altitude and cold nights", "Coastal fog", "High rainfall", "Northern latitude"]
         a: "Very high altitude and cold nights"
-        explain: "Altitude gives a big diurnal range. Strong UV also builds thick skins and deep color."
+        explain: "Altitude gives a big difference between day and night, preserving acidity, and the thin air means strong UV, which builds thick skins and deep color. That is why high-altitude Malbec is so dark and fresh."
       - choice: "Which Chilean valley is known for cool-climate Sauvignon Blanc?"
         options: [Casablanca, Maipo, Colchagua, Maule]
         a: Casablanca
         visual: "map:chile:casablanca"
-        explain: "Morning fog from the Pacific keeps it cool."
+        explain: "Casablanca Valley is known for cool-climate Sauvignon Blanc and Chardonnay. Morning fog from the Pacific keeps it cool, so the wines are fresh and aromatic."
       - tf: "Argentina's vineyards are irrigated with Andean snowmelt."
         truth: true
-        explain: "Rainfall in Mendoza is only about 200 mm a year."
+        explain: "Argentina's vineyards are irrigated with Andean snowmelt, since rainfall in Mendoza is only about 200 mm a year. Channels built by the Huarpe people centuries ago still feed the vines."
       - match: "Match the region to its signature"
         pairs: [[Salta, Torrontés], [Uco Valley, High-altitude Malbec], [Colchagua, Carmenère], [Maipo, Cabernet Sauvignon]]
-        explain: "Four classic South American pairings."
+        explain: "Four classic South American pairings: Malbec in Mendoza, Torrontés in Salta, Carmenère in Colchagua, and Sauvignon Blanc in Casablanca. Each place is matched to its grape."
   - title: Australia & New Zealand
     cards:
       - learn: Australia
@@ -75,19 +75,19 @@ lessons:
         options: [Terra rossa, Albariza, Llicorella, Kimmeridgian]
         a: Terra rossa
         visual: "map:south-australia:coonawarra"
-        explain: "A thin strip of red clay over limestone, about 15 km long, ideal for Cabernet."
+        explain: "Terra rossa is Coonawarra's famous red soil: a thin strip of red clay over limestone, about 15 km long, ideal for Cabernet. The limestone drains well and keeps the vines in balance."
       - choice: "Which New Zealand region is the world's most southerly major wine region?"
         options: [Central Otago, Marlborough, Hawke's Bay, Gisborne]
         a: Central Otago
         visual: "map:new-zealand:central-otago"
-        explain: "Its continental climate, the only one in New Zealand, makes ripe, intense Pinot Noir."
+        explain: "Central Otago is the world's most southerly major wine region. Its continental climate, the only one in New Zealand, makes ripe, intense Pinot Noir, with hot days and very cold nights."
       - tf: "Clare Valley is known for sweet, oaky Riesling."
         truth: false
-        explain: "Clare and Eden Valley Rieslings are bone dry, lime-scented and unoaked, and age to toast."
+        explain: "Clare and Eden Valley Rieslings are bone dry, lime-scented and unoaked, and age to toast and kerosene. They are not sweet or oaky, which makes the statement false."
       - blank: "Hawke's Bay's Gimblett ___ are stony soils prized for Syrah and Bordeaux blends."
         answers: [Gravels]
         options: [Slopes, Clays, Sands]
-        explain: "Former riverbed stones that drain well and store heat."
+        explain: "Hawke's Bay's Gimblett Gravels are former riverbed stones that drain well and store heat. They are prized for Syrah and Bordeaux blends, and a protected zone grows only on these stones."
   - title: South Africa
     cards:
       - learn: The Cape
@@ -102,19 +102,19 @@ lessons:
       - choice: "What is the 'Cape Doctor'?"
         options: ["A strong south-easterly wind", "A grape disease", "A winemaking technique", "A wine award"]
         a: "A strong south-easterly wind"
-        explain: "It cools vineyards and blows away disease."
+        explain: "The Cape Doctor is the strong south-east wind that blows across the Cape. It cools vineyards and blows away disease, so many Cape vines need little spraying."
       - choice: "Which region led South Africa's old-vine Chenin revival?"
         options: [Swartland, Constantia, Elgin, Robertson]
         a: Swartland
         visual: "map:south-africa:swartland"
-        explain: "Dry-farmed bush vines in a hot, dry region, championed by a new wave of winemakers."
+        explain: "The Swartland led South Africa's old-vine Chenin revival: dry-farmed bush vines in a hot, dry region, championed by a new wave of winemakers. Some of the vines are over 50 years old."
       - tf: "Vin de Constance is a historic sweet wine once loved by Napoleon."
         truth: true
-        explain: "Made from Muscat in Constantia since the 1700s and revived in the 1980s."
+        explain: "Vin de Constance, a sweet Muscat wine from Constantia since the 1700s, was loved by Napoleon, and was revived in the 1980s. It was once served at the courts of Europe."
       - blank: "South African traditional-method sparkling wine is called Cap ___."
         answers: [Classique]
         options: [Crémant, Cava, Brut]
-        explain: "Usually Chardonnay and Pinot Noir, with lees ageing like Champagne."
+        explain: "South African traditional-method sparkling wine is called Cap Classique. It is usually Chardonnay and Pinot Noir, with lees aging like Champagne, and is often excellent value."
   - title: Going further
     cards:
       - learn: Cool spots in warm countries
@@ -134,7 +134,7 @@ lessons:
         - Napa Valley
         - Mendoza
         a: Marlborough
-        explain: Bright sun, cool nights and long seasons give Marlborough its pungent style.
+        explain: "Marlborough makes intense, passion-fruit Sauvignon Blanc: bright sun, cool nights and a long season give a pungent style. Cloudy Bay put it on the map in the 1980s."
       - match: Match the region to its signature grape
         pairs:
         - - Barossa Valley
@@ -145,10 +145,10 @@ lessons:
           - Pinot Noir
         - - Napa Valley
           - Cabernet Sauvignon
-        explain: Each region built its fame on one grape.
+        explain: "Each region built its fame on one grape: Marlborough for Sauvignon Blanc, Barossa for Shiraz, Mendoza for Malbec, Stellenbosch for Cabernet. Matching them helps in blind tasting."
       - tf: Chile's Casablanca Valley is cooled by the Pacific Ocean.
         truth: true
-        explain: Morning fog and sea breezes make Casablanca ideal for Sauvignon Blanc and Chardonnay.
+        explain: "Chile's Casablanca Valley is cooled by the Pacific Ocean. Morning fog and sea breezes make Casablanca ideal for Sauvignon Blanc and Chardonnay, and it was planted from the 1980s."
       - choice: Why are Mendoza's vineyards good for Malbec despite the desert?
         options:
         - High altitude and snowmelt irrigation
@@ -156,7 +156,7 @@ lessons:
         - Volcanic islands
         - Ocean fog
         a: High altitude and snowmelt irrigation
-        explain: Vineyards up to 1,500 m give cool nights; Andes snowmelt provides water.
+        explain: "Vineyards up to 1,500 m give cool nights, and Andes snowmelt provides water. That combination, with intense sun, gives Mendoza's Malbec its deep color and ripe fruit while keeping some freshness."
       - blank: Pinotage is a South African cross of Pinot Noir and ___.
         answers:
         - Cinsault
@@ -164,4 +164,4 @@ lessons:
         - Syrah
         - Merlot
         - Chenin Blanc
-        explain: Created in 1925; Cinsault was then called Hermitage in South Africa, hence the name.
+        explain: "Pinotage is a South African cross of Pinot Noir and Cinsault, created in 1925. Cinsault was then called Hermitage in South Africa, hence the name Pinotage."

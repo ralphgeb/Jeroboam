@@ -26,7 +26,7 @@ lessons:
         explain: "Carbon dioxide (CO₂) usually escapes as a gas. Trap it in a sealed bottle or tank and you get sparkling wine."
       - tf: "A wine in which all the sugar has fermented is called dry."
         truth: true
-        explain: "Dry simply means there is little or no sugar left. It has nothing to do with the drying feeling of tannin."
+        explain: "Dry simply means the yeast turned nearly all the sugar into alcohol, leaving little or none (under about 4 g/L). It has nothing to do with the drying, grippy feel of tannin, which is a texture, not a taste. Most table wines you drink are dry."
       - choice: "If fermentation is stopped while sugar remains, the wine will be…"
         options: [Sweet, Sparkling, Red, Oaked]
         a: Sweet
@@ -51,14 +51,14 @@ lessons:
         explain: "Port has grape spirit added during fermentation, which stops it and leaves a sweet, strong wine (about 20% abv)."
       - match: "Match each wine to its family"
         pairs: [[Champagne, Sparkling], [Sherry, Fortified], [Rioja, Still]]
-        explain: "Champagne is sparkling, Sherry is fortified with grape spirit, and Rioja is a still red wine from Spain."
+        explain: "Champagne is sparkling (bubbles from a second fermentation), Sherry is fortified (grape spirit added), and Rioja is a still red from Spain. Spotting the style from the name is the first step to reading any wine list."
       - tf: "Fortified wines usually have more alcohol than still wines."
         truth: true
-        explain: "Adding grape spirit lifts them to about 15–22% abv, compared with about 11–15% for most still wines."
+        explain: "Fortifying with grape spirit lifts wines like Port and Sherry to roughly 15–22% abv, against about 11–15% for most still wines. Port is fortified mid-fermentation, so it keeps its sugar; most Sherry is fortified after fermenting dry."
       - blank: "Wine with bubbles is called ___ wine."
         answers: [sparkling]
         options: [still, fortified, rosé, dry]
-        explain: "The bubbles are carbon dioxide from fermentation, trapped in the wine under pressure."
+        explain: "The bubbles are carbon dioxide made by fermentation and trapped under pressure. In Champagne it happens in the bottle (a second fermentation); in Prosecco it usually happens in a large tank. More pressure means finer, longer-lasting bubbles."
   - title: Where color comes from
     cards:
       - learn: Color lives in the skin
@@ -91,7 +91,7 @@ lessons:
       - choice: "As red wines age, their color tends to move toward…"
         options: [Garnet and tawny, Purple, Lemon, Pink]
         a: Garnet and tawny
-        explain: "Reds lose color with age: purple → ruby → garnet → tawny. Whites gain color: lemon → gold → amber."
+        explain: "Reds lose color with age: purple, ruby, garnet, then tawny, as pigments bond with tannin and fall out as sediment. Whites do the opposite: lemon, gold, then amber as they oxidize slowly. A brick-orange rim on a red tells you it is mature."
         visual: "colors:red"
   - title: Going further
     cards:
@@ -118,10 +118,10 @@ lessons:
         - Price, age and color
         - Glass, temperature and food
         a: Grape, place and winemaker
-        explain: Variety, terroir and winemaking decisions explain most of the differences between wines.
+        explain: "Variety (the grape), terroir (climate, soil, slope) and winemaking (oak, fermentation, aging) together explain most differences between wines. Two Chardonnays can taste worlds apart because one is from cool Chablis in steel and another from warm California in new oak."
       - tf: A fruity-smelling wine must contain sugar.
         truth: false
-        explain: Fruitiness is aroma. Many very fruity wines, like New Zealand Sauvignon Blanc, are completely dry.
+        explain: "Fruitiness is aroma, not sugar. Our nose reads ripe fruit as sweet, but New Zealand Sauvignon Blanc, packed with passion fruit, is bone dry. Sweetness is only ever detected on the tongue, as residual sugar."
       - blank: The combined effect of climate, soil and slope on a wine is called ___.
         answers:
         - terroir
@@ -130,7 +130,7 @@ lessons:
         - tannin
         - malolactic
         - blend
-        explain: Terroir is the French word for everything about a place that shows in the glass.
+        explain: "Terroir is French for everything about a place that shows in the glass: climate, soil, slope, altitude and the local growing traditions. It is the reason Burgundy classifies individual vineyards, not just villages."
       - choice: What makes a wine sweet?
         options:
         - Sugar left after fermentation
@@ -138,7 +138,7 @@ lessons:
         - Ageing in oak
         - A warm serving temperature
         a: Sugar left after fermentation
-        explain: Residual sugar is what yeast didn't convert. Alcohol and oak can feel rich, but they are not sweetness.
+        explain: "Residual sugar, the sugar yeast did not convert, is what makes wine sweet. Alcohol and new oak can make a wine feel rich or round, and ripe fruit smells sweet, but only residual sugar tastes sweet. Winemakers can stop fermentation early, or use very ripe or shriveled grapes, to leave more of it."
       - match: Match the wine to how it's made
         pairs:
         - - Rosé
@@ -149,4 +149,4 @@ lessons:
           - Spirit added
         - - Orange wine
           - White grapes on skins
-        explain: Small changes in the process create completely different styles from the same grapes.
+        explain: "The same grapes can make completely different wines depending on the process: skin contact gives red or orange, a stopped fermentation leaves sweetness, a second fermentation in bottle gives bubbles, and added spirit gives fortified wine."

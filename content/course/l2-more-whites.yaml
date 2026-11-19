@@ -16,18 +16,18 @@ lessons:
         options: [Chenin Blanc, Sauvignon Blanc, Chardonnay, Melon de Bourgogne]
         a: Chenin Blanc
         visual: "map:loire:vouvray"
-        explain: "Vouvray, near Tours, makes Chenin Blanc from dry (sec) to sweet (moelleux), plus sparkling."
+        explain: "Vouvray, near Tours, makes Chenin Blanc from dry (sec) to sweet (moelleux), plus sparkling. Chenin's high acidity keeps even sweet versions fresh, and they can age for decades, with notes of quince, honey and wet wool."
       - choice: "Which country has the most Chenin Blanc vineyards?"
         options: [South Africa, France, Argentina, Germany]
         a: South Africa
-        explain: "Chenin Blanc (also called Steen) is South Africa's most planted grape."
+        explain: "Chenin Blanc (also called Steen) is South Africa's most planted grape, with more vineyards there than in its native Loire. Old bush vines make some of the Cape's best and best-value whites."
       - tf: "Sémillon is the main grape of sweet Sauternes."
         truth: true
-        explain: "Its thin skins make it susceptible to Botrytis cinerea, which concentrates the grapes."
+        explain: "Sémillon is the main grape of sweet Sauternes, where its thin skins are susceptible to Botrytis cinerea, noble rot, which concentrates the sugar. The fog from the Ciron river encourages it on autumn mornings."
       - blank: "Hunter Valley Sémillon is light when young but ages to flavors of ___ and honey."
         answers: [toast]
         options: [strawberry, pepper, banana]
-        explain: "Despite seeing no oak, it develops toasty notes after years in bottle."
+        explain: "Hunter Valley Sémillon is light, low in alcohol and lemony when young, yet ages to flavors of toast and honey after a decade, even though it sees no oak. It is a favorite of connoisseurs."
   - title: The aromatic grapes
     cards:
       - learn: Perfume in a glass
@@ -39,22 +39,22 @@ lessons:
       - choice: "Lychee and rose petal aromas are typical of…"
         options: [Gewürztraminer, Cabernet Sauvignon, Chablis, Sauvignon Blanc]
         a: Gewürztraminer
-        explain: "Gewürztraminer is one of the most aromatic grapes in the world."
+        explain: "Gewürztraminer is one of the most aromatic grapes in the world: lychee, rose petals and ginger. Alsace makes the classic examples, rich and low in acidity, perfect with spicy food."
       - choice: "Which grape smells most like fresh grapes?"
         options: [Muscat, Merlot, Chardonnay, Tempranillo]
         a: Muscat
-        explain: "Muscat is famous for actually tasting grapey, along with orange blossom and peach."
+        explain: "Muscat is famous for actually tasting grapey, along with orange blossom and peach. It is one of the oldest grape families, and the parent of many others, and it makes everything from sparkling Moscato d'Asti to fortified Muscat."
       - choice: "Condrieu, in the Northern Rhône, is made from…"
         options: [Viognier, Syrah, Riesling, Marsanne]
         a: Viognier
         visual: "map:rhone:condrieu"
-        explain: "Condrieu is Viognier's spiritual home: apricot, peach and blossom with a rich, silky texture."
+        explain: "Condrieu is Viognier's spiritual home in the Northern Rhône: apricot, peach and blossom with a rich, silky texture and low acidity. The steep granite terraces are tiny, so the wine is rare and expensive."
       - tf: "Gewürztraminer typically has high acidity."
         truth: false
-        explain: "It is notably low in acidity, with a rich, almost oily texture."
+        explain: "Gewürztraminer is notably low in acidity, with a rich, almost oily texture. That is why it can taste heavy, and why it works best with spicy or rich food that needs a full, aromatic wine."
       - match: "Match the aromatic grape to its classic note"
         pairs: [[Viognier, Apricot], [Gewürztraminer, Lychee], [Muscat, Orange blossom]]
-        explain: "Three perfumed grapes with very distinct signatures."
+        explain: "Three perfumed grapes with very distinct signatures: Gewürztraminer is lychee and rose, Muscat is grapes and orange blossom, and Viognier is apricot and peach. Learn the signature and you can spot them blind."
   - title: Coastal & mountain whites
     cards:
       - learn: Fresh and saline
@@ -66,23 +66,23 @@ lessons:
       - choice: "Which grape is famous in Spain's Rías Baixas?"
         options: [Albariño, Verdejo, Tempranillo, Palomino]
         a: Albariño
-        explain: "On Galicia's cool, rainy Atlantic coast, Albariño makes fresh, saline whites perfect for seafood."
+        explain: "On Galicia's cool, rainy Atlantic coast, Albariño makes fresh, saline whites with peach and citrus, perfect for seafood. The vines are trained high on pergolas to keep them dry from the damp."
       - choice: "White pepper is a signature aroma of…"
         options: [Grüner Veltliner, Pinot Grigio, Chenin Blanc, Viognier]
         a: Grüner Veltliner
-        explain: "Austria's signature grape combines green fruit with a peppery twist."
+        explain: "Austria's signature grape, Grüner Veltliner, combines green fruit with a peppery twist: white pepper, green apple and lentil notes. The pepper comes from rotundone, also found in black pepper."
       - blank: "Muscadet is often aged ___ lie, on its lees, for extra texture."
         answers: [sur]
         options: [sous, vin, cru]
         explain: "'Sur lie' means on the lees. The wine is bottled straight off them, keeping freshness and a light yeasty note."
       - tf: "Albariño is the same grape as Portugal's Alvarinho."
         truth: true
-        explain: "Across the border it makes the finest Vinho Verde in Monção and Melgaço."
+        explain: "Albariño is the same grape as Portugal's Alvarinho. Across the border it makes the finest Vinho Verde in Monção and Melgaço, riper and fuller than the light, slightly sparkling regional wine."
       - choice: "The Wachau, famous for Grüner Veltliner and Riesling, lies along which river?"
         options: [Danube, Rhine, Loire, Douro]
         a: Danube
         visual: "map:austria:wachau"
-        explain: "Steep stone terraces line the Danube west of Krems."
+        explain: "The Wachau lies along the Danube west of Krems, with steep stone terraces. Its Grüner Veltliner and Riesling are graded as Steinfeder, Federspiel and Smaragd, from light to rich."
   - title: Going further
     cards:
       - learn: Grapes of the Atlantic
@@ -105,7 +105,7 @@ lessons:
         - A grape and a region
         - Sweet wine styles
         a: The same grape in Spain and Portugal
-        explain: It is called Albariño in Rías Baixas and Alvarinho in Vinho Verde.
+        explain: "It is called Albariño in Rías Baixas and Alvarinho in Vinho Verde: the same grape, on two sides of the Minho river. The Spanish side is more textured, with a little more body."
       - match: Match the grape to its homeland
         pairs:
         - - Assyrtiko
@@ -116,10 +116,10 @@ lessons:
           - Muscadet
         - - Torrontés
           - Argentina
-        explain: Each of these whites is closely tied to one place.
+        explain: "Each of these whites is closely tied to one place: Albariño to Galicia, Grüner Veltliner to Austria, Assyrtiko to Santorini and Melon de Bourgogne to the Loire's Muscadet. Knowing the homelands helps a lot with blind tasting."
       - tf: Grüner Veltliner often shows white pepper notes.
         truth: true
-        explain: White pepper, green apple and lentil-like notes are typical of Austrian Grüner.
+        explain: "White pepper, green apple and lentil-like notes are typical of Austrian Grüner Veltliner. It is crisp but with some weight, which is why it is a favorite with Vienna's schnitzel."
       - choice: Which white grape keeps high acidity even on hot, volcanic Santorini?
         options:
         - Assyrtiko
@@ -127,7 +127,7 @@ lessons:
         - Chardonnay
         - Muscat
         a: Assyrtiko
-        explain: Assyrtiko is famous for keeping its fresh acidity in a hot climate.
+        explain: "Assyrtiko is famous for keeping its fresh acidity in a hot climate, even on volcanic Santorini. The vines grow in low baskets (kouloura) to protect them from the wind, and the ash soil spared them from phylloxera."
       - blank: Muscadet is made from the ___ grape.
         answers:
         - Melon de Bourgogne
@@ -135,4 +135,4 @@ lessons:
         - Chenin Blanc
         - Sauvignon Blanc
         - Chardonnay
-        explain: Muscadet, near the mouth of the Loire, is made from Melon de Bourgogne.
+        explain: "Muscadet, near the mouth of the Loire, is made from Melon de Bourgogne. Wine labeled sur lie is aged on its lees, which gives a creamy texture, and it is a classic match with oysters."

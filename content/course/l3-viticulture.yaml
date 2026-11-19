@@ -25,10 +25,10 @@ lessons:
       - choice: "Approximately how much does temperature drop per 100 m of altitude?"
         options: ["0.6 °C", "3 °C", "0.1 °C", "6 °C"]
         a: "0.6 °C"
-        explain: "So a vineyard at 1,000 m is about 6 °C cooler than one at sea level, other things being equal."
+        explain: "Temperature drops about 0.6 °C per 100 m of altitude, so a vineyard at 1,000 m is about 6 °C cooler than one at sea level, other things being equal. That is how high-altitude vineyards in hot countries make fresh wines."
       - tf: "The cold Humboldt Current cools Chile's coastal vineyards."
         truth: true
-        explain: "It brings cool air and morning fog to regions like Casablanca and San Antonio."
+        explain: "The cold Humboldt Current flows north along Chile's coast, bringing cool air and morning fog to regions like Casablanca and San Antonio. That is why Chile can make cool-climate wines at a warm latitude."
         visual: "map:chile:casablanca"
       - blank: "In the Southern Hemisphere, the warmest slopes face ___."
         answers: [north]
@@ -53,15 +53,15 @@ lessons:
         explain: "Low and sturdy with their own shade, they need no trellis and little water, as in the Southern Rhône and Spain."
       - tf: "Guyot is a cane-pruned training system."
         truth: true
-        explain: "Single or double Guyot is common in Burgundy and Bordeaux."
+        explain: "Guyot is a cane-pruned training system: one or two long canes are kept each year. Single or double Guyot is common in Burgundy and Bordeaux, and gives precise control of yield."
       - choice: "Which is a main aim of canopy management?"
         options: ["Balancing sunlight and airflow around the grapes", "Increasing the number of leaves", "Removing all leaves", "Raising alcohol directly"]
         a: "Balancing sunlight and airflow around the grapes"
-        explain: "Good exposure helps ripening and color; airflow reduces fungal disease."
+        explain: "The aim of canopy management is good leaf exposure to the sun, and airflow to reduce fungal disease. It shapes the leaves around the bunches so that grapes ripen well and stay healthy."
       - blank: "Shoots trained vertically upward between wires is called ___."
         answers: [VSP]
         options: [Guyot, Gobelet, Pergola]
-        explain: "Vertical Shoot Positioning, widely used in the New World and much of Europe."
+        explain: "Vertical Shoot Positioning (VSP) trains shoots upward between wires. It is widely used in the New World and much of Europe, since it exposes the bunches and suits mechanical harvesting."
   - title: Threats in the vineyard
     cards:
       - learn: Pests and diseases
@@ -80,7 +80,7 @@ lessons:
       - choice: "How do most vineyards protect against phylloxera?"
         options: ["Grafting onto American rootstock", "Spraying copper", "Using bush vines", "Planting on slopes"]
         a: "Grafting onto American rootstock"
-        explain: "American vine species tolerate the louse on their roots. European vines are grafted on top."
+        explain: "Most vineyards protect against phylloxera by grafting: American vine species tolerate the louse on their roots, and European vines are grafted on top. This saved the world's wine industry in the late 1800s."
       - tf: "Sprinklers can protect buds from spring frost."
         truth: true
         explain: "As water freezes on the buds it releases heat, holding them at about 0 °C inside a protective ice shell."
@@ -90,7 +90,7 @@ lessons:
         explain: "Protected by the Andes, the Atacama Desert, the Pacific and Patagonian ice, Chile has never had it. South Australia is also free."
       - match: "Match the hazard to the defense"
         pairs: [[Spring frost, Wind machines], [Hail, Nets], [Phylloxera, Grafting], [Fungal disease, Canopy airflow]]
-        explain: "Growers combine many tools to protect a year's crop."
+        explain: "Growers combine many tools to protect a year's crop: wind machines and heaters against frost, nets against hail and birds, and sprays or canopy work against mildew. Each hazard has its own defense."
   - title: Yields & harvest
     cards:
       - learn: Less is often more
@@ -110,11 +110,11 @@ lessons:
         explain: "Fresh, high-acid, relatively neutral base wines are ideal, since the second fermentation adds more alcohol."
       - tf: "Machine harvesters can work at night, when grapes are cool."
         truth: true
-        explain: "Night picking keeps fruit fresh and reduces oxidation, which is useful in hot regions."
+        explain: "Machine harvesters can work at night, when grapes are cool. Night picking keeps fruit fresh and reduces oxidation, which is useful in hot regions like Australia and California."
       - choice: "Which wine style requires whole bunches, so hand harvesting is essential?"
         options: ["Traditional-method sparkling wine", "Bulk table wine", "Fortified Port", "Most New World Cabernet"]
         a: "Traditional-method sparkling wine"
-        explain: "Whole-bunch pressing gives clean, pale juice. Champagne rules require hand harvesting."
+        explain: "Whole-bunch pressing gives clean, pale juice, and Champagne rules require hand harvesting, because crushed grapes would stain the juice red or add tannin. Hand-picking keeps the bunches intact."
       - blank: "Vines that are decades old usually give lower ___ of more concentrated fruit."
         answers: [yields]
         options: [prices, tannins, temperatures]
@@ -143,7 +143,7 @@ lessons:
         - Planting on hills only
         - Harvesting earlier
         a: Grafting onto American rootstocks
-        explain: American vine roots resist phylloxera, so European vines are grafted onto them.
+        explain: "American vine roots resist phylloxera, so European vines are grafted onto them. The louse, from North America, destroyed most European vineyards in the 1860s–1890s before this solution."
       - tf: Bush vines are typical of hot, dry vineyards.
         truth: true
         explain: The leafy bush shades the grapes from harsh sun; they are common in the southern Rhône, Spain and Australia.
@@ -157,7 +157,7 @@ lessons:
           - Young shoots
         - - Hail
           - Leaves and bunches
-        explain: Growers fight each threat in a different way.
+        explain: "Growers fight each threat in a different way: mildew and oidium are fungi sprayed with sulfur or copper, phylloxera is a root insect beaten by grafting, and frost is beaten by heaters."
       - choice: Why do growers remove leaves around the bunches in cool climates?
         options:
         - More sun and air on the grapes
@@ -165,7 +165,7 @@ lessons:
         - To add tannin
         - To stop the grapes ripening
         a: More sun and air on the grapes
-        explain: Exposure helps ripening and reduces rot, but too much can sunburn grapes.
+        explain: "Removing leaves around the bunches in cool climates helps ripening and reduces rot, because sun and air reach the fruit. Too much can sunburn grapes, so it is a careful balance."
       - blank: Phylloxera is a tiny insect that feeds on vine ___.
         answers:
         - roots
@@ -174,4 +174,4 @@ lessons:
         - flowers
         - grapes
         - stems
-        explain: It sucks sap from the roots and slowly kills un-grafted European vines.
+        explain: "Phylloxera is a tiny insect that feeds on vine roots. It sucks sap from the roots and slowly kills un-grafted European vines, as it did in the 19th century."

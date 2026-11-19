@@ -12,19 +12,19 @@ lessons:
       - choice: "What is the Mistral?"
         options: ["A cold, dry wind in the Southern Rhône", "A grape variety", "A type of oak", "A sparkling style"]
         a: "A cold, dry wind in the Southern Rhône"
-        explain: "It reduces disease pressure and can damage vines, so many old vines are trained as low bush vines."
+        explain: "The Mistral is a cold, strong wind that blows down the Rhône Valley. It reduces disease pressure and can damage vines, so many old vines are trained as low bush vines, which resist it."
       - choice: "Which Northern Rhône appellation may include Viognier co-fermented with Syrah?"
         options: [Côte-Rôtie, Cornas, Châteauneuf-du-Pape, Tavel]
         a: Côte-Rôtie
         visual: "map:rhone:cote-rotie"
-        explain: "Up to 20% Viognier is allowed, adding perfume and stabilizing color, though most use far less."
+        explain: "Côte-Rôtie may include up to 20% Viognier co-fermented with Syrah, adding perfume and stabilizing color, though most producers use far less. The effect is a floral lift to the Syrah's dark fruit."
       - tf: "Châteauneuf-du-Pape's galets roulés are large stones that store and radiate heat."
         truth: true
-        explain: "Rounded quartzite pebbles cover many vineyards, helping Grenache ripen."
+        explain: "Châteauneuf-du-Pape's galets roulés, rounded quartzite pebbles, cover many vineyards. They store heat by day and release it at night, helping Grenache ripen."
         visual: "map:rhone:chateauneuf-du-pape"
       - match: "Match the appellation to its style"
         pairs: [[Hermitage, Syrah], [Condrieu, Viognier], [Tavel, Rosé], [Gigondas, Grenache blend]]
-        explain: "North for single varietals; south for blends and rosé."
+        explain: "North for single varietals, south for blends and rosé: Hermitage and Côte-Rôtie are Syrah, Condrieu is Viognier, Châteauneuf is a blend, and Tavel is rosé. Place tells you the style."
   - title: The Loire in depth
     cards:
       - learn: Four sections
@@ -37,19 +37,19 @@ lessons:
       - choice: "Which Loire sub-region is closest to the Atlantic?"
         options: [Pays Nantais, Central Vineyards, Touraine, Anjou]
         a: Pays Nantais
-        explain: "Around Nantes. Its maritime climate suits Muscadet."
+        explain: "The Pays Nantais, around Nantes, is closest to the Atlantic. Its maritime climate suits Muscadet, made from Melon de Bourgogne, a crisp wine that is perfect with oysters."
       - choice: "Coteaux du Layon is known for…"
         options: ["Sweet Chenin Blanc", "Red Cabernet Franc", "Dry Sauvignon Blanc", "Rosé"]
         a: "Sweet Chenin Blanc"
-        explain: "Autumn mists along the Layon river encourage noble rot. Quarts de Chaume and Bonnezeaux are top crus."
+        explain: "Coteaux du Layon is known for sweet Chenin Blanc. Autumn mists along the Layon river encourage noble rot, and Quarts de Chaume and Bonnezeaux are the top crus."
       - tf: "Sancerre and Pouilly-Fumé face each other across the Loire."
         truth: true
-        explain: "Sancerre on the west bank, Pouilly-sur-Loire on the east."
+        explain: "Sancerre is on the west bank and Pouilly-sur-Loire on the east, facing each other across the river. Both are Sauvignon Blanc, but Sancerre is on limestone and flint (silex) soils and tends to be crisper."
         visual: "map:loire:sancerre,pouilly-fume"
       - blank: "Pouilly-___ is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay."
         answers: [Fumé]
         options: [Fuissé, Blanc, Gris]
-        explain: "A classic exam trap!"
+        explain: "Pouilly-Fumé is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay. The name Fumé refers to the smoky, flinty note from the soil, and it is a classic exam trap."
   - title: Alsace
     cards:
       - learn: Sheltered and dry
@@ -61,17 +61,17 @@ lessons:
       - choice: "Why is Alsace so dry and sunny for its latitude?"
         options: ["The Vosges mountains create a rain shadow", "It is near the Mediterranean", "It is at high altitude", "Warm ocean currents"]
         a: "The Vosges mountains create a rain shadow"
-        explain: "Westerly rain falls on the mountains, leaving the eastern foothills dry."
+        explain: "Alsace is dry and sunny for its latitude because the Vosges mountains block westerly rain, leaving the eastern foothills dry. It is one of the driest regions in France, which suits grapes like Riesling."
       - tf: "Alsace wines are usually labeled by grape variety."
         truth: true
-        explain: "Unusually for France, the grape name is front and center, in tall flûte bottles."
+        explain: "Unusually for France, the grape name is front and center in Alsace, and the wine comes in tall flûte bottles. This reflects the region's German history, and a Grand Cru label then adds the vineyard."
       - choice: "Sélection de Grains Nobles means…"
         options: ["Botrytized sweet wine", "Dry Grand Cru", "Sparkling wine", "Rosé"]
         a: "Botrytized sweet wine"
-        explain: "Made from individually selected noble-rot berries, rich and luscious."
+        explain: "Sélection de Grains Nobles is made from individually selected noble-rot berries, rich and luscious. It is rarer and sweeter than Vendange Tardive, which is simply a late harvest."
       - match: "Match the Alsace grape to its style"
         pairs: [[Gewurztraminer, Lychee and rose], [Riesling, Dry and steely], [Pinot Gris, Rich and smoky]]
-        explain: "Muscat in Alsace is usually dry and grapey."
+        explain: "Muscat in Alsace is usually dry and grapey, Gewurztraminer is rich and lychee-scented, Riesling is dry and mineral, and Pinot Gris is full and smoky. Alsace is where all four noble grapes shine."
   - title: Champagne in depth
     cards:
       - learn: Assemblage and house style
@@ -87,18 +87,18 @@ lessons:
       - choice: "What do reserve wines give non-vintage Champagne?"
         options: ["Consistency and complexity across years", "More bubbles", "Pink color", "Higher acidity only"]
         a: "Consistency and complexity across years"
-        explain: "Older wines blended in smooth out vintage variation and add depth."
+        explain: "Reserve wines, older wines from previous years, are blended in to smooth out vintage variation and add depth. It lets a house keep a consistent style each year, which is the art of non-vintage Champagne."
       - choice: "Which is the driest sweetness term?"
         options: [Brut Nature, Brut, Extra Dry, Demi-Sec]
         a: Brut Nature
-        explain: "No sugar added at dosage, 0–3 g/L."
+        explain: "Brut Nature is the driest: no sugar added at dosage, 0–3 g/L. Extra Brut has up to 6 g/L, and Brut up to 12."
       - tf: "'RM' on a Champagne label means the grower made the wine from their own grapes."
         truth: true
-        explain: "Récoltant-Manipulant. NM (Négociant-Manipulant) is a house that buys grapes."
+        explain: "RM means Récoltant-Manipulant: a grower who makes Champagne from their own grapes. NM (Négociant-Manipulant) is a house that buys grapes, so RM wines can show more of a single place."
       - blank: "Champagne has ___ Grand Cru villages."
         answers: ["17"]
         options: ["33", "7", "42"]
-        explain: "Including Aÿ, Bouzy, Cramant, Avize and Le Mesnil-sur-Oger."
+        explain: "Champagne has 17 Grand Cru villages, including Aÿ, Bouzy, Cramant, Avize and Le Mesnil-sur-Oger. The Grand Cru rating applies to the village, not to individual vineyards."
   - title: Going further
     cards:
       - learn: Champagne houses and growers
@@ -118,7 +118,7 @@ lessons:
         - A rosé Champagne
         - A vintage Champagne
         a: A grower making wine from their own grapes
-        explain: 'Récoltant-manipulant: the same family grows, makes and bottles the wine.'
+        explain: "Récoltant-Manipulant: the same family grows, makes and bottles the wine. These grower Champagnes are often more distinct and cheaper than the big houses."
       - match: Match the Loire wine to its grape
         pairs:
         - - Vouvray
@@ -129,10 +129,10 @@ lessons:
           - Sauvignon Blanc
         - - Muscadet
           - Melon de Bourgogne
-        explain: The Loire grows mostly single varieties, each in its own district.
+        explain: "The Loire grows mostly single varieties, each in its own district: Sauvignon Blanc in Sancerre, Chenin Blanc in Vouvray, Cabernet Franc in Chinon, and Melon de Bourgogne in Muscadet."
       - tf: Alsace wines are usually labeled with the grape variety.
         truth: true
-        explain: 'Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris.'
+        explain: "Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris. Most other French regions name the place, so Alsace is a bridge between Old and New World labeling."
       - choice: Which southern French region is known for Grenache-based Banyuls and Côtes du Roussillon?
         options:
         - Roussillon
@@ -140,7 +140,7 @@ lessons:
         - Jura
         - Savoie
         a: Roussillon
-        explain: Next to the Pyrenees, Roussillon makes powerful reds and sweet fortified Banyuls and Maury.
+        explain: "Roussillon, next to the Pyrenees, makes powerful Grenache-based reds and sweet fortified wines such as Banyuls and Maury. The fortified wines are made like Port, but with Grenache."
       - blank: Jura's oxidative 'yellow wine' is called vin ___.
         answers:
         - jaune
@@ -149,4 +149,4 @@ lessons:
         - santo
         - gris
         - rouge
-        explain: Vin jaune ages under a yeast veil for over six years, like a French cousin of Fino sherry.
+        explain: "Vin jaune ages under a veil of yeast for over six years in barrel, like a French cousin of Fino sherry. It is bottled in a special 62 cl bottle called a clavelin, and the best known is Château-Chalon."

@@ -28,10 +28,10 @@ lessons:
       - blank: "Warm-climate Chardonnay shows riper flavors such as ___ and pineapple."
         answers: [peach]
         options: [gooseberry, grass, lime]
-        explain: "Warmth ripens the fruit toward stone and tropical flavors. Cool climates keep it in green apple and citrus."
+        explain: "Warmth ripens grapes further, moving Chardonnay from green apple and citrus toward peach, melon and pineapple. Cool places like Chablis give the lean, citrusy end; California and Australia give the tropical end."
       - tf: "Chardonnay is one of the main grapes of Champagne."
         truth: true
-        explain: "Alongside Pinot Noir and Meunier. Champagne made only from Chardonnay is called **Blanc de Blancs**."
+        explain: "Chardonnay is one of three main Champagne grapes, with Pinot Noir and Meunier. Champagne made only from Chardonnay is called Blanc de Blancs: it is typically the lightest, most citrusy and most age-worthy style."
   - title: Sauvignon Blanc
     cards:
       - learn: Zesty and green
@@ -54,11 +54,11 @@ lessons:
         explain: "Like most French wines, Sancerre is named after its place, not its grape. White Sancerre is 100% Sauvignon Blanc."
       - tf: "Marlborough Sauvignon Blanc is famous for its intense passion fruit and herbaceous aromas."
         truth: true
-        explain: "Sunny days and cold nights in Marlborough create very intense aromas and crisp acidity."
+        explain: "Sunny days ripen the grapes, while cold nights hold their acidity and aromas. That swing gives Marlborough Sauvignon its famous burst of passion fruit and cut grass, with a crisp finish. The style took off in the 1980s and made New Zealand wine famous."
       - blank: "Sauvignon Blanc typically has ___ acidity."
         answers: [high]
         options: [low, no, medium-minus]
-        explain: "Its crisp, mouthwatering acidity makes it a perfect match for goat cheese and seafood."
+        explain: "Sauvignon Blanc is high in acidity, which makes your mouth water. That acid cuts through creamy goat cheese and shellfish, so the pairing feels fresh. Sancerre and fresh chèvre come from the same Loire hills, which is no coincidence."
   - title: Riesling
     cards:
       - learn: The aristocrat
@@ -81,11 +81,11 @@ lessons:
       - choice: "Riesling is the most famous grape of which country?"
         options: [Germany, Spain, Argentina, Italy]
         a: Germany
-        explain: "Germany grows more Riesling than any other country, especially in the Mosel, Rheingau and Pfalz."
+        explain: "Germany, home of Riesling, grows more of it than any other country, especially in the Mosel, Rheingau and Pfalz. Alsace in France and Australia's Clare and Eden valleys are other great sources. Riesling is the most terroir-transparent white grape."
       - blank: "Riesling can be made in every style from bone dry to very ___."
         answers: [sweet]
         options: [tannic, oaky, red]
-        explain: "Its high acidity balances sugar beautifully, so sweet Rieslings never feel cloying."
+        explain: "Riesling's very high acidity balances even a lot of sugar, so sweet versions taste lively, not cloying. Look for the German scale on the label: Kabinett is lightest, then Spätlese, Auslese, up to Trockenbeerenauslese, which is the sweetest."
   - title: Pinot Grigio
     cards:
       - learn: Two names, two styles
@@ -98,17 +98,17 @@ lessons:
       - choice: "Italian Pinot Grigio is usually…"
         options: ["Light, crisp and neutral", "Full-bodied and oaky", "Sweet and fortified", "Red and tannic"]
         a: "Light, crisp and neutral"
-        explain: "Picked early from high-yielding vineyards in the Veneto and Friuli, it is easy, refreshing and drunk young."
+        explain: "Italian Pinot Grigio is usually picked early from high-yielding vineyards in the Veneto and Friuli, and made to be neutral, light and refreshing. Better versions come from hillside Alto Adige and Friuli, with more body and almond-pear flavor."
       - tf: "Pinot Gris and Pinot Grigio are the same grape variety."
         truth: true
-        explain: "Gris (French) and Grigio (Italian) both mean grey. The style differs, not the grape."
+        explain: "Gris (French) and Grigio (Italian) both mean grey, for the grapes' pinkish-grey skins. It is the same grape; the difference is style. Pinot Grigio is light and crisp, while Alsace Pinot Gris is richer and rounder, often with a touch of sweetness."
       - match: "Match the grape to its classic aroma"
         pairs: [[Sauvignon Blanc, Gooseberry], [Riesling, Lime], [Chardonnay, Butter], [Pinot Grigio, Pear]]
         explain: "Gooseberry and grass for Sauvignon, lime and petrol for Riesling, butter when Chardonnay goes through malolactic, and pear and lemon for Pinot Grigio."
       - choice: "Alsace Pinot Gris compared to Italian Pinot Grigio is usually…"
         options: ["Fuller and richer", "Lighter and leaner", "Red", "Sparkling"]
         a: "Fuller and richer"
-        explain: "Alsace is one of France's sunniest, driest regions, and lower yields give riper, more textured wines."
+        explain: "Alsace is one of France's driest and sunniest regions, sheltered by the Vosges mountains, and its lower yields give riper grapes. The result is a fuller, richer, more textured Pinot Gris than a light Italian Pinot Grigio, often with notes of honey and smoke."
   - title: Going further
     cards:
       - learn: Aromatic whites
@@ -134,10 +134,10 @@ lessons:
         - Sauvignon Blanc
         - Pinot Grigio
         a: Gewürztraminer
-        explain: Lychee, rose and ginger are the classic Gewürztraminer signature, especially from Alsace.
+        explain: "Gewürztraminer is the grape of lychee, rose petals and ginger. Those aromas come from terpenes, the same family of compounds in roses and lychees, which is why it smells so perfumed. Alsace makes the benchmark versions, often with low acidity and a rich, oily texture."
       - tf: Chablis is made from Chardonnay.
         truth: true
-        explain: Chablis, in northern Burgundy, is crisp, mineral, usually unoaked Chardonnay.
+        explain: "Chablis is Chardonnay from the northernmost part of Burgundy. Cool weather and chalky Kimmeridgian soils give a crisp, mineral wine with green apple and lemon, and it is usually unoaked. It is one of the purest expressions of the grape."
       - match: Match the grape to its classic aroma
         pairs:
         - - Sauvignon Blanc
@@ -148,7 +148,7 @@ lessons:
           - Apricot
         - - Muscat
           - Orange blossom
-        explain: Knowing one signature aroma per grape is a great way to start identifying them.
+        explain: "Each grape has a signature: Sauvignon Blanc is grapefruit and cut grass, Riesling is lime and petrol with age, Gewürztraminer is lychee and rose, and Chardonnay is apple, then butter and toast with oak. One signature per grape is the fastest route to blind tasting."
       - choice: Buttery notes in Chardonnay usually come from…
         options:
         - Malolactic conversion
@@ -156,7 +156,7 @@ lessons:
         - Botrytis
         - Carbonic maceration
         a: Malolactic conversion
-        explain: Malolactic conversion softens acidity and creates diacetyl, the compound that smells of butter.
+        explain: "Buttery notes come from malolactic conversion, in which bacteria turn sharp malic acid into softer lactic acid and create diacetyl, the compound that smells of butter. Winemakers can allow it fully, partly or not at all, which is a big lever on Chardonnay's style."
       - blank: Petrol notes in an older white wine are a famous sign of ___.
         answers:
         - Riesling
@@ -165,4 +165,4 @@ lessons:
         - Pinot Grigio
         - Viognier
         - Muscat
-        explain: Aged Riesling often develops a petrol or kerosene note, prized by many fans.
+        explain: "Aged Riesling often develops a petrol or kerosene note from a compound called TDN, which forms as the wine matures in bottle. Many Riesling lovers prize it as a sign of a great, mature wine. In young Riesling you would instead find lime, green apple and flowers."

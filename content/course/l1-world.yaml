@@ -17,17 +17,17 @@ lessons:
         options: ["30° and 50°", "0° and 15°", "55° and 70°", "15° and 25°"]
         a: "30° and 50°"
         visual: "diagram:wine-belt"
-        explain: "In both hemispheres. Altitude and ocean currents let some regions push beyond these limits."
+        explain: "Most vineyards lie between roughly 30° and 50° latitude in both hemispheres, the wine belt, where it is warm enough to ripen grapes but cool enough to keep freshness. Altitude and cold ocean currents let some regions go beyond these limits."
       - match: "Old World or New World?"
         pairs: [[Italy, Old World], [Chile, New World]]
-        explain: "Italy has made wine for thousands of years; Chile's industry grew from Spanish missions in the 1500s."
+        explain: "Old World means Europe's traditional regions, New World everywhere else. Italy has made wine for thousands of years; Chile's industry grew from Spanish missions in the 1500s, and the Americas, Australia and South Africa were planted by European settlers."
       - tf: "Australia is considered an Old World wine country."
         truth: false
-        explain: "Australia is New World. Vines arrived with European settlers in 1788."
+        explain: "Australia is New World. Vines arrived with European settlers in 1788, and the style tends to be riper and fruitier, with the grape name on the label."
       - choice: "Which country makes the most wine by volume in a typical year?"
         options: [Italy, Japan, Brazil, Canada]
         a: Italy
-        explain: "Italy and France usually trade first place, with Spain third. Spain has the largest vineyard area."
+        explain: "Italy and France usually trade first place by volume, with Spain third, although Spain has the largest vineyard area in the world. Spain's vines are widely spaced and yield less per hectare."
   - title: France at a glance
     cards:
       - learn: The classic regions
@@ -43,19 +43,19 @@ lessons:
         options: [Champagne, Bordeaux, Rhône, Provence]
         a: Champagne
         visual: "map:france:champagne"
-        explain: "Only sparkling wine from the Champagne region in north-east France may be called Champagne."
+        explain: "Only sparkling wine from the Champagne region in north-east France may be called Champagne. The name is legally protected: elsewhere, the same method must be called Crémant, Cava, Franciacorta or similar."
       - choice: "Highlighted on the map is…"
         options: [Bordeaux, Burgundy, Alsace, Loire Valley]
         a: Bordeaux
         visual: "map:france:bordeaux"
-        explain: "Bordeaux lies on France's Atlantic coast, around the Gironde estuary."
+        explain: "Bordeaux lies on France's Atlantic coast, around the Gironde estuary and the Garonne and Dordogne rivers. The ocean moderates the climate, and the rivers split the region into Left Bank and Right Bank."
       - tf: "Provence is famous for pale, dry rosé."
         truth: true
         visual: "map:france:provence"
-        explain: "Provence is the world's rosé capital, along the Mediterranean coast."
+        explain: "Provence is the world's rosé capital, along the Mediterranean coast: pale, dry, light and usually made from Grenache, Cinsault and Syrah. More than 80% of the region's wine is rosé."
       - match: "Match the French region to its grape"
         pairs: [[Burgundy, Pinot Noir], [Loire Valley, Sauvignon Blanc], [Northern Rhône, Syrah]]
-        explain: "French labels name places, so learning which grape grows where is essential."
+        explain: "French labels name places, not grapes, so learning which grape grows where is essential. For example, red Burgundy is Pinot Noir, white Chablis is Chardonnay, and Sancerre is Sauvignon Blanc."
   - title: Beyond France
     cards:
       - learn: The big names
@@ -68,20 +68,20 @@ lessons:
           - **Argentina**: Malbec. **New Zealand**: Sauvignon Blanc. **Australia**: Shiraz.
       - match: "Match the country to its signature grape"
         pairs: [[Argentina, Malbec], [New Zealand, Sauvignon Blanc], [Australia, Shiraz], [Germany, Riesling]]
-        explain: "Each became famous worldwide for one star grape."
+        explain: "Each country became famous worldwide for one star grape: Argentina for Malbec, New Zealand for Sauvignon Blanc, South Africa for Chenin Blanc and Pinotage, Australia for Shiraz. Matching them is a good way to guess a wine's origin."
       - choice: "Rioja comes from which country?"
         options: [Spain, Italy, Portugal, Argentina]
         a: Spain
         visual: "map:spain:rioja"
-        explain: "Rioja lies in northern Spain along the Ebro river, and is made mainly from Tempranillo."
+        explain: "Rioja lies in northern Spain along the Ebro river and is made mainly from Tempranillo. Its labels (Crianza, Reserva, Gran Reserva) tell you how long it was aged before release."
       - choice: "Napa Valley is in…"
         options: [California, Oregon, Australia, Chile]
         a: California
         visual: "map:california:north-coast"
-        explain: "North of San Francisco, and famous for Cabernet Sauvignon."
+        explain: "Napa Valley is in California, north of San Francisco, and famous for Cabernet Sauvignon. Warm days and cool nights from the Pacific fog give ripe fruit and good acidity."
       - tf: "Prosecco is a sparkling wine from Italy."
         truth: true
-        explain: "From the Veneto and Friuli in north-east Italy, made from the Glera grape."
+        explain: "Prosecco comes from the Veneto and Friuli in north-east Italy and is made from the Glera grape. It usually gets its bubbles from a second fermentation in a tank, which keeps it fresh and fruity."
   - title: Going further
     cards:
       - learn: Old World and New World
@@ -107,10 +107,10 @@ lessons:
         - Winemaker's name
         - Alcohol level
         a: Place
-        explain: A Sancerre or a Chianti is named after where it comes from, not the grape.
+        explain: "Old World wines are usually labeled by place: a Sancerre or a Chianti is named after where it comes from, not the grape. New World labels usually name the grape instead, like Chardonnay or Malbec."
       - tf: Most quality vineyards lie between 30° and 50° latitude.
         truth: true
-        explain: This 'wine belt' gives enough warmth to ripen grapes and enough cool to keep freshness.
+        explain: "This wine belt (about 30° to 50° latitude) gives enough warmth to ripen grapes and enough cool to keep freshness. Outside it, grapes either fail to ripen or lose their acidity."
       - match: Match the country to a famous grape
         pairs:
         - - Argentina
@@ -121,7 +121,7 @@ lessons:
           - Pinotage
         - - Chile
           - Carmenère
-        explain: Each New World country has a signature grape.
+        explain: "Each New World country has a signature grape: Argentina for Malbec, New Zealand for Sauvignon Blanc, Chile for Carmenère, Australia for Shiraz. These grapes arrived with settlers and found a home."
       - choice: How can a region in a hot country still make fresh wines?
         options:
         - High altitude or cool ocean influence
@@ -129,7 +129,7 @@ lessons:
         - Picking at night only
         - Adding more yeast
         a: High altitude or cool ocean influence
-        explain: Mountains and cold currents lower temperatures, keeping acidity in the grapes.
+        explain: "Mountains and cold ocean currents lower temperatures, keeping acidity in the grapes. That is how Argentina's high Andean vineyards and Chile's Pacific-cooled valleys make fresh wines in hot countries."
       - blank: Wine regions in Europe are often called the ___ World.
         answers:
         - Old
@@ -138,4 +138,4 @@ lessons:
         - Third
         - Northern
         - Classic
-        explain: Old World vs New World is shorthand for tradition-led versus fruit-led winemaking.
+        explain: "Wine regions in Europe are called the Old World. Old World versus New World is shorthand for tradition-led versus fruit-led winemaking: Old World wines are typically more savory and structured, the New World riper and fruitier."

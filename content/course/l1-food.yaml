@@ -13,21 +13,21 @@ lessons:
       - choice: "A sweet dessert makes a dry wine taste…"
         options: ["More acidic and bitter", "Sweeter", "Fruitier", "Less alcoholic"]
         a: "More acidic and bitter"
-        explain: "That is why dessert needs a wine at least as sweet as the dish, such as Sauternes or Moscato."
+        explain: "Sweet food makes a dry wine taste more sour, bitter and thin. That is why a dessert needs a wine at least as sweet as the dish, such as Sauternes, Moscato d'Asti or late-harvest Riesling."
       - choice: "Which food component makes wine taste softer and less bitter?"
         options: [Salt, Sugar, Umami, Chili]
         a: Salt
         explain: "Salt is wine's friend: it reduces bitterness and acidity. Think salty Parmesan with Chianti, or oysters with Muscadet."
       - tf: "Acidic foods make a wine taste less acidic."
         truth: true
-        explain: "Match acid with acid: a tomato sauce or a vinaigrette can make a crisp wine seem rounder and fruitier."
+        explain: "Match acid with acid: when a dish is as acidic as the wine, such as a tomato sauce or a vinaigrette, the wine tastes rounder and fruitier. A crisp wine against a sharp dish otherwise tastes thin and sour."
       - blank: "Mushrooms, cured meats and soy sauce are rich in ___."
         answers: [umami]
         options: [tannin, acidity, sugar]
-        explain: "Umami makes wine taste more bitter and acidic. Choose fruity, low-tannin wines, or season with salt."
+        explain: "Mushrooms, cured meats, aged cheese and soy sauce are rich in umami. Umami amplifies bitterness and acidity in wine, so choose fruity, low-tannin wines (Pinot Noir works well with mushrooms) or add salt, which reduces the effect."
       - match: "Match the food to its effect on wine"
         pairs: [[Sweetness, Wine tastes more acidic], [Salt, Wine tastes softer], [Chili, Burning increases]]
-        explain: "These three interactions explain most pairing successes and disasters."
+        explain: "Three interactions explain most pairing successes and disasters: sweet makes wine taste drier and more sour; salt softens tannin and acidity; umami and chili amplify bitterness and heat. Thinking in terms of these effects beats memorizing pairings."
   - title: Heat, fat and tannin
     cards:
       - learn: Spice and protein
@@ -38,18 +38,18 @@ lessons:
       - choice: "Which wine best suits a spicy Thai curry?"
         options: ["Off-dry Riesling", "High-alcohol, tannic red", "Dry Fino Sherry", "Oaked Cabernet"]
         a: "Off-dry Riesling"
-        explain: "A touch of sweetness and low alcohol calm the heat. High-alcohol, tannic wines make chili burn more."
+        explain: "A touch of sweetness and low alcohol calm the heat of a Thai curry, and an off-dry Riesling or Gewürztraminer is the classic answer. High-alcohol, tannic wines make chili burn more, because alcohol dissolves and spreads the capsaicin."
       - choice: "Why does a tannic red work well with steak?"
         options: ["Protein and fat soften the tannin", "Steak adds sweetness", "Tannin makes steak spicier", "It doesn't; avoid it"]
         a: "Protein and fat soften the tannin"
-        explain: "Tannin binds to protein, so the meat tames the wine's grip, and the wine cuts through the fat."
+        explain: "Tannin binds to protein, so the meat softens the wine's grip, and the wine's tannin and acidity cut through the fat and refresh your mouth. This is why Cabernet Sauvignon and steak is the classic pairing."
       - tf: "Chili heat makes wines taste less alcoholic."
         truth: false
-        explain: "The reverse: chili heightens the burning sensation of alcohol."
+        explain: "The reverse: chili heightens the burning sensation of alcohol, so wines taste hotter and more alcoholic with spicy food. Choose lower-alcohol wines, and a touch of sweetness helps."
       - blank: "With chili dishes, choose wines low in alcohol and ___."
         answers: [tannin]
         options: [acidity, color, fruit]
-        explain: "Tannin and alcohol both clash with spicy heat."
+        explain: "Tannin and alcohol both clash with spicy heat, making the food taste hotter and the wine harsher. Choose wines low in alcohol and tannin, such as off-dry Riesling or a light, fruity red served chilled."
   - title: Classic pairings
     cards:
       - learn: Match weight, then flavor
@@ -63,14 +63,14 @@ lessons:
       - choice: "Which wine suits a light seafood salad?"
         options: [Albariño, Amarone, Vintage Port, Barolo]
         a: Albariño
-        explain: "Light, fresh and saline, Albariño matches delicate seafood. The others are powerful and would overwhelm it."
+        explain: "Light, fresh and saline, Albariño from Rías Baixas in Galicia matches delicate seafood perfectly, which is what the region's coast eats. The other wines are powerful and would overwhelm the dish: match the weight of the wine to the weight of the food."
       - tf: "'What grows together goes together' means local wines often suit local food."
         truth: true
         explain: "Chianti with Tuscan steak, Sherry with tapas, Alsace Riesling with choucroute: centuries of trial and error."
       - choice: "Which pairing follows the weight principle?"
         options: ["Beef stew with Syrah", "Beef stew with Prosecco", "Sushi with Barolo", "Sole with Amarone"]
         a: "Beef stew with Syrah"
-        explain: "A hearty stew needs a full-bodied red with enough flavor to stand up to it."
+        explain: "The weight principle: delicate dishes with light wines, hearty dishes with full wines. A hearty stew needs a full-bodied red with enough flavor and tannin to stand up to it, or the wine disappears."
   - title: Going further
     cards:
       - learn: Sweetness and spice
@@ -94,7 +94,7 @@ lessons:
         - It tastes more alcoholic only
         - Nothing changes
         a: It tastes thin and sour
-        explain: Sweet food makes dry wine seem more acidic and bitter. The wine should be sweeter than the food.
+        explain: "Sweet food makes dry wine seem more acidic and bitter, and strips out its fruit. The wine should be at least as sweet as the food, which is why dessert wines exist."
       - choice: Which wine suits a spicy Thai curry best?
         options:
         - Off-dry Riesling
@@ -102,10 +102,10 @@ lessons:
         - Tannic Cabernet Sauvignon
         - Oaked Chardonnay
         a: Off-dry Riesling
-        explain: A touch of sweetness and low alcohol soothe chili heat; tannin and alcohol amplify it.
+        explain: "A touch of sweetness and low alcohol soothe chili heat; tannin and alcohol amplify it. Off-dry Riesling, with its high acidity and low alcohol, is a favorite with spicy Asian dishes."
       - tf: High-acid wines go well with fatty and salty foods.
         truth: true
-        explain: Acidity cuts through richness and is balanced by salt, like Champagne with fries.
+        explain: "Acidity cuts through richness and is balanced by salt, like Champagne with fries. High-acid wines such as Chablis, Champagne and Riesling refresh the palate after fatty or salty bites, so they suit fried foods and cheese."
       - match: Match the dish to a classic wine
         pairs:
         - - Oysters
@@ -116,7 +116,7 @@ lessons:
           - Sancerre
         - - Blue cheese
           - Sauternes
-        explain: These classic pairings work through acid, tannin, or sweet and salty contrast.
+        explain: "Classic pairings work through contrast or harmony: acid with acid (Sancerre and goat cheese), tannin with protein (Cabernet and steak), and sweet with salty (Port and blue cheese). Learn the logic and you can improvise."
       - blank: Tannic red wine can taste metallic with oily ___.
         answers:
         - fish
@@ -125,4 +125,4 @@ lessons:
         - lamb
         - cheese
         - bread
-        explain: Fish oils and tannin clash; pick a white, a rosé or a light low-tannin red instead.
+        explain: "Fish oils and tannin clash and leave a metallic taste. With oily fish pick a white, a rosé or a light low-tannin red such as Pinot Noir, chilled slightly."

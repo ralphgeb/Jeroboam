@@ -23,7 +23,7 @@ lessons:
         explain: "Pressed while frozen, only a little concentrated, sugary juice is released. Canada and Germany are famous for it."
       - tf: "Sauternes is a sweet wine made with grapes affected by noble rot."
         truth: true
-        explain: "Sémillon and Sauvignon Blanc from Sauternes and Barsac, in southern Bordeaux."
+        explain: "Sauternes and Barsac in southern Bordeaux make sweet wines from Sémillon and Sauvignon Blanc affected by noble rot (Botrytis). The fungus shrivels the grapes and concentrates sugar, acidity and flavors like honey and saffron."
         visual: "map:bordeaux:sauternes"
       - blank: "Hungary's famous noble rot wine is Tokaji ___."
         answers: [Aszú]
@@ -31,7 +31,7 @@ lessons:
         explain: "Botrytized aszú berries are soaked in base wine or must, giving luscious, high-acid wines that live for decades."
       - match: "Match the sweet wine to its method"
         pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Recioto, Dried grapes]]
-        explain: "Three different routes to sweetness."
+        explain: "Three different routes to sweetness: noble rot concentrates sugar in Sauternes, drying grapes does it in Vin Santo or Tokaji, and freezing grapes on the vine does it in Icewine. Each method leaves a distinct flavor."
   - title: Port
     cards:
       - learn: Fortified mid-fermentation
@@ -46,7 +46,7 @@ lessons:
       - choice: "When is grape spirit added to Port?"
         options: ["During fermentation", "After a year in bottle", "Before crushing", "Never"]
         a: "During fermentation"
-        explain: "Adding spirit early stops fermentation and keeps the natural grape sugar."
+        explain: "Port is fortified during fermentation: adding grape spirit early kills the yeast and keeps natural grape sugar, giving a sweet, strong wine. Sherry is the reverse, fortified after fermentation, which is why it can be dry."
       - choice: "Port comes from which river valley?"
         options: [Douro, Loire, Rhône, Mosel]
         a: Douro
@@ -54,11 +54,11 @@ lessons:
         explain: "Grapes grow on steep schist terraces; wines were traditionally shipped down to Porto's lodges in Vila Nova de Gaia."
       - tf: "Tawny Port gets its nutty flavors from long ageing in small wooden casks."
         truth: true
-        explain: "Oxygen through the small casks turns the wine tawny and develops walnut, toffee and caramel notes."
+        explain: "Oxygen seeping through the small old casks turns the wine tawny and develops walnut, toffee and caramel notes. Ruby Port ages in large vats or the bottle, so it stays red and fruity."
       - blank: "Port is typically about ___% alcohol."
         answers: ["20"]
         options: ["12", "8", "40"]
-        explain: "Usually 19–22% abv."
+        explain: "Port is usually 19–22% abv, since grape spirit of about 77% is added to fermenting wine. That is more alcohol than most wines, so serve it in small glasses."
   - title: Sherry
     cards:
       - learn: The world's most misunderstood wine
@@ -84,16 +84,16 @@ lessons:
         options: [Pedro Ximénez, Fino, Manzanilla, Amontillado]
         a: Pedro Ximénez
         visual: "glassonly:brown"
-        explain: "PX is made from sun-dried grapes: syrupy, raisined and almost black."
+        explain: "Pedro Ximénez (PX) is made from sun-dried grapes: syrupy, raisined and almost black, with flavors of fig and molasses. It is so sweet that it is often poured over vanilla ice cream."
       - choice: "Manzanilla is a Fino-style Sherry aged in which seaside town?"
         options: [Sanlúcar de Barrameda, Porto, Reims, Bordeaux]
         a: Sanlúcar de Barrameda
         visual: "map:spain:jerez"
-        explain: "Sea air helps flor grow thickly, giving an extra-salty tang."
+        explain: "Manzanilla is a Fino-style Sherry aged in Sanlúcar de Barrameda, on the coast. The sea air helps flor grow thickly, giving an extra-salty tang, and it is the classic partner for tapas and shellfish."
       - blank: "Sherry is aged in a fractional blending system called a ___."
         answers: [solera]
         options: [barrique, quinta, lagar]
-        explain: "Wine is drawn from the oldest tier and replaced from the next-oldest, and so on."
+        explain: "Sherry is aged in a fractional blending system called a solera. Wine is drawn from the oldest tier and replaced from the next-oldest, and so on, so each bottle holds traces of very old wine."
   - title: Going further
     cards:
       - learn: Three roads to sweetness
@@ -120,7 +120,7 @@ lessons:
         - A sweet syrup
         - The barrel cellar
         a: A layer of yeast on the wine
-        explain: Flor protects Fino and Manzanilla from oxygen and gives a tangy, bready, almond character.
+        explain: "Flor is a layer of yeast that grows on the surface of Fino and Manzanilla. It protects the wine from oxygen and gives a tangy, bready, almond character, which is why those wines are pale and dry."
       - match: Match the sweet wine to how it's made
         pairs:
         - - Sauternes
@@ -131,10 +131,10 @@ lessons:
           - Dried grapes
         - - Port
           - Spirit added
-        explain: Different routes to sugar create very different sweet wines.
+        explain: "Different routes to sugar create very different sweet wines: noble rot (Sauternes), dried grapes (Vin Santo), frozen grapes (Icewine) and fortification (Port). Each leaves a signature flavor."
       - tf: Oloroso sherry ages under flor.
         truth: false
-        explain: Oloroso is fortified to a strength where flor can't survive, so it ages oxidatively and darkens.
+        explain: "Oloroso is fortified to about 17–18% alcohol, a strength where flor can not survive, so it ages oxidatively and darkens, with walnut and dried fruit flavors. Fino stays under flor and stays pale."
       - choice: Which wine is fortified during fermentation, keeping natural sweetness?
         options:
         - Port
@@ -142,7 +142,7 @@ lessons:
         - Sauternes
         - Champagne
         a: Port
-        explain: Adding grape spirit stops fermentation, leaving sugar in the wine.
+        explain: "Port is fortified during fermentation: adding grape spirit stops the yeast, leaving natural sugar in the wine. If the spirit were added after fermentation, as with dry Sherry, the wine would be dry."
       - blank: Noble rot is caused by a fungus called ___.
         answers:
         - Botrytis
@@ -151,4 +151,4 @@ lessons:
         - Phylloxera
         - Oidium
         - Brettanomyces
-        explain: Botrytis cinerea, in the right conditions, shrivels grapes and concentrates sugar and acid.
+        explain: "Botrytis cinerea, the noble rot, in the right conditions of damp mornings followed by sunny afternoons, shrivels grapes and concentrates sugar and acid. In wet weather, the same fungus becomes grey rot and ruins the crop."

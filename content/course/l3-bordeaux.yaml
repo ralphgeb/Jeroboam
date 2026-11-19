@@ -25,15 +25,15 @@ lessons:
       - choice: "Which is the northernmost of the four famous Haut-Médoc communes?"
         options: [Saint-Estèphe, Margaux, Pauillac, Saint-Julien]
         a: Saint-Estèphe
-        explain: "From north to south: Saint-Estèphe, Pauillac, Saint-Julien, Margaux."
+        explain: "From north to south the four famous Haut-Médoc communes are Saint-Estèphe, Pauillac, Saint-Julien and Margaux. Pauillac, in the middle, holds three of the five First Growths (Lafite, Latour and Mouton), so it is the most powerful, long-lived Cabernet."
       - tf: "Merlot is the dominant grape in most top Left Bank blends."
         truth: false
-        explain: "On the Left Bank, Cabernet Sauvignon usually leads. Merlot dominates on the Right Bank."
+        explain: "On the Left Bank, Cabernet Sauvignon usually leads the blend, thanks to the gravel soils. Merlot dominates on the Right Bank (Pomerol and Saint-Émilion), where clay and limestone suit it better."
       - choice: "Which Left Bank area makes both top reds and fine oaked dry whites?"
         options: [Pessac-Léognan, Pauillac, Saint-Émilion, Médoc]
         a: Pessac-Léognan
         visual: "map:bordeaux:pessac-leognan"
-        explain: "It sits on the city's southern edge; Haut-Brion and Domaine de Chevalier make great reds and whites."
+        explain: "Pessac-Léognan, on the southern edge of Bordeaux city, makes both top reds and fine oaked dry whites from Sauvignon Blanc and Sémillon. Haut-Brion and Domaine de Chevalier are the benchmarks, and it is the only place where reds and whites are both classified."
   - title: The Right Bank & beyond
     cards:
       - learn: Clay, limestone and Merlot
@@ -51,17 +51,17 @@ lessons:
       - choice: "Which grape partners Merlot on the Right Bank?"
         options: [Cabernet Franc, Syrah, Malbec, Petit Verdot]
         a: Cabernet Franc
-        explain: "Cabernet Franc adds fragrance and structure. Château Cheval Blanc is famously Cabernet Franc-rich."
+        explain: "Cabernet Franc adds fragrance and structure to Merlot on the Right Bank. Château Cheval Blanc in Saint-Émilion is famously rich in Cabernet Franc, which ripens well on its gravelly soils."
       - tf: "Pomerol has an official classification of its châteaux."
         truth: false
-        explain: "Pomerol has no classification, yet Pétrus and Le Pin are among the most expensive wines in the world."
+        explain: "Pomerol has no official classification, yet Pétrus and Le Pin are among the most expensive wines in the world. Tiny estates and a proven track record of clay-grown Merlot let reputation, not a ranking, set the price."
       - blank: "'Entre-Deux-Mers' means between two ___."
         answers: [seas]
         options: [rivers, hills, châteaux]
-        explain: "Poetically, the 'seas' are the tidal Garonne and Dordogne rivers."
+        explain: "Entre-Deux-Mers means between two seas, though the seas are really the tidal Garonne and Dordogne rivers. The area makes fresh, dry whites mainly from Sauvignon Blanc, and good-value reds sold as Bordeaux."
       - match: "Match the soil to the grape it favors"
         pairs: [[Gravel, Cabernet Sauvignon], [Clay, Merlot]]
-        explain: "Warm, free-draining gravel helps late Cabernet; cool, water-retentive clay suits early Merlot."
+        explain: "Warm, free-draining gravel helps late-ripening Cabernet Sauvignon, while cool, water-retentive clay suits early-ripening Merlot. In a wet year clay keeps Merlot hydrated, and in a hot year gravel protects Cabernet, so many châteaux plant both."
   - title: Classifications & sweet Bordeaux
     cards:
       - learn: 1855 and after
@@ -77,18 +77,18 @@ lessons:
       - choice: "Which château was promoted to First Growth in 1973?"
         options: [Mouton Rothschild, Lafite Rothschild, Pétrus, Cheval Blanc]
         a: Mouton Rothschild
-        explain: "The only change ever made to the 1855 red classification."
+        explain: "Château Mouton Rothschild was promoted from Second to First Growth in 1973, the only change ever made to the 1855 red classification. Baron Philippe de Rothschild campaigned for it for decades, and his motto changed from 'First I cannot be, second I deign not to be' to 'First I am, second I was'."
       - choice: "What was the 1855 Classification based on?"
         options: [Market price, Soil analysis, Blind tasting, Vineyard size]
         a: Market price
-        explain: "Brokers ranked châteaux by the prices their wines fetched at the time."
+        explain: "In 1855, for the Paris Exposition, brokers ranked the châteaux by the prices their wines fetched at the time. Price then stood for quality and reputation, and the ranking has hardly changed since, though it is a ranking of estates, not of today's wine quality."
       - tf: "Château d'Yquem holds the unique rank of Premier Cru Supérieur in Sauternes."
         truth: true
-        explain: "It was placed above all other Sauternes in 1855."
+        explain: "Château d'Yquem holds the unique rank of Premier Cru Supérieur in Sauternes, placed above all other Sauternes in 1855. Its wine is picked berry by berry in several passes, and in poor years nothing is released."
       - blank: "Mists from the cool ___ river help noble rot develop in Sauternes."
         answers: [Ciron]
         options: [Loire, Dordogne, Rhône]
-        explain: "Cold Ciron water meeting the warmer Garonne creates the autumn fog botrytis needs."
+        explain: "The cool Ciron river meets the warmer Garonne, and that contrast creates the autumn morning fog that botrytis needs. The sunny afternoons then dry the grapes so the rot concentrates them instead of spoiling them."
   - title: Going further
     cards:
       - learn: The 1855 Classification
@@ -111,10 +111,10 @@ lessons:
         - Margaux
         - Pétrus
         a: Mouton Rothschild
-        explain: The only change ever made to the 1855 red classification.
+        explain: "Château Mouton Rothschild became a First Growth in 1973: the only change ever made to the 1855 red classification. The other four First Growths are Lafite, Latour, Margaux and Haut-Brion."
       - tf: Pomerol has an official classification like the Médoc.
         truth: false
-        explain: Pomerol has none, though Pétrus and Le Pin are among the world's most expensive wines.
+        explain: "Pomerol has no classification, unlike the Médoc and Sauternes, though Pétrus and Le Pin are among the world's most expensive wines. Its tiny estates, nearly all Merlot on clay, rely on reputation."
       - match: Match the appellation to its main grape
         pairs:
         - - Pauillac
@@ -125,7 +125,7 @@ lessons:
           - Sémillon
         - - Entre-Deux-Mers
           - Sauvignon Blanc
-        explain: Left Bank leans Cabernet, Right Bank leans Merlot, sweet wines lean Sémillon.
+        explain: "Left Bank appellations lean Cabernet Sauvignon, Right Bank ones lean Merlot, and the sweet wines of Sauternes lean on Sémillon. The grape tells you the blend and, roughly, the style."
       - choice: What brings noble rot to Sauternes?
         options:
         - Autumn mists from the Ciron river
@@ -133,7 +133,7 @@ lessons:
         - Late frosts
         - Very dry summers
         a: Autumn mists from the Ciron river
-        explain: Misty mornings and sunny afternoons are perfect for botrytis.
+        explain: "Misty mornings and sunny afternoons are perfect for botrytis: the damp spreads the fungus, and the sun then dries the grapes so it concentrates, not rots. Not every year works, which is one reason Sauternes is expensive."
       - blank: Château ___ is the only Graves estate in the 1855 classification.
         answers:
         - Haut-Brion
@@ -142,4 +142,4 @@ lessons:
         - Pétrus
         - Cheval Blanc
         - Yquem
-        explain: Haut-Brion was so famous in 1855 that it was included alongside the Médoc.
+        explain: "Château Haut-Brion, the only Graves estate in the 1855 classification, was so famous that it was included alongside the Médoc. It is also the oldest of the First Growths, with a fame going back to the 17th century, even in London."

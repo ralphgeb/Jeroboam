@@ -15,19 +15,19 @@ lessons:
       - choice: "What does GSM stand for?"
         options: ["Grenache, Syrah, Mourvèdre", "Gamay, Sangiovese, Merlot", "Grüner, Sémillon, Muscat", "Garnacha, Sémillon, Malbec"]
         a: "Grenache, Syrah, Mourvèdre"
-        explain: "The classic Southern Rhône blend, also popular in Australia's Barossa and McLaren Vale."
+        explain: "GSM stands for Grenache, Syrah and Mourvèdre, the classic southern Rhône blend also popular in Australia's Barossa and McLaren Vale. Grenache brings red fruit and warmth, Syrah color and spice, Mourvèdre structure."
       - choice: "Coconut and vanilla in traditional Rioja come from…"
         options: [American oak, Malolactic conversion, The Tempranillo grape, Stainless steel]
         a: American oak
-        explain: "American oak has more of the compounds that smell of coconut (lactones) and vanilla."
+        explain: "American oak has more of the compounds called lactones, which smell of coconut and vanilla. Traditional Rioja was aged in it for decades. French oak is more subtle, giving spice and toast, so the oak tells you a lot about a wine's style."
       - tf: "Grenache usually produces wines with high alcohol and soft tannins."
         truth: true
-        explain: "It accumulates sugar easily in hot climates, and its thin skins give gentle tannins."
+        explain: "Grenache accumulates sugar easily in hot climates, so it makes high-alcohol wines, and its thin skins give gentle tannins and a soft, juicy texture. That is why it is often blended with Syrah or Mourvèdre for structure."
       - choice: "Which Spanish region is Tempranillo's most famous home?"
         options: [Rioja, Rías Baixas, Jerez, Penedès]
         a: Rioja
         visual: "map:spain:rioja"
-        explain: "Rioja, along the Ebro river, is Spain's classic red region."
+        explain: "Rioja, along the Ebro river, is Tempranillo's classic home, with Ribera del Duero close behind. Tempranillo is named after temprano, Spanish for early, because it ripens early."
   - title: Italy's great reds
     cards:
       - learn: Sangiovese
@@ -42,19 +42,19 @@ lessons:
         options: [Sangiovese, Nebbiolo, Barbera, Merlot]
         a: Sangiovese
         visual: "map:tuscany:chianti-classico"
-        explain: "Chianti Classico must be at least 80% Sangiovese."
+        explain: "Chianti Classico must be at least 80% Sangiovese. The rest can be local grapes such as Canaiolo, or international ones like Merlot. Sangiovese gives cherry, tea leaf and high acidity."
       - choice: "Barolo is made from which grape?"
         options: [Nebbiolo, Sangiovese, Montepulciano, Corvina]
         a: Nebbiolo
         visual: "map:piedmont:barolo"
-        explain: "100% Nebbiolo, from hills south-west of Alba in Piedmont."
+        explain: "Barolo is 100% Nebbiolo, from hills south-west of Alba in Piedmont. It must age at least 38 months before release, 18 of them in wood. Barbaresco, its neighbor, is also Nebbiolo."
       - tf: "Nebbiolo makes deeply colored, low-tannin wines."
         truth: false
-        explain: "Nebbiolo is relatively pale, fades to garnet early, and is very high in tannin and acidity."
+        explain: "Nebbiolo is relatively pale and fades to garnet early, yet it is very high in tannin and acidity. That is the paradox: a light-colored but powerful wine, so judging by color alone would mislead you."
       - blank: "Nebbiolo's classic aromas are summed up as 'tar and ___'."
         answers: [roses]
         options: [lemons, butter, bananas]
-        explain: "Rose petals and violets, with tar, liquorice and dried cherry."
+        explain: "Rose petals and violets, with tar, liquorice and dried cherry: tar and roses is the classic description. It is also the reason Nebbiolo is called the greatest of Italian grapes."
   - title: New World stars
     cards:
       - learn: Signature grapes
@@ -66,14 +66,14 @@ lessons:
           - **Pinotage** (South Africa): a 1925 cross of Pinot Noir and Cinsault.
       - match: "Match the grape to its adopted home"
         pairs: [[Malbec, Argentina], [Carmenère, Chile], [Pinotage, South Africa], [Zinfandel, California]]
-        explain: "Each of these became its country's signature red."
+        explain: "Each of these became its country's signature red: Malbec in Argentina, Carmenère in Chile, Pinotage in South Africa, Zinfandel in California. Famous grapes often travel: Malbec is originally French and Carmenère was once thought to be Merlot."
       - choice: "Zinfandel is genetically identical to…"
         options: [Primitivo, Sangiovese, Merlot, Gamay]
         a: Primitivo
-        explain: "Both trace back to the Croatian grape Tribidrag (Crljenak Kaštelanski)."
+        explain: "Zinfandel is genetically identical to Italy's Primitivo, and both trace back to the Croatian grape Tribidrag (Crljenak Kaštelanski). DNA fingerprinting solved the mystery in the 2000s, and the grape reached California in the 1800s."
       - tf: "Malbec originally came from Cahors in South West France."
         truth: true
-        explain: "It was once important in Bordeaux too, but Argentina made it world-famous."
+        explain: "Malbec originally came from Cahors in South West France and was once important in Bordeaux too. Frost and disease nearly wiped it out in France, and Argentina made it world-famous, especially at altitude in Mendoza."
       - choice: "Pinotage is a cross of Pinot Noir and…"
         options: [Cinsault, Syrah, Cabernet Sauvignon, Grenache]
         a: Cinsault
@@ -89,19 +89,19 @@ lessons:
         options: [Gamay, Pinot Noir, Syrah, Grenache]
         a: Gamay
         visual: "map:burgundy:beaujolais"
-        explain: "Beaujolais lies just south of Burgundy and is almost entirely Gamay."
+        explain: "Beaujolais lies just south of Burgundy and is almost entirely Gamay. Its granite soils make light, fruity reds, with ten named crus such as Morgon and Fleurie being the most serious."
       - choice: "Which technique gives Beaujolais Nouveau its banana and bubblegum notes?"
         options: [Carbonic maceration, New oak, Malolactic conversion, Fortification]
         a: Carbonic maceration
-        explain: "Whole bunches ferment inside the berries in a CO₂ atmosphere, making soft, fruity, aromatic reds."
+        explain: "Beaujolais Nouveau is made by carbonic maceration: whole bunches ferment inside the berries in a CO₂ atmosphere, making soft, fruity reds with banana and bubblegum notes. It is released on the third Thursday of November."
       - tf: "Chinon in the Loire Valley is made mainly from Cabernet Franc."
         truth: true
-        explain: "Fragrant red fruit, violets and a leafy, pencil-shaving edge."
+        explain: "Chinon in the Loire Valley is made mainly from Cabernet Franc: fragrant red fruit and violets, with a leafy, pencil-shaving edge. It is lighter than Cabernet Sauvignon and is best slightly chilled in summer."
         visual: "map:loire:chinon"
       - blank: "Cabernet Franc is a parent of Cabernet ___."
         answers: [Sauvignon]
         options: [Franc, Noir, Gris]
-        explain: "Cabernet Franc × Sauvignon Blanc = Cabernet Sauvignon."
+        explain: "Cabernet Franc × Sauvignon Blanc = Cabernet Sauvignon, a cross that happened naturally in 17th-century France, as DNA analysis proved in 1997. This makes Cabernet Franc a parent, and also a major Bordeaux blending grape."
   - title: Going further
     cards:
       - learn: Italy's great reds
@@ -124,10 +124,10 @@ lessons:
         - Barbera
         - Dolcetto
         a: Nebbiolo
-        explain: Barolo and Barbaresco are 100% Nebbiolo, from Piedmont.
+        explain: "Barolo and Barbaresco are 100% Nebbiolo, from Piedmont. Barolo tends to be more powerful, Barbaresco a little more elegant, and both age for decades."
       - tf: Nebbiolo wines are usually deep, inky purple.
         truth: false
-        explain: Nebbiolo is surprisingly pale, often garnet, despite huge tannin and acidity.
+        explain: "Nebbiolo is surprisingly pale, often garnet, despite huge tannin and acidity. Never judge a red by color: the thick-skinned Cabernet is darker but not necessarily more tannic."
       - match: Match the wine to its main grape
         pairs:
         - - Chianti
@@ -138,7 +138,7 @@ lessons:
           - Nebbiolo
         - - Beaujolais
           - Gamay
-        explain: European wines are named after the place, so knowing the grape behind each is key.
+        explain: "European wines are named after the place, so knowing the grape behind each is key: Chianti is Sangiovese, Barolo is Nebbiolo, Rioja is Tempranillo, and Chinon is Cabernet Franc."
       - choice: '''Tar and roses'' is a classic description of…'
         options:
         - Nebbiolo
@@ -146,7 +146,7 @@ lessons:
         - Grenache
         - Zinfandel
         a: Nebbiolo
-        explain: Rose petal and tar (or liquorice) are Nebbiolo's signature aromas.
+        explain: "Rose petal and tar (or liquorice) are Nebbiolo's signature aromas, found in Barolo and Barbaresco. A drying tannic grip and brick-orange edges, even in young wines, complete the picture."
       - blank: Brunello di Montalcino is made from ___.
         answers:
         - Sangiovese
@@ -154,4 +154,4 @@ lessons:
         - Nebbiolo
         - Merlot
         - Montepulciano
-        explain: Brunello is the local name for the Sangiovese clone grown around Montalcino.
+        explain: "Brunello is the local name for the Sangiovese clone grown around Montalcino, a hill town in Tuscany. The wine is aged at least five years before release, two of them in oak."

@@ -24,18 +24,18 @@ lessons:
       - choice: "A wine showing fresh fruit with some leather and earth is…"
         options: [Developing, Youthful, Tired, Faulty]
         a: Developing
-        explain: "Tertiary notes alongside primary fruit mean the wine is on its way to maturity."
+        explain: "Tertiary notes (leather, earth, mushroom) alongside primary fruit mean the wine is on its way to maturity. Primary aromas come from the grape, secondary from winemaking, and tertiary from age."
       - choice: "High acidity, high tannin, pale garnet, tar and roses suggests…"
         options: [Nebbiolo, Merlot, Grenache, Gamay]
         a: Nebbiolo
-        explain: "Nebbiolo's unusual mix of pale color and fierce structure is a giveaway."
+        explain: "High acidity, high tannin, pale garnet and tar and roses suggest Nebbiolo. Its unusual mix of pale color and fierce structure is a giveaway, so look for it in Barolo and Barbaresco."
       - tf: "Unripe tannins tend to feel green, coarse and astringent."
         truth: true
-        explain: "Ripe tannins feel fine-grained and silky. Tannin texture is a clue to grape ripeness and winemaking."
+        explain: "Unripe tannins tend to feel green, coarse and astringent. Ripe tannins feel fine-grained and silky, so tannin texture is a clue to grape ripeness and winemaking."
       - blank: "Alcohol above about ___% is described as high."
         answers: ["14"]
         options: ["10", "8", "11"]
-        explain: "Below 11% is low; 11–13.9% is medium."
+        explain: "Alcohol above about 14% is described as high. Below 11% is low, and 11–13.9% is medium. High alcohol shows as warmth and weight on the finish."
   - title: Quality & readiness
     cards:
       - learn: BLIC in practice
@@ -50,17 +50,17 @@ lessons:
       - choice: "A wine with intense fruit, high tannin and high acidity that is still very primary is probably…"
         options: ["Too young / has ageing potential", "Too old", "Faulty", "Ready and at its peak"]
         a: "Too young / has ageing potential"
-        explain: "Concentrated fruit plus structure is what allows a wine to improve with age."
+        explain: "Concentrated fruit plus structure is what allows a wine to improve with age: a wine with intense fruit, high tannin and high acidity, still very primary, is probably young and needs time. Fruit will fade slowly, while tannin and acid preserve it."
       - tf: "A short finish is a sign of outstanding quality."
         truth: false
-        explain: "Great wines have long, complex finishes."
+        explain: "Great wines have long, complex finishes, so a short finish is a sign of a simple wine. Length is one of the four BLIC markers."
       - match: "Match each BLIC element to its question"
         pairs: [[Balance, "Does anything stick out?"], [Length, "How long does it last?"], [Intensity, "How powerful are the flavors?"], [Complexity, "How many layers are there?"]]
-        explain: "Four simple questions behind every professional quality call."
+        explain: "Four simple questions behind every professional quality call: Is it balanced? How long is the finish? How intense are the aromas and flavors? Is it complex? A wine that answers well to all four is high quality."
       - choice: "Which wine is most likely to improve with bottle age?"
         options: ["Grand Cru Burgundy", "Beaujolais Nouveau", "Pinot Grigio", "Prosecco"]
         a: "Grand Cru Burgundy"
-        explain: "Concentration, acidity and structure let it evolve for decades. The others are made to drink young."
+        explain: "Concentration, acidity and structure let a wine evolve for decades; the others are made to drink young. A tannic, high-acid, concentrated red like Barolo or Bordeaux has more to give with time."
   - title: Faults
     cards:
       - learn: When wine goes wrong
@@ -75,17 +75,17 @@ lessons:
       - choice: "A wine smelling of nail-varnish remover and vinegar has…"
         options: [Volatile acidity, Cork taint, Reduction, Brettanomyces]
         a: Volatile acidity
-        explain: "Caused by acetic acid and ethyl acetate, usually from bacteria and oxygen exposure."
+        explain: "Nail-varnish remover and vinegar smells come from acetic acid and ethyl acetate, usually from bacteria and oxygen exposure. The wine is spoiled, and it will not improve."
       - choice: "Struck-match or rotten-egg aromas indicate…"
         options: [Reduction, Oxidation, Cork taint, Heat damage]
         a: Reduction
         explain: "Sulfur compounds form when wine lacks oxygen during winemaking. Mild cases blow off with swirling or decanting."
       - tf: "Brettanomyces can give barnyard and sticking-plaster aromas."
         truth: true
-        explain: "A little can add complexity for some drinkers; a lot strips the fruit."
+        explain: "Brettanomyces can give barnyard and sticking-plaster aromas. A little can add complexity for some drinkers, but a lot strips the fruit, and the smell can be considered a fault."
       - match: "Match the fault to its smell"
         pairs: [[TCA, Damp cardboard], [Oxidation, Bruised apple], [Brettanomyces, Barnyard], [Reduction, Struck match]]
-        explain: "Recognizing faults is part of every sommelier's training."
+        explain: "Recognizing faults is part of every sommelier's training: cork taint smells of damp cardboard, oxidation of bruised apple and sherry, volatile acidity of vinegar, and Brett of barnyard."
   - title: Going further
     cards:
       - learn: Assessing readiness
@@ -108,7 +108,7 @@ lessons:
         - Low acidity, tropical fruit
         - Dark, raisined, very ripe
         a: Pale, high acidity, citrus fruit
-        explain: Cool climates keep acidity and give leaner, fresher fruit.
+        explain: "Cool climates keep acidity and give leaner, fresher fruit with lower alcohol. A tart, light-bodied wine with green apple or red cherry points to a cool place like Chablis, Mosel or the Loire."
       - match: Match the clue to what it suggests
         pairs:
         - - Vanilla and toast
@@ -119,10 +119,10 @@ lessons:
           - Warm climate
         - - Green bell pepper
           - Unripe Cabernet
-        explain: Each clue narrows down the grape, place and winemaking.
+        explain: "Each clue narrows down the grape, place and winemaking: pale color suggests thin skins, pepper suggests Syrah, buttery notes suggest malolactic fermentation. Collect clues and then decide."
       - tf: Wines with high acidity or tannin often age well.
         truth: true
-        explain: Structure protects a wine while its fruit slowly evolves.
+        explain: "Structure protects a wine while its fruit slowly evolves. Acidity and tannin act like preservatives, which is why the Mosel Riesling and Barolo can last for decades."
       - choice: A red tastes of dried fruit, leather and has drying tannin. It is probably…
         options:
         - Past its best
@@ -130,7 +130,7 @@ lessons:
         - Unoaked
         - Carbonic
         a: Past its best
-        explain: Fading fruit and drying tannin are signs a wine has passed its peak.
+        explain: "Fading fruit and drying tannin are signs a wine has passed its peak. When the fruit has faded, the tannin and acidity are left behind, and the wine tastes thin and hard."
       - blank: Concentration of flavor, balance, length and complexity together judge a wine's ___.
         answers:
         - quality
@@ -139,4 +139,4 @@ lessons:
         - price
         - color
         - sweetness
-        explain: These BLIC factors let you judge quality objectively.
+        explain: "Balance, length, intensity and complexity (BLIC) together judge a wine's quality. Using the same four factors for every wine lets you compare them objectively."

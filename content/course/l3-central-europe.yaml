@@ -20,18 +20,18 @@ lessons:
       - choice: "Which Prädikat is made from individually picked shriveled, botrytized berries?"
         options: [Trockenbeerenauslese, Kabinett, Spätlese, Auslese]
         a: Trockenbeerenauslese
-        explain: "TBA is one of the world's rarest, sweetest wines, sometimes with under 6% alcohol."
+        explain: "Trockenbeerenauslese (TBA) is made from individually picked, shriveled, botrytized berries. It is one of the world's rarest and sweetest wines, sometimes with under 6% alcohol, and can age for a century."
       - tf: "A Spätlese is always sweet."
         truth: false
-        explain: "Spätlese means late harvest, a ripeness level. It can be fermented dry (Spätlese trocken)."
+        explain: "Spätlese means late harvest: a ripeness level, not a sweetness level. It can be fermented dry (Spätlese trocken), which gives a ripe, full-bodied dry wine."
       - choice: "Which region is famous for delicate, low-alcohol Riesling on steep slate?"
         options: [Mosel, Pfalz, Baden, Franken]
         a: Mosel
         visual: "map:germany:mosel"
-        explain: "The Mosel's blue and red slate slopes are among the steepest vineyards in the world."
+        explain: "The Mosel is famous for delicate, low-alcohol Riesling on steep slate slopes. The blue and red slate slopes are among the steepest in the world, and the river reflects light and holds heat."
       - match: "Match the German region to its specialty"
         pairs: [[Franken, Silvaner in Bocksbeutel], [Baden, Spätburgunder], [Rheingau, Classic Riesling]]
-        explain: "Germany's warmest region (Baden) excels with the Pinot family."
+        explain: "Germany's regions have specialties: Mosel for delicate Riesling, Rheingau for richer Riesling, Pfalz for full-bodied wines, and Baden, Germany's warmest region, for the Pinot family (Spätburgunder, Grauburgunder)."
   - title: Austria
     cards:
       - learn: Precision and purity
@@ -46,19 +46,19 @@ lessons:
       - choice: "In the Wachau, the ripest dry style is called…"
         options: [Smaragd, Steinfeder, Federspiel, Kabinett]
         a: Smaragd
-        explain: "Named after an emerald-green lizard that basks on the warm terraces."
+        explain: "Smaragd, named after an emerald-green lizard that basks on the warm terraces, is the Wachau's ripest dry style. It is full-bodied and often 13% alcohol or more, above Steinfeder and Federspiel."
       - tf: "Lake Neusiedl's humidity helps produce botrytized sweet wines."
         truth: true
-        explain: "Morning mists from the shallow lake encourage noble rot."
+        explain: "Lake Neusiedl is shallow and warm, and the morning mists from it encourage noble rot. The Burgenland region makes top sweet wines such as Ausbruch and Trockenbeerenauslese."
         visual: "map:austria:neusiedlersee"
       - choice: "Austria's most planted red grape is…"
         options: [Zweigelt, Blaufränkisch, Pinot Noir, Merlot]
         a: Zweigelt
-        explain: "A 1922 cross of St. Laurent and Blaufränkisch."
+        explain: "Austria's most planted red grape is Zweigelt, a 1922 cross of St. Laurent and Blaufränkisch. It makes juicy, cherry-fruited reds, while Blaufränkisch makes the more serious ones."
       - blank: "DAC stands for Districtus Austriae ___."
         answers: [Controllatus]
         options: [Classicus, Communis, Certus]
-        explain: "It marks wines typical of their region."
+        explain: "DAC stands for Districtus Austriae Controllatus. It marks wines typical of their region, such as Weinviertel DAC for peppery Grüner Veltliner, and is Austria's equivalent of the French AOC."
   - title: Tokaj & Greece
     cards:
       - learn: Tokaji
@@ -78,7 +78,7 @@ lessons:
       - choice: "Tokaji's main grape is…"
         options: [Furmint, Riesling, Assyrtiko, Grüner Veltliner]
         a: Furmint
-        explain: "High acidity, smoky minerality and a strong affinity for botrytis."
+        explain: "Tokaji's main grape is Furmint: high acidity, smoky minerality and a strong affinity for botrytis. That acidity keeps the sweet Aszú wines lively and lets them age for generations."
       - tf: "Santorini's vines are grafted onto American rootstock."
         truth: false
         explain: "Phylloxera cannot survive in Santorini's volcanic sand, so vines grow on their own roots, some very old."
@@ -86,11 +86,11 @@ lessons:
       - choice: "Which Greek grape is often compared to Nebbiolo?"
         options: [Xinomavro, Agiorgitiko, Assyrtiko, Moschofilero]
         a: Xinomavro
-        explain: "Pale, high in tannin and acidity, with tomato, olive and red fruit."
+        explain: "Xinomavro, from northern Greece, is often compared to Nebbiolo: pale, high in tannin and acidity, with tomato, olive and red fruit. Naoussa is its most famous appellation."
       - blank: "Tokaji ___ is the rare syrup of aszú berries, one of the sweetest wines on earth."
         answers: [Eszencia]
         options: [Szamorodni, Furmint, Aszú]
-        explain: "It ferments for years and reaches only a few percent alcohol."
+        explain: "Tokaji Eszencia is the rare syrup of aszú berries that drips by its own weight, one of the sweetest wines on earth. It ferments for years and reaches only a few percent alcohol, and is traditionally used as a medicine."
   - title: Going further
     cards:
       - learn: German Riesling styles
@@ -110,7 +110,7 @@ lessons:
         - Baden
         - Franken
         a: Mosel
-        explain: The Mosel's slate slopes are among the steepest vineyards in the world.
+        explain: "The Mosel's slate slopes along its winding river are among the steepest vineyards in the world. The slate stores heat, which helps ripen Riesling in a cool climate."
       - match: Match the wine to its main grape
         pairs:
         - - Tokaji Aszú
@@ -121,10 +121,10 @@ lessons:
           - Blaufränkisch
         - - Mosel Kabinett
           - Riesling
-        explain: Central Europe's classics rely on local stars.
+        explain: "Central Europe's classics rely on local stars: Riesling in the Mosel, Grüner Veltliner in the Wachau, Furmint in Tokaj and Blaufränkisch in Burgenland. Learning the grape for each place helps a lot."
       - tf: Trockenbeerenauslese is a dry wine.
         truth: false
-        explain: Despite 'trocken' in the name, TBA is made from shriveled botrytized berries and is intensely sweet.
+        explain: "Despite trocken in the name, TBA is made from shriveled botrytized berries and is intensely sweet. Trockenbeeren means dried berries, not dry wine, which is a classic trap."
       - choice: In the Wachau, what is 'Smaragd'?
         options:
         - The ripest, fullest dry category
@@ -132,7 +132,7 @@ lessons:
         - A sparkling wine
         - A type of soil
         a: The ripest, fullest dry category
-        explain: Steinfeder, Federspiel and Smaragd rank Wachau's dry whites by ripeness.
+        explain: "Steinfeder, Federspiel and Smaragd rank the Wachau's dry whites by ripeness: Smaragd is the ripest and richest. The names come from a grass, a falconry term and a lizard."
       - blank: Hungary's most famous sweet wine comes from ___.
         answers:
         - Tokaj
@@ -141,4 +141,4 @@ lessons:
         - Villány
         - Szekszárd
         - Somló
-        explain: Tokaj was the world's first classified wine region, in 1730.
+        explain: "Hungary's most famous sweet wine comes from Tokaj, the world's first classified wine region, in 1730. Its Aszú wines are measured in puttonyos, the baskets of botrytized berries added to the base wine."

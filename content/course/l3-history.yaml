@@ -26,7 +26,7 @@ lessons:
       - choice: "What did the Greeks call southern Italy?"
         options: [Oenotria, Burdigala, Gallia, Iberia]
         a: Oenotria
-        explain: "Oenotria means 'land of vines'. Burdigala was the Roman name for Bordeaux."
+        explain: "The Greeks called southern Italy Oenotria, the land of vines, because they planted vineyards there from about the 8th century BC. Burdigala was the Roman name for Bordeaux, and Roman legions spread vines through Gaul."
       - tf: "The Romans spread vineyards along rivers such as the Rhône, Mosel and Rhine."
         truth: true
         explain: "Rivers gave vines water, warmth from reflected sun, and a road for barrels to market. Many great regions began as Roman vineyards."
@@ -54,10 +54,10 @@ lessons:
       - blank: "Bordeaux belonged to England for three centuries after Eleanor of Aquitaine married Henry Plantagenet in ___."
         answers: ["1152"]
         options: ["1066", "1453", "1789"]
-        explain: "The marriage in 1152 made Bordeaux English until 1453; the British still call red Bordeaux 'claret'."
+        explain: "The marriage in 1152 of Eleanor of Aquitaine and Henry Plantagenet made Bordeaux English until 1453. The English still call red Bordeaux claret, from the French clairet, a light red, and London became its biggest market."
       - tf: "Dutch engineers drained the Médoc's marshes in the 1600s."
         truth: true
-        explain: "Draining revealed the gravel ridges of the Left Bank, where Cabernet Sauvignon ripens on warm stones."
+        explain: "Dutch engineers drained the Médoc's marshes in the 1600s. Draining revealed the gravel ridges of the Left Bank, where Cabernet Sauvignon ripens on warm stones, and that created the region's great estates."
   - title: Phylloxera
     cards:
       - learn: The plague from America
@@ -94,7 +94,7 @@ lessons:
         explain: "Grafting keeps the European vine's fruit on resistant American roots. Almost every vineyard in the world is grafted today."
       - tf: "Chile's vineyards were never hit by phylloxera."
         truth: true
-        explain: "Mountains, ocean and desert isolate Chile, so many of its vines still grow on their own roots."
+        explain: "Chile's vineyards were never hit by phylloxera, since the Andes, the Pacific and the Atacama desert isolate the country. Many Chilean vines still grow on their own roots, which is rare in the world."
       - choice: "Which French botanist identified phylloxera in 1868?"
         options: [Jules-Émile Planchon, Louis Pasteur, Émile Peynaud, Dom Pérignon]
         a: Jules-Émile Planchon
@@ -114,7 +114,7 @@ lessons:
       - choice: "How did the merchants decide the 1855 ranking?"
         options: [By the price the wines fetched, By a blind tasting, By the size of the estate, By the age of the château]
         a: By the price the wines fetched
-        explain: "Price over many years was taken as the market's verdict on quality."
+        explain: "Brokers took price over many years as the market's verdict on quality, so the ranking reflects reputation and market value. The brokers were practical: they knew what each château's wine had been fetching."
       - choice: "Which château was promoted to First Growth in 1973?"
         options: [Mouton Rothschild, Pétrus, Cheval Blanc, Palmer]
         a: Mouton Rothschild
@@ -142,14 +142,14 @@ lessons:
       - choice: "Which red won the 1976 Judgment of Paris?"
         options: [Stag's Leap Wine Cellars 1973 Cabernet, Château Mouton Rothschild 1970, Château Haut-Brion 1970, Opus One 1979]
         a: Stag's Leap Wine Cellars 1973 Cabernet
-        explain: "A Napa Cabernet from Stags Leap District beat the best of Bordeaux, judged blind by French experts."
+        explain: "A Napa Cabernet from Stag's Leap Wine Cellars beat the best of Bordeaux in 1976, judged blind by French experts. The Judgment of Paris proved that great wine could be made outside France, and changed the wine world."
       - choice: "Which wine won the white flight?"
         options: [Chateau Montelena 1973 Chardonnay, Meursault-Charmes 1973, Puligny-Montrachet 1972, Cloudy Bay Sauvignon Blanc]
         a: Chateau Montelena 1973 Chardonnay
-        explain: "Chateau Montelena, from Calistoga in northern Napa, beat top white Burgundies."
+        explain: "Chateau Montelena, from Calistoga in northern Napa, beat top white Burgundies in the 1976 Judgment of Paris. It was a Chardonnay, and the result stunned French critics."
       - tf: "The 1976 tasting was judged by Californian experts."
         truth: false
-        explain: "All nine judges were French, which is what made the result so shocking. The wines were tasted blind."
+        explain: "All nine judges were French, which is what made the result so shocking. The wines were tasted blind, so the judges thought they were picking French wine, and the Californian winners were a surprise."
       - blank: "The English merchant who organized the 1976 tasting was Steven ___."
         answers: [Spurrier]
         options: [Parker, Taber, Mondavi]
@@ -174,7 +174,7 @@ lessons:
       - choice: "Which vintage made Robert Parker famous?"
         options: [1982 Bordeaux, 1976 Napa, 1945 Bordeaux, 2005 Burgundy]
         a: 1982 Bordeaux
-        explain: "Parker called 1982 a great vintage when others were cautious; he was right, and his influence soared."
+        explain: "Robert Parker called 1982 a great Bordeaux vintage when others were cautious; he was right, and his influence soared. His 100-point scale then shaped what wine was made and what it cost."
       - tf: "Climate change is making harvests earlier in regions such as Champagne."
         truth: true
         explain: "Warmer seasons ripen grapes sooner; Champagne now picks weeks earlier than a generation ago, and cooler places such as England are rising."

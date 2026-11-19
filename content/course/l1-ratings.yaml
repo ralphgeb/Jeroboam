@@ -33,7 +33,7 @@ lessons:
       - choice: "On the 100-point scale, a wine scored 92 is…"
         options: [Outstanding, Average, Faulty, A perfect wine]
         a: Outstanding
-        explain: "90–95 is 'outstanding': a wine with real character. 96–100 is 'classic', 85–89 'very good'."
+        explain: "On the 100-point scale, 90–95 is outstanding: a wine with real character and complexity. 96–100 is classic, 85–89 very good, and anything under 80 is generally not recommended. Remember that critics rarely publish scores below 80."
       - tf: "On the 100-point scale, the lowest score a wine can get is 0."
         truth: false
         explain: "Every wine starts at 50; the 50 points above that reward quality. In practice published scores sit mostly between 80 and 100."
@@ -68,10 +68,10 @@ lessons:
       - choice: "Which magazine publishes a famous 'Top 100' list every November?"
         options: [Wine Spectator, The World Atlas of Wine, Vivino, The Wine Society]
         a: Wine Spectator
-        explain: "Wine Spectator's Top 100 of the year is one of the most watched lists in the trade."
+        explain: "Wine Spectator's Top 100 of the year, published every November, is one of the most watched lists in the trade. A wine that makes it can sell out within weeks, which is why price and availability matter as well as score."
       - tf: "Jancis Robinson usually gives scores out of 20."
         truth: true
-        explain: "Like many European critics she uses the 20-point scale; 17 is very good, 18.5 and above exceptional."
+        explain: "Like many European critics, Jancis Robinson scores out of 20: 17 is very good and 18.5 or higher is exceptional. The 100-point scale was popularized by American critic Robert Parker, and the two scales roughly translate: 17 is about 90."
   - title: Using scores well
     cards:
       - learn: A number is not your taste
@@ -90,7 +90,7 @@ lessons:
       - choice: "Why are wines scored 87–89 often good value?"
         options: [Prices jump once a wine reaches 90 points, They are always faulty, They are made only in Europe, They are always older wines]
         a: Prices jump once a wine reaches 90 points
-        explain: "Shops and producers market 90+ scores heavily; a wine just below often costs less for very similar quality."
+        explain: "Shops and producers market 90+ scores heavily, so the price jumps at that line. A wine scoring 87–89 is often very similar in quality but noticeably cheaper, which is the sweet spot for value buyers."
       - tf: "A high score means you will personally enjoy the wine."
         truth: false
         explain: "A score judges quality and typicity. Your own taste for, say, tannin or oak may differ; read the tasting note too."

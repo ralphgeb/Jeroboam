@@ -30,10 +30,10 @@ lessons:
       - blank: "In the Northern Hemisphere, harvest usually happens in September and ___."
         answers: [October]
         options: [March, June, January]
-        explain: "In the Southern Hemisphere, the seasons flip: harvest falls around February to April."
+        explain: "In the Northern Hemisphere, harvest usually happens in September and October, though warm regions start in August. In the Southern Hemisphere the seasons flip: harvest falls around February to April."
       - match: "Put each stage with its season (Northern Hemisphere)"
         pairs: [[Budburst, Spring], [Véraison, Summer], [Harvest, Autumn], [Dormancy, Winter]]
-        explain: "Flowering also falls in late spring, and fruit set follows in early summer."
+        explain: "The vine's year: budburst in spring, flowering in late spring, fruit set in early summer, véraison in late summer, harvest in autumn, and dormancy in winter. This cycle drives the whole calendar of a wine region."
   - title: Climate & weather
     cards:
       - learn: Cool vs warm climates
@@ -54,19 +54,19 @@ lessons:
       - choice: "A cool-climate wine typically has…"
         options: ["Higher acidity and lower alcohol", "Lower acidity and higher alcohol", "More tannin and sugar", "Black fruit and jammy flavors"]
         a: "Higher acidity and lower alcohol"
-        explain: "Less heat means less sugar (so less alcohol) and more acid retained in the grapes."
+        explain: "Less heat means less sugar (so less alcohol) and more acid retained in the grapes. Cool-climate wines tend to be lighter, crisper and more aromatic, such as Chablis or Mosel Riesling."
       - tf: "Weather explains why the same wine can vary from vintage to vintage."
         truth: true
         explain: "A cold spring, a hot summer or autumn rain can change a vintage. That is why vintages matter most in marginal climates."
       - choice: "How do high-altitude vineyards in hot countries keep wines fresh?"
         options: ["Cooler temperatures at altitude", "More rainfall", "Less sunlight", "Richer soils"]
         a: "Cooler temperatures at altitude"
-        explain: "Argentina's Mendoza vineyards sit at 800–1,500 m, where cool nights preserve acidity."
+        explain: "High-altitude vineyards stay cooler: Argentina's Mendoza vineyards sit at 800–1,500 m, where cool nights preserve acidity and color, even though days are hot. Every 100 m of altitude cools it by about 0.6 °C."
         visual: "map:argentina:uco-valley"
       - blank: "Warm-climate Chardonnay tastes of tropical fruit; cool-climate Chardonnay tastes of green ___ and citrus."
         answers: [apple]
         options: [pepper, olive, banana]
-        explain: "The same grape can taste very different depending on how much warmth it receives."
+        explain: "The same grape can taste very different depending on how much warmth it receives: cool-climate Chardonnay shows green apple and citrus, while warm-climate Chardonnay tastes of peach and tropical fruit."
   - title: Terroir
     cards:
       - learn: A sense of place
@@ -86,16 +86,16 @@ lessons:
         explain: "South-facing slopes catch more direct sunlight, which is vital in cool regions like the Mosel and Burgundy."
       - tf: "Terroir includes soil, slope and local climate."
         truth: true
-        explain: "Terroir is the whole natural environment of a vineyard, and many add the human traditions of a place."
+        explain: "Terroir is the whole natural environment of a vineyard: soil, slope, aspect and climate, and many add the human traditions of a place. It is the reason the same grape tastes different from one hillside to the next."
       - choice: "Why are well-drained gravel soils prized in the Médoc?"
         options: ["They drain water and store heat", "They are rich in nutrients", "They keep vines very wet", "They block sunlight"]
         a: "They drain water and store heat"
         visual: "map:bordeaux:haut-medoc"
-        explain: "Gravel warms up and drains quickly, which helps late-ripening Cabernet Sauvignon."
+        explain: "Gravel warms up and drains quickly, which helps late-ripening Cabernet Sauvignon ripen fully and keeps the vine's roots from sitting in water. That is why the best Médoc châteaux sit on the gravel mounds beside the Gironde."
       - blank: "The Mosel's steep slate slopes absorb and reflect ___ onto the vines."
         answers: [heat]
         options: [rain, fog, shade]
-        explain: "In such a northerly region, every bit of warmth counts."
+        explain: "The Mosel's steep slate slopes absorb and reflect heat onto the vines. In such a northerly region, every bit of warmth counts, so the best vineyards face south, along the river."
         visual: "map:germany:mosel"
   - title: Going further
     cards:
@@ -122,7 +122,7 @@ lessons:
         - The grape harvest
         - Pruning in winter
         a: When grapes soften and change color
-        explain: At véraison black grapes turn from green to purple and sugar starts to build.
+        explain: "Véraison is when black grapes turn from green to purple and sugar starts to build, about 40 to 50 days before harvest. Growers often thin crops then, to concentrate flavor in the remaining bunches."
       - tf: Spring frost is a major risk around budburst.
         truth: true
         explain: Young shoots are easily killed by frost; growers use wind machines, sprinklers or candles to protect them.
@@ -136,7 +136,7 @@ lessons:
           - Midsummer
         - - Harvest
           - Autumn
-        explain: The vine's yearly cycle drives the whole calendar of a wine region.
+        explain: "The vine's yearly cycle drives the whole calendar of a wine region: budburst in spring, flowering in late spring, véraison in late summer and harvest in autumn. Frost in spring and rain at harvest are the biggest risks."
       - choice: Why are poor, well-drained soils often prized for vines?
         options:
         - Lower yields with more concentrated grapes
@@ -144,7 +144,7 @@ lessons:
         - They prevent all diseases
         - They add sugar to the grapes
         a: Lower yields with more concentrated grapes
-        explain: Vines that struggle a little put their energy into fewer, more flavorful grapes.
+        explain: "Vines that struggle a little put their energy into fewer, more flavorful grapes. Rich, fertile soil makes leafy vines and diluted fruit, while poor, well-drained soils such as gravel or slate stress the vine in a good way."
       - blank: In the Northern Hemisphere, the best vineyard slopes usually face ___.
         answers:
         - south
@@ -153,4 +153,4 @@ lessons:
         - east only
         - downward
         - the sea always
-        explain: South-facing slopes get the most sun, helping grapes ripen in cool climates.
+        explain: "In the Northern Hemisphere, south-facing slopes get the most sun, helping grapes ripen in cool climates. In the Southern Hemisphere, it is the reverse: north-facing slopes get the most sun."

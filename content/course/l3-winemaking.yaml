@@ -22,11 +22,11 @@ lessons:
       - choice: "Why is sulfur dioxide (SO₂) used in winemaking?"
         options: ["As an antioxidant and antimicrobial", "To add bubbles", "To sweeten the wine", "To add oak flavor"]
         a: "As an antioxidant and antimicrobial"
-        explain: "Small amounts protect wine from oxidation and spoilage. Almost all wines contain some."
+        explain: "Small amounts of sulfur dioxide protect wine from oxidation and spoilage. Almost all wines contain some, including natural wines in tiny amounts, and it has been used since Roman times."
       - blank: "Soaking black grapes before fermentation at low temperature is called a cold ___."
         answers: [soak]
         options: [press, stabilization, fining]
-        explain: "Popular for Pinot Noir to extract color and fruit before alcohol forms."
+        explain: "A cold soak is soaking black grapes before fermentation at low temperature. It is popular for Pinot Noir to extract color and fruit before alcohol forms, as alcohol would extract harsher tannins."
   - title: Fermentation choices
     cards:
       - learn: Extraction methods
@@ -40,10 +40,10 @@ lessons:
       - choice: "Carbonic maceration is most associated with…"
         options: [Beaujolais, Barolo, Sauternes, Champagne]
         a: Beaujolais
-        explain: "Whole bunches in a CO₂-filled vessel give juicy, low-tannin wine with banana and bubblegum notes."
+        explain: "Carbonic maceration is most associated with Beaujolais: whole bunches in a CO₂-filled vessel give juicy, low-tannin wine with banana and bubblegum notes. Fermentation starts inside each berry."
       - tf: "Pigeage means punching the cap down into the wine."
         truth: true
-        explain: "Traditional in Burgundy, sometimes even done by foot."
+        explain: "Pigeage means punching the cap down into the wine. It is traditional in Burgundy, sometimes even done by foot, and it extracts color and tannin gently."
       - choice: "Which vessel has been used for winemaking in Georgia for about 8,000 years?"
         options: [Qvevri, Barrique, Stainless steel, Concrete egg]
         a: Qvevri
@@ -51,7 +51,7 @@ lessons:
       - blank: "Fermenting with stems attached is called whole-___ fermentation."
         answers: [bunch]
         options: [berry, vine, cluster-free]
-        explain: "Popular for Pinot Noir and Syrah, adding aromatic lift and tannin."
+        explain: "Fermenting with stems attached is called whole-bunch fermentation. It is popular for Pinot Noir and Syrah, adding aromatic lift and tannin. The stems must be ripe, or they give a green taste."
   - title: After fermentation
     cards:
       - learn: Finishing the wine
@@ -68,14 +68,14 @@ lessons:
         explain: "Agents like bentonite clay or egg white bind to particles, which settle out. Note: egg white and milk proteins mean some wines are not vegan."
       - tf: "Tartrate crystals in a bottle are a serious fault."
         truth: false
-        explain: "Tartrates ('wine diamonds') are harmless. Cold stabilization prevents them for cosmetic reasons."
+        explain: "Tartrates, also called wine diamonds, are harmless crystals of tartaric acid. Cold stabilization prevents them for cosmetic reasons, so they are not a fault."
       - choice: "Which closure best eliminates the risk of cork taint?"
         options: [Screwcap, Natural cork, Agglomerated cork, Wax seal]
         a: Screwcap
-        explain: "Screwcaps also keep aromatic whites fresh. They are standard in New Zealand and Australia."
+        explain: "Screwcaps eliminate the risk of cork taint, and they keep aromatic whites fresh. They are standard in New Zealand and Australia, and increasingly used for Riesling in Europe."
       - match: "Match the vessel to its effect"
         pairs: [[Stainless steel, Fresh fruit], [New oak, Vanilla and toast], [Old oak, Gentle oxygen]]
-        explain: "The vessel is one of the winemaker's biggest stylistic choices."
+        explain: "The vessel is one of the winemaker's biggest stylistic choices: stainless steel keeps freshness, oak adds flavor and gentle oxygen, concrete gives texture without flavor, and amphora gives earthy character."
   - title: Going further
     cards:
       - learn: Whole bunch and carbonic
@@ -98,10 +98,10 @@ lessons:
         - Botrytis
         - Fortification
         a: Carbonic maceration
-        explain: Whole-berry fermentation creates these fruity esters, typical of Beaujolais Nouveau.
+        explain: "Whole-berry fermentation creates fruity esters, typical of Beaujolais Nouveau: banana and bubblegum in a light red are a sign of carbonic maceration."
       - tf: Sulfur dioxide protects wine from oxidation.
         truth: true
-        explain: SO₂ is an antioxidant and antimicrobial used in nearly all wines in small amounts.
+        explain: "SO₂ is an antioxidant and antimicrobial used in nearly all wines in small amounts. It protects color and freshness, and it is also used to clean barrels."
       - match: Match the technique to its result
         pairs:
         - - Carbonic maceration
@@ -112,7 +112,7 @@ lessons:
           - Deeper color
         - - Fortification
           - Higher alcohol
-        explain: Each technique targets one part of the finished wine.
+        explain: "Each technique targets one part of the finished wine: cold soak for color, malolactic for softness, lees stirring for texture, and fining for clarity."
       - choice: What is 'bâtonnage'?
         options:
         - Stirring the lees
@@ -120,7 +120,7 @@ lessons:
         - Adding sugar before fermentation
         - Toasting a barrel
         a: Stirring the lees
-        explain: Stirring dead yeast back into the wine adds body and a creamy, bready character.
+        explain: "Bâtonnage is stirring dead yeast (lees) back into the wine. It adds body and a creamy, bready character, and is common in white Burgundy and Champagne base wines."
       - blank: Adding sugar to the must to raise alcohol is called ___.
         answers:
         - chaptalization
@@ -129,4 +129,4 @@ lessons:
         - fining
         - riddling
         - malolactic
-        explain: Chaptalization is allowed in some cool regions where grapes struggle to ripen.
+        explain: "Chaptalization, adding sugar to the must to raise alcohol, is allowed in some cool regions, such as Burgundy and Germany, where grapes struggle to ripen. It increases alcohol, not sweetness, and is banned in warm regions."

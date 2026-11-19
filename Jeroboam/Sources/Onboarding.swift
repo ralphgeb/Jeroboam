@@ -6,6 +6,7 @@ struct OnboardingView: View {
     @State private var level = 1
     @State private var goal = 20
     @State private var appear = false
+    @State private var quiz = false
 
     var body: some View {
         ZStack {
@@ -33,6 +34,12 @@ struct OnboardingView: View {
             }
         }
         .animation(.easeInOut(duration: 0.35), value: step)
+        .fullScreenCover(isPresented: $quiz) {
+            PlacementQuizView { placed in
+                if let placed { level = placed; step = 2 }
+                quiz = false
+            }
+        }
     }
 
     private var welcome: some View {
@@ -71,20 +78,35 @@ struct OnboardingView: View {
     private var levelStep: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Where would you like to start?").font(.serif(30)).foregroundStyle(Palette.ink)
-                Text("You can switch levels at any time.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
-            }
-            .padding(.top, 36)
-            VStack(spacing: 12) {
-                levelOption(1, "New to wine", "Grapes, styles, tasting basics and food pairing.")
-                levelOption(2, "I know a little", "Why wines taste the way they do: climate, winemaking and the major regions.")
-                levelOption(3, "Ready for depth", "Viticulture, winemaking and the classic regions in detail; structured tasting.")
+                Text("Choose your level").font(.serif(30)).foregroundStyle(Palette.ink)
+                Text("Pick where you are. You can always change it later.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.top, 30)
+            VStack(spacing: 10) {
+                levelOption(1, "New to wine", "Grapes, styles, tasting basics and food pairing.")
+                levelOption(2, "I know a little", "Climate, winemaking and the major regions.")
+                levelOption(3, "Ready for depth", "Viticulture, winemaking and the classic regions in detail.")
+            }
+            .padding(.top, 22)
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: "gift.fill").font(.system(size: 15)).foregroundStyle(Palette.wine)
+                Text("**Level \(level) is free.** The other two levels come with Jero Plus.")
+                    .font(.system(size: 14)).foregroundStyle(Palette.ink.opacity(0.85)).fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(14).frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.wineSoft))
+            .padding(.top, 14)
             Spacer()
-            Button("Continue") { step = 2 }
+            Button { quiz = true } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles")
+                    Text("Not sure? Take a 10-question quiz")
+                }
+            }
+            .buttonStyle(SecondaryButtonStyle(color: Palette.wine))
+            Button("Continue with Level \(level)") { step = 2 }
                 .buttonStyle(PrimaryButtonStyle())
-                .padding(.bottom, 16)
+                .padding(.top, 8).padding(.bottom, 16)
         }
         .padding(.horizontal, Metrics.margin)
     }

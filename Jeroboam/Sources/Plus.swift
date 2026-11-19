@@ -260,7 +260,7 @@ struct PlusCallout: View {
             Text(title).font(.system(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
             Text(message).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            Text("Unlock with Jero Plus · \(Plus.shared.price)/month")
+            Text("Unlock with Jero Plus")
                 .font(.system(size: 14, weight: .semibold)).foregroundStyle(.white)
                 .padding(.horizontal, 18).frame(height: 40)
                 .background(Capsule().fill(Palette.bordeaux))
@@ -290,19 +290,19 @@ struct PlusSheet: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                hero
                 if step == .done {
-                    welcome.padding(.top, 30).transition(.opacity.combined(with: .scale(scale: 0.96)))
+                    welcome.padding(.top, 40).transition(.opacity.combined(with: .scale(scale: 0.96)))
                 } else {
-                    offer.padding(.horizontal, 22).padding(.top, 20).transition(.opacity)
+                    offer.padding(.horizontal, 20).padding(.top, 22).transition(.opacity)
                 }
             }
-            .padding(.bottom, 24)
+            .padding(.bottom, 14)
         }
         .scrollBounceBehavior(.basedOnSize)
         .background(Palette.paper.ignoresSafeArea())
-        .presentationDetents([.large])
+        .presentationDetents([.height(590)])
         .presentationDragIndicator(.visible)
+        .presentationCornerRadius(28)
         .animation(.smooth(duration: 0.35), value: step)
         .animation(.smooth(duration: 0.25), value: note)
         .sensoryFeedback(.success, trigger: step == .done)
@@ -321,62 +321,40 @@ struct PlusSheet: View {
         }
     }
 
-    /// Bordeaux hero: the splash mark, the wordmark and why the sheet opened.
-    private var hero: some View {
-        ZStack {
-            LinearGradient(colors: [Palette.bordeaux, Palette.bordeaux.mix(with: .black, 0.35)], startPoint: .topLeading, endPoint: .bottomTrailing)
-            SplashBodyShape().fill(.white.opacity(0.06)).frame(width: 340, height: 340).offset(x: 120, y: -40)
-                .rotationEffect(.degrees(shimmer ? 4 : -4))
-            VStack(spacing: 12) {
-                SplashMark(color: .white, surface: Palette.cork).frame(width: 70, height: 70)
-                    .scaleEffect(step == .done ? 1.12 : 1)
-                HStack(spacing: 8) {
-                    Text("Jero").font(.system(size: 30, weight: .bold)).foregroundStyle(.white)
-                    Text("Plus").font(.system(size: 30, weight: .bold)).foregroundStyle(Palette.cork)
-                }
-                Text(reason ?? "The whole cellar of knowledge, one glass at a time.")
-                    .font(.system(size: 15)).foregroundStyle(.white.opacity(0.85)).multilineTextAlignment(.center)
-                    .padding(.horizontal, 30)
-            }
-            .padding(.top, 40).padding(.bottom, 30)
-        }
-        .frame(maxWidth: .infinity)
-        .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 32, bottomTrailingRadius: 32, style: .continuous))
-        .onAppear { withAnimation(.easeInOut(duration: 6).repeatForever(autoreverses: true)) { shimmer = true } }
-    }
-
     private var offer: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 14) {
+            VStack(spacing: 4) {
+                Text(reason ?? "Unlock the whole cellar.")
+                    .font(.system(size: 20, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
             VStack(spacing: 0) {
-                perk("graduationcap.fill", "Levels 2 and 3", "Every lesson, guidebook and mock exam up to advanced", first: true)
-                perk("globe.europe.africa.fill", "The whole atlas", "All 15 countries, every appellation map and card")
-                perk("camera.viewfinder", "Your journal", "Scan bottles into a cellar, blind tastings scored out of 100")
-                perk("star.fill", "Wines to try", "The world's great wines, region by region")
+                HStack(spacing: 0) {
+                    Spacer()
+                    Text("Jero").frame(width: 62)
+                    Text("Plus").foregroundStyle(Palette.wine).frame(width: 62)
+                }
+                .font(.system(size: 13, weight: .bold)).foregroundStyle(Palette.inkSoft)
+                .padding(.horizontal, 14).frame(height: 34)
+                row("Your starting level", free: true, plus: true)
+                row("Other levels and guidebooks", free: false, plus: true)
+                row("Practice quizzes", free: true, plus: true)
+                row("Atlas: France and Italy", free: true, plus: true)
+                row("Atlas: all 15 countries", free: false, plus: true)
+                row("Journal, cellar and blind tastings", free: false, plus: true)
+                row("Great wines to try", free: false, plus: true)
             }
-            .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Palette.card))
-            .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
-
-            HStack(spacing: 10) {
-                freeChip("Level 1")
-                freeChip("Practice")
-                freeChip("France & Italy")
-            }
-            Text("Always free").font(.system(size: 12)).foregroundStyle(Palette.inkFaint).padding(.top, -10)
+            .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
 
             Button(action: subscribe) {
                 ZStack {
                     if step == .paying { ProgressView().tint(.white) }
-                    else {
-                        VStack(spacing: 1) {
-                            Text("Subscribe").font(.system(size: 17, weight: .semibold))
-                            Text("\(plus.price) a month").font(.system(size: 12.5)).opacity(0.85)
-                        }
-                    }
+                    else { Text("Subscribe · \(plus.price)/month").font(.system(size: 16.5, weight: .semibold)) }
                 }
                 .foregroundStyle(.white)
-                .frame(maxWidth: .infinity).frame(height: 58)
-                .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.bordeaux))
-                .shadow(color: Palette.bordeaux.opacity(0.35), radius: 12, y: 6)
+                .frame(maxWidth: .infinity).frame(height: 52)
+                .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.bordeaux))
             }
             .buttonStyle(PressableStyle())
             .disabled(step == .paying)
@@ -384,7 +362,7 @@ struct PlusSheet: View {
             if let note {
                 Text(note).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
             }
-            Text("\(plus.price) a month, renews automatically until cancelled. Cancel any time in Settings › Apple Account › Subscriptions.")
+            Text("Renews automatically until cancelled. Cancel any time in Settings › Apple Account › Subscriptions.")
                 .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             HStack(spacing: 16) {
@@ -398,25 +376,21 @@ struct PlusSheet: View {
         }
     }
 
-    private func perk(_ icon: String, _ title: String, _ detail: String, first: Bool = false) -> some View {
+    private func row(_ title: String, free: Bool, plus: Bool) -> some View {
         VStack(spacing: 0) {
-            if !first { Hairline().padding(.leading, 62) }
-            HStack(spacing: 14) {
-                Image(systemName: icon).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.wine)
-                    .frame(width: 36, height: 36).background(Circle().fill(Palette.wineSoft))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
-                    Text(detail).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
-                }
-                Spacer(minLength: 0)
+            Hairline()
+            HStack(spacing: 0) {
+                Text(title).font(.system(size: 14.5)).foregroundStyle(Palette.ink).frame(maxWidth: .infinity, alignment: .leading)
+                mark(free).frame(width: 62)
+                mark(plus).frame(width: 62)
             }
-            .padding(.horizontal, 14).padding(.vertical, 12)
+            .padding(.horizontal, 14).frame(height: 38)
         }
     }
 
-    private func freeChip(_ t: String) -> some View {
-        Label(t, systemImage: "checkmark").font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
-            .padding(.horizontal, 10).frame(height: 28).background(Capsule().fill(Palette.cardAlt))
+    private func mark(_ on: Bool) -> some View {
+        Image(systemName: on ? "checkmark" : "minus").font(.system(size: 13, weight: .bold))
+            .foregroundStyle(on ? Palette.wine : Palette.inkFaint)
     }
 
     private func subscribe() {

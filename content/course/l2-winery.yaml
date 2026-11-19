@@ -11,10 +11,10 @@ lessons:
       - choice: "When are white grapes pressed?"
         options: ["Before fermentation", "After fermentation", "Never", "After a year in oak"]
         a: "Before fermentation"
-        explain: "Separating juice from skins early keeps white wine pale and low in tannin."
+        explain: "White grapes are pressed before fermentation, separating juice from skins early, which keeps the wine pale and low in tannin. Red wines do the opposite: they ferment on their skins, then are pressed."
       - tf: "White wines are usually fermented at cooler temperatures than reds."
         truth: true
-        explain: "Cool fermentation preserves fresh, fruity and floral aromas."
+        explain: "White wines are usually fermented cooler (12–18 °C) than reds, which preserves fresh, fruity and floral aromas. Warm fermentation would blow those delicate aromas away."
       - blank: "Most white wines are fermented in stainless ___ tanks."
         answers: [steel]
         options: [oak, clay, concrete-egg]
@@ -22,7 +22,7 @@ lessons:
       - choice: "Why might a winemaker ferment Chardonnay in oak barrels?"
         options: ["To add richness, texture and toasty flavors", "To make it lighter", "To add bubbles", "To make it red"]
         a: "To add richness, texture and toasty flavors"
-        explain: "Barrel fermentation integrates oak flavors and adds weight. It is classic in Burgundy and California."
+        explain: "Barrel fermentation integrates oak flavors and adds weight and creaminess. It is classic in Burgundy and California, and the yeast lees in the barrel add texture too."
   - title: Red & rosé winemaking
     cards:
       - learn: Skins make the difference
@@ -38,17 +38,17 @@ lessons:
       - choice: "Why are red wines fermented warmer than whites?"
         options: ["To extract color and tannin", "To keep fruity aromas", "To make them sweeter", "To add bubbles"]
         a: "To extract color and tannin"
-        explain: "Higher temperatures help pull pigments and tannins out of the skins."
+        explain: "Red wines ferment warmer (25–30 °C) because higher temperatures help pull pigments and tannins out of the skins. Too hot, though, and the delicate aromas are lost."
       - blank: "The layer of skins floating on fermenting red wine is called the ___."
         answers: [cap]
         options: [lees, crust, must]
-        explain: "Winemakers punch it down or pump wine over it to extract color and keep it from drying out."
+        explain: "The layer of skins floating on fermenting red wine is called the cap. Winemakers punch it down or pump wine over it to extract color and tannin, and to keep it from drying out and growing bacteria."
       - tf: "Rosé is made by fermenting black grapes on their skins for several weeks."
         truth: false
-        explain: "That is red winemaking. Rosé gets only hours to a couple of days of skin contact."
+        explain: "That is red winemaking. Rosé gets only hours to a couple of days of skin contact, just enough for a pink hue, then the juice is drawn off and fermented like a white."
       - match: "Match the process to the wine"
         pairs: [[Press before fermentation, White], [Ferment on skins for weeks, Red], [Few hours on skins, Rosé]]
-        explain: "Skin contact is what separates the three."
+        explain: "Skin contact is what separates the three: white has none, rosé has a few hours, and red has days to weeks. Orange wine is white grapes fermented on their skins."
   - title: Oak, lees and malolactic
     cards:
       - learn: Shaping the style
@@ -62,14 +62,14 @@ lessons:
       - choice: "Which flavor does new oak typically add?"
         options: [Vanilla, Gooseberry, Lime, Strawberry]
         a: Vanilla
-        explain: "Toasted oak adds vanilla, clove, coconut (especially American oak) and smoke."
+        explain: "Toasted oak adds vanilla, clove, coconut (especially American oak) and smoke. The more toasted and newer the barrel, the stronger the flavor, so winemakers choose barrels like seasoning."
       - tf: "American oak typically gives stronger coconut and vanilla flavors than French oak."
         truth: true
-        explain: "That's why traditional Rioja, aged in American oak, often smells of coconut and vanilla."
+        explain: "American oak has more lactones, which smell of coconut and vanilla, while French oak is more subtle and spicy. That is why traditional Rioja, aged in American oak, often smells of coconut and vanilla."
       - blank: "Ageing wine on dead yeast cells, called the ___, adds texture and bready flavors."
         answers: [lees]
         options: [cap, must, solera]
-        explain: "Muscadet sur lie and Champagne are classic examples of lees influence."
+        explain: "Ageing wine on dead yeast cells, the lees, adds texture and bready flavors. Muscadet sur lie and Champagne are classic examples of lees influence, and stirring the lees (bâtonnage) adds creaminess."
       - choice: "Malolactic conversion makes a wine taste…"
         options: ["Softer and less tart", "More acidic", "More tannic", "Sparkling"]
         a: "Softer and less tart"
@@ -77,7 +77,7 @@ lessons:
       - choice: "What is the cheaper alternative to aging in oak barrels?"
         options: ["Oak chips or staves in a tank", "Plastic barrels", "Adding vanilla essence", "Freezing the wine"]
         a: "Oak chips or staves in a tank"
-        explain: "They add oak flavor quickly, but without the slow oxygen exposure of a barrel."
+        explain: "Oak chips or staves are the cheaper alternative to barrels. They add oak flavor quickly, but without the slow oxygen exposure of a barrel, so the wine does not develop in the same way."
   - title: Going further
     cards:
       - learn: Making red wine
@@ -103,10 +103,10 @@ lessons:
         - Ageing in oak
         - Red grape juice
         a: Fermenting with the skins
-        explain: Juice of almost all black grapes is clear; color comes from contact with the skins.
+        explain: "The juice of almost all black grapes is clear; color comes from contact with the skins during fermentation. The longer the contact, the deeper the color and the greater the tannin."
       - tf: Small new oak barrels add more oak flavor than large old ones.
         truth: true
-        explain: More wood surface per liter and fresh wood mean more vanilla, toast and spice.
+        explain: "New small barrels add more oak flavor than large old ones because there is more wood surface per liter of wine, and fresh wood has more flavor compounds. After 4–5 years, a barrel gives mainly oxygen, not flavor."
       - choice: What does 'punching down' do?
         options:
         - Pushes the skins back into the fermenting wine
@@ -114,7 +114,7 @@ lessons:
         - Adds sugar to the juice
         - Filters the wine
         a: Pushes the skins back into the fermenting wine
-        explain: The skins float up as a cap; pushing them down extracts color and tannin.
+        explain: "The skins float up as a cap; pushing them down (punching down) extracts color and tannin, and keeps the cap wet. Gentle punching makes elegant Pinot Noir, while more vigorous extraction makes Cabernet."
       - match: Match the choice to its effect
         pairs:
         - - Stainless steel
@@ -125,7 +125,7 @@ lessons:
           - Bready texture
         - - Malolactic conversion
           - Softer acidity
-        explain: Each winemaking decision leaves a mark on the final wine.
+        explain: "Each winemaking decision leaves a mark on the final wine: stainless steel keeps freshness, oak adds spice, lees add texture, and malolactic fermentation adds creaminess."
       - blank: After fermentation, red wine is separated from the skins by ___.
         answers:
         - pressing
@@ -134,4 +134,4 @@ lessons:
         - boiling
         - chaptalization
         - riddling
-        explain: The press squeezes out the wine trapped in the skins.
+        explain: "After fermentation, red wine is separated from the skins by pressing. The free-run wine drains first, and the press wine, which is darker and more tannic, can be blended back for structure."

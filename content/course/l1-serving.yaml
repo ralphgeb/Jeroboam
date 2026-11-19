@@ -17,18 +17,18 @@ lessons:
       - choice: "At what temperature should sparkling wine be served?"
         options: ["6–10 °C", "15–18 °C", "20–22 °C", "0 °C"]
         a: "6–10 °C"
-        explain: "Well chilled keeps the bubbles fine and lively and the wine refreshing."
+        explain: "Sparkling wine is served well chilled, about 6–10 °C. Cold keeps carbon dioxide dissolved, so the bubbles stay fine and lively and the wine tastes refreshing. Too warm and it foams over and tastes flabby; too cold and the aromas go silent."
       - tf: "Light reds like Beaujolais can be served slightly chilled."
         truth: true
-        explain: "Around 13 °C brings out their juicy fruit and freshness."
+        explain: "Light reds like Beaujolais (Gamay) have low tannin and juicy acidity, so around 13 °C brings out their fresh fruit. A slight chill stops the alcohol from tasting hot and makes them more refreshing."
       - choice: "Serving a full-bodied red too cold will…"
         options: ["Make tannins taste harsher", "Make it sweeter", "Increase the aromas", "Add bubbles"]
         a: "Make tannins taste harsher"
-        explain: "Cold emphasizes tannin and bitterness and mutes the aromas. Serve fuller reds at 15–18 °C."
+        explain: "Cold emphasizes tannin and bitterness and mutes the aromas, so a full-bodied red tastes harsh and closed. Serve fuller reds at 15–18 °C: cooler than a warm room, which makes alcohol burn."
       - blank: "Full-bodied whites such as oaked Chardonnay are best ___ chilled."
         answers: [lightly]
         options: [heavily, never, deeply]
-        explain: "At 10–13 °C, their richer aromas and texture can show."
+        explain: "At 10–13 °C, richer whites such as oaked Chardonnay show their aromas and creamy texture. Straight from a very cold fridge, they taste thin and dull; a cool cellar temperature is better."
   - title: Glasses & opening
     cards:
       - learn: The right glass
@@ -49,14 +49,14 @@ lessons:
       - choice: "Why do red wine glasses have a large bowl?"
         options: ["To allow swirling and gather aromas", "To keep the wine cold", "To keep bubbles longer", "Tradition only"]
         a: "To allow swirling and gather aromas"
-        explain: "Room to swirl releases aromas, and the wide bowl concentrates them toward your nose."
+        explain: "The large bowl gives room to swirl, which releases aromas, and the wide shape concentrates them toward your nose as it narrows at the top. Big reds are rich in aromatic compounds, so they benefit most."
       - tf: "When opening sparkling wine, you should twist the bottle, not the cork."
         truth: true
-        explain: "Holding the cork still and turning the bottle gives you control and a quiet, safe opening."
+        explain: "Hold the cork still and turn the bottle slowly: it gives you control and a quiet, safe opening. A cork can leave the bottle at around 25 mph, so keep a hand over it and point it away from people."
       - choice: "Which glass is best for sparkling wine?"
         options: ["Flute or tulip", "Large bowl", "Tumbler", "Small sherry copita"]
         a: "Flute or tulip"
-        explain: "A narrow glass reduces the surface area, so bubbles last longer."
+        explain: "A tall, narrow flute or tulip reduces the surface area so bubbles last longer and the aroma stays concentrated. A wide coupe lets bubbles escape quickly, though a white-wine glass is a good all-round option for fine Champagne."
   - title: Storing & faults
     cards:
       - learn: Store wine like a cellar
@@ -74,14 +74,14 @@ lessons:
       - choice: "A wine smelling of damp cardboard is probably…"
         options: [Corked, Oxidized, Oaked, Young]
         a: Corked
-        explain: "Cork taint is caused by TCA, a compound that can come from cork. It is not harmful, but it kills the fruit."
+        explain: "Cork taint is caused by TCA, a compound that can form in natural cork. It is not harmful, but it gives a musty, damp-cardboard smell and flattens the fruit. Around 1 in 20 bottles with natural cork used to be affected."
       - tf: "Bottles with natural corks are best stored standing upright."
         truth: false
-        explain: "Lie them on their side so the cork stays in contact with the wine and does not dry out and let air in."
+        explain: "False: lie them on their side so the cork stays in contact with the wine, swells and keeps the seal. A dry cork can shrink and let air in, which would oxidize the wine. Screwcaps do not need this."
       - blank: "Wine should be stored somewhere cool, dark and at a ___ temperature."
         answers: [steady]
         options: [rising, warm, freezing]
-        explain: "Fluctuating temperatures make the wine expand and contract, pushing air past the cork."
+        explain: "Wine should be stored somewhere cool, dark and at a constant temperature, ideally about 12–14 °C. Swings make the wine expand and contract, pushing air past the cork, and heat ages it quickly."
       - choice: "A white wine that has turned brownish and smells of bruised apples is probably…"
         options: [Oxidized, Corked, Sparkling, Under-ripe]
         a: Oxidized
@@ -111,10 +111,10 @@ lessons:
         - To add bubbles
         - To make it sweeter
         a: To separate it from sediment
-        explain: Old reds throw a deposit of tannin and pigment; decanting leaves it behind.
+        explain: "Old reds throw a deposit of tannin and pigment as sediment; decanting separates the clear wine from it. Pour slowly with a light behind the neck, and stop when the sediment reaches the shoulder. Young wines are decanted for air instead."
       - tf: Sparkling wine should be served colder than full-bodied red wine.
         truth: true
-        explain: Sparkling wine is best well chilled (6–10 °C); full reds around 15–18 °C.
+        explain: "Sparkling wine is best well chilled (6–10 °C), while full reds taste best around 15–18 °C. Cold keeps bubbles lively, while warmth lets a red's aromas open."
       - choice: How long does an opened bottle of still wine usually keep in the fridge?
         options:
         - 2–5 days
@@ -122,7 +122,7 @@ lessons:
         - 2–5 hours
         - Several months
         a: 2–5 days
-        explain: Oxygen slowly flattens the fruit. Fortified wines last much longer.
+        explain: "Oxygen slowly flattens the fruit, so an opened still wine lasts 3–5 days in the fridge with the cork back in. Fortified wines like Port and Sherry last much longer because of their alcohol, though a fino is best within a week."
       - match: Match the wine to its serving temperature
         pairs:
         - - Sparkling
@@ -133,7 +133,7 @@ lessons:
           - 12–13 °C
         - - Full red
           - 15–18 °C
-        explain: Too cold mutes aromas; too warm makes alcohol stand out.
+        explain: "Too cold mutes aromas, and too warm makes alcohol stand out. Sparkling is chilled, light whites and rosés cold, full whites cool, light reds slightly cool and full reds just below room temperature."
       - blank: A wine that smells of wet cardboard is probably ___.
         answers:
         - corked
@@ -142,4 +142,4 @@ lessons:
         - young
         - sweet
         - decanted
-        explain: Cork taint (TCA) gives a musty, damp-cardboard smell and flattens the fruit.
+        explain: "Cork taint (TCA) gives a musty, damp-cardboard smell and flattens the fruit. It is harmless but ruins the wine, and a bottle like this can be returned to the shop or restaurant."

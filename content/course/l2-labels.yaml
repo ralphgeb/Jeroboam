@@ -11,18 +11,18 @@ lessons:
           - **New World** labels usually name the **grape**: Napa Cabernet Sauvignon, Marlborough Sauvignon Blanc.
       - match: "Match the place-name wine to its grape"
         pairs: [[Chablis, Chardonnay], [Sancerre, Sauvignon Blanc], [Barolo, Nebbiolo], [Rioja, Tempranillo]]
-        explain: "Learning these 'translations' unlocks most European wine lists."
+        explain: "Learning these translations unlocks most European wine lists: Chablis is Chardonnay, Chianti is Sangiovese, Sancerre is Sauvignon Blanc and Rioja is mostly Tempranillo. Old World labels name the place, and the grape is implied."
       - choice: "Red Burgundy is made from…"
         options: [Pinot Noir, Gamay, Merlot, Syrah]
         a: Pinot Noir
-        explain: "And white Burgundy is Chardonnay."
+        explain: "Red Burgundy is Pinot Noir and white Burgundy is Chardonnay. Burgundy labels name the place, so you have to know which grape belongs to it, with Gamay in Beaujolais as the best-known exception."
       - tf: "In the USA, a wine labeled 'Merlot' must contain at least 75% Merlot."
         truth: true
-        explain: "US law requires at least 75% of the named variety (the EU usually requires 85%)."
+        explain: "US law requires at least 75% of the named variety, while the EU usually requires 85%. That means a US Merlot can include up to a quarter of other grapes, often Cabernet, to add structure."
       - choice: "Which country is considered New World?"
         options: [New Zealand, Italy, Portugal, Germany]
         a: New Zealand
-        explain: "New World countries include the USA, Australia, New Zealand, South Africa, Chile and Argentina."
+        explain: "New World countries include the USA, Australia, New Zealand, South Africa, Chile and Argentina. Their wine traditions started with European settlers, and their labels usually name the grape."
   - title: Quality categories
     cards:
       - learn: The EU system
@@ -34,17 +34,17 @@ lessons:
       - choice: "Which is Italy's highest wine category?"
         options: [DOCG, IGT, Vino, DO]
         a: DOCG
-        explain: "Denominazione di Origine Controllata e Garantita, above DOC and IGT."
+        explain: "DOCG (Denominazione di Origine Controllata e Garantita) is above DOC and IGT. The guarantee is a tasting panel and a government seal on the bottle neck, as with Barolo, Brunello and Chianti Classico."
       - tf: "PGI wines have stricter rules than PDO wines."
         truth: false
         explain: "PDO is stricter. PGI allows more freedom, which is why some ambitious producers choose it (as with early Super Tuscans)."
       - match: "Match the label term to its country"
         pairs: [[AOC, France], [DOCG, Italy], [DOCa, Spain]]
-        explain: "Each country has its own names for the EU PDO category."
+        explain: "Each country has its own names for the EU PDO category: AOC in France, DOC and DOCG in Italy, DO and DOCa in Spain, and DOP in Portugal and Greece. They all mean a protected place with set rules."
       - blank: "In Spain, Rioja and Priorat hold the top category, DOCa, also written ___ in Catalan."
         answers: [DOQ]
         options: [AOC, IGT, PDO]
-        explain: "Priorat uses the Catalan form, Denominació d'Origen Qualificada."
+        explain: "Priorat uses the Catalan form, Denominació d'Origen Qualificada (DOQ), while Rioja uses DOCa in Spanish. They are the only two Spanish regions at the top level, which says a lot about how special they are."
   - title: Words on the bottle
     cards:
       - learn: Useful label terms
@@ -58,19 +58,19 @@ lessons:
       - choice: "On a Spanish label, which term means the longest ageing?"
         options: [Gran Reserva, Crianza, Joven, Reserva]
         a: Gran Reserva
-        explain: "Red Rioja Gran Reserva: at least five years, two in oak."
+        explain: "Red Rioja Gran Reserva needs at least five years of aging, with at least two in oak. It is released only in the best vintages, and the terms are legally defined and printed on the back label."
       - choice: "What does 'Classico' mean on an Italian label?"
         options: ["From the historic heart of the region", "Made from old vines", "Aged five years", "Sweet"]
         a: "From the historic heart of the region"
         visual: "map:tuscany:chianti-classico"
-        explain: "Chianti Classico is the original Chianti zone between Florence and Siena."
+        explain: "Classico means the original, historic heart of a zone: Chianti Classico is the original Chianti area between Florence and Siena, with a black rooster seal. It is usually higher in quality than the wider Chianti."
       - tf: "The vintage on a label is the year the wine was bottled."
         truth: false
-        explain: "Vintage is the year the grapes were harvested."
+        explain: "Vintage is the year the grapes were harvested, not bottled. It matters because weather differs each year, so the same wine can be great in one vintage and ordinary in another."
       - blank: "On a German label, ___ means dry."
         answers: [Trocken]
         options: [Spätlese, Halbtrocken, Süss]
-        explain: "Halbtrocken means off-dry. Spätlese is a ripeness level, not a sweetness term."
+        explain: "Trocken means dry on a German label. Halbtrocken means off-dry. Spätlese is a ripeness level, not a sweetness term, so a Spätlese Trocken is a ripe, dry wine."
   - title: Going further
     cards:
       - learn: Quality pyramids
@@ -88,7 +88,7 @@ lessons:
         - Joven
         - Reserva
         a: Gran Reserva
-        explain: For reds, Gran Reserva means at least five years of ageing, with time in oak.
+        explain: "For reds, Gran Reserva means at least five years of aging, with time in oak. Reserva is shorter, and Crianza shorter still: the terms are legally defined in Spain."
       - match: Match the label term to its country
         pairs:
         - - AOC
@@ -99,10 +99,10 @@ lessons:
           - Spain
         - - Prädikatswein
           - Germany
-        explain: Each country has its own words for top-quality, place-based wines.
+        explain: "Each country has its own words for top-quality, place-based wines: AOC in France, DOCG in Italy, DOCa in Spain, Prädikat in Germany. The idea is the same: a defined place with rules on grapes and methods."
       - tf: PGI wines have stricter rules than PDO wines.
         truth: false
-        explain: PDO is the stricter, more specific category; PGI allows wider areas and more grapes.
+        explain: "PDO is the stricter, more specific category, with a defined area, grapes and methods. PGI allows wider areas and more grapes, as with Italian IGT wines."
       - choice: What does 'Riserva' on an Italian label tell you?
         options:
         - Longer ageing before release
@@ -110,7 +110,7 @@ lessons:
         - A sparkling wine
         - Organic grapes
         a: Longer ageing before release
-        explain: Riserva wines meet a longer minimum ageing period set by each DOC/DOCG.
+        explain: "Riserva wines meet a longer minimum aging period set by each DOC or DOCG. For Chianti Classico it is 24 months, and for Barolo Riserva it is 62 months, so each region sets its own bar."
       - blank: In Germany, a dry Prädikatswein is labeled ___.
         answers:
         - trocken
@@ -118,4 +118,4 @@ lessons:
         - süss
         - Spätlese
         - Eiswein
-        explain: Trocken means dry; Spätlese and Auslese describe ripeness at harvest, not sweetness.
+        explain: "Trocken means dry; Spätlese and Auslese describe ripeness at harvest, not sweetness. A Prädikatswein can be dry, off-dry or sweet at any ripeness level, so check for Trocken."

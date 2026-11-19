@@ -15,19 +15,19 @@ lessons:
       - choice: "Which aroma is most typical of Cabernet Sauvignon?"
         options: [Blackcurrant, Lychee, Strawberry, Lemon]
         a: Blackcurrant
-        explain: "Blackcurrant (cassis) is the signature. Green bell pepper and mint can also appear, and cedar with age."
+        explain: "Blackcurrant (cassis) is Cabernet Sauvignon's signature. Green bell pepper and mint appear in cooler or under-ripe years, and cedar, tobacco and pencil shavings develop with age and oak. Smelling for cassis first is a good blind-tasting shortcut for Cabernet."
       - choice: "Cabernet Sauvignon typically has…"
         options: ["High tannin", "Low tannin", "No tannin", "Low acidity and low color"]
         a: "High tannin"
         explain: "Thick skins and a high ratio of seeds to pulp mean lots of tannin, which is why it ages so well, especially in oak."
       - tf: "Cabernet Sauvignon is a key grape of Bordeaux's Left Bank."
         truth: true
-        explain: "Gravel soils drain well and store heat, helping late-ripening Cabernet to ripen fully."
+        explain: "Bordeaux's Left Bank (Médoc, Pauillac, Margaux) has deep gravel soils that drain well and store heat. That helps late-ripening Cabernet Sauvignon reach full ripeness before autumn rains, so it leads the blend there. Merlot rules the clay of the Right Bank."
         visual: "map:bordeaux:medoc,haut-medoc"
       - blank: "In cooler years, under-ripe Cabernet can smell of green bell ___."
         answers: [pepper]
         options: [apple, banana, lychee]
-        explain: "These herbaceous notes come from methoxypyrazines, which fade as grapes ripen."
+        explain: "Green bell pepper notes come from methoxypyrazines, compounds that are high in unripe grapes and fade as the fruit ripens. A pepper-green Cabernet therefore tells you it came from a cool year or cool site, or was picked early."
   - title: Merlot
     cards:
       - learn: Soft and plummy
@@ -41,7 +41,7 @@ lessons:
       - choice: "Compared with Cabernet Sauvignon, Merlot usually has…"
         options: ["Softer tannins", "Higher tannins", "Higher acidity", "Lighter color"]
         a: "Softer tannins"
-        explain: "Merlot's thinner skins and plusher fruit make it rounder and more approachable young."
+        explain: "Merlot has thinner skins and ripens earlier than Cabernet, so it has softer tannins, rounder texture and plusher fruit. That makes it friendly young, while Cabernet usually needs time. Winemakers blend Merlot in to soften Cabernet."
       - choice: "Which Bordeaux area is dominated by Merlot?"
         options: [Pomerol, Pauillac, Margaux, Sauternes]
         a: Pomerol
@@ -49,11 +49,11 @@ lessons:
         explain: "Pomerol's clay soils suit Merlot. Pauillac and Margaux are Left Bank Cabernet country; Sauternes makes sweet whites."
       - tf: "Merlot is the most widely planted grape in Bordeaux."
         truth: true
-        explain: "Merlot covers over half of Bordeaux's vineyards, far more than Cabernet Sauvignon."
+        explain: "Merlot covers more than half of Bordeaux's vineyards, far more than Cabernet Sauvignon. It is the heart of Right Bank wines like Pomerol and Saint-Émilion, and even the Left Bank blends usually include some for roundness."
       - blank: "Merlot's typical fruit flavors are red and black ___."
         answers: [plum]
         options: [currant, gooseberry, lime]
-        explain: "Plum and black cherry, often with chocolate and vanilla from oak."
+        explain: "Merlot shows red and black plum and black cherry, often with chocolate and vanilla from oak. Currant points to Cabernet and gooseberry to Sauvignon Blanc, so plum is a useful clue to Merlot in a blind tasting."
   - title: Pinot Noir
     cards:
       - learn: Elegance in a glass
@@ -69,17 +69,17 @@ lessons:
       - choice: "Which statement fits Pinot Noir?"
         options: ["Pale color, high acidity, low tannin", "Deep color, high tannin", "Low acidity, full body", "Always blended with Syrah"]
         a: "Pale color, high acidity, low tannin"
-        explain: "Thin skins give less color and tannin; cool climates keep acidity high."
+        explain: "Pinot Noir is pale, low in tannin and high in acidity: thin skins give less color and tannin, and cool climates keep acidity high. That mix of lightness and freshness is why it is called elegant, and why it suits so many foods."
       - choice: "Red Burgundy is made from…"
         options: [Pinot Noir, Merlot, Gamay, Cabernet Sauvignon]
         a: Pinot Noir
-        explain: "Red Burgundy from the Côte d'Or is 100% Pinot Noir. Gamay is the grape of Beaujolais, just to the south."
+        explain: "Red Burgundy from the Côte d'Or is 100% Pinot Noir. Gamay is the grape of Beaujolais, just to the south, and Cabernet and Merlot belong to Bordeaux. In Burgundy the name of the vineyard tells you the quality level, from Bourgogne up to Grand Cru."
       - tf: "Pinot Noir prefers hot climates."
         truth: false
-        explain: "In heat it loses its delicacy and turns jammy. Cool to moderate climates suit it best."
+        explain: "Pinot Noir is thin-skinned and fussy. In heat it loses its delicacy and turns jammy and flat, so it thrives in cool to moderate climates like Burgundy, Oregon, Central Otago and Sonoma Coast, where acidity and aroma are preserved."
       - match: "Match the aged Pinot Noir aroma to its family"
         pairs: [[Raspberry, Primary fruit], [Mushroom, Tertiary], [Vanilla, Oak]]
-        explain: "Fruit comes from the grape; oak adds vanilla; bottle age brings earthy, savory notes like mushroom."
+        explain: "Aroma families: fruit comes from the grape (cherry, raspberry), oak adds vanilla and spice, and bottle age brings earthy, savory notes like mushroom and forest floor. Spotting which family a smell belongs to tells you how the wine was made and how old it is."
   - title: Syrah / Shiraz
     cards:
       - learn: One grape, two personalities
@@ -96,7 +96,7 @@ lessons:
       - choice: "Which aroma is classic in cool-climate Syrah?"
         options: [Black pepper, Lychee, Butter, Green apple]
         a: Black pepper
-        explain: "A compound called rotundone gives the peppery note, strongest in cooler sites."
+        explain: "Peppery notes come from rotundone, the same compound as in black pepper, and it is strongest in cooler sites. That is why Northern Rhône Syrah smells peppery and savory, while warm Barossa Shiraz leans to blackberry and chocolate."
       - tf: "Shiraz and Syrah are different grapes."
         truth: false
         explain: "They are the same variety. The name often signals the style: 'Shiraz' for riper New World wines, 'Syrah' for more restrained ones."
@@ -104,10 +104,10 @@ lessons:
         options: [Barossa Valley, Marlborough, Chablis, Mosel]
         a: Barossa Valley
         visual: "map:south-australia:barossa"
-        explain: "The warm Barossa has some of the world's oldest Shiraz vines, some planted in the 1840s."
+        explain: "The warm Barossa Valley in South Australia has some of the world's oldest Shiraz vines, some planted in the 1840s because phylloxera never reached Australia. Old vines give small, concentrated crops and rich, dark, plush wines."
       - match: "Match the grape to its classic region"
         pairs: [[Cabernet Sauvignon, Pauillac], [Merlot, Pomerol], [Pinot Noir, Burgundy], [Syrah, Hermitage]]
-        explain: "Four classic pairings every wine lover should know."
+        explain: "Four classic pairings: Cabernet in Bordeaux's Médoc, Pinot Noir in Burgundy, Syrah in the Northern Rhône, and Malbec in Mendoza. Knowing the home of each grape is the key to guessing a wine's origin blind."
   - title: Going further
     cards:
       - learn: Thin skins, thick skins
@@ -132,7 +132,7 @@ lessons:
         - Syrah
         - Malbec
         a: Pinot Noir
-        explain: Pinot Noir has thin skins, so it gives less color and tannin than thick-skinned grapes.
+        explain: "Pinot Noir has thin skins, so it gives less color and tannin than thick-skinned grapes like Cabernet or Syrah. That is why it is the palest of the classic reds, ruby rather than purple."
       - match: Match the grape to a classic home
         pairs:
         - - Malbec
@@ -143,10 +143,10 @@ lessons:
           - Barolo
         - - Tempranillo
           - Rioja
-        explain: Each of these places made its grape famous.
+        explain: "Each place made its grape famous: Tempranillo in Rioja, Sangiovese in Tuscany, Malbec in Mendoza, Nebbiolo in Piedmont. Matching grape to home is a major step toward guessing a wine blind."
       - tf: GSM stands for Grenache, Syrah and Mourvèdre.
         truth: true
-        explain: The classic southern Rhône blend, also popular in Australia.
+        explain: "GSM is Grenache, Syrah and Mourvèdre: the classic southern Rhône blend (Châteauneuf-du-Pape) also popular in Australia. Grenache brings fruit and warmth, Syrah color and spice, Mourvèdre structure and a meaty edge."
       - choice: Which grape is known for black pepper aromas?
         options:
         - Syrah
@@ -154,7 +154,7 @@ lessons:
         - Gamay
         - Pinot Noir
         a: Syrah
-        explain: Cool-climate Syrah often shows black pepper, from a compound called rotundone.
+        explain: "Cool-climate Syrah often shows black pepper, from a compound called rotundone, the same one found in peppercorns. Northern Rhône examples such as Hermitage and Côte-Rôtie are famous for it, alongside olive, smoke and violets."
       - blank: Color and tannin in red wine come from the grape ___.
         answers:
         - skins
@@ -163,4 +163,4 @@ lessons:
         - juice
         - seeds only
         - stems only
-        explain: Red wine gets its color by fermenting juice with the skins.
+        explain: "Color and tannin come from the grape skins: all the pigment is in the skins, and the juice is clear. Red wine is made by fermenting the juice with the skins; the longer the contact, the darker and more tannic the wine."

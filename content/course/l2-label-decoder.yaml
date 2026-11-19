@@ -16,17 +16,17 @@ lessons:
         options: ["Bottled at the estate", "Made from old vines", "Aged in new oak", "A second wine"]
         a: "Bottled at the estate"
         visual: "label:bordeaux"
-        explain: "Estate bottling means the wine was made and bottled where the grapes were grown."
+        explain: "Mis en bouteille au château means estate bottling: the wine was made and bottled where the grapes were grown, which guarantees origin. It is a mark of the producer's control, unlike wine bottled by a merchant (négociant) from bought grapes."
       - choice: "Which Burgundy label shows a Grand Cru?"
         options: ["Chambertin", "Gevrey-Chambertin", "Gevrey-Chambertin 1er Cru", "Bourgogne Rouge"]
         a: "Chambertin"
-        explain: "Grand Crus appear on their own name. The village name alone (Gevrey-Chambertin) is village level."
+        explain: "Grand Crus appear on their own name (Chambertin, Montrachet), because the vineyard is so famous it needs no village. A village name alone, such as Gevrey-Chambertin, is village level, one step below Premier Cru."
       - tf: "Red Burgundy labels usually state 'Pinot Noir' on the front."
         truth: false
-        explain: "Place, not grape: red Burgundy is understood to be Pinot Noir, and white is Chardonnay."
+        explain: "Burgundy labels give place, not grape: red Burgundy is understood to be Pinot Noir and white is Chardonnay (Bourgogne Aligoté and Gamay are exceptions). This is the Old World logic: the place is the brand."
       - match: "Match the Burgundy label to its level"
         pairs: [["Bourgogne", Regional], ["Volnay", Village], ["Volnay 1er Cru Clos des Chênes", Premier Cru], ["Le Montrachet", Grand Cru]]
-        explain: "The more precise the place, the higher the level."
+        explain: "The more precise the place, the higher the level: regional Bourgogne, then village, then Premier Cru (village plus vineyard), then Grand Cru (vineyard alone). It is a pyramid where only about 1% of Burgundy is Grand Cru."
   - title: Champagne & Alsace labels
     cards:
       - learn: Champagne codes
@@ -40,14 +40,14 @@ lessons:
       - choice: "What does 'RM' on a Champagne label tell you?"
         options: ["A grower made it from their own grapes", "It's a rosé", "It's a vintage wine", "It's extra dry"]
         a: "A grower made it from their own grapes"
-        explain: "Récoltant-Manipulant: 'grower Champagne'."
+        explain: "RM stands for Récoltant-Manipulant: a grower who makes Champagne only from their own grapes, often called grower Champagne. NM (Négociant-Manipulant) means a house like Moët buying grapes, so RM can show more terroir character."
       - blank: "On a Champagne label, ___ ___ means it was made only from Chardonnay."
         answers: [Blanc, "de Blancs"]
         options: [Noir, "de Noirs", Brut]
-        explain: "'White from whites'. Blanc de Noirs is white wine from black grapes."
+        explain: "Blanc de Blancs means white from whites: Champagne made only from Chardonnay, usually elegant, citrusy and long-lived. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier) and is fuller and richer."
       - tf: "Alsace wines are usually labeled with the grape variety."
         truth: true
-        explain: "Riesling, Gewurztraminer, Pinot Gris and Muscat are the classic four."
+        explain: "Alsace is the one French region that labels by grape, a German influence from its history. Riesling, Gewurztraminer, Pinot Gris and Muscat are the four noble grapes allowed in Grand Cru vineyards."
   - title: Germany, Italy, Spain & Port
     cards:
       - learn: German labels
@@ -67,17 +67,17 @@ lessons:
         options: ["The vineyard", "The grape", "The producer", "The sweetness level"]
         a: "The vineyard"
         visual: "label:germany"
-        explain: "Wehlen is the village (adding -er), Sonnenuhr ('sundial') the vineyard."
+        explain: "Wehlen is the village (adding -er makes Wehlener), and Sonnenuhr, meaning sundial, is the vineyard, named after a real sundial in the vines. German labels follow Village-er plus Vineyard, as in Piesporter Goldtröpfchen."
       - choice: "Which Spanish term means the longest ageing?"
         options: ["Gran Reserva", "Crianza", "Joven", "Cosecha"]
         a: "Gran Reserva"
-        explain: "Red Rioja Gran Reserva: at least five years, two in oak. Cosecha just means vintage."
+        explain: "Red Rioja Gran Reserva needs at least five years of aging, at least two in oak. Cosecha just means vintage, and Crianza and Reserva are shorter. Spain's aging tiers tell you what the wine will taste like: more oak and tertiary notes with each step."
       - match: "Match the label word to its meaning"
         pairs: [[Trocken, Dry], [Cosecha, Vintage], [Imbottigliato all'origine, Estate bottled], [Bodega, Winery]]
-        explain: "A small vocabulary unlocks most European labels."
+        explain: "A small vocabulary unlocks most European labels: château means estate, cru means growth (vineyard quality), and Riserva or Reserva means extra aging. Learn the dozen most common and you can read most bottles."
       - tf: "A '20 Years Old Tawny' Port is made only from wine harvested exactly 20 years ago."
         truth: false
-        explain: "It's an indication of age: a blend whose character matches about 20 years in cask."
+        explain: "A 20 Years Old Tawny is not from one harvest: it is a blend whose average character matches about 20 years in cask. The blender mixes ages to keep house style consistent, unlike a Colheita, which is a single vintage."
   - title: New World labels
     cards:
       - learn: Brand, grape, place
@@ -93,15 +93,15 @@ lessons:
       - choice: "On a US label, a named AVA means at least what share of grapes came from there?"
         options: ["85%", "50%", "75%", "100%"]
         a: "85%"
-        explain: "For a named grape the US minimum is 75%; for an AVA, 85%."
+        explain: "For a named grape the US minimum is 75%; for an AVA the minimum is 85% from that area. This is lower than many European rules, so a varietal label is a looser guarantee than an appellation one."
       - tf: "'Reserve' on a Californian wine is a legally defined quality level."
         truth: false
-        explain: "It's a producer term. In Spain and Italy, Reserva/Riserva *are* legally defined."
+        explain: "Reserve on a Californian wine is a producer term with no legal meaning. In Spain and Italy, Reserva and Riserva are legally defined, with minimum aging. Don't assume the word means the same everywhere."
       - choice: "What does GI stand for on an Australian label?"
         options: ["Geographical Indication", "Grape Identity", "Grand Imperial", "Guaranteed Import"]
         a: "Geographical Indication"
         visual: "label:australia"
-        explain: "Australia's system of zones, regions and subregions."
+        explain: "GI stands for Geographical Indication, Australia's system of zones, regions and subregions such as South Australia, Barossa Valley and Eden Valley. Like the US AVA, it protects the place name, but without rules on grapes."
   - title: Going further
     cards:
       - learn: Château, Domaine, Bodega
@@ -121,7 +121,7 @@ lessons:
         - Village
         - Regional
         a: Grand Cru
-        explain: 'Grand Crus are so famous they stand alone: Montrachet, Chambertin, Romanée-Conti.'
+        explain: "Grand Crus are so famous they stand alone on the label: Montrachet, Chambertin, Romanée-Conti. A Premier Cru shows the village plus the vineyard, and a village wine only the village name."
       - match: Match the estate word to its country
         pairs:
         - - Quinta
@@ -132,10 +132,10 @@ lessons:
           - Germany
         - - Tenuta
           - Italy
-        explain: Knowing these words helps you find the producer on any label.
+        explain: "Knowing these words helps you find the producer on any label: château and domaine in France, bodega in Spain, weingut in Germany, and azienda or tenuta in Italy."
       - tf: '''Mis en bouteille au château'' means bottled at the estate.'
         truth: true
-        explain: Estate bottling shows the same property grew the grapes and bottled the wine.
+        explain: "Estate bottling shows that the same property grew the grapes and bottled the wine. It signals control of quality from vine to bottle, a feature of fine estates in Bordeaux."
       - choice: In Germany, which word tells you about ripeness at harvest?
         options:
         - Spätlese
@@ -143,7 +143,7 @@ lessons:
         - Trocken
         - Gutsabfüllung
         a: Spätlese
-        explain: Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness.
+        explain: "Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness at harvest, not on the sweetness of the finished wine. Ripeness rises from Kabinett to Spätlese to Auslese, then Beerenauslese and Trockenbeerenauslese."
       - blank: In Rioja, a wine aged at least two years, one in oak, is labeled ___.
         answers:
         - Crianza
@@ -151,4 +151,4 @@ lessons:
         - Joven
         - Gran Reserva
         - Cosecha
-        explain: Crianza red Rioja spends at least two years ageing, with at least one in oak.
+        explain: "A red Rioja Crianza spends at least two years aging, with at least one in oak. Reserva needs three years with a year in oak, and Gran Reserva five years with two in oak, so the label tells you how long the wine was aged."

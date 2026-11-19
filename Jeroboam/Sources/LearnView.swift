@@ -96,7 +96,7 @@ struct LearnView: View {
     private var currentLevel: Level? { content.course.levels.first { $0.number == levelNumber } }
 
     /// Levels 2 and 3 (lessons and guidebooks) are part of Jero Plus.
-    private func plusLocked(_ n: Int) -> Bool { n > 1 && Plus.shared.locked }
+    private func plusLocked(_ n: Int) -> Bool { n != progress.data.startLevel && Plus.shared.locked }
 
     private func openGuide(_ unit: Unit, _ level: Level) {
         if plusLocked(level.number) { PaywallPresenter.shared.show("Level \(level.number) guidebooks come with Jero Plus.") }
