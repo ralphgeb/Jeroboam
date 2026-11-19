@@ -62,3 +62,46 @@
     - tf: "Reserve wines help Champagne houses keep a consistent non-vintage style."
       truth: true
       explain: "Older wines are blended in to smooth out differences between years."
+
+- title: "History: popes, kings and widows"
+  icon: hourglass
+  cards:
+    - learn: The Rhône and the popes
+      visual: "map:rhone"
+      body: |
+        The **northern Rhône**'s terraces at **Hermitage** and **Côte-Rôtie** were planted under the Romans; in the 1700s–1800s Hermitage was so prized that Bordeaux merchants added it to their best wines ("hermitagé").
+
+        In the south, the **popes** moved to **Avignon** in **1309**. Pope John XXII built a summer castle nearby: **Châteauneuf-du-Pape**, "the pope's new castle". In the 1920s its growers, led by **Baron Le Roy**, wrote the rules that became the model for France's **AOC** system (1935).
+    - learn: The Loire, garden of kings
+      visual: "map:loire"
+      body: |
+        The Loire was the playground of French kings, whose **châteaux** line the river. Its wines traveled easily by boat to Paris and to the Dutch, who loved the sweet Chenin Blanc of **Anjou** and **Vouvray**.
+
+        **Sancerre** was mostly a red-wine and goat-cheese village until phylloxera; it was replanted with **Sauvignon Blanc**, which became world-famous only in the 1960s–70s through Paris bistros.
+    - learn: Champagne's inventors
+      visual: "map:champagne"
+      body: |
+        Kings of France were crowned at **Reims** cathedral, and the region's still wines were served at court. Cold winters stopped fermentation, which restarted in spring: early Champagne was fizzy by **accident**. The monk **Dom Pérignon** (1638–1715) worked to make better, clearer wine, but he did not invent the bubbles.
+
+        Stronger English glass bottles let the fizz survive. In **1816** the widow **Barbe-Nicole Clicquot** invented **riddling**, removing the yeast to make clear sparkling wine. In **1911**, growers rioted against merchants buying grapes from outside the region, which led to Champagne's strict boundaries.
+    - learn: Alsace, between two countries
+      visual: "map:france:alsace"
+      body: |
+        **Alsace** changed hands between France and Germany four times between 1871 and 1945. Under German rule (1871–1918) its vineyards were pushed toward cheap bulk wine; afterwards growers rebuilt on quality.
+
+        That history explains the **German-sounding** names, the tall **flûte** bottles, and why Alsace labels its wines by **grape**, unlike the rest of France.
+    - choice: "What does 'Châteauneuf-du-Pape' mean?"
+      options: [The pope's new castle, The pope's vineyard, The new church, The castle on the hill]
+      a: The pope's new castle
+      explain: "The popes lived in Avignon from 1309; John XXII built a summer castle at Châteauneuf."
+    - choice: "Who invented riddling, making clear sparkling wine possible?"
+      options: [Barbe-Nicole Clicquot, Dom Pérignon, Napoleon, Baron Le Roy]
+      a: Barbe-Nicole Clicquot
+      explain: "The widow Clicquot's riddling table (around 1816) slowly moved the yeast into the neck so it could be removed."
+    - tf: "Dom Pérignon invented Champagne's bubbles."
+      truth: false
+      explain: "Bubbles came from fermentation restarting in spring. Dom Pérignon improved the wine, its blending and its clarity."
+    - choice: "Why do Alsace wines have German-sounding names?"
+      options: [Alsace changed hands between France and Germany several times, The grapes all come from Austria, German monks planted every vineyard, It is a German appellation]
+      a: Alsace changed hands between France and Germany several times
+      explain: "Between 1871 and 1945 Alsace switched between Germany and France four times."

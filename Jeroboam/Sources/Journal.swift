@@ -20,7 +20,7 @@ struct JournalEntry: Codable, Identifiable, Hashable {
     var tannin = 3
     var body = 3
     var finish = 3
-    var rating = 7
+    var rating = 88                       // 100-point scale (older entries used 1–10)
     var quality: [String] = []
     var notes = ""
     // blind tasting (optional so older journals still load)
@@ -31,6 +31,8 @@ struct JournalEntry: Codable, Identifiable, Hashable {
     var price: PriceInfo? = nil
 
     var title: String { wine.name.isEmpty ? "Untitled wine" : wine.name }
+    /// The rating on the 100-point scale (older 1–10 ratings are converted).
+    var points: Int { rating <= 10 ? 50 + rating * 5 : rating }
     var isBlind: Bool { blind == true }
 }
 
@@ -94,7 +96,7 @@ final class JournalStore {
         }
         var e = JournalEntry()
         e.wine = bottles[0].0; e.identified = true; e.blind = true; e.aromas = ["Red cherry", "Cloves", "Earth"]
-        e.guessGrape = "Cabernet Sauvignon"; e.guessCountry = "France"; e.body = 4; e.tannin = 4; e.rating = 9
+        e.guessGrape = "Cabernet Sauvignon"; e.guessCountry = "France"; e.body = 4; e.tannin = 4; e.rating = 92
         e.score = TastingScore.total(e)
         j.entries.append(e)
         var f = JournalEntry(); f.wine = bottles[2].0; f.identified = true; f.aromas = ["Grapefruit", "Flint"]; f.rating = 9
@@ -157,7 +159,7 @@ final class JournalStore {
     var bottleCount: Int { cellar.reduce(0) { $0 + $1.quantity } }
     var cellarValue: Double { cellar.reduce(0) { $0 + $1.value } }
     var cellarCurrency: String { cellar.compactMap { $0.price?.currency }.first ?? "USD" }
-    var averageRating: Double { entries.isEmpty ? 0 : Double(entries.map(\.rating).reduce(0, +)) / Double(entries.count) }
+    var averageRating: Double { entries.isEmpty ? 0 : Double(entries.map(\.points).reduce(0, +)) / Double(entries.count) }
     var blindAverage: Int? {
         let s = entries.compactMap(\.score)
         return s.isEmpty ? nil : s.reduce(0, +) / s.count
@@ -217,8 +219,8 @@ struct JournalHome: View {
                            subtitle: "Scan bottles into your cellar, or taste blind and see how close you get.") {
 
                     HStack(spacing: 12) {
-                        actionTile(icon: "camera.viewfinder", title: "Scan a wine", detail: "Details, price, add to cellar", primary: true) { scan = true }
-                        actionTile(icon: "eye.slash", title: "Blind tasting", detail: "Taste first, the answer comes last", primary: false) { blind = true }
+                        actionTile(icon: "camera.viewfinder", title: "Scan a wine", detail: "Details and price", primary: true) { scan = true }
+                        actionTile(icon: "eye.slash", title: "Blind tasting", detail: "Scored out of 100", primary: false) { blind = true }
                     }
 
                     Picker("Section", selection: $section) {
@@ -253,18 +255,21 @@ struct JournalHome: View {
 
     private func actionTile(icon: String, title: String, detail: String, primary: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            VStack(alignment: .leading, spacing: 0) {
-                Image(systemName: icon).font(.system(size: 20))
+            HStack(spacing: 10) {
+                Image(systemName: icon).font(.system(size: 17))
                     .foregroundStyle(primary ? Palette.onWine : Palette.wine)
-                    .frame(width: 42, height: 42)
+                    .frame(width: 36, height: 36)
                     .background(Circle().fill(primary ? Palette.onWine.opacity(0.15) : Palette.wineSoft))
-                Spacer(minLength: 14)
-                Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(primary ? Palette.onWine : Palette.ink)
-                Text(detail).font(.system(size: 12.5)).foregroundStyle(primary ? Palette.onWine.opacity(0.75) : Palette.inkSoft)
-                    .lineLimit(2, reservesSpace: true).multilineTextAlignment(.leading).padding(.top, 2)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(title).font(.system(size: 15, weight: .semibold)).foregroundStyle(primary ? Palette.onWine : Palette.ink)
+                        .lineLimit(1).minimumScaleFactor(0.85)
+                    Text(detail).font(.system(size: 11.5)).foregroundStyle(primary ? Palette.onWine.opacity(0.75) : Palette.inkSoft)
+                        .lineLimit(1).minimumScaleFactor(0.85)
+                }
+                Spacer(minLength: 0)
             }
-            .frame(maxWidth: .infinity, minHeight: 138, alignment: .topLeading)
-            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 12).padding(.vertical, 12)
             .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(primary ? Palette.wine : Palette.card))
             .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(primary ? .clear : Palette.line.opacity(0.7), lineWidth: 0.5))
         }
@@ -320,7 +325,7 @@ struct JournalHome: View {
         } else {
             HStack(spacing: 10) {
                 stat("\(journal.entries.count)", "tastings")
-                stat(String(format: "%.1f", journal.averageRating), "avg. rating")
+                stat(String(format: "%.0f", journal.averageRating), "avg. points")
                 stat(journal.blindAverage.map { "\($0)" } ?? "–", "blind score")
             }
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
@@ -382,7 +387,7 @@ struct EntryTile: View {
                     .clipShape(Rectangle())
                 HStack(spacing: 4) {
                     if entry.isBlind { Image(systemName: "eye.slash").font(.system(size: 10, weight: .semibold)) }
-                    Text(entry.score.map { "\($0)" } ?? "\(entry.rating)/10").font(.system(size: 12, weight: .semibold).monospacedDigit())
+                    Text("\(entry.points) pts").font(.system(size: 12, weight: .semibold).monospacedDigit())
                 }
                 .foregroundStyle(.white)
                 .padding(.horizontal, 8).padding(.vertical, 4)
@@ -778,6 +783,8 @@ struct TastingFlow: View {
     var price: PriceInfo? = nil
 
     enum Step: Int, CaseIterable { case photo, identify, look, smell, taste, guess, verdict, done }
+    @State private var ratingGuide = false
+    @AppStorage("jero.seenRatingGuide") private var seenRatingGuide = false
 
     @State private var step: Step = .photo
     @State private var entry = JournalEntry()
@@ -827,7 +834,10 @@ struct TastingFlow: View {
         .overlay(alignment: .bottom) { footer }
         .animation(.easeInOut(duration: 0.3), value: step)
         .onChange(of: photo) { _, img in if img != nil { go(.identify) } }
+        .sheet(isPresented: $ratingGuide, onDismiss: { seenRatingGuide = true }) { RatingGuideSheet() }
         .onAppear {
+            // the first blind tasting starts with how to score a wine
+            if blind && !seenRatingGuide { DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { ratingGuide = true } }
             guard !prepared else { return }
             prepared = true
             entry.blind = blind ? true : nil
@@ -1134,15 +1144,31 @@ struct TastingFlow: View {
     // ---- verdict
     private var verdictStep: some View {
         VStack(alignment: .leading, spacing: 22) {
-            stepTitle("Verdict", "How much did you enjoy it?")
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text("\(entry.rating)").font(.system(size: 64, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.bordeaux)
-                    .contentTransition(.numericText())
-                Text("/10").font(.system(size: 20, weight: .medium)).foregroundStyle(Palette.inkFaint)
+            HStack(alignment: .top) {
+                stepTitle("Verdict", "Score it out of 100, like the critics.")
+                Spacer()
+                Button { ratingGuide = true } label: {
+                    Image(systemName: "questionmark.circle").font(.system(size: 20)).foregroundStyle(Palette.wine)
+                }
+            }
+            VStack(spacing: 2) {
+                HStack(alignment: .lastTextBaseline, spacing: 4) {
+                    Text("\(entry.points)").font(.system(size: 64, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.bordeaux)
+                        .contentTransition(.numericText())
+                    Text("/100").font(.system(size: 20, weight: .medium)).foregroundStyle(Palette.inkFaint)
+                }
+                Text(RatingGuide.band(entry.points).0).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.wine)
             }
             .frame(maxWidth: .infinity)
-            Slider(value: Binding(get: { Double(entry.rating) }, set: { entry.rating = Int($0.rounded()); Haptics.tap() }), in: 1...10, step: 1)
+            Slider(value: Binding(get: { Double(entry.points) }, set: { entry.rating = Int($0.rounded()); Haptics.tap() }), in: 50...100, step: 1)
                 .tint(Palette.wine)
+            HStack {
+                Text("50").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+                Spacer()
+                Text("80 good · 90 outstanding · 95+ classic").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+                Spacer()
+                Text("100").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+            }
             VStack(alignment: .leading, spacing: 8) {
                 Eyebrow("What stood out")
                 FlowLayout(spacing: 8, lineSpacing: 8) {
@@ -1320,7 +1346,7 @@ struct EntryDetailView: View {
                         ScreenHeader(eyebrow: (e.isBlind ? "Blind · " : "") + e.date.formatted(date: .abbreviated, time: .omitted), title: e.title,
                                      subtitle: [e.wine.vintage, e.wine.producer, e.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                         VStack(spacing: 0) {
-                            Text(e.score.map { "\($0)" } ?? "\(e.rating)").font(.system(size: 30, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.bordeaux)
+                            Text("\(e.points)").font(.system(size: 30, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.bordeaux)
                             Text(e.score != nil ? "/100" : "/10").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
                         }
                         .padding(.top, 20)
@@ -1483,5 +1509,66 @@ struct CameraPicker: UIViewControllerRepresentable {
             parent.dismiss()
         }
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { parent.dismiss() }
+    }
+}
+
+/// The 100-point scale, as critics use it.
+enum RatingGuide {
+    static let bands: [(ClosedRange<Int>, String, String)] = [
+        (96...100, "Classic", "A great wine: everything in balance, complex and long. Rare."),
+        (90...95, "Outstanding", "Real character and style. A wine you remember."),
+        (85...89, "Very good", "Well made, with something special about it."),
+        (80...84, "Good", "Solid and pleasant; nothing wrong, nothing striking."),
+        (70...79, "Average", "Drinkable but plain, or with small flaws."),
+        (50...69, "Below average", "Faulty, unbalanced or dull."),
+    ]
+    static func band(_ p: Int) -> (String, String) {
+        let b = bands.first { $0.0.contains(p) } ?? bands.last!
+        return (b.1, b.2)
+    }
+}
+
+struct RatingGuideSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                ScreenHeader(eyebrow: "Before you taste", title: "Scoring out of 100",
+                             subtitle: "Jero uses the 100-point scale made famous by Robert Parker and used by Wine Spectator, James Suckling and Vinous. Every wine starts at 50; the points above that reward what you find in the glass.")
+                VStack(spacing: 0) {
+                    ForEach(Array(RatingGuide.bands.enumerated()), id: \.offset) { i, b in
+                        HStack(alignment: .top, spacing: 12) {
+                            Text("\(b.0.lowerBound)–\(b.0.upperBound)").font(.system(size: 13, weight: .semibold).monospacedDigit())
+                                .foregroundStyle(.white).frame(width: 64, height: 26)
+                                .background(Capsule().fill(Palette.bordeaux.opacity(1 - Double(i) * 0.13)))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(b.1).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Text(b.2).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.vertical, 10)
+                        if i < RatingGuide.bands.count - 1 { Hairline() }
+                    }
+                }
+                .cardStyle(padding: 14)
+                VStack(alignment: .leading, spacing: 8) {
+                    Eyebrow("How the points add up")
+                    Text("Critics weigh balance (fruit, acid, tannin, alcohol in harmony), intensity, complexity and length of the finish, the same BLIC you learn in the course. Score what is in the glass, not the label or the price.")
+                        .font(.system(size: 15)).foregroundStyle(Palette.ink).lineSpacing(2.5)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .cardStyle(padding: 16)
+                Button { dismiss() } label: {
+                    Text("Got it").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                        .frame(maxWidth: .infinity).frame(height: 52)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.bordeaux))
+                }
+                .buttonStyle(PressableStyle())
+            }
+            .padding(Metrics.margin)
+        }
+        .background(Palette.paper.ignoresSafeArea())
+        .presentationDragIndicator(.visible)
     }
 }

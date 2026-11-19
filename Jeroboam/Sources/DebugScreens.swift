@@ -112,12 +112,12 @@ enum DebugScreens {
             var e = JournalEntry()
             e.wine = journal.cellar[0].wine; e.identified = true; e.blind = true
             e.aromas = ["Red cherry", "Cloves", "Earth"]; e.guessGrape = "Cabernet Sauvignon"; e.guessCountry = "France"
-            e.body = 4; e.acidity = 3; e.tannin = 4; e.rating = 8
+            e.body = 4; e.acidity = 3; e.tannin = 4; e.rating = 91
             e.price = journal.cellar[0].price
             e.score = TastingScore.total(e)
             journal.entries.append(e)
             var f = JournalEntry()
-            f.wine = journal.cellar[2].wine; f.identified = true; f.aromas = ["Grapefruit", "Flint"]; f.rating = 9
+            f.wine = journal.cellar[2].wine; f.identified = true; f.aromas = ["Grapefruit", "Flint"]; f.rating = 93
             journal.entries.append(f)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {

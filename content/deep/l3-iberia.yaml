@@ -66,3 +66,36 @@
     - tf: "Tinta Roriz is Portugal's name for Tempranillo."
       truth: true
       explain: "It is also called Aragonez in the Alentejo."
+
+- title: "History: sherry, port and Rioja"
+  icon: hourglass
+  cards:
+    - learn: Sack and the sea
+      visual: "map:spain"
+      body: |
+        **Jerez** traded wine with England for centuries. In **1587**, **Sir Francis Drake** raided Cádiz and carried home nearly **3,000 barrels** of "sack", as the English called sherry. Shakespeare's Falstaff praised it.
+
+        Fortifying with spirit protected the wine on long voyages, and Spanish ships took it to the New World.
+    - learn: Port, made for England
+      visual: "map:portugal"
+      body: |
+        At war with France, England bought Portuguese wine instead. The **Methuen Treaty** of **1703** gave Portuguese wine low taxes in England. To survive the sea journey, Douro wine was fortified with brandy: the birth of **Port**, and of British houses such as **Taylor's**, **Croft** and **Graham's**.
+
+        In **1756** the **Marquis of Pombal** demarcated the **Douro**, one of the world's first protected wine regions, to stop fraud.
+    - learn: Rioja and the French
+      visual: "map:spain"
+      body: |
+        When **phylloxera** and mildew struck Bordeaux in the **1860s–70s**, French merchants crossed the Pyrenees to **Rioja** for wine. They brought **oak barrels** and Bordeaux methods. The railway from **Haro** to Bordeaux (opened 1880) carried the wine north.
+
+        Bodegas founded then, such as **López de Heredia** (1877) and **CVNE** (1879), still make classic, long-aged Rioja. Phylloxera reached Rioja itself around **1899**.
+    - choice: "Which treaty gave Portuguese wine low taxes in England in 1703?"
+      options: [The Methuen Treaty, The Treaty of Paris, The Pombal Decree, The Treaty of Tordesillas]
+      a: The Methuen Treaty
+      explain: "England, at war with France, turned to Portugal; fortified Douro wine became Port."
+    - choice: "Why did French merchants come to Rioja in the 1870s?"
+      options: [Phylloxera and mildew had ruined their own vineyards, Rioja was part of France, They wanted to make Cava, Spain banned wine exports]
+      a: Phylloxera and mildew had ruined their own vineyards
+      explain: "They brought barrels and Bordeaux methods, shaping the oak-aged Rioja style."
+    - tf: "The Douro was demarcated in 1756, one of the first protected wine regions."
+      truth: true
+      explain: "The Marquis of Pombal mapped the best vineyards and created a company to control quality and stop fraud."

@@ -62,3 +62,36 @@
     - tf: "Egri Bikavér is a sweet white wine."
       truth: false
       explain: "It is a red blend from Eger, 'Bull's Blood'."
+
+- title: "History: emperors' wines"
+  icon: hourglass
+  cards:
+    - learn: Tokaji, wine of kings
+      visual: "map:hungary"
+      body: |
+        In **Tokaj**, Hungary, noble rot was understood by the **1600s**; by legend a harvest delayed by Turkish raids led to the first Aszú. In **1730** the vineyards were classified, more than a century before Bordeaux's 1855 list.
+
+        Louis XIV called it "**the wine of kings, the king of wines**". Communism (1949–1989) turned Tokaj into a state farm; investment from France and Spain after 1990 revived it.
+    - learn: Germany's late harvest
+      visual: "map:germany"
+      body: |
+        The Romans planted the **Mosel**, and monasteries such as **Kloster Eberbach** made the Rheingau famous. In **1775**, at **Schloss Johannisberg**, the messenger carrying permission to start the harvest was late; the grapes rotted, the wine was wonderful, and **Spätlese** ("late harvest") was born.
+
+        In the 1800s, top Rieslings cost more than First Growth Bordeaux. Wars, then cheap sweet exports such as Liebfraumilch, hurt its name; today's dry **Grosses Gewächs** wines have rebuilt it.
+    - learn: Austria's clean start
+      visual: "map:austria"
+      body: |
+        In **1985** a few Austrian brokers were caught sweetening wine with **diethylene glycol**. Exports collapsed overnight. Austria responded with some of the strictest wine laws in the world.
+
+        A new generation focused on dry **Grüner Veltliner** and **Riesling** from the **Wachau** and Kamptal, and Austrian wine is now admired for its purity.
+    - choice: "What happened at Schloss Johannisberg in 1775?"
+      options: [A late messenger delayed the harvest and Spätlese was born, The first Sekt was made, Phylloxera arrived in Germany, The Mosel was classified]
+      a: A late messenger delayed the harvest and Spätlese was born
+      explain: "The overripe, partly botrytized grapes made exceptional wine: the start of Germany's late-harvest tradition."
+    - tf: "Tokaj's vineyards were classified in 1730, before Bordeaux's 1855 classification."
+      truth: true
+      explain: "The Tokaj classification of 1730 is one of the oldest in the world."
+    - choice: "What did the 1985 scandal lead to in Austria?"
+      options: [Very strict wine laws and a focus on quality, A ban on Grüner Veltliner, The end of Austrian wine exports forever, The creation of Tokaji]
+      a: Very strict wine laws and a focus on quality
+      explain: "After the glycol scandal Austria rebuilt its reputation on dry, pure, carefully controlled wines."

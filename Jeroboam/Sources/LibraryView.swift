@@ -120,14 +120,14 @@ struct LibraryView: View {
         VStack(alignment: .leading, spacing: 0) {
             art(s)
                 .frame(width: 56, height: 56)
-                .scaleEffect(1.3)
-                .frame(width: 74, height: 74)
-            Spacer(minLength: 14)
-            Text(s.title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.85)
-            Text(s.subtitle).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1).padding(.top, 2)
+                .scaleEffect(1.05)
+                .frame(width: 60, height: 60)
+            Spacer(minLength: 8)
+            Text(s.title).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.85)
+            Text(s.subtitle).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1).padding(.top, 1)
         }
-        .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
-        .cardStyle(padding: 14)
+        .frame(maxWidth: .infinity, minHeight: 112, alignment: .topLeading)
+        .cardStyle(padding: 12)
     }
 
     /// Small illustration for each tile, all drawn on the same disc.

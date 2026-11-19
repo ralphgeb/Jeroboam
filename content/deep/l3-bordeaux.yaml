@@ -79,3 +79,34 @@
     - tf: "Old red wine is decanted partly to separate it from its sediment."
       truth: true
       explain: "Tannins and pigments drop out as a fine deposit over the years."
+
+- title: "History: how Bordeaux was built"
+  icon: hourglass
+  cards:
+    - learn: Roman port, English market
+      visual: "map:bordeaux"
+      body: |
+        The Romans planted vines at **Burdigala** in the 1st century AD. But Bordeaux's fortune came from **trade**: after **1152**, when Eleanor of Aquitaine married the future Henry II of England, Bordeaux shipped its light red **clairet** to London for three hundred years. The English still call red Bordeaux **claret**.
+
+        When the English left in **1453**, Bordeaux kept its sea trade with Britain, the Netherlands and northern Europe.
+    - learn: Draining the Médoc
+      body: |
+        Until the 1600s, the Médoc was marsh. **Dutch** engineers dug drainage channels and revealed **gravel ridges** along the Gironde. On that warm, free-draining gravel, Cabernet Sauvignon could finally ripen.
+
+        Rich families of Bordeaux's Parliament built estates there. **Haut-Brion** was sold by name in London by **1663**; Lafite, Latour and Margaux soon followed: the birth of the **château** as a brand.
+    - learn: Merchants, 1855 and beyond
+      body: |
+        Bordeaux's **négociants** (merchants), many of them British, Irish, Dutch and German families, bought wine young, aged and sold it. Their price lists became the **1855 classification**.
+
+        Phylloxera, two world wars and the 1930s depression hit hard. The modern boom began with **Émile Peynaud**'s scientific winemaking in the 1950s–60s and Robert Parker's praise of the **1982** vintage, which turned the Grands Crus into global luxury goods.
+    - choice: "Why do the British call red Bordeaux 'claret'?"
+      options: [From the light red 'clairet' shipped to England after 1152, Because it is always clear in color, From a château called Claret, From the Latin word for wine]
+      a: From the light red 'clairet' shipped to England after 1152
+      explain: "Bordeaux belonged to the English crown for three centuries, and its pale red clairet was London's everyday wine."
+    - choice: "What did the Dutch do for Bordeaux in the 1600s?"
+      options: [Drained the Médoc marshes, Invented the Bordeaux bottle, Created the 1855 classification, Planted Merlot on the Right Bank]
+      a: Drained the Médoc marshes
+      explain: "Drainage exposed the gravel ridges where Cabernet Sauvignon ripens; the Médoc's great estates followed."
+    - tf: "Château Haut-Brion was already sold by name in London in the 1660s."
+      truth: true
+      explain: "The diarist Samuel Pepys wrote of drinking 'Ho Bryan' in 1663: one of the first wines sold under its estate's name."

@@ -138,19 +138,18 @@ struct PracticeView: View {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                 ForEach(kinds) { k in
                     Button { start(k) } label: {
-                        VStack(alignment: .leading, spacing: 0) {
+                        HStack(spacing: 10) {
                             ZStack {
                                 Circle().fill(Palette.wineSoft.opacity(0.7))
-                                art(k)
+                                art(k).scaleEffect(0.82)
                             }
-                            .frame(width: 52, height: 52)
-                            Spacer(minLength: 12)
-                            Text(k.title).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
-                            Text(k.subtitle).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(2, reservesSpace: true)
-                                .multilineTextAlignment(.leading).padding(.top, 2)
+                            .frame(width: 42, height: 42)
+                            Text(k.title).font(.system(size: 14.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                                .lineLimit(2).minimumScaleFactor(0.85).multilineTextAlignment(.leading)
+                            Spacer(minLength: 0)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
-                        .cardStyle(padding: 14)
+                        .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
+                        .cardStyle(padding: 11)
                     }
                     .buttonStyle(PressableStyle())
                 }
@@ -162,8 +161,7 @@ struct PracticeView: View {
         switch k {
         case .grapes: GrapeArt(id: "cabernet-sauvignon", size: 42)
         case .regions, .maps:
-            WineMapView(mapID: "spain", showLabels: false, showCities: false, fill: true, thumbnail: true)
-                .clipShape(Circle()).allowsHitTesting(false)
+            Image(systemName: "globe.europe.africa").font(.system(size: 22, weight: .light)).foregroundStyle(Palette.wine)
         case .colors:
             HStack(spacing: 2) {
                 ForEach(["#E6D68C", "#E9A6A2", "#7A1832"], id: \.self) { Rectangle().fill(Color(hex: $0)).frame(width: 8, height: 22) }

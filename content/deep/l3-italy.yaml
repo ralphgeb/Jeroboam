@@ -69,3 +69,41 @@
     - tf: "Cannonau, Sardinia's main red grape, is Grenache."
       truth: true
       explain: "Sardinians claim it as their own; it is the same variety as Garnacha."
+
+- title: "History: Etruscans to Super Tuscans"
+  icon: hourglass
+  cards:
+    - learn: The land of vines
+      visual: "map:italy"
+      body: |
+        The **Etruscans** made wine in central Italy before Rome, and **Greek** settlers called the south **Oenotria**, "land of vines". Rome turned wine into an industry: amphorae from Campania traveled across the empire.
+
+        After Rome, wine survived in monasteries and noble families. Some Tuscan families, the **Antinori** and **Frescobaldi**, have made wine for more than **600 years**.
+    - learn: Chianti's rules
+      visual: "map:tuscany"
+      body: |
+        In **1716**, **Cosimo III de' Medici** drew the borders of Chianti, one of the world's first legal wine zones. In **1872** **Baron Bettino Ricasoli** wrote a recipe: mostly **Sangiovese**, softened with Canaiolo and a little white Malvasia.
+
+        Twentieth-century rules forced in too much white grape and too-high yields. Quality fell, until rebels broke away.
+    - learn: The Super Tuscan revolt
+      body: |
+        In **1968** the Marchese Incisa della Rocchetta released **Sassicaia**, a Cabernet from the coast at **Bolgheri**, as a humble *vino da tavola*: the rules had no place for it. **Tignanello** (Antinori, 1971) and others followed, blending Sangiovese with Cabernet and aging in French barrels.
+
+        These "**Super Tuscans**" sold for more than any Chianti. The law caught up: the **IGT** category (1992) and the **Bolgheri DOC** (Sassicaia got its own DOC in 2013).
+    - learn: Barolo, king of wines
+      visual: "map:piedmont"
+      body: |
+        Until the mid-1800s **Nebbiolo** in Piedmont was often made sweet and fizzy. The **Marchesa Giulia Falletti** of Barolo and **Count Cavour** (later Italy's first prime minister) hired the French winemaker **Louis Oudart**, who made it dry and age-worthy.
+
+        Barolo became "the wine of kings and the king of wines", favored by the House of Savoy, Italy's royal family.
+    - choice: "Who drew Chianti's borders in 1716?"
+      options: [Cosimo III de' Medici, Baron Ricasoli, Count Cavour, Napoleon]
+      a: Cosimo III de' Medici
+      explain: "His decree defined Chianti, Carmignano, Pomino and Valdarno: one of the first legally defined wine regions."
+    - choice: "Why was Sassicaia first sold as a simple 'vino da tavola'?"
+      options: [Its Cabernet blend didn't fit any DOC rules, It was a cheap wine, It came from Piedmont, It was a sweet wine]
+      a: Its Cabernet blend didn't fit any DOC rules
+      explain: "Tuscany's rules had no place for Cabernet from the coast; the law later created IGT and the Bolgheri DOC."
+    - tf: "Barolo used to be made sweet and slightly fizzy before the mid-1800s."
+      truth: true
+      explain: "Cold autumns stopped fermentation; the Marchesa Falletti and Count Cavour brought in a French winemaker to make it dry."

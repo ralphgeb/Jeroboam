@@ -18,16 +18,16 @@ struct LearnView: View {
                             levelIntro(level)
                                 .padding(.horizontal, Metrics.margin)
                                 .padding(.top, 18)
-                            if plusLocked(level.number) {
-                                PlusLevelBanner(level: level)
-                                    .padding(.horizontal, Metrics.margin)
-                                    .padding(.top, 16)
-                            }
                                 .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).minY } action: { y in
                                     // 0 at rest, 1 once the level title has scrolled under the header
                                     let p = min(1, max(0, (18 - y) / 70))
                                     if abs(p - collapse) > 0.01 { collapse = p }
                                 }
+                            if plusLocked(level.number) {
+                                PlusLevelBanner(level: level)
+                                    .padding(.horizontal, Metrics.margin)
+                                    .padding(.top, 16)
+                            }
                             if let next = progress.currentLesson(in: level), progress.isLevelUnlocked(level.number) {
                                 continueCard(next, level: level)
                                     .padding(.horizontal, Metrics.margin)

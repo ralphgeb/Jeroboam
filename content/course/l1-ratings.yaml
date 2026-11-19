@@ -1,0 +1,96 @@
+title: Scores & critics
+summary: "What 92 points means, who gives the scores, and how to use them without being ruled by them."
+icon: star.circle
+lessons:
+  - title: The 100-point scale
+    cards:
+      - learn: Why wine has scores
+        body: |
+          Shelf tags, apps and auction catalogs are full of numbers: **91 points**, **96 points**. They come from critics who taste thousands of wines a year and sum up each one in a single score.
+
+          The most common is the **100-point scale**, popularized in the 1980s by the American critic **Robert Parker** and his newsletter *The Wine Advocate*. It copies the grades of an American school report.
+      - learn: Reading the numbers
+        body: |
+          Every wine starts at **50**. The rest rewards what is in the glass:
+
+          - **96–100 · Classic**: a great wine, complex and long. Rare.
+          - **90–95 · Outstanding**: real character and style.
+          - **85–89 · Very good**: well made, with something special.
+          - **80–84 · Good**: solid and pleasant.
+          - **Below 80**: plain, or with flaws.
+
+          In practice almost every score you see in a shop is between **85 and 100**: shops quote the good ones.
+      - learn: What critics look at
+        body: |
+          A score is a judgment of **quality**, not of personal taste. Critics weigh the same things you learn in this course:
+
+          - **Balance**: fruit, acid, tannin and alcohol in harmony.
+          - **Length**: how long the flavor lasts after you swallow.
+          - **Intensity** and **complexity**: how much there is, and how many layers.
+          - **Typicity**: does it taste of its grape and place?
+
+          Many critics also give a **drinking window**, such as "2026–2040".
+      - choice: "On the 100-point scale, a wine scored 92 is…"
+        options: [Outstanding, Average, Faulty, A perfect wine]
+        a: Outstanding
+        explain: "90–95 is 'outstanding': a wine with real character. 96–100 is 'classic', 85–89 'very good'."
+      - tf: "On the 100-point scale, the lowest score a wine can get is 0."
+        truth: false
+        explain: "Every wine starts at 50; the 50 points above that reward quality. In practice published scores sit mostly between 80 and 100."
+      - choice: "Who made the 100-point scale famous?"
+        options: [Robert Parker, Jancis Robinson, Dom Pérignon, Steven Spurrier]
+        a: Robert Parker
+        explain: "Robert Parker's newsletter The Wine Advocate used it from 1978, and his praise of the 1982 Bordeaux vintage made him the world's most influential critic."
+  - title: Who's who
+    cards:
+      - learn: The big names
+        body: |
+          - **Robert Parker / The Wine Advocate** (USA): the critic who made scores matter. Parker retired in 2019; the Advocate goes on with a team.
+          - **Wine Spectator** (USA): a magazine scoring about 15,000 wines a year, tasted blind. Its **Top 100** list each November moves markets.
+          - **James Suckling** (USA/Asia): former Spectator critic, generous scores, big on Italy and Bordeaux.
+          - **Vinous** (Antonio Galloni, USA): detailed reviews, strong on Italy and California.
+          - **Wine Enthusiast** (USA): magazine scores on the 100-point scale, broad coverage.
+      - learn: The 20-point school
+        body: |
+          Many European critics prefer **20 points**:
+
+          - **Jancis Robinson MW** (UK): one of the most respected voices in wine, co-author of *The World Atlas of Wine*. A 17/20 is a very good wine; 18.5+ is exceptional.
+          - **Decanter** (UK): the magazine now gives 100-point scores, and runs the **Decanter World Wine Awards**, the biggest wine competition, with medals instead of points.
+          - **La Revue du Vin de France** and **Bettane+Desseauve** (France) also score out of 20.
+      - learn: Crowds and medals
+        body: |
+          **Vivino** gathers ratings from millions of drinkers on a **1–5 star** scale. A 4.2 is very good; it tells you what people enjoy, which is not always what critics praise.
+
+          **Medals** on a bottle come from competitions: a gold medal means a panel liked it more than the other wines in that flight. Useful, but there are hundreds of competitions.
+      - match: "Match the critic to the scale they are known for"
+        pairs: [[Robert Parker, 100 points], [Jancis Robinson, 20 points], [Vivino, 5 stars], [Decanter World Wine Awards, Medals]]
+        explain: "Parker made the 100-point scale famous, Jancis Robinson scores out of 20, Vivino uses 1–5 stars, and competitions such as the DWWA award medals."
+      - choice: "Which magazine publishes a famous 'Top 100' list every November?"
+        options: [Wine Spectator, The World Atlas of Wine, Vivino, The Wine Society]
+        a: Wine Spectator
+        explain: "Wine Spectator's Top 100 of the year is one of the most watched lists in the trade."
+      - tf: "Jancis Robinson usually gives scores out of 20."
+        truth: true
+        explain: "Like many European critics she uses the 20-point scale; 17 is very good, 18.5 and above exceptional."
+  - title: Using scores well
+    cards:
+      - learn: A number is not your taste
+        body: |
+          A 95-point Barolo is a great wine, but if you dislike firm tannin you may prefer an 89-point Pinot Noir. Use scores to **find well-made wines**, then trust your own palate.
+
+          Read the **note**, not just the number: "firm, needs time" tells you more than "94".
+      - learn: Value hides below 90
+        body: |
+          Prices jump at **90 points**: shops love to quote them. Wines scored **87–89** are often the best value in the shop: very good wine without the score premium.
+
+          Also compare **like with like**: 90 points for a $12 Côtes du Rhône is a bigger achievement than 90 for a $200 Bordeaux.
+      - learn: Scoring your own wines
+        body: |
+          In the Journal, every tasting is scored on the **100-point scale**. Start at 50 and add points for balance, length, intensity and complexity. After a few tastings, your scores become a map of your own taste.
+      - choice: "Why are wines scored 87–89 often good value?"
+        options: [Prices jump once a wine reaches 90 points, They are always faulty, They are made only in Europe, They are always older wines]
+        a: Prices jump once a wine reaches 90 points
+        explain: "Shops and producers market 90+ scores heavily; a wine just below often costs less for very similar quality."
+      - tf: "A high score means you will personally enjoy the wine."
+        truth: false
+        explain: "A score judges quality and typicity. Your own taste for, say, tannin or oak may differ; read the tasting note too."

@@ -44,3 +44,44 @@
     - tf: "Pinotage is a crossing of Pinot Noir and Cinsault."
       truth: true
       explain: "Created at Stellenbosch University in 1925; Cinsault was then called Hermitage, hence the name."
+
+- title: "History: the New World arrives"
+  icon: hourglass
+  cards:
+    - learn: Missions and gold rush
+      visual: "map:california"
+      body: |
+        **Spanish missionaries** planted vines in the Americas for sacramental wine: Peru and Mexico in the 1500s, **Chile** in the 1550s, **California**'s missions from **1769** with the humble **Mission** grape.
+
+        The **Gold Rush** brought thirsty miners and European immigrants. Then **Prohibition** (1920–1933) closed most wineries; only sacramental and "grape juice" producers survived.
+    - learn: Napa's rise
+      visual: "map:napa-sonoma"
+      body: |
+        **Robert Mondavi** opened his Oakville winery in **1966**, the first big new winery in Napa since Prohibition, and labeled wines by grape (Cabernet Sauvignon, Fumé Blanc) instead of borrowing French names.
+
+        The **1976 Judgment of Paris** put Napa on the map; **Opus One** (1979) joined Mondavi with Mouton Rothschild.
+    - learn: South Africa, Australia, New Zealand
+      visual: "map:south-africa"
+      body: |
+        **South Africa**: the Dutch planted vines at the Cape in **1655**; **Constantia**'s sweet wine was drunk by Napoleon. Under apartheid, exports were boycotted; since **1994** the Cape has reinvented itself around old-vine Chenin and Swartland.
+
+        **Australia**: vines came with the First Fleet in **1788**; **German Lutherans** settled the **Barossa** in the 1840s, and their Shiraz vines survive. **Penfolds Grange** (1951) showed Australia could make icons.
+
+        **New Zealand**: Marlborough's first commercial vineyards were planted in **1973**; **Cloudy Bay** (1985) made it a world classic.
+    - learn: Chile and Argentina
+      visual: "map:argentina"
+      body: |
+        In the 1850s Chilean landowners imported French vines, including **Carmenère**, just before phylloxera devastated France. Chile stayed phylloxera-free and kept these old vines.
+
+        **Argentina** drank its own huge production until the 1990s, when exporters bet on **Malbec** from high **Mendoza** vineyards. Pioneers such as **Nicolás Catena** proved altitude could make world-class wine.
+    - choice: "When did Robert Mondavi open his Napa winery?"
+      options: ["1966", "1920", "1976", "1855"]
+      a: "1966"
+      explain: "The first major new Napa winery since Prohibition; Mondavi championed labeling wines by grape."
+    - choice: "Who planted the Barossa's old Shiraz vines in the 1840s?"
+      options: [German Lutheran settlers, Spanish missionaries, French monks, Dutch traders]
+      a: German Lutheran settlers
+      explain: "Silesian Lutherans settled the Barossa; vines from that era still produce wine today."
+    - tf: "Prohibition (1920–1933) closed most American wineries."
+      truth: true
+      explain: "Only producers of sacramental wine and grape juice could legally continue; the industry took decades to recover."

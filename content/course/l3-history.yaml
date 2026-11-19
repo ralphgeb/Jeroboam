@@ -1,0 +1,180 @@
+title: The story of wine
+summary: "From Georgian clay jars to phylloxera, the 1855 classification and the Judgment of Paris: how the wine world was made."
+icon: hourglass
+lessons:
+  - title: Ancient roots
+    cards:
+      - learn: Eight thousand years in clay
+        body: |
+          The oldest traces of grape wine, about **8,000 years** old, come from **Georgia** in the South Caucasus: residues inside clay jars. Georgians still ferment wine in buried clay vessels called **qvevri**, a method UNESCO lists as world heritage.
+
+          The oldest known winery, about **6,100 years** old, was found in the **Areni-1 cave** in Armenia, with a pressing floor and fermentation jars.
+      - learn: Egypt, Phoenicia and Greece
+        body: |
+          In **ancient Egypt**, wine was for kings and priests; jars in Tutankhamun's tomb were labeled with the vintage, the estate and the chief winemaker, an early wine label.
+
+          **Phoenician** traders, from today's **Lebanon**, carried vines and wine across the Mediterranean. The **Greeks** planted vines in southern Italy, which they called **Oenotria**, "land of vines", and in Provence, at Marseille, around 600 BC.
+      - learn: Rome builds Europe's vineyards
+        body: |
+          The **Romans** spread the vine wherever their legions went: up the **Rhône**, into **Bordeaux** (Burdigala), **Burgundy**, the **Mosel** and the **Rhine**. Many of Europe's great regions began as Roman vineyards along rivers, which carried both water for the vines and barrels to market.
+
+          Roman wine was often sweetened with honey or flavored with herbs and resin, and drunk mixed with water.
+      - choice: "Where do the oldest traces of grape wine (about 8,000 years old) come from?"
+        options: [Georgia, France, Egypt, Italy]
+        a: Georgia
+        explain: "Residues in clay jars in Georgia, in the South Caucasus, are the oldest evidence of grape wine. Georgians still use buried clay qvevri."
+      - choice: "What did the Greeks call southern Italy?"
+        options: [Oenotria, Burdigala, Gallia, Iberia]
+        a: Oenotria
+        explain: "Oenotria means 'land of vines'. Burdigala was the Roman name for Bordeaux."
+      - tf: "The Romans spread vineyards along rivers such as the Rhône, Mosel and Rhine."
+        truth: true
+        explain: "Rivers gave vines water, warmth from reflected sun, and a road for barrels to market. Many great regions began as Roman vineyards."
+  - title: Monks and merchants
+    cards:
+      - learn: The monks of Burgundy
+        body: |
+          After Rome fell, **monasteries** kept winemaking alive. In Burgundy, **Benedictine** monks of Cluny and **Cistercian** monks of Cîteaux (founded 1098) spent centuries tasting the wines of each plot, building walls around the best ones.
+
+          The **Clos de Vougeot**, walled by the Cistercians in the 14th century, is the most famous. Their idea that each **climat** (named plot) tastes different is the root of **terroir** and of Burgundy's Grands Crus.
+      - learn: Bordeaux becomes English
+        body: |
+          In **1152** Eleanor of Aquitaine married **Henry Plantagenet**, soon King Henry II of England. Bordeaux became English for **three centuries**, until 1453.
+
+          English merchants shipped huge volumes of light red **clairet**, the origin of the British word **claret** for red Bordeaux. Trade, not monks, shaped Bordeaux: a merchant's city facing the sea.
+      - learn: The Dutch drain the Médoc
+        body: |
+          In the **1600s**, **Dutch** engineers drained the marshy Médoc, revealing the **gravel ridges** where Cabernet Sauvignon would thrive. Dutch traders also wanted sweet whites and brandy, boosting Sauternes and Cognac.
+
+          By the 1700s, estates such as **Haut-Brion**, Lafite and Latour were selling their wine **by name** in London: the birth of the "château" brand.
+      - choice: "Which monks walled the Clos de Vougeot in Burgundy?"
+        options: [Cistercians, Jesuits, Franciscans, Templars]
+        a: Cistercians
+        explain: "The Cistercians of Cîteaux, founded in 1098, studied Burgundy's plots for centuries and walled the Clos de Vougeot."
+      - blank: "Bordeaux belonged to England for three centuries after Eleanor of Aquitaine married Henry Plantagenet in ___."
+        answers: ["1152"]
+        options: ["1066", "1453", "1789"]
+        explain: "The marriage in 1152 made Bordeaux English until 1453; the British still call red Bordeaux 'claret'."
+      - tf: "Dutch engineers drained the Médoc's marshes in the 1600s."
+        truth: true
+        explain: "Draining revealed the gravel ridges of the Left Bank, where Cabernet Sauvignon ripens on warm stones."
+  - title: Phylloxera
+    cards:
+      - learn: The plague from America
+        body: |
+          In the **1860s**, vines in the southern Rhône began to wither and die. The culprit, identified in **1868** by the botanist **Jules-Émile Planchon**, was **phylloxera**: a tiny yellow aphid-like insect that feeds on vine **roots**.
+
+          It had crossed the Atlantic on American vines brought to Europe as botanical curiosities. Faster steamships meant the bugs survived the trip.
+      - learn: A continent's vineyards destroyed
+        body: |
+          Over the next **thirty years**, phylloxera spread through almost every European vineyard: France, Spain, Italy, Portugal, Germany, then Australia, South Africa and California.
+
+          France lost around **40% of its vines**. Growers tried everything: flooding vineyards, injecting carbon disulfide into the soil, even burying live toads under vines. Millions emigrated; some French winemakers moved to **Rioja**, raising its quality.
+      - learn: "The cure: grafting"
+        body: |
+          American vines had evolved with phylloxera and their roots resist it. The solution, championed by Planchon and the American entomologist **Charles Valentine Riley**, was to **graft** European *Vitis vinifera* onto **American rootstocks**. **Thomas Munson** in Texas bred many of the rootstocks used.
+
+          Today almost every vine in the world grows on American roots. The fruit, and the wine, still come from the European vine on top.
+      - learn: The survivors
+        body: |
+          A few places never had phylloxera, or it couldn't survive there:
+
+          - **Chile**, protected by the Andes, the Pacific and the Atacama desert.
+          - **Sandy soils** such as Colares in Portugal and parts of the Mosel; the insect can't move through sand.
+          - **Santorini**'s volcanic ash, and parts of **South Australia**, kept free by strict quarantine. Barossa has Shiraz vines from the **1840s**.
+
+          After phylloxera, fraud and fake wine were common; the **AOC** system (1935) was partly France's answer.
+      - choice: "What does phylloxera attack?"
+        options: [The vine's roots, The grapes, The leaves only, The wine in barrel]
+        a: The vine's roots
+        explain: "The insect feeds on roots; the vine slowly starves. American vines' roots can resist it, European vines' cannot."
+      - choice: "How did growers finally beat phylloxera?"
+        options: [Grafting European vines onto American rootstocks, Spraying the grapes with copper, Planting only white grapes, Harvesting earlier]
+        a: Grafting European vines onto American rootstocks
+        explain: "Grafting keeps the European vine's fruit on resistant American roots. Almost every vineyard in the world is grafted today."
+      - tf: "Chile's vineyards were never hit by phylloxera."
+        truth: true
+        explain: "Mountains, ocean and desert isolate Chile, so many of its vines still grow on their own roots."
+      - choice: "Which French botanist identified phylloxera in 1868?"
+        options: [Jules-Émile Planchon, Louis Pasteur, Émile Peynaud, Dom Pérignon]
+        a: Jules-Émile Planchon
+        explain: "Planchon found the insect on dying vines in the southern Rhône and helped promote grafting as the cure."
+  - title: "1855: Bordeaux ranks itself"
+    cards:
+      - learn: A list for a world fair
+        body: |
+          For the **1855 Exposition Universelle** in Paris, Emperor **Napoleon III** wanted Bordeaux's best wines shown. The merchants of Bordeaux ranked the châteaux by **price**, the market's long verdict on quality.
+
+          The result: **61 red wines** in five tiers, from First to Fifth Growth, almost all from the **Médoc**, plus **Haut-Brion** from Graves; and a list of **Sauternes and Barsac**, with **Château d'Yquem** alone at the top as *Premier Cru Supérieur*.
+      - learn: Almost unchanged since
+        body: |
+          The list has barely moved. **Cantemerle** was added in 1856, and in **1973** **Mouton Rothschild** was promoted to First Growth after Baron Philippe de Rothschild's fifty-year campaign. Its motto changed from "First I cannot be, second I do not deign to be, Mouton I am" to "**First I am, second I was, Mouton does not change**."
+
+          The five First Growths: **Lafite**, **Latour**, **Margaux**, **Haut-Brion** and **Mouton**.
+      - choice: "How did the merchants decide the 1855 ranking?"
+        options: [By the price the wines fetched, By a blind tasting, By the size of the estate, By the age of the château]
+        a: By the price the wines fetched
+        explain: "Price over many years was taken as the market's verdict on quality."
+      - choice: "Which château was promoted to First Growth in 1973?"
+        options: [Mouton Rothschild, Pétrus, Cheval Blanc, Palmer]
+        a: Mouton Rothschild
+        explain: "The only promotion of a First Growth in the list's history. Pétrus and Cheval Blanc are on the Right Bank and not in the 1855 list."
+  - title: The Judgment of Paris
+    cards:
+      - learn: A tasting nobody expected to matter
+        body: |
+          On **24 May 1976**, the English wine merchant **Steven Spurrier** held a blind tasting in Paris. Nine French experts (top chefs, sommeliers and the head of the Appellation authority) tasted top **Bordeaux** and **Burgundy** against unknown wines from **California**.
+
+          Only one journalist came: **George Taber** of *Time* magazine.
+      - learn: California wins
+        body: |
+          The winners were both Californian:
+
+          - **Reds**: **Stag's Leap Wine Cellars 1973** Cabernet Sauvignon, ahead of Mouton Rothschild and Haut-Brion.
+          - **Whites**: **Chateau Montelena 1973** Chardonnay, ahead of top white Burgundies such as Meursault-Charmes.
+
+          Taber's story, "Judgment of Paris", went around the world. One judge asked for her scorecard back.
+      - learn: Why it changed everything
+        body: |
+          The result proved that great wine could be made **outside France**. Investment poured into **Napa**, then Oregon, Australia, Chile and beyond. French producers began investing abroad: Mouton Rothschild partnered with Robert Mondavi to create **Opus One** (1979).
+
+          French critics said red Bordeaux needs time. A **rematch in 2006**, thirty years on, again put California reds on top, led by **Ridge Monte Bello 1971**.
+      - choice: "Which red won the 1976 Judgment of Paris?"
+        options: [Stag's Leap Wine Cellars 1973 Cabernet, Château Mouton Rothschild 1970, Château Haut-Brion 1970, Opus One 1979]
+        a: Stag's Leap Wine Cellars 1973 Cabernet
+        explain: "A Napa Cabernet from Stags Leap District beat the best of Bordeaux, judged blind by French experts."
+      - choice: "Which wine won the white flight?"
+        options: [Chateau Montelena 1973 Chardonnay, Meursault-Charmes 1973, Puligny-Montrachet 1972, Cloudy Bay Sauvignon Blanc]
+        a: Chateau Montelena 1973 Chardonnay
+        explain: "Chateau Montelena, from Calistoga in northern Napa, beat top white Burgundies."
+      - tf: "The 1976 tasting was judged by Californian experts."
+        truth: false
+        explain: "All nine judges were French, which is what made the result so shocking. The wines were tasted blind."
+      - blank: "The English merchant who organized the 1976 tasting was Steven ___."
+        answers: [Spurrier]
+        options: [Parker, Taber, Mondavi]
+        explain: "Steven Spurrier ran a wine shop and school in Paris; George Taber was the Time journalist who reported it."
+  - title: The modern era
+    cards:
+      - learn: Scientists in the cellar
+        body: |
+          After the war, **Émile Peynaud** in Bordeaux and others brought science to winemaking: clean cellars, control of **malolactic** conversion and **temperature-controlled** fermentation in steel. Wine became more reliable everywhere.
+
+          **Stainless steel** tanks with cooling jackets made fresh, fruity whites possible in warm places like Australia and Spain.
+      - learn: Critics and the globe
+        body: |
+          **Robert Parker**'s praise of the **1982 Bordeaux** vintage, when others doubted it, made him the world's most powerful critic, and made ripe, rich styles fashionable in the 1990s.
+
+          **Flying winemakers** from Australia and Bordeaux consulted around the world; **Malbec** turned Argentina into a star; New Zealand's **Sauvignon Blanc** (Cloudy Bay, 1985) created a new classic.
+      - learn: Today and tomorrow
+        body: |
+          The pendulum has swung back toward **freshness**, less new oak, organic and biodynamic farming, natural wines, and old local grapes rescued from extinction.
+
+          **Climate change** is moving the map: English sparkling wine now wins blind tastings, harvests in Champagne are weeks earlier than 30 years ago, and growers plant higher and cooler.
+      - choice: "Which vintage made Robert Parker famous?"
+        options: [1982 Bordeaux, 1976 Napa, 1945 Bordeaux, 2005 Burgundy]
+        a: 1982 Bordeaux
+        explain: "Parker called 1982 a great vintage when others were cautious; he was right, and his influence soared."
+      - tf: "Climate change is making harvests earlier in regions such as Champagne."
+        truth: true
+        explain: "Warmer seasons ripen grapes sooner; Champagne now picks weeks earlier than a generation ago, and cooler places such as England are rising."

@@ -72,3 +72,32 @@
     - tf: "Chablis has seven Grand Cru vineyards, all on one hillside."
       truth: true
       explain: "They face south-west across the Serein river from the town."
+
+- title: "History: monks, dukes and heirs"
+  icon: hourglass
+  cards:
+    - learn: A thousand years of plots
+      visual: "map:burgundy"
+      body: |
+        Burgundy's vineyards were shaped by the Church. From the 10th century, the **Benedictines of Cluny** and then the **Cistercians of Cîteaux** (founded 1098) were given vineyards by nobles hoping for salvation.
+
+        The monks noticed that wines from neighboring plots tasted different, and named and walled them: the **Clos de Vougeot**, **Clos de Tart**, **Romanée**. These named plots, the **climats**, were listed by UNESCO in 2015.
+    - learn: The dukes and their Pinot
+      body: |
+        The **Valois Dukes of Burgundy** were among Europe's richest rulers in the 1300s–1400s and used wine as diplomacy. In **1395**, Duke **Philip the Bold** banned the "disloyal" **Gamay** grape from the Côte d'Or, keeping it for Pinot Noir, which is why Gamay moved south to Beaujolais.
+    - learn: Revolution and the tiny plots
+      body: |
+        In **1789** the Revolution seized Church land and sold it in lots. Then **Napoleon's inheritance law** required land to be shared equally among all children. Over generations, vineyards were split again and again.
+
+        That is why **Clos de Vougeot** (50 ha) has more than **80 owners**, why one grower may own just a few rows of a Grand Cru, and why **négociants** who buy and blend grapes from many owners became so important. From the 1920s, growers such as the Marquis d'Angerville pushed for **domaine bottling**: the grower's own wine under their own name.
+    - choice: "Who banned Gamay from the Côte d'Or in 1395?"
+      options: [Philip the Bold, Napoleon, Louis XIV, The Cistercian monks]
+      a: Philip the Bold
+      explain: "The Duke of Burgundy called Gamay 'disloyal' and kept the Côte d'Or for Pinot Noir; Gamay found its home in Beaujolais."
+    - choice: "Why are Burgundy's vineyards split among so many owners?"
+      options: [The Revolution sold Church land and inheritance law divided it among heirs, The monks sold small plots to raise money, Phylloxera destroyed the large estates, The AOC rules require small plots]
+      a: The Revolution sold Church land and inheritance law divided it among heirs
+      explain: "Napoleonic inheritance law split each estate equally among children, generation after generation."
+    - tf: "Burgundy's climats are a UNESCO World Heritage site."
+      truth: true
+      explain: "In 2015 UNESCO listed the climats of Burgundy, the named vineyard plots mapped by monks and growers over a thousand years."
