@@ -400,3 +400,7 @@ chignard-fleurie | 31 | 93 | https://www.jamessuckling.com/tasting-notes/291340/
 clos-roilette | 24 | - | https://www.jamessuckling.com/tasting-notes/299816/clos-de-la-roilette-fleurie-2023
 dutraive-fleurie | 39 | - | https://www.jamessuckling.com/tasting-notes/253256/domaine-de-la-grand-cour-fleurie-clos-de-la-grand-cour-2022
 domaine-tempier | 54 | - | https://www.jamessuckling.com/tasting-notes/154361/domaine-tempier-bandol-2018
+desvignes-morgon | 41 | - | https://www.jamessuckling.com/tasting-notes/136980/louis-claude-desvignes-morgon-javernieres-2019
+thivin-cote-brouilly | 26 | - | https://www.jamessuckling.com/tasting-notes/252715/chateau-thivin-cote-de-brouilly-les-sept-vignes-2022
+brun-terres-dorees | 18 | - | https://www.jamessuckling.com/tasting-notes/176415/terres-dorees-jean-paul-brun-beaujolais-lancien-2020
+mas-daumas-gassac | 57 | - | https://www.jamessuckling.com/tasting-notes/265598/mas-de-daumas-gassac-saint-guilhem-le-desert-rouge-2022
