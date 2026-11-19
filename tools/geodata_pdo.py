@@ -51,13 +51,13 @@ get("https://osmdata.openstreetmap.de/download/simplified-land-polygons-complete
 zipfile.ZipFile("dl/land.zip").extractall("dl/land")
 shp = glob.glob("dl/land/**/*.shp", recursive=True)[0]
 land = gpd.read_file(shp).to_crs(4326)
-boxes = {"europe": (-11, 34, 30, 52), "lebanon": (34, 32.5, 37, 35),
+boxes = {"europe": (-11, 34, 30, 56), "lebanon": (34, 32.5, 37, 35),
          "usa-west": (-125, 32, -116, 49.5), "southamerica": (-76, -46, -62, -22), "australia": (113, -44, 154, -25),
          "nz": (165, -48, 179, -34), "safrica": (17, -35.5, 23, -31)}
 from shapely.geometry import box
 for k, b in boxes.items():
     sub = land[land.intersects(box(*b))].copy()
-    sub["geometry"] = sub.geometry.intersection(box(*b)).simplify(0.002, preserve_topology=True)
+    sub["geometry"] = sub.geometry.intersection(box(*b)).simplify(0.0008, preserve_topology=True)
     sub = sub[~sub.geometry.is_empty]
     sub[["geometry"]].to_file(f"{OUT}/land_{k}.geojson", driver="GeoJSON")
     print("land", k, len(sub))
