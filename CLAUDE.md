@@ -24,6 +24,12 @@ tools/specs_gb.py        Portugal, Spain, Germany, Austria, Hungary, Greece, Chi
                          media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen/<ISO>/<ADM>/...simplified.geojson).
                          Modes: U(names[, clip=km around the sketch]) or S(snap units inside the sketch). Run: build_maps2.py gb lb
 tools/map_specs.py       hand sketches (world map + the outlines the gb specs snap/clip to)
+tools/geodata_pdo.py + .github/workflows/geodata.yml   on a runner: EU wine PDO boundaries (Candiago et al. 2022, figshare
+                         5877659, CC BY 4.0) + OSM simplified land polygons -> `geo-data` branch -> extract into ~/geo/pdo.
+                         ~/geo/ext/WineRegions (github.com/adynak/WineRegions, CC0): Australian GIs, Argentine regions.
+                         build_maps2 replaces any area whose name (or PDO_ALIAS) matches an overlapping official
+                         boundary (`pdo_geom`, list in tools/pdo_used.txt); coastlines come from OSM when a tile covers
+                         the map. Maps are at least MIN_ASPECT 1.3 wide. Credits are shown under Regions & maps.
 Jeroboam/Sources/        Swift app
 .github/workflows/build-ios.yml   TestFlight (workflow_dispatch; needs ASC_* + APPLE_TEAM_ID secrets)
 .github/workflows/preview.yml     Simulator build + screenshots (no secrets; runs on push to main), artifact "screenshots"
@@ -74,6 +80,7 @@ Jeroboam/Sources/        Swift app
   Areas show small numbered badges only; tapping shows the name in a callout box (tap again to open). Legends list number + name.
 - Learn tab: streak bar scrolls away; level tabs (+ compact level title once scrolled) stay pinned.
   Practice/Atlas/Journal use `CollapsingPage` (big title collapses into a top bar with the profile avatar).
+- Thumbnails (`WineMapView(thumbnail: true)`): whole country, big regions only as solid shapes, soft halo on small ones.
 - Maps, atlas style (owner's choice, "like the Rioja card"): big regions with appellations inside are pale washes,
   appellations strong; level-0 regions without children are a soft wash; highlighted areas full color.
   French and Italian detail maps draw rivers/estuaries as water (`water_polys`: buffered NE centerlines + smoothed estuary).
