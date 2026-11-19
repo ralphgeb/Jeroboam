@@ -395,7 +395,11 @@ for rid, h in hist.items():
 great_base = {g["id"]: g for g in load("greatwines.yaml")}
 great, area, area_vintages = [], None, []
 rname = {r["id"]: r["name"] for r in regions}
-for ln, line in enumerate(open(os.path.join(SRC, "greatwines_more.txt"), encoding="utf-8"), 1):
+great_lines = []
+for fn in ["greatwines_more.txt"] + sorted(os.path.basename(p) for p in glob.glob(os.path.join(SRC, "great", "*.txt"))):
+    path = os.path.join(SRC, fn) if fn == "greatwines_more.txt" else os.path.join(SRC, "great", fn)
+    great_lines += [(fn, i, l) for i, l in enumerate(open(path, encoding="utf-8"), 1)]
+for src_file, ln, line in great_lines:
     line = line.strip()
     if not line or line.startswith("# "): continue
     if line.startswith("## "):
@@ -407,7 +411,7 @@ for ln, line in enumerate(open(os.path.join(SRC, "greatwines_more.txt"), encodin
         gw["snapshot"] = gw.get("photo")   # the real photo, shown on the detail page
     else:
         f = [x.strip() for x in line.split("|")]
-        if len(f) != 10: err(f"greatwines_more.txt:{ln}: {len(f)} fields"); continue
+        if len(f) != 10: err(f"{src_file}:{ln}: {len(f)} fields"); continue
         lo, hi = [int(x) for x in f[6].split("-")]
         gw = {"id": f[0], "name": f[1], "producer": f[2], "region": f[3], "grapes": [g.strip() for g in f[4].split(",")],
               "color": f[5], "price": [lo, hi], "scores": f[7], "what": f[8], "why": f[9], "vintages": area_vintages}
@@ -418,8 +422,11 @@ for ln, line in enumerate(open(os.path.join(SRC, "greatwines_more.txt"), encodin
 if len({g["id"] for g in great}) != len(great): err("duplicate great wine ids")
 for gw in great:
     if gw["region"] not in rset: err(f"great wine {gw['id']}: unknown region {gw['region']}")
-    for g in gw["grapes"]:
-        if g not in gset: err(f"great wine {gw['id']}: unknown grape {g}")
+    # grapes without a page in the app are kept as plain names
+    known = [g for g in gw["grapes"] if g in gset]
+    other = [g.replace("-", " ").title() if g == g.lower() else g for g in gw["grapes"] if g not in gset]
+    gw["grapes"] = known
+    if other: gw["also"] = other
     if gw.get("snapshot") and gw["snapshot"] not in photo_ids: gw["snapshot"] = None
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}

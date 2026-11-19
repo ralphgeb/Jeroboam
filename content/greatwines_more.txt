@@ -327,9 +327,3 @@ leyda-garuma | Garuma Sauvignon Blanc | Viña Leyda | casablanca | sauvignon-bla
 de-martino-cinsault | Viejas Tinajas Cinsault | De Martino | itata-bio-bio | cinsault | red | 25-30 | 90–92 | Old-vine Cinsault made in clay jars. | Light, wild and fresh.
 talinay | Talinay Chardonnay | Tabalí | elqui-limari | chardonnay | white | 25-35 | 91–93 | Chardonnay from limestone near the Pacific. | Chablis-like tension.
 
-## More icons | 2011,2015,2016,2017,2019
-= quintarelli-amarone
-= taylors-vintage
-= royal-tokaji
-= cloudy-bay
-= musar

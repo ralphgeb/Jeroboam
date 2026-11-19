@@ -1,0 +1,35 @@
+## Piedmont | 2010,2013,2015,2016,2019
+giacosa-falletto | Barolo Falletto Riserva | Bruno Giacosa | barolo | nebbiolo | red | 300-500 | 96–99 | Giacosa's red-label riserva from Serralunga. | Majestic, perfumed and rare.
+mascarello-langhe | Langhe Nebbiolo | Giuseppe Mascarello | piedmont | nebbiolo | red | 40-55 | 90–92 | Young-vine Nebbiolo from a great house. | Barolo's perfume at a fraction of the price.
+gaja-sperss | Sperss | Gaja | barolo | nebbiolo | red | 300-400 | 95–98 | Gaja's Serralunga Nebbiolo. | Dense and powerful.
+vajra-dolcetto | Dolcetto d'Alba | G.D. Vajra | piedmont | dolcetto | red | 18-24 | 88–90 | Everyday Piedmont red. | Juicy, purple fruit.
+ghemme-cantalupo | Ghemme Collis Breclemae | Antichi Vigneti di Cantalupo | piedmont | nebbiolo | red | 50-70 | 91–93 | Northern Piedmont Nebbiolo. | Fresh, mineral Alpine Nebbiolo.
+
+## Tuscany | 2010,2015,2016,2019,2020
+caiarossa | Caiarossa | Caiarossa | maremma | merlot,cabernet-franc,sangiovese | red | 60-80 | 92–94 | Coastal Tuscan blend. | Polished and fresh.
+le-potazzine | Brunello di Montalcino | Le Potazzine | montalcino | sangiovese | red | 70-100 | 94–96 | Small family Brunello. | Elegant and pure.
+podere-sapaio | Sapaio | Podere Sapaio | bolgheri | cabernet-sauvignon,merlot | red | 70-90 | 92–94 | Bolgheri blend. | Rich and refined.
+san-felice-vigorello | Vigorello | San Felice | chianti-classico | sangiovese,cabernet-sauvignon | red | 50-70 | 91–93 | One of the first Super Tuscans (1968). | Structured and savory.
+mazzei-siepi | Siepi | Castello di Fonterutoli (Mazzei) | chianti-classico | sangiovese,merlot | red | 90-120 | 94–96 | Sangiovese and Merlot blend. | Plush and deep.
+
+## Hungary | 2013,2016,2017,2019,2021
+royal-tokaji-mezes-maly | Mézes Mály 6 Puttonyos | Royal Tokaji | tokaj | furmint | sweet | 100-140 | 95–97 | From a first-growth Tokaj vineyard (500 ml). | Intense, honeyed and bright.
+oremus-mandolas | Mandolás Dry Furmint | Oremus | tokaj | furmint | white | 30-40 | 91–93 | Barrel-aged dry Furmint. | Smoky and mineral.
+patricius-aszu | Tokaji Aszú 6 Puttonyos | Patricius | tokaj | furmint | sweet | 50-70 | 93–95 | Classic Aszú. | Apricot and honey.
+bott-frigyes | Furmint Csontos | Bott Pince | tokaj | furmint | white | 40-55 | 92–94 | Small-grower dry Furmint. | Taut and saline.
+
+## Greece | 2015,2017,2018,2019,2021
+domaine-glinavos | Paleokerisio | Domaine Glinavos | greece | debina | white | 20-28 | 88–90 | Semi-sparkling orange-tinged wine from Epirus. | Unusual, apple-fresh.
+tsantali-rapsani | Rapsani Reserve | Tsantali | greece | xinomavro | red | 20-28 | 89–91 | Red from Mount Olympus. | Spicy and savory.
+
+## Jura & Savoie | 2015,2017,2018,2019,2020
+stephane-tissot-savagnin | Savagnin Traminer | Domaine André et Mireille Tissot | jura | savagnin | white | 40-55 | 92–94 | Topped-up Savagnin. | Taut and mineral.
+benedicte-stephane | Vin de Paille | Domaine Berthet-Bondet | jura | chardonnay,savagnin | sweet | 50-70 | 92–94 | Sweet wine from straw-dried grapes (375 ml). | Honey, raisin and orange.
+louis-magnin | Arbin Mondeuse Vieilles Vignes | Louis Magnin | savoie | mondeuse | red | 35-45 | 91–93 | Old-vine Mondeuse. | Peppery and wild.
+
+## Beaujolais | 2015,2018,2019,2020,2022
+pierre-cotton | Côte de Brouilly | Pierre Cotton | beaujolais | gamay | red | 30-40 | 90–92 | Natural Côte de Brouilly. | Fresh and stony.
+julien-sunier | Fleurie | Julien Sunier | beaujolais | gamay | red | 35-45 | 91–93 | From a former Burgundy winemaker. | Silky and bright.
+burgaud-morgon | Morgon Côte du Py | Jean-Marc Burgaud | beaujolais | gamay | red | 30-40 | 91–93 | Classic Côte du Py. | Dark, firm Gamay.
+chateau-des-jacques | Moulin-à-Vent Clos de Rochegrès | Louis Jadot (Château des Jacques) | beaujolais | gamay | red | 40-55 | 92–94 | Single-vineyard Moulin-à-Vent. | Structured and age-worthy.
+richard-rottiers | Moulin-à-Vent | Richard Rottiers | beaujolais | gamay | red | 25-35 | 90–92 | Moulin-à-Vent from granite. | Floral and firm.

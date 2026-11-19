@@ -28,7 +28,7 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
         case .grapes: return "\(lib.grapes.count) varieties"
         case .regions: return "\(lib.regions.count) places"
         case .wines: return "\(lib.wines?.count ?? 0) classics"
-        case .great: return "\(lib.great?.count ?? 0) icons, region by region"
+        case .great: return "\((lib.great?.count ?? 0).formatted()) wines, region by region"
         case .aromas: return "\(ContentStore.shared.allAromaCategories().reduce(0) { $0 + $1.items.count }) descriptors"
         case .colors: return "White, rosé, red"
         case .styles: return "\(lib.styles.count) styles"

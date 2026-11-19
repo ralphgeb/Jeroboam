@@ -15,6 +15,8 @@ struct GreatWine: Decodable, Identifiable, Hashable {
     let what: String
     let why: String
     var area: String = ""
+    /// Grapes without their own page in the app, by name.
+    var also: [String]? = nil
     /// A real photo of the bottle (Wikimedia Commons), shown on the detail page when there is one.
     var snapshot: String? = nil
 
@@ -97,10 +99,10 @@ struct BottleShot: View {
 
     private var kind: BottleKind {
         if wine.color == "sparkling" { return .champagne }
-        if wine.area == "Germany" && wine.color != "red" { return .flute }
+        if ["Germany", "Alsace", "Austria"].contains(wine.area) && wine.color != "red" { return .flute }
         if wine.grapes.first == "riesling" || wine.grapes.first == "gewurztraminer" { return .flute }
         switch wine.area {
-        case "Burgundy", "Rhône", "Loire", "Piedmont": return .burgundy
+        case "Burgundy", "Rhône", "Loire", "Piedmont", "Beaujolais", "Jura & Savoie", "Oregon & Washington": return .burgundy
         default:
             if wine.grapes.first == "pinot-noir" || wine.grapes.first == "chardonnay" { return .burgundy }
             return .bordeaux
@@ -206,14 +208,23 @@ struct GreatWineImage: View {
 
 struct GreatWinesScreen: View {
     @State private var area: String = "Bordeaux"
+    @State private var query = ""
+    /// Areas grouped by country, France first.
+    static let order = ["Bordeaux", "Burgundy", "Champagne", "Rhône", "Loire", "Alsace", "Beaujolais", "Southern France", "Jura & Savoie",
+                        "Piedmont", "Tuscany", "Veneto & the North East", "Southern Italy & Islands", "Spain", "Portugal", "Germany",
+                        "Austria", "Hungary", "Greece", "Lebanon", "California", "Oregon & Washington", "Chile & Argentina",
+                        "Australia", "New Zealand", "South Africa"]
     var body: some View {
         let wines = ContentStore.shared.library.great ?? []
-        let areas = wines.reduce(into: [String]()) { if !$0.contains($1.area) { $0.append($1.area) } }
-        let shown = wines.filter { $0.area == area }
+        let present = Set(wines.map(\.area))
+        let areas = Self.order.filter(present.contains) + present.subtracting(Self.order).sorted()
+        let q = query.trimmingCharacters(in: .whitespaces)
+        let shown = q.isEmpty ? wines.filter { $0.area == area }
+            : wines.filter { $0.name.localizedCaseInsensitiveContains(q) || $0.producer.localizedCaseInsensitiveContains(q) || $0.zone.localizedCaseInsensitiveContains(q) }
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 ScreenHeader(eyebrow: "Atlas", title: "Great wines to try",
-                             subtitle: "\(wines.count) wines, about 25 for each great area: what they are, why people love them, what they cost and how critics score them.")
+                             subtitle: "\(wines.count.formatted()) wines across \(areas.count) areas: what they are, why people love them, what they cost and how critics score them.")
                 ScrollViewReader { proxy in
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -233,7 +244,7 @@ struct GreatWinesScreen: View {
                     .onChange(of: area) { _, a in withAnimation { proxy.scrollTo(a, anchor: .center) } }
                 }
                 HStack {
-                    SectionTitle(text: area)
+                    SectionTitle(text: q.isEmpty ? area : "Results")
                     Spacer()
                     Text("\(shown.count) wines").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
@@ -254,6 +265,7 @@ struct GreatWinesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "great") } }
+        .searchable(text: $query, prompt: "Search 1,000 wines or producers")
     }
 
     private func tile(_ w: GreatWine) -> some View {
@@ -300,6 +312,12 @@ struct GreatWineDetail: View {
                             Text(v).font(.system(size: 13.5, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
                                 .padding(.horizontal, 12).padding(.vertical, 7).background(Capsule().fill(Palette.wineSoft))
                         }
+                    }
+                }
+                if let also = w.also, !also.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Eyebrow(w.grapeInfos.isEmpty ? "Grapes" : "Also in the blend")
+                        Text(also.joined(separator: " · ")).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
                     }
                 }
                 if !w.grapeInfos.isEmpty {

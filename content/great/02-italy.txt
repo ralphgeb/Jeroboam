@@ -1,0 +1,96 @@
+## Piedmont | 2010,2013,2015,2016,2019
+rinaldi-brunate | Barolo Brunate | Giuseppe Rinaldi | barolo | nebbiolo | red | 250-400 | 95–98 | Traditional Barolo from a revered family. | Perfumed, earthy and rare.
+oddero-vignarionda | Barolo Vigna Rionda Riserva | Oddero | barolo | nebbiolo | red | 120-180 | 94–97 | Riserva from Serralunga's Vigna Rionda. | Firm, deep and classic.
+brovia-rocche | Barolo Rocche di Castiglione | Brovia | barolo | nebbiolo | red | 100-150 | 94–96 | Traditional Barolo from a family estate. | Floral, fine-grained Nebbiolo.
+sandrone-cannubi | Barolo Aleste | Luciano Sandrone | barolo | nebbiolo | red | 150-220 | 94–97 | From the famous Cannubi hill. | Polished, modern-classic Barolo.
+voerzio-brunate | Barolo Brunate | Roberto Voerzio | barolo | nebbiolo | red | 250-400 | 94–97 | Very low-yield modernist Barolo. | Dense and concentrated.
+ceretto-bricco | Barolo Bricco Rocche | Ceretto | barolo | nebbiolo | red | 200-300 | 94–96 | From a hilltop cru with an art-filled winery. | Elegant, perfumed Barolo.
+borgogno-riserva | Barolo Riserva | Borgogno | barolo | nebbiolo | red | 90-130 | 92–95 | From one of Barolo's oldest houses (1761). | Classic, long-aged style.
+marcarini-brunate | Barolo Brunate | Marcarini | barolo | nebbiolo | red | 60-80 | 92–94 | Traditional single-vineyard Barolo. | Fine value for top cru Barolo.
+sottimano-cotta | Barbaresco Cottà | Sottimano | barbaresco | nebbiolo | red | 70-100 | 93–95 | Barbaresco from Neive. | Bright, silky Nebbiolo.
+albino-rocca | Barbaresco Ovello Vigna Loreto | Albino Rocca | barbaresco | nebbiolo | red | 70-100 | 93–95 | Single-vineyard Barbaresco. | Fresh, mineral and fine.
+la-spinetta | Barbaresco Starderi | La Spinetta | barbaresco | nebbiolo | red | 120-180 | 93–96 | Modern Barbaresco with a rhino label. | Ripe and polished.
+vietti-arneis | Roero Arneis | Vietti | roero | arneis | white | 22-28 | 88–90 | The family that rescued Arneis from extinction. | Pear, almond and freshness.
+gaja-rossj-bass | Rossj-Bass | Gaja | piedmont | chardonnay | white | 80-110 | 91–93 | Gaja's Chardonnay from the Langhe. | Rich yet fresh.
+bera-moscato | Moscato d'Asti | Vittorio Bera | moscato-dasti | muscat | sweet | 18-24 | 89–91 | Natural Moscato d'Asti. | Grapey and pure.
+cascina-fontana | Langhe Nebbiolo | Cascina Fontana | piedmont | nebbiolo | red | 25-32 | 89–91 | Nebbiolo outside the famous crus. | A taste of Barolo for less.
+
+## Tuscany | 2010,2015,2016,2019,2020
+tenuta-san-guido-guidalberto | Guidalberto | Tenuta San Guido | bolgheri | cabernet-sauvignon,merlot | red | 50-70 | 91–93 | Sassicaia's younger sibling. | Bolgheri style at a friendlier price.
+ornellaia-serre | Le Serre Nuove | Tenuta dell'Ornellaia | bolgheri | merlot,cabernet-sauvignon | red | 70-90 | 92–94 | Ornellaia's second wine. | Plush, approachable Bolgheri.
+tua-rita-redigaffi | Redigaffi | Tua Rita | maremma | merlot | red | 200-300 | 95–98 | Pure Merlot from Suvereto. | Opulent and dense.
+castello-fonterutoli | Chianti Classico Gran Selezione | Castello di Fonterutoli (Mazzei) | chianti-classico | sangiovese | red | 50-70 | 92–94 | From a family in Chianti since 1435. | Polished, dark Sangiovese.
+badia-passignano | Chianti Classico Gran Selezione Badia a Passignano | Marchesi Antinori | chianti-classico | sangiovese | red | 50-70 | 92–95 | From vineyards around an 11th-century abbey. | Elegant and structured.
+querciabella | Camartina | Querciabella | chianti-classico | cabernet-sauvignon,sangiovese | red | 120-160 | 93–96 | Biodynamic Super Tuscan. | Rich and refined.
+san-giusto-percarlo | Percarlo | San Giusto a Rentennano | chianti-classico | sangiovese | red | 80-120 | 94–97 | Pure Sangiovese from Gaiole. | Intense, deep and long.
+montevertine | Montevertine | Montevertine | tuscany | sangiovese | red | 50-70 | 93–95 | Pure Sangiovese outside the DOC. | Fresh, floral and refined.
+cerbaiona | Brunello di Montalcino | Cerbaiona | montalcino | sangiovese | red | 200-300 | 95–98 | Tiny, traditional Brunello. | Ethereal and complex.
+fuligni | Brunello di Montalcino | Fattoria dei Barbi | montalcino | sangiovese | red | 50-70 | 91–93 | From a historic Montalcino family. | Classic, savory Brunello.
+banfi-poggio-oro | Brunello Riserva Poggio all'Oro | Castello Banfi | montalcino | sangiovese | red | 100-150 | 93–95 | The American-founded estate that grew Brunello's fame. | Rich, polished Brunello.
+rosso-di-montalcino | Rosso di Montalcino | Il Poggione | montalcino | sangiovese | red | 25-32 | 89–91 | Brunello's younger, fresher sibling. | Bright Sangiovese for now.
+isole-chianti | Chianti Classico | Isole e Olena | chianti-classico | sangiovese | red | 30-38 | 90–92 | Benchmark Chianti Classico. | Cherry, herbs and freshness.
+frescobaldi-mormoreto | Mormoreto | Frescobaldi | chianti | cabernet-sauvignon | red | 70-90 | 92–94 | From a family making wine for 700 years. | Structured Tuscan Cabernet.
+avignonesi-vinsanto | Vin Santo di Montepulciano | Avignonesi | montepulciano | trebbiano | sweet | 200-300 | 96–99 | Vin Santo aged ten years in tiny barrels (375 ml). | Dark, intense and unforgettable.
+
+## Veneto & the North East | 2011,2015,2016,2017,2019
+= quintarelli-amarone
+dal-forno-amarone | Amarone della Valpolicella | Romano Dal Forno | veneto | corvina | red | 400-600 | 95–98 | Ultra-concentrated Amarone. | Massive, dark and polished.
+bertani-amarone | Amarone Classico | Bertani | veneto | corvina | red | 80-120 | 93–96 | Long-aged, traditional Amarone. | Elegant, savory and long-lived.
+allegrini-amarone | Amarone Classico | Allegrini | veneto | corvina | red | 70-90 | 92–94 | From an old Valpolicella family. | Rich dried-fruit style.
+masi-costasera | Amarone Costasera | Masi | veneto | corvina | red | 50-70 | 91–93 | The house that popularized drying grapes (appassimento). | Raisin, cherry and spice.
+quintarelli-valpolicella | Valpolicella Classico Superiore | Giuseppe Quintarelli | veneto | corvina | red | 100-150 | 93–95 | Quintarelli's 'everyday' red. | Complex beyond its category.
+zenato-ripasso | Valpolicella Ripasso | Zenato | veneto | corvina | red | 25-30 | 89–91 | Valpolicella refermented on Amarone skins. | 'Baby Amarone'.
+pieropan-soave | Soave Classico La Rocca | Pieropan | veneto | garganega | white | 30-40 | 91–93 | Soave from a family pioneer. | Almond, citrus and depth.
+inama-soave | Soave Classico Vigneti di Foscarino | Inama | veneto | garganega | white | 25-32 | 90–92 | Soave from volcanic soil. | Rich and mineral.
+anselmi-capitel | Capitel Croce | Anselmi | veneto | garganega | white | 25-32 | 90–92 | A Soave grower who left the DOC. | Creamy and fresh.
+bisol-cartizze | Cartizze | Bisol | veneto | glera | sparkling | 35-45 | 90–92 | From Prosecco's most prized hill. | Fine, pear-scented bubbles.
+nino-franco | Prosecco Rustico | Nino Franco | veneto | glera | sparkling | 18-22 | 88–90 | From a family Prosecco house in Valdobbiadene. | Crisp, apple-fresh bubbles.
+ca-del-bosco | Franciacorta Cuvée Prestige | Ca' del Bosco | lombardy | chardonnay,pinot-noir | sparkling | 35-45 | 90–92 | Italy's answer to Champagne. | Creamy, fine bubbles.
+bellavista | Franciacorta Alma Gran Cuvée | Bellavista | lombardy | chardonnay,pinot-noir | sparkling | 35-45 | 90–92 | Franciacorta from a leading estate. | Elegant and fresh.
+ar-pe-pe | Valtellina Superiore Sassella | Ar.Pe.Pe. | lombardy | nebbiolo | red | 45-60 | 92–94 | Alpine Nebbiolo from steep terraces. | Delicate, mineral Nebbiolo.
+gravner-ribolla | Ribolla Gialla | Gravner | friuli | ribolla-gialla | white | 90-130 | 93–96 | Skin-fermented white aged in buried amphorae. | The father of modern orange wine.
+radikon-ribolla | Ribolla Gialla | Radikon | friuli | ribolla-gialla | white | 60-80 | 92–94 | Long skin-contact orange wine. | Amber, savory and complex.
+jermann-vintage-tunina | Vintage Tunina | Jermann | friuli | chardonnay,sauvignon-blanc | white | 60-80 | 92–94 | A famous Friulian white blend. | Rich, aromatic white.
+miani-friulano | Friulano Buri | Miani | friuli | friulano | white | 100-150 | 94–96 | Cult Friulano. | Intense and pure.
+schiopetto | Friulano | Schiopetto | friuli | friulano | white | 30-40 | 90–92 | From a pioneer of modern Friulian whites. | Almond and pear.
+livio-felluga | Terre Alte | Livio Felluga | friuli | friulano,sauvignon-blanc,pinot-blanc | white | 60-80 | 93–95 | Friuli's iconic white blend. | Layered, long and elegant.
+terlano | Terlaner Rarity | Cantina Terlano | trentino-alto-adige | pinot-blanc | white | 150-250 | 95–98 | Whites aged a decade on lees. | Astonishingly fresh old whites.
+terlano-vorberg | Pinot Bianco Vorberg Riserva | Cantina Terlano | trentino-alto-adige | pinot-blanc | white | 40-55 | 93–95 | Alpine Pinot Bianco. | Mineral and age-worthy.
+tramin-nussbaumer | Gewürztraminer Nussbaumer | Cantina Tramin | trentino-alto-adige | gewurztraminer | white | 40-50 | 93–95 | From the village that gave Gewürztraminer its name. | Exotic yet fresh.
+hofstatter-pinot | Barthenau Pinot Nero | J. Hofstätter | trentino-alto-adige | pinot-noir | red | 60-80 | 92–94 | Alpine Pinot Noir. | Bright and fine.
+foradori-teroldego | Teroldego Granato | Foradori | trentino-alto-adige | teroldego | red | 70-90 | 93–95 | Elisabetta Foradori's Teroldego. | Dark, juicy and mineral.
+ferrari-giulio | Giulio Ferrari Riserva del Fondatore | Ferrari | trentino-alto-adige | chardonnay | sparkling | 120-180 | 94–97 | Trentodoc aged ten years on lees. | Italy's great sparkling wine.
+cantina-santadi-lambrusco | Lambrusco di Sorbara | Cleto Chiarli | emilia-romagna | lambrusco | sparkling | 15-20 | 88–90 | Dry, pale red sparkling Lambrusco. | Fizzy, tart and perfect with salumi.
+paolo-bea | Sagrantino di Montefalco Pagliaro | Paolo Bea | umbria | sagrantino | red | 70-100 | 93–95 | Natural Sagrantino. | Powerful, tannic and wild.
+caprai-25 | Sagrantino 25 Anni | Arnaldo Caprai | umbria | sagrantino | red | 70-90 | 93–95 | The estate that revived Sagrantino. | Dense and age-worthy.
+bucci-verdicchio | Verdicchio Riserva Villa Bucci | Bucci | marche | verdicchio | white | 50-60 | 93–95 | Long-lived Verdicchio. | Saline, almond and depth.
+valentini-trebbiano | Trebbiano d'Abruzzo | Valentini | abruzzo | trebbiano | white | 150-250 | 94–97 | Abruzzo's cult white. | Complex, mysterious and long-lived.
+valentini-montepulciano | Montepulciano d'Abruzzo | Valentini | abruzzo | montepulciano | red | 150-250 | 94–97 | Traditional Montepulciano. | Earthy and profound.
+emidio-pepe | Montepulciano d'Abruzzo | Emidio Pepe | abruzzo | montepulciano | red | 80-120 | 93–95 | Foot-trodden, cement-aged Montepulciano. | Wild and long-lived.
+cirelli-cerasuolo | Cerasuolo d'Abruzzo | Francesco Cirelli | abruzzo | montepulciano | rose | 22-28 | 89–91 | Abruzzo's deep-colored rosé. | Cherry-red and savory.
+
+## Southern Italy & Islands | 2013,2015,2016,2018,2019
+mastroberardino-radici | Taurasi Radici | Mastroberardino | campania | aglianico | red | 50-70 | 92–94 | The family that saved Campania's grapes after the war. | Firm, smoky Aglianico.
+quintodecimo-taurasi | Taurasi Vigna Grande Cerzito | Quintodecimo | campania | aglianico | red | 100-150 | 94–96 | Modern Taurasi from a wine professor. | Dark, refined and long.
+feudi-fiano | Fiano di Avellino | Feudi di San Gregorio | campania | fiano | white | 25-30 | 89–91 | Fiano from Irpinia's hills. | Hazelnut, honey and freshness.
+ciro-picariello-fiano | Fiano di Avellino | Ciro Picariello | campania | fiano | white | 30-40 | 91–93 | Small-grower Fiano. | Smoky, mineral and age-worthy.
+pietracupa-greco | Greco di Tufo | Pietracupa | campania | greco | white | 30-40 | 91–93 | Greco from sulfur-rich Tufo. | Taut and saline.
+montevetrano | Montevetrano | Montevetrano | campania | aglianico,cabernet-sauvignon,merlot | red | 70-90 | 92–94 | The 'Super Campanian' red. | Polished, layered blend.
+elena-fucci | Aglianico del Vulture Titolo | Elena Fucci | basilicata | aglianico | red | 50-70 | 93–95 | Aglianico from a volcano's slopes. | Dark and volcanic.
+paternoster-don-anselmo | Aglianico del Vulture Don Anselmo | Paternoster | basilicata | aglianico | red | 50-70 | 92–94 | Classic Vulture Aglianico. | Structured and savory.
+gianfranco-fino | Es Primitivo di Manduria | Gianfranco Fino | puglia | zinfandel | red | 70-90 | 93–95 | Old-vine Primitivo (Zinfandel's twin). | Lush, dark and sweet-fruited.
+leone-de-castris | Five Roses | Leone de Castris | puglia | negroamaro | rose | 18-24 | 88–90 | Italy's first bottled rosé (1943). | Cherry and herbs.
+cantele-salice | Salice Salentino Riserva | Cantele | puglia | negroamaro | red | 15-20 | 88–90 | Negroamaro from the Salento. | Ripe and rustic value.
+benanti-pietramarina | Etna Bianco Superiore Pietra Marina | Benanti | sicily | carricante | white | 50-70 | 93–95 | Carricante from Etna's east slope. | Saline, citrus and volcanic.
+passopisciaro-contrade | Passorosso | Passopisciaro | sicily | nerello-mascalese | red | 40-55 | 92–94 | Nerello Mascalese from Etna. | Burgundian, perfumed and volcanic.
+terre-nere-feudo | Etna Rosso Calderara Sottana | Tenuta delle Terre Nere | sicily | nerello-mascalese | red | 60-80 | 93–95 | Single-contrada Etna red. | Silky and mineral.
+cornelissen-magma | Magma | Frank Cornelissen | sicily | nerello-mascalese | red | 150-250 | 92–95 | Natural Etna wine from very old vines. | Wild and pure.
+cos-cerasuolo | Cerasuolo di Vittoria | COS | sicily | nero-davola,frappato | red | 35-45 | 91–93 | Sicily's only DOCG, made in amphorae. | Bright, floral red.
+occhipinti-frappato | Frappato | Arianna Occhipinti | sicily | frappato | red | 40-50 | 91–93 | Natural Frappato. | Light, juicy and floral.
+planeta-santa-cecilia | Santa Cecilia | Planeta | sicily | nero-davola | red | 35-45 | 91–93 | Nero d'Avola from Noto. | Dark cherry and spice.
+donnafugata-ben-rye | Ben Ryé Passito di Pantelleria | Donnafugata | sicily | muscat | sweet | 40-55 | 93–95 | Sweet wine from sun-dried Zibibbo. | Apricot, fig and orange.
+marsala-de-bartoli | Vecchio Samperi | Marco De Bartoli | sicily | grillo | fortified | 60-80 | 93–95 | Unfortified, solera-aged old Marsala style. | Nutty and complex.
+tasca-rosso-del-conte | Rosso del Conte | Tasca d'Almerita | sicily | nero-davola | red | 50-70 | 92–94 | From the Regaleali estate. | Rich and elegant.
+argiolas-turriga | Turriga | Argiolas | sardinia | cannonau,carignan | red | 70-90 | 93–95 | Sardinia's iconic red. | Dark, spicy Mediterranean blend.
+capichera-vermentino | Vermentino di Gallura | Capichera | sardinia | vermentino | white | 40-55 | 91–93 | Vermentino from granite in the north. | Herbal and salty.
+sella-mosca-cannonau | Cannonau di Sardegna Riserva | Sella & Mosca | sardinia | cannonau | red | 18-24 | 88–90 | Sardinian Grenache. | Warm, spicy red.
