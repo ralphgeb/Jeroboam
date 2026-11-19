@@ -231,7 +231,14 @@ struct MapRenderer {
         let hair = 1 / s
         let lv = visibleLevel()
         let full = CGRect(origin: .zero, size: size)
-        ctx.fill(Path(full), with: .color(Palette.sea))
+        let mapRect = CGRect(x: offset.width, y: offset.height, width: CGFloat(g.map.w) * s, height: CGFloat(g.map.h) * s)
+        if thumb || mapRect.contains(full.insetBy(dx: 1, dy: 1)) {
+            ctx.fill(Path(full), with: .color(Palette.sea))
+        } else {
+            // the map is smaller than the view: it floats on the page
+            ctx.fill(Path(full), with: .color(Palette.paper))
+            ctx.fill(Path(mapRect), with: .color(Palette.sea))
+        }
 
         func screen(_ p: CGPoint) -> CGPoint { CGPoint(x: p.x * s + offset.width, y: p.y * s + offset.height) }
 
@@ -345,7 +352,7 @@ struct MapRenderer {
         if !thumb {
             let mr = CGRect(x: offset.width, y: offset.height, width: CGFloat(g.map.w) * s, height: CGFloat(g.map.h) * s)
             let f: CGFloat = 36
-            let sea = Palette.sea
+            let sea = Palette.paper
             if mr.minY > 0.5 {
                 ctx.fill(Path(CGRect(x: 0, y: mr.minY, width: size.width, height: f)), with: .linearGradient(Gradient(colors: [sea, sea.opacity(0)]), startPoint: CGPoint(x: 0, y: mr.minY), endPoint: CGPoint(x: 0, y: mr.minY + f)))
             }
