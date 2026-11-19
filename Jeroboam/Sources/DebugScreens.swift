@@ -79,6 +79,7 @@ enum DebugScreens {
 
     /// Seeds a few sample bottles and tastings, and opens a flow, for journal screenshots.
     static func journalHook(_ journal: JournalStore, open: @escaping (String) -> Void) {
+        if screen == "journalempty" { journal.cellar = []; journal.entries = []; return }
         guard let screen, ["journal", "tastings", "scan", "blind"].contains(screen) else { return }
         func wine(_ name: String, _ producer: String, _ region: String, _ country: String, _ grapes: [String], _ vintage: String, _ style: String,
                   _ notes: [String]) -> WineIdentity {
