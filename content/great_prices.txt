@@ -457,3 +457,9 @@ conseillante | 239 | - | https://www.jamessuckling.com/tasting-notes/246988/chat
 troplong-mondot | 106 | - | https://www.jamessuckling.com/tasting-notes/246406/chateau-troplong-mondot-st-emilion-2021
 chasse-spleen | 39 | - | https://www.jamessuckling.com/tasting-notes/204782/chateau-chasse-spleen-moulis-en-medoc-2020
 brane-cantenac | 84 | - | https://www.jamessuckling.com/tasting-notes/204250/chateau-brane-cantenac-margaux-2020
+evangile | 252 | - | https://www.jamessuckling.com/tasting-notes/266168/chateau-levangile-pomerol-2021
+langoa-barton | 63 | - | https://www.jamessuckling.com/tasting-notes/169060/chateau-langoa-barton-st-julien-2019
+phelan-segur | 59 | - | https://www.jamessuckling.com/tasting-notes/133144/chateau-phelan-segur-saint-estephe-2019
+issan | 70 | - | https://www.jamessuckling.com/tasting-notes/340189/chateau-dissan-margaux-2025
+clinet | 124 | - | https://www.jamessuckling.com/tasting-notes/107064/chateau-clinet-pomerol-2018
+belair-monange | 148 | - | https://www.jamessuckling.com/tasting-notes/182436/chateau-belair-monange-st-emilion-2021
