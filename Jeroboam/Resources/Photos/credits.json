@@ -1238,5 +1238,19 @@
   "license": "CC BY-SA 2.0",
   "artist": "badjonni from Adelaide, Australia",
   "page": "https://commons.wikimedia.org/wiki/File:Adelaide_hills_vineyards_(467048168).jpg"
+ },
+ "tw-hermitage": {
+  "title": "File:Cuvée La Chapelle AOC Hermitage blanc.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Cuv%C3%A9e_La_Chapelle_AOC_Hermitage_blanc.jpg/960px-Cuv%C3%A9e_La_Chapelle_AOC_Hermitage_blanc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC BY-SA 2.0",
+  "artist": "Frederick Wildman and Sons, Ltd",
+  "page": "https://commons.wikimedia.org/wiki/File:Cuv%C3%A9e_La_Chapelle_AOC_Hermitage_blanc.jpg"
+ },
+ "tw-rioja": {
+  "title": "File:Haro - Bodegas López de Heredia Viña Tondonia 14.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Haro_-_Bodegas_L%C3%B3pez_de_Heredia_Vi%C3%B1a_Tondonia_14.jpg/960px-Haro_-_Bodegas_L%C3%B3pez_de_Heredia_Vi%C3%B1a_Tondonia_14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "license": "CC0",
+  "artist": "Zarateman",
+  "page": "https://commons.wikimedia.org/wiki/File:Haro_-_Bodegas_L%C3%B3pez_de_Heredia_Vi%C3%B1a_Tondonia_14.jpg"
  }
 }
