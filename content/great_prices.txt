@@ -492,3 +492,9 @@ mastroberardino-radici | 39 | - | https://www.jamessuckling.com/tasting-notes/30
 gerard-bertrand-hospitalet | 45 | - | https://www.jamessuckling.com/tasting-notes/156387/gerard-bertrand-la-clape-chateau-lhospitalet-2018
 cornelissen-magma | 447 | - | https://www.jamessuckling.com/tasting-notes/236040/frank-cornelissen-nerello-mascalese-sicilia-magma-barbabecchi-2021
 planeta-santa-cecilia | 35 | - | https://www.jamessuckling.com/tasting-notes/306971/planeta-noto-santa-cecilia-2021
+sigalas-santorini | 46 | - | https://www.jamessuckling.com/tasting-notes/193618/sigalas-assyrtiko-santorini-2021
+kir-yianni-ramnista | 28 | 92 | https://www.jamessuckling.com/tasting-notes/193082/kir-yianni-xinomavro-naoussa-ramnista-single-vineyard-2018
+errazuriz-las-pizarras | 55 | - | https://www.jamessuckling.com/tasting-notes/292247/errazuriz-chardonnay-aconcagua-costa-las-pizarras
+catena-white-bones | 129 | - | https://www.jamessuckling.com/tasting-notes/250815/catena-zapata-chardonnay-mendoza-adrianna-vineyard-white-bones-2022
+ken-wright | 69 | - | https://www.jamessuckling.com/tasting-notes/214127/ken-wright-cellars-pinot-noir-willamette-valley-yamhill-carlton-shea-vineyard-2021
+quilceda-creek | 246 | - | https://www.jamessuckling.com/tasting-notes/339734/quilceda-creek-cabernet-sauvignon-columbia-valley-2023
