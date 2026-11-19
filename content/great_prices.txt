@@ -479,3 +479,7 @@ grahams-vintage | 104 | - | https://www.jamessuckling.com/tasting-notes/84987/gr
 contador | 331 | - | https://www.jamessuckling.com/tasting-notes/68028/bodega-contador-rioja-contador-2014
 murrieta-capellania | 88 | - | https://www.jamessuckling.com/tasting-notes/187452/marques-de-murrieta-rioja-capellania-reserva-2017
 alvaro-palacios-finca-dofi | 114 | - | https://www.jamessuckling.com/tasting-notes/277553/alvaro-palacios-priorat-dofi-2022
+prum-goldkapsel | 80 | - | https://www.jamessuckling.com/tasting-notes/280553/joh-jos-prum-riesling-mosel-wehlener-sonnenuhr-auslese-2023
+molitor-zeltinger | 80 | - | https://www.jamessuckling.com/tasting-notes/280582/markus-molitor-riesling-mosel-zeltinger-sonnenuhr-auslese-white-cap-2023
+leitz-dragonstone | 19 | 91 | https://www.jamessuckling.com/tasting-notes/160261/leitz-riesling-rheingau-dragonstone-2020
+knoll-riesling | 91 | - | https://www.jamessuckling.com/tasting-notes/235398/emmerich-knoll-riesling-wachau-vinothekfullung-smaragd-2022
