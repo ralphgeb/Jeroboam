@@ -2,6 +2,10 @@ name: Fetch map images
 # Searches Wikimedia Commons for wine-region map images (content/mapimgs.json) and publishes candidates to the mapimgs branch.
 on:
   workflow_dispatch:
+    inputs:
+      spec:
+        description: "Spec file in content/"
+        default: "mapimgs.json"
 permissions:
   contents: write
 jobs:
@@ -9,14 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/fetch_mapimgs.py content/mapimgs.json out
+      - run: python3 tools/fetch_mapimgs.py content/${{ github.event.inputs.spec || 'mapimgs.json' }} out
       - name: Publish
         run: |
           cd out
           git init -q
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git checkout -q -b mapimgs
+          git checkout -q -b mapimgs-${{ github.run_number }}
           git add -A
           git commit -qm "Map image candidates"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" mapimgs
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" mapimgs-${{ github.run_number }}

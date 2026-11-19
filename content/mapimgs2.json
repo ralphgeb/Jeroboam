@@ -1,0 +1,20 @@
+{
+ "burgundy": ["intitle:Vignobles bourgogne", "Burgundy wine regions svg", "intitle:Côte d'Or vignoble carte"],
+ "rhone": ["intitle:Vignobles rhone", "intitle:Côtes du Rhône carte", "Rhone wine map svg"],
+ "alsace": ["intitle:Vignobles alsace", "Alsace wine region map svg"],
+ "chablis": ["intitle:Chablis carte", "Chablis grand cru map"],
+ "southwest": ["intitle:Vignobles sud-ouest", "intitle:Vignoble Languedoc carte"],
+ "germany": ["intitle:Weinbaugebiete Deutschland", "Germany wine regions svg", "intitle:Deutsche Weinanbaugebiete"],
+ "mosel": ["intitle:Weinbaugebiet Mosel", "Mosel Weinlagen Karte"],
+ "piedmont": ["intitle:Piemonte vini", "Langhe Roero Monferrato map", "intitle:Barolo map"],
+ "tuscany": ["intitle:Toscana vini mappa", "intitle:Chianti Classico map", "Tuscany DOCG map svg"],
+ "portugal": ["intitle:Regiões vitivinícolas", "Portugal wine regions svg", "intitle:Vinhos de Portugal mapa"],
+ "douro": ["intitle:Douro DOC map", "intitle:Região Demarcada do Douro mapa"],
+ "chile": ["intitle:Chile wine", "Chilean wine regions svg", "intitle:Regiones vitivinícolas de Chile"],
+ "argentina": ["intitle:Argentina wine regions", "intitle:Regiones vitivinícolas Argentina"],
+ "south-africa": ["intitle:South African wine regions", "intitle:Western Cape wine", "Stellenbosch wine map"],
+ "lebanon": ["intitle:Lebanon wine", "Lebanese wine regions map"],
+ "sicily": ["intitle:Sicilia vini mappa", "Sicily wine DOC map"],
+ "washington": ["intitle:Washington AVA", "Columbia Valley AVA map"],
+ "california-ava": ["intitle:California AVA map", "California wine regions svg"]
+}
