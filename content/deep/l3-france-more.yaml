@@ -19,17 +19,17 @@
     - choice: "What is the only black grape of the northern Rhône?"
       options: [Syrah, Grenache, Mourvèdre, Pinot Noir]
       a: Syrah
-      explain: "Grenache-led blends belong to the south."
+      explain: "Syrah is the only black grape of the northern Rhône (Hermitage, Côte-Rôtie, Cornas), while the south is dominated by Grenache-led blends. Know the north and south split."
     - choice: "What does GSM stand for?"
       options: ["Grenache, Syrah, Mourvèdre", "Gamay, Sauvignon, Merlot", "Grenache, Sangiovese, Malbec", "Garnacha, Sémillon, Muscat"]
       a: "Grenache, Syrah, Mourvèdre"
-      explain: "The classic southern Rhône blend, copied in Australia's McLaren Vale and Barossa."
+      explain: "GSM is Grenache, Syrah and Mourvèdre: the classic southern Rhône blend, copied in Australia's McLaren Vale and Barossa. Grenache provides fruit, Syrah spice and color, Mourvèdre structure."
     - tf: "Côte-Rôtie may include some white Viognier in its red wine."
       truth: true
-      explain: "Co-fermenting a little Viognier lifts aroma and stabilizes color."
+      explain: "Co-fermenting a little Viognier with Syrah in Côte-Rôtie lifts the aroma and stabilizes color. Up to 20% is allowed, though most producers use far less."
     - match: "Match the appellation to its wine"
       pairs: [[Condrieu, Viognier white], [Tavel, Rosé], [Cornas, Pure Syrah red], [Châteauneuf-du-Pape, Grenache-led blend]]
-      explain: "Rhône appellations each have a signature."
+      explain: "Rhône appellations each have a signature: Hermitage and Côte-Rôtie are Syrah, Condrieu is Viognier, Châteauneuf-du-Pape is a blend and Tavel is rosé."
 - title: "Deep dive: Loire, Alsace and Champagne houses"
   icon: map
   cards:
@@ -54,14 +54,14 @@
     - choice: "How are Alsace wines usually labeled?"
       options: ["By grape variety", "By château name only", "By village only", "By color only"]
       a: "By grape variety"
-      explain: "Alsace is the main French region that puts the grape front and center."
+      explain: "Alsace is the main French region that puts the grape front and center on the label. That reflects its German heritage, and the wines come in tall flûte bottles."
     - choice: "Which Loire grape makes Vouvray?"
       options: [Chenin Blanc, Sauvignon Blanc, Melon, Chardonnay]
       a: Chenin Blanc
-      explain: "Vouvray can be sec, demi-sec, moelleux or sparkling."
+      explain: "Vouvray is made from Chenin Blanc and can be sec, demi-sec, moelleux or sparkling. Chenin's high acidity balances any sweetness, so the wines age very well."
     - tf: "Reserve wines help Champagne houses keep a consistent non-vintage style."
       truth: true
-      explain: "Older wines are blended in to smooth out differences between years."
+      explain: "Reserve wines, older wines kept from earlier years, are blended in to smooth out differences between years. That is how a house keeps a consistent non-vintage style."
 
 - title: "History: popes, kings and widows"
   icon: hourglass
@@ -93,7 +93,7 @@
     - choice: "What does 'Châteauneuf-du-Pape' mean?"
       options: [The pope's new castle, The pope's vineyard, The new church, The castle on the hill]
       a: The pope's new castle
-      explain: "The popes lived in Avignon from 1309; John XXII built a summer castle at Châteauneuf."
+      explain: "The popes lived in Avignon from 1309, and John XXII built a summer castle at Châteauneuf, the new castle of the Pope. The papal crest is embossed on the bottles."
     - choice: "Who invented riddling, making clear sparkling wine possible?"
       options: [Barbe-Nicole Clicquot, Dom Pérignon, Napoleon, Baron Le Roy]
       a: Barbe-Nicole Clicquot
@@ -104,4 +104,4 @@
     - choice: "Why do Alsace wines have German-sounding names?"
       options: [Alsace changed hands between France and Germany several times, The grapes all come from Austria, German monks planted every vineyard, It is a German appellation]
       a: Alsace changed hands between France and Germany several times
-      explain: "Between 1871 and 1945 Alsace switched between Germany and France four times."
+      explain: "Between 1871 and 1945 Alsace switched between Germany and France four times, so many family names and wine words are German. That is also why Alsace labels by grape, like Germany."

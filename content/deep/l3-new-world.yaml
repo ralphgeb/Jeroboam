@@ -33,17 +33,17 @@
     - choice: "What happened at the 1976 Judgment of Paris?"
       options: ["California wines beat top French wines blind", "France banned American wine", "Champagne got its name protected", "Phylloxera was discovered"]
       a: "California wines beat top French wines blind"
-      explain: "It put Napa on the world map."
+      explain: "The 1976 Judgment of Paris put Napa on the world map: Californian wines beat the best of France in a blind tasting judged by French experts. It changed how the world saw New World wine."
     - choice: "Which grape is Chile's signature, once confused with Merlot?"
       options: [Carmenère, Malbec, Pinotage, Tannat]
       a: Carmenère
-      explain: "It was only identified in Chile in 1994."
+      explain: "Carmenère is Chile's signature grape, long confused with Merlot. It was only identified in Chile in 1994, and it originally came from Bordeaux."
     - match: "Match the region to its star grape"
       pairs: [[Marlborough, Sauvignon Blanc], [Mendoza, Malbec], [Barossa, Shiraz], [Swartland, Chenin Blanc]]
-      explain: "Each New World region found its specialty."
+      explain: "Each New World region found its specialty: Marlborough with Sauvignon Blanc, Barossa with Shiraz, Mendoza with Malbec and Stellenbosch with Cabernet."
     - tf: "Pinotage is a crossing of Pinot Noir and Cinsault."
       truth: true
-      explain: "Created at Stellenbosch University in 1925; Cinsault was then called Hermitage, hence the name."
+      explain: "Pinotage was created at Stellenbosch University in 1925 by crossing Pinot Noir with Cinsault. Cinsault was then called Hermitage in South Africa, hence the name."
 
 - title: "History: the New World arrives"
   icon: hourglass
@@ -77,11 +77,11 @@
     - choice: "When did Robert Mondavi open his Napa winery?"
       options: ["1966", "1920", "1976", "1855"]
       a: "1966"
-      explain: "The first major new Napa winery since Prohibition; Mondavi championed labeling wines by grape."
+      explain: "Robert Mondavi opened his Napa winery in 1966, the first major new Napa winery since Prohibition. Mondavi championed labeling wines by grape and building Napa's image."
     - choice: "Who planted the Barossa's old Shiraz vines in the 1840s?"
       options: [German Lutheran settlers, Spanish missionaries, French monks, Dutch traders]
       a: German Lutheran settlers
-      explain: "Silesian Lutherans settled the Barossa; vines from that era still produce wine today."
+      explain: "Silesian Lutherans settled in the Barossa in the 1840s and planted vines that still produce wine today. Phylloxera never reached the Barossa, so these are some of the oldest vines in the world."
     - tf: "Prohibition (1920–1933) closed most American wineries."
       truth: true
       explain: "Only producers of sacramental wine and grape juice could legally continue; the industry took decades to recover."

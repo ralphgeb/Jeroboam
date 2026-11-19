@@ -35,17 +35,17 @@
     - choice: "Which is the top level of the Burgundy hierarchy?"
       options: [Grand Cru, Premier Cru, Village, Bourgogne]
       a: Grand Cru
-      explain: "Grand Cru wines carry only the vineyard name, like Romanée-Conti or Le Montrachet."
+      explain: "Grand Cru is the top level of the Burgundy hierarchy: the wines carry only the vineyard name, like Romanée-Conti or Le Montrachet. Below it come Premier Cru, village and regional wines, a pyramid based on place."
     - choice: "What is a 'clos'?"
       options: ["A walled vineyard", "A type of barrel", "A wine merchant", "A cellar"]
       a: "A walled vineyard"
-      explain: "Clos de Vougeot and Clos de Tart are famous examples."
+      explain: "A clos is a vineyard enclosed by a wall, usually built by monks centuries ago. Clos de Vougeot and Clos de Tart are famous examples, and some walls are still standing."
     - tf: "In Burgundy, one vineyard is often shared by many owners."
       truth: true
-      explain: "Inheritance laws split plots over generations; some owners have just a few rows."
+      explain: "Inheritance laws split plots over generations, so one famous vineyard can have dozens of owners, some with just a few rows. The producer therefore matters as much as the vineyard."
     - match: "Match the label to its level"
       pairs: [[Le Chambertin, Grand Cru], [Volnay 1er Cru Caillerets, Premier Cru], [Pommard, Village], [Bourgogne Rouge, Regional]]
-      explain: "More specific place = higher level."
+      explain: "More specific place means higher level: Bourgogne is regional, a village name is next, then a Premier Cru vineyard, then a Grand Cru. Reading the label from the bottom of the pyramid up tells you the quality tier."
 - title: "Deep dive: Chablis and Beaujolais"
   icon: leaf
   cards:
@@ -64,14 +64,14 @@
     - choice: "What makes Chablis' best soils special?"
       options: ["Kimmeridgian marl with fossil oyster shells", "Volcanic basalt", "Red iron-rich clay", "Sand dunes"]
       a: "Kimmeridgian marl with fossil oyster shells"
-      explain: "It is linked with Chablis' steely, saline character."
+      explain: "Chablis' best soils are Kimmeridgian limestone, packed with fossilized oyster shells from a Jurassic sea. The soil is linked with Chablis' steely, saline character and its affinity with oysters."
     - choice: "What is carbonic maceration?"
       options: ["Fermentation inside whole uncrushed berries", "Adding bubbles to wine", "Ageing in charred barrels", "Freezing the grapes"]
       a: "Fermentation inside whole uncrushed berries"
-      explain: "In a CO2-filled tank, enzymes start fermenting each berry from the inside."
+      explain: "In carbonic maceration, whole bunches sit in a CO₂-filled tank and enzymes start fermenting each berry from the inside. The result is a soft, fruity, low-tannin wine with banana and bubblegum notes, typical of Beaujolais."
     - tf: "Chablis has seven Grand Cru vineyards, all on one hillside."
       truth: true
-      explain: "They face south-west across the Serein river from the town."
+      explain: "Chablis has seven Grand Cru vineyards, all on one hillside that faces south-west across the Serein river from the town. The slope catches afternoon sun, so the grapes ripen better than elsewhere in Chablis."
 
 - title: "History: monks, dukes and heirs"
   icon: hourglass
@@ -97,7 +97,7 @@
     - choice: "Why are Burgundy's vineyards split among so many owners?"
       options: [The Revolution sold Church land and inheritance law divided it among heirs, The monks sold small plots to raise money, Phylloxera destroyed the large estates, The AOC rules require small plots]
       a: The Revolution sold Church land and inheritance law divided it among heirs
-      explain: "Napoleonic inheritance law split each estate equally among children, generation after generation."
+      explain: "Napoleonic inheritance law split each estate equally among the children, generation after generation, so vineyards got cut into tiny parcels. That is how Clos de Vougeot ended up with more than 80 owners."
     - tf: "Burgundy's climats are a UNESCO World Heritage site."
       truth: true
       explain: "In 2015 UNESCO listed the climats of Burgundy, the named vineyard plots mapped by monks and growers over a thousand years."

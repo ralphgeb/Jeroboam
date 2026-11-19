@@ -31,17 +31,17 @@
     - choice: "Which grape makes Barolo and Barbaresco?"
       options: [Nebbiolo, Sangiovese, Barbera, Dolcetto]
       a: Nebbiolo
-      explain: "Named after the fog (nebbia) of harvest time."
+      explain: "Nebbiolo makes Barolo and Barbaresco. The name probably comes from nebbia, the fog of harvest time, and the grape ripens very late."
     - choice: "What symbol marks Chianti Classico?"
       options: ["A black rooster", "A white horse", "A golden lion", "A papal key"]
       a: "A black rooster"
-      explain: "The gallo nero has been the consortium's emblem for nearly a century."
+      explain: "The gallo nero, the black rooster, has been the emblem of the Chianti Classico consortium for nearly a century. Look for it on the neck of the bottle."
     - tf: "Vino Nobile di Montepulciano is made from the Montepulciano grape."
       truth: false
-      explain: "It is Sangiovese from the Tuscan town of Montepulciano. The grape Montepulciano grows in Abruzzo."
+      explain: "Vino Nobile is Sangiovese from the Tuscan town of Montepulciano, not the Montepulciano grape, which grows in Abruzzo. It is a classic exam trap."
     - match: "Match the Italian wine to its grape"
       pairs: [[Barolo, Nebbiolo], [Brunello di Montalcino, Sangiovese], [Amarone, Corvina], [Soave, Garganega]]
-      explain: "Italy's great wines rest on native grapes."
+      explain: "Italy's great wines rest on native grapes: Barolo on Nebbiolo, Chianti on Sangiovese, Amarone on Corvina, Taurasi on Aglianico. Italy has hundreds of native varieties."
 - title: "Deep dive: Veneto, the South and the islands"
   icon: sun.haze
   cards:
@@ -61,14 +61,14 @@
     - choice: "How long are grapes typically dried for Amarone?"
       options: ["About 100 days", "About 1 week", "One full year", "They are not dried"]
       a: "About 100 days"
-      explain: "Drying concentrates sugar and flavor; the wine is fermented to dryness."
+      explain: "Grapes for Amarone are dried for about three to four months, which concentrates sugar and flavor. The wine is then fermented to dryness, giving a powerful 15–16% wine."
     - choice: "Primitivo from Puglia is genetically the same as…"
       options: [Zinfandel, Merlot, Syrah, Tempranillo]
       a: Zinfandel
-      explain: "Both trace back to the Croatian grape Crljenak Kaštelanski (Tribidrag)."
+      explain: "Primitivo from Puglia is genetically the same as Zinfandel. Both trace back to the Croatian grape Crljenak Kaštelanski (Tribidrag)."
     - tf: "Cannonau, Sardinia's main red grape, is Grenache."
       truth: true
-      explain: "Sardinians claim it as their own; it is the same variety as Garnacha."
+      explain: "Cannonau, Sardinia's main red grape, is Grenache (Garnacha). Sardinians claim it as their own, and DNA shows it is the same variety."
 
 - title: "History: Etruscans to Super Tuscans"
   icon: hourglass

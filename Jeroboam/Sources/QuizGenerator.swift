@@ -214,7 +214,7 @@ enum QuizGenerator {
                 guard let r = rs.randomElement() else { return nil }
                 let others = regions.filter { !g.regions.contains($0.id) && !$0.grapes.contains(g.id) }.map(\.name)
                 return choice("Where would you find a lot of **\(g.name)**?", correct: r.name, wrong: others,
-                              explain: "\(g.name) is important in \(rs.prefix(4).map(\.name).joined(separator: ", ")).").map { (k("whereg", g.id), $0) }
+                              explain: "\(r.name): \(plain(r.summary))" + (rs.count > 1 ? " \(g.name) also thrives in \(rs.filter { $0.id != r.id }.prefix(3).map(\.name).joined(separator: ", "))." : "")).map { (k("whereg", g.id), $0) }
             default:
                 // match grapes to a signature region
                 let picks = grapes.filter { !content.regions(forGrape: $0).isEmpty }.shuffled().prefix(8)
@@ -234,18 +234,18 @@ enum QuizGenerator {
             switch Int.random(in: 0..<7) {
             case 0:
                 return choice("**\(r.name)** is a wine region in…", correct: r.country, wrong: Array(countries),
-                              explain: plain(r.summary)).map { (k("country", r.id), $0) }
+                              explain: "\(r.name) is in \(r.country). \(plain(r.summary))").map { (k("country", r.id), $0) }
             case 1:
                 guard let gid = r.grapes.first, let g = content.grape(gid) else { return nil }
                 return choice("Which grape is most associated with **\(r.name)**?", correct: g.name,
                               wrong: grapes.filter { !r.grapes.contains($0.id) && $0.berry == g.berry }.map(\.name),
-                              explain: plain(r.summary)).map { (k("regiongr", r.id), $0) }
+                              explain: "\(g.name) and \(r.name): \(plain(r.summary))").map { (k("regiongr", r.id), $0) }
             case 2:
                 // parent region
                 guard let parent = lib.regions.first(where: { $0.kind != "country" && ($0.sub ?? []).contains(r.id) }) else { return nil }
                 let others = lib.regions.filter { $0.kind != "country" && ($0.sub?.isEmpty == false) && $0.id != parent.id }.map(\.name)
                 return choice("**\(r.name)** lies within which larger region?", correct: parent.name, wrong: others,
-                              explain: plain(parent.summary)).map { (k("parent", r.id), $0) }
+                              explain: "\(r.name) is part of \(parent.name). \(plain(parent.summary))").map { (k("parent", r.id), $0) }
             case 3:
                 // fact with a bolded term → fill in the blank
                 guard let fact = (r.facts ?? []).filter({ $0.components(separatedBy: "**").count == 3 }).randomElement() else { return nil }
@@ -269,14 +269,14 @@ enum QuizGenerator {
                 guard let cl = r.climate else { return nil }
                 let others = regions.filter { $0.id != r.id && $0.climate != nil && $0.country != r.country }.compactMap(\.climate)
                 return choice("Which climate describes **\(r.name)**?", correct: plain(cl), wrong: others.map(plain),
-                              explain: plain(r.summary)).map { (k("climate", r.id), $0) }
+                              explain: "\(r.name): \(plain(r.summary))").map { (k("climate", r.id), $0) }
             default:
                 // country classification
                 guard let c = lib.regions.filter({ $0.kind == "country" && $0.classification != nil }).randomElement(),
                       let cls = c.classification else { return nil }
                 let others = lib.regions.filter { $0.kind == "country" && $0.id != c.id }.compactMap(\.classification)
                 return choice("Which quality system belongs to **\(c.name)**?", correct: plain(cls), wrong: others.map(plain),
-                              explain: plain(c.summary)).map { (k("class", c.id), $0) }
+                              explain: "\(c.name): \(plain(cls)). \(plain(c.summary))").map { (k("class", c.id), $0) }
             }
 
         case .maps:
@@ -290,7 +290,7 @@ enum QuizGenerator {
             if Bool.random() {
                 let others = geo.areas.filter { $0.id != target && $0.level == area.level }.map(\.name)
                 return choice("Which region is highlighted on this map?", correct: area.name, wrong: others,
-                              explain: plain(r.summary), visual: "map:\(mapID):\(target)").map { (k("map", target), $0) }
+                              explain: "\(area.name): \(plain(r.summary))", visual: "map:\(mapID):\(target)").map { (k("map", target), $0) }
             }
             // which grape grows in the highlighted area
             guard let gid = r.grapes.first, let g = content.grape(gid) else { return nil }
@@ -349,10 +349,14 @@ enum QuizGenerator {
             case 0, 1:
                 let terms = lib.glossary.filter { ($0.level ?? 1) <= maxLevel }
                 guard let t = terms.randomElement() else { return nil }
+                let others = Array(terms.filter { $0.term != t.term }.shuffled().prefix(3))
+                let contrast = others.map { "**\($0.term)**" }.joined(separator: ", ")
                 if Bool.random() {
-                    return choice("What does **\(t.term)** mean?", correct: t.def, wrong: terms.map(\.def), explain: nil).map { (k("term", t.term), $0) }
+                    return choice("What does **\(t.term)** mean?", correct: t.def, wrong: others.map(\.def),
+                                  explain: "**\(t.term)**: \(t.def) The other answers describe different terms: \(contrast).").map { (k("term", t.term), $0) }
                 }
-                return choice("Which term means: “\(t.def)”", correct: t.term, wrong: terms.map(\.term), explain: nil).map { (k("termr", t.term), $0) }
+                return choice("Which term means: “\(t.def)”", correct: t.term, wrong: others.map(\.term),
+                              explain: "**\(t.term)** means: \(t.def) Easy to mix up with \(contrast), which each mean something else.").map { (k("termr", t.term), $0) }
             case 2:
                 guard let s = lib.styles.randomElement(), let ex = s.examples.randomElement() else { return nil }
                 return choice("**\(ex)** is an example of which style?", correct: s.name,

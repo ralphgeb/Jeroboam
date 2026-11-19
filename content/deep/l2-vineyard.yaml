@@ -38,21 +38,21 @@
     - choice: "What is véraison?"
       options: ["When grapes change color and start to ripen", "The first frost of winter", "When buds first open", "The final pressing"]
       a: "When grapes change color and start to ripen"
-      explain: "At véraison black grapes turn purple, all grapes soften, sugar rises and acidity falls."
+      explain: "At véraison black grapes turn purple, all grapes soften, sugar rises and acidity falls. It marks the start of ripening, about six weeks before harvest."
     - choice: "Why do growers light candles or run wind machines in spring?"
       options: ["To protect young shoots from frost", "To ripen the grapes faster", "To scare away birds", "To dry the soil"]
       a: "To protect young shoots from frost"
-      explain: "Frost on a still night pools in low spots; wind machines mix in warmer air from above."
+      explain: "Cold air is heavy and pools in low spots on still frosty nights, so growers light candles or run wind machines to mix in warmer air from above. Spring frost can destroy a year's crop in hours."
     - tf: "Cold, wet weather at flowering can reduce the size of the crop."
       truth: true
-      explain: "Poor flowering (coulure) and uneven berry set (millerandage) both cut yields."
+      explain: "Poor flowering (coulure) and uneven berry set (millerandage) both cut yields, and cold, wet weather at flowering causes them. A smaller crop can mean more concentrated wine, but also higher prices."
     - match: "Match the season to the vineyard job"
       pairs: [[Winter, Pruning], [Spring, Frost protection], [Summer, Leaf removal], [Autumn, Harvest]]
       explain: "The vineyard calendar runs from pruning in winter to picking in autumn (reversed in the Southern Hemisphere)."
     - blank: "Picking ___ of whole bunches is needed for traditional-method sparkling wine."
       answers: [by hand]
       options: [by machine, at noon, after frost]
-      explain: "Whole, undamaged bunches are pressed gently so the juice stays pale."
+      explain: "For traditional-method sparkling wine, whole undamaged bunches are picked by hand and pressed gently so the juice of black grapes stays pale. That is why Champagne must be hand-harvested."
 - title: "Deep dive: soil, slope and water"
   icon: mountain.2
   cards:
@@ -85,17 +85,17 @@
     - choice: "Why are south-facing slopes prized in cool Northern Hemisphere regions?"
       options: ["They get more and stronger sunlight", "They have richer soil", "They are easier to harvest", "They get more rain"]
       a: "They get more and stronger sunlight"
-      explain: "The sun hits a south-facing slope at a steeper angle, so more energy reaches each vine."
+      explain: "The sun hits a south-facing slope at a steeper angle, so more energy reaches each vine, and the slope warms faster in spring. In cool Northern Hemisphere regions the best vineyards face south."
     - choice: "Which soil drains well but still holds water for dry spells?"
       options: [Chalk, Sand, Gravel, Granite]
       a: Chalk
-      explain: "Porous chalk acts like a sponge, which is why Champagne vines rarely suffer drought."
+      explain: "Porous chalk acts like a sponge: it stores water in its pores and releases it in dry spells, but still drains well. That is why Champagne's vines rarely suffer drought."
     - tf: "Vineyards at high altitude are cooler than low ones at the same latitude."
       truth: true
-      explain: "Roughly 0.6 °C cooler for every 100 m of altitude."
+      explain: "Vineyards at altitude are roughly 0.6 °C cooler for every 100 m, so high sites in hot countries keep acidity and freshness. Mendoza and Salta in Argentina plant at 1,500 to 3,000 m."
     - match: "Match the region to its signature soil"
       pairs: [[Mosel, Slate], [Champagne, Chalk], [Médoc, Gravel], [Châteauneuf-du-Pape, Galets]]
-      explain: "Each soil helps vines cope with that place's climate."
+      explain: "Each soil helps vines cope with that place's climate: chalk in Champagne stores water, gravel in the Médoc stores heat, slate in the Mosel warms the slopes and limestone in Burgundy drains well."
 - title: "Deep dive: soils in pictures"
   icon: square.stack.3d.down.right
   cards:
@@ -131,11 +131,11 @@
         - **Loess** (Austria's Wagram and Kremstal): fine wind-blown silt loved by Grüner Veltliner.
     - match: "Match the soil to its famous region"
       pairs: [[Gravel, Médoc], [Albariza, Jerez], [Terra rossa, Coonawarra], [Slate, Mosel]]
-      explain: "Each soil shaped a classic: drainage, heat and water are what matter most."
+      explain: "Each soil shaped a classic: drainage, heat and water retention are what matter most. Gravel suits Cabernet in the Médoc, clay suits Merlot in Pomerol and chalk shapes Champagne."
     - choice: "Which soil holds water like a sponge yet still drains well?"
       options: [Chalk, Gravel, Sand, Granite]
       a: Chalk
-      explain: "Porous chalk stores water in its pores, so vines in Champagne rarely suffer drought."
+      explain: "Porous chalk stores water in its pores yet still drains, so vines in Champagne rarely suffer drought. It also reflects light and keeps roots cool, which helps retain acidity."
     - tf: "Clay soils tend to be cool and late-ripening."
       truth: true
-      explain: "They hold water and warm up slowly, which suits early grapes like Merlot."
+      explain: "Clay soils hold water and warm up slowly, so they tend to be cool and late-ripening. That suits early ripeners like Merlot, which is why it thrives on the clay of Pomerol."

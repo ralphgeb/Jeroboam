@@ -31,17 +31,17 @@
     - choice: "What does noble rot do to grapes?"
       options: ["Shrivels them and concentrates sugar and acid", "Makes them burst and spoil", "Turns them purple", "Adds alcohol"]
       a: "Shrivels them and concentrates sugar and acid"
-      explain: "Botrytis pierces the skin and water evaporates; it also adds honey, marmalade and saffron notes."
+      explain: "Botrytis pierces the grape skin so water evaporates and the sugar, acid and flavor concentrate. It also adds its own flavors of honey, marmalade and saffron, which is why Sauternes tastes more than just sweet."
     - choice: "How cold must grapes be for icewine?"
       options: ["About -8 °C or colder", "Just below 0 °C", "About 5 °C", "-30 °C"]
       a: "About -8 °C or colder"
-      explain: "At that temperature most of the water is frozen, leaving concentrated juice."
+      explain: "Icewine grapes are picked at about −8 °C or colder, when most of the water is frozen and pressing yields only a few drops of intensely sweet juice. Canada and Germany (Eiswein) are the main producers."
     - match: "Match the sweet wine to its method"
       pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Vin Santo, Dried grapes], [Port, Fortification]]
-      explain: "Four different routes to sweetness."
+      explain: "Four different routes to sweetness: noble rot (Sauternes), freezing (Icewine), drying (Vin Santo, Recioto) and fortification (Port). Each leaves a distinct flavor."
     - tf: "Furmint is the main grape of Tokaji."
       truth: true
-      explain: "Furmint's high acidity balances the huge sweetness; Hárslevelű is its partner."
+      explain: "Furmint is the main grape of Tokaji. Its high acidity balances the huge sweetness, and Hárslevelű, its partner, adds a floral, honeyed perfume."
 - title: "Deep dive: Port, Sherry and Madeira"
   icon: building.columns
   cards:
@@ -74,18 +74,18 @@
     - choice: "Why is fino sherry so pale?"
       options: ["A layer of flor yeast protects it from oxygen", "It is made from white grapes only", "It is filtered through charcoal", "It ages very briefly"]
       a: "A layer of flor yeast protects it from oxygen"
-      explain: "Without air contact, it stays pale and fresh, with salty, bready notes."
+      explain: "Fino is aged under flor, a layer of yeast that keeps the wine from contact with air. Without oxidation it stays pale and fresh, with salty, almondy, bready notes."
     - choice: "Where do the big Port houses traditionally age their wines?"
       options: ["Vila Nova de Gaia", "Jerez", "Funchal", "Lisbon"]
       a: "Vila Nova de Gaia"
-      explain: "Across the Douro from Porto; the lodges' signs line the riverfront."
+      explain: "Port is aged in lodges in Vila Nova de Gaia, across the Douro from Porto, because the cool, humid air by the sea suits slow aging. The big houses' names still line the riverfront."
     - match: "Match the Madeira style to its sweetness"
       pairs: [[Sercial, Dry], [Verdelho, Medium dry], [Bual, Medium sweet], [Malmsey, Sweet]]
-      explain: "The grape names on the label tell you the sweetness."
+      explain: "The grape names on a Madeira label tell you the sweetness: Sercial is driest, Verdelho is medium-dry, Bual is medium-sweet and Malvasia (Malmsey) is the sweetest. Madeira's heating makes it almost indestructible."
     - tf: "Tawny Port gets its color from ageing in small casks."
       truth: true
-      explain: "Slow oxidation turns the red to amber-brown."
+      explain: "Slow oxidation in small casks turns Tawny Port from red to amber-brown and gives it nutty, caramel flavors. Ruby Port avoids this and stays red and fruity."
     - blank: "A tiered system of casks where young sherry refreshes older sherry is a ___."
       answers: [solera]
       options: [qvevri, puttonyos, lodge]
-      explain: "Wine is drawn from the oldest casks and topped up from the next oldest."
+      explain: "In a solera, wine is drawn from the oldest casks and topped up from the next oldest, and so on. Each bottle holds traces of very old wine, so the style stays consistent from year to year."

@@ -24,17 +24,17 @@
     - choice: "Which Rioja label means at least 5 years of ageing?"
       options: [Gran Reserva, Reserva, Crianza, Joven]
       a: Gran Reserva
-      explain: "Gran Reserva reds age at least 5 years, 2 of them in oak."
+      explain: "Gran Reserva reds age at least five years, two of them in oak. It is made only in the best vintages and usually released after a decade."
     - choice: "What is llicorella?"
       options: ["Priorat's slate soil", "A Sherry style", "A type of oak", "A Rioja sub-zone"]
       a: "Priorat's slate soil"
-      explain: "The broken black slate forces roots deep and gives low yields."
+      explain: "Llicorella is the broken black slate of Priorat. It forces roots deep and gives very low yields, so the wines are dense and mineral."
     - match: "Match the Spanish region to its grape"
       pairs: [[Rías Baixas, Albariño], [Bierzo, Mencía], [Jumilla, Monastrell], [Ribera del Duero, Tinto Fino]]
-      explain: "Spain is far more than Tempranillo."
+      explain: "Spain is far more than Tempranillo: Albariño in Rías Baixas, Garnacha in Priorat, Mencía in Bierzo and Verdejo in Rueda. Each region has a local hero."
     - tf: "Traditional Rioja is often aged in American oak."
       truth: true
-      explain: "It gives the classic vanilla and coconut notes."
+      explain: "Traditional Rioja is aged in American oak, which gives the classic vanilla and coconut notes. Modern producers use more French oak for a more subtle style."
 - title: "Deep dive: Portugal's native treasures"
   icon: water.waves
   cards:
@@ -58,14 +58,14 @@
     - choice: "Which grape is considered Portugal's finest red?"
       options: [Touriga Nacional, Baga, Castelão, Trincadeira]
       a: Touriga Nacional
-      explain: "Deep color, violet perfume and structure: used in Port and dry Douro reds."
+      explain: "Touriga Nacional is considered Portugal's finest red, with deep color, violet perfume and structure. It is used in Port and in dry Douro and Dão reds."
     - choice: "What are talhas?"
       options: ["Clay amphorae used in Alentejo", "Port lodges", "Terraced vineyards", "Cork forests"]
       a: "Clay amphorae used in Alentejo"
-      explain: "A Roman-era tradition revived under the Vinho de Talha DOC."
+      explain: "Talhas are large clay amphorae used to ferment wine in the Alentejo, a Roman-era tradition revived under the Vinho de Talha DOC. The wine is made like ancient wine, with the skins in the pot."
     - tf: "Tinta Roriz is Portugal's name for Tempranillo."
       truth: true
-      explain: "It is also called Aragonez in the Alentejo."
+      explain: "Tinta Roriz is Portugal's name for Tempranillo; it is also called Aragonez in the Alentejo. It is one of the main grapes of Port."
 
 - title: "History: sherry, port and Rioja"
   icon: hourglass
@@ -91,11 +91,11 @@
     - choice: "Which treaty gave Portuguese wine low taxes in England in 1703?"
       options: [The Methuen Treaty, The Treaty of Paris, The Pombal Decree, The Treaty of Tordesillas]
       a: The Methuen Treaty
-      explain: "England, at war with France, turned to Portugal; fortified Douro wine became Port."
+      explain: "The Methuen Treaty of 1703 gave Portuguese wine low taxes in England. England, at war with France, turned to Portugal, and fortified Douro wine became Port."
     - choice: "Why did French merchants come to Rioja in the 1870s?"
       options: [Phylloxera and mildew had ruined their own vineyards, Rioja was part of France, They wanted to make Cava, Spain banned wine exports]
       a: Phylloxera and mildew had ruined their own vineyards
-      explain: "They brought barrels and Bordeaux methods, shaping the oak-aged Rioja style."
+      explain: "In the 1870s phylloxera struck Bordeaux, and French merchants moved to Rioja, bringing barrels and Bordeaux methods. That shaped the oak-aged Rioja style."
     - tf: "The Douro was demarcated in 1756, one of the first protected wine regions."
       truth: true
       explain: "The Marquis of Pombal mapped the best vineyards and created a company to control quality and stop fraud."

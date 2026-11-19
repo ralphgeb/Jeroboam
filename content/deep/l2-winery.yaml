@@ -38,21 +38,21 @@
     - choice: "Why does red wine ferment with the grape skins?"
       options: ["To extract color, tannin and flavor", "To make it sweeter", "To lower the alcohol", "To make bubbles"]
       a: "To extract color, tannin and flavor"
-      explain: "The juice of almost all black grapes is clear; the color is in the skins."
+      explain: "Red wine ferments with the grape skins because the juice of almost all black grapes is clear; the color and tannin are in the skins. Fermenting on the skins is what makes red wine red."
     - choice: "What does malolactic conversion do?"
       options: ["Turns sharp malic acid into softer lactic acid", "Turns sugar into alcohol", "Adds oak flavor", "Removes tannin"]
       a: "Turns sharp malic acid into softer lactic acid"
-      explain: "MLC softens acidity and can add buttery notes (diacetyl)."
+      explain: "Malolactic conversion turns sharp malic acid into softer lactic acid, which softens acidity and can add buttery notes (diacetyl). It is allowed in most reds and full-bodied whites, but blocked in crisp whites."
     - match: "Match the technique to what it means"
       pairs: [[Pigeage, Punching down the cap], [Remontage, Pumping juice over the cap], [Press wine, Darker wine squeezed from skins], [Whole bunch, Fermenting with stems]]
-      explain: "These are the winemaker's main tools for managing extraction."
+      explain: "These are the winemaker's main tools for managing extraction: cold soak before fermentation, punch-downs and pump-overs during it, and extended maceration after. Each pulls more or less color and tannin from the skins."
     - tf: "American oak tends to give stronger coconut and vanilla notes than French oak."
       truth: true
-      explain: "It is wider-grained and richer in the compounds behind coconut aromas: think traditional Rioja."
+      explain: "American oak is wider-grained and richer in the compounds behind coconut and vanilla aromas, which is why traditional Rioja smells of them. French oak is tighter-grained and gives more subtle spice and toast."
     - blank: "The layer of skins floating on fermenting red wine is called the ___."
       answers: [cap]
       options: [lees, must, flor]
-      explain: "It is pushed up by carbon dioxide and must be kept moist to avoid spoilage."
+      explain: "The cap is pushed up by carbon dioxide and must be kept moist, or it dries out and grows bacteria. Punching it down or pumping juice over it keeps the skins in contact with the fermenting wine."
 - title: "Deep dive: whites, rosés and finishing touches"
   icon: sparkles
   cards:
@@ -87,14 +87,14 @@
     - choice: "Why are most white wines fermented cooler than reds?"
       options: ["To keep fresh, fruity aromas", "To extract more tannin", "To make the wine darker", "To speed things up"]
       a: "To keep fresh, fruity aromas"
-      explain: "Low temperatures preserve volatile aromas; reds need warmth to extract from skins."
+      explain: "Low temperatures preserve volatile aromas, so whites ferment cool, around 12–18 °C. Reds need warmth to extract color and tannin from the skins, and ferment at 25–30 °C."
     - choice: "Which rosé method bleeds juice from a red wine tank?"
       options: [Saignée, Direct pressing, Blending, Carbonic maceration]
       a: Saignée
-      explain: "French for 'bleeding': the red left behind becomes more concentrated."
+      explain: "Saignée, French for bleeding, is the method of draining some juice from a red wine tank early to make rosé. The red left behind becomes more concentrated, so rosé is a useful by-product."
     - tf: "Tartrate crystals in a bottle mean the wine has spoiled."
       truth: false
-      explain: "They are harmless potassium bitartrate, sometimes called wine diamonds."
+      explain: "Tartrates are harmless crystals of potassium bitartrate, sometimes called wine diamonds. They form when wine is cold, and are not a fault, though cold stabilization removes them for appearance."
     - match: "Match the term to its meaning"
       pairs: [[Lees, Dead yeast sediment], [Bâtonnage, Stirring the lees], [Fining, Removing haze with a binding agent], [Sur lie, Aged on its lees]]
-      explain: "All about texture and clarity."
+      explain: "These terms are all about texture and clarity: fining removes unwanted particles, filtration removes yeast and bacteria, and racking moves wine off the lees. A wine can be bottled unfined and unfiltered for more texture."

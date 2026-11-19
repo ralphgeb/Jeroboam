@@ -22,11 +22,11 @@
     - choice: "What does biodynamic farming add to organic farming?"
       options: ["Herbal preparations and a lunar calendar", "Synthetic fertilizers", "Irrigation only at night", "Machine harvesting"]
       a: "Herbal preparations and a lunar calendar"
-      explain: "It treats the vineyard as a self-sustaining farm organism."
+      explain: "Biodynamic farming adds to organic farming a view of the vineyard as a self-sustaining farm organism, with preparations and a lunar calendar. Evidence for the calendar is limited, but many top estates use it."
     - choice: "How is yield usually measured?"
       options: ["Hectoliters per hectare", "Bottles per vine", "Tons per bottle", "Liters per barrel"]
       a: "Hectoliters per hectare"
-      explain: "1 hl = 100 liters, or about 133 standard bottles."
+      explain: "Yield is measured in hectoliters per hectare (hl/ha), where 1 hl = 100 liters, or about 133 standard bottles. Lower yields usually mean more concentrated grapes, and appellations set maximum limits."
     - tf: "Climate change has made European harvests later."
       truth: false
       explain: "They now start two to three weeks earlier than in the 1980s."

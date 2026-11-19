@@ -38,21 +38,21 @@
     - choice: "What creates the bubbles in traditional-method sparkling wine?"
       options: ["A second fermentation in the bottle", "Injected carbon dioxide", "Fermentation in a pressurized tank", "Shaking the bottle"]
       a: "A second fermentation in the bottle"
-      explain: "Sugar and yeast are added at bottling; the CO2 they make is trapped."
+      explain: "In traditional-method wine, sugar and yeast are added at bottling and the second fermentation happens inside the sealed bottle. The CO₂ it makes cannot escape, so it dissolves in the wine and becomes the bubbles."
     - choice: "Which is sweeter?"
       options: [Extra Dry, Brut, Extra Brut, Brut Nature]
       a: Extra Dry
-      explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L)."
+      explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L). The scale runs Brut Nature, Extra Brut, Brut, Extra Dry, Sec, Demi-sec, Doux, so the word dry does not mean the driest."
     - blank: "Breakdown of dead yeast cells that gives brioche notes is called ___."
       answers: [autolysis]
       options: [riddling, dosage, assemblage]
-      explain: "The longer on the lees, the more toasty and creamy the wine."
+      explain: "Autolysis is the breakdown of dead yeast cells, which releases bready, toasty notes such as brioche. The longer the wine rests on its lees, the toastier and creamier it becomes."
     - match: "Put the steps with their French names"
       pairs: [[Blending base wines, Assemblage], [Turning the bottles, Remuage], [Removing the yeast, Dégorgement], [Final sweetening, Dosage]]
-      explain: "These words appear on back labels and in every Champagne cellar tour."
+      explain: "These words appear on back labels and in every Champagne cellar tour: tirage (bottling with sugar and yeast), remuage (riddling), dégorgement (disgorgement) and dosage (the final sugar top-up)."
     - tf: "Non-vintage Champagne must age at least 15 months before release."
       truth: true
-      explain: "Vintage Champagne needs at least 3 years."
+      explain: "Non-vintage Champagne must age at least 15 months, with at least 12 on lees. Vintage Champagne needs at least three years, though many houses give it much longer."
 - title: "Deep dive: the world of bubbles"
   icon: globe
   cards:
@@ -86,14 +86,14 @@
     - choice: "Which grape is the specialty of the Côte des Blancs?"
       options: [Chardonnay, Pinot Noir, Meunier, Glera]
       a: Chardonnay
-      explain: "Blanc de Blancs means 'white from whites': 100% white grapes, usually Chardonnay."
+      explain: "Blanc de Blancs means white from whites: 100% white grapes, in Champagne usually Chardonnay from the Côte des Blancs. These are typically the lightest, most citrusy and most age-worthy wines."
     - choice: "What does 'RM' on a Champagne label tell you?"
       options: ["A grower made it from their own grapes", "It is a rosé", "It is very old", "It comes from a cooperative"]
       a: "A grower made it from their own grapes"
-      explain: "Récoltant-manipulant: grower Champagne."
+      explain: "RM is Récoltant-Manipulant: grower Champagne, made by the family that owns the vines. It often shows more terroir than a blended house wine, and is usually better value."
     - match: "Match the sparkling wine to its method"
       pairs: [[Champagne, Traditional method], [Prosecco, Tank method], [Pét-nat, Ancestral method], [Cava, Traditional method in Spain]]
-      explain: "Method shapes texture and flavor as much as the grape."
+      explain: "Method shapes texture and flavor as much as the grape: the traditional method gives fine bubbles and toasty notes, the tank method keeps fresh fruit, and the ancestral method leaves a cloudy, lightly sparkling wine."
     - tf: "Moscato d'Asti is fully sparkling and around 12% alcohol."
       truth: false
-      explain: "It is gently sparkling (frizzante), sweet and only about 5% alcohol."
+      explain: "Moscato d'Asti is gently sparkling (frizzante), sweet and only about 5% alcohol, which makes it a light, grapey dessert wine. Fully sparkling, higher-alcohol wine would be Asti Spumante."

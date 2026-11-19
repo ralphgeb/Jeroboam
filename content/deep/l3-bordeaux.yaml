@@ -34,21 +34,21 @@
     - choice: "What is a 'second wine' in Bordeaux?"
       options: ["Wine made from lots not chosen for the grand vin", "A wine from the second harvest", "A cheaper wine from another region", "A wine aged a second year"]
       a: "Wine made from lots not chosen for the grand vin"
-      explain: "Second wines give a taste of the house style at a lower price."
+      explain: "A second wine is made from younger vines or lesser barrels of a top château, for example Pavillon Rouge de Château Margaux. It gives a taste of the house style at a lower price and is ready to drink earlier."
     - choice: "Which grape gives Bordeaux blends their backbone and long ageing?"
       options: [Cabernet Sauvignon, Merlot, Cabernet Franc, Malbec]
       a: Cabernet Sauvignon
-      explain: "Its thick skins give firm tannin and blackcurrant fruit, especially on Left Bank gravel."
+      explain: "Cabernet Sauvignon gives Bordeaux blends their backbone and long aging: its thick skins give firm tannin and blackcurrant fruit, especially on Left Bank gravel. Merlot adds softness, and Cabernet Franc adds perfume."
     - tf: "En primeur means buying wine before it is bottled."
       truth: true
-      explain: "Buyers pay while the wine is still in barrel and receive it later."
+      explain: "En primeur means buying wine before it is bottled: buyers pay while the wine is still in barrel and receive it two years later. It can offer savings in good vintages, but prices can fall, so it is a gamble."
     - match: "Match the Bordeaux grape to its role"
       pairs: [[Cabernet Sauvignon, Tannin and structure], [Merlot, Plush body], [Cabernet Franc, Perfume], [Petit Verdot, Color and spice]]
-      explain: "Each grape plays a part; the blend changes every vintage."
+      explain: "Each grape plays a part: Cabernet Sauvignon gives structure, Merlot gives plush fruit, Cabernet Franc adds perfume and Petit Verdot adds color and spice. The blend changes every vintage with the weather."
     - blank: "The English call red Bordeaux ___."
       answers: [claret]
       options: [hock, sack, tawny]
-      explain: "From the French clairet, the pale reds once shipped to England."
+      explain: "The English call red Bordeaux claret, from the French clairet, the pale reds once shipped to England. Bordeaux was English for three centuries, so claret is one of the oldest wine words in the language."
 - title: "Deep dive: vintages and ageing"
   icon: clock
   cards:
@@ -71,14 +71,14 @@
     - choice: "What does an aged Bordeaux typically smell of?"
       options: ["Cedar, cigar box and leather", "Banana and bubblegum", "Lychee and rose", "Fresh grass and gooseberry"]
       a: "Cedar, cigar box and leather"
-      explain: "These tertiary notes come from years in bottle."
+      explain: "An aged Bordeaux smells of cedar, tobacco, leather, forest floor and dried fruit. These tertiary notes come from years in bottle, and are the reason old Bordeaux is so prized."
     - choice: "In a cool, rainy Bordeaux vintage, which grape often fares better?"
       options: [Merlot, Cabernet Sauvignon, Petit Verdot, Syrah]
       a: Merlot
-      explain: "Merlot ripens earlier, so it can be picked before autumn rain."
+      explain: "Merlot ripens earlier than Cabernet, so in a cool, rainy vintage it can be picked before the autumn rain. That is why Right Bank wines often do better in wet years, and Left Bank in hot, dry ones."
     - tf: "Old red wine is decanted partly to separate it from its sediment."
       truth: true
-      explain: "Tannins and pigments drop out as a fine deposit over the years."
+      explain: "Tannins and pigments drop out as a fine deposit over the years, so old red wine throws sediment. Decanting separates the clear wine from it, so you don't pour a gritty glass."
 
 - title: "History: how Bordeaux was built"
   icon: hourglass

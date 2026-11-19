@@ -24,14 +24,14 @@
     - choice: "What do German Prädikat levels measure?"
       options: ["Grape ripeness at harvest", "Sweetness of the finished wine", "Years in oak", "Alcohol level"]
       a: "Grape ripeness at harvest"
-      explain: "A Spätlese can be dry or sweet; check for 'trocken'."
+      explain: "German Prädikat levels measure grape ripeness at harvest, from Kabinett up to Trockenbeerenauslese. A Spätlese can be dry or sweet, so check the label for the word trocken."
     - choice: "What does 'GG' on a German bottle mean?"
       options: ["A dry wine from a top vineyard", "A sparkling wine", "A sweet late harvest", "A blend of grapes"]
       a: "A dry wine from a top vineyard"
-      explain: "Grosses Gewächs: dry wine from a VDP Grosse Lage."
+      explain: "GG stands for Grosses Gewächs: a dry wine from a VDP Grosse Lage, a top vineyard. It is Germany's equivalent of a Grand Cru dry wine."
     - match: "Put the Prädikat levels in order with their meaning"
       pairs: [[Kabinett, Lightest], [Spätlese, Late harvest], [Auslese, Selected bunches], [Trockenbeerenauslese, Dried botrytized berries]]
-      explain: "Each step up means riper, rarer grapes."
+      explain: "Each step up means riper, rarer grapes: Kabinett, Spätlese, Auslese, Beerenauslese, Trockenbeerenauslese. The higher levels are often sweet, and only the sweetest need botrytis."
 - title: "Deep dive: Austria, Hungary and Greece"
   icon: mountain.2
   cards:
@@ -54,14 +54,14 @@
     - choice: "What is the richest dry wine category in the Wachau?"
       options: [Smaragd, Federspiel, Steinfeder, Kabinett]
       a: Smaragd
-      explain: "Named after the emerald lizard sunning itself on the terraces."
+      explain: "Smaragd, named after the emerald lizard sunning itself on the terraces, is the Wachau's richest dry category. It is full-bodied and often 13% alcohol or more."
     - choice: "Why are Santorini vines trained into baskets?"
       options: ["To protect grapes from strong winds and sun", "To make picking faster", "To keep goats away", "For decoration"]
       a: "To protect grapes from strong winds and sun"
-      explain: "The kouloura shelters bunches inside the coiled vine."
+      explain: "Santorini's strong winds would shred the vines, so they are trained into low baskets called kouloura that shelter the bunches inside the coiled vine. Volcanic ash soil also spared the island from phylloxera."
     - tf: "Egri Bikavér is a sweet white wine."
       truth: false
-      explain: "It is a red blend from Eger, 'Bull's Blood'."
+      explain: "Egri Bikavér, Bull's Blood of Eger, is a red blend, not a sweet white. Legend says the defenders of Eger castle drank the wine in 1552 and fought like bulls."
 
 - title: "History: emperors' wines"
   icon: hourglass
@@ -90,8 +90,8 @@
       explain: "The overripe, partly botrytized grapes made exceptional wine: the start of Germany's late-harvest tradition."
     - tf: "Tokaj's vineyards were classified in 1730, before Bordeaux's 1855 classification."
       truth: true
-      explain: "The Tokaj classification of 1730 is one of the oldest in the world."
+      explain: "Tokaj's vineyards were classified in 1730, well before Bordeaux's 1855 classification. That makes it one of the oldest classifications in the world, and shows how highly its sweet wines were prized."
     - choice: "What did the 1985 scandal lead to in Austria?"
       options: [Very strict wine laws and a focus on quality, A ban on Grüner Veltliner, The end of Austrian wine exports forever, The creation of Tokaji]
       a: Very strict wine laws and a focus on quality
-      explain: "After the glycol scandal Austria rebuilt its reputation on dry, pure, carefully controlled wines."
+      explain: "After the 1985 glycol scandal, when some producers added antifreeze to make wine seem sweeter, Austria rebuilt its reputation on dry, pure, carefully controlled wines with strict quality laws."
