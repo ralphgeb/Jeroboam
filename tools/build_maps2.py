@@ -388,6 +388,9 @@ def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None,
     off = pdo_geom(aid, name, geom_ll)
     if off is not None:
         geom_ll = off
+    # keep areas on their map (e.g. a same-named municipality on an island far away)
+    la0, lo0, la1, lo1 = pr.bbox
+    geom_ll = geom_ll.intersection(box(lo0 - 0.5, la0 - 0.5, lo1 + 0.5, la1 + 0.5))
     _GEOMS[(id(pr), aid)] = (geom_ll, color, lv)
     g = pr.geom(geom_ll)
     if soft: g = soften(g, tol)

@@ -101,4 +101,7 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - TestFlight build 8 uploaded (run 8): hatched big regions + country lift, full map zooms out to fit width and floats between
   header and list card, interactive How to taste (`TastingStep` cards + sheet), more reference maps (29 regions).
   No free reference map found yet for Portugal (whole), Douro, Chile, Argentina, Lebanon (3 search rounds: content/mapimgs*.json).
+- Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
+  from the owner's winery map (`specs_gb.LEBANON.wineries`). Portugal: ~47 subregions from municipalities (owner's Wine Folly
+  map used only as a reference). Areas are clipped to their map's bbox (an Azores "Lagoa" once stretched Portugal).
 - Logo: owner said keep the current mark for now; revisit later (8 Jeroboam bottle options were shown).
