@@ -1,139 +1,3 @@
-bordeaux	PDO-FR-A0821	Bordeaux
-haut-medoc	PDO-FR-A0710	Haut-Médoc
-medoc	PDO-FR-A0730	Médoc
-pessac-leognan	PDO-FR-A0162	Pessac-Léognan
-sauternes	PDO-FR-A0819	Sauternes
-graves	PDO-FR-A1012	Graves
-saint-emilion	PDO-FR-A0988	Saint-Emilion
-pomerol	PDO-FR-A0273	Pomerol
-lalande	PDO-FR-A0171	Lalande-de-Pomerol
-fronsac	PDO-FR-A1103	Fronsac
-bourg	PDO-FR-A0828	Bourg / Côtes de Bourg / Bourgeais
-blaye	PDO-FR-A0712	Blaye
-entre-deux-mers	PDO-FR-A0406	Entre-deux-Mers
-chablis	PDO-FR-A0736	Chablis
-cote-de-beaune	PDO-FR-A0592	Côte de Beaune
-muscadet	PDO-FR-A0497	Muscadet
-anjou	PDO-FR-A0820	Anjou
-saumur	PDO-FR-A0260	Saumur
-touraine	PDO-FR-A0501	Touraine
-sancerre	PDO-FR-A0194	Sancerre
-pouilly-fume	PDO-FR-A0824	Pouilly-Fumé / Blanc Fumé de Pouilly
-champagne	PDO-FR-A1359	Champagne
-beaujolais	PDO-FR-A0934	Beaujolais
-alsace	PDO-FR-A1101	Alsace / Vin d'Alsace
-savoie	PDO-FR-A0681	Vin de Savoie / Savoie
-languedoc	PDO-FR-A0922	Languedoc
-saint-estephe	PDO-FR-A0178	Saint-Estèphe
-pauillac	PDO-FR-A0713	Pauillac
-margaux	PDO-FR-A0329	Margaux
-moulis	PDO-FR-A0731	Moulis / Moulis-en-Médoc
-haut-medoc	PDO-FR-A0710	Haut-Médoc
-medoc	PDO-FR-A0730	Médoc
-pessac-leognan	PDO-FR-A0162	Pessac-Léognan
-sauternes	PDO-FR-A0819	Sauternes
-graves	PDO-FR-A1012	Graves
-saint-emilion	PDO-FR-A0988	Saint-Emilion
-pomerol	PDO-FR-A0273	Pomerol
-lalande	PDO-FR-A0171	Lalande-de-Pomerol
-fronsac	PDO-FR-A1103	Fronsac
-bourg	PDO-FR-A0828	Bourg / Côtes de Bourg / Bourgeais
-blaye	PDO-FR-A0712	Blaye
-entre-deux-mers	PDO-FR-A0406	Entre-deux-Mers
-chablis	PDO-FR-A0736	Chablis
-cote-de-beaune	PDO-FR-A0592	Côte de Beaune
-pouilly-fuisse	PDO-FR-A0653	Pouilly-Fuissé
-beaujolais	PDO-FR-A0934	Beaujolais
-moulin-a-vent	PDO-FR-A0933	Moulin-à-Vent
-fleurie	PDO-FR-A0930	Fleurie
-morgon	PDO-FR-A1024	Morgon
-brouilly	PDO-FR-A0935	Brouilly
-julienas	PDO-FR-A1025	Juliénas
-saint-amour	PDO-FR-A1028	Saint-Amour
-chiroubles	PDO-FR-A0911	Chiroubles
-regnie	PDO-FR-A0912	Régnié
-cote-rotie	PDO-FR-A0199	Côte Rôtie
-condrieu	PDO-FR-A0685	Condrieu
-saint-joseph	PDO-FR-A0200	Saint-Joseph
-hermitage	PDO-FR-A1002	Hermitage / Ermitage / L'Hermitage / L'Ermitage
-crozes-hermitage	PDO-FR-A0389	Crozes-Hermitage / Crozes-Ermitage
-cornas	PDO-FR-A0697	Cornas
-chateauneuf-du-pape	PDO-FR-A0144	Châteauneuf-du-Pape
-gigondas	PDO-FR-A0143	Gigondas
-vacqueyras	PDO-FR-A0151	Vacqueyras
-tavel	PDO-FR-A0328	Tavel
-rasteau	PDO-FR-A0720	Rasteau
-beaumes	PDO-FR-A0724	Beaumes de Venise
-muscadet	PDO-FR-A0497	Muscadet
-savennieres	PDO-FR-A0158	Savennières
-anjou	PDO-FR-A0820	Anjou
-saumur	PDO-FR-A0260	Saumur
-chinon	PDO-FR-A0395	Chinon
-bourgueil	PDO-FR-A0729	Bourgueil
-vouvray	PDO-FR-A0146	Vouvray
-touraine	PDO-FR-A0501	Touraine
-sancerre	PDO-FR-A0194	Sancerre
-pouilly-fume	PDO-FR-A0824	Pouilly-Fumé / Blanc Fumé de Pouilly
-friuli	PDO-IT-02176	Friuli / Friuli Venezia Giulia / Furlanija / Furlanija Julijska krajina
-abruzzo	PDO-IT-A0880	Abruzzo
-barolo	PDO-IT-A1389	Barolo
-barbaresco	PDO-IT-A1399	Barbaresco
-roero	PDO-IT-A1261	Roero
-dogliani	PDO-IT-A1330	Dogliani
-gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
-moscato-dasti	PDO-IT-A1396	Asti
-barbera-dasti	PDO-IT-A1398	Barbera d'Asti
-chianti-classico	PDO-IT-A1235	Chianti Classico
-montalcino	PDO-IT-A1199	Brunello di Montalcino
-montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
-bolgheri	PDO-IT-A1348	Bolgheri
-suvereto	PDO-IT-A1266	Suvereto
-val-di-cornia	PDO-IT-A1498	Val di Cornia
-montescudaio	PDO-IT-A1437	Montescudaio
-bibbona	PDO-IT-A1491	Terratico di Bibbona
-elba	PDO-IT-A1519	Elba
-carmignano	PDO-IT-A1220	Carmignano
-san-gimignano	PDO-IT-A1464	San Gimignano
-montecarlo	PDO-IT-A1421	Montecarlo
-colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
-candia	PDO-IT-A1377	Candia dei Colli Apuani
-cortona	PDO-IT-A1518	Cortona
-val-d-orcia	PDO-IT-A1442	Orcia
-montecucco	PDO-IT-A1433	Montecucco
-maremma	PDO-IT-A1260	Morellino di Scansano
-maremma-toscana	PDO-IT-A1413	Maremma toscana
-chianti	PDO-IT-A1228	Chianti
-barolo	PDO-IT-A1389	Barolo
-barbaresco	PDO-IT-A1399	Barbaresco
-roero	PDO-IT-A1261	Roero
-dogliani	PDO-IT-A1330	Dogliani
-gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
-moscato-dasti	PDO-IT-A1396	Asti
-barbera-dasti	PDO-IT-A1398	Barbera d'Asti
-barolo	PDO-IT-A1389	Barolo
-diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
-verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
-barbaresco	PDO-IT-A1399	Barbaresco
-chianti-classico	PDO-IT-A1235	Chianti Classico
-montalcino	PDO-IT-A1199	Brunello di Montalcino
-montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
-bolgheri	PDO-IT-A1348	Bolgheri
-suvereto	PDO-IT-A1266	Suvereto
-val-di-cornia	PDO-IT-A1498	Val di Cornia
-montescudaio	PDO-IT-A1437	Montescudaio
-bibbona	PDO-IT-A1491	Terratico di Bibbona
-elba	PDO-IT-A1519	Elba
-carmignano	PDO-IT-A1220	Carmignano
-san-gimignano	PDO-IT-A1464	San Gimignano
-montecarlo	PDO-IT-A1421	Montecarlo
-colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
-candia	PDO-IT-A1377	Candia dei Colli Apuani
-cortona	PDO-IT-A1518	Cortona
-val-d-orcia	PDO-IT-A1442	Orcia
-montecucco	PDO-IT-A1433	Montecucco
-maremma	PDO-IT-A1260	Morellino di Scansano
-maremma-toscana	PDO-IT-A1413	Maremma toscana
-chianti	PDO-IT-A1228	Chianti
 vinho-verde	PDO-PT-A1545	Vinho Verde
 douro	PDO-PT-A1539	Douro
 dao	PDO-PT-A1534	Dão
@@ -143,6 +7,19 @@ alentejo	PDO-PT-A1542	Alentejo
 tras-os-montes	PDO-PT-A1466	Trás-os-Montes
 tavora-varosa	PDO-PT-A1541	Távora-Varosa
 beira-interior	PDO-PT-A1546	Beira Interior
+colares	PDO-PT-A1461	Colares
+carcavelos	PDO-PT-A1462	Carcavelos
+bucelas	PDO-PT-A1463	Bucelas
+arruda	PDO-PT-A1471	Arruda
+alenquer	PDO-PT-A1468	Alenquer
+torres-vedras	PDO-PT-A1465	Torres Vedras
+obidos	PDO-PT-A1469	Óbidos
+encostas-daire	PDO-PT-A1470	Encostas d’Aire
+palmela	PDO-PT-A1460	Palmela
+lagos	PDO-PT-A1454	Lagos
+portimao	PDO-PT-A1452	Portimão
+lagoa	PDO-PT-A1450	Lagoa
+tavira	PDO-PT-A1449	Tavira
 es-navarra	PDO-ES-A0127	Navarra
 es-valencia	PDO-ES-A0872	Valencia
 rias-baixas	PDO-ES-A1119	Rías Baixas

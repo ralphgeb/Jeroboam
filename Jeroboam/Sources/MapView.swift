@@ -37,6 +37,8 @@ struct WineMapV2: Decodable {
     let communes: [[Int]]?
     let villages: [Village]?
     let belts: [Int]?
+    /// Points of interest (wineries), drawn as dots; names appear when zoomed in.
+    let pois: [Village]?
     let tints: [Tint]?
 }
 
@@ -366,6 +368,15 @@ struct MapRenderer {
                 ctx.fill(Path(CGRect(x: mr.maxX - f, y: 0, width: f, height: size.height)), with: .linearGradient(Gradient(colors: [sea.opacity(0), sea]), startPoint: CGPoint(x: mr.maxX - f, y: 0), endPoint: CGPoint(x: mr.maxX, y: 0)))
             }
         }
+        if !thumb, let pois = g.map.pois {
+            let r: CGFloat = rel >= 1.6 ? 3.2 : 2.4
+            for p in pois {
+                let c = screen(CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)))
+                let dot = Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r))
+                ctx.fill(dot, with: .color(Palette.bordeaux))
+                ctx.stroke(dot, with: .color(.white), lineWidth: 0.9)
+            }
+        }
         guard showLabels else { return }
         var taken: [CGRect] = []
         let inset = full.insetBy(dx: 2, dy: 2)
@@ -385,6 +396,13 @@ struct MapRenderer {
         }
         let ls = labelScale
 
+        if !thumb, rel >= 1.6, let pois = g.map.pois {
+            for p in pois {
+                let c = screen(CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)))
+                _ = place(Text(p.n).font(.system(size: 9.5 * ls, weight: .semibold)).foregroundColor(Palette.ink.opacity(0.85)),
+                          at: CGPoint(x: c.x + 5, y: c.y), anchor: .leading)
+            }
+        }
         for l in g.map.labels {
             let p = screen(CGPoint(x: CGFloat(l.x), y: CGFloat(l.y)))
             switch l.k {

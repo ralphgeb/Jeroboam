@@ -840,6 +840,12 @@ def build_lebanon():
     land, focus, lk, rv = base_layers(pr, L["bbox"], L["focus"], tol=tol)
     units = gb_units("LBN", "ADM2")
     areas = []
+    gov = gb_units("LBN", "ADM1")
+    big = {}
+    for i, (rid, name, govs) in enumerate(L.get("regions0", [])):
+        g = unary_union([u for n, u in gov if n in govs])
+        big[rid] = g
+        areas.append(area_record(pr, rid, name, 0, cidx(None, i + 3), g, tol, min_area=1))
     for i, (rid, name, cazas) in enumerate(L["regions"]):
         g = unary_union([u for n, u in units if n in cazas])
         zone = L.get("zones", {}).get(rid)
@@ -856,13 +862,22 @@ def build_lebanon():
                         parts.append(Polygon(shape_latlon({"t": "blob", "c": (la + dla, lo + dlo), "r": (rr, rr * rng.uniform(0.6, 1.0)),
                                                            "a": rng.uniform(0, 180)})).buffer(0))
                 return unary_union(parts)
-            z = unary_union([zshape(s) for s in zone])
+            if any(s.get("t") == "patches" for s in zone) and L.get("wineries"):
+                # hillside vineyards: soft zones around the wineries inside this area
+                pts = [Point(lo, la) for _, la, lo in L["wineries"] if g.buffer(0.01).contains(Point(lo, la))]
+                z = unary_union([p.buffer(0.03, 16) for p in pts]).buffer(0.012).buffer(-0.012) if pts else unary_union([zshape(s) for s in zone])
+            else:
+                z = unary_union([zshape(s) for s in zone])
             g = g.intersection(z) if g.intersects(z) else z
-        areas.append(area_record(pr, rid, name, 0, cidx(None, i), g, tol, min_area=1, soft=True))
+        parent = max(big, key=lambda k: big[k].intersection(g).area) if big else None
+        areas.append(area_record(pr, rid, name, 1 if big else 0, cidx(None, i), g, tol, min_area=1, soft=True, parent=parent))
     fb = [g for _, g in gb_units("LBN", "ADM1")]
+    pois = []
+    for n, la, lo in L.get("wineries", []):
+        x, y = pr.xy(lo, la); pois.append({"n": n, "x": round(x), "y": round(y)})
     cities = cities_of(pr, [(n, la, lo, 0 if i < 2 else 1) for i, (n, la, lo) in enumerate(L["cities"])])
     write("lebanon", doc("lebanon", L["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, L["labels"]),
-                         admin_borders(pr, L["bbox"], fb, tol * 1.5), extra={"tints": tints(pr, [g for _, g in units], tol, areas)}))
+                         admin_borders(pr, L["bbox"], fb, tol * 1.5), extra={"pois": pois}))
 
 # ================================================================= legacy maps → v2 (blob shapes, bold palette)
 def build_legacy(keep):
