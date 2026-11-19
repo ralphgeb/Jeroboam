@@ -404,3 +404,5 @@ desvignes-morgon | 41 | - | https://www.jamessuckling.com/tasting-notes/136980/l
 thivin-cote-brouilly | 26 | - | https://www.jamessuckling.com/tasting-notes/252715/chateau-thivin-cote-de-brouilly-les-sept-vignes-2022
 brun-terres-dorees | 18 | - | https://www.jamessuckling.com/tasting-notes/176415/terres-dorees-jean-paul-brun-beaujolais-lancien-2020
 mas-daumas-gassac | 57 | - | https://www.jamessuckling.com/tasting-notes/265598/mas-de-daumas-gassac-saint-guilhem-le-desert-rouge-2022
+whispering-angel | 28 | - | https://www.jamessuckling.com/tasting-notes/133496/chateau-desclans-cotes-de-provence-whispering-angel-rose-2019
+cahors-cedre | 43 | - | https://www.jamessuckling.com/tasting-notes/246443/chateau-du-cedre-cahors-le-cedre-2020
