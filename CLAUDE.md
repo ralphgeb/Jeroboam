@@ -68,7 +68,7 @@ Jeroboam/Sources/        Swift app
   fallback generator — don't re-run it over the photos. `GrapeBadge` shows them (falls back to the drawn `GrapeCluster`).
 - Flavor icons: `FlavorIcons.swift`, one line icon per descriptor on a 24-pt grid (`FlavorGlyph.kind(for:)`); new aroma names need a mapping.
 - Maps: white focus country with a soft lift shadow, grey neighbours, blue sea, 13-color palette; areas are inset and rounded (`soften`).
-  Every map is built with 16% extra context (`MAP_PAD`). Cards use `WineMapView(fill: true)` (centered on the areas, always covering);
+  Every map is built with 50% extra context (`MAP_PAD` 0.5, same detail per degree) so the full map can cover a phone screen centered on the region. Cards use `WineMapView(fill: true)` (centered on the areas, always covering);
   the full map opens centered, can't zoom out past "cover", detail levels are relative to the whole-map zoom (`lodBase`),
   and has a collapsible numbered list card (`MapListCard`). Lebanon cazas are trimmed to vineyard zones (`specs_gb.LEBANON.zones`).
   Atlas hierarchy (`specs_gb.HIERARCHY`, modelled on the owner's printed-atlas photos): level 0 = big wine regions from
@@ -100,9 +100,9 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 10 uploaded (run 10; 9 = Lebanon/Portugal first pass). Build 8 (run 8): hatched big regions + country lift, full map zooms out to fit width and floats between
-  header and list card, interactive How to taste (`TastingStep` cards + sheet), more reference maps (29 regions).
-  No free reference map found yet for Portugal (whole), Douro, Chile, Argentina, Lebanon (3 search rounds: content/mapimgs*.json).
+- TestFlight build 12 uploaded (run 12; run 11 never got a macOS runner). Brand from the owner's Illustrator file, Sign in with
+  Apple + iCloud key-value sync (`Account.swift`; capabilities APPLE_ID_AUTH + ICLOUD enabled by the build workflow), redesigned
+  Style guide / Bottle sizes / Wine styles / Food & wine / Atlas home, medals, focused lesson maps, Regions|Appellations switch.
 - Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
   from the owner's winery map (`specs_gb.LEBANON.wineries`). Portugal: ~47 subregions from municipalities (owner's Wine Folly
   map used only as a reference). Areas are clipped to their map's bbox (an Azores "Lagoa" once stretched Portugal).
