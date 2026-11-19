@@ -102,7 +102,7 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 ## Status
 - Study guide: build_content.py generates per-level units (Grape files, Appellations, Words to know; `unit.study`), open as soon as the level is, not counted for level progress. Every grape/region/term the exams ask is taught there.
 - Chile and Argentina are separate maps (`chile`, `argentina`); Lebanon has 4 level-1 zones built from winery clusters (`LEBANON.zones` = km radius).
-- TestFlight build 15 uploaded (run 15; runs 13–14 failed on a stale provisioning profile, now cleared by the workflow before archiving). Brand from the owner's Illustrator file, Sign in with
+- TestFlight build 16 uploaded (run 16). Runs 13–14 failed on a stale provisioning profile, now cleared by the workflow before archiving. Prices are Claude estimates only (`WineRecognizer.livePrices = false`); maps are built so the whole region fits the phone explorer (phone rule in `Proj`). Brand from the owner's Illustrator file, Sign in with
   Apple + iCloud key-value sync (`Account.swift`; capabilities APPLE_ID_AUTH + ICLOUD enabled by the build workflow), redesigned
   Style guide / Bottle sizes / Wine styles / Food & wine / Atlas home, medals, focused lesson maps, Regions|Appellations switch.
 - Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
