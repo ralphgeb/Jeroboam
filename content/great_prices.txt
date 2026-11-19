@@ -446,3 +446,8 @@ pichon-baron | 163 | - | https://www.jamessuckling.com/tasting-notes/247019/chat
 pol-roger-vintage | 95 | - | https://www.jamessuckling.com/tasting-notes/310087/pol-roger-champagne-vintage-brut-2018
 ruinart-dom | 243 | - | https://www.jamessuckling.com/tasting-notes/54554/ruinart-dom-ruinart-blanc-de-blancs-brut-2004
 guigal-ex-voto | 326 | - | https://www.jamessuckling.com/tasting-notes/192135/e-guigal-hermitage-ex-voto-2018
+jadot-clos-saint-jacques | 233 | - | https://www.jamessuckling.com/tasting-notes/158526/louis-jadot-gevrey-chambertin-1er-cru-domaine-louis-jadot-clos-saint-jacques-2019
+leflaive-chevalier | 2330 | - | https://www.jamessuckling.com/tasting-notes/157971/domaine-leflaive-chevalier-montrachet-grand-cru-2014
+latour-corton | 141 | - | https://www.jamessuckling.com/tasting-notes/189348/louis-latour-corton-grand-cru-clos-du-roi-2020
+drouhin-chablis | 100 | - | https://www.jamessuckling.com/tasting-notes/102813/joseph-drouhin-chablis-grand-cru-vaudesir-2017
+louis-roederer-bdb | 99 | - | https://www.jamessuckling.com/tasting-notes/283924/louis-roederer-champagne-blanc-de-blancs
