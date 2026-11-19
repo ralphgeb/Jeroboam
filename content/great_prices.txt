@@ -395,3 +395,5 @@ blanck-schlossberg | 45 | 91 | https://www.wine-searcher.com/find/dom+paul+blanc
 weinbach-sgn | 186 | 94 | https://www.wine-searcher.com/find/dom+weinbach+gewurz+altenburg+select+de+grain+noble+alsace+france
 hugel-classic | 17 | - | https://www.jamessuckling.com/tasting-notes/117137/famille-hugel-alsace-gentil-2018
 foillard-morgon | 83 | 95 | https://www.jamessuckling.com/tasting-notes/78897/jean-foillard-morgon-cote-du-py-2016
+thevenet-morgon | 36 | - | https://www.jamessuckling.com/tasting-notes/177372/jean-paul-charly-thevenet-morgon-vieilles-vignes-2020
+chignard-fleurie | 31 | 93 | https://www.jamessuckling.com/tasting-notes/291340/domaine-chignard-fleurie-les-moriers-2023
