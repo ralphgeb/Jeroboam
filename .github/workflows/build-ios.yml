@@ -112,6 +112,18 @@ jobs:
                   call("POST", "https://api.appstoreconnect.apple.com/v1/bundleIdCapabilities", body); print("Enabled", cap)
               except urllib.error.HTTPError as e:
                   print("::warning::Could not enable", cap, e.code, e.read().decode()[:400])
+          # Stale profiles point at development certificates removed above; clear them so Xcode makes fresh ones.
+          try:
+              profs = call("GET", f"https://api.appstoreconnect.apple.com/v1/bundleIds/{bid}/profiles?limit=200").get("data", [])
+              print("Found", len(profs), "profile(s)")
+              for pf in profs:
+                  try:
+                      call("DELETE", "https://api.appstoreconnect.apple.com/v1/profiles/" + pf["id"])
+                      print("Deleted profile", pf["attributes"].get("name"), pf["attributes"].get("profileState"))
+                  except urllib.error.HTTPError as e:
+                      print("::warning::Could not delete profile", pf["id"], e.code)
+          except urllib.error.HTTPError as e:
+              print("::warning::Could not list profiles", e.code)
           PY
 
       - name: Select the newest released Xcode 
