@@ -463,3 +463,8 @@ phelan-segur | 59 | - | https://www.jamessuckling.com/tasting-notes/133144/chate
 issan | 70 | - | https://www.jamessuckling.com/tasting-notes/340189/chateau-dissan-margaux-2025
 clinet | 124 | - | https://www.jamessuckling.com/tasting-notes/107064/chateau-clinet-pomerol-2018
 belair-monange | 148 | - | https://www.jamessuckling.com/tasting-notes/182436/chateau-belair-monange-st-emilion-2021
+de-montille-volnay | 134 | - | https://www.jamessuckling.com/tasting-notes/55062/domaine-de-montille-volnay-les-taillepieds-premier-cru-2012
+dujac-morey | 257 | - | https://www.jamessuckling.com/tasting-notes/254413/domaine-dujac-morey-saint-denis-1er-cru-2020
+bouchard-enfant-jesus | 192 | - | https://www.jamessuckling.com/tasting-notes/265306/bouchard-pere-fils-beaune-1er-cru-greves-vigne-de-lenfant-jesus-2022
+henri-giraud | 500 | - | https://www.jamessuckling.com/tasting-notes/186768/henri-giraud-champagne-argonne-brut-2014
+bruno-paillard | 386 | - | https://www.jamessuckling.com/tasting-notes/43430/bruno-paillard-champagne-nee-plus-ultra-1999
