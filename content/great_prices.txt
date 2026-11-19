@@ -197,3 +197,16 @@ jose-pariente | 17 | 89 | https://www.wine-searcher.com/find/jose+pariente+verde
 numanthia | 66 | 92 | https://www.wine-searcher.com/find/numanthia+toro+castilla+y+leon+spain/1/usa-ca
 gramona | 66 | 93 | https://www.wine-searcher.com/find/gramona+iii+lustros+brut+nature+catalonia+spain
 inocente | 30 | 91 | https://www.wine-searcher.com/find/a+r+valdespino+inocente+single+fino+sherry+jerez+andalucia+spain/1/usa
+tio-pepe | 23 | 89 | https://www.wine-searcher.com/find/gonzalez+byass+tio+pepe+fino+muy+seco+sherry+jerez+andalucia+spain
+lustau-px | 32 | 91 | https://www.wine-searcher.com/find/lustau+solera+rsrv+pedro+ximenez+st+emilio+sherry+jerez+andalucia+spain
+egon-muller | 328 | 94 | https://www.wine-searcher.com/find/egon+muller+scharzhofberger+riesling+spatl+wiltingen+saar+mosel+germany
+jj-prum-auslese | 83 | 94 | https://www.wine-searcher.com/find/joh+jos+prum+sonnenuhr+riesling+auslese+wehlen+mosel+germany/2021
+jj-prum-kabinett | 71 | 92 | https://www.wine-searcher.com/find/joh+jos+prum+sonnenuhr+riesling+kabinett+wehlen+mosel+germany
+loosen-pralat | 194 | 92 | https://www.wine-searcher.com/find/dr+loosen+pralat+riesling+auslese+erdner+mosel+germany
+loosen-blue-slate | 25 | 89 | https://www.wine-searcher.com/find/dr+loosen+blue+slate+blau+schiefer+riesling+mosel+germany
+schloss-johannisberg | 35 | 90 | https://www.wine-searcher.com/find/schloss+johannisberg+gelblack+riesling+trocken+rheingau+germany/1/usa-ma
+weil-grafenberg | 103 | 94 | https://www.wine-searcher.com/find/robert+weil+grafenberg+riesling+grosses+gewachs+kiedrich+rheingau+germany/2023
+kunstler-holle | 71 | 93 | https://www.wine-searcher.com/find/kunstler+hochheim+holle+riesling+grosses+gewachs+rheingau+germany
+keller-gmax | 2686 | 97 | https://www.wine-searcher.com/find/keller+g+max+riesling+trocken+rheinhessen+germany
+keller-abtserde | 391 | 96 | https://www.wine-searcher.com/m/2025/12/the-best-rieslings-of-2025
+wittmann-morstein | 139 | 95 | https://www.wine-searcher.com/find/wittmann+morstein+riesling+grosses+gewachs+westhof+rheinhessen+germany

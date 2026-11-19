@@ -141,68 +141,127 @@ struct BottleShot: View {
 
     var body: some View {
         GeometryReader { geo in
-            let H = geo.size.height * 0.86
+            let H = geo.size.height * 0.84
             let W = H * (kind == .flute ? 0.24 : (kind == .champagne ? 0.30 : 0.28))
-            let top = geo.size.height * 0.07
+            let top = geo.size.height * 0.065
             let rect = CGRect(x: (geo.size.width - W) / 2, y: top, width: W, height: H)
+            let capH = H * (kind == .champagne ? 0.36 : 0.17)
             ZStack(alignment: .topLeading) {
-                Color.white
-                // floor shadow
-                Ellipse().fill(Color.black.opacity(0.13))
-                    .frame(width: W * 1.15, height: W * 0.18)
-                    .blur(radius: W * 0.06)
-                    .position(x: geo.size.width / 2, y: rect.maxY + W * 0.02)
-                // the glass
+                // studio sweep: white wall, soft grey floor, a pool of light behind the bottle
+                LinearGradient(stops: [.init(color: .white, location: 0), .init(color: Color(hex: "#FAFAF9"), location: 0.62),
+                                       .init(color: Color(hex: "#EFEEEC"), location: 1)], startPoint: .top, endPoint: .bottom)
+                RadialGradient(colors: [.white, .white.opacity(0)], center: UnitPoint(x: 0.5, y: 0.42),
+                               startRadius: 0, endRadius: geo.size.width * 0.55)
+                // ambient + contact shadows
+                Ellipse().fill(Color.black.opacity(0.10))
+                    .frame(width: W * 1.7, height: W * 0.22).blur(radius: W * 0.12)
+                    .position(x: geo.size.width / 2, y: rect.maxY + W * 0.03)
+                Ellipse().fill(Color.black.opacity(0.32))
+                    .frame(width: W * 0.98, height: W * 0.07).blur(radius: W * 0.025)
+                    .position(x: geo.size.width / 2, y: rect.maxY - W * 0.005)
+                // glass body: dark edges, a soft core, a crisp key highlight on the left and a rim light on the right
                 WineBottleShape(kind: kind)
-                    .fill(LinearGradient(stops: [.init(color: glass.mix(with: .black, 0.35), location: 0),
-                                                 .init(color: glass, location: 0.28), .init(color: glass.mix(with: .white, 0.08), location: 0.45),
-                                                 .init(color: glass.mix(with: .black, 0.45), location: 1)],
-                                         startPoint: .leading, endPoint: .trailing))
+                    .fill(LinearGradient(stops: [
+                        .init(color: glass.mix(with: .black, 0.55), location: 0),
+                        .init(color: glass.mix(with: .black, 0.15), location: 0.10),
+                        .init(color: glass, location: 0.30),
+                        .init(color: glass.mix(with: .black, 0.10), location: 0.55),
+                        .init(color: glass.mix(with: .white, 0.10), location: 0.84),
+                        .init(color: glass.mix(with: .black, 0.60), location: 1)],
+                        startPoint: .leading, endPoint: .trailing))
+                    .frame(width: rect.width, height: rect.height).offset(x: rect.minX, y: rect.minY)
+                // depth: the base and shoulder a touch darker
+                WineBottleShape(kind: kind)
+                    .fill(LinearGradient(stops: [.init(color: .black.opacity(0.0), location: 0.45),
+                                                 .init(color: .black.opacity(0.22), location: 1)], startPoint: .top, endPoint: .bottom))
                     .frame(width: rect.width, height: rect.height).offset(x: rect.minX, y: rect.minY)
                 // capsule / foil
                 WineBottleShape(kind: kind)
-                    .fill(LinearGradient(colors: [capsule.mix(with: .black, 0.3), capsule.mix(with: .white, 0.25), capsule.mix(with: .black, 0.35)],
+                    .fill(LinearGradient(stops: [.init(color: capsule.mix(with: .black, 0.45), location: 0),
+                                                 .init(color: capsule.mix(with: .white, 0.30), location: 0.24),
+                                                 .init(color: capsule, location: 0.45),
+                                                 .init(color: capsule.mix(with: .white, 0.12), location: 0.80),
+                                                 .init(color: capsule.mix(with: .black, 0.50), location: 1)],
                                          startPoint: .leading, endPoint: .trailing))
                     .frame(width: rect.width, height: rect.height)
-                    .mask(alignment: .top) { Rectangle().frame(height: H * (kind == .champagne ? 0.36 : 0.17)) }
+                    .mask(alignment: .top) { Rectangle().frame(height: capH) }
                     .offset(x: rect.minX, y: rect.minY)
+                // foil band at the bottom of the capsule
+                Rectangle().fill(capsule.mix(with: .black, 0.35))
+                    .frame(width: W * (kind == .champagne ? 0.62 : 0.31), height: max(0.6, H * 0.006))
+                    .position(x: geo.size.width / 2, y: top + capH - H * 0.004)
                 // label
                 label(width: W)
                     .frame(width: W * (kind == .flute ? 0.86 : 0.84), height: H * (kind == .flute ? 0.24 : 0.30))
                     .position(x: geo.size.width / 2, y: top + H * (kind == .flute ? 0.73 : 0.70))
-                // highlight
-                RoundedRectangle(cornerRadius: W * 0.04)
-                    .fill(LinearGradient(colors: [.white.opacity(0.0), .white.opacity(0.32), .white.opacity(0.0)], startPoint: .top, endPoint: .bottom))
-                    .frame(width: W * 0.07, height: H * 0.7)
-                    .position(x: rect.minX + W * 0.2, y: top + H * 0.6)
+                // key highlight: a crisp narrow strip plus a soft glow beside it
+                Capsule()
+                    .fill(LinearGradient(colors: [.white.opacity(0.0), .white.opacity(0.55), .white.opacity(0.35), .white.opacity(0.0)],
+                                         startPoint: .top, endPoint: .bottom))
+                    .frame(width: max(1, W * 0.035), height: H * 0.62)
+                    .position(x: rect.minX + W * 0.22, y: top + H * 0.62)
                     .blendMode(.screen)
+                Capsule()
+                    .fill(LinearGradient(colors: [.white.opacity(0.0), .white.opacity(0.18), .white.opacity(0.0)],
+                                         startPoint: .top, endPoint: .bottom))
+                    .frame(width: W * 0.12, height: H * 0.66).blur(radius: W * 0.02)
+                    .position(x: rect.minX + W * 0.24, y: top + H * 0.62)
+                    .blendMode(.screen)
+                // highlight on the neck
+                Capsule().fill(Color.white.opacity(0.35))
+                    .frame(width: max(1, W * 0.025), height: H * 0.12)
+                    .position(x: geo.size.width / 2 - W * 0.07, y: top + H * (kind == .bordeaux ? 0.24 : 0.22))
+                    .blendMode(.screen)
+                // rim light on the right edge
+                Capsule()
+                    .fill(LinearGradient(colors: [.white.opacity(0.0), .white.opacity(0.22), .white.opacity(0.0)],
+                                         startPoint: .top, endPoint: .bottom))
+                    .frame(width: max(0.8, W * 0.02), height: H * 0.5)
+                    .position(x: rect.maxX - W * 0.07, y: top + H * 0.66)
+                    .blendMode(.screen)
+                // a fine outline so the bottle never melts into the light ground
+                WineBottleShape(kind: kind)
+                    .stroke(Color.black.opacity(0.25), lineWidth: max(0.4, W * 0.006))
+                    .frame(width: rect.width, height: rect.height).offset(x: rect.minX, y: rect.minY)
             }
         }
         .aspectRatio(0.78, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: corner, style: .continuous).strokeBorder(Color.black.opacity(0.06), lineWidth: 0.5))
+        .environment(\.colorScheme, .light)
     }
 
     private func label(width W: CGFloat) -> some View {
         let paper = wine.color == "sparkling" ? Color(hex: "#F6F1E4") : Color(hex: "#FBF8F1")
-        return VStack(spacing: W * 0.035) {
+        let ink = Color(hex: "#1E1512")
+        return VStack(spacing: W * 0.03) {
             Text(wine.producer.uppercased())
-                .font(.system(size: W * 0.065, weight: .semibold, design: .serif)).kerning(W * 0.004)
+                .font(.system(size: W * 0.06, weight: .semibold, design: .serif)).kerning(W * 0.006)
                 .foregroundStyle(Color(hex: "#5A4A40"))
                 .lineLimit(1).minimumScaleFactor(0.5)
-            Rectangle().fill(capsule.opacity(0.8)).frame(width: W * 0.28, height: max(0.5, W * 0.008))
+            HStack(spacing: W * 0.03) {
+                Rectangle().fill(capsule.opacity(0.7)).frame(width: W * 0.12, height: max(0.5, W * 0.006))
+                Circle().fill(capsule.opacity(0.8)).frame(width: W * 0.025, height: W * 0.025)
+                Rectangle().fill(capsule.opacity(0.7)).frame(width: W * 0.12, height: max(0.5, W * 0.006))
+            }
             Text(wine.name)
-                .font(.system(size: W * 0.11, weight: .semibold, design: .serif))
-                .foregroundStyle(Color(hex: "#1E1512"))
+                .font(.system(size: W * 0.105, weight: .semibold, design: .serif))
+                .foregroundStyle(ink)
                 .multilineTextAlignment(.center).lineLimit(3).minimumScaleFactor(0.45)
             Text(wine.zone.components(separatedBy: " · ").last ?? "")
-                .font(.system(size: W * 0.055, weight: .regular, design: .serif)).italic()
+                .font(.system(size: W * 0.052, weight: .regular, design: .serif)).italic()
                 .foregroundStyle(Color(hex: "#7A6A5E")).lineLimit(1).minimumScaleFactor(0.5)
         }
-        .padding(.horizontal, W * 0.06).padding(.vertical, W * 0.05)
+        .padding(.horizontal, W * 0.07).padding(.vertical, W * 0.05)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Rectangle().fill(paper))
-        .overlay(Rectangle().strokeBorder(capsule.opacity(0.35), lineWidth: max(0.5, W * 0.008)).padding(W * 0.025))
+        .overlay(Rectangle().strokeBorder(capsule.opacity(0.35), lineWidth: max(0.5, W * 0.007)).padding(W * 0.025))
+        // the label wraps around a cylinder: shade both edges, catch the light on the left
+        .overlay(LinearGradient(stops: [.init(color: .black.opacity(0.28), location: 0), .init(color: .black.opacity(0.0), location: 0.16),
+                                        .init(color: .white.opacity(0.18), location: 0.26), .init(color: .black.opacity(0.0), location: 0.40),
+                                        .init(color: .black.opacity(0.0), location: 0.72), .init(color: .black.opacity(0.32), location: 1)],
+                                startPoint: .leading, endPoint: .trailing))
+        .overlay(alignment: .top) { Rectangle().fill(Color.black.opacity(0.10)).frame(height: max(0.5, W * 0.006)) }
     }
 }
 
