@@ -172,12 +172,17 @@ struct JournalView: View {
                     .pickerStyle(.segmented)
 
                     if section == 0 { cellarSection } else { tastingsSection }
+                    JournalExtras(onBlind: { blind = true })
                     Color.clear.frame(height: 20)
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
+            .navigationDestination(for: Wine.self) { w in WineDetailView(wine: w) }
+            .navigationDestination(for: Grape.self) { g in GrapeDetailView(grape: g) }
+            .navigationDestination(for: Region.self) { r in RegionDetailView(region: r) }
+            .navigationDestination(for: WineStyle.self) { st in StyleDetailView(style: st) }
         }
         .fullScreenCover(isPresented: $scan) { ScanFlow() }
         .fullScreenCover(isPresented: $blind) { TastingFlow(blind: true) }

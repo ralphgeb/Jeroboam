@@ -1,0 +1,97 @@
+- title: "Deep dive: a year in the vineyard"
+  icon: calendar
+  cards:
+    - learn: "Winter: pruning"
+      visual: "photo:pruning"
+      body: |
+        While the vine sleeps, growers **prune** last year's canes. Pruning decides how many buds, and so how many bunches, the vine will carry.
+
+        - **Cane pruning** (Guyot): one or two long canes are kept and tied along a wire. Common in Bordeaux and Burgundy.
+        - **Spur pruning** (cordon, gobelet): many short two-bud spurs on a permanent arm or trunk.
+
+        Fewer buds usually means fewer but more concentrated grapes.
+    - learn: "Spring: budburst, frost and flowering"
+      visual: "photo:budburst"
+      body: |
+        As soils warm past about **10 °C**, buds swell and burst. Young shoots are fragile: one clear, still night below freezing can kill them. Growers fight **spring frost** with candles, wind machines or sprinklers that coat buds in protective ice.
+
+        Around **June**, tiny flowers self-pollinate. Cold, wet or windy weather at flowering causes **coulure** (flowers fail) and **millerandage** (uneven small berries), cutting the crop.
+    - learn: "Summer: fruit set and véraison"
+      visual: "photo:veraison"
+      body: |
+        After flowering, berries form and grow while hard and green. Mid-summer brings **véraison**: black grapes change color, all grapes soften and start piling up sugar while acid falls.
+
+        Growers trim shoots, remove leaves around bunches for sun and air, and sometimes **green harvest** (cut some bunches) so the rest ripen better.
+    - learn: "Autumn: harvest"
+      visual: "photo:harvest"
+      body: |
+        Picking day is a balance of **sugar** (future alcohol), **acidity** (freshness) and **ripe tannins and flavors**.
+
+        - **Hand picking** allows selection of whole bunches; essential on steep slopes and for sparkling wine, sweet wine and whole-bunch ferments.
+        - **Machine harvesting** shakes berries off at night, quickly and cheaply, when grapes are cool.
+    - learn: Phenolic ripeness
+      body: |
+        Sugar ripeness and **phenolic ripeness** are not the same thing. Phenolics are the skin and seed compounds that give color, tannin and flavor.
+
+        In hot places sugar races ahead; picking early keeps alcohol down but tannins taste green. In cool places the grapes may never get enough sugar. Great sites let both arrive together.
+    - choice: "What is véraison?"
+      options: ["When grapes change color and start to ripen", "The first frost of winter", "When buds first open", "The final pressing"]
+      a: "When grapes change color and start to ripen"
+      explain: "At véraison black grapes turn purple, all grapes soften, sugar rises and acidity falls."
+    - choice: "Why do growers light candles or run wind machines in spring?"
+      options: ["To protect young shoots from frost", "To ripen the grapes faster", "To scare away birds", "To dry the soil"]
+      a: "To protect young shoots from frost"
+      explain: "Frost on a still night pools in low spots; wind machines mix in warmer air from above."
+    - tf: "Cold, wet weather at flowering can reduce the size of the crop."
+      truth: true
+      explain: "Poor flowering (coulure) and uneven berry set (millerandage) both cut yields."
+    - match: "Match the season to the vineyard job"
+      pairs: [[Winter, Pruning], [Spring, Frost protection], [Summer, Leaf removal], [Autumn, Harvest]]
+      explain: "The vineyard calendar runs from pruning in winter to picking in autumn (reversed in the Southern Hemisphere)."
+    - blank: "Picking ___ of whole bunches is needed for traditional-method sparkling wine."
+      answers: [by hand]
+      options: [by machine, at noon, after frost]
+      explain: "Whole, undamaged bunches are pressed gently so the juice stays pale."
+- title: "Deep dive: soil, slope and water"
+  icon: mountain.2
+  cards:
+    - learn: What soil really does
+      visual: "photo:soil-limestone"
+      body: |
+        Soil matters less for "flavor" than for **water and heat**.
+
+        - **Free-draining** soils (gravel, sand, slate) keep roots searching deep and limit vigor: smaller berries, more concentration.
+        - **Water-holding** soils (clay) keep vines going in drought but can be cold and late in wet years.
+        - **Limestone** and chalk drain well yet hold water in their pores, keeping acidity fresh. Champagne, Chablis and Saint-Émilion sit on it.
+    - learn: Stones that store heat
+      visual: "photo:soil-slate"
+      body: |
+        Dark **slate** in the Mosel and big rounded **galets** in Châteauneuf-du-Pape soak up the sun by day and give warmth back at night, helping grapes ripen in marginal places.
+
+        Light-colored chalk does the opposite: it reflects light up into the canopy.
+    - learn: Slope, aspect and water
+      visual: "photo:mosel-slope"
+      body: |
+        In cool regions, a **south-facing slope** (north-facing in the Southern Hemisphere) catches more sun at a better angle. Slopes also drain cold air and water away.
+
+        Nearby **rivers and lakes** reflect light and soften temperature swings: the Mosel, Rhine, Loire and Douro are lined with vineyards for a reason.
+    - learn: Altitude and fog
+      visual: "photo:mendoza-andes"
+      body: |
+        Temperature falls about **0.6 °C every 100 m** you climb. Argentina's Mendoza and Salta grow fresh wines at 1,000–3,000 m in otherwise hot latitudes.
+
+        Cold ocean currents and **fog** do the same job near the coast: California's Sonoma Coast, Chile's Casablanca and South Africa's Elgin all rely on them.
+    - choice: "Why are south-facing slopes prized in cool Northern Hemisphere regions?"
+      options: ["They get more and stronger sunlight", "They have richer soil", "They are easier to harvest", "They get more rain"]
+      a: "They get more and stronger sunlight"
+      explain: "The sun hits a south-facing slope at a steeper angle, so more energy reaches each vine."
+    - choice: "Which soil drains well but still holds water for dry spells?"
+      options: [Chalk, Sand, Gravel, Granite]
+      a: Chalk
+      explain: "Porous chalk acts like a sponge, which is why Champagne vines rarely suffer drought."
+    - tf: "Vineyards at high altitude are cooler than low ones at the same latitude."
+      truth: true
+      explain: "Roughly 0.6 °C cooler for every 100 m of altitude."
+    - match: "Match the region to its signature soil"
+      pairs: [[Mosel, Slate], [Champagne, Chalk], [Médoc, Gravel], [Châteauneuf-du-Pape, Galets]]
+      explain: "Each soil helps vines cope with that place's climate."

@@ -1,0 +1,63 @@
+- title: "Deep dive: German Riesling decoded"
+  icon: textformat
+  cards:
+    - learn: Prädikat levels
+      visual: "photo:mosel-slope"
+      body: |
+        German quality wine is graded by **grape ripeness at harvest**, not by sweetness in the glass:
+
+        **Kabinett** → **Spätlese** (late harvest) → **Auslese** (selected bunches) → **Beerenauslese** (selected berries, usually botrytized) → **Trockenbeerenauslese** (dried botrytized berries) and **Eiswein**.
+
+        Kabinett and Spätlese are often off-dry; **Trocken** on a label means dry.
+    - learn: VDP and Grosses Gewächs
+      body: |
+        The VDP growers' association uses a Burgundy-style pyramid: **Gutswein**, **Ortswein** (village), **Erste Lage** (premier cru) and **Grosse Lage** (grand cru). A dry wine from a Grosse Lage is a **Grosses Gewächs** (GG), shown by "GG" on the bottle.
+    - learn: Regions and bottles
+      body: |
+        - **Mosel**: steep slate, light, racy, low alcohol.
+        - **Rheingau**: south-facing slopes on the Rhine, fuller and drier.
+        - **Pfalz**: warmest, rich dry Riesling and Spätburgunder (Pinot Noir).
+        - **Nahe**, **Rheinhessen**, **Franken** (Silvaner in the flat *Bocksbeutel* bottle).
+
+        Most German wine comes in the tall **flûte** bottle: brown glass traditionally for the Rhine, green for the Mosel.
+    - choice: "What do German Prädikat levels measure?"
+      options: ["Grape ripeness at harvest", "Sweetness of the finished wine", "Years in oak", "Alcohol level"]
+      a: "Grape ripeness at harvest"
+      explain: "A Spätlese can be dry or sweet; check for 'trocken'."
+    - choice: "What does 'GG' on a German bottle mean?"
+      options: ["A dry wine from a top vineyard", "A sparkling wine", "A sweet late harvest", "A blend of grapes"]
+      a: "A dry wine from a top vineyard"
+      explain: "Grosses Gewächs: dry wine from a VDP Grosse Lage."
+    - match: "Put the Prädikat levels in order with their meaning"
+      pairs: [[Kabinett, Lightest], [Spätlese, Late harvest], [Auslese, Selected bunches], [Trockenbeerenauslese, Dried botrytized berries]]
+      explain: "Each step up means riper, rarer grapes."
+- title: "Deep dive: Austria, Hungary and Greece"
+  icon: mountain.2
+  cards:
+    - learn: Austria
+      visual: "photo:wachau"
+      body: |
+        **Grüner Veltliner** (white pepper, citrus) and **Riesling** shine on the Danube terraces of the **Wachau**, **Kremstal** and **Kamptal**. The Wachau grades dry wines as **Steinfeder**, **Federspiel** and **Smaragd** (richest).
+
+        **Blaufränkisch** and **Zweigelt** make spicy reds in Burgenland; around Lake **Neusiedl**, mists bring noble-rot sweet wines.
+    - learn: Hungary
+      visual: "photo:tokaj"
+      body: |
+        Beyond Tokaji: dry **Furmint** is now a serious white; **Eger** makes the red blend *Egri Bikavér* ("Bull's Blood"); **Villány** in the warm south grows Cabernet Franc and Bordeaux blends.
+    - learn: Greece
+      visual: "photo:santorini-kouloura"
+      body: |
+        - **Santorini**: **Assyrtiko** on volcanic ash; vines trained into low baskets (*kouloura*) to shelter grapes from wind. Sweet **Vinsanto** from sun-dried grapes.
+        - **Naoussa**: **Xinomavro**, tannic and tomato-scented, Greece's "Barolo".
+        - **Nemea**: soft, fruity **Agiorgitiko**.
+    - choice: "What is the richest dry wine category in the Wachau?"
+      options: [Smaragd, Federspiel, Steinfeder, Kabinett]
+      a: Smaragd
+      explain: "Named after the emerald lizard sunning itself on the terraces."
+    - choice: "Why are Santorini vines trained into baskets?"
+      options: ["To protect grapes from strong winds and sun", "To make picking faster", "To keep goats away", "For decoration"]
+      a: "To protect grapes from strong winds and sun"
+      explain: "The kouloura shelters bunches inside the coiled vine."
+    - tf: "Egri Bikavér is a sweet white wine."
+      truth: false
+      explain: "It is a red blend from Eger, 'Bull's Blood'."

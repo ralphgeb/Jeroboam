@@ -1,0 +1,98 @@
+- title: "Deep dive: from grape to red wine"
+  icon: drop
+  cards:
+    - learn: Sorting and crushing
+      visual: "photo:crusher"
+      body: |
+        At the winery, bunches go over a **sorting table** to remove leaves and bad berries. A **destemmer** pulls the berries off the stems; rollers then crack the skins.
+
+        Some winemakers keep **whole bunches** (stems and all) for a fresher, spicier, more aromatic red: common in Burgundy and northern Rhône.
+    - learn: Fermentation on the skins
+      visual: "photo:fermentation-tank"
+      body: |
+        Red wine ferments **with the skins**, at about **20–32 °C**, warmer than whites. Heat and alcohol pull color, tannin and flavor out of the skins.
+
+        Carbon dioxide pushes the skins up into a thick **cap**. It must be kept wet:
+        - **Pump-over** (remontage): juice from the bottom is sprayed over the cap.
+        - **Punch-down** (pigeage): the cap is pushed down by hand or machine.
+    - learn: Extraction and pressing
+      visual: "photo:punch-down"
+      body: |
+        After fermentation the wine may sit on the skins for days or weeks (**post-fermentation maceration**) to soften and build tannin.
+
+        The free-run wine is drained off, then the skins are pressed. **Press wine** is darker and more tannic; the winemaker blends some back in for structure.
+    - learn: Malolactic conversion
+      body: |
+        Almost all reds then go through **malolactic conversion** (MLC): bacteria turn sharp **malic acid** (green apple) into softer **lactic acid** (milk).
+
+        It makes wine rounder and more stable and can add a buttery note. For whites it is a choice: Burgundy Chardonnay often does it, Riesling and Sauvignon Blanc usually do not.
+    - learn: Oak or not?
+      visual: "photo:barrel-cellar"
+      body: |
+        - **New oak** adds vanilla, toast, clove, coconut (American oak) and smooths tannins through slow oxygen exchange.
+        - **Old oak** gives gentle oxygen without much flavor.
+        - **Stainless steel** and concrete keep fruit pure.
+
+        Barrels are toasted over fire; the **toast level** (light, medium, heavy) changes the flavors.
+    - choice: "Why does red wine ferment with the grape skins?"
+      options: ["To extract color, tannin and flavor", "To make it sweeter", "To lower the alcohol", "To make bubbles"]
+      a: "To extract color, tannin and flavor"
+      explain: "The juice of almost all black grapes is clear; the color is in the skins."
+    - choice: "What does malolactic conversion do?"
+      options: ["Turns sharp malic acid into softer lactic acid", "Turns sugar into alcohol", "Adds oak flavor", "Removes tannin"]
+      a: "Turns sharp malic acid into softer lactic acid"
+      explain: "MLC softens acidity and can add buttery notes (diacetyl)."
+    - match: "Match the technique to what it means"
+      pairs: [[Pigeage, Punching down the cap], [Remontage, Pumping juice over the cap], [Press wine, Darker wine squeezed from skins], [Whole bunch, Fermenting with stems]]
+      explain: "These are the winemaker's main tools for managing extraction."
+    - tf: "American oak tends to give stronger coconut and vanilla notes than French oak."
+      truth: true
+      explain: "It is wider-grained and richer in the compounds behind coconut aromas: think traditional Rioja."
+    - blank: "The layer of skins floating on fermenting red wine is called the ___."
+      answers: [cap]
+      options: [lees, must, flor]
+      explain: "It is pushed up by carbon dioxide and must be kept moist to avoid spoilage."
+- title: "Deep dive: whites, rosés and finishing touches"
+  icon: sparkles
+  cards:
+    - learn: "White wine: cool and clean"
+      visual: "photo:press"
+      body: |
+        For white wine, grapes are **pressed first** and the skins removed. The juice is cooled and allowed to settle so it ferments clean.
+
+        Fermentation is cool, about **12–22 °C**, to keep delicate fruit and floral aromas. Many aromatic whites stay in stainless steel; rich Chardonnay may ferment in barrel.
+    - learn: Lees and bâtonnage
+      body: |
+        After fermentation, dead yeast cells, the **lees**, settle out. Leaving wine on fine lees adds texture and bready, nutty notes. Stirring them up is **bâtonnage**.
+
+        Muscadet *sur lie* and white Burgundy are classic examples.
+    - learn: Rosé, three ways
+      visual: "flow:rose-making"
+      body: |
+        - **Short maceration**: black grapes soak on their skins for a few hours, then the pink juice is fermented like a white.
+        - **Direct pressing**: whole black grapes pressed gently; very pale rosé (Provence style).
+        - **Saignée**: some juice is "bled" from a red ferment, concentrating the red and making a deeper rosé.
+
+        Blending red and white wine is only allowed in a few cases, such as rosé Champagne.
+    - learn: Clarifying, stabilizing, bottling
+      visual: "photo:corks"
+      body: |
+        Before bottling, wine is **fined** (proteins such as egg white or bentonite clay grab haze-causing particles) and often **filtered**.
+
+        **Cold stabilization** prevents harmless tartrate crystals ("wine diamonds"). A little **sulfur dioxide** protects against oxygen and microbes.
+
+        Closures: natural cork, technical cork, screw cap (keeps fruit fresh, no cork taint) or glass stopper.
+    - choice: "Why are most white wines fermented cooler than reds?"
+      options: ["To keep fresh, fruity aromas", "To extract more tannin", "To make the wine darker", "To speed things up"]
+      a: "To keep fresh, fruity aromas"
+      explain: "Low temperatures preserve volatile aromas; reds need warmth to extract from skins."
+    - choice: "Which rosé method bleeds juice from a red wine tank?"
+      options: [Saignée, Direct pressing, Blending, Carbonic maceration]
+      a: Saignée
+      explain: "French for 'bleeding': the red left behind becomes more concentrated."
+    - tf: "Tartrate crystals in a bottle mean the wine has spoiled."
+      truth: false
+      explain: "They are harmless potassium bitartrate, sometimes called wine diamonds."
+    - match: "Match the term to its meaning"
+      pairs: [[Lees, Dead yeast sediment], [Bâtonnage, Stirring the lees], [Fining, Removing haze with a binding agent], [Sur lie, Aged on its lees]]
+      explain: "All about texture and clarity."

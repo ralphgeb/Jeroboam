@@ -37,6 +37,8 @@ struct VisualView: View {
                     .fullScreenCover(item: Binding(get: { showMap.map { MapRef(id: $0, hl: hl) } }, set: { showMap = $0?.id })) { ref in
                         MapExplorer(mapID: ref.id, highlight: ref.hl)
                     }
+            case "photo":
+                PhotoView(id: arg, height: hideAnswers ? 170 : (compact ? 200 : 230))
             case "grape":
                 if let g = ContentStore.shared.grape(arg), hideAnswers {
                     GrapeBadge(grape: g, size: 120, disc: false).frame(maxWidth: .infinity)
@@ -576,5 +578,47 @@ struct TanninAcidDiagram: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(14)
         .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.cardAlt))
+    }
+}
+
+// MARK: - Photos (openly licensed, bundled in Resources/Photos with credits.json)
+
+enum Photos {
+    struct Credit: Decodable { let title: String; let license: String; let artist: String }
+    private static var cache: [String: UIImage] = [:]
+    static let credits: [String: Credit] = {
+        guard let url = Bundle.main.url(forResource: "credits", withExtension: "json", subdirectory: "Photos"),
+              let data = try? Data(contentsOf: url) else { return [:] }
+        return (try? JSONDecoder().decode([String: Credit].self, from: data)) ?? [:]
+    }()
+    static func image(_ id: String) -> UIImage? {
+        if let i = cache[id] { return i }
+        guard let url = Bundle.main.url(forResource: id, withExtension: "jpg", subdirectory: "Photos"),
+              let img = UIImage(contentsOfFile: url.path) else { return nil }
+        cache[id] = img
+        return img
+    }
+    static func creditLine(_ id: String) -> String? {
+        guard let c = credits[id] else { return nil }
+        let who = c.artist.isEmpty ? "Wikimedia Commons" : c.artist
+        return "Photo: \(who) · \(c.license)"
+    }
+}
+
+struct PhotoView: View {
+    let id: String
+    var height: CGFloat = 220
+    var body: some View {
+        if let img = Photos.image(id) {
+            VStack(alignment: .leading, spacing: 5) {
+                Color.clear
+                    .frame(height: height)
+                    .overlay(Image(uiImage: img).resizable().scaledToFill())
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                if let c = Photos.creditLine(id) {
+                    Text(c).font(.system(size: 10)).foregroundStyle(Palette.inkFaint).lineLimit(1)
+                }
+            }
+        }
     }
 }

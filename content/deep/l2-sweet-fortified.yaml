@@ -1,0 +1,90 @@
+- title: "Deep dive: how sweetness is made"
+  icon: drop.fill
+  cards:
+    - learn: Concentrate the sugar
+      visual: "photo:botrytis"
+      body: |
+        Sweet wine needs grapes so sugary that yeast cannot (or is not allowed to) ferment it all. Four ways:
+
+        - **Noble rot** (*Botrytis cinerea*): misty mornings, sunny afternoons; the fungus pierces skins and water evaporates. Sauternes, Tokaji, Trockenbeerenauslese.
+        - **Drying**: grapes dry on mats or in lofts (*appassimento*, *passito*). Recioto, Vin Santo.
+        - **Freezing**: grapes freeze on the vine; water stays behind as ice when pressed. Icewine, Eiswein.
+        - **Late harvest**: simply leave grapes to shrivel on the vine.
+    - learn: Icewine
+      visual: "photo:icewine-grapes"
+      body: |
+        Grapes must be picked frozen, at about **-8 °C** or colder, usually at night in December or January. Only a few drops of syrupy juice come from each bunch.
+
+        Canada (Ontario, often **Vidal** or Riesling) and Germany/Austria (Eiswein) are the leaders. The style is intensely sweet with piercing acidity.
+    - learn: Stop the fermentation
+      body: |
+        Another route is to **stop** fermentation while sugar remains:
+        - Chilling and filtering out the yeast (Moscato d'Asti, many German Kabinett and Spätlese).
+        - Adding grape spirit, which kills the yeast: **fortification** (Port, Vins Doux Naturels).
+    - learn: Tokaji Aszú
+      visual: "photo:tokaj"
+      body: |
+        In Hungary's Tokaj, botrytized **aszú** berries (mainly **Furmint**) are picked one by one and soaked in fermenting wine. Sweetness used to be measured in **puttonyos**, the baskets of aszú added; today the minimum is 120 g/L of sugar.
+
+        **Eszencia** is the free-run syrup alone: so sweet it barely ferments, reaching just a few % alcohol.
+    - choice: "What does noble rot do to grapes?"
+      options: ["Shrivels them and concentrates sugar and acid", "Makes them burst and spoil", "Turns them purple", "Adds alcohol"]
+      a: "Shrivels them and concentrates sugar and acid"
+      explain: "Botrytis pierces the skin and water evaporates; it also adds honey, marmalade and saffron notes."
+    - choice: "How cold must grapes be for icewine?"
+      options: ["About -8 °C or colder", "Just below 0 °C", "About 5 °C", "-30 °C"]
+      a: "About -8 °C or colder"
+      explain: "At that temperature most of the water is frozen, leaving concentrated juice."
+    - match: "Match the sweet wine to its method"
+      pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Vin Santo, Dried grapes], [Port, Fortification]]
+      explain: "Four different routes to sweetness."
+    - tf: "Furmint is the main grape of Tokaji."
+      truth: true
+      explain: "Furmint's high acidity balances the huge sweetness; Hárslevelű is its partner."
+- title: "Deep dive: Port, Sherry and Madeira"
+  icon: building.columns
+  cards:
+    - learn: "Port: the Douro and Gaia"
+      visual: "photo:douro-terraces"
+      body: |
+        Port grapes (Touriga Nacional, Touriga Franca, Tinta Roriz and others) grow on steep **schist terraces** of the Douro. Fermentation lasts only two or three days before **grape spirit at 77%** is added, leaving a sweet wine of about **19–22%**.
+
+        Traditionally the young wine went downriver to the lodges of **Vila Nova de Gaia**, opposite Porto, to age.
+    - learn: Ruby or tawny?
+      visual: "photo:port-lodge"
+      body: |
+        - **Ruby styles** age in big vats or bottle; fruit stays deep red and fresh. Ruby, Reserve, LBV (4–6 years in wood), and **Vintage Port**, made only in declared years and aged for decades in bottle.
+        - **Tawny styles** age in small casks; oxygen fades the color to amber and builds nutty, caramel notes. 10, 20, 30, 40 Year Old, and **Colheita** (single harvest).
+    - learn: "Sherry: flor or no flor"
+      visual: "photo:solera"
+      body: |
+        Sherry is made from **Palomino** in the chalky *albariza* soils around **Jerez**. The base wine is dry; it is fortified and aged in a **solera**, a stack of casks where young wine refreshes older wine.
+
+        - **Fino / Manzanilla**: fortified to about 15%, so a layer of yeast, **flor**, grows on top and protects it from air. Pale, salty, bone dry.
+        - **Oloroso**: fortified to about 17%, too strong for flor; ages with oxygen into a dark, nutty wine.
+        - **Amontillado** and **Palo Cortado** sit in between.
+        - **Pedro Ximénez**: sun-dried grapes, syrupy sweet.
+    - learn: "Madeira: cooked and immortal"
+      visual: "glass:amber"
+      body: |
+        On the Portuguese island of Madeira, wines are deliberately **heated**: in tanks (*estufagem*) or for years in warm attics (*canteiro*). The result tastes of caramel and walnut with soaring acidity, and can last for centuries once opened.
+
+        Styles follow the grapes, dry to sweet: **Sercial**, **Verdelho**, **Bual**, **Malmsey** (Malvasia).
+    - choice: "Why is fino sherry so pale?"
+      options: ["A layer of flor yeast protects it from oxygen", "It is made from white grapes only", "It is filtered through charcoal", "It ages very briefly"]
+      a: "A layer of flor yeast protects it from oxygen"
+      explain: "Without air contact, it stays pale and fresh, with salty, bready notes."
+    - choice: "Where do the big Port houses traditionally age their wines?"
+      options: ["Vila Nova de Gaia", "Jerez", "Funchal", "Lisbon"]
+      a: "Vila Nova de Gaia"
+      explain: "Across the Douro from Porto; the lodges' signs line the riverfront."
+    - match: "Match the Madeira style to its sweetness"
+      pairs: [[Sercial, Dry], [Verdelho, Medium dry], [Bual, Medium sweet], [Malmsey, Sweet]]
+      explain: "The grape names on the label tell you the sweetness."
+    - tf: "Tawny Port gets its color from ageing in small casks."
+      truth: true
+      explain: "Slow oxidation turns the red to amber-brown."
+    - blank: "A tiered system of casks where young sherry refreshes older sherry is a ___."
+      answers: [solera]
+      options: [qvevri, puttonyos, lodge]
+      explain: "Wine is drawn from the oldest casks and topped up from the next oldest."

@@ -1,0 +1,96 @@
+- title: "Deep dive: the traditional method step by step"
+  icon: sparkles
+  cards:
+    - learn: 1. The base wine
+      visual: "photo:champagne-vineyards"
+      body: |
+        Grapes are picked early for high acidity and pressed gently as **whole bunches**. The first, purest juice is the *cuvée*; later pressings (*taille*) are fuller and less fine.
+
+        The juice ferments into a dry, sharp, low-alcohol **base wine**. Many base wines from different villages, grapes and years are blended into the house style: this is the **assemblage**.
+    - learn: 2. Second fermentation in bottle
+      body: |
+        The blend is bottled with the **liqueur de tirage**: wine, sugar and yeast. A crown cap seals it.
+
+        Yeast eats the sugar, making about **1.5% more alcohol** and carbon dioxide that cannot escape: around **6 atmospheres** of pressure, three times a car tire.
+    - learn: 3. Ageing on the lees
+      visual: "photo:champagne-cellar"
+      body: |
+        Dead yeast cells (lees) slowly break down (**autolysis**), giving bread, brioche, biscuit and toast notes and a finer, creamier mousse.
+
+        Champagne rules: at least **15 months** for non-vintage (12 on the lees) and **3 years** for vintage. Top houses go much longer, in cool chalk cellars under Reims and Épernay.
+    - learn: 4. Riddling and disgorging
+      visual: "photo:riddling"
+      body: |
+        **Riddling** (*remuage*) turns and tilts bottles day by day until the sediment slides into the neck. Once done by hand on wooden *pupitres*, it is now mostly done by **gyropalettes**.
+
+        The neck is frozen, the cap removed, and pressure pops out the plug of ice and yeast: **disgorgement**.
+    - learn: 5. Dosage and sweetness
+      visual: "diagram:sweetness"
+      body: |
+        The bottle is topped up with **liqueur d'expédition**, wine with a little sugar. This **dosage** sets the style:
+
+        - **Brut Nature**: 0–3 g/L
+        - **Extra Brut**: 0–6 g/L
+        - **Brut**: under 12 g/L (most Champagne)
+        - **Extra Dry**: 12–17 g/L (sweeter than Brut!)
+        - **Demi-Sec**: 32–50 g/L
+    - choice: "What creates the bubbles in traditional-method sparkling wine?"
+      options: ["A second fermentation in the bottle", "Injected carbon dioxide", "Fermentation in a pressurized tank", "Shaking the bottle"]
+      a: "A second fermentation in the bottle"
+      explain: "Sugar and yeast are added at bottling; the CO2 they make is trapped."
+    - choice: "Which is sweeter?"
+      options: [Extra Dry, Brut, Extra Brut, Brut Nature]
+      a: Extra Dry
+      explain: "Confusingly, Extra Dry (12–17 g/L) is sweeter than Brut (under 12 g/L)."
+    - blank: "Breakdown of dead yeast cells that gives brioche notes is called ___."
+      answers: [autolysis]
+      options: [riddling, dosage, assemblage]
+      explain: "The longer on the lees, the more toasty and creamy the wine."
+    - match: "Put the steps with their French names"
+      pairs: [[Blending base wines, Assemblage], [Turning the bottles, Remuage], [Removing the yeast, Dégorgement], [Final sweetening, Dosage]]
+      explain: "These words appear on back labels and in every Champagne cellar tour."
+    - tf: "Non-vintage Champagne must age at least 15 months before release."
+      truth: true
+      explain: "Vintage Champagne needs at least 3 years."
+- title: "Deep dive: the world of bubbles"
+  icon: globe
+  cards:
+    - learn: Champagne's grapes and villages
+      visual: "map:champagne"
+      body: |
+        Three main grapes: **Chardonnay** (finesse, citrus, the Côte des Blancs), **Pinot Noir** (body, red fruit, the Montagne de Reims) and **Meunier** (fruity, early-drinking, the Vallée de la Marne).
+
+        Villages are rated: 17 are **Grand Cru**, 42 **Premier Cru**.
+    - learn: Who makes it
+      body: |
+        Labels carry a code:
+        - **NM** (négociant-manipulant): a house that buys grapes, like Moët or Bollinger.
+        - **RM** (récoltant-manipulant): a grower making wine only from their own vines, "grower Champagne".
+        - **CM**: a cooperative.
+    - learn: "Tank method: Prosecco and Asti"
+      visual: "photo:fermentation-tank"
+      body: |
+        In the **tank method** (Charmat), the second fermentation happens in a big pressurized tank. It is fast and keeps the grape's fresh fruit and floral aromas.
+
+        **Prosecco** (Glera, Veneto and Friuli) is the best known; Conegliano Valdobbiadene is its hilly heartland. **Asti** and **Moscato d'Asti** use a single fermentation stopped early, so they stay sweet and low in alcohol.
+    - learn: Other great sparklers
+      body: |
+        - **Cava** (Spain, mostly Penedès): traditional method with Macabeo, Xarel·lo, Parellada.
+        - **Crémant** (France: Loire, Alsace, Burgundy, Limoux…): traditional method, at least 9 months on lees.
+        - **Franciacorta** (Lombardy) and **Trentodoc**: Italy's traditional-method stars.
+        - **English sparkling wine**: chalk soils like Champagne's, booming since the 1990s.
+        - **Pét-nat** (*pétillant naturel*): bottled before the first fermentation finishes; cloudy and rustic.
+    - choice: "Which grape is the specialty of the Côte des Blancs?"
+      options: [Chardonnay, Pinot Noir, Meunier, Glera]
+      a: Chardonnay
+      explain: "Blanc de Blancs means 'white from whites': 100% white grapes, usually Chardonnay."
+    - choice: "What does 'RM' on a Champagne label tell you?"
+      options: ["A grower made it from their own grapes", "It is a rosé", "It is very old", "It comes from a cooperative"]
+      a: "A grower made it from their own grapes"
+      explain: "Récoltant-manipulant: grower Champagne."
+    - match: "Match the sparkling wine to its method"
+      pairs: [[Champagne, Traditional method], [Prosecco, Tank method], [Pét-nat, Ancestral method], [Cava, Traditional method in Spain]]
+      explain: "Method shapes texture and flavor as much as the grape."
+    - tf: "Moscato d'Asti is fully sparkling and around 12% alcohol."
+      truth: false
+      explain: "It is gently sparkling (frizzante), sweet and only about 5% alcohol."

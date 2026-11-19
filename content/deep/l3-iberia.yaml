@@ -1,0 +1,68 @@
+- title: "Deep dive: Spain beyond Rioja"
+  icon: sun.max
+  cards:
+    - learn: Rioja's ageing ladder
+      visual: "photo:rioja-vineyards"
+      body: |
+        Rioja splits into **Rioja Alta**, **Rioja Alavesa** (cooler, higher) and **Rioja Oriental** (warmer, more Garnacha). **Tempranillo** leads, with Garnacha, Graciano and Mazuelo (Carignan).
+
+        Labels show **time in oak and bottle** (red minimums):
+        - **Joven**: little or no oak.
+        - **Crianza**: 2 years, at least 1 in oak.
+        - **Reserva**: 3 years, at least 1 in oak.
+        - **Gran Reserva**: 5 years, at least 2 in oak.
+
+        Traditional bodegas use **American oak**: vanilla, coconut, dill.
+    - learn: The new Spain
+      visual: "photo:priorat-llicorella"
+      body: |
+        - **Ribera del Duero**: Tempranillo (Tinto Fino) on a high plateau; Vega Sicilia, Pingus.
+        - **Priorat**: old Garnacha and Cariñena on black slate (*llicorella*); one of only two **DOCa** with Rioja.
+        - **Rías Baixas**: Albariño by the Atlantic.
+        - **Bierzo**: Mencía, fresh and floral.
+        - **Toro** and **Jumilla** (Monastrell): power and sun.
+    - choice: "Which Rioja label means at least 5 years of ageing?"
+      options: [Gran Reserva, Reserva, Crianza, Joven]
+      a: Gran Reserva
+      explain: "Gran Reserva reds age at least 5 years, 2 of them in oak."
+    - choice: "What is llicorella?"
+      options: ["Priorat's slate soil", "A Sherry style", "A type of oak", "A Rioja sub-zone"]
+      a: "Priorat's slate soil"
+      explain: "The broken black slate forces roots deep and gives low yields."
+    - match: "Match the Spanish region to its grape"
+      pairs: [[Rías Baixas, Albariño], [Bierzo, Mencía], [Jumilla, Monastrell], [Ribera del Duero, Tinto Fino]]
+      explain: "Spain is far more than Tempranillo."
+    - tf: "Traditional Rioja is often aged in American oak."
+      truth: true
+      explain: "It gives the classic vanilla and coconut notes."
+- title: "Deep dive: Portugal's native treasures"
+  icon: water.waves
+  cards:
+    - learn: Over 250 native grapes
+      visual: "photo:douro-terraces"
+      body: |
+        Portugal kept its own grapes when much of the world planted French ones.
+
+        - **Touriga Nacional**: violet, black fruit, the star of Port and Douro reds.
+        - **Touriga Franca**, **Tinta Roriz** (Tempranillo), **Baga** (Bairrada's tannic red).
+        - **Alvarinho** and **Loureiro** in Vinho Verde; **Encruzado** in Dão; **Arinto** everywhere for acidity.
+    - learn: Regions to know
+      visual: "map:portugal"
+      body: |
+        - **Vinho Verde**: light, fresh, sometimes spritzy whites.
+        - **Douro**: Port, and now great dry reds from the same terraces.
+        - **Dão**: granite hills, elegant reds.
+        - **Bairrada**: Baga reds and traditional-method sparkling.
+        - **Alentejo**: hot plains, ripe reds; some still fermented in clay **talhas**.
+        - **Setúbal**: sweet fortified Moscatel.
+    - choice: "Which grape is considered Portugal's finest red?"
+      options: [Touriga Nacional, Baga, Castelão, Trincadeira]
+      a: Touriga Nacional
+      explain: "Deep color, violet perfume and structure: used in Port and dry Douro reds."
+    - choice: "What are talhas?"
+      options: ["Clay amphorae used in Alentejo", "Port lodges", "Terraced vineyards", "Cork forests"]
+      a: "Clay amphorae used in Alentejo"
+      explain: "A Roman-era tradition revived under the Vinho de Talha DOC."
+    - tf: "Tinta Roriz is Portugal's name for Tempranillo."
+      truth: true
+      explain: "It is also called Aragonez in the Alentejo."

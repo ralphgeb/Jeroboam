@@ -16,8 +16,8 @@ enum DebugScreens {
         switch screen {
         case "learn", "lesson", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
-        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal": return 2
-        case "journal", "profile", "tastings", "scan", "blind": return 3
+        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style": return 2
+        case "journal", "journalempty", "profile", "tastings", "scan", "blind": return 3
         default: return nil
         }
     }

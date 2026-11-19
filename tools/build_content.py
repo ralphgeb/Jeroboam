@@ -89,6 +89,9 @@ for r in regions:
 missing_entries = sum(1 for mid, areas in maps.items() for a in areas if a not in rset)
 if missing_entries: print(f"note: {missing_entries} map areas have no region guide (shown with name only)")
 
+PHOTOS = os.path.join(os.path.dirname(OUT), "Photos")
+photo_ids = {f[:-4] for f in os.listdir(PHOTOS) if f.endswith(".jpg")} if os.path.isdir(PHOTOS) else set()
+
 def check_visual(v, where):
     if not v: return
     parts = v.split(":", 2)
@@ -112,6 +115,8 @@ def check_visual(v, where):
             err(f"{where}: unknown diagram {arg}")
     elif kind == "wheel":
         pass
+    elif kind == "photo":
+        if arg not in photo_ids: warn(f"{where}: photo {arg} not downloaded yet (hidden)"); return "drop"
     elif kind == "label":
         if arg not in lids: err(f"{where}: unknown label {arg}")
     else:
@@ -129,6 +134,12 @@ for lv in levels_meta:
              "color": lv.get("color", "#7D1D3F"), "units": []}
     for ui, ufile in enumerate(lv["units"]):
         u = load(os.path.join("course", ufile + ".yaml"))
+        deep = os.path.join(SRC, "deep", ufile + ".yaml")
+        if os.path.exists(deep):
+            # deep-dive lessons go before the closing "Going further" lesson
+            extra = load(os.path.join("deep", ufile + ".yaml"))
+            tail = [l for l in u["lessons"] if l["title"] == "Going further"]
+            u["lessons"] = [l for l in u["lessons"] if l["title"] != "Going further"] + extra + tail
         uid = f"l{lv['number']}u{ui + 1}"
         unit = {"id": uid, "title": u["title"], "summary": u["summary"], "icon": u.get("icon", "book"), "lessons": []}
         for li, ls in enumerate(u["lessons"]):
@@ -175,8 +186,8 @@ for lv in levels_meta:
                 if c.get("explain"): out["explain"] = c["explain"].strip()
                 elif out["t"] != "learn": warn(f"{where}: question without explanation")
                 if c.get("visual"):
-                    check_visual(c["visual"], where)
-                    out["visual"] = c["visual"]
+                    if check_visual(c["visual"], where) != "drop":
+                        out["visual"] = c["visual"]
                 cards.append(out)
                 card_count += 1
             unit["lessons"].append({"id": lid, "title": ls["title"], "icon": ls.get("icon"), "cards": cards})

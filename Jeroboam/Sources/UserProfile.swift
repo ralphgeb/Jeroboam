@@ -30,7 +30,18 @@ struct AvatarButton: View {
         Button { showProfile = true } label: { Avatar(size: size, version: version, name: name) }
             .accessibilityLabel("Profile and settings")
             .sheet(isPresented: $showProfile) { ProfileView() }
+            .onAppear {
+                #if DEBUG
+                if DebugScreens.screen == "profile" && !AvatarButton.debugShown {
+                    AvatarButton.debugShown = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { showProfile = true }
+                }
+                #endif
+            }
     }
+    #if DEBUG
+    static var debugShown = false
+    #endif
 }
 
 struct Avatar: View {

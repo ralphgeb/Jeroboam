@@ -1,0 +1,71 @@
+- title: "Deep dive: the Burgundy pyramid"
+  icon: triangle
+  cards:
+    - learn: Four levels
+      visual: "photo:burgundy-cote"
+      body: |
+        Burgundy ranks **land**, not producers:
+
+        1. **Grand Cru** (about 1% of wine): named vineyards only, such as *Chambertin*, *Montrachet*, *Corton*.
+        2. **Premier Cru** (about 10%): village + vineyard, *Gevrey-Chambertin 1er Cru Clos Saint-Jacques*.
+        3. **Village** (about 37%): *Meursault*, *Vosne-Romanée*.
+        4. **Regional** (about half): *Bourgogne*, *Mâcon-Villages*.
+    - learn: Climats and clos
+      body: |
+        A named vineyard plot is a **climat**; there are over 1,200, listed by UNESCO since 2015. A **clos** is a vineyard enclosed by a stone wall, often built by medieval monks.
+
+        Because of Napoleonic inheritance laws, one vineyard is usually split between **many owners**: Clos de Vougeot's 50 hectares have around 80.
+    - learn: Domaine or négociant
+      body: |
+        A **domaine** grows and bottles its own grapes. A **négociant** (merchant house such as Louis Jadot, Joseph Drouhin, Bouchard) buys grapes or wine and bottles under its name.
+
+        So the same vineyard name can appear on dozens of different labels: the producer matters as much as the plot.
+    - learn: How red Burgundy is made
+      body: |
+        Pinot Noir is thin-skinned and delicate. Winemakers often do a **cold soak** before fermentation for color, use gentle **punch-downs**, and may keep some **whole bunches** for perfume.
+
+        It ages 12–18 months in French oak *pièces* (228 L barrels); the share of new oak rises with the quality level.
+    - learn: The Burgundy bottle
+      visual: "photo:bottle-shapes"
+      body: |
+        The Burgundy bottle has **sloping shoulders** and a wider body, the shape used worldwide for Pinot Noir and Chardonnay (and in the Rhône for Syrah).
+    - choice: "Which is the top level of the Burgundy hierarchy?"
+      options: [Grand Cru, Premier Cru, Village, Bourgogne]
+      a: Grand Cru
+      explain: "Grand Cru wines carry only the vineyard name, like Romanée-Conti or Le Montrachet."
+    - choice: "What is a 'clos'?"
+      options: ["A walled vineyard", "A type of barrel", "A wine merchant", "A cellar"]
+      a: "A walled vineyard"
+      explain: "Clos de Vougeot and Clos de Tart are famous examples."
+    - tf: "In Burgundy, one vineyard is often shared by many owners."
+      truth: true
+      explain: "Inheritance laws split plots over generations; some owners have just a few rows."
+    - match: "Match the label to its level"
+      pairs: [[Le Chambertin, Grand Cru], [Volnay 1er Cru Caillerets, Premier Cru], [Pommard, Village], [Bourgogne Rouge, Regional]]
+      explain: "More specific place = higher level."
+- title: "Deep dive: Chablis and Beaujolais"
+  icon: leaf
+  cards:
+    - learn: Chablis on Kimmeridgian clay
+      visual: "map:burgundy:chablis"
+      body: |
+        Chablis is cool and isolated, nearer to Champagne than to Beaune. Its best slopes sit on **Kimmeridgian** marl full of tiny fossilized oyster shells.
+
+        Levels: Petit Chablis, Chablis, Chablis Premier Cru, and **seven Grands Crus** on one south-west-facing hill above the town (Les Clos, Vaudésir, Blanchot…). Most is unoaked; some Grands Crus use old oak.
+    - learn: Beaujolais and carbonic maceration
+      visual: "map:burgundy:beaujolais"
+      body: |
+        **Gamay** on granite hills south of Mâcon. For juicy, fruity styles, whole bunches are sealed in tanks full of carbon dioxide: fermentation starts **inside each berry** (**carbonic maceration**), giving banana, bubblegum and kirsch notes and low tannin.
+
+        **Beaujolais Nouveau** is released on the third Thursday of November. The **ten crus** (Morgon, Moulin-à-Vent, Fleurie…) are deeper and can age.
+    - choice: "What makes Chablis' best soils special?"
+      options: ["Kimmeridgian marl with fossil oyster shells", "Volcanic basalt", "Red iron-rich clay", "Sand dunes"]
+      a: "Kimmeridgian marl with fossil oyster shells"
+      explain: "It is linked with Chablis' steely, saline character."
+    - choice: "What is carbonic maceration?"
+      options: ["Fermentation inside whole uncrushed berries", "Adding bubbles to wine", "Ageing in charred barrels", "Freezing the grapes"]
+      a: "Fermentation inside whole uncrushed berries"
+      explain: "In a CO2-filled tank, enzymes start fermenting each berry from the inside."
+    - tf: "Chablis has seven Grand Cru vineyards, all on one hillside."
+      truth: true
+      explain: "They face south-west across the Serein river from the town."

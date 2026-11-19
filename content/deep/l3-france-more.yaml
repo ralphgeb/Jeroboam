@@ -1,0 +1,63 @@
+- title: "Deep dive: the Rhône, north and south"
+  icon: sun.max
+  cards:
+    - learn: "Northern Rhône: Syrah on granite"
+      visual: "photo:rhone-hermitage"
+      body: |
+        A narrow valley of steep **granite** terraces. **Syrah** is the only black grape, giving black pepper, blackberry, olive and violet.
+
+        - **Côte-Rôtie**: may co-ferment up to 20% **Viognier** for perfume.
+        - **Hermitage**: one south-facing hill, the most powerful and long-lived.
+        - **Cornas**: 100% Syrah, wild and tannic. **Crozes-Hermitage** and **Saint-Joseph**: larger, more affordable.
+        - **Condrieu**: 100% Viognier white, apricot and blossom.
+    - learn: "Southern Rhône: the GSM blend"
+      visual: "photo:chateauneuf-galets"
+      body: |
+        A wide, sunny plain swept by the cold **mistral** wind. Reds are blends led by **Grenache**, with **Syrah** (color, pepper) and **Mourvèdre** (structure, meaty depth): **GSM**.
+
+        **Châteauneuf-du-Pape** allows 13 varieties; its vineyards are covered in big rounded stones, the **galets roulés**. The papal coat of arms is embossed on many bottles. Neighbors: **Gigondas**, **Vacqueyras**, **Tavel** (rosé only), and great-value **Côtes du Rhône**.
+    - choice: "What is the only black grape of the northern Rhône?"
+      options: [Syrah, Grenache, Mourvèdre, Pinot Noir]
+      a: Syrah
+      explain: "Grenache-led blends belong to the south."
+    - choice: "What does GSM stand for?"
+      options: ["Grenache, Syrah, Mourvèdre", "Gamay, Sauvignon, Merlot", "Grenache, Sangiovese, Malbec", "Garnacha, Sémillon, Muscat"]
+      a: "Grenache, Syrah, Mourvèdre"
+      explain: "The classic southern Rhône blend, copied in Australia's McLaren Vale and Barossa."
+    - tf: "Côte-Rôtie may include some white Viognier in its red wine."
+      truth: true
+      explain: "Co-fermenting a little Viognier lifts aroma and stabilizes color."
+    - match: "Match the appellation to its wine"
+      pairs: [[Condrieu, Viognier white], [Tavel, Rosé], [Cornas, Pure Syrah red], [Châteauneuf-du-Pape, Grenache-led blend]]
+      explain: "Rhône appellations each have a signature."
+- title: "Deep dive: Loire, Alsace and Champagne houses"
+  icon: map
+  cards:
+    - learn: "The Loire: four grapes, one river"
+      visual: "photo:loire-sancerre"
+      body: |
+        From the Atlantic inland: **Muscadet** (Melon, sur lie), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc, sweet Coteaux du Layon), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc), and the **Centre** (**Sancerre** and **Pouilly-Fumé**, Sauvignon Blanc).
+
+        Chenin Blanc can be bone dry, sparkling, or lusciously sweet, sometimes from the same village.
+    - learn: "Alsace: French wines, German grapes"
+      body: |
+        Sheltered by the Vosges mountains, Alsace is one of France's **driest** regions. Wines are labeled by **grape**, unusual for France: Riesling, Gewurztraminer, Pinot Gris and Muscat are the four "noble" ones, with 51 **Grands Crus**.
+
+        Wines come in the tall, slender **flûte** bottle. *Vendanges Tardives* (late harvest) and *Sélection de Grains Nobles* (botrytis) are the sweet styles. Most wines skip new oak and many skip malolactic conversion to keep acidity.
+    - learn: Champagne's great houses
+      visual: "photo:champagne-cellar"
+      body: |
+        Big houses (*grandes marques*) aim for a consistent **non-vintage** style year after year by blending many villages and **reserve wines** from older years.
+
+        Prestige *cuvées* are their flagships: Dom Pérignon (Moët), Cristal (Roederer), La Grande Dame (Veuve Clicquot). Krug and Bollinger ferment in oak; Ruinart is known for Chardonnay.
+    - choice: "How are Alsace wines usually labeled?"
+      options: ["By grape variety", "By château name only", "By village only", "By color only"]
+      a: "By grape variety"
+      explain: "Alsace is the main French region that puts the grape front and center."
+    - choice: "Which Loire grape makes Vouvray?"
+      options: [Chenin Blanc, Sauvignon Blanc, Melon, Chardonnay]
+      a: Chenin Blanc
+      explain: "Vouvray can be sec, demi-sec, moelleux or sparkling."
+    - tf: "Reserve wines help Champagne houses keep a consistent non-vintage style."
+      truth: true
+      explain: "Older wines are blended in to smooth out differences between years."

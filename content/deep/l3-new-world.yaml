@@ -1,0 +1,46 @@
+- title: "Deep dive: America and the Southern Hemisphere"
+  icon: globe.americas
+  cards:
+    - learn: California and the Judgment of Paris
+      visual: "photo:napa-valley"
+      body: |
+        In **1976**, at a blind tasting in Paris, a Napa Cabernet (Stag's Leap Wine Cellars) and Chardonnay (Chateau Montelena) beat top Bordeaux and Burgundy. The New World arrived.
+
+        **Napa Valley** is Cabernet country, with sub-AVAs like Oakville, Rutherford and Stags Leap. Cool, foggy **Sonoma Coast**, **Russian River** and **Carneros** suit Pinot Noir and Chardonnay. Oregon's **Willamette Valley** rivals Burgundy for Pinot.
+    - learn: Chile and Argentina
+      visual: "photo:mendoza-andes"
+      body: |
+        **Chile**: a long, thin country cooled by the Humboldt current and Andes winds. Phylloxera never arrived, so many vines grow on their own roots. Signature grape: **Carmenère**. Coastal valleys (Casablanca, Leyda) make crisp Sauvignon Blanc.
+
+        **Argentina**: **Malbec** from **Mendoza**, at 800–1,500 m, especially the cool **Uco Valley**. **Torrontés** in Salta, among the highest vineyards on Earth.
+    - learn: Australia
+      visual: "photo:barossa"
+      body: |
+        - **Barossa** and **McLaren Vale**: rich Shiraz and GSM blends, some vines over 150 years old.
+        - **Coonawarra**: Cabernet on red *terra rossa*.
+        - **Clare** and **Eden Valley**: dry, limey Riesling.
+        - **Hunter Valley**: long-lived Sémillon.
+        - **Margaret River**: Bordeaux-style Cabernet and Chardonnay.
+        - **Yarra Valley** and **Tasmania**: cool-climate Pinot and sparkling.
+
+        Australia led the world in **screw caps**.
+    - learn: New Zealand and South Africa
+      visual: "photo:marlborough"
+      body: |
+        **New Zealand**: **Marlborough** Sauvignon Blanc (passion fruit, grass) made the country famous; **Central Otago** grows Pinot Noir in the world's southernmost vineyards.
+
+        **South Africa**: winemaking since **1659**. **Chenin Blanc** (locally Steen) is its most planted grape; **Pinotage** (Pinot Noir × Cinsault, 1925) its own crossing. Stellenbosch, Swartland and the cool Elgin and Hemel-en-Aarde valleys lead.
+    - choice: "What happened at the 1976 Judgment of Paris?"
+      options: ["California wines beat top French wines blind", "France banned American wine", "Champagne got its name protected", "Phylloxera was discovered"]
+      a: "California wines beat top French wines blind"
+      explain: "It put Napa on the world map."
+    - choice: "Which grape is Chile's signature, once confused with Merlot?"
+      options: [Carmenère, Malbec, Pinotage, Tannat]
+      a: Carmenère
+      explain: "It was only identified in Chile in 1994."
+    - match: "Match the region to its star grape"
+      pairs: [[Marlborough, Sauvignon Blanc], [Mendoza, Malbec], [Barossa, Shiraz], [Swartland, Chenin Blanc]]
+      explain: "Each New World region found its specialty."
+    - tf: "Pinotage is a crossing of Pinot Noir and Cinsault."
+      truth: true
+      explain: "Created at Stellenbosch University in 1925; Cinsault was then called Hermitage, hence the name."

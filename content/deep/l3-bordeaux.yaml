@@ -1,0 +1,77 @@
+- title: "Deep dive: inside a Bordeaux château"
+  icon: building.columns
+  cards:
+    - learn: The blend
+      visual: "photo:bordeaux-chateau"
+      body: |
+        Bordeaux is a **blend** country. Five black grapes are allowed: **Cabernet Sauvignon** (structure, blackcurrant, age-worthiness), **Merlot** (plush plum, ripens early), **Cabernet Franc** (perfume, freshness), **Petit Verdot** (color, spice, a splash only) and **Malbec**. **Carmenère** is permitted but rare.
+
+        Blending is insurance: if one grape suffers from spring frost or autumn rain, the others carry the vintage.
+    - learn: Grand vin and second wine
+      body: |
+        Each château makes its **grand vin** from the best plots and barrels. Lots that don't make the cut go into a **second wine**: Carruades de Lafite, Pavillon Rouge de Château Margaux, Les Forts de Latour.
+
+        Top grands vins spend **18–24 months** in barrels, often **mostly new French oak**, and are racked every few months to clear the sediment.
+    - learn: En primeur
+      body: |
+        Every spring, merchants and critics taste the new vintage from barrel. Châteaux then release a part of the wine **en primeur**: buyers pay now and receive bottles about two years later.
+
+        Wine goes from château to *courtier* (broker) to *négociant* (merchant) to the world: the system known as **la Place de Bordeaux**.
+    - learn: The Bordeaux bottle
+      visual: "photo:bottle-shapes"
+      body: |
+        The straight-sided bottle with **high shoulders** is the Bordeaux shape, copied worldwide for Cabernet and Merlot. The shoulders are said to catch sediment when pouring.
+
+        Large formats age more slowly; Bordeaux names them differently from Champagne: a **Double Magnum** holds 3 L and an **Impériale** 6 L.
+    - learn: Dry whites and clairet
+      visual: "photo:saint-emilion"
+      body: |
+        White Bordeaux blends **Sauvignon Blanc** (zest, grass) and **Sémillon** (wax, body, ageing), sometimes with Muscadelle. Simple Entre-Deux-Mers is fresh and unoaked; Pessac-Léognan whites are barrel-fermented and age for decades.
+
+        **Bordeaux clairet** is a deep rosé from a short maceration: the ancestor of the English word *claret*.
+    - choice: "What is a 'second wine' in Bordeaux?"
+      options: ["Wine made from lots not chosen for the grand vin", "A wine from the second harvest", "A cheaper wine from another region", "A wine aged a second year"]
+      a: "Wine made from lots not chosen for the grand vin"
+      explain: "Second wines give a taste of the house style at a lower price."
+    - choice: "Which grape gives Bordeaux blends their backbone and long ageing?"
+      options: [Cabernet Sauvignon, Merlot, Cabernet Franc, Malbec]
+      a: Cabernet Sauvignon
+      explain: "Its thick skins give firm tannin and blackcurrant fruit, especially on Left Bank gravel."
+    - tf: "En primeur means buying wine before it is bottled."
+      truth: true
+      explain: "Buyers pay while the wine is still in barrel and receive it later."
+    - match: "Match the Bordeaux grape to its role"
+      pairs: [[Cabernet Sauvignon, Tannin and structure], [Merlot, Plush body], [Cabernet Franc, Perfume], [Petit Verdot, Color and spice]]
+      explain: "Each grape plays a part; the blend changes every vintage."
+    - blank: "The English call red Bordeaux ___."
+      answers: [claret]
+      options: [hock, sack, tawny]
+      explain: "From the French clairet, the pale reds once shipped to England."
+- title: "Deep dive: vintages and ageing"
+  icon: clock
+  cards:
+    - learn: Why vintages matter here
+      body: |
+        Bordeaux sits on the Atlantic: some years are warm and dry, others wet and cool. A great **vintage** needs a warm summer, a dry September and no rain at harvest.
+
+        Recent stars include **2005, 2009, 2010, 2015, 2016, 2019, 2020** and **2022**. In cooler years, Merlot on the Right Bank often does better than late-ripening Cabernet.
+    - learn: How claret ages
+      body: |
+        Young top Bordeaux is **dark, tannic and oaky**: blackcurrant, cedar and vanilla.
+
+        After 10–20 years, tannins soften and **tertiary** notes appear: **cedar, cigar box, leather, forest floor, dried fruit**. The color fades from purple to **garnet** with a brick rim.
+    - learn: Decanting
+      visual: "photo:sommelier"
+      body: |
+        Young claret benefits from **decanting** for air; old claret is decanted gently to leave its **sediment** behind. Stand the bottle upright a day before, then pour slowly over a light until the sediment reaches the neck.
+    - choice: "What does an aged Bordeaux typically smell of?"
+      options: ["Cedar, cigar box and leather", "Banana and bubblegum", "Lychee and rose", "Fresh grass and gooseberry"]
+      a: "Cedar, cigar box and leather"
+      explain: "These tertiary notes come from years in bottle."
+    - choice: "In a cool, rainy Bordeaux vintage, which grape often fares better?"
+      options: [Merlot, Cabernet Sauvignon, Petit Verdot, Syrah]
+      a: Merlot
+      explain: "Merlot ripens earlier, so it can be picked before autumn rain."
+    - tf: "Old red wine is decanted partly to separate it from its sediment."
+      truth: true
+      explain: "Tannins and pigments drop out as a fine deposit over the years."
