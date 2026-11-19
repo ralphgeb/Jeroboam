@@ -98,5 +98,6 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- TestFlight build 6 uploaded (run 6 of build-ios.yml): maps from official PDO/GI boundaries, OSM coastlines, clean thumbnails. App Store Connect app + secrets are set up.
+- TestFlight build 7 uploaded (run 7): reference map images in lessons (Photos/map-*.jpg, `RefMaps`), new wine belt, illustrated glasses (`GlassArt`), Practice redesign + mock exams, unit cover photos.
+- Waiting on owner: pick from the Jeroboam bottle logos (8 options, scratchpad logo2/sheet.png; renderer tools in session only). App Store Connect app + secrets are set up.
 - Waiting on owner: logo/mascot choice from the brand board (in-app mark is still the grape cluster).
