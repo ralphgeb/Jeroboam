@@ -393,3 +393,5 @@ kientzler | 88 | 92 | https://www.wine-searcher.com/find/dom+andre+kientzler+rie
 pfaffenheim-muscat | 11 | 90 | https://www.wine-searcher.com/find/pfaffenheim+pfaffl+muscat+alsace+france/2019
 blanck-schlossberg | 45 | 91 | https://www.wine-searcher.com/find/dom+paul+blanck+riesling+schloss+berg+alsace+grand+cru+france
 weinbach-sgn | 186 | 94 | https://www.wine-searcher.com/find/dom+weinbach+gewurz+altenburg+select+de+grain+noble+alsace+france
+hugel-classic | 17 | - | https://www.jamessuckling.com/tasting-notes/117137/famille-hugel-alsace-gentil-2018
+foillard-morgon | 83 | 95 | https://www.jamessuckling.com/tasting-notes/78897/jean-foillard-morgon-cote-du-py-2016
