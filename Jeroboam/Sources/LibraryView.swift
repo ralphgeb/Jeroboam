@@ -134,7 +134,7 @@ struct LibraryView: View {
             Circle().fill(Palette.wineSoft.opacity(0.7))
             switch s {
             case .regions:
-                WineMapView(mapID: "italy", showLabels: false, showCities: false, fill: true)
+                WineMapView(mapID: "italy", showLabels: false, showCities: false, fill: true, thumbnail: true)
                     .clipShape(Circle()).allowsHitTesting(false)
             case .wines:
                 HStack(alignment: .bottom, spacing: -3) {

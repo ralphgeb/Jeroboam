@@ -208,6 +208,8 @@ struct MapRenderer {
     var rel: CGFloat { zoom / max(0.01, lodBase) }
     /// Show a single highlighted area's name automatically (off in quiz questions).
     var autoCallout = true
+    /// Small card thumbnails: whole country, clean colors, no specks, hairline borders.
+    var thumb = false
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
@@ -251,7 +253,7 @@ struct MapRenderer {
             let t = CGAffineTransform(translationX: offset.width, y: offset.height).scaledBy(x: s, y: s)
             let fp = g.focus.applying(t)
             ctx.drawLayer { l in
-                l.addFilter(.shadow(color: .black.opacity(dark ? 0.55 : 0.16), radius: 7, x: 0, y: 3))
+                l.addFilter(.shadow(color: .black.opacity(dark ? 0.55 : 0.16), radius: thumb ? 3 : 7, x: 0, y: thumb ? 1 : 3))
                 l.fill(fp, with: .color(Palette.focusLand))
             }
         }
@@ -284,6 +286,15 @@ struct MapRenderer {
                 var color = Palette.mapColor(a.color)
                 if a.level >= 2 { color = color.mix(with: .black, 0.18) }
                 let isHL = highlight.contains(a.id) || selected == a.id
+                if thumb {
+                    // skip specks smaller than ~3 pt on screen
+                    let bb = a.path.boundingRect
+                    if max(bb.width, bb.height) * s < 3 { continue }
+                    let c = isContainer ? (dark ? color.opacity(0.42) : color.mix(with: .white, 0.6)) : (dark ? color.opacity(0.9) : color.mix(with: .white, 0.08))
+                    regions.fill(a.path, with: .color(c))
+                    regions.stroke(a.path, with: .color(Palette.focusLand.opacity(isContainer ? 0.9 : 0.7)), lineWidth: hair * 0.6)
+                    continue
+                }
                 if isContainer {
                     color = dark ? color.opacity(0.30) : color.mix(with: .white, 0.78)
                 } else if a.level == 0 && !isHL {
@@ -299,7 +310,7 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
             }
-            if rel >= LOD.communes || (forcedLevel ?? 0) >= 2 {
+            if !thumb && (rel >= LOD.communes || (forcedLevel ?? 0) >= 2) {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
@@ -452,12 +463,15 @@ struct WineMapView: View {
     /// Fill the given frame, centered on the wine areas (cards); otherwise keep the map's own aspect ratio.
     var fill = false
     var autoCallout = true
+    /// Card thumbnail: shows the whole country with clean colors.
+    var thumbnail = false
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
     @State private var tapped: String? = nil
 
     private func layout(_ g: MapGeometry, _ size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
+        if thumbnail { return g.thumbLayout(size: size) }
         guard fill else { return (1, .zero) }
         let focusRect: CGRect? = {
             let hl = g.areas.filter { highlight.contains($0.id) && $0.level == 0 }
@@ -482,6 +496,7 @@ struct WineMapView: View {
                 r.showCities = showCities
                 r.labelScale = labelScale
                 r.dark = scheme == .dark
+                r.thumb = thumbnail
                 let deepest = g.areas.filter { highlight.contains($0.id) }.map(\.level).max() ?? 0
                 r.forcedLevel = deepest
                 r.draw(in: &ctx, size: size)
@@ -564,6 +579,27 @@ extension MapGeometry {
         }
         let off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
                          height: axis(top + band / 2 - t.midY * s, view: size.height, content: H * s))
+        return (s / fit, off)
+    }
+
+    /// Thumbnail framing: the whole focus country (or the wine areas when they are a small part of a big country), contained.
+    func thumbLayout(size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
+        let W = CGFloat(map.w), H = CGFloat(map.h)
+        guard size.width > 0, size.height > 0 else { return (1, .zero) }
+        var t = focus.boundingRect
+        let c = contentBounds
+        if t.isEmpty || t.width * t.height > c.width * c.height * 6 { t = c }
+        let fit = size.width / W
+        let cover = max(size.width / W, size.height / H)
+        let pad: CGFloat = 0.07
+        let content = min(size.width * (1 - 2 * pad) / max(1, t.width), size.height * (1 - 2 * pad) / max(1, t.height))
+        let s = max(cover, content)
+        func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
+            if content <= view { return (view - content) / 2 }
+            return min(0, max(view - content, v))
+        }
+        let off = CGSize(width: axis(size.width / 2 - t.midX * s, view: size.width, content: W * s),
+                         height: axis(size.height / 2 - t.midY * s, view: size.height, content: H * s))
         return (s / fit, off)
     }
 

@@ -19,6 +19,8 @@ struct RegionListView: View {
                                 NavigationLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
                             }
                         }
+                        Text("Map sources: official EU wine appellation boundaries (Candiago et al. 2022, Scientific Data, CC BY 4.0); © OpenStreetMap contributors (ODbL); Natural Earth; UC Davis AVA project; geoBoundaries; Australian GIs via WineRegions (CC0).")
+                            .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).padding(.top, 10)
                     }
                 } else {
                     let hits = lib.regions.filter { $0.name.localizedCaseInsensitiveContains(query) || $0.country.localizedCaseInsensitiveContains(query) }
@@ -46,7 +48,7 @@ struct RegionListView: View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
                 if let m = c.map {
-                    WineMapView(mapID: m, showLabels: false, showCities: false, fill: true)
+                    WineMapView(mapID: m, showLabels: false, showCities: false, fill: true, thumbnail: true)
                         .frame(height: 112)
                         .frame(maxWidth: .infinity)
                         .clipped()

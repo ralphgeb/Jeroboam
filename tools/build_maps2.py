@@ -184,6 +184,21 @@ def it_pool(s):
     return [x for r in s["depts"] for x in it_comuni(r)]
 
 # ---------------------------------------------------------------- base map
+_OSM = {}
+def osm_land(clipbox):
+    """OSM simplified land polygons (finer coastlines than Natural Earth), when a fetched tile covers the box."""
+    d = os.path.join(GEO, "pdo")
+    for k in ("europe", "lebanon", "usa-west", "southamerica", "australia", "nz", "safrica"):
+        p = os.path.join(d, f"land_{k}.geojson")
+        if not os.path.exists(p): continue
+        if k not in _OSM:
+            gs = [shape(f["geometry"]).buffer(0) for f in json.load(open(p))["features"]]
+            _OSM[k] = (unary_union(gs), box(*unary_union(gs).bounds))
+        u, b = _OSM[k]
+        if b.buffer(0.05).contains(clipbox.buffer(-0.6)):
+            return u.intersection(clipbox)
+    return None
+
 def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
     bbox = pr.bbox
     la0, lo0, la1, lo1 = bbox
@@ -191,7 +206,18 @@ def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
     clipbox = box(lo0 - pad, la0 - pad, lo1 + pad, la1 + pad)
     view = box(-20, -20, pr.W + 20, pr.H + 20)
     land, focus = [], []
-    for f in (countries50 if world else countries):
+    fine = None if world else osm_land(clipbox)
+    if fine is not None:
+        # coastlines from OSM; the focus country's inland borders from Natural Earth
+        fg = unary_union([shape(f["geometry"]) for f in countries if f["properties"].get("ADM0_A3") in focus_codes
+                          and shape(f["geometry"]).intersects(clipbox)]).buffer(0)
+        nb = unary_union([shape(f["geometry"]) for f in countries if f["properties"].get("ADM0_A3") not in focus_codes
+                          and shape(f["geometry"]).intersects(clipbox)]).buffer(0)
+        fgf = fg.buffer(0.03).difference(nb).intersection(fine)
+        others = fine.difference(fgf)
+        focus.extend(enc_polys(pr.geom(fgf).intersection(view), tol, tol * tol * 4))
+        land.extend(enc_polys(pr.geom(others).intersection(view), tol, tol * tol * 4))
+    for f in ([] if fine is not None else (countries50 if world else countries)):
         g = shape(f["geometry"])
         if not g.intersects(clipbox): continue
         code = f["properties"].get("ADM0_A3")
@@ -284,7 +310,75 @@ def water_polys(pr, water, estuary, tol):
         out += enc_polys(pr.geom(sea.intersection(eb)).intersection(view), tol * 0.6, 4, smooth=True)
     return out
 
+# ---------------------------------------------------------------- official EU wine PDO boundaries
+# Candiago et al. 2022, "A geospatial inventory of regulatory information for wine protected designations of origin
+# in Europe", Scientific Data (figshare collection 5877659, CC BY 4.0). Fetched by .github/workflows/geodata.yml.
+PDO_DIR = os.path.join(GEO, "pdo")
+_PDO = None
+PDO_ALIAS = {  # our area id -> official PDO name(s) when the names differ
+    "saint-emilion": ["Saint-Émilion", "Saint-Émilion grand cru"], "chateauneuf-du-pape": ["Châteauneuf-du-Pape"],
+    "cotes-du-rhone": ["Côtes du Rhône"], "cote-rotie": ["Côte Rôtie"], "pouilly-fume": ["Pouilly-Fumé"],
+    "chianti-classico": ["Chianti Classico"], "montalcino": ["Brunello di Montalcino"], "montepulciano": ["Vino Nobile di Montepulciano"],
+    "douro": ["Douro"], "porto": ["Porto"], "jerez": ["Jerez-Xérès-Sherry"], "rias-baixas": ["Rías Baixas"],
+    "mosel": ["Mosel"], "tokaj": ["Tokaj"],
+    "santorini": ["Σαντορίνη"], "naoussa": ["Νάουσα"], "amyndeo": ["Αμύνταιο"], "nemea": ["Νεμέα"], "mantinia": ["Μαντινεία"],
+    "patras": ["Πάτρα"], "crete": ["Αρχάνες", "Πεζά", "Δαφνές", "Σητεία"], "goumenissa": ["Γουμένισσα"], "rapsani": ["Ραψάνη"],
+    "margaret-river": ["Margaret River"], "hunter-valley": ["Hunter"], "barossa": ["Barossa Valley"], "clare": ["Clare Valley"],
+    "mclaren-vale": ["McLaren Vale"], "eden-valley": ["Eden Valley"], "yarra-valley": ["Yarra Valley"], "great-southern": ["Great Southern"],
+    "samos": ["Σάμος"], "paros": ["Πάρος"], "rhodes": ["Ρόδος"], "limnos": ["Λήμνος"], "zitsa": ["Ζίτσα"], "barbera-dasti": ["Barbera d'Asti"], "moscato-dasti": ["Asti"],
+}
+def _pdo_index():
+    global _PDO
+    if _PDO is not None: return _PDO
+    _PDO = {}
+    gj = os.path.join(PDO_DIR, "pdo_all.geojson")
+    if not os.path.exists(gj): return _PDO
+    import csv
+    names = {r["PDOid"]: r["PDOnam"] for r in csv.DictReader(open(os.path.join(PDO_DIR, "PDO_EU_id.csv"), encoding="utf-8-sig"))}
+    for f in json.load(open(gj))["features"]:
+        pid = f["properties"]["PDOid"]
+        nm = names.get(pid)
+        if not nm or not f["geometry"]: continue
+        g = shape(f["geometry"]).buffer(0)
+        for part in nm.split("/"):
+            _PDO.setdefault(pkey(part.strip()), []).append((pid, nm, g))
+    # Australian GIs (and other non-EU regions) from github.com/adynak/WineRegions (CC0)
+    import glob as _glob
+    for country in ("Australia", "Argentina"):
+        for fp in _glob.glob(os.path.join(GEO, "ext", "WineRegions", country, "**", "*.geojson"), recursive=True):
+            nm = os.path.basename(fp)[:-8].replace("_", " ")
+            try:
+                gs = [shape(f["geometry"]).buffer(0) for f in json.load(open(fp))["features"] if f.get("geometry")]
+            except Exception:
+                continue
+            if gs:
+                _PDO.setdefault(pkey(nm), []).append((f"{country}:{nm}", nm, unary_union(gs)))
+    return _PDO
+def pkey(t):
+    return norm(t) or " ".join(t.lower().split())
+USED_PDO = []
+PDO_SKIP = {"es-la-rioja"}  # admin-region containers that share a name with an appellation
+def pdo_geom(aid, name, geom_ll):
+    """Official boundary for an area whose name matches a PDO that overlaps our approximate shape."""
+    idx = _pdo_index()
+    if not idx or geom_ll is None or geom_ll.is_empty or aid in PDO_SKIP: return None
+    keys = [pkey(n) for n in PDO_ALIAS.get(aid, [])] + [pkey(name), pkey(aid.replace("-", " "))]
+    best, score = None, 0.0
+    for k in keys:
+        for pid, nm, g in idx.get(k, []):
+            if not g.intersects(geom_ll): continue
+            inter = g.intersection(geom_ll).area
+            sc = inter / max(1e-12, min(g.area, geom_ll.area))
+            if sc > score: best, score = (pid, nm, g), sc
+    if best and score > 0.2:
+        USED_PDO.append((aid, best[0], best[1]))
+        return best[2]
+    return None
+
 def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False):
+    off = pdo_geom(aid, name, geom_ll)
+    if off is not None:
+        geom_ll = off
     _GEOMS[(id(pr), aid)] = (geom_ll, color, lv)
     g = pr.geom(geom_ll)
     if soft: g = soften(g, tol)
@@ -794,3 +888,7 @@ if __name__ == "__main__":
     if not which or "legacy" in which: build_legacy({"world"})
     if not which or "gb" in which: build_gb()
     if not which or "lb" in which: build_lebanon()
+    if USED_PDO:
+        print(f"official PDO boundaries used for {len(USED_PDO)} areas")
+        with open(os.path.join(os.path.dirname(__file__), "pdo_used.txt"), "w") as f:
+            f.write("\n".join(f"{a}\t{p}\t{n}" for a, p, n in USED_PDO))
