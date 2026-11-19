@@ -422,3 +422,9 @@ montevertine | 182 | - | https://www.jamessuckling.com/tasting-notes/73687/Monte
 banfi-poggio-oro | 186 | - | https://www.jamessuckling.com/tasting-notes/49726/castello-banfi-brunello-di-montalcino-poggio-alloro-riserva-2010
 rosso-di-montalcino | 24 | - | https://www.jamessuckling.com/tasting-notes/263164/il-poggione-rosso-di-montalcino-2022
 isole-chianti | 34 | - | https://www.jamessuckling.com/tasting-notes/266455/isole-e-olena-chianti-classico-2021
+taylors-vintage | 107 | 95 | https://www.jamessuckling.com/tasting-notes/110914/taylors-vintage-port-2017
+fonseca-vintage | 103 | 95 | https://www.jamessuckling.com/tasting-notes/110910/fonseca-vintage-port-2017
+riscal-baron | 110 | - | https://www.jamessuckling.com/tasting-notes/227019/marques-de-riscal-rioja-baron-de-chirel-2018
+roda-reserva | 57 | - | https://www.jamessuckling.com/tasting-notes/271041/bodegas-roda-rioja-roda-i-reserva-2020
+barca-velha | 930 | - | https://www.jamessuckling.com/tasting-notes/194653/casa-ferreirinha-douro-barca-velha-1999
+egon-muller-kabinett | 219 | - | https://www.jamessuckling.com/tasting-notes/247583/egon-muller-scharzhof-riesling-mosel-scharzhofberg-kabinett-2022
