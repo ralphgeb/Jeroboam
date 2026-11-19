@@ -100,12 +100,20 @@ DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, w
 Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
 
 ## Status
-- Study guide: build_content.py generates per-level units (Grape files, Appellations, Words to know; `unit.study`), open as soon as the level is, not counted for level progress. Every grape/region/term the exams ask is taught there.
-- Chile and Argentina are separate maps (`chile`, `argentina`); Lebanon has 4 level-1 zones built from winery clusters (`LEBANON.zones` = km radius).
-- TestFlight build 16 uploaded (run 16). Runs 13–14 failed on a stale provisioning profile, now cleared by the workflow before archiving. Prices are Claude estimates only (`WineRecognizer.livePrices = false`); maps are built so the whole region fits the phone explorer (phone rule in `Proj`). Brand from the owner's Illustrator file, Sign in with
-  Apple + iCloud key-value sync (`Account.swift`; capabilities APPLE_ID_AUTH + ICLOUD enabled by the build workflow), redesigned
-  Style guide / Bottle sizes / Wine styles / Food & wine / Atlas home, medals, focused lesson maps, Regions|Appellations switch.
-- Lebanon map: 4 level-0 regions (governorates) + vineyard zones + 54 wineries (`pois`, dots; names when zoomed) georeferenced
-  from the owner's winery map (`specs_gb.LEBANON.wineries`). Portugal: ~47 subregions from municipalities (owner's Wine Folly
-  map used only as a reference). Areas are clipped to their map's bbox (an Azores "Lagoa" once stretched Portugal).
-- Logo: owner said keep the current mark for now; revisit later (8 Jeroboam bottle options were shown).
+- **Jero Plus** ($0.99/month, `com.ralphgeb.jero.plus.monthly`, `Plus.swift`, gates in `Gates.swift`): Levels 2–3 + their guidebooks,
+  countries other than France/Italy, 5 free cards per Atlas section (`AtlasQuota`, pill top-right), Journal (free users see
+  `JournalStore.sample` greyed under a lock). StoreKit 2 when the product loads, else Halo-style test checkout. `.plusSheetHost()`
+  on every presentation layer. TestFlight-only Settings section (`Distribution.isTestFlight`). The build workflow creates the
+  subscription group/product/localization via the ASC API (state MISSING_METADATA until a review screenshot is added in ASC).
+  Simulator = Plus unless the screen is a free one (`paywall`, `freelearn`, `journallocked`, `freeregions`) or `-free`.
+- Notifications (`Notifications` in Progress.swift): morning fun fact (content/facts.yaml, 137) + evening practice, 28 days ahead.
+- Study guide: build_content.py generates per-level units (Grape files, Appellations, Words to know; `unit.study`), open as soon as
+  the level is, not counted for level progress. L1 "Scores & critics", L3 "The story of wine" + a history lesson per L3 region unit;
+  region pages show `region_history.yaml`.
+- Photos: every picture is used once (builder drops repeats; new ones assigned in content/photo_assign.yaml). Great wines to try:
+  content/greatwines.yaml (25), bottle photos cropped to 0.78 portrait (`tw-*`).
+- Maps: France and Italy have 3 levels (regions → zones → appellations/villages); explorer switch Regions/Zones/Appellations, opens on
+  the deepest; Piedmont's Barolo village is `barolo-village` so the DOCG shows. Maps obey the phone rule in `Proj`.
+- Journal ratings are on the 100-point scale (`points`; old 1–10 converted); `RatingGuideSheet` on the first blind tasting.
+- TestFlight build 17 uploaded (run 17). Runs 13–14 failed on a stale provisioning profile (workflow now clears profiles).
+- Lebanon map: 4 level-0 regions + 4 winery-cluster zones + 54 wineries. Logo: keep current mark for now.
