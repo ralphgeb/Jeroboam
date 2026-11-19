@@ -96,3 +96,46 @@
     - match: "Match the region to its signature soil"
       pairs: [[Mosel, Slate], [Champagne, Chalk], [Médoc, Gravel], [Châteauneuf-du-Pape, Galets]]
       explain: "Each soil helps vines cope with that place's climate."
+- title: "Deep dive: soils in pictures"
+  icon: square.stack.3d.down.right
+  cards:
+    - learn: Gravel
+      visual: "photo:soil-gravel"
+      body: |
+        Loose stones that drain fast and store the day's heat. The Left Bank of **Bordeaux** (the Médoc and Graves) is built on gravel banks left by ancient rivers, perfect for late-ripening **Cabernet Sauvignon**.
+    - learn: Clay
+      visual: "photo:soil-clay"
+      body: |
+        Cool and water-holding, so vines never go thirsty but ripen later. **Pomerol** and Saint-Émilion's clay suits early **Merlot**; clay often gives fuller, rounder wines.
+    - learn: Limestone and chalk
+      visual: "photo:champagne-vineyards"
+      body: |
+        Porous white rock that holds water like a sponge yet drains well and keeps acidity bright. **Champagne**, **Chablis**, the Côte d'Or and Saint-Émilion's plateau all sit on it.
+    - learn: Slate and schist
+      visual: "photo:soil-schist"
+      body: |
+        Dark, flaky rock that soaks up sun and splits so roots can dive deep. The **Mosel** (slate) and the **Douro** (schist) grow some of the world's most striking wines on almost no soil at all.
+    - learn: Volcanic
+      visual: "photo:soil-volcanic"
+      body: |
+        Ash, pumice and basalt: poor, free-draining and rich in minerals. **Santorini**, **Etna**, the Canary Islands and parts of Campania make tense, smoky, saline wines.
+    - learn: Granite
+      visual: "photo:soil-granite"
+      body: |
+        Crumbly, acidic and warm. The crus of **Beaujolais** and the northern Rhône's **Côte-Rôtie** and **Hermitage** owe their perfumed, structured wines to granite.
+    - learn: Special soils
+      visual: "photo:soil-albariza"
+      body: |
+        - **Albariza** (Jerez): blinding white chalk that holds winter rain through the summer, the home of Sherry's Palomino.
+        - **Terra rossa** (Coonawarra): red iron-rich clay over limestone, famous for Cabernet.
+        - **Loess** (Austria's Wagram and Kremstal): fine wind-blown silt loved by Grüner Veltliner.
+    - match: "Match the soil to its famous region"
+      pairs: [[Gravel, Médoc], [Albariza, Jerez], [Terra rossa, Coonawarra], [Slate, Mosel]]
+      explain: "Each soil shaped a classic: drainage, heat and water are what matter most."
+    - choice: "Which soil holds water like a sponge yet still drains well?"
+      options: [Chalk, Gravel, Sand, Granite]
+      a: Chalk
+      explain: "Porous chalk stores water in its pores, so vines in Champagne rarely suffer drought."
+    - tf: "Clay soils tend to be cool and late-ripening."
+      truth: true
+      explain: "They hold water and warm up slowly, which suits early grapes like Merlot."

@@ -85,7 +85,8 @@ enum GlassArt {
     }
 }
 
-/// A silhouette glass of a given shape.
+/// A glass from the owner's Illustrator artwork (BrandShapes.swift), with the wine drawn in any color and at any level.
+/// Shapes narrow the same glass for whites and flutes.
 struct SilhouetteGlass: View {
     var shape: GlassArt.Shape = .red
     var color: Color
@@ -94,12 +95,29 @@ struct SilhouetteGlass: View {
     var ink: Color = Palette.ink
     var inner: Color = Palette.card
     var body: some View {
+        let narrow: CGFloat = shape.rim < 0.22 ? 0.62 : (shape.rim < 0.31 ? 0.84 : 1)
         Canvas { ctx, size in
-            let w = min(size.width, size.height * 0.56)
-            let r = CGRect(x: (size.width - w) / 2, y: (size.height - w / 0.56) / 2, width: w, height: w / 0.56)
-            GlassArt.draw(&ctx, in: r, shape: shape, fill: fill, color: color, sparkling: sparkling, ink: ink, inner: inner)
+            let h = min(size.height, size.width / (GlassOutlineShape.aspect * narrow))
+            let w = h * GlassOutlineShape.aspect * narrow
+            let r = CGRect(x: (size.width - w) / 2, y: (size.height - h) / 2, width: w, height: h)
+            // wine: the artwork's pool, cut at the requested level (0.55 ≈ the drawn pour)
+            let top = r.minY + r.height * GlassWineShape.top, bottom = r.minY + r.height * GlassWineShape.bottom
+            let level = bottom - (bottom - top) * min(1, max(0.08, fill / 0.55))
+            var wctx = ctx
+            wctx.clip(to: Path(CGRect(x: r.minX, y: level, width: r.width, height: r.maxY - level)))
+            wctx.fill(GlassWineShape().path(in: r), with: .color(color))
+            if sparkling {
+                var rng = SeededRandom(seed: 5)
+                for _ in 0..<8 {
+                    let bx = r.midX + r.width * 0.2 * CGFloat(rng.next() - 0.5)
+                    let by = level + CGFloat(rng.next()) * (bottom - level) * 0.8 + 2
+                    let br = max(0.8, r.width * 0.022 * CGFloat(0.6 + rng.next()))
+                    wctx.fill(Path(ellipseIn: CGRect(x: bx - br, y: by - br, width: br * 2, height: br * 2)), with: .color(.white.opacity(0.85)))
+                }
+            }
+            ctx.fill(GlassOutlineShape().path(in: r), with: .color(ink))
         }
-        .aspectRatio(0.56, contentMode: .fit)
+        .aspectRatio(GlassOutlineShape.aspect * narrow, contentMode: .fit)
         .accessibilityHidden(true)
     }
 }

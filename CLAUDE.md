@@ -59,8 +59,10 @@ Jeroboam/Sources/        Swift app
   `Font.display` is kept only for numbers and is scaled down.
 - Lists: `GroupCard` + `IconRow` (Settings-like). Cards open with a zoom transition: `.zoomSource(ZoomID…)` on the card,
   `.zoomDestination` on the navigationDestination (iOS 18+, plain push before).
-- Logo (owner's sketch): a cluster "resting on its side": rows 2·3·3 with the bottom row shifted right, stem + leaf top-left
-  (`GrapeMark`, `GrapeMark.brandGradient`); icon = beige grapes, pale leaf on Bordeaux (rendered by a PIL script mirroring GrapeMarkLayout).
+- Brand (owner's Illustrator file tools/brand/wine.ai -> wine.svg): wine splash logo + glass. `python3 tools/brand/build_brand.py`
+  generates Sources/BrandShapes.swift (SplashBodyShape, SplashDropShape, GlassOutlineShape, GlassWineShape) and the app icon
+  (Bordeaux ground, white splash, cork-beige droplet; rendered with cairosvg). In the app: `SplashMark` (Bordeaux on white),
+  `HeroCardBackground`, `SilhouetteGlass` (every glass; wine color/level, narrower for whites and flutes). Old GrapeMark kept only as art.
 - Grape pictures: Resources/Grapes/<id>.png are photo cutouts from the owner's supplied grid image (14 wine grapes have their
   own photo; other varieties reuse the closest-looking one by color). `tools/build_grapes.py` (rendered bunches) is the
   fallback generator — don't re-run it over the photos. `GrapeBadge` shows them (falls back to the drawn `GrapeCluster`).

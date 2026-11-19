@@ -616,5 +616,53 @@
   "license": "CC BY 2.0",
   "artist": "Jesus Solana",
   "page": "https://commons.wikimedia.org/wiki/File:Venenciadora_serving_Sherry.jpg"
+ },
+ "soil-albariza": {
+  "title": "Viñedos en albariza de Jerez - P1240123.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "El Pantera",
+  "page": "https://commons.wikimedia.org/wiki/File:Vi%C3%B1edos_en_albariza_de_Jerez_-_P1240123.jpg"
+ },
+ "soil-clay": {
+  "title": "Nc-red-clay-soil-2.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Flickr user Soil-Science.info / Dr. David Lindbo of the Department of Soil Scien",
+  "page": "https://commons.wikimedia.org/wiki/File:Nc-red-clay-soil-2.jpg"
+ },
+ "soil-loess": {
+  "title": "Loess fg1.jpg",
+  "license": "CC BY-SA 2.5",
+  "artist": "Fritz Geller-Grimm",
+  "page": "https://commons.wikimedia.org/wiki/File:Loess_fg1.jpg"
+ },
+ "soil-gravel": {
+  "title": "Gravel on beach Cape Poge Martha's Vineyard 2020.jpg",
+  "license": "CC0",
+  "artist": "Jstuby",
+  "page": "https://commons.wikimedia.org/wiki/File:Gravel_on_beach_Cape_Poge_Martha%27s_Vineyard_2020.jpg"
+ },
+ "soil-schist": {
+  "title": "View of the Douro valley vineyards on rocky schist.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Varun Shiv Kapur",
+  "page": "https://commons.wikimedia.org/wiki/File:View_of_the_Douro_valley_vineyards_on_rocky_schist.jpg"
+ },
+ "soil-terra-rossa": {
+  "title": "Terra Rossa.jpg",
+  "license": "CC BY 3.0",
+  "artist": "Michael J. Zirbes (Mijozi)",
+  "page": "https://commons.wikimedia.org/wiki/File:Terra_Rossa.jpg"
+ },
+ "soil-volcanic": {
+  "title": "Old vines at Domaine Sigalas in Santorini, Greece.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Treephoto",
+  "page": "https://commons.wikimedia.org/wiki/File:Old_vines_at_Domaine_Sigalas_in_Santorini,_Greece.jpg"
+ },
+ "soil-granite": {
+  "title": "Bluemetal coarse granite gravel texture.jpg",
+  "license": "Public domain",
+  "artist": "Titus Tscharntke",
+  "page": "https://commons.wikimedia.org/wiki/File:Bluemetal_coarse_granite_gravel_texture.jpg"
  }
 }
