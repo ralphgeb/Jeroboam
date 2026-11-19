@@ -14,7 +14,7 @@ enum DebugScreens {
 
     static var initialTab: Int? {
         switch screen {
-        case "learn", "lesson", "photo", "belt", "glasses", "feedback", "blank", "match", "complete": return 0
+        case "learn", "lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
         case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style": return 2
         case "journal", "journalempty", "profile", "tastings", "scan", "blind": return 3
@@ -52,7 +52,7 @@ enum DebugScreens {
     }
 
     static func learnHook(start: @escaping (Lesson) -> Void) {
-        guard let screen, ["lesson", "photo", "belt", "glasses", "feedback", "blank", "match", "complete"].contains(screen) else { return }
+        guard let screen, ["lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete"].contains(screen) else { return }
         let lessons = ContentStore.shared.orderedLessons
         func first(where test: (Card) -> Bool) -> Lesson? {
             for l in lessons {
@@ -69,6 +69,8 @@ enum DebugScreens {
         case "match": lesson = first { $0.kind == .match }
         case "photo": lesson = first { $0.kind == .learn && ($0.visual ?? "").hasPrefix("photo:") }
         case "belt": lesson = first { $0.visual == "diagram:wine-belt" }
+        case "refmap": lesson = first { $0.kind == .learn && ($0.visual ?? "").hasPrefix("map:bordeaux") }
+        case "grapemap": lesson = first { $0.kind == .learn && ($0.visual ?? "").hasPrefix("grape:") }
         case "glasses": lesson = first { $0.visual == "diagram:three-colors" }
         default: lesson = first { $0.kind == .learn && $0.visual != nil }
         }

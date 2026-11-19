@@ -370,5 +370,53 @@
   "license": "CC BY-SA 3.0",
   "artist": "Cyril5555",
   "page": "https://commons.wikimedia.org/wiki/File:Carte_vignoble_beaujolais.png"
+ },
+ "map-burgundy": {
+  "title": "Vignobles bourgogne-fr.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM¿!i?",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_bourgogne-fr.svg"
+ },
+ "map-rhone": {
+  "title": "Vignobles rhone.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM at French Wikipedia",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_rhone.svg"
+ },
+ "map-alsace": {
+  "title": "Vignobles alsace-fr.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "TouN",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_alsace-fr.svg"
+ },
+ "map-southwest": {
+  "title": "Vignobles sud ouest.png",
+  "license": "CC BY-SA 4.0",
+  "artist": "DalGobboM¿!i?",
+  "page": "https://commons.wikimedia.org/wiki/File:Vignobles_sud_ouest.png"
+ },
+ "map-germany": {
+  "title": "WeinbaugebieteDeutschland.svg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Vignobles_allemagne-fr.svg: DalGobboM¿!i?\ntranslation into German: עין לציון (ta",
+  "page": "https://commons.wikimedia.org/wiki/File:WeinbaugebieteDeutschland.svg"
+ },
+ "map-barolo": {
+  "title": "BaroloGemeidenDOCG.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Pelaverga",
+  "page": "https://commons.wikimedia.org/wiki/File:BaroloGemeidenDOCG.jpg"
+ },
+ "map-south-africa": {
+  "title": "South African wine regions.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Western_Cape_rural_education_districts.svg: Htonl\nderivative work: Agne27 (talk)",
+  "page": "https://commons.wikimedia.org/wiki/File:South_African_wine_regions.jpg"
+ },
+ "map-sicily": {
+  "title": "Wine in Sicily.svg",
+  "license": "CC0",
+  "artist": "Kned Wiki",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_in_Sicily.svg"
  }
 }
