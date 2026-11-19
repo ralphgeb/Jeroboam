@@ -198,6 +198,9 @@ struct RegionDetailView: View {
         .onAppear {
             progress.noteViewed(region: r.id)
             #if DEBUG
+            if ["lbexplorer", "ptexplorer"].contains(DebugScreens.screen ?? ""), let m = r.map {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: m, hl: []) }
+            }
             if DebugScreens.screen == "explorer", r.id == "bordeaux" {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: "bordeaux", hl: ["pauillac"]) }
             }

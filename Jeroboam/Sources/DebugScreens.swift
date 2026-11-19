@@ -16,7 +16,7 @@ enum DebugScreens {
         switch screen {
         case "learn", "lesson", "photo", "belt", "glasses", "refmap", "grapemap", "feedback", "blank", "match", "complete": return 0
         case "practice": return 1
-        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style", "tastestep": return 2
+        case "library", "grapes", "grape", "regions", "region", "map", "aromas", "colors", "styles", "tasting", "cards", "boldness", "labels", "explorer", "guide", "tuscany", "icons", "lebanon", "portugal", "wines", "wine", "style", "tastestep", "lbexplorer", "ptexplorer": return 2
         case "journal", "journalempty", "profile", "tastings", "scan", "blind": return 3
         default: return nil
         }
@@ -153,8 +153,8 @@ enum DebugScreens {
             case "labels": push(LibrarySection.labels)
             case "guide": push(LibrarySection.guide)
             case "tuscany": if let r = c.region("tuscany") { push(r) }
-            case "lebanon": if let r = c.region("lebanon") { push(r) }
-            case "portugal": if let r = c.region("portugal") { push(r) }
+            case "lebanon", "lbexplorer": if let r = c.region("lebanon") { push(r) }
+            case "portugal", "ptexplorer": if let r = c.region("portugal") { push(r) }
             case "icons": push("icons")
             default: break
             }
