@@ -11,6 +11,7 @@ lessons:
 
           Yeast lives naturally on grape skins and in wineries, but most winemakers add selected yeast for a reliable result.
       - learn: Sugar decides strength and sweetness
+        visual: "photo:harvest"
         body: |
           - The more sugar in the grapes, the more alcohol the wine can have.
           - If fermentation finishes, the wine is **dry**.
@@ -95,6 +96,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Where the flavor comes from
+        visual: "photo:grape-bunch-red"
         body: 'Three things shape every wine: the **grape** (its aromas and structure), the **place** (climate and soil, together called terroir) and the **winemaker** (choices like oak, temperature and timing).
       
       

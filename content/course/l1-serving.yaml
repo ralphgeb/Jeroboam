@@ -60,6 +60,7 @@ lessons:
   - title: Storing & faults
     cards:
       - learn: Store wine like a cellar
+        visual: "photo:barrel-cellar"
         body: |
           - **Cool and steady**: about 10–15 °C, without big swings.
           - **Dark**: light can damage wine.
@@ -88,6 +89,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Opening and keeping
+        visual: "photo:corks"
         body: 'Once open, wine meets oxygen. Most still wines keep **2–5 days** with the cork back in, in the fridge. Sparkling wine keeps 1–3 days with a stopper.
       
       
@@ -95,6 +97,7 @@ lessons:
       
           '
       - learn: Decanting
+        visual: "photo:sommelier"
         body: '**Decanting** means pouring wine into another vessel. It separates an old wine from its **sediment**, and lets young, tannic wines breathe so they taste softer.
       
       

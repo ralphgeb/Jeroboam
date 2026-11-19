@@ -105,10 +105,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Château, Domaine, Bodega
+        visual: "photo:bordeaux-chateau"
         body: 'The producer''s name often starts with a word for estate: **Château** (Bordeaux), **Domaine** (Burgundy and elsewhere in France), **Bodega** (Spain), **Weingut** (Germany, Austria), **Quinta** (Portugal) and **Tenuta** (Italy).
       
           '
       - learn: Burgundy's ladder
+        visual: "photo:burgundy-cote"
         body: 'Burgundy labels climb a ladder: **Bourgogne** (regional), **village** (e.g. Gevrey-Chambertin), **Premier Cru** (a named vineyard plus the village) and **Grand Cru** (the vineyard name alone, e.g. Chambertin).
       
           '

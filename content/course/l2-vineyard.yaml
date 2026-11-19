@@ -44,6 +44,7 @@ lessons:
           - **Cool climates**: higher acidity, lower alcohol, lighter body, green and citrus fruit (or red fruit in reds).
           - **Warm climates**: lower acidity, higher alcohol, fuller body, stone, tropical and black fruit.
       - learn: Natural air conditioning
+        visual: "photo:loire-sancerre"
         body: |
           Warm regions can still make fresh wines thanks to:
 
@@ -73,6 +74,7 @@ lessons:
         body: |
           **Terroir** is everything about a site: soil, slope, aspect, altitude, climate and water. In Burgundy, neighboring vineyards a few meters apart can make very different wines.
       - learn: Slopes, soil and water
+        visual: "photo:douro-terraces"
         body: |
           - **Slopes** facing the sun (south in the north, north in the south) get more heat.
           - **Well-drained soils** (gravel, slate, chalk) stress vines gently, giving smaller, more concentrated berries.

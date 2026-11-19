@@ -35,6 +35,7 @@ lessons:
   - title: Smell
     cards:
       - learn: Swirl, then sniff
+        visual: "photo:sommelier"
         body: |
           Swirling releases aromas into the air above the wine. Take short sniffs and ask two questions:
 

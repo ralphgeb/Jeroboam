@@ -5,6 +5,7 @@ lessons:
   - title: Place or grape?
     cards:
       - learn: Two ways to name a wine
+        visual: "photo:bottle-shapes"
         body: |
           - **Old World** labels often name the **place**: Chablis, Rioja, Barolo. You are expected to know the grape.
           - **New World** labels usually name the **grape**: Napa Cabernet Sauvignon, Marlborough Sauvignon Blanc.

@@ -97,6 +97,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Three roads to sweetness
+        visual: "photo:botrytis"
         body: '1. **Noble rot** (botrytis) shrivels grapes and concentrates sugar: Sauternes, Tokaji.
       
           2. **Freezing**: grapes picked frozen give Icewine/Eiswein.
@@ -108,6 +109,7 @@ lessons:
       
           '
       - learn: Sherry styles
+        visual: "photo:flor"
         body: '**Fino** and **Manzanilla** age under a layer of yeast called **flor**: pale, dry, salty, almond. **Oloroso** ages without flor, in contact with air: dark, nutty, dry. **Pedro Ximénez** is a dark, raisin-sweet dessert sherry.
       
           '

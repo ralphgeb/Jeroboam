@@ -105,6 +105,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Italy's great reds
+        visual: "photo:tuscany-chianti"
         body: '**Sangiovese** is the grape of Chianti and Brunello di Montalcino: red cherry, herbs and high acidity. **Nebbiolo** makes Barolo and Barbaresco: pale color, rose and tar aromas, and big tannin.
       
       
@@ -112,6 +113,7 @@ lessons:
       
           '
       - learn: Iberia's great reds
+        visual: "photo:rioja-vineyards"
         body: '**Tempranillo** leads Rioja and Ribera del Duero, often aged in oak for vanilla and leather notes. **Touriga Nacional** is Portugal''s star for Port and dry Douro reds, with violet and black fruit.
       
           '

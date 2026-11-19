@@ -9,6 +9,7 @@ lessons:
         body: |
           The finest sparkling wines are made by the **traditional method**: a still base wine gets yeast and sugar, then ferments **a second time inside its own bottle**. The trapped CO₂ makes the bubbles.
       - learn: The magic of lees
+        visual: "photo:riddling"
         body: |
           The wine then rests on its dead yeast (**lees**) for months or years. As the yeast breaks down (**autolysis**), it gives **biscuit, bread and brioche** aromas and finer bubbles.
       - choice: "In the traditional method, where does the second fermentation happen?"

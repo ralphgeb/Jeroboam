@@ -1,1 +1,212 @@
-{}
+{
+ "harvest": {
+  "title": "Javier shows part of the grape harvest in his Lysekil vineyard 1 - cropped.jpg",
+  "license": "CC0",
+  "artist": "W.carter",
+  "page": "https://commons.wikimedia.org/wiki/File:Javier_shows_part_of_the_grape_harvest_in_his_Lysekil_vineyard_1_-_cropped.jpg"
+ },
+ "grape-bunch-red": {
+  "title": "DFC 3937 Bunches of plump juicy red grapes piled together ready to snack on.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "PattayaPatrol",
+  "page": "https://commons.wikimedia.org/wiki/File:DFC_3937_Bunches_of_plump_juicy_red_grapes_piled_together_ready_to_snack_on.jpg"
+ },
+ "veraison": {
+  "title": "Wine grapes going through veraison in the Minervois.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Jeremy Atkinson",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_grapes_going_through_veraison_in_the_Minervois.jpg"
+ },
+ "budburst": {
+  "title": "Riesling budburst Sept 2010.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Mark Smith",
+  "page": "https://commons.wikimedia.org/wiki/File:Riesling_budburst_Sept_2010.jpg"
+ },
+ "pruning": {
+  "title": "Stampede Vineyard - Zinfandel, Mission - planted 1920s-1940s.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Randy Caparoso",
+  "page": "https://commons.wikimedia.org/wiki/File:Stampede_Vineyard_-_Zinfandel,_Mission_-_planted_1920s-1940s.jpg"
+ },
+ "crusher": {
+  "title": "Grape processing at Chateau Montelena Winery.gk.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Grendelkhan",
+  "page": "https://commons.wikimedia.org/wiki/File:Grape_processing_at_Chateau_Montelena_Winery.gk.jpg"
+ },
+ "fermentation-tank": {
+  "title": "Stainless steel fermentation tanks for sparkling wine.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Lynn B",
+  "page": "https://commons.wikimedia.org/wiki/File:Stainless_steel_fermentation_tanks_for_sparkling_wine.jpg"
+ },
+ "barrel-cellar": {
+  "title": "Yerevan, Brandy barrels, Armenia.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Vyacheslav Argenberg",
+  "page": "https://commons.wikimedia.org/wiki/File:Yerevan,_Brandy_barrels,_Armenia.jpg"
+ },
+ "barrel-making": {
+  "title": "Oak-wine-barrel-parts-description-toasting-toneleria-nacional-chile.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Gerard Prins",
+  "page": "https://commons.wikimedia.org/wiki/File:Oak-wine-barrel-parts-description-toasting-toneleria-nacional-chile.jpg"
+ },
+ "riddling": {
+  "title": "Pol Roger pupitre 2.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Tomas er",
+  "page": "https://commons.wikimedia.org/wiki/File:Pol_Roger_pupitre_2.jpg"
+ },
+ "flor": {
+  "title": "FLOR-ValdiviaJerez59.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "El Pantera",
+  "page": "https://commons.wikimedia.org/wiki/File:FLOR-ValdiviaJerez59.jpg"
+ },
+ "botrytis": {
+  "title": "Château Doisy-Védrines, Barsac, Sauternes noble rot grapes.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Megan Mallen",
+  "page": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_Doisy-V%C3%A9drines,_Barsac,_Sauternes_noble_rot_grapes.jpg"
+ },
+ "icewine-grapes": {
+  "title": "Frozen Grapes.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Craig Hatfield",
+  "page": "https://commons.wikimedia.org/wiki/File:Frozen_Grapes.jpg"
+ },
+ "port-lodge": {
+  "title": "Taylor’s Port Wine Cellar, Vila Nova de Gaia, Oporto (48730636822).jpg",
+  "license": "CC BY 2.0",
+  "artist": "Ray in Manila",
+  "page": "https://commons.wikimedia.org/wiki/File:Taylor%E2%80%99s_Port_Wine_Cellar,_Vila_Nova_de_Gaia,_Oporto_(48730636822).jpg"
+ },
+ "douro-terraces": {
+  "title": "The Douro Valley vineyards terraced.jpg",
+  "license": "CC BY 2.0",
+  "artist": "mat's eye",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Douro_Valley_vineyards_terraced.jpg"
+ },
+ "bordeaux-chateau": {
+  "title": "9701701 Château Ducluzeau Listrac-Medoc 2009 (10305407543).jpg",
+  "license": "CC BY 2.0",
+  "artist": "Nigab Pressbilder",
+  "page": "https://commons.wikimedia.org/wiki/File:9701701_Ch%C3%A2teau_Ducluzeau_Listrac-Medoc_2009_(10305407543).jpg"
+ },
+ "saint-emilion": {
+  "title": "Saint-Emilion 33 Place 2013.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "JLPC",
+  "page": "https://commons.wikimedia.org/wiki/File:Saint-Emilion_33_Place_2013.jpg"
+ },
+ "burgundy-cote": {
+  "title": "Burgundy Vineyards, Cote d'Or, Beaune, France.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Sheri",
+  "page": "https://commons.wikimedia.org/wiki/File:Burgundy_Vineyards,_Cote_d%27Or,_Beaune,_France.jpg"
+ },
+ "champagne-vineyards": {
+  "title": "La montagne de Reims DSC 0226.JPG",
+  "license": "CC BY-SA 3.0",
+  "artist": "Pline",
+  "page": "https://commons.wikimedia.org/wiki/File:La_montagne_de_Reims_DSC_0226.JPG"
+ },
+ "chateauneuf-galets": {
+  "title": "Châtauneuf-du-Pape Cep et galets roulés.jpg",
+  "license": "CC BY 2.0",
+  "artist": "jean-louis zimmermann",
+  "page": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2tauneuf-du-Pape_Cep_et_galets_roul%C3%A9s.jpg"
+ },
+ "loire-sancerre": {
+  "title": "Sancerre - View on vineyards - 2.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Benjamin Smith",
+  "page": "https://commons.wikimedia.org/wiki/File:Sancerre_-_View_on_vineyards_-_2.jpg"
+ },
+ "tuscany-chianti": {
+  "title": "Panorama of Tuscan hills (5771923270).jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Michal Osmenda from Brussels, Belgium",
+  "page": "https://commons.wikimedia.org/wiki/File:Panorama_of_Tuscan_hills_(5771923270).jpg"
+ },
+ "rioja-vineyards": {
+  "title": "La Rioja 1998 12.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "LBM1948",
+  "page": "https://commons.wikimedia.org/wiki/File:La_Rioja_1998_12.jpg"
+ },
+ "napa-valley": {
+  "title": "Vineyards of Napa Valley panorama.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Brocken Inaglory",
+  "page": "https://commons.wikimedia.org/wiki/File:Vineyards_of_Napa_Valley_panorama.jpg"
+ },
+ "barossa": {
+  "title": "View of Rifle Range Rd, Krondorf, Barossa Valley 20230207.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "User:DXR",
+  "page": "https://commons.wikimedia.org/wiki/File:View_of_Rifle_Range_Rd,_Krondorf,_Barossa_Valley_20230207.jpg"
+ },
+ "marlborough": {
+  "title": "Marlborough Vineyards as seen from New Zealand State Highway 1 100121 1.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "DXR",
+  "page": "https://commons.wikimedia.org/wiki/File:Marlborough_Vineyards_as_seen_from_New_Zealand_State_Highway_1_100121_1.jpg"
+ },
+ "mendoza-andes": {
+  "title": "Vineyards below the Andes.jpg",
+  "license": "CC BY-SA 2.0",
+  "artist": "Beatrice Murch",
+  "page": "https://commons.wikimedia.org/wiki/File:Vineyards_below_the_Andes.jpg"
+ },
+ "stellenbosch": {
+  "title": "Stellenbosch Mountain - Coetzenburg.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Gustav Ludick",
+  "page": "https://commons.wikimedia.org/wiki/File:Stellenbosch_Mountain_-_Coetzenburg.jpg"
+ },
+ "bekaa": {
+  "title": "Ksara Vineyards - panoramio.jpg",
+  "license": "CC BY 3.0",
+  "artist": "Raki_Man",
+  "page": "https://commons.wikimedia.org/wiki/File:Ksara_Vineyards_-_panoramio.jpg"
+ },
+ "tokaj": {
+  "title": "Vineyard near Tokaj, Hungary.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Pudelek",
+  "page": "https://commons.wikimedia.org/wiki/File:Vineyard_near_Tokaj,_Hungary.jpg"
+ },
+ "wachau": {
+  "title": "Weißenkirchen in der Wachau, 20210728 1212 0708.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Jakub Hałun",
+  "page": "https://commons.wikimedia.org/wiki/File:Wei%C3%9Fenkirchen_in_der_Wachau,_20210728_1212_0708.jpg"
+ },
+ "qvevri": {
+  "title": "Neolithic jar from Georgia 6000 BC.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Mindia Jalabadze",
+  "page": "https://commons.wikimedia.org/wiki/File:Neolithic_jar_from_Georgia_6000_BC.jpg"
+ },
+ "corks": {
+  "title": "Wine corks, Rostov-on-Don, Russia.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Vyacheslav Argenberg",
+  "page": "https://commons.wikimedia.org/wiki/File:Wine_corks,_Rostov-on-Don,_Russia.jpg"
+ },
+ "bottle-shapes": {
+  "title": "Wines from Bordeaux, Bourgogne and Alsace.jpg",
+  "license": "CC0",
+  "artist": "Capsellanaut",
+  "page": "https://commons.wikimedia.org/wiki/File:Wines_from_Bordeaux,_Bourgogne_and_Alsace.jpg"
+ },
+ "sommelier": {
+  "title": "Sommelier decanting and serving wine at a restaurant.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Fabio Ingrosso",
+  "page": "https://commons.wikimedia.org/wiki/File:Sommelier_decanting_and_serving_wine_at_a_restaurant.jpg"
+ }
+}
