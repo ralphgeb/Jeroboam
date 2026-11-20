@@ -437,6 +437,20 @@ for gw in great:
         if f[1] not in ("-", ""): gw["avgPrice"] = int(f[1])
         if f[2] not in ("-", ""): gw["criticScore"] = int(f[2])
         gw["source"] = f[3]
+# keep the strongest wines: 25 for the big areas, 10 for the rest (real figures first, then critic score, then list order)
+BIG = {"Bordeaux": 25, "Burgundy": 25, "Champagne": 25, "Piedmont": 25, "Tuscany": 25, "Spain": 25}
+def _score(g):
+    if g.get("criticScore"): return g["criticScore"]
+    import re as _re
+    nums = [int(x) for x in _re.findall(r"\d+", g.get("scores", ""))]
+    return max(nums) if nums else 0
+_by = {}
+for i, g in enumerate(great): _by.setdefault(g["area"], []).append((i, g))
+_keep = set()
+for area, items in _by.items():
+    items.sort(key=lambda t: (0 if t[1].get("source") else 1, -_score(t[1]), t[0]))
+    for i, g in items[:BIG.get(area, 10)]: _keep.add(g["id"])
+great = [g for g in great if g["id"] in _keep]
 print(f"great wines with real figures: {sum(1 for g in great if g.get('source'))}/{len(great)}")
 for gw in great:
     if gw["region"] not in rset: err(f"great wine {gw['id']}: unknown region {gw['region']}")

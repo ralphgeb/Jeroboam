@@ -32,6 +32,14 @@ struct GreatWine: Decodable, Identifiable, Hashable {
     var regionInfo: Region? { ContentStore.shared.library.regions.first { $0.id == region } }
     var grapeInfos: [Grape] { grapes.compactMap { ContentStore.shared.grape($0) } }
     var verified: Bool { source != nil }
+    /// A single number to sort and filter by: the real average when known, else the middle of the estimate.
+    var priceValue: Int { avgPrice ?? (price.count == 2 ? (price[0] + price[1]) / 2 : 0) }
+    /// The critic score to sort and filter by: the real score, else the top of the estimated range.
+    var scoreValue: Int {
+        if let c = criticScore { return c }
+        let nums = scores.split(whereSeparator: { !$0.isNumber }).compactMap { Int($0) }
+        return nums.max() ?? 0
+    }
     /// "$920" when looked up, else the estimated range.
     var priceText: String {
         if let a = avgPrice { return a >= 1000 ? "$\(a / 1000),\(String(format: "%03d", a % 1000))" : "$\(a)" }
@@ -301,6 +309,16 @@ struct GreatWineImage: View {
 struct GreatWinesScreen: View {
     @State private var area: String = "Bordeaux"
     @State private var query = ""
+    @State private var sort = Sort.featured
+    @State private var band = Band.all
+    @State private var minScore = 0
+    enum Sort: String, CaseIterable { case featured = "Featured", priceUp = "Price: low to high", priceDown = "Price: high to low", rating = "Rating" }
+    enum Band: String, CaseIterable {
+        case all = "Any price", under50 = "Under $50", mid = "$50–150", over150 = "$150+"
+        func matches(_ v: Int) -> Bool {
+            switch self { case .all: return true; case .under50: return v < 50; case .mid: return v >= 50 && v <= 150; case .over150: return v > 150 }
+        }
+    }
     /// Areas grouped by country, France first.
     static let order = ["Bordeaux", "Burgundy", "Champagne", "Rhône", "Loire", "Alsace", "Beaujolais", "Southern France", "Jura & Savoie",
                         "Piedmont", "Tuscany", "Veneto & the North East", "Southern Italy & Islands", "Spain", "Portugal", "Germany",
@@ -340,14 +358,21 @@ struct GreatWinesScreen: View {
                     Spacer()
                     Text("\(shown.count) wines").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12, alignment: .top), GridItem(.flexible(), spacing: 12, alignment: .top)], spacing: 16) {
-                    ForEach(shown) { w in
-                        NavigationLink(value: w) { tile(w) }.buttonStyle(PressableStyle())
+                filterBar
+                let rows = ordered(shown)
+                if rows.isEmpty {
+                    Text("No wines match these filters.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft).padding(.vertical, 30)
+                } else {
+                    VStack(spacing: 0) {
+                        ForEach(Array(rows.enumerated()), id: \.element.id) { i, w in
+                            NavigationLink(value: w) { row(w, last: i == rows.count - 1) }.buttonStyle(PressableStyle())
+                        }
                     }
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
+                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
+                    .id(area + sort.rawValue + band.rawValue + "\(minScore)")
                 }
-                .id(area)
-                .transition(.opacity)
-                Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottles are drawn illustrations, not the producers' labels.")
+                Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottle photos are from Wikimedia Commons where one exists.")
                     .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
                 Color.clear.frame(height: 10)
             }
@@ -357,7 +382,69 @@ struct GreatWinesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "great") } }
-        .searchable(text: $query, prompt: "Search 1,000 wines or producers")
+        .searchable(text: $query, prompt: "Search wines or producers")
+    }
+
+    private func ordered(_ ws: [GreatWine]) -> [GreatWine] {
+        var r = ws.filter { band.matches($0.priceValue) && $0.scoreValue >= minScore }
+        switch sort {
+        case .featured: break
+        case .priceUp: r.sort { $0.priceValue < $1.priceValue }
+        case .priceDown: r.sort { $0.priceValue > $1.priceValue }
+        case .rating: r.sort { $0.scoreValue > $1.scoreValue }
+        }
+        return r
+    }
+
+    private var filterBar: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                Menu {
+                    Picker("Sort", selection: $sort) { ForEach(Sort.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
+                } label: { chip("arrow.up.arrow.down", sort.rawValue, on: sort != .featured) }
+                Menu {
+                    Picker("Price", selection: $band) { ForEach(Band.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
+                } label: { chip("dollarsign.circle", band.rawValue, on: band != .all) }
+                Menu {
+                    Picker("Rating", selection: $minScore) {
+                        Text("Any rating").tag(0); Text("90 and up").tag(90); Text("95 and up").tag(95)
+                    }
+                } label: { chip("star", minScore == 0 ? "Any rating" : "\(minScore)+", on: minScore != 0) }
+            }
+            .padding(.horizontal, Metrics.margin)
+        }
+        .padding(.horizontal, -Metrics.margin)
+    }
+
+    private func chip(_ icon: String, _ text: String, on: Bool) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon).font(.system(size: 12, weight: .semibold))
+            Text(text).font(.system(size: 13.5, weight: .medium))
+            Image(systemName: "chevron.down").font(.system(size: 9, weight: .bold))
+        }
+        .foregroundStyle(on ? Palette.onWine : Palette.ink)
+        .padding(.horizontal, 12).frame(height: 34)
+        .background(Capsule().fill(on ? Palette.wine : Palette.cardAlt))
+    }
+
+    private func row(_ w: GreatWine, last: Bool) -> some View {
+        HStack(spacing: 12) {
+            GreatWineImage(wine: w, corner: 8).frame(width: 46)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(w.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                    .lineLimit(2).multilineTextAlignment(.leading)
+                Text(w.producer).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+            }
+            Spacer(minLength: 6)
+            VStack(alignment: .trailing, spacing: 5) {
+                Text(w.priceText).font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                Text(w.scoreText).font(.system(size: 11.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                    .padding(.horizontal, 8).frame(height: 21).background(Capsule().fill(Palette.bordeaux.opacity(0.92)))
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .contentShape(Rectangle())
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 72) } }
     }
 
     private func tile(_ w: GreatWine) -> some View {

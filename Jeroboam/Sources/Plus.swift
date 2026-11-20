@@ -291,7 +291,7 @@ struct PlusSheet: View {
         ScrollView {
             VStack(spacing: 0) {
                 if step == .done {
-                    welcome.padding(.top, 40).transition(.opacity.combined(with: .scale(scale: 0.96)))
+                    welcome.transition(.opacity.combined(with: .scale(scale: 0.96)))
                 } else {
                     offer.padding(.horizontal, 20).padding(.top, 22).transition(.opacity)
                 }
@@ -424,13 +424,37 @@ struct PlusSheet: View {
     }
 
     private var welcome: some View {
-        VStack(spacing: 10) {
-            Image(systemName: "checkmark.seal.fill").font(.system(size: 48)).foregroundStyle(Palette.wine)
-                .symbolEffect(.bounce, value: step == .done)
-            Text("Welcome to Jero Plus").font(.system(size: 24, weight: .bold)).foregroundStyle(Palette.ink)
-            Text("Every level, map and card is open. Santé!").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+        VStack(spacing: 16) {
+            Spacer(minLength: 20)
+            ZStack {
+                Circle().fill(Palette.wineSoft).frame(width: 110, height: 110)
+                Image(systemName: "checkmark.seal.fill").font(.system(size: 54)).foregroundStyle(Palette.wine)
+                    .symbolEffect(.bounce, value: step == .done)
+            }
+            Text("Welcome to Jero Plus").font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+            Text("You're subscribed. Every level, map, wine and your journal are now open. Santé!")
+                .font(.system(size: 16)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
+                .padding(.horizontal, 30).fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 10) {
+                welcomePoint("Levels 1 to 3 and every guidebook")
+                welcomePoint("All 15 countries in the atlas")
+                welcomePoint("Journal, cellar and blind tastings")
+                welcomePoint("Great wines to try, with prices")
+            }
+            .padding(18).frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
+            .padding(.horizontal, 20)
+            Button("Start exploring") { dismiss() }.buttonStyle(PrimaryButtonStyle()).padding(.horizontal, 20)
+            Spacer(minLength: 10)
         }
-        .padding(.vertical, 20)
+        .frame(minHeight: 500)
+    }
+
+    private func welcomePoint(_ t: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "checkmark.circle.fill").foregroundStyle(Palette.wine)
+            Text(t).font(.system(size: 15)).foregroundStyle(Palette.ink)
+        }
     }
 }
 
