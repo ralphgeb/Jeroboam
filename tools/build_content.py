@@ -437,6 +437,8 @@ for gw in great:
         if f[1] not in ("-", ""): gw["avgPrice"] = int(f[1])
         if f[2] not in ("-", ""): gw["criticScore"] = int(f[2])
         gw["source"] = f[3]
+_lp = os.path.join(SRC, "label_pos.json")
+LABEL_POS = json.load(open(_lp)) if os.path.exists(_lp) else {}
 # keep the strongest wines: 25 for the big areas, 10 for the rest (real figures first, then critic score, then list order)
 BIG = {"Bordeaux": 25, "Burgundy": 25, "Champagne": 25, "Piedmont": 25, "Tuscany": 25, "Spain": 25}
 def _score(g):
@@ -461,6 +463,7 @@ for gw in great:
     if other: gw["also"] = other
     if gw.get("snapshot") and gw["snapshot"] not in photo_ids: gw["snapshot"] = None
     if "bw-" + gw["id"] in photo_ids: gw["bottle"] = "bw-" + gw["id"]
+    if gw.get("bottle") and gw["id"] in LABEL_POS: gw["labelY"] = LABEL_POS[gw["id"]]
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
 

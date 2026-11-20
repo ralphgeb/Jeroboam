@@ -25,6 +25,8 @@ struct GreatWine: Decodable, Identifiable, Hashable {
     var snapshot: String? = nil
     /// A real bottle photo (Wikimedia Commons) when one was found.
     var bottle: String? = nil
+    /// Where the label sits on the bottle photo (0 = top, 1 = bottom), so thumbnails can be centered on it.
+    var labelY: Double? = nil
 
     static func == (a: GreatWine, b: GreatWine) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }
@@ -235,7 +237,7 @@ struct BottleShot: View {
                     .frame(width: rect.width, height: rect.height).offset(x: rect.minX, y: rect.minY)
             }
         }
-        .aspectRatio(0.78, contentMode: .fit)
+        .aspectRatio(aspect, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: corner, style: .continuous).strokeBorder(Color.black.opacity(0.06), lineWidth: 0.5))
         .environment(\.colorScheme, .light)
@@ -275,6 +277,21 @@ struct BottleShot: View {
     }
 }
 
+extension GreatWineImage {
+    /// The photo filled to the frame's width and slid up or down so the label is in the middle.
+    fileprivate func labelCrop(_ img: UIImage) -> some View {
+        GeometryReader { geo in
+            let w = geo.size.width
+            let h = w * img.size.height / max(1, img.size.width)
+            let target = geo.size.height / 2 - CGFloat(wine.labelY ?? 0.62) * h
+            let y = min(0, max(geo.size.height - h, target))
+            Color.clear.overlay(alignment: .topLeading) {
+                Image(uiImage: img).resizable().frame(width: w, height: h).offset(y: y)
+            }
+        }
+    }
+}
+
 /// The picture used everywhere for a great wine: a real photo of the bottle when one exists
 /// (Wikimedia Commons, credited on the detail page), otherwise a plain typographic tile. Never a drawing.
 struct GreatWineImage: View {
@@ -282,12 +299,14 @@ struct GreatWineImage: View {
     var corner: CGFloat = 16
     /// Fill the frame so the label is what you see (list thumbnails); otherwise the whole bottle is shown.
     var zoomLabel = false
+    /// Width over height of the frame (the wine page uses a slimmer card).
+    var aspect: CGFloat = 0.78
     var body: some View {
         Group {
             if let b = wine.bottle, let img = Photos.image(b) {
                 Color.white
                     .overlay {
-                        if zoomLabel { Image(uiImage: img).resizable().scaledToFill().scaleEffect(1.15).offset(y: 6) }
+                        if zoomLabel { labelCrop(img) }
                         else { Image(uiImage: img).resizable().scaledToFit().padding(5) }
                     }
                     .clipped()
@@ -547,9 +566,9 @@ struct GreatWineDetail: View {
             VStack(alignment: .leading, spacing: 22) {
                 HStack(alignment: .top, spacing: 16) {
                     VStack(spacing: 4) {
-                        GreatWineImage(wine: w, corner: 22).frame(width: 195)
+                        GreatWineImage(wine: w, corner: 22, aspect: 0.56).frame(width: 138)
                         if let b = w.bottle, let c = Photos.creditLine(b) {
-                            Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 195)
+                            Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 138)
                         }
                     }
                     VStack(alignment: .leading, spacing: 8) {
