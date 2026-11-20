@@ -362,6 +362,21 @@ for lv in levels_meta:
         level["units"].append(unit)
     course["levels"].append(level)
 
+# teaching audit: the right answer of every choice question should be taught somewhere in the learn cards
+_taught = "\n".join(((c.get("title") or "") + " " + (c.get("body") or "")).lower()
+                    for lvl in course["levels"] for u in lvl["units"] for ls in u["lessons"] for c in ls["cards"] if c["t"] == "learn")
+_untaught = 0
+for lvl in course["levels"]:
+    for u in lvl["units"]:
+        for ls in u["lessons"]:
+            for c in ls["cards"]:
+                if c["t"] == "choice":
+                    a = str(c["options"][c["a"]]).lower().strip(". ")
+                    if len(a) >= 4 and a not in _taught and a not in ("true", "false"):
+                        _untaught += 1
+                        if _untaught <= 12: warn(f"answer not taught in any learn card: {u['title']} / {ls['title']}: {c['q'][:60]} -> {a[:40]}")
+if _untaught: warn(f"{_untaught} choice answers are not found verbatim in the learn cards")
+
 # no picture twice: lesson cards keep their photo in course order; a later repeat (or a cover that
 # repeats any card) is dropped.
 seen_photos = set()

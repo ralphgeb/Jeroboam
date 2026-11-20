@@ -13,6 +13,13 @@ lessons:
           - **Barbaresco**: Nebbiolo, 26 months. Often more elegant.
           - **Barbera d'Asti** and **Dolcetto d'Alba**: everyday reds.
           - **Moscato d'Asti**: gently sparkling and sweet. **Gavi**: crisp Cortese.
+      - learn: Barolo's communes
+        body: |
+          Barolo is five main villages, and each speaks differently:
+
+          - **La Morra** and **Barolo**: softer Tortonian marl, perfumed, elegant, earlier-drinking wines.
+          - **Serralunga d'Alba**: older, compact Helvetian soils, the most powerful and structured Barolo, needing 15 years or more.
+          - **Castiglione Falletto** and **Monforte d'Alba**: in between, with firm structure and depth.
       - choice: "What is the minimum ageing for Barolo?"
         options: ["38 months", "12 months", "6 months", "10 years"]
         a: "38 months"
