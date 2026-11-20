@@ -7,7 +7,7 @@ on:
     inputs:
       screens:
         description: "Space-separated debug screens"
-        default: "learn guide explorer greatwine journal library"
+        default: "learn guide explorer greatwine"
 
 permissions:
   contents: write
@@ -64,7 +64,6 @@ jobs:
           [ -z "$UDID" ] && { echo "::error::No runtime for $TYPE"; exit 1; }
           xcrun simctl boot "$UDID"; xcrun simctl bootstatus "$UDID" -b
           xcrun simctl status_bar "$UDID" override --time "9:41" --batteryLevel 100 --batteryState charged --cellularBars 4 --wifiBars 3
-          xcrun simctl ui "$UDID" appearance light
           xcrun simctl install "$UDID" "$APP"
           # every simctl call that touches a screen gets 90 seconds at most (macOS has no timeout(1))
           limited() {
@@ -97,12 +96,15 @@ jobs:
             ORIENTS="portrait"; [ "$SCREEN" = inside ] && ORIENTS="portrait landscape"
             for OR in $ORIENTS; do
               for S in $SCREENS; do
-                limited xcrun simctl launch --terminate-running-process "$UDID" com.ralphgeb.jero -screen "$S" -orient "$OR" </dev/null
+                ARGS="-screen $S"; [ "$OR" = landscape ] && ARGS="$ARGS -orient landscape"
+                limited xcrun simctl launch --terminate-running-process "$UDID" com.ralphgeb.jero $ARGS </dev/null
                 sleep 10
                 limited xcrun simctl io "$UDID" screenshot --display="$D" "../screens/duo-$SCREEN-$OR-$S.png"
               done
             done
           done < internal.sorted
+          ls ~/Library/Logs/DiagnosticReports 2>/dev/null | tail -20 | sed 's/^/crash report: /'
+          for f in $(ls -t ~/Library/Logs/DiagnosticReports/*.ips 2>/dev/null | head -3); do cp "$f" ../screens/ 2>/dev/null; done
           xcrun simctl shutdown "$UDID"
           ls -la ../screens
 
