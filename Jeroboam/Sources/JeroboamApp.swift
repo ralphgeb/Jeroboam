@@ -89,11 +89,15 @@ struct RootView: View {
         .onAppear {
             #if DEBUG
             if let t = DebugScreens.initialTab { tab = t }
-            if CommandLine.arguments.contains("-landscape") {
-                // screenshots of the wide (foldable / sideways) layout
+            // screenshots of the foldable / wide layouts: -orient portrait|landscape turns the screen
+            let args = CommandLine.arguments
+            let want: UIInterfaceOrientationMask? = args.contains("-landscape") ? .landscapeRight
+                : (args.firstIndex(of: "-orient").flatMap { args.indices.contains($0 + 1) ? args[$0 + 1] : nil }
+                    .map { $0 == "landscape" ? UIInterfaceOrientationMask.landscapeRight : .portrait })
+            if let want {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     for case let scene as UIWindowScene in UIApplication.shared.connectedScenes {
-                        scene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight))
+                        scene.requestGeometryUpdate(.iOS(interfaceOrientations: want)) { _ in }
                     }
                 }
             }

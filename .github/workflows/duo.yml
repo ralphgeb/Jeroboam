@@ -1,0 +1,131 @@
+name: iPhone Duo screenshots (outside and inside, portrait and landscape)
+
+# Same method as Halo: a Duo simulator made on its own iPhone runtime, each display powered on in turn,
+# screenshots taken per display. Run by hand; the pictures land on the duo-screenshots branch and in the artifacts.
+on:
+  workflow_dispatch:
+    inputs:
+      screens:
+        description: "Space-separated debug screens"
+        default: "learn guide explorer greatwine journal library"
+
+permissions:
+  contents: write
+
+jobs:
+  duo:
+    runs-on: xcode-27
+    timeout-minutes: 70
+    defaults:
+      run:
+        working-directory: Jeroboam
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select the newest released Xcode
+        run: |
+          best=""; bestv=0
+          for x in $(ls -d /Applications/Xcode_*.app 2>/dev/null | grep -viE "beta|rc|preview"); do
+            v=$(DEVELOPER_DIR="$x/Contents/Developer" xcodebuild -version 2>/dev/null | awk 'NR==1{print $2}')
+            n=$(echo "$v" | awk -F. '{printf "%d%03d%03d", $1, $2, $3}')
+            if [ -n "$v" ] && [ "$n" -gt "$bestv" ]; then best=$x; bestv=$n; fi
+          done
+          if [ -n "$best" ]; then sudo xcode-select -s "$best/Contents/Developer"; fi
+          xcodebuild -version
+
+      - name: Build for the simulator
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          set -o pipefail
+          xcodebuild build -project Jeroboam.xcodeproj -scheme Jeroboam -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO 2>&1 | tail -5
+
+      - name: Photograph the Duo
+        timeout-minutes: 50
+        continue-on-error: true
+        run: |
+          set +e
+          APP=$(ls -d build/Build/Products/Debug-iphonesimulator/Jeroboam.app)
+          rm -rf ../screens; mkdir -p ../screens
+          xcrun simctl list runtimes -j | python3 -c "
+          import json,sys
+          r=[x for x in json.load(sys.stdin)['runtimes'] if x['platform']=='iOS' and x['isAvailable']]
+          r.sort(key=lambda x:([int(p) for p in x['version'].split('.')], 'iPhone' in x['identifier']), reverse=True)
+          print('\\n'.join(x['identifier'] for x in r))" > runtimes.txt
+          cat runtimes.txt
+          SCREENS="${{ github.event.inputs.screens }}"
+          TYPE=com.apple.CoreSimulator.SimDeviceType.iPhone-Duo; SLUG=duo
+          UDID=""
+          while read -r RT; do
+            UDID=$(xcrun simctl create "$SLUG" "$TYPE" "$RT" 2>/dev/null) && { echo "$SLUG on $RT"; break; }
+          done < runtimes.txt
+          [ -z "$UDID" ] && { echo "::error::No runtime for $TYPE"; exit 1; }
+          xcrun simctl boot "$UDID"; xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl status_bar "$UDID" override --time "9:41" --batteryLevel 100 --batteryState charged --cellularBars 4 --wifiBars 3
+          xcrun simctl ui "$UDID" appearance light
+          xcrun simctl install "$UDID" "$APP"
+          # every simctl call that touches a screen gets 90 seconds at most (macOS has no timeout(1))
+          limited() {
+            echo "-> $*"
+            "$@" & local pid=$!
+            ( sleep 90; kill -9 $pid 2>/dev/null && echo "!! gave up after 90 s: $*" ) & local dog=$!
+            wait $pid; local rc=$?
+            kill $dog 2>/dev/null
+            return $rc
+          }
+          xcrun simctl io "$UDID" enumerate > screens.txt
+          python3 - > internal.txt <<'PY'
+          import re
+          for p in open("screens.txt").read().split("Port:"):
+              u = re.search(r"UUID: ([0-9A-F-]{36})", p)
+              if u and "Display class: 0" in p:
+                  w = re.search(r"Default width: (\d+)", p); h = re.search(r"Default height: (\d+)", p)
+                  print(u.group(1), int(w.group(1)) * int(h.group(1)) if w and h else 0)
+          PY
+          sort -k2 -n internal.txt | tee internal.sorted
+          I=0
+          while read -r D AREA; do
+            I=$((I+1))
+            SCREEN=$([ "$I" -eq 1 ] && echo outside || echo inside)
+            while read -r O _; do
+              if [ "$O" = "$D" ]; then P=on; else P=off; fi
+              limited xcrun simctl io "$UDID" screenConfig --display="$O" power $P
+            done < internal.sorted
+            sleep 5
+            ORIENTS="portrait"; [ "$SCREEN" = inside ] && ORIENTS="portrait landscape"
+            for OR in $ORIENTS; do
+              for S in $SCREENS; do
+                limited xcrun simctl launch --terminate-running-process "$UDID" com.ralphgeb.jero -screen "$S" -orient "$OR" </dev/null
+                sleep 10
+                limited xcrun simctl io "$UDID" screenshot --display="$D" "../screens/duo-$SCREEN-$OR-$S.png"
+              done
+            done
+          done < internal.sorted
+          xcrun simctl shutdown "$UDID"
+          ls -la ../screens
+
+      - name: Publish the pictures to the duo-screenshots branch
+        if: always()
+        working-directory: .
+        run: |
+          mkdir -p pub && cd pub
+          for f in ../screens/*.png; do
+            [ -f "$f" ] || continue
+            sips -s format jpeg -s formatOptions 75 -Z 1600 "$f" --out "$(basename "${f%.png}").jpg" > /dev/null
+          done
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b duo-screenshots
+          git add -A
+          git commit -q -m "Duo screenshots (run ${{ github.run_number }})" || exit 0
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" duo-screenshots
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: duo-screens
+          path: screens/*.png
+          retention-days: 7

@@ -108,25 +108,6 @@ jobs:
           xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
           ls shots
 
-      - name: Foldable (iPhone Duo) simulator screenshots
-        if: always() && steps.sim.outputs.duo != ''
-        continue-on-error: true
-        run: |
-          set +e
-          DUO=${{ steps.sim.outputs.duo }}
-          APP=$(find build/dd/Build/Products -name "Jeroboam.app" -maxdepth 3 | head -1)
-          xcrun simctl boot "$DUO"; xcrun simctl bootstatus "$DUO" -b
-          xcrun simctl install "$DUO" "$APP" 2>&1 | tail -5
-          xcrun simctl ui "$DUO" appearance light
-          mkdir -p shots
-          for s in learn guide explorer greatwine lesson region journal; do
-            xcrun simctl terminate "$DUO" com.ralphgeb.jero 2>/dev/null
-            xcrun simctl launch "$DUO" com.ralphgeb.jero -screen "$s" 2>&1 | tail -2
-            sleep 11
-            xcrun simctl io "$DUO" screenshot "shots/duo-${s}.png" 2>&1 | tail -2
-          done
-          ls shots
-
       - name: Publish screenshots to the ci-screenshots branch
         if: always()
         run: |
