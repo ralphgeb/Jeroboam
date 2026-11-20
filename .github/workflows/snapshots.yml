@@ -1,0 +1,86 @@
+name: Duo snapshots (fast, no Duo simulator)
+
+# Renders real app views at the iPhone Duo's exact sizes (outside 466x678, inside 669x951 upright and 951x669 sideways)
+# inside an ordinary iPhone simulator's test host: no foldable simulator, no display switching, no waiting on SpringBoard.
+# Runs in about five minutes; the pictures land on the snapshots branch and in the artifacts.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshots
+  cancel-in-progress: true
+
+jobs:
+  snapshots:
+    runs-on: xcode-27
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: Jeroboam
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select the newest released Xcode
+        run: |
+          best=""; bestv=0
+          for x in $(ls -d /Applications/Xcode_*.app 2>/dev/null | grep -viE "beta|rc|preview"); do
+            v=$(DEVELOPER_DIR="$x/Contents/Developer" xcodebuild -version 2>/dev/null | awk 'NR==1{print $2}')
+            n=$(echo "$v" | awk -F. '{printf "%d%03d%03d", $1, $2, $3}')
+            if [ -n "$v" ] && [ "$n" -gt "$bestv" ]; then best=$x; bestv=$n; fi
+          done
+          if [ -n "$best" ]; then sudo xcode-select -s "$best/Contents/Developer"; fi
+          xcodebuild -version
+
+      - name: Pick an ordinary iPhone simulator
+        id: sim
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,subprocess
+          d=json.loads(subprocess.check_output(["xcrun","simctl","list","devices","available","-j"]))["devices"]
+          c=[(r,x) for r,l in d.items() if "iOS" in r for x in l if x["name"].startswith("iPhone") and not any(k in x["name"] for k in ("Duo","Fold"))]
+          c.sort(key=lambda t:(t[0], "Pro Max" in t[1]["name"]))
+          print("udid="+c[-1][1]["udid"])
+          PY
+
+      - name: Build and run the snapshot tests
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          mkdir -p ../snaps
+          export TEST_RUNNER_SNAPSHOT_DIR="$PWD/../snaps"
+          set -o pipefail
+          xcodebuild test -project Jeroboam.xcodeproj -scheme Jeroboam -configuration Debug \
+            -destination "id=${{ steps.sim.outputs.udid }}" -only-testing:JeroSnapshots \
+            -derivedDataPath build -resultBundlePath build/result.xcresult \
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee build/test.log | grep -E "error:|Test Case|Executed|TEST (SUCCEEDED|FAILED)" || true
+          ls -la ../snaps
+
+      - name: Publish to the snapshots branch
+        if: always()
+        working-directory: .
+        run: |
+          mkdir -p pub && cd pub
+          for f in ../snaps/*.png; do
+            [ -f "$f" ] || continue
+            sips -s format jpeg -s formatOptions 80 "$f" --out "$(basename "${f%.png}").jpg" > /dev/null
+          done
+          cp ../Jeroboam/build/test.log . 2>/dev/null || true
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b snapshots
+          git add -A
+          git commit -q -m "Duo snapshots (run ${{ github.run_number }})" || exit 0
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" snapshots
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snapshots
+          path: |
+            snaps/*.png
+            Jeroboam/build/test.log
+          retention-days: 7

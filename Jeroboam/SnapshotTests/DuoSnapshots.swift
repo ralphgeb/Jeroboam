@@ -1,0 +1,96 @@
+import XCTest
+import SwiftUI
+@testable import Jeroboam
+
+/// Renders real app views at the iPhone Duo's exact sizes (outside, inside upright, inside sideways) without
+/// needing the Duo simulator: each view is hosted in an offscreen window of that size and drawn to a PNG.
+/// Sizes are the Duo's point sizes: 466×678 outside, 669×951 inside (turned: 951×669).
+@MainActor
+final class DuoSnapshots: XCTestCase {
+    static let screens: [(String, CGSize)] = [
+        ("outside", CGSize(width: 466, height: 678)),
+        ("inside-portrait", CGSize(width: 669, height: 951)),
+        ("inside-landscape", CGSize(width: 951, height: 669)),
+    ]
+
+    private var outDir: URL {
+        let p = ProcessInfo.processInfo.environment["SNAPSHOT_DIR"] ?? NSTemporaryDirectory()
+        let u = URL(fileURLWithPath: p, isDirectory: true)
+        try? FileManager.default.createDirectory(at: u, withIntermediateDirectories: true)
+        return u
+    }
+
+    private func spin(_ seconds: TimeInterval) {
+        RunLoop.current.run(until: Date().addingTimeInterval(seconds))
+    }
+
+    private func snap<V: View>(_ name: String, settle: TimeInterval = 2.0, @ViewBuilder _ make: () -> V) {
+        let progress = GameProgress()
+        let journal = JournalStore.sample
+        for (label, size) in Self.screens {
+            let root = AdaptiveRoot { make() }
+                .environment(progress)
+                .environment(journal)
+                .background(Palette.paper)
+            let host = UIHostingController(rootView: AnyView(root))
+            let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+            window.rootViewController = host
+            window.makeKeyAndVisible()
+            host.view.frame = window.bounds
+            host.view.layoutIfNeeded()
+            spin(settle)
+            let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+            let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in
+                host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true)
+            }
+            if let png = img.pngData() {
+                try? png.write(to: outDir.appendingPathComponent("\(name)-\(label).png"))
+                let a = XCTAttachment(image: img); a.name = "\(name)-\(label)"; a.lifetime = .keepAlways; add(a)
+            }
+            window.isHidden = true
+        }
+    }
+
+    private func card(_ visual: String) -> Card? {
+        ContentStore.shared.orderedLessons.flatMap(\.cards).first { $0.visual == visual }
+    }
+
+    func testGuidebook() {
+        guard let unit = ContentStore.shared.course.levels.flatMap(\.units).first(where: { $0.title == "In the vineyard" }) else { return XCTFail("no unit") }
+        snap("guidebook") { GuidebookView(unit: unit) }
+    }
+
+    func testVineYear() {
+        guard let c = card("diagram:vine-cycle") else { return XCTFail("no card") }
+        snap("vine-year") { ScrollView { LearnCard(card: c, topic: 1).padding(20) } }
+    }
+
+    func testClimate() {
+        guard let c = card("diagram:climate") else { return XCTFail("no card") }
+        snap("climate") { ScrollView { LearnCard(card: c, topic: 3).padding(20) } }
+    }
+
+    func testGrapeAnatomy() {
+        guard let c = card("diagram:grape-anatomy") else { return XCTFail("no card") }
+        snap("grape-anatomy") { ScrollView { LearnCard(card: c, topic: 2).padding(20) } }
+    }
+
+    func testMapExplorer() {
+        snap("map-explorer", settle: 3.0) { MapExplorer(mapID: "bordeaux") }
+    }
+
+    func testLearn() { snap("learn") { LearnView() } }
+    func testAtlas() { snap("atlas") { LibraryView() } }
+    func testJournal() { snap("journal") { JournalView() } }
+    func testPractice() { snap("practice") { PracticeView() } }
+
+    func testGreatWine() {
+        guard let w = ContentStore.shared.library.great?.first else { return XCTFail("no wine") }
+        snap("great-wine") { NavigationStack { GreatWineDetail(wine: w) } }
+    }
+
+    func testRegions() {
+        guard let r = ContentStore.shared.library.regions.first(where: { $0.id == "bordeaux" }) else { return XCTFail("no region") }
+        snap("region") { NavigationStack { RegionDetailView(region: r) } }
+    }
+}
