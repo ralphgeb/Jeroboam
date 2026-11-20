@@ -76,6 +76,16 @@ struct AboutYouSection: View {
     @AppStorage("jero.country") private var country = ""
     @AppStorage("jero.favorite") private var favorite = ""
     @State private var item: PhotosPickerItem? = nil
+    @State private var open = false
+
+    static func countries(including current: String) -> [String] {
+        var names = Set(Locale.Region.isoRegions.compactMap { r -> String? in
+            guard r.subRegions.isEmpty, r.identifier.count == 2 else { return nil }
+            return Locale.current.localizedString(forRegionCode: r.identifier)
+        })
+        if !current.isEmpty { names.insert(current) }
+        return [""] + names.sorted()
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -95,18 +105,26 @@ struct AboutYouSection: View {
                 }
             }
             GroupCard {
-                pickerRow("Age", $age, ["", "18–24", "25–34", "35–44", "45–54", "55–64", "65+"])
-                pickerRow("Wine experience", $experience, ["", "Just starting", "Enthusiast", "Studying WSET 1", "Studying WSET 2",
-                                                            "Studying WSET 3", "Trade professional", "Sommelier"])
-                pickerRow("Favorite style", $favorite, ["", "Crisp whites", "Rich whites", "Rosé", "Light reds", "Bold reds",
-                                                        "Sparkling", "Sweet & fortified"])
-                HStack {
-                    Text("Country").font(.system(size: 15)).foregroundStyle(Palette.ink)
-                    Spacer()
-                    TextField("Where you live", text: $country).multilineTextAlignment(.trailing).font(.system(size: 15))
-                        .foregroundStyle(Palette.inkSoft)
+                Button { withAnimation(.easeInOut(duration: 0.2)) { open.toggle() } } label: {
+                    HStack {
+                        Image(systemName: "person.text.rectangle").foregroundStyle(Palette.wine)
+                        Text("About you").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Spacer()
+                        Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(Palette.inkSoft).rotationEffect(.degrees(open ? 90 : 0))
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 14).contentShape(Rectangle())
                 }
-                .padding(.horizontal, 14).padding(.vertical, 12)
+                .buttonStyle(.plain)
+                if open {
+                    Hairline()
+                    pickerRow("Age", $age, ["", "18–24", "25–34", "35–44", "45–54", "55–64", "65+"])
+                    pickerRow("Experience", $experience, ["", "Just starting", "Enthusiast", "Studying WSET 1", "Studying WSET 2",
+                                                                "Studying WSET 3", "Trade professional", "Sommelier"])
+                    pickerRow("Favorite style", $favorite, ["", "Crisp whites", "Rich whites", "Rosé", "Light reds", "Bold reds",
+                                                            "Sparkling", "Sweet & fortified"])
+                    pickerRow("Country", $country, Self.countries(including: country), last: true)
+                }
             }
             if UserProfile.photo() != nil {
                 Button("Remove photo") { UserProfile.removePhoto(); version += 1 }
@@ -124,66 +142,24 @@ struct AboutYouSection: View {
         }
     }
 
-    private func pickerRow(_ title: String, _ value: Binding<String>, _ options: [String]) -> some View {
-        HStack {
-            Text(title).font(.system(size: 15)).foregroundStyle(Palette.ink)
-            Spacer()
-            Picker(title, selection: value) {
-                ForEach(options, id: \.self) { Text($0.isEmpty ? "Not set" : $0).tag($0) }
-            }
-            .tint(Palette.inkSoft)
-        }
-        .padding(.horizontal, 14).padding(.vertical, 4)
-        .overlay(alignment: .bottom) { Hairline().padding(.leading, 14) }
-    }
-}
-
-// MARK: - Page with a big title that shrinks into a slim top bar on scroll
-
-struct CollapsingPage<Content: View>: View {
-    let eyebrow: String
-    let title: String
-    var subtitle: String? = nil
-    var showStatus = false
-    @ViewBuilder let content: Content
-    @State private var collapse: CGFloat = 0
-
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
-                ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
-                    .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("collapsingPage")).minY } action: { y in
-                        let p = min(1, max(0, (-12 - y) / 50))
-                        if abs(p - collapse) > 0.01 { collapse = p }
-                    }
-                content
-            }
-            .padding(.horizontal, Metrics.margin)
-        }
-        .coordinateSpace(name: "collapsingPage")
-        .scrollIndicators(.hidden)
-        .safeAreaInset(edge: .top, spacing: 0) { bar }
-    }
-
-    private var bar: some View {
-        ZStack {
-            if showStatus {
-                TopStatusBar()
-                    .opacity(1 - collapse)
-                    .offset(y: -6 * collapse)
-                    .allowsHitTesting(collapse < 0.5)
-            }
-            HStack {
-                Text(title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
-                    .opacity(collapse).offset(y: 6 * (1 - collapse))
-                Spacer()
-                if !showStatus || collapse > 0.5 { AvatarButton(size: 30) }
+    private func pickerRow(_ title: String, _ value: Binding<String>, _ options: [String], last: Bool = false) -> some View {
+        HStack(spacing: 12) {
+            Text(title).font(.system(size: 15)).foregroundStyle(Palette.ink).fixedSize()
+            Spacer(minLength: 8)
+            Menu {
+                Picker(title, selection: value) {
+                    ForEach(options, id: \.self) { Text($0.isEmpty ? "Not set" : $0).tag($0) }
+                }
+            } label: {
+                HStack(spacing: 4) {
+                    Text(value.wrappedValue.isEmpty ? "Not set" : value.wrappedValue)
+                        .lineLimit(1).minimumScaleFactor(0.75)
+                    Image(systemName: "chevron.up.chevron.down").font(.system(size: 11))
+                }
+                .font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
             }
         }
-        .frame(height: 44)
-        .padding(.horizontal, Metrics.margin)
-        .padding(.top, 4)
-        .background(Palette.paper.ignoresSafeArea(edges: .top))
-        .overlay(alignment: .bottom) { Hairline().opacity(collapse) }
+        .padding(.horizontal, 14).padding(.vertical, 13)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 14) } }
     }
 }

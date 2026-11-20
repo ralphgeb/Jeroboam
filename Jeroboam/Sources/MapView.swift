@@ -540,6 +540,8 @@ struct WineMapView: View {
     var autoCallout = true
     /// Card thumbnail: shows the whole country with clean colors.
     var thumbnail = false
+    /// Atlas country cards only: crop the surrounding grey/sea even tighter.
+    var tightThumb = false
     /// Lesson map: zoom onto the highlighted areas; everything else as outlines.
     var focusOnly = false
     var onSelect: ((String) -> Void)? = nil
@@ -548,7 +550,7 @@ struct WineMapView: View {
     @State private var tapped: String? = nil
 
     private func layout(_ g: MapGeometry, _ size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
-        if thumbnail { return g.thumbLayout(size: size) }
+        if thumbnail { return g.thumbLayout(size: size, tight: tightThumb) }
         guard fill else { return (1, .zero) }
         let focusRect: CGRect? = {
             let hl = g.areas.filter { highlight.contains($0.id) && (focusOnly || $0.level == 0) }
@@ -668,15 +670,15 @@ extension MapGeometry {
     }
 
     /// Thumbnail framing: the whole focus country (or the wine areas when they are a small part of a big country), contained.
-    func thumbLayout(size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
+    func thumbLayout(size: CGSize, tight: Bool = false) -> (zoom: CGFloat, offset: CGSize) {
         let W = CGFloat(map.w), H = CGFloat(map.h)
         guard size.width > 0, size.height > 0 else { return (1, .zero) }
         var t = focus.boundingRect
         let c = contentBounds
         if t.isEmpty || t.width * t.height > c.width * c.height * 6 { t = c }
         let fit = size.width / W
-        let pad: CGFloat = 0.07
-        let content = min(size.width * (1 - 2 * pad) / max(1, t.width), size.height * (1 - 2 * pad) / max(1, t.height))
+        let pad: CGFloat = tight ? 0.015 : 0.07
+        let content = min(size.width * (1 - 2 * pad) / max(1, t.width), size.height * (1 - 2 * pad) / max(1, t.height)) * (tight ? 1.08 : 1)
         // Always fit the whole country (tall ones like Portugal included); the edges fade if the map runs short.
         let s = content
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {

@@ -56,7 +56,7 @@ struct RegionListView: View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
                 if let m = c.map {
-                    WineMapView(mapID: m, showLabels: false, showCities: false, fill: true, thumbnail: true)
+                    WineMapView(mapID: m, showLabels: false, showCities: false, fill: true, thumbnail: true, tightThumb: true)
                         .frame(height: 112)
                         .frame(maxWidth: .infinity)
                         .clipped()
