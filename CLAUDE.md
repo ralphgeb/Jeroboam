@@ -117,3 +117,9 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - Journal ratings are on the 100-point scale (`points`; old 1–10 converted); `RatingGuideSheet` on the first blind tasting.
 - TestFlight build 17 uploaded (run 17). Runs 13–14 failed on a stale provisioning profile (workflow now clears profiles).
 - Lebanon map: 4 level-0 regions + 4 winery-cluster zones + 54 wineries. Logo: keep current mark for now.
+
+## Screenshots (fast path)
+- **Duo/foldable and layout pictures:** `snapshots.yml` (manual, ~12 min on runner label `xcode-27`) runs `JeroSnapshots` (XCTest in `Jeroboam/SnapshotTests`): real views hosted in an offscreen window at the iPhone Duo's point sizes (outside 466x678, inside 669x951 upright, 951x669 sideways) inside an ordinary iPhone simulator, written to the `snapshots` branch (jpg). Add a test per screen. No Duo simulator needed.
+- **Do not use the Duo simulator for screenshots** (`duo.yml` is kept only for experiments): `simctl launch` hangs, the inside display stays black until unfolded by hand (no programmatic unfold), and runs take 50+ minutes. Duo simulator needs Xcode 27.1+.
+- Wide layout: `Adaptive.swift` (`isWide` = window width >= 640 pt): picture left / text right in `LearnCard`, map left + list right in `MapExplorer`, adaptive grids. Landscape is allowed in project.yml.
+- CI runner label `xcode-27` = macOS 27 + Xcode 27.x (used by build-ios.yml, preview.yml).
