@@ -259,7 +259,7 @@ struct MapRenderer {
             layer.translateBy(x: offset.width, y: offset.height)
             layer.scaleBy(x: s, y: s)
             layer.fill(g.land, with: .color(Palette.land))
-            layer.stroke(g.land, with: .color(Palette.border.opacity(0.7)), lineWidth: hair * 0.7)
+            if !thumb { layer.stroke(g.land, with: .color(Palette.border.opacity(0.7)), lineWidth: hair * 0.7) }
         }
         // The focus country "pops out": a soft lift shadow under bright land, neighbours stay muted.
         if g.map.belts == nil && !thumb {
@@ -359,7 +359,7 @@ struct MapRenderer {
             for (r, w) in g.rivers where showLabels || showCities {
                 layer.stroke(r, with: .color(Palette.river), style: StrokeStyle(lineWidth: (w >= 2 ? 1.3 : 0.8) * hair, lineCap: .round, lineJoin: .round))
             }
-            layer.stroke(g.focus, with: .color(Palette.border.mix(with: .black, 0.15)), lineWidth: hair * 1.6)
+            if !thumb { layer.stroke(g.focus, with: .color(Palette.border.mix(with: .black, 0.15)), lineWidth: hair * 1.6) }
         }
 
         if !thumb {

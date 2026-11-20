@@ -191,7 +191,7 @@ struct VineCycleDiagram: View {
             ZStack {
                 Canvas { ctx, size in
                     let c = CGPoint(x: size.width / 2, y: size.height / 2)
-                    let r = min(size.width, size.height) / 2 - 18
+                    let r = min(size.width, size.height) / 2 - 30
                     ctx.stroke(Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: r * 2, height: r * 2)), with: .color(Palette.line), lineWidth: 10)
                     let tones: [Color] = [Palette.inkFaint, Palette.sage, Palette.sage.mix(with: Palette.brass, 0.5), Palette.brass, Palette.wine.opacity(0.7), Palette.wine]
                     for (i, st) in stages.enumerated() {
@@ -205,17 +205,19 @@ struct VineCycleDiagram: View {
                     let months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"]
                     for (i, m) in months.enumerated() {
                         let a = (Double(i) + 0.5) / 12 * 2 * Double.pi - Double.pi / 2
-                        let p = CGPoint(x: c.x + CGFloat(cos(a)) * (r - 22), y: c.y + CGFloat(sin(a)) * (r - 22))
+                        let p = CGPoint(x: c.x + CGFloat(cos(a)) * (r + 20), y: c.y + CGFloat(sin(a)) * (r + 20))
                         ctx.draw(Text(m).font(.system(size: 10, weight: .medium)).foregroundColor(Palette.inkSoft), at: p)
                     }
                 }
-                VStack(spacing: 2) {
-                    Eyebrow("Northern Hemisphere")
-                    Text("The vine’s year").font(.serif(19)).foregroundStyle(Palette.ink)
-                    Text("South: shift six months").font(.system(size: 11)).foregroundStyle(Palette.inkSoft)
+                VStack(spacing: 3) {
+                    Text("NORTHERN HEMISPHERE").font(.system(size: 9.5, weight: .semibold)).kerning(0.8)
+                        .foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.7)
+                    Text("The vine’s year").font(.serif(19)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                    Text("South: shift six months").font(.system(size: 11)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.8)
                 }
+                .frame(width: 150)
             }
-            .frame(height: 250)
+            .frame(height: 270)
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
                 ForEach(stages, id: \.0) { st in
                     HStack(spacing: 8) {
@@ -237,23 +239,28 @@ struct ClimateDiagram: View {
     var body: some View {
         HStack(spacing: 12) {
             column("Cool climate", icon: "cloud.sun", tint: Palette.slate,
-                   grape: Color(hex: "#C9C47C"), black: Color(hex: "#5B3550"),
+                   photos: ["grape-riesling", "grape-pinot-noir"],
                    rows: ["Higher acidity", "Lower alcohol", "Lighter body", "Green & citrus fruit", "Red fruit in reds"])
             column("Warm climate", icon: "sun.max", tint: Palette.brass,
-                   grape: Color(hex: "#D9B24C"), black: Color(hex: "#2E1530"),
+                   photos: ["grape-grenache", "grape-syrah"],
                    rows: ["Lower acidity", "Higher alcohol", "Fuller body", "Stone & tropical fruit", "Black fruit in reds"])
         }
     }
 
-    private func column(_ title: String, icon: String, tint: Color, grape: Color, black: Color, rows: [String]) -> some View {
+    private func column(_ title: String, icon: String, tint: Color, photos: [String], rows: [String]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 6) {
                 Image(systemName: icon).font(.system(size: 15)).foregroundStyle(tint)
                 Text(title).font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
             }
-            HStack(spacing: -8) {
-                GrapeCluster(berry: .white, tint: grape, leaf: false, seed: 1).frame(width: 54, height: 54)
-                GrapeCluster(berry: .black, tint: black, leaf: false, seed: 4).frame(width: 54, height: 54)
+            HStack(spacing: 8) {
+                ForEach(photos, id: \.self) { id in
+                    if let img = Photos.image(id) {
+                        Color.clear.frame(height: 78)
+                            .overlay(Image(uiImage: img).resizable().scaledToFill())
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    }
+                }
             }
             ForEach(rows, id: \.self) { r in
                 HStack(alignment: .top, spacing: 6) {
@@ -271,42 +278,49 @@ struct ClimateDiagram: View {
 // MARK: - Grape anatomy
 
 struct GrapeAnatomyDiagram: View {
+    private let skin = Color(hex: "#4A2446"), pulp = Color(hex: "#E7E3B8"), seed = Color(hex: "#8A6A3C"), stem = Color(hex: "#7A6650")
+
     var body: some View {
-        HStack(spacing: 18) {
+        HStack(alignment: .center, spacing: 0) {
             Canvas { ctx, size in
-                let s = min(size.width, size.height)
-                let c = CGPoint(x: size.width / 2, y: size.height / 2)
-                let r = s * 0.42
-                let outer = Path(ellipseIn: CGRect(x: c.x - r * 0.88, y: c.y - r, width: r * 1.76, height: r * 2))
-                ctx.fill(outer, with: .color(Color(hex: "#3E2140")))
-                let inner = Path(ellipseIn: CGRect(x: c.x - r * 0.8, y: c.y - r * 0.92, width: r * 1.6, height: r * 1.84))
-                ctx.fill(inner, with: .linearGradient(Gradient(colors: [Color(hex: "#E9E4C2"), Color(hex: "#D6CF9E")]),
-                                                      startPoint: CGPoint(x: c.x, y: c.y - r), endPoint: CGPoint(x: c.x, y: c.y + r)))
-                for (dx, dy, rot) in [(-0.22, 0.05, -20.0), (0.22, 0.08, 20.0), (0.0, -0.25, 0.0)] {
+                let c = CGPoint(x: size.width / 2, y: size.height / 2 + 8)
+                let rx: CGFloat = 62, ry: CGFloat = 70
+                // stem and cap
+                var st = Path(); st.move(to: CGPoint(x: c.x, y: c.y - ry + 2)); st.addQuadCurve(to: CGPoint(x: c.x + 16, y: c.y - ry - 26), control: CGPoint(x: c.x + 2, y: c.y - ry - 14))
+                ctx.stroke(st, with: .color(stem), style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                // skin
+                let outer = Path(ellipseIn: CGRect(x: c.x - rx, y: c.y - ry, width: rx * 2, height: ry * 2))
+                ctx.fill(outer, with: .radialGradient(Gradient(colors: [skin.opacity(0.9), skin]), center: c, startRadius: 10, endRadius: 80))
+                // pulp
+                let inner = Path(ellipseIn: CGRect(x: c.x - rx + 7, y: c.y - ry + 7, width: (rx - 7) * 2, height: (ry - 7) * 2))
+                ctx.fill(inner, with: .radialGradient(Gradient(colors: [Color(hex: "#F4F1D2"), pulp, Color(hex: "#CFC88F")]), center: CGPoint(x: c.x - 8, y: c.y - 14), startRadius: 4, endRadius: 78))
+                // seeds
+                for (dx, dy, rot) in [(-16.0, 14.0, -24.0), (16.0, 14.0, 24.0), (0.0, -14.0, 0.0)] {
                     var t = ctx
-                    t.translateBy(x: c.x + CGFloat(dx) * r * 2, y: c.y + CGFloat(dy) * r * 2)
-                    t.rotate(by: .degrees(rot))
-                    let seed = Path(ellipseIn: CGRect(x: -r * 0.1, y: -r * 0.17, width: r * 0.2, height: r * 0.34))
-                    t.fill(seed, with: .color(Color(hex: "#8A6A3C")))
+                    t.translateBy(x: c.x + dx, y: c.y + dy); t.rotate(by: .degrees(rot))
+                    var d = Path()
+                    d.move(to: CGPoint(x: 0, y: -13)); d.addQuadCurve(to: CGPoint(x: 0, y: 13), control: CGPoint(x: 11, y: 3)); d.addQuadCurve(to: CGPoint(x: 0, y: -13), control: CGPoint(x: -11, y: 3))
+                    t.fill(d, with: .linearGradient(Gradient(colors: [Color(hex: "#B38B4E"), seed]), startPoint: .zero, endPoint: CGPoint(x: 0, y: 14)))
                 }
-                var stem = Path()
-                stem.move(to: CGPoint(x: c.x, y: c.y - r))
-                stem.addLine(to: CGPoint(x: c.x + r * 0.15, y: c.y - r * 1.25))
-                ctx.stroke(stem, with: .color(Color(hex: "#7A6650")), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                // highlight
+                var h = Path(); h.addArc(center: c, radius: rx - 6, startAngle: .degrees(200), endAngle: .degrees(250), clockwise: false)
+                ctx.stroke(h, with: .color(.white.opacity(0.35)), style: StrokeStyle(lineWidth: 4, lineCap: .round))
             }
-            .frame(width: 130, height: 150)
-            VStack(alignment: .leading, spacing: 12) {
-                part("Skin", "Color, tannin and aroma", Color(hex: "#3E2140"))
-                part("Pulp", "Water, sugar, acid", Color(hex: "#D6CF9E"))
-                part("Seeds", "Bitter, harsh tannin", Color(hex: "#8A6A3C"))
-                part("Stems", "Green, astringent tannin", Color(hex: "#7A6650"))
+            .frame(width: 150, height: 190)
+            VStack(alignment: .leading, spacing: 13) {
+                part("Skin", "Color, tannin and aroma", skin)
+                part("Pulp", "Water, sugar, acid", Color(hex: "#CFC88F"))
+                part("Seeds", "Bitter, harsh tannin", seed)
+                part("Stem", "Green, astringent tannin", stem)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(.vertical, 6)
     }
 
     private func part(_ name: String, _ text: String, _ c: Color) -> some View {
-        HStack(alignment: .top, spacing: 8) {
-            Circle().fill(c).frame(width: 8, height: 8).padding(.top, 5)
+        HStack(alignment: .top, spacing: 9) {
+            Capsule().fill(c).frame(width: 4, height: 30).padding(.top, 1)
             VStack(alignment: .leading, spacing: 1) {
                 Text(name).font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
                 Text(text).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)

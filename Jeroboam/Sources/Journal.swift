@@ -400,6 +400,8 @@ struct EntryTile: View {
                 Text(entry.title).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
                 Text([entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text("Tried " + entry.date.formatted(.dateTime.year()))
+                    .font(.system(size: 11, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
             }
             .padding(10)
         }
@@ -514,7 +516,7 @@ struct WineInfoCard: View {
             default:
                 if !w.grapes.isEmpty { grapeChips(w.grapes) }
                 info("wineglass", w.style.capitalized)
-                if let d = w.drinkWindow, !d.isEmpty { info("calendar", d) }
+                if let d = w.drinkWindow, !d.isEmpty { DrinkWindowChart(window: d, vintage: w.vintage) }
                 if !w.funFact.isEmpty {
                     Text(w.funFact).font(.system(size: 14).italic()).foregroundStyle(Palette.inkSoft).padding(.top, 2)
                 }
@@ -1572,5 +1574,78 @@ struct RatingGuideSheet: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .presentationDragIndicator(.visible)
+    }
+}
+
+
+/// The drinking window as a curve: it rises to the peak and falls away, with today marked.
+struct DrinkWindowChart: View {
+    let window: String
+    let vintage: String
+
+    private var years: (start: Int, end: Int)? {
+        let now = Calendar.current.component(.year, from: Date())
+        let found = window.split(whereSeparator: { !$0.isNumber }).compactMap { Int($0) }.filter { (1900...2100).contains($0) }
+        let lower = window.lowercased()
+        if found.count >= 2 { return (min(found[0], found[1]), max(found[0], found[1])) }
+        if found.count == 1 {
+            let y = found[0]
+            if lower.contains("by") || lower.contains("until") || lower.contains("now") || lower.contains("before") { return (min(now, y), max(now, y)) }
+            return (y, y + 6)
+        }
+        if lower.contains("now") { return (now, now + 2) }
+        return nil
+    }
+
+    var body: some View {
+        if let w = years {
+            let now = Calendar.current.component(.year, from: Date())
+            let lo = w.start - 2
+            let hi = w.end + 2
+            let peak = Double(w.start) + Double(w.end - w.start) * 0.6
+            let span = Double(max(1, hi - lo))
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Image(systemName: "calendar").font(.system(size: 13)).foregroundStyle(Palette.wine)
+                    Text("Drink \(w.start == w.end ? "in \(w.start)" : "\(w.start)–\(w.end)")")
+                        .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Spacer()
+                    Text("Peak \(Int(peak.rounded()))").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
+                }
+                GeometryReader { geo in
+                    let W = geo.size.width, H = geo.size.height - 18
+                    let x: (Double) -> CGFloat = { CGFloat(($0 - Double(lo)) / span) * W }
+                    let curve = Path { p in
+                        p.move(to: CGPoint(x: x(Double(lo)), y: H))
+                        let a = Double(w.start), b = Double(w.end)
+                        p.addCurve(to: CGPoint(x: x(peak), y: 4), control1: CGPoint(x: x(a), y: H), control2: CGPoint(x: x((a + peak) / 2), y: 4))
+                        p.addCurve(to: CGPoint(x: x(Double(hi)), y: H), control1: CGPoint(x: x((peak + b) / 2 + 0.3), y: 4), control2: CGPoint(x: x(b), y: H))
+                    }
+                    ZStack(alignment: .topLeading) {
+                        Path { p in p.move(to: CGPoint(x: 0, y: H)); p.addLine(to: CGPoint(x: W, y: H)) }
+                            .stroke(Palette.line, lineWidth: 1)
+                        curve.stroke(Palette.wine, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                        curve.fill(LinearGradient(colors: [Palette.wine.opacity(0.28), Palette.wine.opacity(0.02)], startPoint: .top, endPoint: .bottom))
+                        Circle().fill(Palette.wine).frame(width: 9, height: 9).position(x: x(peak), y: 4)
+                        if (lo...hi).contains(now) {
+                            Path { p in p.move(to: CGPoint(x: x(Double(now)), y: 0)); p.addLine(to: CGPoint(x: x(Double(now)), y: H)) }
+                                .stroke(Palette.ink.opacity(0.5), style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                            Text("Today").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
+                                .position(x: min(max(x(Double(now)), 18), W - 18), y: H + 11)
+                        }
+                        Text(String(lo)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: 12, y: H + 11).opacity((lo...hi).contains(now) && abs(x(Double(now))) < 40 ? 0 : 1)
+                        Text(String(hi)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: W - 12, y: H + 11).opacity(abs(W - x(Double(now))) < 40 ? 0 : 1)
+                    }
+                }
+                .frame(height: 92)
+            }
+            .padding(12)
+            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.wineSoft.opacity(0.6)))
+        } else {
+            HStack(spacing: 8) {
+                Image(systemName: "calendar").font(.system(size: 13)).foregroundStyle(Palette.wine)
+                Text(window).font(.system(size: 14)).foregroundStyle(Palette.ink)
+            }
+        }
     }
 }
