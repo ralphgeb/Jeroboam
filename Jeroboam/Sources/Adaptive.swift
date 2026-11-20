@@ -10,7 +10,18 @@ extension EnvironmentValues {
     }
 }
 
+private struct WindowWidthKey: EnvironmentKey { static let defaultValue: CGFloat = 0 }
+extension EnvironmentValues {
+    /// The window's width in points (0 before it is measured).
+    var windowWidth: CGFloat {
+        get { self[WindowWidthKey.self] }
+        set { self[WindowWidthKey.self] = newValue }
+    }
+}
+
 enum AdaptiveLayout {
+    /// Side-by-side pictures and text need this much room (the open Duo held sideways); upright it keeps one roomy column.
+    static let twoPaneThreshold: CGFloat = 760
     /// Windows at least this wide (in points) switch to the two-pane layout.
     static let wideThreshold: CGFloat = 640
 }
@@ -21,6 +32,7 @@ struct AdaptiveRoot<Content: View>: View {
     var body: some View {
         content
             .environment(\.isWide, width >= AdaptiveLayout.wideThreshold)
+            .environment(\.windowWidth, width)
             .background(
                 GeometryReader { g in
                     Color.clear

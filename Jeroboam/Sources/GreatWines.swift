@@ -413,6 +413,7 @@ struct GreatWinesScreen: View {
                     VStack(spacing: 0) {
                         ForEach(Array(rows.enumerated()), id: \.element.id) { i, w in
                             NavigationLink(value: w) { row(w, last: i == rows.count - 1) }.buttonStyle(PressableStyle())
+                                .simultaneousGesture(TapGesture().onEnded { GreatWinePlaylist.wines = rows })
                         }
                     }
                     .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
@@ -558,8 +559,84 @@ struct GreatWinesScreen: View {
     }
 }
 
+/// The wines in the list you opened a wine from, so the wine page can swipe through them.
+enum GreatWinePlaylist {
+    static var wines: [GreatWine] = []
+}
+
+/// A wine page you can swipe left and right: the next wines on the list slide in.
+struct GreatWinePager: View {
+    let start: GreatWine
+    @State private var current: String
+    private let list: [GreatWine]
+
+    init(wine: GreatWine) {
+        start = wine
+        let l = GreatWinePlaylist.wines.contains(where: { $0.id == wine.id }) && Plus.shared.active ? GreatWinePlaylist.wines : [wine]
+        list = l
+        _current = State(initialValue: wine.id)
+    }
+
+    var body: some View {
+        TabView(selection: $current) {
+            ForEach(list) { w in
+                GreatWineDetail(wine: w).tag(w.id)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .background(Palette.paper.ignoresSafeArea())
+        .overlay(alignment: .bottom) {
+            if list.count > 1, let i = list.firstIndex(where: { $0.id == current }) {
+                Text("\(i + 1) of \(list.count) · swipe for the next wine")
+                    .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                    .padding(.horizontal, 12).padding(.vertical, 6)
+                    .background(Capsule().fill(Palette.card.opacity(0.95)))
+                    .overlay(Capsule().strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
+                    .padding(.bottom, 8)
+                    .allowsHitTesting(false)
+            }
+        }
+    }
+}
+
+/// The bottle full size, in the middle of the page.
+struct BottleFullScreen: View {
+    let wine: GreatWine
+    @Environment(\.dismiss) private var dismiss
+    @State private var scale: CGFloat = 1
+    var body: some View {
+        ZStack {
+            Palette.paper.ignoresSafeArea()
+            if let b = wine.bottle, let img = Photos.image(b) {
+                VStack(spacing: 14) {
+                    Image(uiImage: img).resizable().scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .shadow(color: .black.opacity(0.12), radius: 18, y: 8)
+                        .scaleEffect(scale)
+                        .gesture(MagnificationGesture().onChanged { scale = max(1, min(4, $0)) }.onEnded { _ in withAnimation(.spring) { scale = 1 } })
+                    VStack(spacing: 2) {
+                        Text(wine.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(wine.producer).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                        if let c = Photos.creditLine(b) { Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).padding(.top, 2) }
+                    }
+                }
+                .padding(24)
+            }
+        }
+        .overlay(alignment: .topTrailing) {
+            Button { dismiss() } label: {
+                Image(systemName: "xmark").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                    .frame(width: 40, height: 40).background(Circle().fill(Palette.card))
+            }
+            .padding(16)
+        }
+        .onTapGesture { dismiss() }
+    }
+}
+
 struct GreatWineDetail: View {
     let wine: GreatWine
+    @State private var showBottle = false
     var body: some View {
         let w = wine
         ScrollView {
@@ -567,6 +644,7 @@ struct GreatWineDetail: View {
                 HStack(alignment: .top, spacing: 16) {
                     VStack(spacing: 4) {
                         GreatWineImage(wine: w, corner: 22, aspect: 0.56).frame(width: 138)
+                            .onTapGesture { if w.bottle != nil { showBottle = true } }
                         if let b = w.bottle, let c = Photos.creditLine(b) {
                             Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 138)
                         }
@@ -631,11 +709,12 @@ struct GreatWineDetail: View {
                     }
                 }
             }
-            .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+            .padding(.horizontal, Metrics.margin).padding(.vertical, 12).padding(.bottom, 30)
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showBottle) { BottleFullScreen(wine: w) }
     }
 
     private func stat(_ t: String, _ v: String, _ icon: String) -> some View {

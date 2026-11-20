@@ -216,6 +216,10 @@ struct MapRenderer {
     var regionsOnly = false
     /// Lesson maps: everything except the highlighted areas (and their parents) as outlines only.
     var focusOnly = false
+    /// Practice "which appellation" maps: everything but the highlighted area almost invisible.
+    var solo = false
+    /// No numbered badges (a highlighted map must show which area is highlighted).
+    var hideNumbers = false
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
@@ -325,7 +329,7 @@ struct MapRenderer {
                 }
                 if focusOnly && !isHL && !highlight.contains(a.parent ?? "") && !g.areas.contains(where: { highlight.contains($0.id) && $0.parent == a.id }) {
                     // not part of the lesson: a quiet outline only
-                    regions.stroke(a.path, with: .color(Palette.mapColor(a.color).opacity(0.35)), lineWidth: hair * 0.8)
+                    regions.stroke(a.path, with: .color(Palette.mapColor(a.color).opacity(solo ? 0.16 : 0.35)), lineWidth: hair * 0.8)
                     continue
                 }
                 if (isContainer || a.level == 0) && !isHL {
@@ -448,7 +452,7 @@ struct MapRenderer {
             ctx.stroke(circle, with: .color(.white.opacity(0.95)), lineWidth: 1)
             ctx.draw(Text("\(n)").font(.system(size: r * 1.12, weight: .bold).monospacedDigit()).foregroundColor(.white), at: c)
         }
-        for a in candidates where a.id != calloutID {
+        for a in candidates where a.id != calloutID && !hideNumbers {
             let c = screen(a.centroid)
             let b = a.path.boundingRect
             if let n = numbers[a.id], max(b.width * s, b.height * s) >= 3 {
@@ -544,6 +548,8 @@ struct WineMapView: View {
     var tightThumb = false
     /// Lesson map: zoom onto the highlighted areas; everything else as outlines.
     var focusOnly = false
+    /// Quiz map: the whole map, only the highlighted area visible.
+    var solo = false
     var onSelect: ((String) -> Void)? = nil
 
     @Environment(\.colorScheme) private var scheme
@@ -557,7 +563,7 @@ struct WineMapView: View {
             guard !hl.isEmpty, pins.isEmpty else { return nil }
             return hl.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
         }()
-        if focusOnly, let f = focusRect {
+        if focusOnly, !solo, let f = focusRect {
             return g.fitLayout(size: size, target: f.insetBy(dx: -f.width * 0.25 - 40, dy: -f.height * 0.25 - 40))
         }
         return g.fitLayout(size: size, target: focusRect)
@@ -579,7 +585,9 @@ struct WineMapView: View {
                 r.labelScale = labelScale
                 r.dark = scheme == .dark
                 r.thumb = thumbnail
-                r.focusOnly = focusOnly && !highlight.isEmpty
+                r.focusOnly = (focusOnly || solo) && !highlight.isEmpty
+                r.solo = solo
+                r.hideNumbers = !highlight.isEmpty && pins.isEmpty && onSelect == nil
                 let deepest = g.areas.filter { highlight.contains($0.id) }.map(\.level).max() ?? 0
                 r.forcedLevel = deepest
                 r.draw(in: &ctx, size: size)
@@ -877,9 +885,14 @@ struct MapExplorer: View {
 
     var body: some View {
         let g = MapGeometry.get(mapID)
-        HStack(spacing: 0) {
-        mapArea(g)
-        if isWide, let g { sidebar(g).frame(width: 360).background(Palette.paper.ignoresSafeArea()) }
+        GeometryReader { geo in
+            HStack(spacing: 0) {
+                // wide windows: exactly half the screen for the map, half for the text
+                mapArea(g).frame(width: isWide ? geo.size.width / 2 : geo.size.width)
+                if isWide, let g {
+                    sidebar(g).frame(width: geo.size.width / 2).background(Palette.paper.ignoresSafeArea())
+                }
+            }
         }
         .animation(.easeInOut(duration: 0.25), value: selected)
         .sheet(item: $openRegion) { r in
@@ -898,17 +911,77 @@ struct MapExplorer: View {
         }
     }
 
-    /// Wide windows: the list and the selected area's card live in a column on the right.
+    /// Wide windows: a column on the right with what the place is, the selected area, and the list.
     @ViewBuilder private func sidebar(_ g: MapGeometry) -> some View {
+        let region = ContentStore.shared.library.regions.first { $0.map == mapID && ($0.id == highlight.first || $0.id == focus) }
+            ?? ContentStore.shared.library.regions.first { $0.map == mapID && $0.kind != "country" }
+            ?? ContentStore.shared.library.regions.first { $0.map == mapID }
         ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 16) {
+                if let r = region { aboutCard(r) }
                 if let id = selected, let a = g.areas.first(where: { $0.id == id }) {
                     selectedCard(a, g: g)
                 }
                 let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
                 MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: .constant(true)) { id in selected = id }
             }
-            .padding(14)
+            .padding(.horizontal, 22).padding(.top, 70).padding(.bottom, 24)
+        }
+        .scrollIndicators(.hidden)
+    }
+
+    /// What the place is: summary, grapes, climate and a few facts, so the column is never empty.
+    private func aboutCard(_ r: Region) -> some View {
+        let grapes = r.grapes.compactMap { ContentStore.shared.grape($0) }
+        return VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 3) {
+                Eyebrow(r.kind == "country" ? "Country" : r.country, color: Palette.wine)
+                Text(r.name).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+            }
+            Text(rich(r.summary)).font(.system(size: 15)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
+                .fixedSize(horizontal: false, vertical: true)
+            if !grapes.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Eyebrow("Main grapes")
+                    FlowLayout(spacing: 8, lineSpacing: 8) {
+                        ForEach(grapes.prefix(8)) { g in
+                            HStack(spacing: 6) {
+                                GrapeBadge(grape: g, size: 22)
+                                Text(g.name).font(.system(size: 13.5, weight: .medium)).foregroundStyle(Palette.ink)
+                            }
+                            .padding(.leading, 5).padding(.trailing, 11).padding(.vertical, 5)
+                            .background(Capsule().fill(Palette.wineSoft))
+                        }
+                    }
+                }
+            }
+            if let c = r.climate, !c.isEmpty {
+                fact("sun.max", "Climate", rich(c))
+            }
+            if let c = r.classification, !c.isEmpty {
+                fact("rosette", "Quality system", rich(c))
+            }
+            ForEach(Array((r.facts ?? []).prefix(3).enumerated()), id: \.offset) { _, f in
+                fact("sparkle", "Good to know", rich(f))
+            }
+            Button { openRegion = r } label: {
+                Label("Open the \(r.name) guide", systemImage: "book")
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .padding(.top, 4)
+        }
+        .padding(18)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
+    }
+
+    private func fact(_ icon: String, _ title: String, _ text: AttributedString) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: icon).font(.system(size: 13)).foregroundStyle(Palette.wine).frame(width: 18).padding(.top, 2)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                Text(text).font(.system(size: 14)).foregroundStyle(Palette.ink.opacity(0.9)).fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
 

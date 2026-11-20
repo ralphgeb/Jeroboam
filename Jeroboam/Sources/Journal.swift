@@ -45,9 +45,32 @@ struct CellarBottle: Codable, Identifiable, Hashable {
     var quantity = 1
     var price: PriceInfo? = nil
     var notes = ""
+    /// A tiny picture of the bottle, kept in iCloud so the cellar looks the same on every phone.
+    var thumb: Data? = nil
 
     var title: String { wine.name.isEmpty ? "Untitled wine" : wine.name }
     var value: Double { (price?.average ?? 0) * Double(quantity) }
+
+    /// A rough guess at the critic score: from the Great wines list when this bottle is on it, otherwise from the price.
+    var roughRating: Int? {
+        let name = (wine.name + " " + wine.producer).lowercased()
+        if !name.trimmingCharacters(in: .whitespaces).isEmpty,
+           let g = ContentStore.shared.library.great?.first(where: {
+               let n = $0.name.lowercased(), p = $0.producer.lowercased()
+               let last = p.split(separator: " ").last.map(String.init) ?? p
+               return !n.isEmpty && name.contains(n) && (last.isEmpty || name.contains(last))
+           }), g.scoreValue > 0 { return g.scoreValue }
+        guard let avg = price?.average, avg > 0 else { return nil }
+        switch avg {
+        case ..<15: return 86
+        case ..<30: return 88
+        case ..<60: return 90
+        case ..<120: return 92
+        case ..<300: return 94
+        default: return 96
+        }
+    }
+    var vintageText: String { wine.vintage.isEmpty ? "NV" : wine.vintage }
 }
 
 @Observable
@@ -307,6 +330,9 @@ struct JournalHome: View {
                 Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
                 Text([b.wine.vintage, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                if let r = b.roughRating {
+                    Text("Vintage \(b.vintageText) · about \(r) pts").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
+                }
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 2) {
@@ -1444,7 +1470,7 @@ struct CellarDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
-                                 subtitle: "Added " + b.added.formatted(date: .abbreviated, time: .omitted))
+                                 subtitle: "Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? "") + " · added " + b.added.formatted(date: .abbreviated, time: .omitted))
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity) { Task { await refresh(b) } }
                     HStack {
                         Text("Bottles").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
@@ -1582,6 +1608,14 @@ struct RatingGuideSheet: View {
 struct DrinkWindowChart: View {
     let window: String
     let vintage: String
+    @State private var touched: CGFloat? = nil
+
+    private func phase(_ yr: Int, _ a: Int, _ b: Int, _ peak: Double) -> String {
+        if yr < a { return "Too young" }
+        if yr > b { return "Past its best" }
+        if abs(Double(yr) - peak) <= max(1, Double(b - a) * 0.15) { return "At its peak" }
+        return Double(yr) < peak ? "Getting there" : "Still good"
+    }
 
     private var years: (start: Int, end: Int)? {
         let now = Calendar.current.component(.year, from: Date())
@@ -1607,10 +1641,10 @@ struct DrinkWindowChart: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Image(systemName: "calendar").font(.system(size: 13)).foregroundStyle(Palette.wine)
-                    Text("Drink \(w.start == w.end ? "in \(w.start)" : "\(w.start)–\(w.end)")")
+                    Text("Drink " + (w.start == w.end ? "in " + String(w.start) : String(w.start) + "–" + String(w.end)))
                         .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
                     Spacer()
-                    Text("Peak \(Int(peak.rounded()))").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
+                    Text("Peak " + String(Int(peak.rounded()))).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
                 }
                 GeometryReader { geo in
                     let W = geo.size.width, H = geo.size.height - 18
@@ -1633,9 +1667,27 @@ struct DrinkWindowChart: View {
                             Text("Today").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
                                 .position(x: min(max(x(Double(now)), 18), W - 18), y: H + 11)
                         }
-                        Text(String(lo)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: 12, y: H + 11).opacity((lo...hi).contains(now) && abs(x(Double(now))) < 40 ? 0 : 1)
-                        Text(String(hi)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: W - 12, y: H + 11).opacity(abs(W - x(Double(now))) < 40 ? 0 : 1)
+                        Text(String(lo)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: 12, y: H + 11)
+                        Text(String(hi)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: W - 12, y: H + 11)
+                        // press or drag on the chart: the year under your finger and how the wine is drinking then
+                        if let t = touched {
+                            let yr = Int((Double(lo) + Double(t / max(W, 1)) * span).rounded())
+                            let cx = min(max(t, 40), W - 40)
+                            Path { p in p.move(to: CGPoint(x: t, y: 0)); p.addLine(to: CGPoint(x: t, y: H)) }
+                                .stroke(Palette.wine, lineWidth: 1.5)
+                            VStack(spacing: 1) {
+                                Text(String(yr)).font(.system(size: 13, weight: .bold)).foregroundStyle(.white)
+                                Text(phase(yr, w.start, w.end, peak)).font(.system(size: 10)).foregroundStyle(.white.opacity(0.9))
+                            }
+                            .padding(.horizontal, 8).padding(.vertical, 4)
+                            .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.wine))
+                            .position(x: cx, y: 14)
+                        }
                     }
+                    .contentShape(Rectangle())
+                    .gesture(DragGesture(minimumDistance: 0)
+                        .onChanged { touched = min(max($0.location.x, 0), W) }
+                        .onEnded { _ in withAnimation(.easeOut(duration: 0.3)) { touched = nil } })
                 }
                 .frame(height: 92)
             }

@@ -287,6 +287,15 @@ enum QuizGenerator {
             guard let r = candidates.randomElement(), let mapID = r.map, let geo = MapGeometry.get(mapID) else { return nil }
             let target = r.highlight?.first ?? r.id
             guard let area = geo.areas.first(where: { $0.id == target }) else { return nil }
+            // one appellation kept on the map, everything else faded away: which one is it?
+            if Int.random(in: 0..<3) == 0, let sub = geo.areas.filter({ $0.level >= 1 }).randomElement() {
+                let sameLevel = geo.areas.filter { $0.id != sub.id && $0.level == sub.level }.map(\.name)
+                let where_ = geo.map.title
+                if let q = choice("Which appellation is the only one left on this map of \(where_)?", correct: sub.name, wrong: sameLevel,
+                                  explain: "\(sub.name) in \(where_). Everything else on the map is faded out.", visual: "mapsolo:\(mapID):\(sub.id)") {
+                    return (k("mapsolo", sub.id), q)
+                }
+            }
             if Bool.random() {
                 let others = geo.areas.filter { $0.id != target && $0.level == area.level }.map(\.name)
                 return choice("Which region is highlighted on this map?", correct: area.name, wrong: others,

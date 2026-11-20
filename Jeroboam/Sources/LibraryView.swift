@@ -47,14 +47,51 @@ enum LibrarySection: String, CaseIterable, Identifiable, Hashable {
 struct LibraryView: View {
     @State private var path = NavigationPath()
     @Namespace private var zoom
+    @Environment(\.isWide) private var isWide
 
     var body: some View {
         NavigationStack(path: $path) {
             CollapsingPage(eyebrow: "Library", title: "Atlas", subtitle: "Every grape, place, aroma and term from the lessons.") {
+                if isWide {
+                    // wide: the groups sit side by side, each one a tidy block of two-up tiles
+                    HStack(alignment: .top, spacing: 28) {
+                        tileSection("Explore", [.regions, .great, .wines, .grapes, .labels, .cards], columns: 2)
+                        VStack(alignment: .leading, spacing: 22) {
+                            tileSection("Taste", [.aromas, .colors, .tasting, .boldness], columns: 2)
+                            tileSection("Serve", [.guide, .styles, .pairing, .bottles], columns: 2)
+                            glossaryLink
+                        }
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    }
+                    .padding(.bottom, 12)
+                } else {
                     tileSection("Explore", [.regions, .great, .wines, .grapes, .labels, .cards])
                     tileSection("Taste", [.aromas, .colors, .tasting, .boldness])
                     tileSection("Serve", [.guide, .styles, .pairing, .bottles])
-                    link(.glossary) {
+                    glossaryLink
+                    Color.clear.frame(height: 12)
+                }
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
+            .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }
+            .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) }.zoomDestination(ZoomID.region(r.id), in: zoom) }
+            .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
+            .navigationDestination(for: GreatWine.self) { w in PlusGate(quota: "great", id: w.id) { GreatWinePager(wine: w) } }
+            .navigationDestination(for: WineStyle.self) { s in PlusGate(quota: "styles", id: s.id) { StyleDetailView(style: s) }.zoomDestination(ZoomID.style(s.id), in: zoom) }
+            .debugDestinations()
+            .onAppear {
+                #if DEBUG
+                DebugScreens.libraryHook { path.append($0) }
+                #endif
+            }
+        }
+        .environment(\.zoomNamespace, zoom)
+    }
+
+    private var glossaryLink: some View {
+        link(.glossary) {
                         HStack(spacing: 14) {
                             Text("Aa").font(.system(size: 20, weight: .semibold)).foregroundStyle(Palette.wine)
                                 .frame(width: 44, height: 44).background(Circle().fill(Palette.wineSoft))
@@ -67,34 +104,16 @@ struct LibraryView: View {
                         }
                         .cardStyle(padding: 14)
                     }
-                    Color.clear.frame(height: 12)
-            }
-            .background(Palette.paper.ignoresSafeArea())
-            .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
-            .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }
-            .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) }.zoomDestination(ZoomID.region(r.id), in: zoom) }
-            .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
-            .navigationDestination(for: GreatWine.self) { w in PlusGate(quota: "great", id: w.id) { GreatWineDetail(wine: w) } }
-            .navigationDestination(for: WineStyle.self) { s in PlusGate(quota: "styles", id: s.id) { StyleDetailView(style: s) }.zoomDestination(ZoomID.style(s.id), in: zoom) }
-            .debugDestinations()
-            .onAppear {
-                #if DEBUG
-                DebugScreens.libraryHook { path.append($0) }
-                #endif
-            }
-        }
-        .environment(\.zoomNamespace, zoom)
     }
 
     private func link<V: View>(_ s: LibrarySection, @ViewBuilder _ label: () -> V) -> some View {
         NavigationLink(value: s) { label().zoomSource(ZoomID.section(s.rawValue)) }.buttonStyle(PressableStyle())
     }
 
-    private func tileSection(_ title: String, _ items: [LibrarySection]) -> some View {
+    private func tileSection(_ title: String, _ items: [LibrarySection], columns: Int? = nil) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: title)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+            LazyVGrid(columns: columns.map { n in Array(repeating: GridItem(.flexible(), spacing: 12), count: n) } ?? [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                 ForEach(items, id: \.self) { s in link(s) { tile(s) } }
             }
         }

@@ -17,6 +17,12 @@ struct VisualView: View {
         let extra = parts.count > 2 ? parts[2] : ""
         Group {
             switch kind {
+            case "mapsolo":
+                // one area kept on the map, everything else faded away: which one is it?
+                WineMapView(mapID: arg, highlight: Set(extra.split(separator: ",").map(String.init)), showLabels: false, showCities: false,
+                            fill: true, autoCallout: false, solo: true)
+                    .frame(height: hideAnswers ? 220 : 260)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             case "map" where !hideAnswers:
                 LessonMap(mapID: arg, highlight: Set(extra.split(separator: ",").map(String.init)), compact: compact)
             case "map":

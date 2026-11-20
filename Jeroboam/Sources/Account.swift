@@ -108,9 +108,15 @@ final class CloudSync {
         if let img = UserProfile.photo(), let small = Self.thumbnail(img) { kv.set(small, forKey: "avatar") }
         if let j = journal, j.persist {
             let entries = j.entries.map { e -> JournalEntry in var c = e; c.photo = nil; return c }
-            let cellar = j.cellar.map { b -> CellarBottle in var c = b; c.photo = nil; return c }
+            // each bottle keeps a tiny picture (a few KB) so the cellar looks the same on every phone
+            let cellar = j.cellar.map { b -> CellarBottle in
+                var c = b
+                if let img = JournalStore.image(b.photo) { c.thumb = Self.bottleThumb(img) }
+                c.photo = nil
+                return c
+            }
             if let d = try? JSONEncoder().encode(entries), d.count < 400_000 { kv.set(d, forKey: "journal") }
-            if let d = try? JSONEncoder().encode(cellar), d.count < 400_000 { kv.set(d, forKey: "cellar") }
+            if let d = try? JSONEncoder().encode(cellar), d.count < 900_000 { kv.set(d, forKey: "cellar") }
         }
         kv.set(Array(Self.deleted), forKey: "deleted")
         kv.synchronize()
@@ -151,11 +157,35 @@ final class CloudSync {
             }
             if let raw = kv.data(forKey: "cellar"), let remote = try? JSONDecoder().decode([CellarBottle].self, from: raw) {
                 let have = Set(j.cellar.map(\.id))
-                let add = remote.filter { !have.contains($0.id) && !gone.contains($0.id.uuidString) }
+                // restore each bottle's picture from its tiny iCloud copy
+                func withPhoto(_ b: CellarBottle) -> CellarBottle {
+                    var c = b
+                    if let t = b.thumb, let img = UIImage(data: t) { c.photo = j.savePhoto(img, id: b.id) }
+                    c.thumb = nil
+                    return c
+                }
+                let add = remote.filter { !have.contains($0.id) && !gone.contains($0.id.uuidString) }.map(withPhoto)
                 if !add.isEmpty { j.cellar = (j.cellar + add).sorted { $0.added > $1.added } }
+                // a bottle already here without a picture gets it from iCloud
+                for r in remote where r.thumb != nil {
+                    if let i = j.cellar.firstIndex(where: { $0.id == r.id }), j.cellar[i].photo == nil { j.cellar[i].photo = withPhoto(r).photo }
+                }
             }
         }
         Account.shared.markSynced()
+    }
+
+    /// A small portrait picture of a bottle for the cellar (about 4–8 KB).
+    static func bottleThumb(_ image: UIImage) -> Data? {
+        let w: CGFloat = 96, h: CGFloat = 120
+        let size = CGSize(width: w, height: h)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
+        let s = max(w / image.size.width, h / image.size.height)
+        let drawn = CGSize(width: image.size.width * s, height: image.size.height * s)
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in
+            image.draw(in: CGRect(x: (w - drawn.width) / 2, y: (h - drawn.height) / 2, width: drawn.width, height: drawn.height))
+        }
+        return img.jpegData(compressionQuality: 0.55)
     }
 
     static func thumbnail(_ image: UIImage) -> Data? {

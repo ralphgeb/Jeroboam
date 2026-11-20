@@ -287,10 +287,10 @@ struct LearnCard: View {
     let card: Card
     /// Guidebook numbering: shows "Topic 01" above the title instead of "Learn".
     var topic: Int? = nil
-    @Environment(\.isWide) private var isWide
+    @Environment(\.windowWidth) private var windowWidth
 
     var body: some View {
-        if isWide, let v = card.visual {
+        if windowWidth >= AdaptiveLayout.twoPaneThreshold, let v = card.visual {
             // wide window (foldable opened flat, or sideways): picture on the left, writing on the right
             HStack(alignment: .top, spacing: 32) {
                 VisualView(spec: v).frame(maxWidth: .infinity)
@@ -306,7 +306,8 @@ struct LearnCard: View {
                 }
                 text
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: windowWidth >= AdaptiveLayout.wideThreshold ? 640 : .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: windowWidth >= AdaptiveLayout.wideThreshold ? .center : .leading)
         }
     }
 
