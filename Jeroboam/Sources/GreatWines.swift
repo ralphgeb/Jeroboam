@@ -237,7 +237,7 @@ struct BottleShot: View {
                     .frame(width: rect.width, height: rect.height).offset(x: rect.minX, y: rect.minY)
             }
         }
-        .aspectRatio(aspect, contentMode: .fit)
+        .aspectRatio(0.78, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: corner, style: .continuous).strokeBorder(Color.black.opacity(0.06), lineWidth: 0.5))
         .environment(\.colorScheme, .light)
@@ -323,7 +323,7 @@ struct GreatWineImage: View {
                 }
             }
         }
-        .aspectRatio(0.78, contentMode: .fit)
+        .aspectRatio(aspect, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: corner, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: corner, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
     }
