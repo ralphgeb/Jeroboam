@@ -398,7 +398,7 @@ struct GreatWinesScreen: View {
                     }
                     .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
                     .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
-                    .id(country + (sub ?? "") + applied + sort.rawValue + band.rawValue + "\(minScore)")
+                    .id(listIdentity)
                 }
                 Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottle photos are shown where available.")
                     .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
@@ -413,6 +413,16 @@ struct GreatWinesScreen: View {
         .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
         .onSubmit(of: .search) { runSearch() }
         .onChange(of: query) { _, v in if v.isEmpty { applied = "" } }
+    }
+
+    private var listIdentity: String {
+        var parts: [String] = [country]
+        parts.append(sub ?? "")
+        parts.append(applied)
+        parts.append(sort.rawValue)
+        parts.append(band.rawValue)
+        parts.append(String(minScore))
+        return parts.joined(separator: "|")
     }
 
     /// Free players get five searches a month; each submitted search counts as one.
