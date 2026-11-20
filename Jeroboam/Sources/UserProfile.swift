@@ -163,3 +163,51 @@ struct AboutYouSection: View {
         .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 14) } }
     }
 }
+
+struct CollapsingPage<Content: View>: View {
+    let eyebrow: String
+    let title: String
+    var subtitle: String? = nil
+    var showStatus = false
+    @ViewBuilder let content: Content
+    @State private var collapse: CGFloat = 0
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
+                    .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("collapsingPage")).minY } action: { y in
+                        let p = min(1, max(0, (-12 - y) / 50))
+                        if abs(p - collapse) > 0.01 { collapse = p }
+                    }
+                content
+            }
+            .padding(.horizontal, Metrics.margin)
+        }
+        .coordinateSpace(name: "collapsingPage")
+        .scrollIndicators(.hidden)
+        .safeAreaInset(edge: .top, spacing: 0) { bar }
+    }
+
+    private var bar: some View {
+        ZStack {
+            if showStatus {
+                TopStatusBar()
+                    .opacity(1 - collapse)
+                    .offset(y: -6 * collapse)
+                    .allowsHitTesting(collapse < 0.5)
+            }
+            HStack {
+                Text(title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                    .opacity(collapse).offset(y: 6 * (1 - collapse))
+                Spacer()
+                if !showStatus || collapse > 0.5 { AvatarButton(size: 30) }
+            }
+        }
+        .frame(height: 44)
+        .padding(.horizontal, Metrics.margin)
+        .padding(.top, 4)
+        .background(Palette.paper.ignoresSafeArea(edges: .top))
+        .overlay(alignment: .bottom) { Hairline().opacity(collapse) }
+    }
+}
