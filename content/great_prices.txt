@@ -502,3 +502,9 @@ quinta-do-noval-nacional | 1388 | - | https://www.jamessuckling.com/tasting-note
 noval-vintage | 111 | - | https://www.jamessuckling.com/tasting-notes/109024/quinta-do-noval-vintage-port-2017
 hirtzberger-singerriedel | 140 | - | https://www.jamessuckling.com/tasting-notes/235379/franz-hirtzberger-riesling-wachau-ried-singerriedel-smaragd-2022
 pruger-achleiten | 63 | - | https://www.jamessuckling.com/tasting-notes/235443/prager-riesling-wachau-achleiten-smaragd-2022
+royal-tokaji-mezes-maly | 150 | - | https://www.jamessuckling.com/tasting-notes/275924/royal-tokaji-tokaji-aszu-6-puttonyos-mezes-maly-2018
+royal-tokaji-essencia | 1170 | - | https://www.jamessuckling.com/tasting-notes/333438/royal-tokaji-tokaji-essencia
+disznoko-aszu | 76 | - | https://www.jamessuckling.com/tasting-notes/287726/disznoko-tokaji-aszu-5-puttonyos-2020
+sadie-columella | 143 | - | https://www.jamessuckling.com/tasting-notes/321227/sadie-family-swartland-columella
+te-mata-coleraine | 95 | - | https://www.jamessuckling.com/tasting-notes/207635/te-mata-hawkes-bay-coleraine-2021
+kumeu-mates | 70 | - | https://www.jamessuckling.com/tasting-notes/266375/kumeu-river-chardonnay-kumeu-mates-vineyard-2023
