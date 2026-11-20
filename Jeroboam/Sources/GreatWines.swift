@@ -280,11 +280,17 @@ struct BottleShot: View {
 struct GreatWineImage: View {
     let wine: GreatWine
     var corner: CGFloat = 16
+    /// Fill the frame so the label is what you see (list thumbnails); otherwise the whole bottle is shown.
+    var zoomLabel = false
     var body: some View {
         Group {
             if let b = wine.bottle, let img = Photos.image(b) {
                 Color.white
-                    .overlay(Image(uiImage: img).resizable().scaledToFit().padding(8))
+                    .overlay {
+                        if zoomLabel { Image(uiImage: img).resizable().scaledToFill().scaleEffect(1.15).offset(y: 6) }
+                        else { Image(uiImage: img).resizable().scaledToFit().padding(5) }
+                    }
+                    .clipped()
             } else {
                 ZStack {
                     LinearGradient(colors: [Palette.cardAlt, Palette.card], startPoint: .top, endPoint: .bottom)
@@ -307,7 +313,6 @@ struct GreatWineImage: View {
 // MARK: - Screens
 
 struct GreatWinesScreen: View {
-    @State private var area: String = "Bordeaux"
     @State private var query = ""
     @State private var sort = Sort.featured
     @State private var band = Band.all
@@ -319,42 +324,65 @@ struct GreatWinesScreen: View {
             switch self { case .all: return true; case .under50: return v < 50; case .mid: return v >= 50 && v <= 150; case .over150: return v > 150 }
         }
     }
-    /// Areas grouped by country, France first.
-    static let order = ["Bordeaux", "Burgundy", "Champagne", "Rhône", "Loire", "Alsace", "Beaujolais", "Southern France", "Jura & Savoie",
-                        "Piedmont", "Tuscany", "Veneto & the North East", "Southern Italy & Islands", "Spain", "Portugal", "Germany",
-                        "Austria", "Hungary", "Greece", "Lebanon", "California", "Oregon & Washington", "Chile & Argentina",
-                        "Australia", "New Zealand", "South Africa"]
+    /// Countries are the main tabs; the areas inside them are the second row.
+    static let countries: [(name: String, areas: [String])] = [
+        ("France", ["Bordeaux", "Burgundy", "Champagne", "Rhône", "Loire", "Alsace", "Beaujolais", "Southern France", "Jura & Savoie"]),
+        ("Italy", ["Piedmont", "Tuscany", "Veneto & the North East", "Southern Italy & Islands"]),
+        ("Spain", ["Spain"]), ("Portugal", ["Portugal"]), ("Germany", ["Germany"]), ("Austria", ["Austria"]),
+        ("Hungary", ["Hungary"]), ("Greece", ["Greece"]), ("Lebanon", ["Lebanon"]),
+        ("USA", ["California", "Oregon & Washington"]), ("Chile & Argentina", ["Chile & Argentina"]),
+        ("Australia", ["Australia"]), ("New Zealand", ["New Zealand"]), ("South Africa", ["South Africa"]),
+    ]
+    @State private var country = "France"
+    @State private var sub: String? = nil
+    @State private var applied = ""
+    @State private var showLimit = false
+
+    private static var searchKey: String {
+        let c = Calendar.current.dateComponents([.year, .month], from: Date())
+        return "jero.greatSearches.\(c.year ?? 0)-\(c.month ?? 0)"
+    }
+    static let freeSearches = 5
+    private var searchesUsed: Int { UserDefaults.standard.integer(forKey: Self.searchKey) }
+
+    /// Second-row choices: the areas of a country, or (for one-area countries) its regions.
+    private func subChoices(_ wines: [GreatWine]) -> [String] {
+        let areas = Self.countries.first { $0.name == country }?.areas ?? []
+        if areas.count > 1 { return areas }
+        var count: [String: Int] = [:]
+        for w in wines where areas.contains(w.area) {
+            if let r = w.zone.components(separatedBy: " · ").last, r != w.area { count[r, default: 0] += 1 }
+        }
+        let list = count.filter { $0.value >= 2 }.sorted { $0.value == $1.value ? $0.key < $1.key : $0.value > $1.value }.map(\.key)
+        return list.count >= 2 ? list : []
+    }
+
+    private func inCountry(_ w: GreatWine) -> Bool { (Self.countries.first { $0.name == country }?.areas ?? []).contains(w.area) }
+    private func inSub(_ w: GreatWine) -> Bool {
+        guard let s = sub else { return true }
+        return w.area == s || w.zone.components(separatedBy: " · ").last == s
+    }
+
     var body: some View {
         let wines = ContentStore.shared.library.great ?? []
-        let present = Set(wines.map(\.area))
-        let areas = Self.order.filter(present.contains) + present.subtracting(Self.order).sorted()
-        let q = query.trimmingCharacters(in: .whitespaces)
-        let shown = q.isEmpty ? wines.filter { $0.area == area }
+        let q = applied.trimmingCharacters(in: .whitespaces)
+        let shown = q.isEmpty ? wines.filter { inCountry($0) && inSub($0) }
             : wines.filter { $0.name.localizedCaseInsensitiveContains(q) || $0.producer.localizedCaseInsensitiveContains(q) || $0.zone.localizedCaseInsensitiveContains(q) }
+        let subs = subChoices(wines)
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 16) {
                 ScreenHeader(eyebrow: "Atlas", title: "Great wines to try",
-                             subtitle: "\(wines.count.formatted()) wines across \(areas.count) areas: what they are, why people love them, what they cost and how critics score them.")
-                ScrollViewReader { proxy in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            ForEach(areas, id: \.self) { a in
-                                Button { withAnimation(.smooth(duration: 0.3)) { area = a } } label: {
-                                    Text(a).font(.system(size: 14, weight: .medium))
-                                        .foregroundStyle(area == a ? Palette.onWine : Palette.ink)
-                                        .padding(.horizontal, 14).padding(.vertical, 8)
-                                        .background(Capsule().fill(area == a ? Palette.wine : Palette.cardAlt))
-                                }
-                                .buttonStyle(.plain).id(a)
-                            }
-                        }
-                        .padding(.horizontal, Metrics.margin)
+                             subtitle: "\(wines.count.formatted()) wines, country by country: what they are, why people love them, what they cost and how critics score them.")
+                chipRow(Self.countries.map(\.name), selected: country, bold: true) { c in
+                    withAnimation(.smooth(duration: 0.3)) { country = c; sub = nil; applied = ""; query = "" }
+                }
+                if !subs.isEmpty {
+                    chipRow(["All"] + subs, selected: sub ?? "All", bold: false) { c in
+                        withAnimation(.smooth(duration: 0.3)) { sub = c == "All" ? nil : c }
                     }
-                    .padding(.horizontal, -Metrics.margin)
-                    .onChange(of: area) { _, a in withAnimation { proxy.scrollTo(a, anchor: .center) } }
                 }
                 HStack {
-                    SectionTitle(text: q.isEmpty ? area : "Results")
+                    SectionTitle(text: q.isEmpty ? (sub ?? country) : "Results for \u{201C}\(q)\u{201D}")
                     Spacer()
                     Text("\(shown.count) wines").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
@@ -370,7 +398,7 @@ struct GreatWinesScreen: View {
                     }
                     .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.card))
                     .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
-                    .id(area + sort.rawValue + band.rawValue + "\(minScore)")
+                    .id(country + (sub ?? "") + applied + sort.rawValue + band.rawValue + "\(minScore)")
                 }
                 Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottle photos are shown where available.")
                     .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
@@ -382,7 +410,44 @@ struct GreatWinesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "great") } }
-        .searchable(text: $query, prompt: "Search wines or producers")
+        .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
+        .onSubmit(of: .search) { runSearch() }
+        .onChange(of: query) { _, v in if v.isEmpty { applied = "" } }
+    }
+
+    /// Free players get five searches a month; each submitted search counts as one.
+    private func runSearch() {
+        let q = query.trimmingCharacters(in: .whitespaces)
+        guard !q.isEmpty else { applied = ""; return }
+        if Plus.shared.active { applied = q; return }
+        if searchesUsed >= Self.freeSearches {
+            applied = ""
+            PaywallPresenter.shared.show("You've used your 5 free searches this month. Jero Plus makes searching unlimited.")
+            return
+        }
+        UserDefaults.standard.set(searchesUsed + 1, forKey: Self.searchKey)
+        applied = q
+    }
+
+    private func chipRow(_ items: [String], selected: String, bold: Bool, _ pick: @escaping (String) -> Void) -> some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(items, id: \.self) { a in
+                        Button { pick(a) } label: {
+                            Text(a).font(.system(size: bold ? 14.5 : 13.5, weight: bold ? .semibold : .medium))
+                                .foregroundStyle(selected == a ? Palette.onWine : Palette.ink)
+                                .padding(.horizontal, bold ? 15 : 12).padding(.vertical, bold ? 9 : 7)
+                                .background(Capsule().fill(selected == a ? Palette.wine : Palette.cardAlt))
+                        }
+                        .buttonStyle(.plain).id(a)
+                    }
+                }
+                .padding(.horizontal, Metrics.margin)
+            }
+            .padding(.horizontal, -Metrics.margin)
+            .onChange(of: selected) { _, a in withAnimation { proxy.scrollTo(a, anchor: .center) } }
+        }
     }
 
     private func ordered(_ ws: [GreatWine]) -> [GreatWine] {
@@ -429,7 +494,7 @@ struct GreatWinesScreen: View {
 
     private func row(_ w: GreatWine, last: Bool) -> some View {
         HStack(spacing: 12) {
-            GreatWineImage(wine: w, corner: 8).frame(width: 46)
+            GreatWineImage(wine: w, corner: 10, zoomLabel: true).frame(width: 58)
             VStack(alignment: .leading, spacing: 3) {
                 Text(w.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
                     .lineLimit(2).multilineTextAlignment(.leading)
@@ -444,7 +509,7 @@ struct GreatWinesScreen: View {
         }
         .padding(.horizontal, 14).padding(.vertical, 10)
         .contentShape(Rectangle())
-        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 72) } }
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 84) } }
     }
 
     private func tile(_ w: GreatWine) -> some View {
@@ -472,9 +537,9 @@ struct GreatWineDetail: View {
             VStack(alignment: .leading, spacing: 22) {
                 HStack(alignment: .top, spacing: 16) {
                     VStack(spacing: 4) {
-                        GreatWineImage(wine: w, corner: 20).frame(width: 150)
+                        GreatWineImage(wine: w, corner: 22).frame(width: 195)
                         if let b = w.bottle, let c = Photos.creditLine(b) {
-                            Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 150)
+                            Text(c).font(.system(size: 9.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).frame(width: 195)
                         }
                     }
                     VStack(alignment: .leading, spacing: 8) {
