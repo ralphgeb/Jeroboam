@@ -7,7 +7,7 @@ on:
     inputs:
       screens:
         description: "Space-separated debug screens"
-        default: "learn guide explorer greatwine"
+        default: "learn guide"
 
 permissions:
   contents: write
@@ -93,6 +93,14 @@ jobs:
               limited xcrun simctl io "$UDID" screenConfig --display="$O" power $P
             done < internal.sorted
             sleep 5
+            # baseline: does the display render at all? Settings first, then Jero with no arguments
+            limited xcrun simctl launch "$UDID" com.apple.Preferences </dev/null
+            sleep 8
+            limited xcrun simctl io "$UDID" screenshot --display="$D" "../screens/duo-$SCREEN-baseline-settings.png"
+            limited xcrun simctl launch --terminate-running-process "$UDID" com.ralphgeb.jero </dev/null
+            sleep 15
+            limited xcrun simctl io "$UDID" screenshot --display="$D" "../screens/duo-$SCREEN-baseline-jero.png"
+            xcrun simctl spawn "$UDID" log show --last 3m --style compact --predicate 'process == "Jeroboam" OR process == "SpringBoard" OR eventMessage CONTAINS[c] "crash"' 2>/dev/null | grep -iE "fatal|crash|terminat|exception|assert|watchdog" | head -25 | sed 's/^/LOG: /'
             ORIENTS="portrait"; [ "$SCREEN" = inside ] && ORIENTS="portrait landscape"
             for OR in $ORIENTS; do
               for S in $SCREENS; do
