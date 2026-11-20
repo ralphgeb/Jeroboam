@@ -710,6 +710,7 @@ struct GreatWineDetail: View {
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 12).padding(.bottom, 30)
+            .readable(880)
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
@@ -733,6 +734,7 @@ struct GreatWineDetail: View {
             Text(text).font(.system(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
                 .fixedSize(horizontal: false, vertical: true)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle(padding: 16)
     }
 }

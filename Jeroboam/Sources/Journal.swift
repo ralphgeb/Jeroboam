@@ -328,11 +328,10 @@ struct JournalHome: View {
             Thumb(photo: b.photo, style: b.wine.style).frame(width: 46, height: 58)
             VStack(alignment: .leading, spacing: 2) {
                 Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text([b.wine.vintage, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
+                Text([b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
-                if let r = b.roughRating {
-                    Text("Vintage \(b.vintageText) · about \(r) pts").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
-                }
+                Text("Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? ""))
+                    .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 2) {
