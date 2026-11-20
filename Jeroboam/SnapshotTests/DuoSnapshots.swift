@@ -79,6 +79,19 @@ final class DuoSnapshots: XCTestCase {
         snap("map-explorer", settle: 3.0) { MapExplorer(mapID: "bordeaux") }
     }
 
+    func testDrinkWindow() {
+        snap("drink-window") { VStack(spacing: 16) { DrinkWindowChart(window: "Now–2030", vintage: "2019"); DrinkWindowChart(window: "2026–2040", vintage: "2018") }.padding(20) }
+    }
+
+    func testSoloMap() {
+        snap("solo-map") { VStack(spacing: 16) { VisualView(spec: "mapsolo:spain:rioja"); VisualView(spec: "map:spain:rioja", compact: true, hideAnswers: true) }.padding(20) }
+    }
+
+    func testBottleFull() {
+        guard let w = ContentStore.shared.library.great?.first(where: { $0.bottle != nil }) else { return XCTFail("no wine") }
+        snap("bottle-full") { BottleFullScreen(wine: w) }
+    }
+
     func testLearn() { snap("learn") { LearnView() } }
     func testAtlas() { snap("atlas") { LibraryView() } }
     func testJournal() { snap("journal") { JournalView() } }
@@ -86,7 +99,8 @@ final class DuoSnapshots: XCTestCase {
 
     func testGreatWine() {
         guard let w = ContentStore.shared.library.great?.first else { return XCTFail("no wine") }
-        snap("great-wine") { NavigationStack { GreatWineDetail(wine: w) } }
+        GreatWinePlaylist.wines = Array((ContentStore.shared.library.great ?? []).prefix(5))
+        snap("great-wine") { NavigationStack { GreatWinePager(wine: w) } }
     }
 
     func testRegions() {
