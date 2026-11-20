@@ -330,7 +330,7 @@ struct JournalHome: View {
                 stat(String(format: "%.0f", journal.averageRating), "avg. points")
                 stat(journal.blindAverage.map { "\($0)" } ?? "–", "blind score")
             }
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                 ForEach(journal.entries) { e in
                     NavigationLink(value: e) { EntryTile(entry: e) }.buttonStyle(PressableStyle())
                 }
@@ -1030,7 +1030,7 @@ struct TastingFlow: View {
                 }
             }
             if q.isEmpty {
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 10)], spacing: 10) {
                     ForEach(cats) { cat in
                         let picked = cat.items.filter { entry.aromas.contains($0) }.count
                         let open = expandedFamily == cat.id
@@ -1133,7 +1133,7 @@ struct TastingFlow: View {
             }
             VStack(alignment: .leading, spacing: 10) {
                 SectionTitle(text: "Country")
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 10)], spacing: 10) {
                     ForEach(countryOptions, id: \.self) { c in option(c, selected: entry.guessCountry == c) { entry.guessCountry = c } }
                 }
             }

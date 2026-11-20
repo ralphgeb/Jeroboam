@@ -26,7 +26,7 @@ struct JeroboamApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            AdaptiveRoot { RootView() }
                 .environment(progress)
                 .environment(journal)
                 .preferredColorScheme(progress.colorScheme)
@@ -89,6 +89,14 @@ struct RootView: View {
         .onAppear {
             #if DEBUG
             if let t = DebugScreens.initialTab { tab = t }
+            if CommandLine.arguments.contains("-landscape") {
+                // screenshots of the wide (foldable / sideways) layout
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    for case let scene as UIWindowScene in UIApplication.shared.connectedScenes {
+                        scene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight))
+                    }
+                }
+            }
             if DebugScreens.screen == "paywall" {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { PaywallPresenter.shared.show("Levels 2 and 3, the whole atlas and your journal.") }
             }

@@ -135,7 +135,7 @@ struct PracticeView: View {
         let kinds = QuizGenerator.Kind.allCases.filter { $0 != .mixed && $0 != .maps }
         return VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: "By topic")
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                 ForEach(kinds) { k in
                     Button { start(k) } label: {
                         HStack(spacing: 10) {

@@ -873,8 +873,46 @@ struct MapExplorer: View {
     @State private var listExpanded = false
     @State private var viewport: CGRect? = nil
 
+    @Environment(\.isWide) private var isWide
+
     var body: some View {
         let g = MapGeometry.get(mapID)
+        HStack(spacing: 0) {
+        mapArea(g)
+        if isWide, let g { sidebar(g).frame(width: 360).background(Palette.paper.ignoresSafeArea()) }
+        }
+        .animation(.easeInOut(duration: 0.25), value: selected)
+        .sheet(item: $openRegion) { r in
+            NavigationStack {
+                RegionDetailView(region: r)
+                    .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
+                    .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
+            }
+            .plusSheetHost()
+        }
+        .plusSheetHost()
+        .onAppear {
+            if highlight.count == 1 { selected = highlight.first }
+            // open on the appellations (the deepest level), with the regions as hatches behind
+            if layer == nil, let g = MapGeometry.get(mapID), g.maxLevel > 0 { layer = min(2, g.maxLevel) }
+        }
+    }
+
+    /// Wide windows: the list and the selected area's card live in a column on the right.
+    @ViewBuilder private func sidebar(_ g: MapGeometry) -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                if let id = selected, let a = g.areas.first(where: { $0.id == id }) {
+                    selectedCard(a, g: g)
+                }
+                let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
+                MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: .constant(true)) { id in selected = id }
+            }
+            .padding(14)
+        }
+    }
+
+    private func mapArea(_ g: MapGeometry?) -> some View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
@@ -919,7 +957,7 @@ struct MapExplorer: View {
             .padding(.horizontal, 16)
             .padding(.top, 8)
 
-            VStack {
+            if !isWide { VStack {
                 Spacer()
                 if let id = selected, let a = g?.areas.first(where: { $0.id == id }) {
                     selectedCard(a, g: g!)
@@ -932,22 +970,7 @@ struct MapExplorer: View {
                         .padding(.horizontal, 12)
                         .padding(.bottom, 8)
                 }
-            }
-        }
-        .animation(.easeInOut(duration: 0.25), value: selected)
-        .sheet(item: $openRegion) { r in
-            NavigationStack {
-                RegionDetailView(region: r)
-                    .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
-                    .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
-            }
-            .plusSheetHost()
-        }
-        .plusSheetHost()
-        .onAppear {
-            if highlight.count == 1 { selected = highlight.first }
-            // open on the appellations (the deepest level), with the regions as hatches behind
-            if layer == nil, let g = MapGeometry.get(mapID), g.maxLevel > 0 { layer = min(2, g.maxLevel) }
+            } }
         }
     }
 

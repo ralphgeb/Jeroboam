@@ -94,7 +94,7 @@ struct LibraryView: View {
     private func tileSection(_ title: String, _ items: [LibrarySection]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: title)
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                 ForEach(items, id: \.self) { s in link(s) { tile(s) } }
             }
         }
@@ -256,7 +256,7 @@ struct StylesScreen: View {
                 ForEach(cats, id: \.self) { cat in
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: cat)
-                        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                             ForEach(styles.filter { $0.category == cat }) { st in
                                 NavigationLink(value: st) { StyleTile(style: st) }.buttonStyle(PressableStyle())
                             }
@@ -375,7 +375,7 @@ struct TastingScreen: View {
             VStack(alignment: .leading, spacing: 24) {
                 ScreenHeader(eyebrow: "Systematic approach", title: "How to taste",
                              subtitle: "Four steps, the same every time. Tap a step to learn what to look for.")
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                     ForEach(Array(TastingStep.all.enumerated()), id: \.offset) { i, step in
                         Button { open = step } label: { TastingStepCard(step: step, number: i + 1) }
                             .buttonStyle(PressableStyle())

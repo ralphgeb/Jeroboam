@@ -41,7 +41,7 @@ struct ProfileView: View {
                     .padding(.top, 20)
 
                     // Stats grid
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                         stat("\(progress.data.streak)", "Day streak", "flame.fill", Palette.flame)
                         stat("\(progress.data.bestStreak)", "Best streak", "trophy", Palette.brass)
                         stat("\(progress.data.xp)", "Total XP", "sparkle", Palette.brass)

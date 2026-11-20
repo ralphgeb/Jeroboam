@@ -14,7 +14,7 @@ struct RegionListView: View {
                 if query.isEmpty {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Countries", detail: "\(countries.count)")
-                        LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                             ForEach(countries) { c in
                                 if Plus.shared.active || Plus.freeCountries.contains(c.country) {
                                     NavigationLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())

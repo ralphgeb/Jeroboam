@@ -21,7 +21,7 @@ struct GrapeListView: View {
                 }
                 .pickerStyle(.segmented)
 
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                     ForEach(grapes) { g in
                         NavigationLink(value: g) { card(g) }.buttonStyle(PressableStyle())
                     }

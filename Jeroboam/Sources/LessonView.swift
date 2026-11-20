@@ -287,27 +287,46 @@ struct LearnCard: View {
     let card: Card
     /// Guidebook numbering: shows "Topic 01" above the title instead of "Learn".
     var topic: Int? = nil
+    @Environment(\.isWide) private var isWide
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 10) {
-                Eyebrow(topic.map { String(format: "Topic %02d", $0) } ?? "Learn", color: Palette.wine)
-                if let t = card.title {
-                    Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+        if isWide, let v = card.visual {
+            // wide window (foldable opened flat, or sideways): picture on the left, writing on the right
+            HStack(alignment: .top, spacing: 32) {
+                VisualView(spec: v).frame(maxWidth: .infinity)
+                VStack(alignment: .leading, spacing: 20) { heading; text }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } else {
+            VStack(alignment: .leading, spacing: 20) {
+                heading
+                if let v = card.visual {
+                    VisualView(spec: v).padding(.vertical, 4)
                 }
+                text
             }
-            if let v = card.visual {
-                VisualView(spec: v)
-                    .padding(.vertical, 4)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private var heading: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Eyebrow(topic.map { String(format: "Topic %02d", $0) } ?? "Learn", color: Palette.wine)
+            if let t = card.title {
+                Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
             }
-            if let b = card.body {
-                VStack(alignment: .leading, spacing: 12) {
-                    ForEach(Array(b.components(separatedBy: "\n\n").enumerated()), id: \.offset) { _, para in
-                        paragraph(para)
-                    }
+        }
+    }
+
+    @ViewBuilder private var text: some View {
+        if let b = card.body {
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(Array(b.components(separatedBy: "\n\n").enumerated()), id: \.offset) { _, para in
+                    paragraph(para)
                 }
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     @ViewBuilder private func paragraph(_ p: String) -> some View {

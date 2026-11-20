@@ -22,8 +22,8 @@ permissions:
 
 jobs:
   simulator:
-    runs-on: macos-latest
-    timeout-minutes: 40
+    runs-on: xcode-27
+    timeout-minutes: 50
     defaults:
       run:
         working-directory: Jeroboam
@@ -92,6 +92,14 @@ jobs:
               fi
             done
             [ "$mode" = light ] && SCREENS="learn library map cards journal practice"
+          done
+          # wide layout (foldable opened flat / iPhone sideways): the app turns itself with -landscape
+          xcrun simctl ui "$UDID" appearance light
+          for s in learn guide explorer greatwine lesson region grape journal; do
+            xcrun simctl terminate "$UDID" com.ralphgeb.jero 2>/dev/null || true
+            xcrun simctl launch "$UDID" com.ralphgeb.jero -screen "$s" -landscape > /dev/null
+            sleep 11
+            xcrun simctl io "$UDID" screenshot "shots/wide-${s}.png" > /dev/null 2>&1
           done
           xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
           ls shots

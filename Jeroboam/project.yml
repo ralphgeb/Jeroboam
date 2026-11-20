@@ -43,6 +43,8 @@ targets:
           UIColorName: LaunchBackground
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
         ITSAppUsesNonExemptEncryption: false
         NSCameraUsageDescription: Jero uses the camera to photograph wine labels for your tasting journal.
         NSPhotoLibraryAddUsageDescription: Jero can save your tasting photos.
