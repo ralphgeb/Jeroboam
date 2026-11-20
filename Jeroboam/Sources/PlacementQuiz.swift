@@ -14,110 +14,108 @@ enum PlacementBank {
     static let sets: [[PlacementQuestion]] = [setA, setB, setC]
 
     static let setA: [PlacementQuestion] = [
-        .init(level: 1, text: "Which grape is behind a bottle labeled Blanc de Blancs?",
-              options: ["Chardonnay", "Pinot Noir", "Riesling", "Sauvignon Blanc"],
-              explain: "Blanc de Blancs means white from whites: 100% Chardonnay. Champagne's other main grapes, Pinot Noir and Meunier, are black, but their juice is clear, so pressed gently they make white wine too (Blanc de Noirs)."),
+        .init(level: 1, text: "Which grape is Argentina's signature red?",
+              options: ["Malbec", "Tempranillo", "Syrah", "Pinot Noir"],
+              explain: "Malbec. It began in Cahors, France, but found its true home in Mendoza, where vineyards at 900–1,500 m give it deep color, ripe plum fruit and fresh acidity from cool nights."),
         .init(level: 1, text: "Red wine gets its color from the grape juice.",
               options: ["False", "True"],
               explain: "Almost all grape juice is clear, even from black grapes. Red color comes from the skins steeping in the juice during fermentation. Only a few rare grapes, like Alicante Bouschet, are red inside."),
         .init(level: 1, text: "Which famous region is highlighted?",
               options: ["Rioja", "Priorat", "Rías Baixas", "Jerez"],
-              explain: "Rioja, in northern Spain, built its name on Tempranillo aged in oak. The label tells you the aging: Crianza, Reserva and Gran Reserva each require a legal minimum time in barrel and bottle.",
+              explain: "Rioja, in northern Spain, built its name on Tempranillo aged in oak. Crianza, Reserva and Gran Reserva each require a legal minimum time in barrel and bottle.",
               visual: "map:spain:rioja"),
-        .init(level: 2, text: "Which grape makes Chianti?",
-              options: ["Sangiovese", "Nebbiolo", "Montepulciano", "Barbera"],
-              explain: "Chianti Classico must be at least 80% Sangiovese. The name is often traced to sanguis Jovis, the blood of Jupiter."),
-        .init(level: 2, text: "What does tannin feel like in your mouth?",
-              options: ["A drying, grippy feel on your gums and cheeks", "A tingle, like bubbles", "A thick, sweet weight", "A burning warmth"],
-              explain: "Tannin comes from skins, seeds, stems and oak, and it binds to the proteins in your saliva. That is why a tannic red tastes softer with a steak: fat and protein take the grip away."),
+        .init(level: 2, text: "Amarone della Valpolicella is made from grapes that are…",
+              options: ["Dried for months before fermenting", "Picked after the first frost", "Fermented with the stems only", "Aged in a solera"],
+              explain: "Appassimento: Corvina and other grapes are dried on racks for months, losing a third of their weight. What's left is concentrated and, fermented dry, gives a rich red of 15% alcohol or more."),
+        .init(level: 2, text: "Which South African grape is a cross of Pinot Noir and Cinsault?",
+              options: ["Pinotage", "Chenin Blanc", "Shiraz", "Carmenère"],
+              explain: "Pinotage, created at Stellenbosch University in 1925. Cinsault was then called Hermitage in South Africa, which is where the second half of the name comes from."),
         .init(level: 2, text: "Which Burgundy village is highlighted?",
               options: ["Chablis", "Pouilly-Fuissé", "Meursault", "Gevrey-Chambertin"],
               explain: "Chablis is Chardonnay grown on ancient Kimmeridgian limestone, packed with fossilized oyster shells. Maybe that's why it is the classic partner of fresh oysters.",
               visual: "map:burgundy:chablis"),
-        .init(level: 2, text: "Which Spanish sparkling wine is made like Champagne, with the second fermentation in the bottle?",
-              options: ["Cava", "Prosecco", "Asti", "Crémant"],
-              explain: "Cava uses the traditional method, mostly from Macabeo, Xarel·lo and Parellada around Penedès. Prosecco is Italian and usually gets its bubbles in a big tank, which keeps it fresh and fruity."),
-        .init(level: 3, text: "Which white grape is often co-fermented with Syrah in Côte-Rôtie?",
-              options: ["Viognier", "Marsanne", "Roussanne", "Grenache Blanc"],
-              explain: "Up to 20% Viognier is allowed in Côte-Rôtie. Fermenting the two together helps lock in color and adds an apricot-and-flowers perfume to the Syrah."),
-        .init(level: 3, text: "What happens during malolactic fermentation?",
-              options: ["Sharp malic acid turns into softer lactic acid", "Sugar turns into alcohol", "Tannins turn into color", "Carbon dioxide is trapped for bubbles"],
-              explain: "Bacteria convert malic acid (green apples) to lactic acid (milk). It softens the wine and makes buttery diacetyl, which is why oaky Chardonnay can taste creamy. Crisp whites often block it to stay zesty."),
-        .init(level: 3, text: "Which region was fixed by law in 1756, one of the first demarcated wine regions in the world?",
-              options: ["Douro", "Dão", "Alentejo", "Vinho Verde"],
-              explain: "The Douro Valley in Portugal. Port is made here by adding grape spirit mid-fermentation, which stops the yeast and keeps the natural sweetness. The steep terraces are still mostly picked by hand.",
-              visual: "map:portugal:douro"),
+        .init(level: 3, text: "Which white grape makes Santorini's famous mineral wines, keeping its acidity in the heat?",
+              options: ["Assyrtiko", "Moschofilero", "Vidiano", "Roditis"],
+              explain: "Assyrtiko. The vines are twisted into low baskets (kouloura) to shelter the grapes from wind and sun, and the volcanic ash soil spared them from phylloxera, so some vines are centuries old."),
+        .init(level: 3, text: "Austria's most planted red grape, a 1922 cross, is…",
+              options: ["Zweigelt", "Blaufränkisch", "St. Laurent", "Blauburger"],
+              explain: "Zweigelt, a cross of Blaufränkisch and St. Laurent made by Dr. Fritz Zweigelt. It is juicy and cherry-scented, while its parent Blaufränkisch makes the more serious, peppery reds of Burgenland."),
+        .init(level: 3, text: "Which compound gives aged Riesling its famous petrol note?",
+              options: ["TDN", "Diacetyl", "Methoxypyrazine", "Rotundone"],
+              explain: "TDN (a carotenoid breakdown product) forms as Riesling ages in bottle, faster in warm, sunny vineyards. Diacetyl is butter, methoxypyrazine is green pepper and rotundone is black pepper."),
+        .init(level: 3, text: "Which Barolo commune is best known for the most powerful, structured, long-lived wines?",
+              options: ["Serralunga d'Alba", "La Morra", "Barolo", "Verduno"],
+              explain: "Serralunga d'Alba, on older, compact Helvetian soils, gives austere, tannic Barolo that needs 15 years or more. La Morra, on softer Tortonian marl, makes more perfumed, earlier-drinking wines."),
     ]
 
     static let setB: [PlacementQuestion] = [
-        .init(level: 1, text: "Which grape is Sancerre made from?",
-              options: ["Sauvignon Blanc", "Chardonnay", "Chenin Blanc", "Riesling"],
-              explain: "Sauvignon Blanc from the Loire: grapefruit, gooseberry and wet stone. The classic local pairing is Crottin de Chavignol, a goat's cheese from the same hills."),
-        .init(level: 1, text: "Real Champagne can only come from Champagne, France.",
-              options: ["True", "False"],
-              explain: "The name is legally protected. The same method elsewhere has to go by another name: Cava in Spain, Crémant elsewhere in France, Franciacorta in Italy, Cap Classique in South Africa."),
-        .init(level: 1, text: "Which famous sparkling region is this?",
-              options: ["Champagne", "Alsace", "The Loire", "Chablis"],
-              explain: "Champagne is one of the coolest major wine regions, so grapes keep the high acidity sparkling wine needs. Chalk cellars hold the bottles cool during their long aging.",
-              visual: "map:champagne"),
-        .init(level: 2, text: "Malbec is the star of Argentina, but which French region first made it famous?",
-              options: ["Cahors", "Médoc", "Beaujolais", "Alsace"],
-              explain: "Cahors, in southwest France, once made inky 'black wine' from Malbec. In Argentina the grape found its second home in the high-altitude vineyards of Mendoza."),
-        .init(level: 2, text: "Which of these wines is typically the sweetest?",
-              options: ["Sauternes", "Chablis", "Sancerre", "Muscadet"],
-              explain: "Sauternes comes from grapes shriveled by noble rot (botrytis), which concentrates sugar and adds flavors of honey and saffron. A single vine may yield only a glass of Château d'Yquem."),
-        .init(level: 2, text: "What does Reserva on a Spanish label tell you?",
-              options: ["A minimum aging time set by law", "It's from a single vineyard", "It's organic", "It's from old vines only"],
-              explain: "In Rioja, a red Reserva spends at least three years aging, with at least one in oak. Crianza is shorter, Gran Reserva longer. The label tells you how long the wine rested before you."),
-        .init(level: 2, text: "Which Piedmont wine comes from the highlighted zone?",
-              options: ["Barolo", "Chianti", "Amarone", "Brunello"],
-              explain: "Barolo is 100% Nebbiolo, a name that likely comes from nebbia, the fog of the autumn harvest. It is pale in color but huge in tannin and acid, with tar-and-roses aromas. It must age at least 38 months before release.",
-              visual: "map:piedmont:barolo"),
-        .init(level: 3, text: "How many Grand Cru vineyards does Chablis have?",
-              options: ["Seven", "Three", "Twelve", "Thirty-three"],
-              explain: "Seven, all on a single south-west facing slope above the town: Bougros, Preuses, Vaudésir, Grenouilles, Valmur, Les Clos and Blanchots."),
-        .init(level: 3, text: "Which Austrian grape is known for a white-pepper note?",
-              options: ["Grüner Veltliner", "Welschriesling", "Zweigelt", "Blaufränkisch"],
-              explain: "Grüner Veltliner carries rotundone, the same aromatic compound found in black pepper and in peppery Syrah. Our noses are extremely sensitive to it, a few parts per trillion are enough."),
-        .init(level: 3, text: "Steep slate slopes above a winding river: which German region is this?",
-              options: ["Mosel", "Rheingau", "Pfalz", "Baden"],
-              explain: "The Mosel has some of the steepest vineyards in Europe, with slopes of 60 degrees or more at Calmont. The dark slate absorbs heat and the river reflects light, ripening Riesling that is light, racy and low in alcohol.",
-              visual: "map:germany:mosel"),
-    ]
-
-    static let setC: [PlacementQuestion] = [
         .init(level: 1, text: "Which grape made Marlborough, New Zealand famous?",
               options: ["Sauvignon Blanc", "Chardonnay", "Merlot", "Riesling"],
               explain: "Marlborough Sauvignon Blanc exploded in the 1980s with its burst of passion fruit and grapefruit. Warm sunny days and cold nights keep the grapes aromatic and fresh."),
+        .init(level: 1, text: "Real Champagne can only come from Champagne, France.",
+              options: ["True", "False"],
+              explain: "The name is legally protected. The same method elsewhere has to go by another name: Cava in Spain, Crémant elsewhere in France, Franciacorta in Italy, Cap Classique in South Africa."),
+        .init(level: 1, text: "Which Portuguese valley, shown on the map, makes Port?",
+              options: ["Douro", "Dão", "Alentejo", "Vinho Verde"],
+              explain: "The Douro Valley was demarcated by law in 1756, one of the first wine regions in the world. Port gets its sweetness because grape spirit is added mid-fermentation, stopping the yeast.",
+              visual: "map:portugal:douro"),
+        .init(level: 2, text: "Albariño is the pride of which Spanish region?",
+              options: ["Rías Baixas", "Rueda", "Penedès", "Bierzo"],
+              explain: "Rías Baixas, on Galicia's cool, wet Atlantic coast. Vines are trained high on pergolas to stay dry in the damp air, and the fresh, saline whites pair with the local shellfish.",
+              visual: "map:spain:rias-baixas"),
+        .init(level: 2, text: "Which Piedmont wine comes from the highlighted zone?",
+              options: ["Barolo", "Chianti", "Amarone", "Brunello"],
+              explain: "Barolo is 100% Nebbiolo, a name that likely comes from nebbia, the fog of the autumn harvest. It is pale in color but huge in tannin and acid, and must age at least 38 months before release.",
+              visual: "map:piedmont:barolo"),
+        .init(level: 2, text: "What does Reserva on a Spanish red label tell you?",
+              options: ["A minimum aging time set by law", "It's from a single vineyard", "It's organic", "It's from old vines only"],
+              explain: "In Rioja a red Reserva spends at least three years aging, with at least one in oak. Crianza is shorter and Gran Reserva longer, so the label tells you how long the wine rested before you."),
+        .init(level: 3, text: "Which grape is Chile's signature, long mistaken for Merlot until 1994?",
+              options: ["Carmenère", "Carignan", "País", "Cabernet Franc"],
+              explain: "Carmenère, a Bordeaux variety wiped out in France by phylloxera. Planted in Chile among Merlot vines, it was only identified by a French ampelographer in 1994. It ripens late, so it tastes green if picked too early."),
+        .init(level: 3, text: "Henschke's Hill of Grace Shiraz comes from which Australian region?",
+              options: ["Eden Valley", "Barossa Valley", "McLaren Vale", "Coonawarra"],
+              explain: "Eden Valley, a cooler, higher part of the Barossa zone. Hill of Grace was planted in the 1860s on its own roots, and is one of the world's most prized old-vine Shiraz wines."),
+        .init(level: 3, text: "Which grape makes the dry white wines of Savennières in the Loire?",
+              options: ["Chenin Blanc", "Melon de Bourgogne", "Sauvignon Blanc", "Cabernet Franc"],
+              explain: "Chenin Blanc, grown on schist and sandstone slopes above the Loire. Savennières is dry, steely and waxy, with quince and honey notes, and it can age for decades."),
+        .init(level: 3, text: "The Montrachet Grand Cru vineyard is shared by which two villages?",
+              options: ["Puligny and Chassagne", "Meursault and Volnay", "Aloxe and Savigny", "Vosne and Flagey"],
+              explain: "Puligny-Montrachet and Chassagne-Montrachet each own a slice, and both added the vineyard's name to their own in the 1870s. Le Montrachet makes arguably the world's greatest dry Chardonnay."),
+    ]
+
+    static let setC: [PlacementQuestion] = [
+        .init(level: 1, text: "Which grape is Sancerre made from?",
+              options: ["Sauvignon Blanc", "Chardonnay", "Chenin Blanc", "Riesling"],
+              explain: "Sauvignon Blanc from the Loire: grapefruit, gooseberry and wet stone. The classic local pairing is Crottin de Chavignol, a goat's cheese from the same hills."),
         .init(level: 1, text: "What is the best serving temperature for most reds?",
               options: ["A little cool: about 60–65°F (16–18°C)", "Warm room temperature, about 75°F", "Ice cold", "Straight from the freezer"],
               explain: "'Room temperature' comes from drafty old castles. Served too warm, red wine tastes flabby and the alcohol burns. Twenty minutes in the fridge brings most reds to the sweet spot."),
-        .init(level: 1, text: "Which of these is a fortified wine?",
-              options: ["Port", "Cava", "Chablis", "Rioja"],
-              explain: "Port is fortified: grape spirit is added during fermentation, killing the yeast and leaving natural sugar in the wine. That is why it is both sweet and around 20% alcohol."),
+        .init(level: 1, text: "Prosecco gets its bubbles from a second fermentation in the bottle.",
+              options: ["False", "True"],
+              explain: "Prosecco is usually made by the tank (Charmat) method: the second fermentation happens in a large pressurized tank, which keeps its fresh, fruity Glera character. Bottle fermentation is the Champagne method."),
         .init(level: 2, text: "Which grape makes Brunello di Montalcino?",
               options: ["Sangiovese", "Nebbiolo", "Montepulciano", "Merlot"],
-              explain: "Sangiovese, locally called Brunello. It is among Italy's longest-aged reds: it cannot be released until five years after harvest, with at least two of them in oak.",
+              explain: "Sangiovese, locally called Brunello. It cannot be released until five years after harvest, with at least two of them in oak.",
               visual: "map:tuscany:montalcino"),
-        .init(level: 2, text: "Which best describes terroir?",
-              options: ["The place: soil, slope, climate and tradition that shape a wine", "A type of oak barrel", "A winemaking yeast", "A wine's legal classification"],
-              explain: "Terroir is why two Pinot Noirs from vineyards a few meters apart can taste different, and why Burgundy classifies individual vineyards, not just villages."),
         .init(level: 2, text: "Which wine ages in a solera system of stacked barrels?",
               options: ["Sherry", "Rioja", "Cava", "Txakoli"],
               explain: "Sherry. Each year some wine is taken from the oldest row of barrels and replaced from the row above, so every bottle holds traces of very old wine. Under a layer of flor yeast, fino sherry stays pale and dry."),
-        .init(level: 2, text: "What gives Amarone its power?",
-              options: ["Grapes dried for months before fermenting", "Aging in new oak for a decade", "Late harvest after frost", "Adding grape spirit"],
-              explain: "Amarone is made in Valpolicella from Corvina and other grapes dried on racks for months, losing much of their water. What's left is concentrated, rich and often 15% alcohol or more."),
-        .init(level: 3, text: "How many grape varieties does Châteauneuf-du-Pape allow?",
-              options: ["Thirteen", "Three", "Five", "Twenty-five"],
-              explain: "Thirteen (eighteen counting color variants), led by Grenache. The vineyards are covered with large round stones that store the day's heat and keep the grapes ripening at night.",
-              visual: "map:rhone:chateauneuf-du-pape"),
-        .init(level: 3, text: "Which compounds give Sauvignon Blanc its cut-grass and green-pepper smell?",
-              options: ["Methoxypyrazines", "Tannins", "Diacetyl", "Brettanomyces"],
-              explain: "Methoxypyrazines, the same family of molecules that make a green bell pepper smell green. They fall as grapes ripen, so cooler sites keep more. Passion fruit and grapefruit come from other compounds, thiols."),
-        .init(level: 3, text: "How much added sugar does a Champagne labeled Brut Nature have?",
-              options: ["None, 0–3 g/L", "6–12 g/L", "About 50 g/L", "More than 100 g/L"],
-              explain: "After aging, Champagne gets a top-up called dosage. Brut Nature gets none: bone dry. Extra Brut has up to 6 g/L, Brut up to 12 and Demi-sec 32–50, which tastes noticeably sweet."),
+        .init(level: 2, text: "How is Beaujolais Nouveau's banana-and-bubblegum character made?",
+              options: ["Carbonic maceration of whole bunches", "Aging in new oak", "Adding sugar before bottling", "Freezing the grapes"],
+              explain: "Whole bunches ferment inside their own berries in a CO₂-filled vat, producing fruity esters and almost no tannin. It's released on the third Thursday of November, weeks after harvest."),
+        .init(level: 3, text: "Which Umbrian grape produces some of the world's most tannic red wines?",
+              options: ["Sagrantino", "Sangiovese", "Aglianico", "Nero d'Avola"],
+              explain: "Sagrantino, grown only around Montefalco. It has the highest polyphenol (tannin) levels of any grape tested, so the wine needs years in oak and bottle to soften. It was once made only as a sweet, dried-grape wine."),
+        .init(level: 3, text: "Greece's Xinomavro, often compared to Nebbiolo, is most famous in which appellation?",
+              options: ["Naoussa", "Nemea", "Mantinia", "Santorini"],
+              explain: "Naoussa, in northern Greece. Xinomavro, meaning acid-black, is pale, high in tannin and acid, with tomato, olive and dried-cherry notes, and it ages for decades like Barolo."),
+        .init(level: 3, text: "Which South African wine estate was famous for a sweet Muscat wine that Napoleon asked for on St Helena?",
+              options: ["Constantia", "Stellenbosch", "Paarl", "Swartland"],
+              explain: "Constantia, near Cape Town. Vin de Constance, a sweet wine of Muscat de Frontignan, was famous across 18th- and 19th-century Europe, and Klein Constantia revived it in 1986."),
+        .init(level: 3, text: "What is the maximum share of white Viognier allowed in a red Côte-Rôtie?",
+              options: ["20%", "5%", "35%", "50%"],
+              explain: "Up to 20%, though most growers use far less. The Viognier is fermented together with the Syrah, which fixes the color and lifts the aroma with apricot and violets."),
     ]
 
     static func cards(for set: Int) -> [Card] {
@@ -160,7 +158,7 @@ struct PlacementQuizView: View {
                 Image(systemName: "wineglass").font(.system(size: 60, weight: .light)).foregroundStyle(Palette.wine)
             }
             Text("Find your level").font(.serif(34)).foregroundStyle(Palette.ink).padding(.top, 30)
-            Text("Ten questions, about two minutes. We start easy and get harder, then place you where you'll learn the most.")
+            Text("Ten questions from around the world, about three minutes. They start easy and finish very hard, so we can place you exactly.")
                 .font(.system(size: 16)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).lineSpacing(3)
                 .padding(.horizontal, 30).padding(.top, 10)
             HStack(spacing: 10) {
@@ -243,7 +241,7 @@ struct PlacementQuizView: View {
         )
     }
 
-    private var placed: Int { points >= 14 ? 3 : (points >= 8 ? 2 : 1) }
+    private var placed: Int { points >= 15 ? 3 : (points >= 8 ? 2 : 1) }
 
     private var result: some View {
         let n = placed
@@ -258,7 +256,7 @@ struct PlacementQuizView: View {
                     Circle().fill(ok ? Palette.correct : Palette.wrong.opacity(0.7)).frame(width: 10, height: 10)
                 }
             }.padding(.top, 18)
-            Text("We'll start you at Level \(n). It's the free level in Jero; the other two come with Jero Plus.")
+            Text("We'll start you at Level \(n), and it's unlocked for you. You can always change your level later.")
                 .font(.system(size: 15.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).lineSpacing(3)
                 .padding(.horizontal, 34).padding(.top, 26)
             Spacer()

@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthenticationServices
 
 struct OnboardingView: View {
     @Environment(GameProgress.self) private var progress
@@ -7,6 +8,9 @@ struct OnboardingView: View {
     @State private var goal = 20
     @State private var appear = false
     @State private var quiz = false
+    @State private var account = Account.shared
+    @State private var signInFailed = false
+    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         ZStack {
@@ -61,9 +65,35 @@ struct OnboardingView: View {
             .padding(.top, 44)
             .opacity(appear ? 1 : 0)
             Spacer()
-            Button("Get started") { step = 1 }
-                .buttonStyle(PrimaryButtonStyle())
-                .padding(.horizontal, Metrics.margin).padding(.bottom, 16)
+            VStack(spacing: 10) {
+                Button("Get started") { step = 1 }
+                    .buttonStyle(PrimaryButtonStyle())
+                if account.signedIn && !progress.data.onboarded {
+                    HStack(spacing: 8) {
+                        ProgressView()
+                        Text(account.restoring ? "Restoring your progress…" : "No saved progress found for this Apple ID yet.")
+                            .font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
+                    }
+                    .frame(height: 46)
+                } else {
+                    SignInWithAppleButton(.continue) { req in
+                        req.requestedScopes = [.fullName, .email]
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let auth):
+                            if let c = auth.credential as? ASAuthorizationAppleIDCredential { account.signedIn(with: c) }
+                        case .failure(let e):
+                            if (e as? ASAuthorizationError)?.code != .canceled { signInFailed = true }
+                        }
+                    }
+                    .signInWithAppleButtonStyle(scheme == .dark ? .white : .black)
+                    .frame(height: 46)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    Text(signInFailed ? "Sign in didn't work. Please try again." : "Already have an account? Sign in to restore your progress.")
+                        .font(.system(size: 12.5)).foregroundStyle(signInFailed ? Palette.wrong : Palette.inkFaint)
+                }
+            }
+            .padding(.horizontal, Metrics.margin).padding(.bottom, 16)
         }
         .onAppear { withAnimation(.easeOut(duration: 0.9)) { appear = true } }
     }
@@ -90,7 +120,7 @@ struct OnboardingView: View {
             .padding(.top, 22)
             HStack(alignment: .top, spacing: 10) {
                 Image(systemName: "gift.fill").font(.system(size: 15)).foregroundStyle(Palette.wine)
-                Text("**Level \(level) is free.** The other two levels come with Jero Plus.")
+                Text("**Level \(level) will be unlocked for you.** Whichever level you choose is yours to use.")
                     .font(.system(size: 14)).foregroundStyle(Palette.ink.opacity(0.85)).fixedSize(horizontal: false, vertical: true)
             }
             .padding(14).frame(maxWidth: .infinity, alignment: .leading)

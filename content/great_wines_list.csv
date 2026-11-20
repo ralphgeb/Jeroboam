@@ -1,0 +1,351 @@
+﻿Area,Wine,Producer,Zone,Color,Grapes,Avg price USD (real),Estimated price range USD,Critic score (real),Estimated critic range,Price source,Has photo
+Bordeaux,Château Margaux,Château Margaux,Bordeaux · Margaux,red,cabernet-sauvignon; merlot,920,650-900,97,96–100,https://www.wine-searcher.com/find/margaux+medoc+bordeaux+france,no
+Bordeaux,Château Mouton Rothschild,Baron Philippe de Rothschild,Bordeaux · Pauillac,red,cabernet-sauvignon; merlot; cabernet-franc,790,600-850,97,95–100,https://www.wine-searcher.com/find/mouton+rothschild+pauillac+medoc+bordeaux+france,no
+Bordeaux,Pétrus,Pétrus,Bordeaux · Pomerol,red,merlot,5635,4000-6500,,96–100,https://www.wine-searcher.com/find/petrus+pomerol+bordeaux+france,no
+Bordeaux,Château Cheval Blanc,Château Cheval Blanc,Bordeaux · Saint-Émilion,red,cabernet-franc; merlot,810,650-900,,95–100,https://www.wine-searcher.com/find/cheval+blanc+st+emilion+bordeaux+france,yes
+Bordeaux,Château d'Yquem,Château d'Yquem,Bordeaux · Sauternes & Barsac,sweet,semillon; sauvignon-blanc,495,350-600,,95–100,https://www.wine-searcher.com/find/d+yquem+sauternes+bordeaux+france,yes
+Bordeaux,Château Lafite Rothschild,Château Lafite Rothschild,Bordeaux · Pauillac,red,cabernet-sauvignon; merlot,1030,700-1000,96,95–100,https://www.wine-searcher.com/find/lafite+rothschild+pauillac+medoc+bordeaux+france,yes
+Bordeaux,Château Latour,Château Latour,Bordeaux · Pauillac,red,cabernet-sauvignon; merlot,984,700-1000,96,96–100,https://www.wine-searcher.com/find/latour+pauillac+medoc+bordeaux+france,yes
+Bordeaux,Château Haut-Brion,Château Haut-Brion,Bordeaux · Pessac-Léognan,red,cabernet-sauvignon; merlot; cabernet-franc,683,600-900,97,95–100,https://www.wine-searcher.com/find/haut+brion+pessac+leognan+bordeaux+france,no
+Bordeaux,Château Ausone,Château Ausone,Bordeaux · Saint-Émilion,red,cabernet-franc; merlot,823,700-1100,97,95–100,https://www.wine-searcher.com/find/ausone+st+emilion+grand+cru+bordeaux+france,no
+Bordeaux,Le Pin,Thienpont family,Bordeaux · Pomerol,red,merlot,4421,3000-5000,96,94–99,https://www.wine-searcher.com/find/le+pin+pomerol+bordeaux+france,no
+Bordeaux,Château Léoville Las Cases,Domaine de Léoville Las Cases,Bordeaux · Saint-Julien,red,cabernet-sauvignon; cabernet-franc; merlot,317,200-300,96,94–99,https://www.wine-searcher.com/find/leoville+cases+grand+de+st+julien+medoc+bordeaux+france,no
+Bordeaux,Château Ducru-Beaucaillou,Borie family,Bordeaux · Saint-Julien,red,cabernet-sauvignon; merlot,273,180-280,96,93–98,https://www.wine-searcher.com/find/ducru+beaucaillou+st+julien+medoc+bordeaux+france,no
+Bordeaux,Château Pichon Longueville Comtesse de Lalande,Pichon Comtesse,Bordeaux · Pauillac,red,cabernet-sauvignon; merlot,251,200-300,96,94–99,https://www.wine-searcher.com/find/pichon+longueville+comtesse+de+lalande+pauillac+medoc+bordeaux+france,yes
+Bordeaux,Château Palmer,Château Palmer,Bordeaux · Margaux,red,merlot; cabernet-sauvignon,408,300-450,96,94–99,https://www.wine-searcher.com/find/palmer+margaux+medoc+bordeaux+france,yes
+Bordeaux,Château Cos d'Estournel,Château Cos d'Estournel,Bordeaux · Saint-Estèphe,red,cabernet-sauvignon; merlot,248,180-280,96,93–98,https://www.wine-searcher.com/find/cos+d+estournel+st+estephe+medoc+bordeaux+france,yes
+Bordeaux,Château Montrose,Château Montrose,Bordeaux · Saint-Estèphe,red,cabernet-sauvignon; merlot,214,150-250,96,93–99,https://www.wine-searcher.com/find/montrose+st+estephe+medoc+bordeaux+france,yes
+Bordeaux,Château Figeac,Château Figeac,Bordeaux · Saint-Émilion,red,cabernet-franc; cabernet-sauvignon; merlot,307,250-400,96,93–99,https://www.wine-searcher.com/find/figeac+st+emilion+grand+cru+bordeaux+france,yes
+Bordeaux,Château Angélus,de Boüard family,Bordeaux · Saint-Émilion,red,merlot; cabernet-franc,461,300-450,96,94–98,https://www.wine-searcher.com/find/angelus+st+emilion+grand+cru+bordeaux+france,no
+Burgundy,Romanée-Conti,Domaine de la Romanée-Conti,Burgundy · Côte de Nuits,red,pinot-noir,23792,20000-30000,98,96–100,https://www.wine-searcher.com/find/dom+de+la+grand+cru+cote+nuit+romanee+conti+vosne+burgundy+france,no
+Burgundy,La Tâche,Domaine de la Romanée-Conti,Burgundy · Côte de Nuits,red,pinot-noir,6852,5000-7000,97,96–100,https://www.wine-searcher.com/find/dom+de+la+romanee+conti+tache+grand+cru+monopole+cote+nuit+vosne+burgundy+france,no
+Burgundy,Chambertin,Domaine Armand Rousseau,Burgundy · Côte de Nuits,red,pinot-noir,4084,3000-5000,96,96–100,https://www.wine-searcher.com/find/dom+armand+rousseau+pere+chambertin+grand+cru+le+gevrey+cote+de+nuit+burgundy+france,no
+Burgundy,Gevrey-Chambertin Clos Saint-Jacques,Domaine Armand Rousseau,Burgundy · Côte de Nuits,red,pinot-noir,1557,800-1200,95,95–99,https://www.wine-searcher.com/find/dom+armand+rousseau+pere+clos+st+jacques+gevrey+chambertin+premier+cru+cote+de+nuit+burgundy+france,no
+Burgundy,Clos de la Roche,Domaine Dujac,Burgundy · Côte de Nuits,red,pinot-noir,1043,400-700,,94–98,https://www.wine-searcher.com/find/dom+dujac+grand+cru+cote+nuit+clos+de+la+roche+morey+st+denis+burgundy+france,no
+Burgundy,Bonnes-Mares,Domaine Georges Roumier,Burgundy · Côte de Nuits,red,pinot-noir,1942,1500-3000,95,95–99,https://www.wine-searcher.com/regions-bonnes-mares,no
+Burgundy,Clos de Vougeot,Domaine Méo-Camuzet,Burgundy · Côte de Nuits,red,pinot-noir,523,400-600,,93–97,https://www.wine-searcher.com/find/meo+camuzet+grand+cru+cote+nuit+clos+de+vougeot+burgundy+france,no
+Burgundy,Volnay Clos des Ducs,Marquis d'Angerville,Burgundy · Côte de Beaune,red,pinot-noir,364,150-250,,93–97,https://www.wine-searcher.com/find/dom+marquis+d+angerville+clos+de+ducs+volnay+premier+cru+cote+beaune+burgundy+france,no
+Burgundy,Corton-Charlemagne,Domaine Bonneau du Martray,Burgundy · Côte de Beaune,white,chardonnay,773,250-400,,94–98,https://www.wine-searcher.com/find/dom+bonneau+du+martray+grand+cru+corton+charlemagne+aloxe+cote+de+beaune+burgundy+france,no
+Burgundy,Bâtard-Montrachet,Domaine Leflaive,Burgundy · Côte de Beaune,white,chardonnay,1979,900-1400,,95–99,https://www.wine-searcher.com/find/dom+leflaive+grand+cru+batard+montrachet+puligny+cote+de+beaune+burgundy+france,no
+Burgundy,Puligny-Montrachet,Domaine Leflaive,Burgundy · Côte de Beaune,white,chardonnay,331,150-250,,91–94,https://www.wine-searcher.com/find/dom+leflaive+puligny+montrachet+cote+de+beaune+burgundy+france,no
+Burgundy,Chassagne-Montrachet,Domaine Ramonet,Burgundy · Côte de Beaune,white,chardonnay,225,150-250,,91–95,https://www.wine-searcher.com/find/dom+ramonet+chass+montrachet+cote+de+beaune+burgundy+france,no
+Burgundy,Échezeaux,Domaine de la Romanée-Conti,Burgundy · Côte de Nuits,red,pinot-noir,3807,1500-2500,,94–98,https://www.wine-searcher.com/find/dom+de+la+romanee+conti+grand+cru+cote+nuit+echezeaux+flagey+burgundy+france,no
+Champagne,Dom Pérignon,Moët & Chandon,Champagne,sparkling,chardonnay; pinot-noir,303,230-320,95,94–98,https://www.wine-searcher.com/find/dom+perignon+brut+champagne+france,no
+Champagne,Krug Grande Cuvée,Krug,Champagne,sparkling,pinot-noir; chardonnay; meunier,288,230-300,94,94–98,https://www.wine-searcher.com/find/krug+brut+champagne+france,no
+Champagne,Krug Clos du Mesnil,Krug,Champagne · Côte des Blancs,sparkling,chardonnay,2441,1000-1500,96,96–99,https://www.wine-searcher.com/find/krug+clos+du+mesnil+blancdeblanc+brut+champagne+france,no
+Champagne,Cristal,Louis Roederer,Champagne,sparkling,pinot-noir; chardonnay,396,300-400,96,95–98,https://www.wine-searcher.com/find/louis+roederer+cristal+millesime+brut+champagne+france,no
+Champagne,La Grande Année,Bollinger,Champagne · Vallée de la Marne,sparkling,pinot-noir; chardonnay,225,150-220,94,94–97,https://www.wine-searcher.com/find/bollinger+la+grand+annee+brut+champagne+france,no
+Champagne,Cuvée Sir Winston Churchill,Pol Roger,Champagne,sparkling,pinot-noir; chardonnay,411,250-350,95,95–98,https://www.wine-searcher.com/find/pol+roger+cuvee+sir+winston+church+hill+brut+champagne+france,no
+Champagne,Salon Le Mesnil,Salon,Champagne · Côte des Blancs,sparkling,chardonnay,1343,1000-1500,96,96–99,https://www.wine-searcher.com/find/salon+cuvee+s+le+mesnil+blancdeblanc+brut+champagne+france,yes
+Champagne,Comtes de Champagne Blanc de Blancs,Taittinger,Champagne · Côte des Blancs,sparkling,chardonnay,268,180-250,95,94–97,https://www.wine-searcher.com/find/taittinger+comte+de+brut+champagne+blancdeblanc+france,yes
+Champagne,La Grande Dame,Veuve Clicquot,Champagne,sparkling,pinot-noir; chardonnay,218,180-250,93,94–96,https://www.wine-searcher.com/find/veuve+clicquot+ponsardin+la+grand+dame+brut+champagne+france,no
+Champagne,Grand Siècle,Laurent-Perrier,Champagne,sparkling,chardonnay; pinot-noir,239,180-250,93,94–97,https://www.wine-searcher.com/find/laurent+perrier+grand+siecle+brut+champagne+france/1/usa,no
+Champagne,Initial,Jacques Selosse,Champagne · Côte des Blancs,sparkling,chardonnay,593,300-500,94,94–96,https://www.wine-searcher.com/find/jacques+sellose+initial+blancdeblanc+grand+cru+brut+champagne+france,no
+Champagne,Clos des Goisses,Philipponnat,Champagne · Vallée de la Marne,sparkling,pinot-noir; chardonnay,318,250-350,95,95–98,https://www.wine-searcher.com/find/philippon+clos+de+goiss+extra+brut+champagne+france/1/usa-wa,no
+Champagne,Belle Époque,Perrier-Jouët,Champagne,sparkling,chardonnay; pinot-noir,223,160-220,93,93–96,https://www.wine-searcher.com/find/perrier+jouet+belle+epoque+fleur+de+millesime+brut+champagne+france,no
+Rhône,Hermitage La Chapelle,Paul Jaboulet Aîné,Rhône · Hermitage,red,syrah,222,150-300,95,92–100,https://www.wine-searcher.com/find/paul+jaboulet+aine+la+chapelle+hermitage+rhone+france/2016,no
+Rhône,Côte-Rôtie La Mouline,E. Guigal,Rhône · Côte-Rôtie,red,syrah; viognier,504,350-500,96,96–100,https://www.wine-searcher.com/find/e+guigal+la+mouline+cote+rotie+rhone+france,no
+Rhône,Côte-Rôtie La Landonne,E. Guigal,Rhône · Côte-Rôtie,red,syrah,515,350-500,97,96–100,https://www.wine-searcher.com/find/e+guigal+la+landonne+cote+rotie+rhone+france,no
+Rhône,Hermitage,Domaine Jean-Louis Chave,Rhône · Hermitage,red,syrah,456,300-450,96,95–100,https://www.wine-searcher.com/find/dom+jean+louis+chave+hermitage+rhone+france,no
+Rhône,Château Rayas,Château Rayas,Rhône · Châteauneuf-du-Pape,red,grenache,2157,800-1200,96,95–99,https://www.wine-searcher.com/find/rayas+rsrv+chateauneuf+du+pape+rhone+france/1/usa,no
+Rhône,Châteauneuf-du-Pape,Clos des Papes,Rhône · Châteauneuf-du-Pape,red,grenache; mourvedre; syrah,133,80-120,95,94–97,https://www.wine-searcher.com/find/clos+de+pape+chateauneuf+du+rhone+france,no
+Rhône,Cornas Reynard,Thierry Allemand,Rhône · Cornas,red,syrah,421,200-350,95,94–98,https://www.wine-searcher.com/find/thierry+allemand+reynard+cornas+rhone+france/1/-/-/t,no
+Rhône,Condrieu Coteau de Vernon,Domaine Georges Vernay,Rhône · Condrieu,white,viognier,127,120-180,95,93–96,https://www.wine-searcher.com/find/dom+george+vernay+coteaux+de+vernon+condrieu+rhone+france,no
+Loire,Silex,Didier Dagueneau,Loire · Pouilly-Fumé,white,sauvignon-blanc,227,150-250,93,94–97,https://www.wine-searcher.com/find/didier+dagueneau+silex+pouilly+fume+upper+loire+france,no
+Loire,Vouvray Clos du Bourg Moelleux,Domaine Huet,Loire · Vouvray,sweet,chenin-blanc,80,60-90,93,94–97,https://www.wine-searcher.com/find/dom+huet+clos+du+bourg+moelleux+vouvray+touraine+loire+france,no
+Loire,Quarts de Chaume,Domaine des Baumard,Loire · Anjou,sweet,chenin-blanc,98,50-80,94,93–96,https://www.wine-searcher.com/find/dom+de+baumard+quarts+chaumes+anjou+loire+france,no
+Loire,Clos de la Coulée de Serrant,Nicolas Joly,Loire · Savennières,white,chenin-blanc,172,100-150,93,92–96,https://www.wine-searcher.com/find/vignoble+de+la+coulee+serrant+clos+anjou+loire+france,no
+Loire,Saumur-Champigny Le Bourg,Clos Rougeard,Loire · Saumur,red,cabernet-franc,508,300-500,94,94–97,https://www.wine-searcher.com/find/clos+rougeard+le+bourg+saumur+champigny+anjou+loire+france,no
+Loire,Chinon Clos de la Dioterie,Charles Joguet,Loire · Chinon,red,cabernet-franc,107,45-60,92,91–94,https://www.wine-searcher.com/find/dom+charles+joguet+clos+de+la+dioterie+chinon+touraine+loire+france,yes
+Loire,Coteaux du Loir L'Effraie,Domaine de Bellivière,Loire · Touraine,white,chenin-blanc,40,40-55,92,91–93,https://www.wine-searcher.com/find/eric+nicolas+dom+de+belliviere+l+effraie+coteaux+du+loire+vendomois+france,no
+Piedmont,Barolo Riserva Monfortino,Giacomo Conterno,Piedmont · Barolo,red,nebbiolo,1590,1100-1800,97,95–100,https://www.wine-searcher.com/find/giacomo+conterno+monfortino+rsrv+docg+barolo+piemonte+italy,no
+Piedmont,Barolo Francia,Giacomo Conterno,Piedmont · Barolo,red,nebbiolo,354,250-350,95,95–98,https://www.wine-searcher.com/find/giacomo+conterno+france+docg+barolo+piemonte+italy,no
+Piedmont,Barolo,Bartolo Mascarello,Piedmont · Barolo,red,nebbiolo,424,200-300,95,94–98,https://www.wine-searcher.com/find/bartolo+mascarello+docg+barolo+piemonte+italy,no
+Piedmont,Barolo Monprivato,Giuseppe Mascarello,Piedmont · Barolo,red,nebbiolo,309,200-300,94,95–98,https://www.wine-searcher.com/find/giuseppe+mascarello+e+figlio+monprivato+docg+barolo+piemonte+italy,no
+Piedmont,Barbaresco,Gaja,Piedmont · Barbaresco,red,nebbiolo,369,250-350,94,94–97,https://www.wine-searcher.com/find/gaja+docg+barbaresco+piemonte+italy,no
+Piedmont,Sorì San Lorenzo,Gaja,Piedmont · Barbaresco,red,nebbiolo,702,600-800,96,95–99,https://www.wine-searcher.com/find/gaja+sori+st+lorenzo+langhe+barbaresco+piemonte+italy,no
+Piedmont,Barbaresco Asili,Bruno Giacosa,Piedmont · Barbaresco,red,nebbiolo,250,200-350,93,95–99,https://www.wine-searcher.com/find/fallettodibrunogiacosa+asili+docg+barbaresco+piemonte+italy,no
+Piedmont,Barbaresco,Produttori del Barbaresco,Piedmont · Barbaresco,red,nebbiolo,51,40-55,92,91–93,https://www.wine-searcher.com/find/produttori+docg+barbaresco+piemonte+italy/1/usa,no
+Piedmont,Barbaresco Riserva Rabajà,Produttori del Barbaresco,Piedmont · Barbaresco,red,nebbiolo,96,60-80,94,94–97,https://www.wine-searcher.com/find/produttori+rabaja+rsrv+docg+barbaresco+piemonte+italy,no
+Piedmont,Barolo Castiglione,Vietti,Piedmont · Barolo,red,nebbiolo,64,50-70,92,91–93,https://www.wine-searcher.com/find/vietti+castiglione+docg+barolo+piemonte+italy/1/usa,no
+Piedmont,Barolo Rocche di Castiglione,Vietti,Piedmont · Barolo,red,nebbiolo,254,150-220,94,95–98,https://www.wine-searcher.com/find/vietti+rocche+di+castiglione+docg+barolo+piemonte+italy,no
+Piedmont,Barolo Albe,G.D. Vajra,Piedmont · Barolo,red,nebbiolo,41,40-55,92,91–93,https://www.wine-searcher.com/find/g+d+vajra+albet+docg+barolo+piemonte+italy,no
+Piedmont,Barolo,Elio Altare,Piedmont · Barolo,red,nebbiolo,88,80-120,91,92–95,https://www.wine-searcher.com/find/elio+altare+docg+barolo+piemonte+italy,no
+Piedmont,Barolo Bric del Fiasc,Paolo Scavino,Piedmont · Barolo,red,nebbiolo,123,120-180,94,94–97,https://www.wine-searcher.com/find/paolo+scavino+bric+fiasc+docg+barolo+piemonte+italy,no
+Piedmont,Barbaresco Pajè,Roagna,Piedmont · Barbaresco,red,nebbiolo,202,150-250,94,94–97,https://www.wine-searcher.com/find/roagna+paje+docg+barbaresco+piemonte+italy,no
+Piedmont,Barolo Bricco Boschis,Cavallotto,Piedmont · Barolo,red,nebbiolo,117,80-120,94,93–96,https://www.wine-searcher.com/find/cavallotto+bricco+boschis+docg+barolo+piemonte+italy/2021,no
+Piedmont,Barolo,Massolino,Piedmont · Barolo,red,nebbiolo,62,50-70,92,91–93,https://www.wine-searcher.com/find/massolino+docg+barolo+piemonte+italy/2021,no
+Piedmont,Barolo,Pio Cesare,Piedmont · Barolo,red,nebbiolo,88,70-90,92,91–94,https://www.wine-searcher.com/find/pio+cesare+docg+barolo+piemonte+italy,yes
+Piedmont,Barolo Monvigliero,G.B. Burlotto,Piedmont · Barolo,red,nebbiolo,517,100-150,95,95–98,https://www.wine-searcher.com/find/g+b+burlotto+monvigliero+docg+barolo+piemonte+italy,no
+Piedmont,Bricco dell'Uccellone,Braida,Piedmont · Barbera d'Asti,red,barbera,92,60-80,92,92–94,https://www.wine-searcher.com/find/giacomo+bologna+braida+bricco+dell+uccellone+docg+barbera+d+asti+piemonte+italy,no
+Piedmont,Barbera d'Alba Cerretta,Giacomo Conterno,Piedmont,red,barbera,89,60-80,95,92–94,https://www.wine-searcher.com/find/giacomo+conterno+cerretta+barbera+d+alba+piemonte+italy/2016,no
+Piedmont,Roero Ròche d'Ampsèj,Matteo Correggia,Piedmont · Roero,red,nebbiolo,57,40-55,91,91–93,https://www.wine-searcher.com/find/matteo+corregia+roche+d+ampsej+rsrv+docg+roero+piemonte+italy,no
+Tuscany,Sassicaia,Tenuta San Guido,Tuscany · Bolgheri,red,cabernet-sauvignon; cabernet-franc,358,250-380,96,94–100,https://www.wine-searcher.com/find/tenute+st+guido+sassicaia+bolgheri+tuscany+italy,no
+Tuscany,Tignanello,Marchesi Antinori,Tuscany · Chianti Classico,red,sangiovese; cabernet-sauvignon; cabernet-franc,185,130-180,95,93–97,https://www.wine-searcher.com/find/marchesi+antinori+tignanello+tuscany+igp+italy,no
+Tuscany,Brunello di Montalcino,Biondi-Santi,Tuscany · Brunello di Montalcino,red,sangiovese,299,180-320,96,93–98,https://www.wine-searcher.com/find/biondi+santi+tenute+greppo+docg+brunello+di+montalcino+tuscany+italy/2019,yes
+Tuscany,Ornellaia,Tenuta dell'Ornellaia,Tuscany · Bolgheri,red,cabernet-sauvignon; merlot; cabernet-franc,286,250-350,95,95–98,https://www.wine-searcher.com/find/ornellaia+superior+bolgheri+tuscany+italy,no
+Tuscany,Masseto,Masseto,Tuscany · Bolgheri,red,merlot,1116,900-1300,97,96–100,https://www.wine-searcher.com/find/masseto+tuscany+igp+italy,yes
+Tuscany,Solaia,Marchesi Antinori,Tuscany · Chianti Classico,red,cabernet-sauvignon; sangiovese,412,300-450,96,95–98,https://www.wine-searcher.com/find/marchesi+antinori+solaia+tuscany+igp+italy/1/usa-fl,no
+Tuscany,Guado al Tasso,Marchesi Antinori,Tuscany · Bolgheri,red,cabernet-sauvignon; merlot,173,120-170,94,93–96,https://www.wine-searcher.com/find/marchesi+antinori+tenute+guado+tasso+superior+bolgheri+tuscany+italy,no
+Tuscany,Le Pergole Torte,Montevertine,Tuscany,red,sangiovese,387,100-150,96,94–97,https://www.wine-searcher.com/find/monte+vertine+le+pergole+torte+tuscany+igp+italy,no
+Tuscany,Flaccianello della Pieve,Fontodi,Tuscany · Chianti Classico,red,sangiovese,181,100-140,96,94–97,https://www.wine-searcher.com/find/fontodi+flaccianello+della+pieve+colli+central+igp+tuscany+italy/2021,no
+Tuscany,Chianti Classico,Fontodi,Tuscany · Chianti Classico,red,sangiovese,55,35-45,92,91–93,https://www.wine-searcher.com/find/fontodi+docg+chianti+cls+tuscany+italy,no
+Tuscany,Chianti Classico Gran Selezione San Lorenzo,Castello di Ama,Tuscany · Chianti Classico,red,sangiovese,75,50-70,93,93–95,https://www.wine-searcher.com/find/castello+di+ama+st+lorenzo+grand+select+docg+chianti+cls+tuscany+italy,no
+Tuscany,Cepparello,Isole e Olena,Tuscany · Chianti Classico,red,sangiovese,145,70-100,95,93–96,https://www.wine-searcher.com/find/isole+e+olena+cepparello+tuscany+igp+italy,no
+Tuscany,d'Alceo,Castello dei Rampolla,Tuscany · Chianti Classico,red,cabernet-sauvignon; petit-verdot,177,150-200,95,94–97,https://www.wine-searcher.com/find/castello+dei+rampolla+d+alceo+tuscany+igp+italy,no
+Tuscany,Case Basse,Gianfranco Soldera,Tuscany · Brunello di Montalcino,red,sangiovese,1020,600-1000,95,95–99,https://www.wine-searcher.com/find/casebasse+di+gianfranco+soldera+brunello+montalcino+docg+tuscany+igp+italy,no
+Tuscany,Brunello Tenuta Nuova,Casanova di Neri,Tuscany · Brunello di Montalcino,red,sangiovese,144,90-130,95,94–97,https://www.wine-searcher.com/find/casanova+di+neri+tenute+nuova+brunello+montalcino+docg+tuscany+italy/1/usa-wa,no
+Tuscany,Brunello di Montalcino,Poggio di Sotto,Tuscany · Brunello di Montalcino,red,sangiovese,280,150-250,94,95–98,https://www.wine-searcher.com/find/fattoria+poggio+di+sotto+brunello+montalcino+docg+tuscany+italy/1/usa-ca,no
+Tuscany,Brunello di Montalcino,Salvioni (La Cerbaiola),Tuscany · Brunello di Montalcino,red,sangiovese,227,150-250,94,94–97,https://www.wine-searcher.com/find/salvioni+cerbaiola+docg+brunello+montalcino+tuscany+italy,no
+Tuscany,Vino Nobile Asinone,Poliziano,Tuscany · Vino Nobile di Montepulciano,red,sangiovese,73,50-70,93,92–94,https://www.wine-searcher.com/find/poliziano+asinone+docg+nobile+montepulciano+tuscany+italy,no
+Tuscany,Paleo Rosso,Le Macchiole,Tuscany · Bolgheri,red,cabernet-franc,181,100-150,94,94–97,https://www.wine-searcher.com/find/le+macchiole+paleo+bolgheri+tuscany+italy,no
+Tuscany,Bolgheri Superiore,Grattamacco,Tuscany · Bolgheri,red,cabernet-sauvignon; merlot; sangiovese,133,70-90,94,93–95,https://www.wine-searcher.com/find/podere+grattamacco+superior+bolgheri+tuscany+italy/1/usa,no
+Spain,Vega Sicilia Único,Vega Sicilia,Spain · Ribera del Duero,red,tempranillo; cabernet-sauvignon,630,450-650,95,95–100,https://www.wine-searcher.com/find/vega+sicilia+unico+grand+rsrv+ribera+duero+castilla+y+leon+spain/1,yes
+Spain,Viña Tondonia Reserva,R. López de Heredia,Spain · Rioja,red,tempranillo; grenache,69,55-85,94,92–96,https://www.wine-searcher.com/find/r+lopez+de+heredia+vina+tondonia+rsrv+doca+rioja+alta+spain/1/usa,no
+Spain,Pingus,Dominio de Pingus,Spain · Ribera del Duero,red,tempranillo,1219,900-1300,97,95–99,https://www.wine-searcher.com/find/dom+de+pingus+ribera+duero+castilla+y+leon+spain,no
+Spain,Flor de Pingus,Dominio de Pingus,Spain · Ribera del Duero,red,tempranillo,143,100-150,94,93–96,https://www.wine-searcher.com/find/dom+de+pingus+flor+ribera+duero+castilla+y+leon+spain/1/usa,no
+Spain,Aalto,Bodegas Aalto,Spain · Ribera del Duero,red,tempranillo,72,50-70,92,92–95,https://www.wine-searcher.com/find/aalto+ribera+duero+castilla+y+leon+spain/1/usa,no
+Spain,Valbuena 5°,Vega Sicilia,Spain · Ribera del Duero,red,tempranillo,209,180-250,94,94–96,https://www.wine-searcher.com/find/vega+sicilia+tinto+valbuena+five+ribera+duero+castilla+y+leon+spain,no
+Spain,Gran Reserva 904,La Rioja Alta,Spain · Rioja,red,tempranillo; grenache,103,70-90,93,94–96,https://www.wine-searcher.com/find/la+s+a+grand+rsrv+904+doca+rioja+alta+spain,no
+Spain,Gran Reserva 890,La Rioja Alta,Spain · Rioja,red,tempranillo,291,150-200,94,95–97,https://www.wine-searcher.com/find/la+s+a+grand+rsrv+890+doca+rioja+alta+spain,no
+Spain,Imperial Gran Reserva,CVNE,Spain · Rioja,red,tempranillo,105,60-80,93,94–97,https://www.wine-searcher.com/find/c+v+n+e+imperiale+grand+rsrv+doca+rioja+alta+spain/1/usa,no
+Spain,Castillo Ygay Gran Reserva Especial,Marqués de Murrieta,Spain · Rioja,red,tempranillo,257,120-180,94,95–98,https://www.wine-searcher.com/find/marquis+de+murrieta+castillo+y+gay+grand+rsrv+spc+doca+rioja+alta+spain/1/usa,yes
+Spain,Prado Enea Gran Reserva,Muga,Spain · Rioja,red,tempranillo; grenache,109,70-90,94,93–96,https://www.wine-searcher.com/find/prado+enea,no
+Spain,Viña Tondonia Blanco Reserva,R. López de Heredia,Spain · Rioja,white,macabeo,225,50-70,95,93–96,https://www.wine-searcher.com/find/r+lopez+de+heredia+vina+tondonia+rsrv+blanco+doca+rioja+alta+spain,no
+Spain,L'Ermita,Álvaro Palacios,Spain · Priorat,red,grenache,1133,800-1200,98,96–99,https://www.wine-searcher.com/find/alvaro+palacio+l+ermita+velle+vinyes+doca+priorat+catalonia+spain/2020,no
+Spain,Clos Mogador,René Barbier,Spain · Priorat,red,grenache; carignan,114,80-110,95,93–96,https://www.wine-searcher.com/find/clos+mogadur+vinya+classificada+doca+priorat+catalonia+spain,no
+Spain,Les Terrasses,Álvaro Palacios,Spain · Priorat,red,grenache; carignan,51,40-55,92,91–93,https://www.wine-searcher.com/find/alvaro+palacio+les+terrasses+velle+vinyes+doca+priorat+catalonia+spain/1/usa-ny,no
+Spain,Pétalos,Descendientes de J. Palacios,Spain · Bierzo,red,mencia,25,20-28,91,90–92,https://www.wine-searcher.com/find/descendant+de+j+palacio+petalos+bierzo+castilla+y+leon+spain,no
+Spain,Albariño,Zárate,Spain · Rías Baixas,white,albarino,29,20-28,91,90–92,https://www.wine-searcher.com/find/zarate+albarino+rias+baixas+galicia+spain/1/usa,no
+Spain,Numanthia,Bodega Numanthia,Spain · Toro,red,tempranillo,66,50-70,92,93–95,https://www.wine-searcher.com/find/numanthia+toro+castilla+y+leon+spain/1/usa-ca,no
+Spain,III Lustros,Gramona,Spain · Penedès,sparkling,macabeo,66,45-60,93,92–94,https://www.wine-searcher.com/find/gramona+iii+lustros+brut+nature+catalonia+spain,no
+Spain,Fino Inocente,Valdespino,Spain · Jerez (Sherry),fortified,palomino,30,20-28,91,92–94,https://www.wine-searcher.com/find/a+r+valdespino+inocente+single+fino+sherry+jerez+andalucia+spain/1/usa,no
+Germany,Scharzhofberger Riesling Spätlese,Egon Müller,Germany · Mosel,white,riesling,328,90-250,94,94–99,https://www.wine-searcher.com/find/egon+muller+scharzhofberger+riesling+spatl+wiltingen+saar+mosel+germany,no
+Germany,Wehlener Sonnenuhr Riesling Auslese,Joh. Jos. Prüm,Germany · Mosel,sweet,riesling,83,80-120,94,94–97,https://www.wine-searcher.com/find/joh+jos+prum+sonnenuhr+riesling+auslese+wehlen+mosel+germany/2021,no
+Germany,G-Max,Weingut Keller,Germany · Rheinhessen,white,riesling,2686,2000-4000,97,97–100,https://www.wine-searcher.com/find/keller+g+max+riesling+trocken+rheinhessen+germany,no
+Germany,Abtserde Riesling GG,Weingut Keller,Germany · Rheinhessen,white,riesling,391,200-300,96,95–98,https://www.wine-searcher.com/m/2025/12/the-best-rieslings-of-2025,no
+Germany,Morstein Riesling GG,Wittmann,Germany · Rheinhessen,white,riesling,139,70-100,95,94–96,https://www.wine-searcher.com/find/wittmann+morstein+riesling+grosses+gewachs+westhof+rheinhessen+germany,no
+Germany,Hermannshöhle Riesling GG,Dönnhoff,Germany · Nahe,white,riesling,110,70-100,95,95–97,https://www.wine-searcher.com/find/donnhoff+hermannshohle+riesling+grosses+gewachs+niederhauser+nahe+germany,no
+Germany,Kirchenstück Riesling GG,Bürklin-Wolf,Germany · Pfalz,white,riesling,290,150-200,97,94–97,https://www.wine-searcher.com/grape-407-riesling?tab_F=best,no
+California,Screaming Eagle,Screaming Eagle,California · Oakville,red,cabernet-sauvignon,2631,3500-5000,98,95–100,https://www.wine-searcher.com/find/screaming+eagle+cab+sauv+napa+valley+county+north+coast+california+usa/2022,no
+California,Harlan Estate,Harlan Estate,California · Oakville,red,cabernet-sauvignon,1731,1200-1600,97,96–100,https://www.wine-searcher.com/find/harlan+estate+napa+valley+county+north+coast+california+usa,no
+California,Dominus,Dominus Estate,California · Napa Valley,red,cabernet-sauvignon,367,250-350,96,95–98,https://www.wine-searcher.com/find/dominus+estate+christian+moueix+napa+valley+county+north+coast+california+usa/1/usa-ny,yes
+California,Monte Bello,Ridge Vineyards,California · Central Coast,red,cabernet-sauvignon; merlot,249,250-300,96,95–99,https://www.wine-searcher.com/find/ridge+monte+bello+santa+cruz+mnt+st+francisco+bay+central+coast+california+usa/2023,no
+California,Hillside Select,Shafer,California · Stags Leap District,red,cabernet-sauvignon,377,300-350,96,96–99,https://www.wine-searcher.com/find/shafer+hill+side+select+cab+sauv+stags+leap+district+napa+valley+county+north+coast+california+usa/2018,no
+California,Cabernet Sauvignon,Spottswoode,California · Napa Valley,red,cabernet-sauvignon,273,200-250,96,95–97,https://www.wine-searcher.com/find/spottswoode+fmly+estate+grown+cab+sauv+st+helena+napa+valley+county+north+coast+california+usa,no
+California,Howell Mountain Cabernet,Dunn Vineyards,California · Howell Mountain,red,cabernet-sauvignon,225,120-160,97,93–96,https://www.wine-searcher.com/find/dunn+cab+sauv+howell+mnt+napa+valley+county+north+coast+california+usa/2022,no
+Australia,Penfolds Grange,Penfolds,Australia · Barossa Valley,red,syrah,740,700-950,96,95–100,https://www.wine-searcher.com/find/penfolds+grange+bin+95+australia,yes
+Australia,Hill of Grace,Henschke,Australia · Eden Valley,red,syrah,882,800-1000,96,95–99,https://www.wine-searcher.com/find/henschke+hill+grace+sra+eden+valley+barossa+south+australia,no
+Australia,Bin 707,Penfolds,Australia · Barossa Valley,red,cabernet-sauvignon,454,500-650,95,95–98,https://www.wine-searcher.com/find/penfolds+bin+707+cab+sauv+south+australia/1/usa-ny,no
+Australia,RunRig,Torbreck,Australia · Barossa Valley,red,syrah; viognier,233,200-250,95,95–98,https://www.wine-searcher.com/find/torbreck+run+rig+sra+viognier+barossa+valley+south+australia,no
+Australia,Astralis,Clarendon Hills,Australia · McLaren Vale,red,syrah,217,250-350,96,95–98,https://www.wine-searcher.com/find/clarendon+hill+astralis+sra+mc+laren+vale+south+australia/1/usa,no
+Australia,Chardonnay,Giaconda,Australia,white,chardonnay,258,150-200,96,95–98,https://www.wine-searcher.com/m/2026/03/the-most-wanted-chardonnays-of-2026,no
+Australia,Rare Muscat,Chambers Rosewood,Australia · Rutherglen,sweet,muscat,423,250-300,96,98–100,https://www.wine-searcher.com/regions-rutherglen?tab_F=best,no
+Chile & Argentina,Nicolás Catena Zapata,Catena Zapata,Chile & Argentina · Mendoza,red,cabernet-sauvignon; malbec,116,100-130,95,94–96,https://www.wine-searcher.com/find/catena+zapata+nicolas+mendoza+argentina,no
+Chile & Argentina,Cheval des Andes,Cheval des Andes,Chile & Argentina · Mendoza,red,malbec; cabernet-sauvignon,99,90-110,95,94–96,https://www.wine-searcher.com/find/cheval+de+andes+mendoza+argentina,no
+Chile & Argentina,Finca Piedra Infinita,Zuccardi,Chile & Argentina · Uco Valley,red,malbec,177,100-140,95,95–98,https://www.wine-searcher.com/find/fmly+zuccardi+finca+piedra+infinito+altamira+uco+valley+mendoza+argentina,no
+Chile & Argentina,Noemía,Bodega Noemía,Chile & Argentina · Patagonia,red,malbec,190,120-150,95,94–96,https://www.wine-searcher.com/find/noemia+de+malbec+rio+negro+patagonia+argentina,no
+Chile & Argentina,Treinta y Dos,Bodega Chacra,Chile & Argentina · Patagonia,red,pinot-noir,154,90-120,95,93–95,https://www.wine-searcher.com/find/chacra+treinta+y+dos+32+pinot+noir+rio+negro+patagonia+argentina,no
+Chile & Argentina,Almaviva,Almaviva,Chile & Argentina · Maipo Valley,red,cabernet-sauvignon; carmenere,176,130-170,95,95–97,https://www.wine-searcher.com/find/almaviva+chile,no
+Chile & Argentina,Viñedo Chadwick,Viñedo Chadwick,Chile & Argentina · Maipo Valley,red,cabernet-sauvignon,381,300-400,96,96–100,https://www.wine-searcher.com/find/vinedo+chadwick,no
+Bordeaux,Château Lafleur,Guinaudeau family,Bordeaux · Pomerol,red,merlot; cabernet-franc,1223,900-1400,98,95–100,https://www.wine-searcher.com/find/lafleur+pomerol+bordeaux+france/2022,no
+Bordeaux,Vieux Château Certan,Thienpont family,Bordeaux · Pomerol,red,merlot; cabernet-franc,347,300-450,97,94–99,https://www.wine-searcher.com/find/vieux+certan+pomerol+bordeaux+france,no
+Burgundy,Richebourg,Domaine de la Romanée-Conti,Burgundy · Côte de Nuits,red,pinot-noir,5202,2500-4000,96,96–99,https://www.wine-searcher.com/find/dom+de+la+romanee+conti+grand+cru+cote+nuit+richebourg+vosne+burgundy+france,no
+Burgundy,Grands-Échezeaux,Domaine de la Romanée-Conti,Burgundy · Côte de Nuits,red,pinot-noir,4487,1500-2500,95,95–98,https://www.wine-searcher.com/find/dom+de+la+romanee+conti+grand+cru+cote+nuit+grandsechezeaux+flagey+echezeaux+burgundy+france,no
+Burgundy,Clos de Tart,Clos de Tart,Burgundy · Côte de Nuits,red,pinot-noir,854,500-800,95,95–98,https://www.wine-searcher.com/find/dom+du+grand+cru+monopole+cote+nuit+clos+de+tart+morey+st+denis+burgundy+france,no
+Burgundy,Clos des Lambrays,Domaine des Lambrays,Burgundy · Côte de Nuits,red,pinot-noir,692,300-500,95,94–97,https://www.wine-searcher.com/find/dom+de+lambrays+clos+grand+cru+cote+nuit+morey+st+denis+burgundy+france,no
+Burgundy,Meursault Les Perrières,Domaine des Comtes Lafon,Burgundy · Côte de Beaune,white,chardonnay,858,300-500,94,95–98,https://www.wine-searcher.com/find/domaine-des-comtes-lafon-meursault-perrieres,no
+Burgundy,Volnay Clos des Chênes,Domaine Michel Lafarge,Burgundy · Côte de Beaune,red,pinot-noir,302,120-180,94,93–96,https://www.wine-searcher.com/find/dom+michel+lafarge+clos+chene+volnay+premier+cru+cote+de+beaune+burgundy+france,yes
+Champagne,Krug Vintage,Krug,Champagne,sparkling,pinot-noir; chardonnay; meunier,526,300-450,96,95–98,https://www.wine-searcher.com/find/krug+vintage+brut+champagne+france/1/usa,no
+Champagne,Cristal Rosé,Louis Roederer,Champagne,sparkling,pinot-noir; chardonnay,726,600-900,96,96–98,https://www.wine-searcher.com/find/louis+roederer+cristal+rose+brut+millesime+champagne+france,no
+Champagne,Dom Pérignon P2,Moët & Chandon,Champagne,sparkling,chardonnay; pinot-noir,615,450-600,97,96–98,https://www.wine-searcher.com/find/dom+perignon+p+two+plenitude+brut+champagne+france/2008,no
+Champagne,R.D.,Bollinger,Champagne · Vallée de la Marne,sparkling,pinot-noir; chardonnay,371,300-400,95,95–98,https://www.wine-searcher.com/find/bollinger+r+d+extra+brut+champagne+france/1/usa,yes
+Champagne,Cuvée Nicolas François,Billecart-Salmon,Champagne,sparkling,pinot-noir; chardonnay,186,150-220,94,94–97,https://www.wine-searcher.com/find/billecart+salmon+cuvee+nicolas+francois+millesime+champagne+brut+france,no
+Champagne,Amour de Deutz,Deutz,Champagne · Côte des Blancs,sparkling,chardonnay,236,150-200,93,94–96,https://www.wine-searcher.com/find/deutz+amour+de+blancdeblanc+brut+millesime+champagne+france,yes
+Champagne,Krug Rosé,Krug,Champagne,sparkling,pinot-noir; chardonnay; meunier,472,400-550,94,95–97,https://www.wine-searcher.com/find/krug+brut+rose+champagne+france,no
+Rhône,Côte-Rôtie La Turque,E. Guigal,Rhône · Côte-Rôtie,red,syrah; viognier,519,350-500,96,96–100,https://www.wine-searcher.com/find/e+guigal+la+turque+cote+rotie+rhone+france,no
+Loire,Pur Sang,Didier Dagueneau,Loire · Pouilly-Fumé,white,sauvignon-blanc,169,100-150,93,93–96,https://www.wine-searcher.com/find/louis+benjamin+didier+dagueneau+pur+sang+pouilly+fume+upper+loire+france,no
+Loire,Sancerre Clos de Beaujeu,Gérard Boulay,Loire · Sancerre,white,sauvignon-blanc,58,50-70,93,92–94,https://www.wine-searcher.com/find/gerard+boullay+clos+de+beaujeu+sancerre+upper+loire+france/2015,no
+Loire,Saumur-Champigny Les Mémoires,Thierry Germain (Roches Neuves),Loire · Saumur,red,cabernet-franc,47,60-80,93,92–95,https://www.wine-searcher.com/find/thierry+germain+dom+de+roche+neuve+les+memoire+saumur+champigny+anjou+loire+france,no
+Alsace,Riesling Clos Sainte Hune,Trimbach,Alsace,white,riesling,426,300-450,96,96–99,https://www.wine-searcher.com/find/f+e+trimbach+riesling+clos+st+hune+alsace+france/1/usa,no
+Alsace,Riesling Cuvée Frédéric Émile,Trimbach,Alsace,white,riesling,98,70-100,94,94–96,https://www.wine-searcher.com/find/f+e+trimbach+riesling+cuvee+frederick+emile+alsace+france/2018,no
+Alsace,Riesling Grand Cru Brand,Domaine Zind-Humbrecht,Alsace,white,riesling,95,90-130,94,94–97,https://www.wine-searcher.com/merchant/59105-domaine-zind-humbrecht,no
+Alsace,Riesling Grand Cru Schlossberg,Domaine Weinbach,Alsace,white,riesling,94,70-100,93,94–97,https://www.wine-searcher.com/find/dom+weinbach+riesling+schloss+berg+alsace+grand+cru+france,no
+Alsace,Riesling Grossi Laüe,Famille Hugel,Alsace,white,riesling,85,70-90,94,93–95,https://www.wine-searcher.com/find/hugel+riesling+grossi+laure+alsace+france/2016,no
+Alsace,Riesling Muenchberg,Domaine Ostertag,Alsace,white,riesling,83,70-90,93,93–95,https://www.wine-searcher.com/find/domaine-ostertag-riesling-muenchberg,no
+Alsace,Altenberg de Bergheim,Domaine Marcel Deiss,Alsace,white,riesling; gewurztraminer,108,80-110,95,93–95,https://www.wine-searcher.com/find/dom+marcel+deiss+altenburg+de+bergheim+alsace+grand+cru+france,no
+Alsace,Riesling Sommerberg,Albert Boxler,Alsace,white,riesling,79,70-90,93,94–96,https://www.wine-searcher.com/regions-sommerberg,no
+Alsace,Riesling Clos Saint Landelin,René Muré,Alsace,white,riesling,50,50-70,93,92–94,https://www.wine-searcher.com/find/rene+mure+riesling+vorbourg+grand+cru+clos+st+landelin+alsace+france,no
+Alsace,Gewurztraminer Sélection de Grains Nobles,Domaine Weinbach,Alsace,sweet,gewurztraminer,186,150-250,94,95–98,https://www.wine-searcher.com/find/dom+weinbach+gewurz+altenburg+select+de+grain+noble+alsace+france,no
+Beaujolais,Morgon Côte du Py,Jean Foillard,Beaujolais,red,gamay,83,40-55,95,92–94,https://www.jamessuckling.com/tasting-notes/78897/jean-foillard-morgon-cote-du-py-2016,no
+Beaujolais,Morgon Vieilles Vignes,Jean-Paul Thévenet,Beaujolais,red,gamay,36,35-45,,91–93,https://www.jamessuckling.com/tasting-notes/177372/jean-paul-charly-thevenet-morgon-vieilles-vignes-2020,no
+Beaujolais,Fleurie Les Moriers,Michel Chignard,Beaujolais,red,gamay,31,30-40,93,90–92,https://www.jamessuckling.com/tasting-notes/291340/domaine-chignard-fleurie-les-moriers-2023,no
+Beaujolais,Fleurie,Yvon Métras,Beaujolais,red,gamay,,50-70,,92–94,,no
+Beaujolais,Fleurie Clos de la Roilette,Clos de la Roilette,Beaujolais,red,gamay,24,25-35,,90–92,https://www.jamessuckling.com/tasting-notes/299816/clos-de-la-roilette-fleurie-2023,no
+Beaujolais,Morgon Javernières,Louis-Claude Desvignes,Beaujolais,red,gamay,41,30-40,,91–93,https://www.jamessuckling.com/tasting-notes/136980/louis-claude-desvignes-morgon-javernieres-2019,no
+Beaujolais,Côte de Brouilly Les 7 Vignes,Château Thivin,Beaujolais,red,gamay,26,25-32,,90–92,https://www.jamessuckling.com/tasting-notes/252715/chateau-thivin-cote-de-brouilly-les-sept-vignes-2022,no
+Beaujolais,Beaujolais L'Ancien,Jean-Paul Brun (Terres Dorées),Beaujolais,red,gamay,18,18-24,,89–91,https://www.jamessuckling.com/tasting-notes/176415/terres-dorees-jean-paul-brun-beaujolais-lancien-2020,no
+Beaujolais,Fleurie Clos de la Grand'Cour,Jean-Louis Dutraive,Beaujolais,red,gamay,39,40-55,,92–94,https://www.jamessuckling.com/tasting-notes/253256/domaine-de-la-grand-cour-fleurie-clos-de-la-grand-cour-2022,no
+Beaujolais,Moulin-à-Vent La Rochelle,Thibault Liger-Belair,Beaujolais,red,gamay,,50-70,,93–95,,no
+Southern France,Bandol Rouge,Domaine Tempier,Southern France · Provence,red,mourvedre,54,50-70,,92–95,https://www.jamessuckling.com/tasting-notes/154361/domaine-tempier-bandol-2018,no
+Southern France,Domaine de la Grange des Pères,Laurent Vaillé,Southern France · Languedoc-Roussillon,red,syrah; mourvedre; cabernet-sauvignon,,120-180,,94–97,,no
+Southern France,Mas de Daumas Gassac,Famille Guibert,Southern France · Languedoc-Roussillon,red,cabernet-sauvignon,57,50-70,,91–94,https://www.jamessuckling.com/tasting-notes/265598/mas-de-daumas-gassac-saint-guilhem-le-desert-rouge-2022,no
+Southern France,Vieilles Vignes,Domaine du Clos des Fées,Southern France · Languedoc-Roussillon,red,grenache; carignan,,40-55,,92–94,,no
+Southern France,Clos des Cistes,Domaine Peyre Rose,Southern France · Languedoc-Roussillon,red,syrah,,80-120,,94–96,,no
+Southern France,Bandol Rouge,Château de Pibarnon,Southern France · Provence,red,mourvedre,,50-70,,92–95,,no
+Southern France,Whispering Angel,Château d'Esclans,Southern France · Provence,rose,grenache; cinsault,28,22-25,,88–90,https://www.jamessuckling.com/tasting-notes/133496/chateau-desclans-cotes-de-provence-whispering-angel-rose-2019,no
+Southern France,Domaine de Trévallon,Domaine de Trévallon,Southern France · Provence,red,cabernet-sauvignon; syrah,,70-90,,93–95,,no
+Southern France,Cahors Le Cèdre,Château du Cèdre,Southern France · South West France,red,malbec,43,40-55,,92–94,https://www.jamessuckling.com/tasting-notes/246443/chateau-du-cedre-cahors-le-cedre-2020,no
+Jura & Savoie,Château-Chalon,Domaine Jean Macle,Jura & Savoie · Jura,white,chardonnay,,80-120,,93–96,,no
+Jura & Savoie,Arbois Pupillin Ploussard,Pierre Overnoy,Jura & Savoie · Jura,red,Ploussard,,300-500,,93–96,,no
+Jura & Savoie,Côtes du Jura Chardonnay,Domaine Ganevat,Jura & Savoie · Jura,white,chardonnay,,80-130,,93–95,,no
+Jura & Savoie,Arbois Chardonnay,Domaine André et Mireille Tissot,Jura & Savoie · Jura,white,chardonnay,,40-55,,91–93,,no
+Jura & Savoie,Arbois Trousseau,Jacques Puffeney,Jura & Savoie · Jura,red,Trousseau,,50-80,,91–93,,no
+Jura & Savoie,Côtes du Jura Fleurs,Domaine Labet,Jura & Savoie · Jura,white,chardonnay,,40-55,,91–93,,no
+Jura & Savoie,Arbois Vin Jaune,Philippe Bornard,Jura & Savoie · Jura,white,chardonnay,,70-100,,92–94,,no
+Jura & Savoie,Château-Chalon,Domaine Berthet-Bondet,Jura & Savoie · Jura,white,chardonnay,,60-80,,92–94,,no
+Piedmont,Barolo Brunate,Roberto Voerzio,Piedmont · Barolo,red,nebbiolo,288,250-400,,94–97,https://www.jamessuckling.com/tasting-notes/246968/roberto-voerzio-barolo-brunate-2020,no
+Piedmont,Barolo Bricco Rocche,Ceretto,Piedmont · Barolo,red,nebbiolo,249,200-300,,94–96,https://www.jamessuckling.com/tasting-notes/60223/ceretto-barolo-bricco-rocche-2013,no
+Piedmont,Barbaresco Starderi,La Spinetta,Piedmont · Barbaresco,red,nebbiolo,149,120-180,,93–96,https://www.jamessuckling.com/tasting-notes/247595/la-spinetta-barbaresco-vursu-starderi-2021,no
+Tuscany,Guidalberto,Tenuta San Guido,Tuscany · Bolgheri,red,cabernet-sauvignon; merlot,64,50-70,,91–93,https://www.jamessuckling.com/tasting-notes/251080/tenuta-san-guido-toscana-guidalberto-2022,no
+Tuscany,Redigaffi,Tua Rita,Tuscany · Maremma,red,merlot,263,200-300,,95–98,https://www.jamessuckling.com/tasting-notes/273463/tua-rita-toscana-redigaffi-2022,no
+Tuscany,Camartina,Querciabella,Tuscany · Chianti Classico,red,cabernet-sauvignon; sangiovese,130,120-160,,93–96,https://www.jamessuckling.com/tasting-notes/69641/querciabella-toscana-camartina-2013,no
+Tuscany,Montevertine,Montevertine,Tuscany,red,sangiovese,182,50-70,,93–95,https://www.jamessuckling.com/tasting-notes/73687/Montevertine%20Toscana%202013,no
+Tuscany,Brunello Riserva Poggio all'Oro,Castello Banfi,Tuscany · Brunello di Montalcino,red,sangiovese,186,100-150,,93–95,https://www.jamessuckling.com/tasting-notes/49726/castello-banfi-brunello-di-montalcino-poggio-alloro-riserva-2010,no
+Veneto & the North East,Amarone della Valpolicella Classico,Giuseppe Quintarelli,Veneto & the North East · Veneto,red,corvina,340,450-700,,94–99,https://www.jamessuckling.com/tasting-notes/261766/giuseppe-quintarelli-amarone-della-valpolicella-classico-2017,no
+Veneto & the North East,Amarone Classico,Allegrini,Veneto & the North East · Veneto,red,corvina,82,70-90,,92–94,https://www.jamessuckling.com/tasting-notes/255878/allegrini-amarone-della-valpolicella-classico-2020,no
+Veneto & the North East,Amarone Costasera,Masi,Veneto & the North East · Veneto,red,corvina,47,50-70,,91–93,https://www.jamessuckling.com/tasting-notes/337281/masi-amarone-della-valpolicella-classico-costasera,no
+Veneto & the North East,Soave Classico La Rocca,Pieropan,Veneto & the North East · Veneto,white,garganega,43,30-40,,91–93,https://www.jamessuckling.com/tasting-notes/188123/pieropan-soave-classico-la-rocca-2020,no
+Veneto & the North East,Franciacorta Cuvée Prestige,Ca' del Bosco,Veneto & the North East · Lombardy,sparkling,chardonnay; pinot-noir,41,35-45,,90–92,https://www.jamessuckling.com/tasting-notes/264244/ca-del-bosco-franciacorta-cuvee-prestige-46a-edizione-extra-brut,no
+Veneto & the North East,Vintage Tunina,Jermann,Veneto & the North East · Friuli,white,chardonnay; sauvignon-blanc,139,60-80,,92–94,https://www.jamessuckling.com/tasting-notes/312746/jermann-venezia-giulia-vintage-tunina-2023,no
+Veneto & the North East,Terlaner Rarity,Cantina Terlano,Veneto & the North East · Trentino-Alto Adige,white,pinot-blanc,169,150-250,,95–98,https://www.jamessuckling.com/tasting-notes/151253/cantina-terlan-alto-adige-terlaner-rarity-2008,no
+Veneto & the North East,Teroldego Granato,Foradori,Veneto & the North East · Trentino-Alto Adige,red,Teroldego,62,70-90,,93–95,https://www.jamessuckling.com/tasting-notes/227740/foradori-teroldego-vigneti-delle-dolomiti-granato-2020,no
+Veneto & the North East,Giulio Ferrari Riserva del Fondatore,Ferrari,Veneto & the North East · Trentino-Alto Adige,sparkling,chardonnay,177,120-180,,94–97,https://www.jamessuckling.com/tasting-notes/227770/giulio-ferrari-trento-riserva-del-fondatore-2012,no
+Veneto & the North East,Sagrantino 25 Anni,Arnaldo Caprai,Veneto & the North East · Umbria,red,Sagrantino,82,70-90,,93–95,https://www.jamessuckling.com/tasting-notes/191685/arnaldo-caprai-montefalco-sagrantino-25-anni-2018,no
+Southern Italy & Islands,Taurasi Radici,Mastroberardino,Southern Italy & Islands · Campania,red,aglianico,39,50-70,,92–94,https://www.jamessuckling.com/tasting-notes/305175/mastroberardino-taurasi-radici-2018,no
+Southern Italy & Islands,Taurasi Vigna Grande Cerzito,Quintodecimo,Southern Italy & Islands · Campania,red,aglianico,,100-150,,94–96,,no
+Southern Italy & Islands,Aglianico del Vulture Titolo,Elena Fucci,Southern Italy & Islands · Basilicata,red,aglianico,,50-70,,93–95,,no
+Southern Italy & Islands,Es Primitivo di Manduria,Gianfranco Fino,Southern Italy & Islands · Puglia,red,zinfandel,,70-90,,93–95,,no
+Southern Italy & Islands,Etna Bianco Superiore Pietra Marina,Benanti,Southern Italy & Islands · Sicily,white,Carricante,,50-70,,93–95,,no
+Southern Italy & Islands,Etna Rosso Calderara Sottana,Tenuta delle Terre Nere,Southern Italy & Islands · Sicily,red,Nerello Mascalese,,60-80,,93–95,,no
+Southern Italy & Islands,Magma,Frank Cornelissen,Southern Italy & Islands · Sicily,red,Nerello Mascalese,447,150-250,,92–95,https://www.jamessuckling.com/tasting-notes/236040/frank-cornelissen-nerello-mascalese-sicilia-magma-barbabecchi-2021,no
+Southern Italy & Islands,Santa Cecilia,Planeta,Southern Italy & Islands · Sicily,red,nero-davola,35,35-45,,91–93,https://www.jamessuckling.com/tasting-notes/306971/planeta-noto-santa-cecilia-2021,no
+Southern Italy & Islands,Ben Ryé Passito di Pantelleria,Donnafugata,Southern Italy & Islands · Sicily,sweet,muscat,82,40-55,,93–95,https://www.jamessuckling.com/tasting-notes/292851/donnafugata-passito-di-pantelleria-ben-rye-2022,no
+Spain,Contador,Benjamín Romeo,Spain · Rioja,red,tempranillo,331,250-350,,95–98,https://www.jamessuckling.com/tasting-notes/68028/bodega-contador-rioja-contador-2014,no
+Spain,Roda Reserva,Bodegas Roda,Spain · Rioja,red,tempranillo,57,50-70,,92–94,https://www.jamessuckling.com/tasting-notes/271041/bodegas-roda-rioja-roda-i-reserva-2020,no
+Spain,Capellanía,Marqués de Murrieta,Spain · Rioja,white,macabeo,88,35-45,,91–93,https://www.jamessuckling.com/tasting-notes/187452/marques-de-murrieta-rioja-capellania-reserva-2017,no
+Spain,Barón de Chirel,Marqués de Riscal,Spain · Rioja,red,tempranillo; cabernet-sauvignon,110,70-90,,92–94,https://www.jamessuckling.com/tasting-notes/227019/marques-de-riscal-rioja-baron-de-chirel-2018,no
+Spain,Finca Dofí,Álvaro Palacios,Spain · Priorat,red,grenache,114,90-120,,94–96,https://www.jamessuckling.com/tasting-notes/277553/alvaro-palacios-priorat-dofi-2022,no
+Portugal,Taylor's Vintage Port,Taylor's,Portugal · Douro,sweet,touriga-nacional,107,90-160,95,94–99,https://www.jamessuckling.com/tasting-notes/110914/taylors-vintage-port-2017,no
+Portugal,Vintage Port,Fonseca,Portugal · Douro,sweet,touriga-nacional,103,90-150,95,94–98,https://www.jamessuckling.com/tasting-notes/110910/fonseca-vintage-port-2017,no
+Portugal,Vintage Port,Graham's,Portugal · Douro,sweet,touriga-nacional,104,90-140,,94–98,https://www.jamessuckling.com/tasting-notes/84987/grahams-vintage-port-2016,yes
+Portugal,Vintage Port,Dow's,Portugal · Douro,sweet,touriga-nacional,105,80-120,96,94–97,https://www.jamessuckling.com/tasting-notes/84985/dows-vintage-port-2016,no
+Portugal,Quinta do Noval Nacional,Quinta do Noval,Portugal · Douro,sweet,touriga-nacional,1388,700-1200,,97–100,https://www.jamessuckling.com/tasting-notes/109023/quinta-do-noval-vintage-port-nacional-2017,no
+Portugal,Vintage Port,Quinta do Noval,Portugal · Douro,sweet,touriga-nacional,111,90-140,,95–98,https://www.jamessuckling.com/tasting-notes/109024/quinta-do-noval-vintage-port-2017,no
+Portugal,Barca Velha,Casa Ferreirinha,Portugal · Douro,red,touriga-nacional,930,400-600,,95–98,https://www.jamessuckling.com/tasting-notes/194653/casa-ferreirinha-douro-barca-velha-1999,no
+Portugal,Vinha Maria Teresa,Quinta do Crasto,Portugal · Douro,red,touriga-nacional,,120-160,,94–96,,no
+Germany,Wehlener Sonnenuhr Auslese Goldkapsel,Joh. Jos. Prüm,Germany · Mosel,sweet,riesling,80,150-250,,95–98,https://www.jamessuckling.com/tasting-notes/280553/joh-jos-prum-riesling-mosel-wehlener-sonnenuhr-auslese-2023,no
+Germany,Scharzhofberger Riesling Kabinett,Egon Müller,Germany · Mosel,white,riesling,219,70-100,,93–95,https://www.jamessuckling.com/tasting-notes/247583/egon-muller-scharzhof-riesling-mosel-scharzhofberg-kabinett-2022,no
+Germany,Zeltinger Sonnenuhr Auslese,Markus Molitor,Germany · Mosel,sweet,riesling,80,60-90,,94–96,https://www.jamessuckling.com/tasting-notes/280582/markus-molitor-riesling-mosel-zeltinger-sonnenuhr-auslese-white-cap-2023,no
+Austria,Riesling Smaragd Kellerberg,F.X. Pichler,Austria · Wachau,white,riesling,98,80-120,,95–97,https://www.jamessuckling.com/tasting-notes/71423/f-x-pichler-riesling-wachau-ried-kellerberg-smaragd-2016,no
+Austria,Grüner Veltliner Smaragd Loibner Berg,F.X. Pichler,Austria · Wachau,white,gruner-veltliner,,60-80,,94–96,,no
+Austria,Riesling Smaragd Vinothekfüllung,Emmerich Knoll,Austria · Wachau,white,riesling,91,70-100,,95–97,https://www.jamessuckling.com/tasting-notes/235398/emmerich-knoll-riesling-wachau-vinothekfullung-smaragd-2022,no
+Austria,Riesling Smaragd Singerriedel,Franz Hirtzberger,Austria · Wachau,white,riesling,140,80-110,,95–97,https://www.jamessuckling.com/tasting-notes/235379/franz-hirtzberger-riesling-wachau-ried-singerriedel-smaragd-2022,no
+Austria,Grüner Veltliner Smaragd Loibenberg,Leo Alzinger,Austria · Wachau,white,gruner-veltliner,,50-70,,93–95,,no
+Austria,Riesling Smaragd Achleiten,Prager,Austria · Wachau,white,riesling,63,60-80,,94–96,https://www.jamessuckling.com/tasting-notes/235443/prager-riesling-wachau-achleiten-smaragd-2022,no
+Austria,Riesling Zöbinger Heiligenstein Lyra,Bründlmayer,Austria · Kamptal,white,riesling,,50-70,,94–96,,no
+Austria,Grüner Veltliner Lamm,Bründlmayer,Austria · Kamptal,white,gruner-veltliner,,60-80,,94–96,,no
+Austria,Grüner Veltliner Vom Stein,Nikolaihof,Austria · Wachau,white,gruner-veltliner,,50-70,,93–95,,no
+Austria,Trockenbeerenauslese Nouvelle Vague,Kracher,Austria · Neusiedlersee,sweet,chardonnay,,50-70,,94–97,,no
+Hungary,Tokaji Aszú 5 Puttonyos,Royal Tokaji,Hungary · Tokaj,sweet,furmint,85,45-75,,91–95,https://www.jamessuckling.com/tasting-notes/275999/royal-tokaji-tokaji-aszu-5-puttonyos-2018,no
+Hungary,Tokaji Aszú 6 Puttonyos,Oremus,Hungary · Tokaj,sweet,furmint,,80-120,,94–96,,no
+Hungary,Tokaji Aszú 5 Puttonyos,Disznókő,Hungary · Tokaj,sweet,furmint,76,45-60,,92–94,https://www.jamessuckling.com/tasting-notes/287726/disznoko-tokaji-aszu-5-puttonyos-2020,no
+Hungary,Essencia,Royal Tokaji,Hungary · Tokaj,sweet,furmint,1170,400-600,,97–100,https://www.jamessuckling.com/tasting-notes/333438/royal-tokaji-tokaji-essencia,no
+Hungary,Furmint Úrágya,István Szepsy,Hungary · Tokaj,white,furmint,,60-90,,94–96,,no
+Hungary,Tokaji Aszú 6 Puttonyos,Hétszőlő,Hungary · Tokaj,sweet,furmint,,60-80,,93–95,,no
+Hungary,Szamorodni,Samuel Tinon,Hungary · Tokaj,fortified,furmint,,50-70,,92–94,,no
+Greece,Santorini Assyrtiko,Domaine Sigalas,Greece · Santorini,white,assyrtiko,46,30-40,,91–93,https://www.jamessuckling.com/tasting-notes/193618/sigalas-assyrtiko-santorini-2021,no
+Greece,Nykteri,Hatzidakis,Greece · Santorini,white,assyrtiko,,45-60,,92–94,,no
+Greece,Thalassitis,Gaia Wines,Greece · Santorini,white,assyrtiko,,30-40,,91–93,,no
+Greece,Vinsanto 20 Years,Estate Argyros,Greece · Santorini,sweet,assyrtiko,,120-160,,95–97,,no
+Greece,Santorini Assyrtiko,Estate Argyros,Greece · Santorini,white,assyrtiko,,30-40,,91–93,,no
+Greece,Ramnista,Kir-Yianni,Greece · Naoussa,red,xinomavro,28,25-35,92,90–92,https://www.jamessuckling.com/tasting-notes/193082/kir-yianni-xinomavro-naoussa-ramnista-single-vineyard-2018,no
+Greece,Naoussa Earth and Sky,Thymiopoulos,Greece · Naoussa,red,xinomavro,,30-40,,91–93,,no
+Greece,Gaia Estate,Gaia Wines,Greece · Nemea,red,agiorgitiko,,35-45,,91–93,,no
+Greece,Megas Oenos,Domaine Skouras,Greece · Nemea,red,agiorgitiko; cabernet-sauvignon,,35-45,,91–93,,no
+Greece,Ovilos,Biblia Chora,Greece,white,assyrtiko; semillon,,30-40,,91–93,,no
+California,Cariad,Colgin Cellars,California · Napa Valley,red,cabernet-sauvignon; merlot,531,500-700,,96–99,https://www.jamessuckling.com/tasting-notes/147702/colgin-cellars-napa-valley-cariad-2018,no
+California,Rubicon,Inglenook,California · Rutherford,red,cabernet-sauvignon; cabernet-franc,182,200-250,,94–97,https://www.jamessuckling.com/tasting-notes/278058/inglenook-napa-valley-rubicon-2014/,no
+Oregon & Washington,Original Vines Pinot Noir,The Eyrie Vineyards,Oregon & Washington · Willamette Valley,red,pinot-noir,,70-90,,93–95,,no
+Oregon & Washington,The Beaux Frères Vineyard,Beaux Frères,Oregon & Washington · Willamette Valley,red,pinot-noir,,90-120,,93–95,,no
+Oregon & Washington,Evenstad Reserve Pinot Noir,Domaine Serene,Oregon & Washington · Willamette Valley,red,pinot-noir,97,70-90,,92–94,https://www.jamessuckling.com/tasting-notes/252643/domaine-serene-pinot-noir-willamette-valley-evenstad-reserve-2021,no
+Oregon & Washington,Bergstrom Vineyard Pinot Noir,Bergström,Oregon & Washington · Willamette Valley,red,pinot-noir,,80-110,,93–95,,no
+Oregon & Washington,Botanica Pinot Noir,Antica Terra,Oregon & Washington · Willamette Valley,red,pinot-noir,,100-140,,94–96,,no
+Oregon & Washington,Cabernet Sauvignon,Leonetti Cellar,Oregon & Washington · Walla Walla,red,cabernet-sauvignon,,120-150,,94–96,,no
+Oregon & Washington,Cabernet Sauvignon,Quilceda Creek,Oregon & Washington · Columbia Valley,red,cabernet-sauvignon,246,200-250,,96–100,https://www.jamessuckling.com/tasting-notes/339734/quilceda-creek-cabernet-sauvignon-columbia-valley-2023,no
+Oregon & Washington,In the Rocks Syrah,Reynvaan,Oregon & Washington · Walla Walla,red,syrah,,70-100,,94–97,,no
+Oregon & Washington,Bionic Frog Syrah,Cayuse,Oregon & Washington · Walla Walla,red,syrah,,200-300,,96–99,,no
+Australia,Yattarna Chardonnay,Penfolds,Australia,white,chardonnay,148,120-160,,94–96,https://www.jamessuckling.com/tasting-notes/116640/penfolds-chardonnay-south-australia-yattarna-2017,no
+Australia,St Henri Shiraz,Penfolds,Australia,red,syrah,97,100-130,,93–96,https://www.jamessuckling.com/tasting-notes/268045/penfolds-shiraz-south-australia-st-henri-2021,no
+New Zealand,Cloudy Bay Sauvignon Blanc,Cloudy Bay,New Zealand · Marlborough,white,sauvignon-blanc,34,28-40,,88–92,https://www.jamessuckling.com/tasting-notes/166952/cloudy-bay-sauvignon-blanc-marlborough-2021,no
+New Zealand,Clayvin Pinot Noir,Fromm,New Zealand · Marlborough,red,pinot-noir,,60-75,,93–95,,no
+New Zealand,Block 3 Pinot Noir,Felton Road,New Zealand · Central Otago,red,pinot-noir,175,80-100,,94–96,https://www.jamessuckling.com/tasting-notes/40839/felton-road-pinot-noir-central-otago-block-3-2013,no
+New Zealand,Pinot Noir,Burn Cottage,New Zealand · Central Otago,red,pinot-noir,,70-90,,94–96,,no
+New Zealand,Pinot Noir,Ata Rangi,New Zealand · Martinborough,red,pinot-noir,,70-90,,94–96,,no
+New Zealand,Le Sol Syrah,Craggy Range,New Zealand · Hawke's Bay,red,syrah,,80-100,,94–96,,no
+New Zealand,Coleraine,Te Mata Estate,New Zealand · Hawke's Bay,red,cabernet-sauvignon; merlot,95,70-90,,94–96,https://www.jamessuckling.com/tasting-notes/207635/te-mata-hawkes-bay-coleraine-2021,no
+New Zealand,Homage Syrah,Trinity Hill,New Zealand · Hawke's Bay,red,syrah,,90-120,,94–96,,no
+New Zealand,Maté's Vineyard Chardonnay,Kumeu River,New Zealand · Auckland & Waiheke,white,chardonnay,70,50-65,,94–96,https://www.jamessuckling.com/tasting-notes/266375/kumeu-river-chardonnay-kumeu-mates-vineyard-2023,no
+South Africa,Vin de Constance,Klein Constantia,South Africa · Constantia,sweet,muscat,103,80-110,,95–97,https://www.jamessuckling.com/tasting-notes/265442/klein-constantia-constantia-vin-de-constance-natural-sweet-wine-2021,no
+South Africa,Columella,Sadie Family,South Africa · Swartland,red,syrah; mourvedre,143,100-140,,95–97,https://www.jamessuckling.com/tasting-notes/321227/sadie-family-swartland-columella,no
+South Africa,Palladius,Sadie Family,South Africa · Swartland,white,chenin-blanc,,100-140,,95–97,,no
+South Africa,Iron Syrah,Mullineux,South Africa · Swartland,red,syrah,,80-110,,94–96,,no
+South Africa,Paul Sauer,Kanonkop,South Africa · Stellenbosch,red,cabernet-sauvignon; cabernet-franc; merlot,58,50-70,,94–96,https://www.jamessuckling.com/tasting-notes/274402/kanonkop-simonsberg-stellenbosch-paul-sauer-2021,no
+South Africa,Vergelegen V,Vergelegen,South Africa · Stellenbosch,red,cabernet-sauvignon,,100-130,,94–96,,no
+South Africa,Syrah,Boekenhoutskloof,South Africa · Franschhoek,red,syrah,,50-65,,94–96,,no
+South Africa,Magnetic North Mountain Makstok,Alheit Vineyards,South Africa,white,chenin-blanc,,60-80,,94–96,,no
+Chile & Argentina,Adrianna Vineyard Mundus Bacillus Terrae Malbec,Catena Zapata,Chile & Argentina · Uco Valley,red,malbec,215,150-250,,96–100,https://www.jamessuckling.com/tasting-notes/128372/catena-zapata-malbec-mendoza-adrianna-vineyard-mundus-bacillus-terrae-2018,no
+Chile & Argentina,White Bones Chardonnay,Catena Zapata,Chile & Argentina · Uco Valley,white,chardonnay,129,80-110,,94–96,https://www.jamessuckling.com/tasting-notes/250815/catena-zapata-chardonnay-mendoza-adrianna-vineyard-white-bones-2022,no
+Chile & Argentina,Las Pizarras Chardonnay,Errázuriz,Chile & Argentina · Aconcagua,white,chardonnay,55,80-100,,94–96,https://www.jamessuckling.com/tasting-notes/292247/errazuriz-chardonnay-aconcagua-costa-las-pizarras,no
+Lebanon,Château Musar Red,Château Musar,Lebanon · Bekaa Valley,red,cabernet-sauvignon; cinsault; carignan,122,55-80,,91–95,https://www.jamessuckling.com/tasting-notes/45942/chateau-musar-bekaa-valley-2004,no
+Lebanon,Château Musar White,Château Musar,Lebanon · Bekaa Valley,white,obaideh; merwah,,50-70,,92–95,,no
+Lebanon,Comte de M,Château Kefraya,Lebanon · Bekaa Valley,red,cabernet-sauvignon; syrah,,60-80,,92–94,,no
+Lebanon,Gold Reserve,Massaya,Lebanon · Bekaa Valley,red,cabernet-sauvignon; mourvedre; syrah,,40-55,,91–93,,no
+Lebanon,EL Ixsir Red,Ixsir,Lebanon · Batroun,red,syrah; cabernet-sauvignon,,50-65,,91–93,,no
+Lebanon,Marquis des Beys,Domaine des Tourelles,Lebanon · Bekaa Valley,red,syrah; cabernet-sauvignon,,40-55,,91–93,,no
+Lebanon,Château Marsyas,Château Marsyas,Lebanon · Bekaa Valley,red,cabernet-sauvignon; syrah,,40-50,,91–93,,no
+Lebanon,Domaine de Baal,Domaine de Baal,Lebanon · Bekaa Valley,red,cabernet-sauvignon; merlot; syrah,,40-55,,91–93,,no
+Lebanon,Le Château,Château Belle-Vue,Lebanon · Mount Lebanon,red,cabernet-sauvignon; merlot; syrah,,50-70,,91–93,,no
+Lebanon,Atibaïa,Atibaïa,Lebanon · Bekaa Valley,red,syrah; cabernet-sauvignon,,40-55,,91–93,,no
+Bordeaux,Château Trotanoy,Établissements Jean-Pierre Moueix,Bordeaux · Pomerol,red,merlot; cabernet-franc,257,200-300,,94–98,https://www.jamessuckling.com/tasting-notes/125026/chateau-trotanoy-pomerol-2017,no
+Bordeaux,Château La Conseillante,Château La Conseillante,Bordeaux · Pomerol,red,merlot; cabernet-franc,239,250-350,,94–98,https://www.jamessuckling.com/tasting-notes/246988/chateau-la-conseillante-pomerol-2021,yes
+Bordeaux,Château L'Évangile,Domaines Barons de Rothschild (Lafite),Bordeaux · Pomerol,red,merlot; cabernet-franc,252,250-350,,94–98,https://www.jamessuckling.com/tasting-notes/266168/chateau-levangile-pomerol-2021,no
+Bordeaux,Château Bélair-Monange,Établissements Jean-Pierre Moueix,Bordeaux · Saint-Émilion,red,merlot; cabernet-franc,148,200-280,,94–97,https://www.jamessuckling.com/tasting-notes/182436/chateau-belair-monange-st-emilion-2021,no
+Bordeaux,Château Pichon Baron,AXA Millésimes,Bordeaux · Pauillac,red,cabernet-sauvignon; merlot,163,150-220,,94–97,https://www.jamessuckling.com/tasting-notes/247019/chateau-pichon-longueville-baron-pauillac-2021,no
+Burgundy,Chevalier-Montrachet,Domaine Leflaive,Burgundy · Côte de Beaune,white,chardonnay,2330,900-1400,,96–99,https://www.jamessuckling.com/tasting-notes/157971/domaine-leflaive-chevalier-montrachet-grand-cru-2014,no
+Burgundy,Corton Clos du Roi,Domaine Louis Latour,Burgundy · Côte de Beaune,red,pinot-noir,141,100-140,,92–94,https://www.jamessuckling.com/tasting-notes/189348/louis-latour-corton-grand-cru-clos-du-roi-2020,no
+Burgundy,Gevrey-Chambertin Clos Saint-Jacques,Louis Jadot,Burgundy · Côte de Nuits,red,pinot-noir,233,200-300,,94–96,https://www.jamessuckling.com/tasting-notes/158526/louis-jadot-gevrey-chambertin-1er-cru-domaine-louis-jadot-clos-saint-jacques-2019,no
+Burgundy,Beaune Grèves Vigne de l'Enfant Jésus,Bouchard Père & Fils,Burgundy · Côte de Beaune,red,pinot-noir,192,100-140,,92–94,https://www.jamessuckling.com/tasting-notes/265306/bouchard-pere-fils-beaune-1er-cru-greves-vigne-de-lenfant-jesus-2022,no
+Burgundy,Volnay Taillepieds,Domaine de Montille,Burgundy · Côte de Beaune,red,pinot-noir,134,120-180,,93–95,https://www.jamessuckling.com/tasting-notes/55062/domaine-de-montille-volnay-les-taillepieds-premier-cru-2012,no
+Burgundy,Chablis Vaudésir,Joseph Drouhin Vaudon,Burgundy · Chablis,white,chardonnay,100,80-110,,93–95,https://www.jamessuckling.com/tasting-notes/102813/joseph-drouhin-chablis-grand-cru-vaudesir-2017,no
+Rhône,Hermitage Ex-Voto,E. Guigal,Rhône · Hermitage,red,syrah,326,300-400,,96–99,https://www.jamessuckling.com/tasting-notes/192135/e-guigal-hermitage-ex-voto-2018,no
+Champagne,Brut Vintage,Pol Roger,Champagne,sparkling,pinot-noir; chardonnay,95,100-130,,93–95,https://www.jamessuckling.com/tasting-notes/310087/pol-roger-champagne-vintage-brut-2018,no
+Champagne,Dom Ruinart Blanc de Blancs,Ruinart,Champagne,sparkling,chardonnay,243,200-280,,94–97,https://www.jamessuckling.com/tasting-notes/54554/ruinart-dom-ruinart-blanc-de-blancs-brut-2004,no
+Champagne,Blanc de Blancs,Louis Roederer,Champagne,sparkling,chardonnay,99,100-140,,93–95,https://www.jamessuckling.com/tasting-notes/283924/louis-roederer-champagne-blanc-de-blancs,no
+Champagne,N.P.U.,Bruno Paillard,Champagne,sparkling,pinot-noir; chardonnay,386,250-350,,94–96,https://www.jamessuckling.com/tasting-notes/43430/bruno-paillard-champagne-nee-plus-ultra-1999,no
+Champagne,Argonne,Henri Giraud,Champagne · Vallée de la Marne,sparkling,pinot-noir; chardonnay,500,250-350,,94–96,https://www.jamessuckling.com/tasting-notes/186768/henri-giraud-champagne-argonne-brut-2014,no
+Southern France,Château l'Hospitalet La Clape,Gérard Bertrand,Southern France · Languedoc-Roussillon,red,syrah; mourvedre; grenache,45,35-45,,90–92,https://www.jamessuckling.com/tasting-notes/156387/gerard-bertrand-la-clape-chateau-lhospitalet-2018,no
+Southern Italy & Islands,Etna Rosso Barbagalli,Pietradolce,Southern Italy & Islands · Sicily,red,Nerello Mascalese,,100-140,,94–96,,no
+Portugal,Vintage Port,Warre's,Portugal · Douro,sweet,touriga-nacional,,80-120,,94–97,,no
+Portugal,Pêra-Manca Tinto,Fundação Eugénio de Almeida,Portugal · Alentejo,red,tempranillo,,300-400,,94–97,,no
+Oregon & Washington,Shea Vineyard Pinot Noir,Ken Wright,Oregon & Washington · Willamette Valley,red,pinot-noir,69,60-75,,92–94,https://www.jamessuckling.com/tasting-notes/214127/ken-wright-cellars-pinot-noir-willamette-valley-yamhill-carlton-shea-vineyard-2021,no
+New Zealand,Pinot Noir,Bell Hill,New Zealand · North Canterbury,red,pinot-noir,,100-140,,94–96,,no
+South Africa,Porseleinberg,Porseleinberg,South Africa · Swartland,red,syrah,,80-110,,95–97,,no
+South Africa,Skerpioen,Sadie Family,South Africa · Swartland,white,chenin-blanc,,80-110,,94–96,,no
+California,James Berry Vineyard,Saxum,California · Central Coast,red,syrah; grenache; mourvedre,215,150-200,,95–98,https://www.jamessuckling.com/tasting-notes/9762/saxum-paso-robles-james-berry-vineyard-2009,no
+Australia,Shiraz Viognier,Clonakilla,Australia,red,syrah; viognier,113,100-130,,95–97,https://www.jamessuckling.com/tasting-notes/111414/clonakilla-shiraz-viognier-canberra-district-2018,no
+Hungary,Mézes Mály 6 Puttonyos,Royal Tokaji,Hungary · Tokaj,sweet,furmint,150,100-140,,95–97,https://www.jamessuckling.com/tasting-notes/275924/royal-tokaji-tokaji-aszu-6-puttonyos-mezes-maly-2018,no
+Hungary,Tokaji Aszú 6 Puttonyos,Patricius,Hungary · Tokaj,sweet,furmint,,50-70,,93–95,,no
+Hungary,Furmint Csontos,Bott Pince,Hungary · Tokaj,white,furmint,,40-55,,92–94,,no
+Jura & Savoie,Savagnin Traminer,Domaine André et Mireille Tissot,Jura & Savoie · Jura,white,Savagnin,,40-55,,92–94,,no
+Jura & Savoie,Vin de Paille,Domaine Berthet-Bondet,Jura & Savoie · Jura,sweet,chardonnay; Savagnin,,50-70,,92–94,,no

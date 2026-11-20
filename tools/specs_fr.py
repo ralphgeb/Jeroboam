@@ -59,14 +59,15 @@ BURGUNDY = [
         "Beine", "Lignorelles", "Ligny-le-Châtel", "Maligny", "Villy", "La Chapelle-Vaupelteigne", "Poilly-sur-Serein",
         "Fleys", "Béru", "Viviers", "Collan", "Saint-Cyr-les-Colons", "Courgis", "Fontenay-près-Chablis"], color="gold",
         grapes="Chardonnay"),
+    A("cote-d-or", "Côte d'Or", 0, ["21", "71"], [], color="claret", label=(47.1, 5.1), grapes="Pinot Noir · Chardonnay"),
     A("cote-de-nuits", "Côte de Nuits", 1, ["21"], ["Marsannay-la-Côte", "Couchey", "Fixin", "Brochon", "Gevrey-Chambertin",
         "Morey-Saint-Denis", "Chambolle-Musigny", "Vougeot", "Flagey-Echézeaux", "Vosne-Romanée", "Nuits-Saint-Georges",
-        "Premeaux-Prissey", "Comblanchien", "Corgoloin"], color="claret", label=(47.22, 5.2), grapes="Pinot Noir"),
+        "Premeaux-Prissey", "Comblanchien", "Corgoloin"], color="claret", label=(47.22, 5.2), grapes="Pinot Noir", parent="cote-d-or"),
     A("cote-de-beaune", "Côte de Beaune", 1, ["21", "71"], ["Ladoix-Serrigny", "Aloxe-Corton", "Pernand-Vergelesses",
         "Savigny-lès-Beaune", "Chorey-lès-Beaune", "Beaune", "Pommard", "Volnay", "Monthelie", "Auxey-Duresses",
         "Saint-Romain", "Meursault", "Puligny-Montrachet", "Chassagne-Montrachet", "Saint-Aubin", "Santenay",
         "Cheilly-lès-Maranges", "Dezize-lès-Maranges", "Sampigny-lès-Maranges"], color="magenta", label=(46.98, 5.15),
-        grapes="Chardonnay · Pinot Noir"),
+        grapes="Chardonnay · Pinot Noir", parent="cote-d-or"),
     A("cote-chalonnaise", "Côte Chalonnaise", 1, ["71"], ["Bouzeron", "Rully", "Chassey-le-Camp", "Mercurey",
         "Saint-Martin-sous-Montaigu", "Givry", "Jambles", "Dracy-le-Fort", "Montagny-lès-Buxy", "Buxy", "Saint-Vallerin",
         "Jully-lès-Buxy"], color="rose"),
@@ -84,6 +85,8 @@ BURGUNDY = [
     A("chiroubles", "Chiroubles", 2, ["69"], ["Chiroubles"], parent="beaujolais"),
     A("regnie", "Régnié", 2, ["69"], ["Régnié-Durette"], parent="beaujolais"),
 ]
+_cn = [a for a in BURGUNDY if a["id"] == "cote-de-nuits"][0]["communes"] + [a for a in BURGUNDY if a["id"] == "cote-de-beaune"][0]["communes"]
+[a for a in BURGUNDY if a["id"] == "cote-d-or"][0]["communes"] = _cn
 VILLAGES_BURGUNDY = ["Gevrey-Chambertin", "Morey-Saint-Denis", "Chambolle-Musigny", "Vougeot", "Vosne-Romanée",
                      "Nuits-Saint-Georges", "Aloxe-Corton", "Beaune", "Pommard", "Volnay", "Meursault", "Puligny-Montrachet",
                      "Chassagne-Montrachet", "Santenay", "Mercurey", "Givry", "Rully", "Chablis", "Fuissé"]

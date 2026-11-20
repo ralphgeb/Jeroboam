@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 @main
 struct JeroboamApp: App {
@@ -6,6 +7,7 @@ struct JeroboamApp: App {
     @State private var journal = JournalStore()
 
     init() {
+        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
         let p = GameProgress()
         #if DEBUG
         DebugScreens.prepare(p)
@@ -42,7 +44,7 @@ struct JeroboamApp: App {
                 .task { await Plus.shared.listen() }
                 .onAppear {
                     QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
-                    CloudSync.shared.start(progress)
+                    CloudSync.shared.start(progress, journal)
                 }
         }
     }
@@ -82,6 +84,7 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.4), value: progress.data.onboarded)
         .onChange(of: phase) { _, p in
             if p == .active { progress.refreshStreakState(); progress.scheduleReminder() }
+            if p == .background || p == .inactive { CloudSync.shared.pushAll() }
         }
         .onAppear {
             #if DEBUG

@@ -705,6 +705,7 @@ struct ZoomableWineMap: View {
     var forcedLevel: Int? = nil
     var regionsOnly = false
     var zoomCommand: Int = 0
+    var onViewport: ((CGRect) -> Void)? = nil
     @Binding var selected: String?
     @Binding var zoom: CGFloat
     @State private var absZoom: CGFloat = 1
@@ -717,6 +718,16 @@ struct ZoomableWineMap: View {
     @Environment(\.colorScheme) private var scheme
 
     private let maxZoom: CGFloat = 14
+    /// France and Italy have the most detail, so they can be zoomed one step deeper.
+    private var maxFactor: CGFloat { ["france", "italy"].contains(mapID) ? 22 : 12 }
+
+    private func reportViewport(_ size: CGSize, _ g: MapGeometry) {
+        guard let cb = onViewport else { return }
+        var r = MapRenderer(g: g)
+        r.zoom = absZoom; r.lodBase = lodBase; r.offset = offset
+        let a = r.toMap(.zero, size: size), b = r.toMap(CGPoint(x: size.width, y: size.height), size: size)
+        cb(CGRect(x: min(a.x, b.x), y: min(a.y, b.y), width: abs(b.x - a.x), height: abs(b.y - a.y)))
+    }
 
     var body: some View {
         GeometryReader { geo in
@@ -740,7 +751,7 @@ struct ZoomableWineMap: View {
                         MagnifyGesture()
                             .onChanged { v in
                                 let anchor = CGPoint(x: v.startAnchor.x * size.width, y: v.startAnchor.y * size.height)
-                                let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), baseZoom * v.magnification))
+                                let newZoom = min(lodBase * maxFactor, max(g.coverZoom(size: size), baseZoom * v.magnification))
                                 let k = newZoom / baseZoom
                                 absZoom = newZoom
                                 offset = clamp(CGSize(width: anchor.x - (anchor.x - baseOffset.width) * k,
@@ -782,6 +793,15 @@ struct ZoomableWineMap: View {
         }
         .clipped()
         .onChange(of: absZoom) { _, v in zoom = v / max(0.01, lodBase) }
+        .overlay {
+            GeometryReader { geo in
+                Color.clear
+                    .onChange(of: absZoom) { _, _ in if let g = MapGeometry.get(mapID) { reportViewport(geo.size, g) } }
+                    .onChange(of: offset) { _, _ in if let g = MapGeometry.get(mapID) { reportViewport(geo.size, g) } }
+                    .onAppear { DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { if let g = MapGeometry.get(mapID) { reportViewport(geo.size, g) } } }
+            }
+            .allowsHitTesting(false)
+        }
     }
 
     /// Open centered on the wine areas (or the focused one), with the map covering the whole screen.
@@ -806,7 +826,7 @@ struct ZoomableWineMap: View {
     }
 
     private func zoomBy(_ k: CGFloat, at pt: CGPoint, size: CGSize, g: MapGeometry) {
-        let newZoom = min(lodBase * 12, max(g.coverZoom(size: size), absZoom * k))
+        let newZoom = min(lodBase * maxFactor, max(g.coverZoom(size: size), absZoom * k))
         let f = newZoom / absZoom
         withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
             absZoom = newZoom
@@ -849,6 +869,7 @@ struct MapExplorer: View {
     @State private var layer: Int? = nil
     @State private var zoomCommand = 0
     @State private var listExpanded = false
+    @State private var viewport: CGRect? = nil
 
     var body: some View {
         let g = MapGeometry.get(mapID)
@@ -856,7 +877,7 @@ struct MapExplorer: View {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
                             forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0,
-                            zoomCommand: zoomCommand, selected: $selected, zoom: $zoom)
+                            zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .ignoresSafeArea()
 
@@ -905,7 +926,7 @@ struct MapExplorer: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if let g {
                     let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
-                    MapListCard(mapID: mapID, level: lv, expanded: $listExpanded) { id in selected = id }
+                    MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: $listExpanded) { id in selected = id }
                         .padding(.horizontal, 12)
                         .padding(.bottom, 8)
                 }
@@ -1034,12 +1055,18 @@ struct MapLegend: View {
 struct MapListCard: View {
     let mapID: String
     var level: Int = 0
+    /// The part of the map on screen, in map units: only the areas in view are listed, with the numbers drawn on the map.
+    var visible: CGRect? = nil
     @Binding var expanded: Bool
     var onSelect: (String) -> Void
 
     var body: some View {
         if let g = MapGeometry.get(mapID) {
-            let list = g.numbered(level: level)
+            let nums = g.numbering(level: level)
+            let list = g.numbered(level: level).filter { a in
+                guard let v = visible else { return true }
+                return v.contains(a.centroid)
+            }
             let title = level == 0 ? "Regions" : (level == 1 ? "Appellations" : "Villages & crus")
             VStack(spacing: 0) {
                 Capsule().fill(Palette.line).frame(width: 36, height: 4).padding(.top, 8)
@@ -1061,10 +1088,10 @@ struct MapListCard: View {
                 Hairline()
                 ScrollView {
                     VStack(spacing: 0) {
-                        ForEach(Array(list.enumerated()), id: \.element.id) { i, a in
+                        ForEach(Array(list.enumerated()), id: \.element.id) { _, a in
                             Button { onSelect(a.id) } label: {
                                 HStack(spacing: 12) {
-                                    Text("\(i + 1)").font(.system(size: 10.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                                    Text("\(nums[a.id] ?? 0)").font(.system(size: 10.5, weight: .bold).monospacedDigit()).foregroundStyle(.white)
                                         .frame(width: 22, height: 22)
                                         .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.28)))
                                     VStack(alignment: .leading, spacing: 1) {

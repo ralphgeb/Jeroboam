@@ -285,6 +285,14 @@ final class GameProgress {
     }
 }
 
+/// Shows notifications as banners even while Jero is open (needed for "Send a fun fact now").
+final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = NotificationDelegate()
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        [.banner, .list, .sound]
+    }
+}
+
 /// Two gentle notifications a day: a wine fun fact in the morning, a nudge to practice in the evening.
 /// Scheduled four weeks ahead (iOS keeps at most 64), and refreshed whenever Jero opens.
 final class Notifications {

@@ -142,7 +142,7 @@ struct LibraryView: View {
             case .regions:
                 Image(systemName: "globe.europe.africa").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.wine)
             case .great:
-                Image(systemName: "star.fill").font(.system(size: 22)).foregroundStyle(Palette.brass)
+                WineStamp().frame(width: 44, height: 50)
             case .wines:
                 HStack(alignment: .bottom, spacing: -3) {
                     WineGlass(color: Color(hex: "#E3CF7A"), fill: 0.55).frame(width: 15, height: 28)
@@ -761,5 +761,50 @@ struct BottlesScreen: View {
         .padding(12)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(isJ ? Palette.wine.opacity(0.5) : Palette.line.opacity(0.6), lineWidth: isJ ? 1.2 : 0.5))
+    }
+}
+
+
+/// A postage stamp with a heart on it: the mark for "Great wines to try".
+struct StampShape: Shape {
+    func path(in r: CGRect) -> Path {
+        var p = Path(roundedRect: r, cornerRadius: 1.5)
+        // perforations: small half-circles cut out along the four edges
+        let step: CGFloat = r.width / 7
+        let d: CGFloat = step * 0.46
+        var cuts = Path()
+        var x = step / 2
+        while x < r.width {
+            cuts.addEllipse(in: CGRect(x: r.minX + x - d / 2, y: r.minY - d / 2, width: d, height: d))
+            cuts.addEllipse(in: CGRect(x: r.minX + x - d / 2, y: r.maxY - d / 2, width: d, height: d))
+            x += step
+        }
+        let stepY = r.height / 8
+        var y = stepY / 2
+        while y < r.height {
+            cuts.addEllipse(in: CGRect(x: r.minX - d / 2, y: r.minY + y - d / 2, width: d, height: d))
+            cuts.addEllipse(in: CGRect(x: r.maxX - d / 2, y: r.minY + y - d / 2, width: d, height: d))
+            y += stepY
+        }
+        p = p.subtracting(cuts)
+        return p
+    }
+}
+
+struct WineStamp: View {
+    var body: some View {
+        ZStack {
+            StampShape().fill(Color(hex: "#FBF3E4"))
+            StampShape().stroke(Palette.bordeaux.opacity(0.35), lineWidth: 0.6)
+            RoundedRectangle(cornerRadius: 1, style: .continuous)
+                .strokeBorder(Palette.bordeaux.opacity(0.55), lineWidth: 0.8)
+                .padding(5)
+            VStack(spacing: 1) {
+                Image(systemName: "heart.fill").font(.system(size: 17)).foregroundStyle(Palette.bordeaux)
+                Text("TRY").font(.system(size: 6.5, weight: .heavy)).kerning(1.2).foregroundStyle(Palette.bordeaux)
+            }
+        }
+        .rotationEffect(.degrees(-5))
+        .shadow(color: .black.opacity(0.12), radius: 1.5, y: 1)
     }
 }

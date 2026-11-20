@@ -113,8 +113,8 @@ final class JournalStore {
         spentUSD = UserDefaults.standard.double(forKey: "jero.spent")
     }
 
-    private func save() { guard persist else { return }; if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) } }
-    private func saveCellar() { guard persist else { return }; if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) } }
+    private func save() { guard persist else { return }; if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) }; CloudSync.shared.journalChanged() }
+    private func saveCellar() { guard persist else { return }; if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) }; CloudSync.shared.journalChanged() }
 
     func savePhoto(_ image: UIImage, id: UUID) -> String? {
         let name = id.uuidString + ".jpg"
@@ -137,6 +137,7 @@ final class JournalStore {
     }
 
     func delete(_ e: JournalEntry) {
+        CloudSync.shared.noteDeleted(e.id)
         entries.removeAll { $0.id == e.id }
         if let p = e.photo, !cellar.contains(where: { $0.photo == p }) { try? FileManager.default.removeItem(at: Self.photoDir.appendingPathComponent(p)) }
     }
@@ -146,6 +147,7 @@ final class JournalStore {
     }
 
     func delete(_ b: CellarBottle) {
+        CloudSync.shared.noteDeleted(b.id)
         cellar.removeAll { $0.id == b.id }
         if let p = b.photo, !entries.contains(where: { $0.photo == p }) { try? FileManager.default.removeItem(at: Self.photoDir.appendingPathComponent(p)) }
     }
