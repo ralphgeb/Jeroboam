@@ -372,7 +372,7 @@ struct GreatWinesScreen: View {
                     .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).strokeBorder(Palette.line.opacity(0.5), lineWidth: 0.5))
                     .id(area + sort.rawValue + band.rawValue + "\(minScore)")
                 }
-                Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottle photos are from Wikimedia Commons where one exists.")
+                Text("Average prices (per 750 ml, before tax) and critic scores come from Wine-Searcher where shown; others are marked as estimates. Bottle photos are shown where available.")
                     .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
                 Color.clear.frame(height: 10)
             }
