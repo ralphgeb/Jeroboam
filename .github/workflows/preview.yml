@@ -44,14 +44,17 @@ jobs:
       - name: Pick a simulator
         id: sim
         run: |
-          udid=$(xcrun simctl list devices available -j | python3 -c '
-          import json,sys
-          d=json.load(sys.stdin)["devices"]
+          xcrun simctl list devices available | grep -i "iPhone" | head -30
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,subprocess
+          d=json.loads(subprocess.check_output(["xcrun","simctl","list","devices","available","-j"]))["devices"]
           c=[(r,x) for r,l in d.items() if "iOS" in r for x in l if x["name"].startswith("iPhone")]
-          c.sort(key=lambda t:(t[0], "Pro" in t[1]["name"] and "Max" not in t[1]["name"]))
-          print(c[-1][1]["udid"])')
-          echo "udid=$udid" >> "$GITHUB_OUTPUT"
-          xcrun simctl list devices | grep "$udid"
+          reg=[t for t in c if not any(k in t[1]["name"] for k in ("Duo","Fold"))]
+          reg.sort(key=lambda t:(t[0], "Pro" in t[1]["name"] and "Max" not in t[1]["name"]))
+          print("udid="+reg[-1][1]["udid"])
+          duo=[t for t in c if any(k in t[1]["name"] for k in ("Duo","Fold"))]
+          print("duo="+(duo[-1][1]["udid"] if duo else ""))
+          PY
 
       - name: Build for the simulator
         run: |
@@ -69,6 +72,7 @@ jobs:
 
       - name: Screenshots
         run: |
+          set +e
           UDID=${{ steps.sim.outputs.udid }}
           APP=$(find build/dd/Build/Products -name "Jeroboam.app" -maxdepth 3 | head -1)
           xcrun simctl boot "$UDID" || true
@@ -102,6 +106,25 @@ jobs:
             xcrun simctl io "$UDID" screenshot "shots/wide-${s}.png" > /dev/null 2>&1
           done
           xcrun simctl spawn "$UDID" log show --last 3m --predicate 'process == "Jeroboam"' --style compact 2>/dev/null | grep -iE "fatal|error|crash" | head -40 || true
+          ls shots
+
+      - name: Foldable (iPhone Duo) simulator screenshots
+        if: always() && steps.sim.outputs.duo != ''
+        continue-on-error: true
+        run: |
+          set +e
+          DUO=${{ steps.sim.outputs.duo }}
+          APP=$(find build/dd/Build/Products -name "Jeroboam.app" -maxdepth 3 | head -1)
+          xcrun simctl boot "$DUO"; xcrun simctl bootstatus "$DUO" -b
+          xcrun simctl install "$DUO" "$APP" 2>&1 | tail -5
+          xcrun simctl ui "$DUO" appearance light
+          mkdir -p shots
+          for s in learn guide explorer greatwine lesson region journal; do
+            xcrun simctl terminate "$DUO" com.ralphgeb.jero 2>/dev/null
+            xcrun simctl launch "$DUO" com.ralphgeb.jero -screen "$s" 2>&1 | tail -2
+            sleep 11
+            xcrun simctl io "$DUO" screenshot "shots/duo-${s}.png" 2>&1 | tail -2
+          done
           ls shots
 
       - name: Publish screenshots to the ci-screenshots branch
