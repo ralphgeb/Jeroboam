@@ -391,6 +391,15 @@ struct LessonRow: View {
 
 struct GuidebookView: View {
     let unit: Unit
+    /// Topics are numbered continuously through the whole guidebook.
+    private func topicNumber(_ lesson: Lesson, _ index: Int) -> Int {
+        var n = 0
+        for l in unit.lessons {
+            if l.id == lesson.id { return n + index + 1 }
+            n += l.cards.filter { $0.kind == .learn }.count
+        }
+        return index + 1
+    }
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
@@ -404,8 +413,8 @@ struct GuidebookView: View {
                     ForEach(unit.lessons) { lesson in
                         VStack(alignment: .leading, spacing: 26) {
                             Text(lesson.title.uppercased()).font(.system(size: 12, weight: .semibold)).kerning(1.4).foregroundStyle(Palette.wine)
-                            ForEach(lesson.cards.filter { $0.kind == .learn }) { card in
-                                LearnCard(card: card)
+                            ForEach(Array(lesson.cards.filter { $0.kind == .learn }.enumerated()), id: \.element.id) { i, card in
+                                LearnCard(card: card, topic: topicNumber(lesson, i))
                             }
                         }
                         Hairline()

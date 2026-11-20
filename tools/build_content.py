@@ -132,7 +132,7 @@ UNIT_COVERS = {
     "l2-sparkling": "riddling", "l2-sweet-fortified": "port-lodge", "l2-labels": "bottle-shapes", "l2-label-decoder": "bordeaux-chateau",
     "l3-viticulture": "pruning", "l3-winemaking": "barrel-making", "l3-bordeaux": "saint-emilion", "l3-burgundy": "burgundy-cote",
     "l3-france-more": "rhone-hermitage", "l3-italy": "tuscany-chianti", "l3-iberia": "douro-terraces", "l3-central-europe": "wachau",
-    "l3-new-world": "mendoza-andes", "l3-tasting": "veraison",
+    "l3-new-world": "mendoza-andes", "l3-tasting": "veraison", "l1-history": "qvevri",
 }
 # ---------------- study guides (generated): everything the practice and mock exams can ask is taught here
 import random as _rnd
@@ -153,7 +153,11 @@ def _grape_card(g):
     if g.get("aka"): lines.append(f"- **Also called:** {', '.join(g['aka'])}.")
     if rs: lines.append(f"- **Where it grows:** {', '.join(rs)}.")
     if g.get("food"): lines.append(f"- **Food:** {', '.join(f.lower() for f in g['food'][:4])}.")
-    return {"learn": g["name"], "visual": f"grape:{g['id']}", "body": "\n".join(lines)}
+    card = {"learn": g["name"], "visual": f"grape:{g['id']}", "body": "\n".join(lines)}
+    for pid in (f"grape-{g['id']}", f"grape-{g['id'].split('-')[0]}"):
+        if pid in photo_ids:
+            card["visual"] = f"photo:{pid}"; card["alt"] = f"grape:{g['id']}"; break
+    return card
 
 def _grape_questions(gs, pool, rnd):
     qs = []
@@ -252,8 +256,12 @@ def study_units(n):
     terms = [t for t in glossary if t.get("level", 1) == n]
     lessons = []
     for i, part in enumerate(_chunks(terms, 8)):
-        body = "\n".join(f"- **{t['term']}:** {_plain(t['def'])}" for t in part)
-        cards = [{"learn": "Words to know", "body": body}]
+        cards = []
+        for t in part:
+            sl = re.sub(r"[^a-z0-9]+", "-", t["term"].lower()).strip("-")
+            c = {"learn": t["term"], "body": _plain(t["def"])}
+            if "w-" + sl in photo_ids: c["visual"] = "photo:w-" + sl
+            cards.append(c)
         for t in rnd.sample(part, min(3, len(part))):
             wrong = rnd.sample([x["def"] for x in terms if x["term"] != t["term"]], 3)
             opts = wrong + [t["def"]]; rnd.shuffle(opts)
@@ -341,6 +349,7 @@ for lv in levels_meta:
                     continue
                 if c.get("explain"): out["explain"] = c["explain"].strip()
                 elif out["t"] != "learn": warn(f"{where}: question without explanation")
+                if c.get("alt"): out["alt"] = c["alt"]
                 key = f"{ufile} | {ls['title']} | {c.get('learn', '')}"
                 if key in CARD_PHOTOS and CARD_PHOTOS[key] in photo_ids:
                     c["visual"] = "photo:" + CARD_PHOTOS[key]
@@ -361,8 +370,11 @@ for lvl in course["levels"]:
         for ls in u["lessons"]:
             for card in ls["cards"]:
                 v = card.get("visual") or ""
+                alt = card.pop("alt", None)
                 if v.startswith("photo:"):
-                    if v[6:] in seen_photos: del card["visual"]
+                    if v[6:] in seen_photos:
+                        if alt: card["visual"] = alt
+                        else: del card["visual"]
                     else: seen_photos.add(v[6:])
 dropped_covers = 0
 for lvl in course["levels"]:

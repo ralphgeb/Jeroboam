@@ -5,16 +5,19 @@ lessons:
   - title: Ancient roots
     cards:
       - learn: Eight thousand years in clay
+        visual: "photo:h-01"
         body: |
           The oldest traces of grape wine, about **8,000 years** old, come from **Georgia** in the South Caucasus: residues inside clay jars. Georgians still ferment wine in buried clay vessels called **qvevri**, a method UNESCO lists as world heritage.
 
           The oldest known winery, about **6,100 years** old, was found in the **Areni-1 cave** in Armenia, with a pressing floor and fermentation jars.
       - learn: Egypt, Phoenicia and Greece
+        visual: "photo:h-02"
         body: |
           In **ancient Egypt**, wine was for kings and priests; jars in Tutankhamun's tomb were labeled with the vintage, the estate and the chief winemaker, an early wine label.
 
           **Phoenician** traders, from today's **Lebanon**, carried vines and wine across the Mediterranean. The **Greeks** planted vines in southern Italy, which they called **Oenotria**, "land of vines", and in Provence, at Marseille, around 600 BC.
       - learn: Rome builds Europe's vineyards
+        visual: "photo:h-03"
         body: |
           The **Romans** spread the vine wherever their legions went: up the **Rhône**, into **Bordeaux** (Burdigala), **Burgundy**, the **Mosel** and the **Rhine**. Many of Europe's great regions began as Roman vineyards along rivers, which carried both water for the vines and barrels to market.
 
@@ -33,16 +36,19 @@ lessons:
   - title: Monks and merchants
     cards:
       - learn: The monks of Burgundy
+        visual: "photo:h-04"
         body: |
           After Rome fell, **monasteries** kept winemaking alive. In Burgundy, **Benedictine** monks of Cluny and **Cistercian** monks of Cîteaux (founded 1098) spent centuries tasting the wines of each plot, building walls around the best ones.
 
           The **Clos de Vougeot**, walled by the Cistercians in the 14th century, is the most famous. Their idea that each **climat** (named plot) tastes different is the root of **terroir** and of Burgundy's Grands Crus.
       - learn: Bordeaux becomes English
+        visual: "photo:h-05"
         body: |
           In **1152** Eleanor of Aquitaine married **Henry Plantagenet**, soon King Henry II of England. Bordeaux became English for **three centuries**, until 1453.
 
           English merchants shipped huge volumes of light red **clairet**, the origin of the British word **claret** for red Bordeaux. Trade, not monks, shaped Bordeaux: a merchant's city facing the sea.
       - learn: The Dutch drain the Médoc
+        visual: "photo:h-06"
         body: |
           In the **1600s**, **Dutch** engineers drained the marshy Médoc, revealing the **gravel ridges** where Cabernet Sauvignon would thrive. Dutch traders also wanted sweet whites and brandy, boosting Sauternes and Cognac.
 
@@ -61,21 +67,25 @@ lessons:
   - title: Phylloxera
     cards:
       - learn: The plague from America
+        visual: "photo:h-07"
         body: |
           In the **1860s**, vines in the southern Rhône began to wither and die. The culprit, identified in **1868** by the botanist **Jules-Émile Planchon**, was **phylloxera**: a tiny yellow aphid-like insect that feeds on vine **roots**.
 
           It had crossed the Atlantic on American vines brought to Europe as botanical curiosities. Faster steamships meant the bugs survived the trip.
       - learn: A continent's vineyards destroyed
+        visual: "photo:h-08"
         body: |
           Over the next **thirty years**, phylloxera spread through almost every European vineyard: France, Spain, Italy, Portugal, Germany, then Australia, South Africa and California.
 
           France lost around **40% of its vines**. Growers tried everything: flooding vineyards, injecting carbon disulfide into the soil, even burying live toads under vines. Millions emigrated; some French winemakers moved to **Rioja**, raising its quality.
       - learn: "The cure: grafting"
+        visual: "photo:h-09"
         body: |
           American vines had evolved with phylloxera and their roots resist it. The solution, championed by Planchon and the American entomologist **Charles Valentine Riley**, was to **graft** European *Vitis vinifera* onto **American rootstocks**. **Thomas Munson** in Texas bred many of the rootstocks used.
 
           Today almost every vine in the world grows on American roots. The fruit, and the wine, still come from the European vine on top.
       - learn: The survivors
+        visual: "photo:h-10"
         body: |
           A few places never had phylloxera, or it couldn't survive there:
 
@@ -102,11 +112,13 @@ lessons:
   - title: "1855: Bordeaux ranks itself"
     cards:
       - learn: A list for a world fair
+        visual: "photo:h-11"
         body: |
           For the **1855 Exposition Universelle** in Paris, Emperor **Napoleon III** wanted Bordeaux's best wines shown. The merchants of Bordeaux ranked the châteaux by **price**, the market's long verdict on quality.
 
           The result: **61 red wines** in five tiers, from First to Fifth Growth, almost all from the **Médoc**, plus **Haut-Brion** from Graves; and a list of **Sauternes and Barsac**, with **Château d'Yquem** alone at the top as *Premier Cru Supérieur*.
       - learn: Almost unchanged since
+        visual: "photo:h-12"
         body: |
           The list has barely moved. **Cantemerle** was added in 1856, and in **1973** **Mouton Rothschild** was promoted to First Growth after Baron Philippe de Rothschild's fifty-year campaign. Its motto changed from "First I cannot be, second I do not deign to be, Mouton I am" to "**First I am, second I was, Mouton does not change**."
 
@@ -122,11 +134,13 @@ lessons:
   - title: The Judgment of Paris
     cards:
       - learn: A tasting nobody expected to matter
+        visual: "photo:h-13"
         body: |
           On **24 May 1976**, the English wine merchant **Steven Spurrier** held a blind tasting in Paris. Nine French experts (top chefs, sommeliers and the head of the Appellation authority) tasted top **Bordeaux** and **Burgundy** against unknown wines from **California**.
 
           Only one journalist came: **George Taber** of *Time* magazine.
       - learn: California wins
+        visual: "photo:h-14"
         body: |
           The winners were both Californian:
 
@@ -135,6 +149,7 @@ lessons:
 
           Taber's story, "Judgment of Paris", went around the world. One judge asked for her scorecard back.
       - learn: Why it changed everything
+        visual: "photo:h-15"
         body: |
           The result proved that great wine could be made **outside France**. Investment poured into **Napa**, then Oregon, Australia, Chile and beyond. French producers began investing abroad: Mouton Rothschild partnered with Robert Mondavi to create **Opus One** (1979).
 
@@ -157,16 +172,19 @@ lessons:
   - title: The modern era
     cards:
       - learn: Scientists in the cellar
+        visual: "photo:h-16"
         body: |
           After the war, **Émile Peynaud** in Bordeaux and others brought science to winemaking: clean cellars, control of **malolactic** conversion and **temperature-controlled** fermentation in steel. Wine became more reliable everywhere.
 
           **Stainless steel** tanks with cooling jackets made fresh, fruity whites possible in warm places like Australia and Spain.
       - learn: Critics and the globe
+        visual: "photo:h-17"
         body: |
           **Robert Parker**'s praise of the **1982 Bordeaux** vintage, when others doubted it, made him the world's most powerful critic, and made ripe, rich styles fashionable in the 1990s.
 
           **Flying winemakers** from Australia and Bordeaux consulted around the world; **Malbec** turned Argentina into a star; New Zealand's **Sauvignon Blanc** (Cloudy Bay, 1985) created a new classic.
       - learn: Today and tomorrow
+        visual: "photo:h-18"
         body: |
           The pendulum has swung back toward **freshness**, less new oak, organic and biodynamic farming, natural wines, and old local grapes rescued from extinction.
 

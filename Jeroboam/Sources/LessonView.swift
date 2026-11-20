@@ -285,11 +285,15 @@ struct CardView: View {
 
 struct LearnCard: View {
     let card: Card
+    /// Guidebook numbering: shows "Topic 01" above the title instead of "Learn".
+    var topic: Int? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Eyebrow("Learn", color: Palette.wine)
-            if let t = card.title {
-                Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 10) {
+                Eyebrow(topic.map { String(format: "Topic %02d", $0) } ?? "Learn", color: Palette.wine)
+                if let t = card.title {
+                    Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                }
             }
             if let v = card.visual {
                 VisualView(spec: v)
