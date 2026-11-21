@@ -136,6 +136,8 @@ struct AromaWheelScreen: View {
                              subtitle: "Aromas come from three sources: the **grape** (primary), **winemaking** (secondary) and **ageing** (tertiary). Tap a slice to see its descriptors.")
                 AromaWheel(selected: $selected)
                     .padding(.horizontal, -8)
+                    .frame(maxWidth: 560)
+                    .frame(maxWidth: .infinity)
 
                 if let id = selected, let cat = ContentStore.shared.allAromaCategories().first(where: { $0.id == id }) {
                     categoryCard(cat)

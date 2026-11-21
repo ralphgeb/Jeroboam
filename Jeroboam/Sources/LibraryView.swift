@@ -387,6 +387,7 @@ struct StyleDetailView: View {
 
 struct TastingScreen: View {
     @State private var open: TastingStep? = nil
+    @Environment(\.isWide) private var isWide
 
     var body: some View {
         let secs = ContentStore.shared.library.sat
@@ -394,7 +395,7 @@ struct TastingScreen: View {
             VStack(alignment: .leading, spacing: 24) {
                 ScreenHeader(eyebrow: "Systematic approach", title: "How to taste",
                              subtitle: "Four steps, the same every time. Tap a step to learn what to look for.")
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: isWide ? 4 : 2), spacing: 12) {
                     ForEach(Array(TastingStep.all.enumerated()), id: \.offset) { i, step in
                         Button { open = step } label: { TastingStepCard(step: step, number: i + 1) }
                             .buttonStyle(PressableStyle())

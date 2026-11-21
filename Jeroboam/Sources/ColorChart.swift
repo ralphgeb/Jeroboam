@@ -131,6 +131,7 @@ struct ColorChartScreen: View {
                 Color.clear.frame(height: 20)
             }
             .padding(.horizontal, Metrics.margin)
+            .readable(720)
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
