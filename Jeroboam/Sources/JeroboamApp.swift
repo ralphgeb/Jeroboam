@@ -26,26 +26,33 @@ struct JeroboamApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DuoPreviewHost { AdaptiveRoot { RootView() } }
-                .environment(progress)
-                .environment(journal)
-                .preferredColorScheme(progress.colorScheme)
-                // preferredColorScheme(nil) does not undo an earlier override and misses open sheets,
-                // so the choice is also set on every window.
-                .onChange(of: progress.data.appearance, initial: true) { _, v in
-                    let style: UIUserInterfaceStyle = v == 1 ? .light : (v == 2 ? .dark : .unspecified)
-                    for scene in UIApplication.shared.connectedScenes {
-                        (scene as? UIWindowScene)?.windows.forEach { $0.overrideUserInterfaceStyle = style }
-                    }
+            // the whole app sits inside the foldable-preview host, so the preview carries every setting
+            DuoPreviewHost {
+                AdaptiveRoot { RootView() }
+                    .environment(progress)
+                    .environment(journal)
+                    .preferredColorScheme(progress.colorScheme)
+                    .tint(Palette.wine)
+                    .plusSheetHost()
+            }
+            .environment(progress)
+            .environment(journal)
+            .preferredColorScheme(progress.colorScheme)
+            // preferredColorScheme(nil) does not undo an earlier override and misses open sheets,
+            // so the choice is also set on every window.
+            .onChange(of: progress.data.appearance, initial: true) { _, v in
+                let style: UIUserInterfaceStyle = v == 1 ? .light : (v == 2 ? .dark : .unspecified)
+                for scene in UIApplication.shared.connectedScenes {
+                    (scene as? UIWindowScene)?.windows.forEach { $0.overrideUserInterfaceStyle = style }
                 }
-                .tint(Palette.wine)
-                .plusSheetHost()
-                .task { await Plus.shared.refresh() }
-                .task { await Plus.shared.listen() }
-                .onAppear {
-                    QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
-                    CloudSync.shared.start(progress, journal)
-                }
+            }
+            .tint(Palette.wine)
+            .task { await Plus.shared.refresh() }
+            .task { await Plus.shared.listen() }
+            .onAppear {
+                QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
+                CloudSync.shared.start(progress, journal)
+            }
         }
     }
 }

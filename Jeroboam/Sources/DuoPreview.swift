@@ -24,8 +24,31 @@ enum DuoPreviewMode: Int, CaseIterable, Identifiable {
     }
 }
 
+/// Hosts SwiftUI in a UIKit controller that cancels the phone's own safe area (notch, home bar), so a Duo-sized screen
+/// is drawn flush to its edges, as the Duo's pages are. SwiftUI's own `ignoresSafeArea` does not reach navigation bars.
+final class NoInsetController<C: View>: UIHostingController<C> {
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        let a = additionalSafeAreaInsets, s = view.safeAreaInsets
+        let want = UIEdgeInsets(top: -(s.top - a.top), left: -(s.left - a.left), bottom: -(s.bottom - a.bottom), right: -(s.right - a.right))
+        if a != want { additionalSafeAreaInsets = want }
+    }
+}
+
+struct NoInsetHost<C: View>: UIViewControllerRepresentable {
+    let root: C
+    func makeUIViewController(context: Context) -> NoInsetController<C> {
+        let c = NoInsetController(rootView: root)
+        c.view.backgroundColor = .clear
+        return c
+    }
+    func updateUIViewController(_ c: NoInsetController<C>, context: Context) { c.rootView = root }
+}
+
 struct DuoPreviewHost<Content: View>: View {
     @AppStorage("jero.duoPreview") private var raw = 0
+    @Environment(GameProgress.self) private var progress
+    @Environment(JournalStore.self) private var journal
     @ViewBuilder let content: Content
 
     var body: some View {
@@ -34,7 +57,7 @@ struct DuoPreviewHost<Content: View>: View {
                 let s = min(geo.size.width / size.width, geo.size.height / size.height)
                 ZStack {
                     Color.black.ignoresSafeArea()
-                    content
+                    NoInsetHost(root: content.environment(progress).environment(journal))
                         .frame(width: size.width, height: size.height)
                         .ignoresSafeArea()
                         .background(Palette.paper)

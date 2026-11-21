@@ -42,7 +42,7 @@ final class DuoSnapshots: XCTestCase {
                 .environment(journal)
                 .background(Palette.paper)
                 .ignoresSafeArea()
-            let host = UIHostingController(rootView: AnyView(root))
+            let host = NoInsetController(rootView: AnyView(root))
             let window = UIWindow(frame: CGRect(origin: .zero, size: size))
             window.rootViewController = host
             window.makeKeyAndVisible()
