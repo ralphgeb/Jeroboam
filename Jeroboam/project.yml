@@ -48,6 +48,9 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
         ITSAppUsesNonExemptEncryption: false
+        CFBundleURLTypes:
+          - CFBundleURLName: com.ralphgeb.jero
+            CFBundleURLSchemes: [jero]
         NSCameraUsageDescription: Jero uses the camera to photograph wine labels for your tasting journal.
         NSPhotoLibraryAddUsageDescription: Jero can save your tasting photos.
         JeroAPIKey: $(JERO_API_KEY)

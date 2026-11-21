@@ -83,24 +83,21 @@ struct FactView: View {
     }
     var body: some View {
         let medium = family == .systemMedium
-        ZStack(alignment: .bottomTrailing) {
-            SplashMark(color: .white.opacity(0.10)).frame(width: medium ? 120 : 84, height: medium ? 120 : 84).offset(x: 16, y: 18)
-            VStack(alignment: .leading, spacing: medium ? 8 : 6) {
-                HStack(spacing: 6) {
-                    SplashMark(color: .white).frame(width: 15, height: 15)
-                    Text("DID YOU KNOW").font(.system(size: 9.5, weight: .semibold)).kerning(1.1).foregroundStyle(.white.opacity(0.75))
-                }
-                Text(fact)
-                    .font(.system(size: medium ? 17 : 13.5, weight: .semibold))
-                    .foregroundStyle(.white).lineSpacing(1.5)
-                    .minimumScaleFactor(0.7).lineLimit(medium ? 6 : 8)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        VStack(alignment: .leading, spacing: medium ? 10 : 8) {
+            HStack(spacing: 6) {
+                SplashMark(color: WPalette.wine).frame(width: 16, height: 16)
+                Text("DID YOU KNOW").font(.system(size: 9.5, weight: .semibold)).kerning(1.1).foregroundStyle(WPalette.wine)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            Text(fact)
+                .font(.system(size: medium ? 18 : 13.5, weight: .semibold))
+                .foregroundStyle(WPalette.ink).lineSpacing(1.5)
+                .minimumScaleFactor(0.7).lineLimit(medium ? 5 : 8)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        .containerBackground(for: .widget) {
-            LinearGradient(colors: [WPalette.bordeaux, WPalette.deep], startPoint: .topLeading, endPoint: .bottomTrailing)
-        }
+        .padding(16)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .containerBackground(for: .widget) { WPalette.paper }
+        .widgetURL(URL(string: "jero://learn"))
     }
 }
 
@@ -124,7 +121,7 @@ struct WineView: View {
         return w.isEmpty ? nil : w[(dayNumber(entry.date) * 7 + 3) % w.count]
     }
     private func bottle(_ id: String) -> UIImage? {
-        Bundle.main.path(forResource: id, ofType: "jpg", inDirectory: "Bottles").flatMap { UIImage(contentsOfFile: $0) }
+        Bundle.main.path(forResource: id, ofType: "png", inDirectory: "Bottles").flatMap { UIImage(contentsOfFile: $0) }
     }
     private func detail(_ w: WidgetWine) -> String {
         var parts: [String] = []
@@ -138,7 +135,7 @@ struct WineView: View {
                 let medium = family == .systemMedium
                 HStack(alignment: .center, spacing: medium ? 14 : 10) {
                     if let img = bottle(w.id) {
-                        Image(uiImage: img).resizable().scaledToFit().frame(width: medium ? 56 : 40).shadow(color: .black.opacity(0.18), radius: 4, y: 2)
+                        Image(uiImage: img).resizable().scaledToFit().frame(width: medium ? 52 : 38).shadow(color: .black.opacity(0.22), radius: 3, y: 2)
                     }
                     VStack(alignment: .leading, spacing: medium ? 5 : 4) {
                         Text("WINE TO TRY").font(.system(size: 9.5, weight: .semibold)).kerning(1.1).foregroundStyle(WPalette.wine)
@@ -153,7 +150,8 @@ struct WineView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 }
-                .padding(.vertical, medium ? 14 : 12).padding(.horizontal, medium ? 16 : 12)
+                .padding(16)
+                .widgetURL(URL(string: "jero://wine/\(w.id)"))
             } else {
                 Text("Open Jero to see a wine to try").font(.footnote).foregroundStyle(WPalette.soft)
             }

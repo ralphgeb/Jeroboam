@@ -72,25 +72,38 @@ extension EnvironmentValues {
     }
 }
 
+/// Where a cover (the full-screen map, say) is drawn on the Duo: over the whole page area, in front of the page it came
+/// from, with the tab column still in view. RootView owns one and shows whatever is set here.
+@Observable final class CoverHost {
+    var content: AnyView? = nil
+    var owner: AnyHashable? = nil
+}
+private struct CoverHostKey: EnvironmentKey { static let defaultValue: CoverHost? = nil }
+extension EnvironmentValues {
+    var coverHost: CoverHost? {
+        get { self[CoverHostKey.self] }
+        set { self[CoverHostKey.self] = newValue }
+    }
+}
+
 private struct RailCover<Item: Identifiable, Cover: View>: ViewModifier {
     @Binding var item: Item?
     let cover: (Item) -> Cover
     @Environment(\.hasRail) private var hasRail
+    @Environment(\.coverHost) private var host
+    @State private var token = UUID()
 
     func body(content: Content) -> some View {
-        if hasRail {
-            // On the Duo the cover fills this page only (the tabs stay in their column) and stays inside the preview frame.
-            content.overlay {
-                if let it = item {
-                    cover(it)
-                        .environment(\.coverClose, { withAnimation(.easeInOut(duration: 0.25)) { item = nil } })
-                        .background(Palette.paper.ignoresSafeArea())
-                        .ignoresSafeArea()
-                        .transition(.move(edge: .bottom))
-                        .zIndex(5)
+        if hasRail, let host {
+            content
+                .onChange(of: item?.id as AnyHashable?, initial: true) { _, id in
+                    if let it = item, id != nil {
+                        host.owner = token
+                        host.content = AnyView(cover(it).environment(\.coverClose, { item = nil }))
+                    } else if host.owner == AnyHashable(token) {
+                        host.content = nil; host.owner = nil
+                    }
                 }
-            }
-            .animation(.easeInOut(duration: 0.25), value: item?.id as AnyHashable?)
         } else {
             content.fullScreenCover(item: $item) { cover($0) }
         }

@@ -73,7 +73,6 @@ struct LibraryView: View {
                 }
             }
             .background(Palette.paper.ignoresSafeArea())
-            .halfPage()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
             .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }

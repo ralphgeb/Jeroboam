@@ -30,7 +30,8 @@ struct AvatarButton: View {
     @State private var showProfile = false
 
     var body: some View {
-        if hasRail && !ignoreRail { EmptyView() } else { button }
+        // on the Duo the one profile button is drawn by RootView; pages keep a gap where it sits
+        if hasRail && !ignoreRail { Color.clear.frame(width: size, height: size) } else { button }
     }
 
     private var button: some View {

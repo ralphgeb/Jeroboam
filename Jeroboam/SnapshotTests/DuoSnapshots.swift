@@ -32,12 +32,16 @@ final class DuoSnapshots: XCTestCase {
             // as on the Duo: the tabs stand up in a column on the right and the page gets the rest
             let root = AdaptiveRoot {
                 HStack(spacing: 0) {
-                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).safeAreaPadding(.top, 16).frame(maxWidth: .infinity)
+                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).safeAreaPadding(.top, 30).frame(maxWidth: .infinity)
                     Color.clear.frame(width: AdaptiveLayout.railWidth)
                 }
                 .environment(\.hasRail, true)
                 .overlay(alignment: .bottomTrailing) { DuoRail(selection: .constant(2)).frame(width: AdaptiveLayout.railWidth) }
-                .overlay(alignment: .topTrailing) { AvatarButton(size: 36, ignoreRail: true).frame(width: AdaptiveLayout.railWidth).padding(.top, 14) }
+                .overlay(alignment: .topLeading) {
+                    let page = size.width - AdaptiveLayout.railWidth
+                    AvatarButton(size: 32, ignoreRail: true).padding(.top, 32)
+                        .offset(x: (page >= AdaptiveLayout.twoPaneThreshold ? page / 2 : page) - Metrics.margin - 32)
+                }
             }
                 .environment(progress)
                 .environment(journal)

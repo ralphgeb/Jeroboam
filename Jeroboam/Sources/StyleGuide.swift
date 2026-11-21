@@ -46,8 +46,78 @@ struct StyleGuideScreen: View {
     ]
 
     @State private var open: String? = "light-red"
+    @Environment(\.windowWidth) private var width
 
     var body: some View {
+        if width >= AdaptiveLayout.twoPaneThreshold { wideBody } else { narrowBody }
+    }
+
+    /// Duo: the seven styles listed on the left, the chosen one in full on the right.
+    private var wideBody: some View {
+        let st = styles.first { $0.id == open } ?? styles[0]
+        return HStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ScreenHeader(eyebrow: "Wine, explained in pictures", title: "Style guide",
+                                 subtitle: "Seven styles from light to rich. Tap one to see how to serve it and what to eat with it.")
+                        .padding(.bottom, 6)
+                    ForEach(styles) { s in
+                        Button { withAnimation(.smooth(duration: 0.25)) { open = s.id } } label: {
+                            HStack(spacing: 14) {
+                                SilhouetteGlass(shape: shape(s), color: s.color, fill: s.fill, sparkling: s.sparkling).frame(width: 30, height: 52)
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(s.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                    Text(s.wines).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                                }
+                                Spacer(minLength: 4)
+                                Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                            }
+                            .padding(12)
+                            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(open == s.id ? Palette.wineSoft : Palette.card))
+                            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)
+                                .strokeBorder(open == s.id ? s.color.opacity(0.6) : Palette.line.opacity(0.6), lineWidth: open == s.id ? 1.2 : 0.5))
+                        }
+                        .buttonStyle(PressableStyle())
+                    }
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+            }
+            .scrollIndicators(.hidden)
+            .frame(width: width / 2)
+            Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    HStack(spacing: 18) {
+                        SilhouetteGlass(shape: shape(st), color: st.color, fill: st.fill, sparkling: st.sparkling).frame(width: 64, height: 110)
+                        VStack(alignment: .leading, spacing: 6) {
+                            Eyebrow("Style")
+                            Text(st.name).font(.system(size: 28, weight: .bold)).foregroundStyle(Palette.ink)
+                            Text(st.wines).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft)
+                        }
+                    }
+                    meter("Serve at", st.temp, st.tempLevel, icon: "thermometer.medium", from: Color(hex: "#5BA4D9"), to: Color(hex: "#E5484D"))
+                    meter("Keeps once open", st.keeps, st.keepsLevel, icon: "clock", from: Palette.wineSoft, to: Palette.wine)
+                    HStack(spacing: 12) {
+                        stat("Alcohol", st.abv, "drop")
+                        stat("Calories", st.calories + " / glass", "flame")
+                    }
+                    VStack(alignment: .leading, spacing: 6) {
+                        Label("Great with " + st.food.lowercased(), systemImage: "fork.knife").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(st.foods).font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                    }
+                    .cardStyle(padding: 14)
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+                .id(st.id)
+            }
+            .scrollIndicators(.hidden)
+            .frame(width: width / 2 - 0.5)
+        }
+        .background(Palette.paper.ignoresSafeArea())
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var narrowBody: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 ScreenHeader(eyebrow: "Wine, explained in pictures", title: "Style guide",
@@ -60,7 +130,6 @@ struct StyleGuideScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 

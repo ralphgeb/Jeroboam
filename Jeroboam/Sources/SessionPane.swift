@@ -3,13 +3,25 @@ import SwiftUI
 extension View {
     /// Lessons and quizzes: a full-screen cover on a phone, but the right-hand pane on the Duo opened sideways, so the
     /// list stays on the left while the questions move on the right. `idle` fills the pane between lessons.
-    func sessionPane(_ session: Binding<Session?>, idle: @escaping () -> AnyView) -> some View {
-        modifier(SessionPaneModifier(session: session, idle: idle))
+    func sessionPane(_ session: Binding<Session?>, guide: Binding<Unit?> = .constant(nil), idle: @escaping () -> AnyView) -> some View {
+        modifier(SessionPaneModifier(session: session, guide: guide, idle: idle))
+    }
+
+    /// A guidebook opens as a sheet on a phone; on the Duo it opens in the right-hand pane instead (see `sessionPane`).
+    func guidebookSheet(_ guide: Binding<Unit?>) -> some View { modifier(GuidebookSheet(guide: guide)) }
+}
+
+private struct GuidebookSheet: ViewModifier {
+    @Binding var guide: Unit?
+    @Environment(\.windowWidth) private var width
+    func body(content: Content) -> some View {
+        if width >= AdaptiveLayout.twoPaneThreshold { content } else { content.sheet(item: $guide) { GuidebookView(unit: $0) } }
     }
 }
 
 private struct SessionPaneModifier: ViewModifier {
     @Binding var session: Session?
+    @Binding var guide: Unit?
     let idle: () -> AnyView
     @Environment(\.windowWidth) private var width
 
@@ -21,6 +33,9 @@ private struct SessionPaneModifier: ViewModifier {
                 Group {
                     if let s = session {
                         LessonPlayer(session: s, onClose: { session = nil }).id(s.id)
+                    } else if let u = guide {
+                        GuidebookView(unit: u).id(u.id)
+                            .environment(\.coverClose, { guide = nil })
                     } else {
                         idle()
                     }
@@ -95,7 +110,7 @@ struct LessonPreviewPane: View {
                     }
                 }
             }
-            .padding(.horizontal, Metrics.margin).padding(.top, 12).padding(.bottom, 24)
+            .padding(.horizontal, Metrics.margin).padding(.top, 74).padding(.bottom, 24)
         }
     }
 }

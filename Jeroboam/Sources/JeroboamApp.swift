@@ -13,6 +13,12 @@ struct JeroboamApp: App {
         DebugScreens.prepare(p)
         #endif
         _progress = State(initialValue: p)
+        // no white bar behind the page's own header (it showed as a white strip on the Duo)
+        let bar = UINavigationBarAppearance()
+        bar.configureWithTransparentBackground()
+        UINavigationBar.appearance().standardAppearance = bar
+        UINavigationBar.appearance().scrollEdgeAppearance = bar
+        UINavigationBar.appearance().compactAppearance = bar
         // Stylish navigation bar titles in the serif face.
         let serif = UIFont.systemFont(ofSize: 17, weight: .semibold).fontDescriptor.withDesign(.serif)
         if let serif {
@@ -89,6 +95,8 @@ struct RootView: View {
     /// Rail layout: one page at a time (no system tab bar, which would draw a second set of tabs); pages that were
     /// opened stay alive underneath so they keep their place.
     @State private var visited: Set<Int> = [0]
+    @State private var covers = CoverHost()
+    @State private var deepWine: GreatWine? = nil
     private var railPages: some View {
         ZStack {
             ForEach(0..<4, id: \.self) { i in
@@ -109,7 +117,7 @@ struct RootView: View {
             }
         }
         .onChange(of: tab, initial: true) { _, t in visited.insert(t) }
-        .safeAreaPadding(.top, 16)
+        .safeAreaPadding(.top, 30)
     }
 
     var body: some View {
@@ -123,17 +131,30 @@ struct RootView: View {
                             railPages
                                 .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
                                 .frame(maxWidth: .infinity)
+                                // covers (the full map) fill the page area in front of the page, the tab column stays
+                                .overlay {
+                                    if let c = covers.content {
+                                        c.background(Palette.paper.ignoresSafeArea()).ignoresSafeArea()
+                                            .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
+                                            .transition(.move(edge: .bottom))
+                                    }
+                                }
+                                .animation(.easeInOut(duration: 0.25), value: covers.content == nil)
                             Color.clear.frame(width: AdaptiveLayout.railWidth)
                         }
                         .environment(\.hasRail, true)
+                        .environment(\.coverHost, covers)
                         .overlay(alignment: .bottomTrailing) {
                             DuoRail(selection: tabBinding).frame(width: AdaptiveLayout.railWidth)
                         }
-                        // one profile button, always in the same place: the top of the tab column
-                        .overlay(alignment: .topTrailing) {
-                            AvatarButton(size: 36, ignoreRail: true)
-                                .frame(width: AdaptiveLayout.railWidth)
-                                .padding(.top, 14)
+                        // one profile button, always in the same place: the top right of the left half (the Duo's camera and
+                        // battery sit in the right-hand strip, so it stays out of there)
+                        .overlay(alignment: .topLeading) {
+                            let page = g.size.width - AdaptiveLayout.railWidth
+                            let edge = page >= AdaptiveLayout.twoPaneThreshold ? page / 2 : page
+                            AvatarButton(size: 32, ignoreRail: true)
+                                .padding(.top, 32)
+                                .offset(x: edge - Metrics.margin - 32)
                         }
                         .background(Palette.paper.ignoresSafeArea())
                     } else {
@@ -147,6 +168,23 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.4), value: progress.data.onboarded)
+        // widget taps: the fun fact opens Learn, a wine opens its page
+        .onOpenURL { url in
+            guard url.scheme == "jero" else { return }
+            if url.host == "wine", let id = url.pathComponents.dropFirst().first,
+               let w = ContentStore.shared.library.great?.first(where: { $0.id == id }) {
+                tab = 2
+                GreatWinePlaylist.wines = [w]
+                deepWine = w
+            } else {
+                tab = 0
+            }
+        }
+        .sheet(item: $deepWine) { w in
+            NavigationStack { GreatWinePager(wine: w) }
+                .environment(progress)
+                .plusSheetHost()
+        }
         .onChange(of: phase) { _, p in
             if p == .active { progress.refreshStreakState(); progress.scheduleReminder() }
             if p == .background || p == .inactive { CloudSync.shared.pushAll() }

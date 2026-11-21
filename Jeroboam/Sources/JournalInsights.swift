@@ -102,34 +102,67 @@ struct JournalInsights: View {
         .sorted { $0.bottles > $1.bottles }
     }
 
+    // world coordinates: the world map is a plain lat/lon grid, 13.71 map units per degree, 0° east at x 2331 and 44.84° north at y 372
+    private static func mapPoint(lat: Double, lon: Double) -> CGPoint { CGPoint(x: 2331 + 13.71 * lon, y: 372 - 13.74 * (lat - 44.84)) }
+
+    private static let places: [String: (Double, Double)] = [
+        "pauillac": (45.20, -0.75), "margaux": (45.04, -0.67), "saint estephe": (45.26, -0.77), "saint julien": (45.15, -0.74), "medoc": (45.3, -0.9),
+        "haut medoc": (45.2, -0.8), "bordeaux": (44.84, -0.58), "saint emilion": (44.89, -0.15), "pomerol": (44.93, -0.2), "sauternes": (44.54, -0.35),
+        "graves": (44.6, -0.45), "pessac leognan": (44.75, -0.65), "burgundy": (47.0, 4.8), "chablis": (47.8, 3.8), "cote d or": (47.1, 4.9),
+        "champagne": (49.05, 4.0), "sancerre": (47.33, 2.84), "loire": (47.4, 0.7), "chinon": (47.16, 0.24), "vouvray": (47.41, 0.8), "alsace": (48.2, 7.3),
+        "chateauneuf du pape": (44.06, 4.83), "rhone": (45.0, 4.8), "hermitage": (45.07, 4.84), "cote rotie": (45.48, 4.78), "beaujolais": (46.1, 4.6),
+        "provence": (43.5, 6.0), "languedoc": (43.5, 3.0), "jura": (46.8, 5.7),
+        "barolo": (44.61, 7.94), "barbaresco": (44.73, 8.08), "piedmont": (44.7, 8.0), "chianti": (43.5, 11.3), "chianti classico": (43.45, 11.3),
+        "montalcino": (43.06, 11.49), "tuscany": (43.4, 11.2), "bolgheri": (43.23, 10.6), "veneto": (45.5, 11.5), "sicily": (37.6, 14.0), "etna": (37.75, 15.0),
+        "rioja": (42.4, -2.5), "ribera del duero": (41.65, -3.7), "priorat": (41.2, 0.8), "rias baixas": (42.4, -8.7), "penedes": (41.4, 1.7), "jerez": (36.7, -6.1),
+        "douro": (41.15, -7.8), "vinho verde": (41.6, -8.4), "alentejo": (38.5, -7.9), "dao": (40.5, -7.9),
+        "mosel": (49.95, 7.0), "rheingau": (50.0, 8.0), "pfalz": (49.3, 8.1), "rheinhessen": (49.8, 8.2), "wachau": (48.37, 15.4), "tokaj": (48.1, 21.4),
+        "santorini": (36.4, 25.4), "napa valley": (38.5, -122.3), "napa": (38.5, -122.3), "sonoma": (38.5, -122.9), "willamette": (45.2, -123.1),
+        "willamette valley": (45.2, -123.1), "walla walla": (46.1, -118.3), "paso robles": (35.6, -120.7),
+        "mendoza": (-33.0, -68.8), "uco valley": (-33.6, -69.2), "maipo": (-33.7, -70.7), "colchagua": (-34.6, -71.2), "casablanca": (-33.3, -71.4),
+        "barossa": (-34.55, 138.95), "barossa valley": (-34.55, 138.95), "mclaren vale": (-35.2, 138.55), "coonawarra": (-37.3, 140.8), "margaret river": (-33.95, 115.05),
+        "hunter valley": (-32.8, 151.3), "yarra valley": (-37.7, 145.5), "marlborough": (-41.5, 173.9), "central otago": (-45.0, 169.2), "hawkes bay": (-39.6, 176.8),
+        "stellenbosch": (-33.9, 18.85), "swartland": (-33.3, 18.7), "constantia": (-34.03, 18.42), "bekaa valley": (33.8, 35.9), "bekaa": (33.8, 35.9), "batroun": (34.25, 35.65),
+    ]
+    private static let countryCentre: [String: (Double, Double)] = [
+        "france": (46.6, 2.3), "italy": (42.8, 12.5), "spain": (40.2, -3.7), "portugal": (39.7, -8.0), "germany": (50.5, 9.0), "austria": (47.6, 14.5),
+        "hungary": (47.1, 19.5), "greece": (38.6, 22.5), "united states": (38.0, -120.5), "usa": (38.0, -120.5), "chile": (-34.5, -71.0),
+        "argentina": (-33.5, -68.8), "australia": (-33.5, 140.0), "new zealand": (-41.5, 173.0), "south africa": (-33.6, 19.0), "lebanon": (33.9, 35.8),
+    ]
+
+    private struct Dot: Identifiable {
+        let id: String
+        let point: CGPoint
+        let name: String
+        let count: Int
+        let map: String
+        let highlight: Set<String>
+    }
+
+    private var dots: [Dot] {
+        var by: [String: (WineKey, Int)] = [:]
+        for w in wines {
+            let key = norm(w.region).isEmpty ? norm(w.country) : norm(w.region)
+            by[key, default: (WineKey(country: w.country, region: w.region), 0)].1 += 1
+        }
+        return by.compactMap { key, v in
+            let loc = Self.places[key] ?? Self.countryCentre[norm(v.0.country)]
+            guard let (lat, lon) = loc, let map = Self.mapOf[norm(v.0.country)] else { return nil }
+            let name = v.0.region.isEmpty ? v.0.country : v.0.region
+            return Dot(id: key, point: Self.mapPoint(lat: lat, lon: lon), name: name, count: v.1, map: map, highlight: tried(in: map, regions: [v.0.region]))
+        }
+        .sorted { $0.name < $1.name }
+    }
+    private struct WineKey { let country: String; let region: String }
+
     private var mapCards: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            let list = mapCountries
-            Text("\(list.count) \(list.count == 1 ? "country" : "countries") · \(list.reduce(0) { $0 + $1.hl.count }) places tried")
+        let list = dots
+        return VStack(alignment: .leading, spacing: 10) {
+            let countries = Set(wines.map { norm($0.country) }).count
+            Text("\(countries) \(countries == 1 ? "country" : "countries") · \(list.count) \(list.count == 1 ? "place" : "places") tried. Pinch to zoom, tap a place to open it.")
                 .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(list, id: \.country) { c in
-                        Button { explore = MapRef(id: c.map, hl: c.hl) } label: {
-                            ZStack(alignment: .bottomLeading) {
-                                WineMapView(mapID: c.map, highlight: c.hl, showLabels: false, showCities: false, fill: true, solo: true)
-                                    .frame(width: 250, height: 190).allowsHitTesting(false)
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(c.country).font(.system(size: 15, weight: .bold)).foregroundStyle(Palette.ink)
-                                    Text("\(c.bottles) \(c.bottles == 1 ? "wine" : "wines") · \(c.hl.count) \(c.hl.count == 1 ? "place" : "places")")
-                                        .font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
-                                }
-                                .padding(.horizontal, 12).padding(.vertical, 9)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .padding(10)
-                            }
-                            .background(Palette.card)
-                            .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
-                            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
-                        }
-                        .buttonStyle(PressableStyle())
-                    }
-                }
+            WorldTriedMap(dots: list.map { ($0.id, $0.point, $0.name, $0.count) }) { id in
+                if let d = list.first(where: { $0.id == id }) { explore = MapRef(id: d.map, hl: d.highlight) }
             }
         }
     }
@@ -141,7 +174,6 @@ struct JournalInsights: View {
             stylesCard
             bodyCard
             grapesCard
-            ratingsCard
             priceCard
         }
     }
@@ -221,20 +253,6 @@ struct JournalInsights: View {
         }
     }
 
-    private var ratingsCard: some View {
-        let pts = wines.compactMap { w in w.rating.map { (w.date, $0) } }.sorted { $0.0 < $1.0 }
-        let avg = pts.isEmpty ? 0 : pts.map(\.1).reduce(0, +) / pts.count
-        return card("Scores over time", pts.isEmpty ? "Taste a wine to start the line" : "Average \(avg) out of 100") {
-            Chart(pts, id: \.0) { d, r in
-                LineMark(x: .value("Date", d), y: .value("Score", r)).foregroundStyle(Palette.wine).interpolationMethod(.catmullRom)
-                AreaMark(x: .value("Date", d), y: .value("Score", r)).foregroundStyle(Palette.wine.opacity(0.12)).interpolationMethod(.catmullRom)
-                PointMark(x: .value("Date", d), y: .value("Score", r)).foregroundStyle(Palette.wine).symbolSize(26)
-            }
-            .chartYScale(domain: 70...100)
-            .frame(height: 130)
-        }
-    }
-
     private var priceCard: some View {
         let ps = wines.compactMap(\.price)
         let tiers: [(String, Int)] = [("Under $20", ps.filter { $0 < 20 }.count), ("$20–50", ps.filter { $0 >= 20 && $0 < 50 }.count),
@@ -279,4 +297,67 @@ struct JournalInsights: View {
             w("South Africa", "Stellenbosch", "red", ["Pinotage"], 20, 4, 86, 144),
         ]
     }()
+}
+
+
+/// The whole world in blue water and pale land, with a dot for every place you have tasted. Pinch to zoom in, drag to move,
+/// double-tap to reset, tap a dot to open that country's map.
+struct WorldTriedMap: View {
+    let dots: [(id: String, point: CGPoint, name: String, count: Int)]
+    let onOpen: (String) -> Void
+    @State private var zoom: CGFloat = 1
+    @State private var lastZoom: CGFloat = 1
+    @State private var pan: CGSize = .zero
+    @State private var lastPan: CGSize = .zero
+    private let g = MapGeometry.get("world")
+
+    var body: some View {
+        GeometryReader { geo in
+            let size = geo.size
+            let mw = CGFloat(g?.map.w ?? 4800), mh = CGFloat(g?.map.h ?? 1755)
+            // start on the wine belt: Americas to Australasia, a little north to south of the vineyards
+            let base = size.width / (mw * 0.78)
+            let s = base * zoom
+            let origin = CGPoint(x: -mw * 0.095 * base * zoom + pan.width, y: -mh * 0.12 * base * zoom + pan.height)
+            Canvas { ctx, sz in
+                ctx.fill(Path(CGRect(origin: .zero, size: sz)), with: .color(Palette.sea))
+                if let g {
+                    var layer = ctx
+                    layer.translateBy(x: origin.x, y: origin.y)
+                    layer.scaleBy(x: s, y: s)
+                    layer.fill(g.landMask, with: .color(Palette.focusLand))
+                    layer.stroke(g.landMask, with: .color(Palette.border), lineWidth: 0.8 / s)
+                }
+                for d in dots {
+                    let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
+                    let r: CGFloat = 5 + min(5, CGFloat(d.count))
+                    let halo = Path(ellipseIn: CGRect(x: p.x - r - 4, y: p.y - r - 4, width: 2 * (r + 4), height: 2 * (r + 4)))
+                    ctx.fill(halo, with: .color(Palette.bordeaux.opacity(0.22)))
+                    let dot = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
+                    ctx.fill(dot, with: .color(Palette.bordeaux))
+                    ctx.stroke(dot, with: .color(.white), lineWidth: 1.4)
+                    if zoom >= 2.2 {
+                        var t = ctx
+                        t.addFilter(.shadow(color: .white.opacity(0.95), radius: 2))
+                        t.draw(Text(d.name).font(.system(size: 11, weight: .semibold)).foregroundColor(Palette.ink), at: CGPoint(x: p.x, y: p.y + r + 9), anchor: .center)
+                    }
+                }
+            }
+            .contentShape(Rectangle())
+            .gesture(
+                SpatialTapGesture().onEnded { v in
+                    let hit = dots.min { hypot(origin.x + $0.point.x * s - v.location.x, origin.y + $0.point.y * s - v.location.y)
+                                         < hypot(origin.x + $1.point.x * s - v.location.x, origin.y + $1.point.y * s - v.location.y) }
+                    if let h = hit, hypot(origin.x + h.point.x * s - v.location.x, origin.y + h.point.y * s - v.location.y) < 26 { onOpen(h.id) }
+                }
+            )
+            .gesture(DragGesture(minimumDistance: 6).onChanged { pan = CGSize(width: lastPan.width + $0.translation.width, height: lastPan.height + $0.translation.height) }
+                .onEnded { _ in lastPan = pan })
+            .simultaneousGesture(MagnifyGesture().onChanged { zoom = min(10, max(1, lastZoom * $0.magnification)) }.onEnded { _ in lastZoom = zoom })
+            .onTapGesture(count: 2) { withAnimation(.easeOut(duration: 0.25)) { zoom = 1; lastZoom = 1; pan = .zero; lastPan = .zero } }
+        }
+        .frame(height: 220)
+        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+    }
 }

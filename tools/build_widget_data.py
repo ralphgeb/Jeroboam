@@ -2,7 +2,9 @@
 """Builds the home-screen widgets' data: fun facts and 100 wines to try (with small bottle pictures), straight from the app's
 library, so the widget extension needs no shared storage. Run after content changes: python3 tools/build_widget_data.py"""
 import json, os
-from PIL import Image
+import numpy as np
+from PIL import Image, ImageFilter
+from scipy import ndimage
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP = os.path.join(ROOT, "Jeroboam")
 lib = json.load(open(os.path.join(APP, "Resources/Content/library.json")))
@@ -19,7 +21,16 @@ for g in top:
     src = Image.open(os.path.join(APP, "Resources/Photos", g["bottle"] + ".jpg")).convert("RGB")
     h = 420
     im = src.resize((round(src.width * h / src.height), h), Image.LANCZOS)
-    im.save(os.path.join(BOT, g["id"] + ".jpg"), quality=72, optimize=True)
+    # cut the bottle out of its white studio background: light pixels connected to the picture's edge become transparent
+    a = np.asarray(im).astype(np.int16)
+    light = (a.min(axis=2) >= 232) | ((a.max(axis=2) - a.min(axis=2) <= 10) & (a.min(axis=2) >= 214))
+    lab, n = ndimage.label(light)
+    edge = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    bg = np.isin(lab, list(edge))
+    bg = ndimage.binary_opening(bg, iterations=1) | bg & ~ndimage.binary_dilation(~bg, iterations=2)
+    alpha = Image.fromarray(((~bg) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.9))
+    out = im.convert("RGBA"); out.putalpha(alpha)
+    out.save(os.path.join(BOT, g["id"] + ".png"), optimize=True)
     why = g.get("why") or g.get("what") or ""
     wines.append({"id": g["id"], "name": g["name"], "zone": g.get("zone") or g.get("area") or "", "color": g.get("color", "red"),
                   "price": g.get("avgPrice"), "score": g.get("criticScore"), "why": why})

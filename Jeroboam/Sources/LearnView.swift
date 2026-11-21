@@ -75,13 +75,13 @@ struct LearnView: View {
                 }
             }
         }
-        .sessionPane($session, idle: {
+        .sessionPane($session, guide: $guidebook, idle: {
             let next = currentLevel.flatMap { l in progress.isLevelUnlocked(l.number) ? progress.currentLesson(in: l) : nil }
             if let n = next { return AnyView(LessonPreviewPane(lesson: n, level: levelNumber) { start(n) }) }
             return AnyView(PaneIdle(eyebrow: "Level \(levelNumber)", title: "Pick a lesson",
                                     text: "Choose a lesson on the left and it opens here."))
         })
-        .sheet(item: $guidebook) { u in GuidebookView(unit: u) }
+        .guidebookSheet($guidebook)
         #if DEBUG
         .onAppear {
             // snapshot tests: open the first lesson (skipping some cards) as if it had been tapped
@@ -165,23 +165,26 @@ struct LearnView: View {
     }
 
     private var levelTabs: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 26) {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
                 ForEach(content.course.levels) { l in
                     Button {
                         withAnimation(.easeInOut(duration: 0.25)) { levelNumber = l.number }
                     } label: {
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack(spacing: 6) {
-                                Text("Level \(l.number)").font(.system(size: 15, weight: .semibold))
-                                if !progress.isLevelUnlocked(l.number) {
-                                    Image(systemName: "lock.fill").font(.system(size: 10))
+                        VStack(spacing: 8) {
+                            VStack(spacing: 2) {
+                                Text("Level").font(.system(size: 10.5, weight: .medium))
+                                HStack(spacing: 3) {
+                                    Text("\(l.number)").font(.system(size: 17, weight: .semibold))
+                                    if plusLocked(l.number) {
+                                        Image(systemName: "lock.fill").font(.system(size: 9))
+                                    }
                                 }
                             }
                             .foregroundStyle(levelNumber == l.number ? Palette.ink : Palette.inkFaint)
                             Rectangle().fill(levelNumber == l.number ? Palette.level(l.number) : Color.clear).frame(height: 2)
                         }
-                        .fixedSize()
+                        .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.plain)
                 }
@@ -262,9 +265,6 @@ struct TopStatusBar: View {
             HStack(spacing: 14) {
                 FlameBadge(count: progress.data.streak, active: progress.activeToday)
                 XPBadge(xp: progress.data.xp)
-                GoalRing(progress: Double(progress.todayXP) / Double(max(1, progress.data.dailyGoal)), lineWidth: 2.5)
-                    .frame(width: 20, height: 20)
-                    .accessibilityLabel("Daily goal \(progress.todayXP) of \(progress.data.dailyGoal) XP")
             }
             .padding(.horizontal, 12).padding(.vertical, 7)
             .background(Capsule().fill(Palette.card))
@@ -415,7 +415,9 @@ struct GuidebookView: View {
         }
         return index + 1
     }
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismissEnv
+    @Environment(\.coverClose) private var coverClose
+    private func dismiss() { if let c = coverClose { c() } else { dismissEnv() } }
     var body: some View {
         NavigationStack {
             ScrollView {

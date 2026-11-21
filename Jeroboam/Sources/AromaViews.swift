@@ -84,10 +84,12 @@ struct AromaWheel: View {
                     if !compact { Text("Aromas").font(.serif(13)).foregroundStyle(Palette.ink) }
                 }
                 .position(c)
+                .allowsHitTesting(false)
             }
             .contentShape(Rectangle())
-            .onTapGesture { pt in
+            .gesture(SpatialTapGesture().onEnded { value in
                 guard !compact else { return }
+                let pt = value.location
                 let dx = pt.x - c.x, dy = pt.y - c.y
                 let d = hypot(dx, dy)
                 guard d > s * 0.29, d < s * 0.5 else { selected = nil; return }
@@ -98,7 +100,7 @@ struct AromaWheel: View {
                     Haptics.tap()
                     withAnimation(.easeInOut(duration: 0.2)) { selected = cats[idx].1.id }
                 }
-            }
+            })
         }
         .aspectRatio(1, contentMode: .fit)
         .accessibilityLabel("Aroma wheel")

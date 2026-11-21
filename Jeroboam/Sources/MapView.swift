@@ -897,13 +897,9 @@ struct MapExplorer: View {
             }
         }
         .animation(.easeInOut(duration: 0.25), value: selected)
-        .sheet(item: $openRegion) { r in
-            NavigationStack {
-                RegionDetailView(region: r)
-                    .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
-                    .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
-            }
-            .plusSheetHost()
+        // a phone shows the guide as a sheet; the Duo shows it in the right-hand column (see sidebar)
+        .sheet(item: Binding(get: { isWide ? nil : openRegion }, set: { openRegion = $0 })) { r in
+            regionGuide(r).plusSheetHost()
         }
         .plusSheetHost()
         .onAppear {
@@ -913,8 +909,32 @@ struct MapExplorer: View {
         }
     }
 
+    private func regionGuide(_ r: Region) -> some View {
+        NavigationStack {
+            RegionDetailView(region: r)
+                .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
+                .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
+        }
+    }
+
     /// Wide windows: a column on the right with what the place is, the selected area, and the list.
     @ViewBuilder private func sidebar(_ g: MapGeometry) -> some View {
+        if let r = openRegion {
+            ZStack(alignment: .topLeading) {
+                regionGuide(r).id(r.id).padding(.top, 40)
+                Button { openRegion = nil } label: {
+                    Label("Map", systemImage: "chevron.left").font(.system(size: 14, weight: .semibold))
+                        .padding(.horizontal, 12).padding(.vertical, 7).background(Capsule().fill(Palette.card))
+                        .overlay(Capsule().strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+                }
+                .foregroundStyle(Palette.wine).padding(.leading, 14).padding(.top, 6)
+            }
+        } else {
+            sidebarList(g)
+        }
+    }
+
+    @ViewBuilder private func sidebarList(_ g: MapGeometry) -> some View {
         let region = ContentStore.shared.library.regions.first { $0.map == mapID && ($0.id == highlight.first || $0.id == focus) }
             ?? ContentStore.shared.library.regions.first { $0.map == mapID && $0.kind != "country" }
             ?? ContentStore.shared.library.regions.first { $0.map == mapID }
