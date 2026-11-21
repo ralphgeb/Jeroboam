@@ -75,8 +75,14 @@ extension EnvironmentValues {
 /// Where a cover (the full-screen map, say) is drawn on the Duo: over the whole page area, in front of the page it came
 /// from, with the tab column still in view. RootView owns one and shows whatever is set here.
 @Observable final class CoverHost {
+    static let shared = CoverHost()
     var content: AnyView? = nil
     var owner: AnyHashable? = nil
+    /// The Jero Plus panel, shown on the right half in the two-pane layout.
+    var paywall: AnyView? = nil
+    /// Set by RootView: true while the Duo layout (tabs in a column) is on, and how wide the page area is.
+    var railActive = false
+    var pageWidth: CGFloat = 0
 }
 private struct CoverHostKey: EnvironmentKey { static let defaultValue: CoverHost? = nil }
 extension EnvironmentValues {

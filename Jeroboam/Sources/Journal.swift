@@ -999,9 +999,15 @@ struct TastingFlow: View {
                 ForEach(colors) { c in
                     Button { entry.colorID = c.id; Haptics.tap() } label: {
                         VStack(spacing: 5) {
+                            let on = entry.colorID == c.id
                             Rectangle().fill(Color(hex: c.hex)).aspectRatio(1, contentMode: .fit)
-                                .overlay(Rectangle().strokeBorder(entry.colorID == c.id ? Palette.ink : .clear, lineWidth: 2.5))
-                            Text(c.name).font(.system(size: 10.5, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(2)
+                                .overlay(Rectangle().strokeBorder(on ? Palette.wine : Palette.ink.opacity(0.08), lineWidth: on ? 4 : 0.5))
+                                .overlay(alignment: .topTrailing) {
+                                    if on { Image(systemName: "checkmark.circle.fill").font(.system(size: 20)).foregroundStyle(.white, Palette.wine).padding(4) }
+                                }
+                                .scaleEffect(on ? 1.04 : 1)
+                                .shadow(color: on ? Palette.wine.opacity(0.35) : .clear, radius: 6, y: 2)
+                            Text(c.name).font(.system(size: 10.5, weight: on ? .bold : .medium)).foregroundStyle(on ? Palette.wine : Palette.ink).lineLimit(2)
                                 .multilineTextAlignment(.center)
                         }
                     }
@@ -1072,9 +1078,16 @@ struct TastingFlow: View {
                             }
                             .padding(10)
                             .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .fill(picked > 0 ? Color(hex: cat.color).opacity(0.14) : Palette.card))
+                                .fill(picked > 0 ? Color(hex: cat.color).opacity(0.30) : Palette.card))
                             .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .strokeBorder(open ? Color(hex: cat.color) : .clear, lineWidth: 1.5))
+                                .strokeBorder(open ? Palette.wine : (picked > 0 ? Color(hex: cat.color).mix(with: .black, 0.15) : Palette.line.opacity(0.7)),
+                                              lineWidth: open || picked > 0 ? 2.2 : 0.7))
+                            .overlay(alignment: .topTrailing) {
+                                if picked > 0 {
+                                    Text("\(picked)").font(.system(size: 11, weight: .bold)).foregroundStyle(.white)
+                                        .frame(width: 20, height: 20).background(Circle().fill(Palette.wine)).offset(x: 6, y: -6)
+                                }
+                            }
                         }
                         .buttonStyle(.plain)
                     }
@@ -1111,12 +1124,15 @@ struct TastingFlow: View {
             Haptics.tap()
         } label: {
             HStack(spacing: 5) {
+                if on { Image(systemName: "checkmark").font(.system(size: 10, weight: .bold)) }
                 FlavorIcon(aroma: a, size: 16, color: on ? Palette.onWine : nil)
-                Text(a).font(.system(size: 13.5, weight: .medium))
+                Text(a).font(.system(size: 13.5, weight: on ? .semibold : .medium))
             }
             .foregroundStyle(on ? Palette.onWine : Palette.ink)
             .padding(.horizontal, 11).padding(.vertical, 7)
             .background(Capsule().fill(on ? Palette.wine : (highlighted ? Palette.wineSoft : Palette.card)))
+            .overlay(Capsule().strokeBorder(on ? Palette.wine : Palette.line.opacity(0.8), lineWidth: on ? 0 : 0.7))
+            .shadow(color: on ? Palette.wine.opacity(0.3) : .clear, radius: 4, y: 2)
         }
         .buttonStyle(.plain)
     }

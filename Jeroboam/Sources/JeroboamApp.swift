@@ -95,7 +95,7 @@ struct RootView: View {
     /// Rail layout: one page at a time (no system tab bar, which would draw a second set of tabs); pages that were
     /// opened stay alive underneath so they keep their place.
     @State private var visited: Set<Int> = [0]
-    @State private var covers = CoverHost()
+    @State private var covers = CoverHost.shared
     @State private var deepWine: GreatWine? = nil
     private var railPages: some View {
         ZStack {
@@ -141,6 +141,10 @@ struct RootView: View {
                                     }
                                 }
                                 .animation(.easeInOut(duration: 0.25), value: covers.content == nil)
+                                .overlay { if let pw = covers.paywall { pw.environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth).transition(.opacity) } }
+                                .onAppear { covers.railActive = true; covers.pageWidth = g.size.width - AdaptiveLayout.railWidth }
+                                .onDisappear { covers.railActive = false }
+                                .onChange(of: g.size.width) { _, w in covers.pageWidth = w - AdaptiveLayout.railWidth }
                             Color.clear.frame(width: AdaptiveLayout.railWidth)
                         }
                         .environment(\.hasRail, true)
@@ -151,11 +155,13 @@ struct RootView: View {
                         // one profile button, always in the same place: the top right of the left half (the Duo's camera and
                         // battery sit in the right-hand strip, so it stays out of there)
                         .overlay(alignment: .topLeading) {
+                            if covers.content == nil {
                             let page = g.size.width - AdaptiveLayout.railWidth
                             let edge = page >= AdaptiveLayout.twoPaneThreshold ? page / 2 : page
                             AvatarButton(size: 32, ignoreRail: true)
                                 .padding(.top, 32)
                                 .offset(x: edge - Metrics.margin - 32)
+                            }
                         }
                         .background(Palette.paper.ignoresSafeArea())
                     } else {

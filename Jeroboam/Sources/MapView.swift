@@ -715,6 +715,8 @@ struct ZoomableWineMap: View {
     var focus: String? = nil
     var forcedLevel: Int? = nil
     var regionsOnly = false
+    /// Two-pane layout: the list sits beside the map, so only the title card above it needs room.
+    var wide = false
     var zoomCommand: Int = 0
     var onViewport: ((CGRect) -> Void)? = nil
     @Binding var selected: String?
@@ -829,7 +831,7 @@ struct ZoomableWineMap: View {
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // leave room for the header and the bottom card
         // the visible band sits between the header and the list card, with room to spare around the region
-        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.04, top: 175, bottom: 250, allowContain: false)
+        let (z, o) = g.fitLayout(size: size, target: target, padding: 0.04, top: wide ? 130 : 175, bottom: wide ? 30 : 250, allowContain: false)
         absZoom = z; baseZoom = z; lodBase = base
         zoom = z / max(0.01, base)
         offset = clamp(o, size: size, g: g)
@@ -863,7 +865,7 @@ struct ZoomableWineMap: View {
             return min(0, max(view - content, v))
         }
         return CGSize(width: axis(o.width, view: size.width, content: c.width, lo: 0, hi: 0),
-                      height: axis(o.height, view: size.height, content: c.height, lo: 130, hi: 270))
+                      height: axis(o.height, view: size.height, content: c.height, lo: wide ? 80 : 130, hi: wide ? 10 : 270))
     }
 }
 
@@ -1014,7 +1016,7 @@ struct MapExplorer: View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
-                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0,
+                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
                             zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .ignoresSafeArea()

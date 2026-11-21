@@ -429,7 +429,7 @@ struct GreatWinesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "great") } }
+        .toolbar { QuotaToolbar(section: "great") }
         .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
         .onSubmit(of: .search) { runSearch() }
         .onChange(of: query) { _, v in if v.isEmpty { applied = "" } }

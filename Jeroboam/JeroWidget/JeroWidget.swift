@@ -46,11 +46,22 @@ extension UIColor {
         self.init(red: CGFloat((v >> 16) & 255) / 255, green: CGFloat((v >> 8) & 255) / 255, blue: CGFloat(v & 255) / 255, alpha: 1)
     }
 }
+/// The look chosen in the app's settings (shared through the app group): 0 automatic, 1 white, 2 dark.
+enum WTheme {
+    static var current: Int { UserDefaults(suiteName: "group.com.ralphgeb.jero")?.integer(forKey: "jero.widgetTheme") ?? 0 }
+    static func pick(_ light: String, _ dark: String) -> Color {
+        switch current {
+        case 1: return Color(UIColor(hex: light))
+        case 2: return Color(UIColor(hex: dark))
+        default: return Color.dyn(light, dark)
+        }
+    }
+}
 enum WPalette {
-    static let paper = Color.dyn("#F5F4F2", "#1A0910")
-    static let ink = Color.dyn("#1B0D12", "#F0D9C4")
-    static let soft = Color.dyn("#6B5C61", "#B8A394")
-    static let wine = Color.dyn("#8B1538", "#F0D9C4")
+    static var paper: Color { WTheme.pick("#F5F4F2", "#1A0910") }
+    static var ink: Color { WTheme.pick("#1B0D12", "#F0D9C4") }
+    static var soft: Color { WTheme.pick("#6B5C61", "#B8A394") }
+    static var wine: Color { WTheme.pick("#8B1538", "#F0D9C4") }
     static let bordeaux = Color(UIColor(hex: "#8B1538"))
     static let deep = Color(UIColor(hex: "#5E0F26"))
 }

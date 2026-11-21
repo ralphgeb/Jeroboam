@@ -4,6 +4,7 @@ struct ProfileView: View {
     @Environment(GameProgress.self) private var progress
     @Environment(JournalStore.self) private var journal
     @State private var confirmReset = false
+    @State private var widgetTheme = SharedPrefs.widgetTheme
     @Environment(\.dismiss) private var dismiss
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
@@ -113,6 +114,15 @@ struct ProfileView: View {
                             Picker("Appearance", selection: $p.data.appearance) {
                                 Text("Automatic").tag(0)
                                 Text("Light").tag(1)
+                                Text("Dark").tag(2)
+                            }
+                            .tint(Palette.wine)
+                        }
+                        Hairline()
+                        settingRow("Widgets") {
+                            Picker("Widgets", selection: Binding(get: { SharedPrefs.widgetTheme }, set: { SharedPrefs.widgetTheme = $0; widgetTheme = $0 })) {
+                                Text("Automatic").tag(0)
+                                Text("White").tag(1)
                                 Text("Dark").tag(2)
                             }
                             .tint(Palette.wine)

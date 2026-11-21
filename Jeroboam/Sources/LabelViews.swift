@@ -169,9 +169,63 @@ struct LabelDecoderCard: View {
 
 struct LabelsScreen: View {
     @State private var selected: String? = "bordeaux"
+    @Environment(\.windowWidth) private var width
     var body: some View {
+        if width >= AdaptiveLayout.twoPaneThreshold { wideBody } else { narrowBody }
+    }
+
+    /// Duo: the regions listed on the left, the chosen label (with its numbered parts) on the right.
+    private var wideBody: some View {
         let labels = ContentStore.shared.library.labels ?? []
-        ScrollView {
+        let current = labels.first { $0.id == selected } ?? labels.first
+        return HStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ScreenHeader(eyebrow: "Read any bottle", title: "Label decoder",
+                                 subtitle: "Pick a region, then tap a numbered part of its label to see what it tells you.")
+                        .padding(.bottom, 6)
+                    ForEach(labels) { l in
+                        Button { withAnimation(.smooth(duration: 0.25)) { selected = l.id } } label: {
+                            HStack {
+                                Text(l.title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Spacer()
+                                Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                            }
+                            .padding(14)
+                            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(current?.id == l.id ? Palette.wineSoft : Palette.card))
+                            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)
+                                .strokeBorder(current?.id == l.id ? Palette.wine.opacity(0.55) : Palette.line.opacity(0.6), lineWidth: current?.id == l.id ? 1.2 : 0.5))
+                        }
+                        .buttonStyle(PressableStyle())
+                    }
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+            }
+            .scrollIndicators(.hidden)
+            .frame(width: width / 2)
+            Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
+            ScrollView {
+                if let l = current {
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(l.title).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                        Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                        LabelDecoderCard(label: l)
+                    }
+                    .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+                    .id(l.id)
+                }
+            }
+            .scrollIndicators(.hidden)
+            .frame(width: width / 2 - 0.5)
+        }
+        .background(Palette.paper.ignoresSafeArea())
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var narrowBody: some View {
+        let labels = ContentStore.shared.library.labels ?? []
+        return ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeader(eyebrow: "Read any bottle", title: "Label decoder",
                              subtitle: "Swipe between regions, then tap a numbered part of the label to see what it tells you.")
@@ -218,7 +272,6 @@ struct LabelsScreen: View {
             .padding(.bottom, 30)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 }

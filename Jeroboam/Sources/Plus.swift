@@ -185,11 +185,30 @@ private struct PlusSheetHost: ViewModifier {
     @State private var id = UUID()
     func body(content: Content) -> some View {
         let p = PaywallPresenter.shared
+        let ch = CoverHost.shared
+        // on the Duo (two panes) the offer opens on the right half, with the page still visible on the left
+        let inPane = ch.railActive && ch.pageWidth >= AdaptiveLayout.twoPaneThreshold
         content
             .onAppear { if !p.hosts.contains(id) { p.hosts.append(id) } }
             .onDisappear { p.hosts.removeAll { $0 == id } }
-            .sheet(isPresented: Binding(get: { p.target == id }, set: { if !$0 { p.target = nil } })) {
+            .sheet(isPresented: Binding(get: { !inPane && p.target == id }, set: { if !$0 { p.target = nil } })) {
                 PlusSheet(reason: p.reason)
+            }
+            .onChange(of: p.target) { _, t in
+                if inPane, t == id {
+                    ch.paywall = AnyView(
+                        HStack(spacing: 0) {
+                            Color.black.opacity(0.22).ignoresSafeArea().onTapGesture { p.target = nil }
+                            PlusSheet(reason: p.reason)
+                                .environment(\.coverClose, { p.target = nil })
+                                .frame(width: ch.pageWidth / 2)
+                                .background(Palette.paper.ignoresSafeArea())
+                                .overlay(alignment: .leading) { Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea() }
+                        }
+                    )
+                } else if t == nil {
+                    ch.paywall = nil
+                }
             }
     }
 }
@@ -246,6 +265,19 @@ struct QuotaPill: View {
     }
 }
 
+/// The pill in the navigation bar, without the system's extra glass blob around it (iOS 26 wraps every bar item in one).
+struct QuotaToolbar: ToolbarContent {
+    let section: String
+    var body: some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: section) }
+                .sharedBackgroundVisibility(.hidden)
+        } else {
+            ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: section) }
+        }
+    }
+}
+
 /// A locked panel: the content still shows, faded, with the Bordeaux lock and a line about what Plus adds.
 struct PlusCallout: View {
     let title: String
@@ -277,7 +309,10 @@ struct PlusCallout: View {
 
 struct PlusSheet: View {
     var reason: String? = nil
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismissEnv
+    @Environment(\.coverClose) private var coverClose
+    /// Closes the sheet, or the right-hand panel on the Duo.
+    private func dismiss() { if let c = coverClose { c() } else { dismissEnv() } }
     @State private var step = Step.offer
     @State private var showCheckout = false
     @State private var showPrivacy = false

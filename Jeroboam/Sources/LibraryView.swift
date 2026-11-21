@@ -288,7 +288,7 @@ struct StylesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "styles") } }
+        .toolbar { QuotaToolbar(section: "styles") }
         .detailPane(first: styles.first.map { AnyHashable($0) })
     }
 }

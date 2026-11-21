@@ -116,7 +116,7 @@ struct WinesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "wines") } }
+        .toolbar { QuotaToolbar(section: "wines") }
         .detailPane(first: shown.first.map { AnyHashable($0) })
     }
 }

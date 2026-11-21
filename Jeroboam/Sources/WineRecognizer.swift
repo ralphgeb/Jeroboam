@@ -95,7 +95,27 @@ enum WineRecognizer {
 
     // MARK: Identify
 
+    /// A wine seen before comes straight from the phone's own database (WineDB): no network, no cost.
     static func identify(image: UIImage) async throws -> RecognitionResult {
+        let sig = WineDB.signature(await readText(image))
+        if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
+            return RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
+        }
+        var r = try await identifyFresh(image: image)
+        r.identity = tidy(r.identity)
+        WineDB.shared.save(r.identity, signature: sig)
+        return r
+    }
+
+    /// "Château Batailley 2021" with vintage 2021 would show the year twice: keep it out of the name.
+    static func tidy(_ w: WineIdentity) -> WineIdentity {
+        var w = w
+        let v = w.vintage.trimmingCharacters(in: .whitespaces)
+        if !v.isEmpty, w.name.hasSuffix(" " + v) { w.name = String(w.name.dropLast(v.count + 1)).trimmingCharacters(in: .whitespaces) }
+        return w
+    }
+
+    private static func identifyFresh(image: UIImage) async throws -> RecognitionResult {
         guard let key = apiKey else { throw RecognizerError.noKey }
         let lines = await readText(image)
         if let text = usefulText(lines) {
@@ -122,7 +142,10 @@ enum WineRecognizer {
 
     static func identify(text: String) async throws -> RecognitionResult {
         guard let key = apiKey else { throw RecognizerError.noKey }
-        return try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
+        var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
+        r.identity = tidy(r.identity)
+        WineDB.shared.save(r.identity)
+        return r
     }
 
     private static func imageContent(_ jpeg: Data, extra: String?) -> [[String: Any]] {
@@ -245,8 +268,51 @@ extension WineRecognizer {
     /// Live price lookups are off for now: the app shows Claude's estimate from the identification (no extra cost).
     static let livePrices = false
 
+    /// Cheapest first: our own database, the Great wines list, the model's estimate from the identification, and only then
+    /// one tiny question to Haiku (no web search, a fraction of a cent). Whatever is found is kept in the database.
     static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
-        guard livePrices, let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
+        if let p = WineDB.shared.entry(for: w)?.price { return (p, 0) }
+        if let p = WineDB.greatPrice(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
+        if !livePrices {
+            if let p = PriceInfo.estimate(from: w) { WineDB.shared.save(w, price: p); return (p, 0) }
+            let (p, cost) = await quickEstimate(for: w)
+            if let p { WineDB.shared.save(w, price: p) }
+            return (p, cost)
+        }
+        return await livePrice(for: w)
+    }
+
+    /// One short question, no tools: about $0.0002.
+    private static func quickEstimate(for w: WineIdentity) async -> (PriceInfo?, Double) {
+        guard let key = apiKey, !w.name.isEmpty else { return (nil, 0) }
+        let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
+        let body: [String: Any] = [
+            "model": model, "max_tokens": 120,
+            "messages": [["role": "user", "content": "Typical current retail price in US dollars of one 750 ml bottle of \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")"). Reply with only JSON: {\"low\": number, \"average\": number, \"high\": number}. Use your best estimate; never 0."]]
+        ]
+        do {
+            var req = URLRequest(url: endpoint)
+            req.httpMethod = "POST"; req.timeoutInterval = 30
+            req.setValue("application/json", forHTTPHeaderField: "content-type")
+            req.setValue(key, forHTTPHeaderField: "x-api-key")
+            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            req.httpBody = try JSONSerialization.data(withJSONObject: body)
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard (resp as? HTTPURLResponse)?.statusCode == 200, let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (nil, 0) }
+            let usage = json["usage"] as? [String: Any] ?? [:]
+            let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000 + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000
+            let text = (json["content"] as? [[String: Any]] ?? []).compactMap { $0["text"] as? String }.joined()
+            guard let o = text.firstIndex(of: "{"), let c = text.lastIndex(of: "}"), o < c,
+                  let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any] else { return (nil, cost) }
+            func num(_ k: String) -> Double { (obj[k] as? NSNumber)?.doubleValue ?? 0 }
+            let avg = num("average")
+            guard avg > 0 else { return (nil, cost) }
+            return (PriceInfo(average: avg, low: num("low") > 0 ? num("low") : avg * 0.8, high: num("high") > 0 ? num("high") : avg * 1.25, currency: "USD", source: "Estimate"), cost)
+        } catch { return (nil, 0) }
+    }
+
+    private static func livePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
+        guard let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let prompt = """
         Find the current average retail price of one 750 ml bottle of this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").

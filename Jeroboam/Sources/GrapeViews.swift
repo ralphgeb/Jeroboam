@@ -32,7 +32,7 @@ struct GrapeListView: View {
         .background(Palette.paper.ignoresSafeArea())
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search grapes")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "grapes") } }
+        .toolbar { QuotaToolbar(section: "grapes") }
         .detailPane(first: grapes.first.map { AnyHashable($0) })
     }
 
