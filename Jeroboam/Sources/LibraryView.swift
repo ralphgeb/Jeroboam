@@ -73,6 +73,7 @@ struct LibraryView: View {
                 }
             }
             .background(Palette.paper.ignoresSafeArea())
+            .halfPage()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: LibrarySection.self) { s in destination(s).zoomDestination(ZoomID.section(s.rawValue), in: zoom) }
             .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) }.zoomDestination(ZoomID.grape(g.id), in: zoom) }
@@ -422,6 +423,7 @@ struct TastingScreen: View {
             .readable(720)
         }
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $open) { step in
             TastingStepSheet(step: step, section: secs.first { $0.title == step.satTitle })
@@ -655,6 +657,7 @@ struct PairingScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $open) { p in
             ScrollView {
@@ -718,6 +721,7 @@ struct GlossaryScreen: View {
         }
         .scrollContentBackground(.hidden)
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationTitle("Glossary")
         .searchable(text: $query, prompt: "Search terms")
     }
@@ -756,6 +760,7 @@ struct BottlesScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 

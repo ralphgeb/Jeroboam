@@ -19,7 +19,7 @@ struct MapTerms {
             return MapTerms(level: ["Regions", "Zones", "Denominations (DOC/DOCG)"],
                             hint: ["The wine regions", "Zones inside the regions", "Denominations (DOC/DOCG) inside the zones"])
         case "bordeaux":
-            return MapTerms(level: ["Appellations (AOC)", "Communal appellations"], hint: ["Regional and district appellations (AOC)", "Communal appellations (AOC) inside them"], places: "Communes")
+            return MapTerms(level: ["Appellations", "Communal AOCs"], hint: ["Regional and district appellations (AOC)", "Communal appellations (AOC) inside them"], places: "Communes")
         case "burgundy":
             return MapTerms(level: ["Areas", "Appellations (AOC)"], hint: ["The main areas of Burgundy", "Village and cru appellations (AOC)"], places: "Communes")
         case "champagne":
@@ -64,5 +64,7 @@ struct MapTerms {
     }
 
     func name(_ l: Int) -> String { level[min(max(l, 0), level.count - 1)] }
+    /// The same name without the bracketed abbreviation, short enough for a button on one line.
+    func button(_ l: Int) -> String { name(l).components(separatedBy: " (").first ?? name(l) }
     func line(_ l: Int) -> String { hint[min(max(l, 0), hint.count - 1)] }
 }

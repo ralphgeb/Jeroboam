@@ -42,7 +42,7 @@ struct VisualView: View {
                         }
                     }
                     .onTapGesture { if !hideAnswers { showMap = arg } }
-                    .fullScreenCover(item: Binding(get: { showMap.map { MapRef(id: $0, hl: hl) } }, set: { showMap = $0?.id })) { ref in
+                    .railCover(item: Binding(get: { showMap.map { MapRef(id: $0, hl: hl) } }, set: { showMap = $0?.id })) { ref in
                         MapExplorer(mapID: ref.id, highlight: ref.hl)
                     }
             case "photo":

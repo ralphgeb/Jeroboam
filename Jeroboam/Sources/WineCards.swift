@@ -177,6 +177,7 @@ struct WineCardsScreen: View {
         }
         .padding(.top, 8)
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -22,11 +22,18 @@ enum UserProfile {
 /// Round profile picture (or initials) that opens Profile & settings.
 struct AvatarButton: View {
     var size: CGFloat = 30
+    /// On the Duo one profile button sits above the tabs; pages leave theirs out (see RootView).
+    var ignoreRail = false
+    @Environment(\.hasRail) private var hasRail
     @AppStorage("jero.avatarVersion") private var version = 0
     @AppStorage("jero.name") private var name = ""
     @State private var showProfile = false
 
     var body: some View {
+        if hasRail && !ignoreRail { EmptyView() } else { button }
+    }
+
+    private var button: some View {
         Button { showProfile = true } label: { Avatar(size: size, version: version, name: name) }
             .accessibilityLabel("Profile and settings")
             .sheet(isPresented: $showProfile) { ProfileView() }

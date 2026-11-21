@@ -59,7 +59,7 @@ struct RefMapCard: View {
                 }
             }
             .fullScreenCover(isPresented: $zoom) { ZoomableImage(image: img, credit: Photos.creditLine(imageID)) }
-            .fullScreenCover(isPresented: $atlas) { MapExplorer(mapID: mapID, highlight: highlight) }
+            .railCover(isPresented: $atlas) { MapExplorer(mapID: mapID, highlight: highlight) }
         }
     }
 }
@@ -171,7 +171,7 @@ struct LessonMap: View {
                 Spacer()
             }
         }
-        .fullScreenCover(isPresented: $atlas) { MapExplorer(mapID: mapID, highlight: highlight) }
+        .railCover(isPresented: $atlas) { MapExplorer(mapID: mapID, highlight: highlight) }
         .fullScreenCover(item: Binding(get: { printed.map { IDBox(id: $0) } }, set: { printed = $0?.id })) { box in
             if let img = Photos.image(box.id) { ZoomableImage(image: img, credit: Photos.creditLine(box.id)) }
         }

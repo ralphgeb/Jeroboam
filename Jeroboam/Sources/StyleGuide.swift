@@ -60,6 +60,7 @@ struct StyleGuideScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 

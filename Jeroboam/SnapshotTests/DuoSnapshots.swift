@@ -32,11 +32,12 @@ final class DuoSnapshots: XCTestCase {
             // as on the Duo: the tabs stand up in a column on the right and the page gets the rest
             let root = AdaptiveRoot {
                 HStack(spacing: 0) {
-                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).frame(maxWidth: .infinity)
+                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).safeAreaPadding(.top, 16).frame(maxWidth: .infinity)
                     Color.clear.frame(width: AdaptiveLayout.railWidth)
                 }
                 .environment(\.hasRail, true)
                 .overlay(alignment: .bottomTrailing) { DuoRail(selection: .constant(2)).frame(width: AdaptiveLayout.railWidth) }
+                .overlay(alignment: .topTrailing) { AvatarButton(size: 36, ignoreRail: true).frame(width: AdaptiveLayout.railWidth).padding(.top, 14) }
             }
                 .environment(progress)
                 .environment(journal)
@@ -160,6 +161,14 @@ final class DuoSnapshots: XCTestCase {
         guard let w = ContentStore.shared.library.great?.first else { return XCTFail("no wine") }
         GreatWinePlaylist.wines = Array((ContentStore.shared.library.great ?? []).prefix(5))
         snap("great-wine") { NavigationStack { GreatWinePager(wine: w) } }
+    }
+
+    /// The "Full map" cover on a region page, drawn inside the page (the tabs stay in their column).
+    func testRegionMapCover() {
+        guard let r = ContentStore.shared.library.regions.first(where: { $0.id == "bordeaux" }) else { return XCTFail("no region") }
+        RegionDetailView.snapshotExplore = true
+        snap("region-map", settle: 3.0) { NavigationStack { RegionDetailView(region: r) } }
+        RegionDetailView.snapshotExplore = false
     }
 
     func testRegions() {

@@ -872,6 +872,7 @@ struct MapExplorer: View {
     var highlight: Set<String> = []
     var focus: String? = nil
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.coverClose) private var coverClose
     @State private var selected: String? = nil
     @State private var zoom: CGFloat = 1
     @State private var openRegion: Region? = nil
@@ -1002,14 +1003,14 @@ struct MapExplorer: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Eyebrow("Wine map", color: Palette.wine)
                     Text(g?.map.title ?? "").font(.system(size: 22, weight: .bold)).foregroundStyle(Palette.ink)
-                        Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                        Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.8)
                     if (g?.maxLevel ?? 0) > 0 {
                         HStack(spacing: 4) {
                             // each country's own words (see MapTerms); three steps in France and Italy
                             let terms = MapTerms.for(mapID)
-                            modeButton(terms.name(0), 0)
-                            modeButton(terms.name(1), 1)
-                            if (g?.maxLevel ?? 1) >= 2 { modeButton(terms.name(2), 2) }
+                            modeButton(terms.button(0), 0)
+                            modeButton(terms.button(1), 1)
+                            if (g?.maxLevel ?? 1) >= 2 { modeButton(terms.button(2), 2) }
                         }
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
@@ -1020,7 +1021,7 @@ struct MapExplorer: View {
                 .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.focusLand.opacity(0.94)))
                 Spacer()
                 VStack(spacing: 10) {
-                    circleButton("xmark") { dismiss() }
+                    circleButton("xmark") { if let c = coverClose { c() } else { dismiss() } }
                     if zoom > 1.01 { circleButton("arrow.down.right.and.arrow.up.left") { resetToken += 1; zoom = 1; selected = nil } }
                     Spacer().frame(height: 6)
                     circleButton("plus") { zoomCommand += 1 }
@@ -1051,8 +1052,9 @@ struct MapExplorer: View {
         let on = (layer ?? 0) == value
         return Button { withAnimation(.easeInOut(duration: 0.2)) { layer = value; selected = nil } } label: {
             Text(title).font(.system(size: 13, weight: .semibold))
+                .lineLimit(1).minimumScaleFactor(0.7).fixedSize(horizontal: true, vertical: false)
                 .foregroundStyle(on ? Palette.onWine : Palette.ink)
-                .padding(.horizontal, 14).padding(.vertical, 7)
+                .padding(.horizontal, 12).padding(.vertical, 7)
                 .background(Capsule().fill(on ? Palette.wine : .clear))
         }
         .buttonStyle(.plain)
@@ -1177,7 +1179,7 @@ struct MapListCard: View {
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) { expanded.toggle() }
                 } label: {
                     HStack {
-                        Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
                         Text("\(list.count)").font(.system(size: 13).monospacedDigit()).foregroundStyle(Palette.inkFaint)
                         Spacer()
                         Text("Pinch to zoom").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)

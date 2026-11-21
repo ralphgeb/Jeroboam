@@ -109,6 +109,7 @@ struct RootView: View {
             }
         }
         .onChange(of: tab, initial: true) { _, t in visited.insert(t) }
+        .safeAreaPadding(.top, 16)
     }
 
     var body: some View {
@@ -127,6 +128,12 @@ struct RootView: View {
                         .environment(\.hasRail, true)
                         .overlay(alignment: .bottomTrailing) {
                             DuoRail(selection: tabBinding).frame(width: AdaptiveLayout.railWidth)
+                        }
+                        // one profile button, always in the same place: the top of the tab column
+                        .overlay(alignment: .topTrailing) {
+                            AvatarButton(size: 36, ignoreRail: true)
+                                .frame(width: AdaptiveLayout.railWidth)
+                                .padding(.top, 14)
                         }
                         .background(Palette.paper.ignoresSafeArea())
                     } else {

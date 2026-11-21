@@ -328,7 +328,7 @@ struct WineLocationMap: View {
             }
             .contentShape(Rectangle())
             .onTapGesture { if r.map != nil { explore = true } }
-            .fullScreenCover(isPresented: $explore) {
+            .railCover(isPresented: $explore) {
                 if let m = r.map { MapExplorer(mapID: m, highlight: own) }
             }
         }

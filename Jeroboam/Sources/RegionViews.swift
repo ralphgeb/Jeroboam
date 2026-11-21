@@ -49,7 +49,7 @@ struct RegionListView: View {
         .background(Palette.paper.ignoresSafeArea())
         .searchable(text: $query, prompt: "Search regions")
         .navigationBarTitleDisplayMode(.inline)
-        .fullScreenCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
+        .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
         .detailPane(first: countries.first.map { AnyHashable($0) })
     }
 
@@ -80,6 +80,9 @@ struct RegionListView: View {
 }
 
 struct RegionDetailView: View {
+    #if DEBUG
+    static var snapshotExplore = false
+    #endif
     let region: Region
     @Environment(GameProgress.self) private var progress
     @State private var explore: MapRef? = nil
@@ -206,11 +209,12 @@ struct RegionDetailView: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .fullScreenCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
+        .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
         .navigationDestination(item: $openSub) { sub in RegionDetailView(region: sub) }
         .onAppear {
             progress.noteViewed(region: r.id)
             #if DEBUG
+            if RegionDetailView.snapshotExplore, let m = r.map { explore = MapRef(id: m, hl: []) }
             if ["lbexplorer", "ptexplorer"].contains(DebugScreens.screen ?? ""), let m = r.map {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: m, hl: []) }
             }

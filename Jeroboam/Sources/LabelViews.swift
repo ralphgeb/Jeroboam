@@ -218,6 +218,7 @@ struct LabelsScreen: View {
             .padding(.bottom, 30)
         }
         .background(Palette.paper.ignoresSafeArea())
+        .halfPage()
         .navigationBarTitleDisplayMode(.inline)
     }
 }
