@@ -36,6 +36,7 @@ struct DuoPreviewHost<Content: View>: View {
                     Color.black.ignoresSafeArea()
                     content
                         .frame(width: size.width, height: size.height)
+                        .ignoresSafeArea()
                         .background(Palette.paper)
                         .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
                         .scaleEffect(s)

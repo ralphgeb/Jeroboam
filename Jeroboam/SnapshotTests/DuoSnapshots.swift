@@ -41,6 +41,7 @@ final class DuoSnapshots: XCTestCase {
                 .environment(progress)
                 .environment(journal)
                 .background(Palette.paper)
+                .ignoresSafeArea()
             let host = UIHostingController(rootView: AnyView(root))
             let window = UIWindow(frame: CGRect(origin: .zero, size: size))
             window.rootViewController = host

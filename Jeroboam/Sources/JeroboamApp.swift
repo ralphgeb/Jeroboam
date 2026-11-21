@@ -79,6 +79,31 @@ struct RootView: View {
         }
     }
 
+    /// Rail layout: one page at a time (no system tab bar, which would draw a second set of tabs); pages that were
+    /// opened stay alive underneath so they keep their place.
+    @State private var visited: Set<Int> = [0]
+    private var railPages: some View {
+        ZStack {
+            ForEach(0..<4, id: \.self) { i in
+                if visited.contains(i) || tab == i {
+                    Group {
+                        switch i {
+                        case 0: LearnView()
+                        case 1: PracticeView()
+                        case 2: LibraryView()
+                        default: JournalView()
+                        }
+                    }
+                    .opacity(tab == i ? 1 : 0)
+                    .allowsHitTesting(tab == i)
+                    .accessibilityHidden(tab != i)
+                    .zIndex(tab == i ? 1 : 0)
+                }
+            }
+        }
+        .onChange(of: tab, initial: true) { _, t in visited.insert(t) }
+    }
+
     var body: some View {
         Group {
             if progress.data.onboarded {
@@ -87,7 +112,7 @@ struct RootView: View {
                     let rail = g.size.height / max(g.size.width, 1) < 1.7 || g.size.width >= 640
                     if rail {
                         HStack(spacing: 0) {
-                            tabs.toolbar(.hidden, for: .tabBar)
+                            railPages
                                 .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
                                 .frame(maxWidth: .infinity)
                             Color.clear.frame(width: AdaptiveLayout.railWidth)

@@ -7,6 +7,7 @@ struct LearnView: View {
     @State private var guidebook: Unit? = nil
     @State private var askUnlock: Level? = nil
     @State private var collapse: CGFloat = 0
+    @Environment(\.hasRail) private var hasRail
     private let content = ContentStore.shared
 
     var body: some View {
@@ -17,7 +18,7 @@ struct LearnView: View {
                         if let level = currentLevel {
                             levelIntro(level)
                                 .padding(.horizontal, Metrics.margin)
-                                .padding(.top, 18)
+                                .padding(.top, hasRail ? 10 : 18)
                                 .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).minY } action: { y in
                                     // 0 at rest, 1 once the level title has scrolled under the header
                                     let p = min(1, max(0, (18 - y) / 70))
@@ -73,9 +74,9 @@ struct LearnView: View {
         }
         .sessionPane($session, idle: {
             let next = currentLevel.flatMap { l in progress.isLevelUnlocked(l.number) ? progress.currentLesson(in: l) : nil }
-            return AnyView(PaneIdle(eyebrow: next == nil ? "Level \(levelNumber)" : "Up next", title: next?.title ?? "Pick a lesson",
-                                    text: next == nil ? "Choose a lesson on the left and it opens here." : "Your lessons stay on the left. The questions open here.",
-                                    button: next == nil ? nil : "Start lesson", action: { if let n = next { start(n) } }))
+            if let n = next { return AnyView(LessonPreviewPane(lesson: n, level: levelNumber) { start(n) }) }
+            return AnyView(PaneIdle(eyebrow: "Level \(levelNumber)", title: "Pick a lesson",
+                                    text: "Choose a lesson on the left and it opens here."))
         })
         .sheet(item: $guidebook) { u in GuidebookView(unit: u) }
         .alert("Jump ahead?", isPresented: Binding(get: { askUnlock != nil }, set: { if !$0 { askUnlock = nil } })) {
@@ -143,11 +144,11 @@ struct LearnView: View {
                     .allowsHitTesting(false)
                 }
             }
-            .frame(height: 44)
+            .frame(height: hasRail ? 38 : 44)
             .padding(.horizontal, Metrics.margin)
             levelTabs.padding(.top, 2)
         }
-        .padding(.top, 4)
+        .padding(.top, hasRail ? 0 : 4)
         .background(Palette.paper.ignoresSafeArea(edges: .top))
         .overlay(alignment: .bottom) { Hairline().opacity(collapse) }
     }
