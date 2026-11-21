@@ -46,7 +46,7 @@ enum QuizGenerator {
 
     // MARK: Sessions
 
-    static func session(_ kind: Kind, count: Int = 10, maxLevel: Int = 3) -> Session {
+    static func session(_ kind: Kind, count: Int = 10, maxLevel: Int = 5) -> Session {
         var cards: [Card] = []
         var keys: [String] = []
         let recent = Set(QuizMemory.recent)
@@ -75,8 +75,8 @@ enum QuizGenerator {
 
     /// A mock exam for one level: questions from that level's lessons plus generated ones, 30 in all.
     static func exam(level: Int, count: Int = 30) -> Session {
-        let lessonQs = content.orderedLessons.filter { $0.id.hasPrefix("l\(level)u") }
-            .flatMap { $0.cards.filter(\.isQuestion) }.shuffled().prefix(count * 2 / 3)
+        let lessons = content.course.levels.first { $0.number == level }?.courseUnits.flatMap(\.lessons) ?? []
+        let lessonQs = lessons.flatMap { $0.cards.filter(\.isQuestion) }.shuffled().prefix(count * 2 / 3)
         let generated = session(.mixed, count: count - lessonQs.count, maxLevel: level).cards
         let cards = (Array(lessonQs) + generated).shuffled()
         return Session(title: "Level \(level) mock exam", lessonID: nil, cards: cards)

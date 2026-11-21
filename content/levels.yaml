@@ -1,12 +1,21 @@
+# Five levels, from first sip to the great regions. Unit ids (and so saved progress) stay as they were: see unit_ids.yaml.
 - number: 1
   title: Foundations
   subtitle: "Level 1 · Beginner"
-  units: [l1-what-is-wine, l1-tasting, l1-white-grapes, l1-black-grapes, l1-world, l1-food, l1-serving, l1-ratings, l1-history]
+  units: [l1-what-is-wine, l1-tasting, l1-white-grapes, l1-black-grapes]
 - number: 2
-  title: Intermediate
-  subtitle: "Level 2 · Grapes & regions"
-  units: [l2-vineyard, l2-winery, l2-more-whites, l2-more-reds, l2-sparkling, l2-sweet-fortified, l2-labels, l2-label-decoder]
+  title: Essentials
+  subtitle: "Level 2 · The wine world"
+  units: [l1-world, l1-food, l1-serving, l1-ratings, l1-history]
 - number: 3
+  title: Intermediate
+  subtitle: "Level 3 · Grapes & winemaking"
+  units: [l2-vineyard, l2-winery, l2-more-whites, l2-more-reds, l2-labels, l2-label-decoder]
+- number: 4
   title: Advanced
-  subtitle: "Level 3 · In depth"
-  units: [l3-viticulture, l3-winemaking, l3-bordeaux, l3-burgundy, l3-france-more, l3-italy, l3-iberia, l3-central-europe, l3-new-world, l3-tasting]
+  subtitle: "Level 4 · Craft & classics"
+  units: [l2-sparkling, l2-sweet-fortified, l3-viticulture, l3-winemaking, l3-tasting, l3-bordeaux, l3-burgundy]
+- number: 5
+  title: Expert
+  subtitle: "Level 5 · The great regions"
+  units: [l3-france-more, l3-italy, l3-iberia, l3-central-europe, l3-new-world]

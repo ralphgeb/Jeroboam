@@ -336,11 +336,12 @@ struct MapRenderer {
                     // big regions: a faint tint plus a faded hatch in the region's color; appellations stay solid
                     let base = Palette.mapColor(a.color)
                     let dim = anyHL && !(highlight.contains(a.parent ?? "")) ? 0.5 : 1.0
-                    regions.fill(a.path, with: .color(dark ? base.opacity(0.14 * dim) : base.mix(with: .white, 0.9).opacity(dim)))
+                    // the regions and zones under the appellations stay clearly hatched, so both layers read together
+                    regions.fill(a.path, with: .color(dark ? base.opacity(0.18 * dim) : base.mix(with: .white, 0.84).opacity(dim)))
                     var hc = regions
                     hc.clip(to: a.path)
-                    hc.stroke(hatch, with: .color(base.opacity((dark ? 0.45 : 0.38) * dim)), lineWidth: hair * 0.9)
-                    regions.stroke(a.path, with: .color(base.opacity(0.6 * dim)), lineWidth: hair * 1.0)
+                    hc.stroke(hatch, with: .color(base.opacity((dark ? 0.6 : 0.55) * dim)), lineWidth: hair * 1.0)
+                    regions.stroke(a.path, with: .color(base.opacity(0.75 * dim)), lineWidth: hair * 1.1)
                     continue
                 }
                 var opacity: Double = 1

@@ -1,9 +1,9 @@
 import SwiftUI
 
-/// A ten-question quiz that places a new player: three easy, four medium, three hard questions, drawn from
-/// one of three different sets. Every answer comes with a "did you know?" explanation.
+/// A ten-question quiz that places a new player on one of five levels: two questions for each level, getting harder
+/// as it goes, drawn from one of three different sets. Every answer comes with a "did you know?" explanation.
 struct PlacementQuestion {
-    let level: Int            // 1 easy, 2 medium, 3 hard
+    let level: Int            // as written: 1 easy, 2 medium, 3 hard (the quiz re-tiers them 1…5 by position)
     let text: String
     let options: [String]     // the correct answer comes first; the card shuffles them
     let explain: String
@@ -20,10 +20,9 @@ enum PlacementBank {
         .init(level: 1, text: "Red wine gets its color from the grape juice.",
               options: ["False", "True"],
               explain: "Almost all grape juice is clear, even from black grapes. Red color comes from the skins steeping in the juice during fermentation. Only a few rare grapes, like Alicante Bouschet, are red inside."),
-        .init(level: 1, text: "Which famous region is highlighted?",
-              options: ["Rioja", "Priorat", "Rías Baixas", "Jerez"],
-              explain: "Rioja, in northern Spain, built its name on Tempranillo aged in oak. Crianza, Reserva and Gran Reserva each require a legal minimum time in barrel and bottle.",
-              visual: "map:spain:rioja"),
+        .init(level: 2, text: "Chianti is made mainly from which grape?",
+              options: ["Sangiovese", "Nebbiolo", "Barbera", "Montepulciano"],
+              explain: "Sangiovese, Tuscany's signature red: cherry, dried herbs and high acidity. Chianti Classico requires at least 80%, and the black rooster on the neck label marks the heartland between Florence and Siena."),
         .init(level: 2, text: "Amarone della Valpolicella is made from grapes that are…",
               options: ["Dried for months before fermenting", "Picked after the first frost", "Fermented with the stems only", "Aged in a solera"],
               explain: "Appassimento: Corvina and other grapes are dried on racks for months, losing a third of their weight. What's left is concentrated and, fermented dry, gives a rich red of 15% alcohol or more."),
@@ -55,10 +54,9 @@ enum PlacementBank {
         .init(level: 1, text: "Real Champagne can only come from Champagne, France.",
               options: ["True", "False"],
               explain: "The name is legally protected. The same method elsewhere has to go by another name: Cava in Spain, Crémant elsewhere in France, Franciacorta in Italy, Cap Classique in South Africa."),
-        .init(level: 1, text: "Which Portuguese valley, shown on the map, makes Port?",
-              options: ["Douro", "Dão", "Alentejo", "Vinho Verde"],
-              explain: "The Douro Valley was demarcated by law in 1756, one of the first wine regions in the world. Port gets its sweetness because grape spirit is added mid-fermentation, stopping the yeast.",
-              visual: "map:portugal:douro"),
+        .init(level: 2, text: "Which region makes most of Spain's Cava?",
+              options: ["Penedès", "Rioja", "Jerez", "Rías Baixas"],
+              explain: "Penedès, near Barcelona. Cava is made by the traditional method (second fermentation in the bottle) mostly from Macabeo, Xarel·lo and Parellada, and the best must age at least nine months on the lees."),
         .init(level: 2, text: "Albariño is the pride of which Spanish region?",
               options: ["Rías Baixas", "Rueda", "Penedès", "Bierzo"],
               explain: "Rías Baixas, on Galicia's cool, wet Atlantic coast. Vines are trained high on pergolas to stay dry in the damp air, and the fresh, saline whites pair with the local shellfish.",
@@ -91,9 +89,9 @@ enum PlacementBank {
         .init(level: 1, text: "What is the best serving temperature for most reds?",
               options: ["A little cool: about 60–65°F (16–18°C)", "Warm room temperature, about 75°F", "Ice cold", "Straight from the freezer"],
               explain: "'Room temperature' comes from drafty old castles. Served too warm, red wine tastes flabby and the alcohol burns. Twenty minutes in the fridge brings most reds to the sweet spot."),
-        .init(level: 1, text: "Prosecco gets its bubbles from a second fermentation in the bottle.",
-              options: ["False", "True"],
-              explain: "Prosecco is usually made by the tank (Charmat) method: the second fermentation happens in a large pressurized tank, which keeps its fresh, fruity Glera character. Bottle fermentation is the Champagne method."),
+        .init(level: 2, text: "What does 'Brut' on a Champagne label tell you?",
+              options: ["It is dry, with little added sugar", "It is sweet", "It was aged in oak", "It is from a single vintage"],
+              explain: "Brut means dry: up to 12 g/L of sugar, and most Champagne is Brut. Extra Brut is drier still, while Demi-Sec at 32 to 50 g/L tastes properly sweet."),
         .init(level: 2, text: "Which grape makes Brunello di Montalcino?",
               options: ["Sangiovese", "Nebbiolo", "Montepulciano", "Merlot"],
               explain: "Sangiovese, locally called Brunello. It cannot be released until five years after harvest, with at least two of them in oak.",
@@ -124,7 +122,8 @@ enum PlacementBank {
         }
     }
 
-    static func level(of set: Int) -> [Int] { sets[set % sets.count].map(\.level) }
+    /// Two questions per level, easiest first.
+    static func level(of set: Int) -> [Int] { (0..<sets[set % sets.count].count).map { min(5, $0 / 2 + 1) } }
 }
 
 struct PlacementQuizView: View {
@@ -158,11 +157,11 @@ struct PlacementQuizView: View {
                 Image(systemName: "wineglass").font(.system(size: 60, weight: .light)).foregroundStyle(Palette.wine)
             }
             Text("Find your level").font(.serif(34)).foregroundStyle(Palette.ink).padding(.top, 30)
-            Text("Ten questions from around the world, about three minutes. They start easy and finish very hard, so we can place you exactly.")
+            Text("Ten questions from around the world, about three minutes. They start easy and finish very hard, so we can place you on one of five levels.")
                 .font(.system(size: 16)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).lineSpacing(3)
                 .padding(.horizontal, 30).padding(.top, 10)
             HStack(spacing: 10) {
-                pill("Easy", Palette.level(1)); pill("Medium", Palette.level(2)); pill("Hard", Palette.level(3))
+                pill("Easy", Palette.level(1)); pill("Medium", Palette.level(2)); pill("Hard", Palette.level(3)); pill("Expert", Palette.level(4))
             }.padding(.top, 24)
             Text("Don't worry about getting them wrong. That's where the fun facts are.")
                 .font(.system(size: 13.5)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center).padding(.horizontal, 40).padding(.top, 18)
@@ -194,11 +193,11 @@ struct PlacementQuizView: View {
             .padding(.horizontal, Metrics.margin).padding(.top, 12)
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
-                    Text(["Warm-up", "Getting warmer", "Expert territory"][level - 1].uppercased())
+                    Text(["Warm-up", "Getting warmer", "Getting serious", "Expert territory", "Sommelier level"][level - 1].uppercased())
                         .font(.system(size: 11.5, weight: .bold)).kerning(1.2).foregroundStyle(Palette.level(level))
                     CardView(card: card, locked: feedback != nil, onAnswer: { ok, _ in
                         feedback = ok
-                        if ok { points += level == 1 ? 1 : (level == 2 ? 2 : 3) }
+                        if ok { points += level }
                         results.append(ok)
                         ok ? Haptics.success() : Haptics.tap()
                     })
@@ -241,11 +240,12 @@ struct PlacementQuizView: View {
         )
     }
 
-    private var placed: Int { points >= 15 ? 3 : (points >= 8 ? 2 : 1) }
+    // two questions per level: 30 points in all. Guessing the easy ones puts you on Level 1 or 2; Level 5 needs most of the hard ones too.
+    private var placed: Int { points >= 23 ? 5 : (points >= 17 ? 4 : (points >= 11 ? 3 : (points >= 5 ? 2 : 1))) }
 
     private var result: some View {
         let n = placed
-        let names = [1: "New to wine", 2: "Growing palate", 3: "Ready for depth"]
+        let names = [1: "New to wine", 2: "Curious drinker", 3: "Growing palate", 4: "Serious student", 5: "Ready for the great regions"]
         return VStack(spacing: 0) {
             Spacer()
             Text("\(results.filter { $0 }.count) of \(cards.count) right").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)

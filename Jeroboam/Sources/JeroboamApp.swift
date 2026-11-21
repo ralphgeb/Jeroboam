@@ -167,7 +167,7 @@ struct RootView: View {
                 }
             }
             if DebugScreens.screen == "paywall" {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { PaywallPresenter.shared.show("Levels 2 and 3, the whole atlas and your journal.") }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { PaywallPresenter.shared.show("Every level, the whole atlas and your journal.") }
             }
             #endif
         }

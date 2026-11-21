@@ -205,12 +205,19 @@ struct JournalInsights: View {
         for w in wines { for g in w.grapes.prefix(2) { tally[g, default: 0] += 1 } }
         let top = tally.sorted { $0.value > $1.value || ($0.value == $1.value && $0.key < $1.key) }.prefix(5).map { ($0.key, $0.value) }
         return card("Your grapes", "The ones you reach for most") {
-            Chart(top, id: \.0) { g, n in
-                BarMark(x: .value("Wines", n), y: .value("Grape", g)).foregroundStyle(Palette.wine.opacity(0.85)).cornerRadius(5)
-                    .annotation(position: .trailing) { Text("\(n)").font(.system(size: 11).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
+            let most = max(1, top.map(\.1).max() ?? 1)
+            VStack(spacing: 9) {
+                ForEach(top, id: \.0) { g, n in
+                    HStack(spacing: 10) {
+                        Text(g).font(.system(size: 13.5)).foregroundStyle(Palette.ink).lineLimit(1).frame(width: 120, alignment: .leading)
+                        GeometryReader { geo in
+                            Capsule().fill(Palette.wine.opacity(0.85)).frame(width: max(8, geo.size.width * CGFloat(n) / CGFloat(most)))
+                        }
+                        .frame(height: 12)
+                        Text("\(n)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft).frame(width: 20, alignment: .trailing)
+                    }
+                }
             }
-            .chartXAxis(.hidden)
-            .frame(height: CGFloat(max(1, top.count)) * 32 + 8)
         }
     }
 

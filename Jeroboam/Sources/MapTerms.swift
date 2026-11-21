@@ -14,12 +14,12 @@ struct MapTerms {
         switch mapID {
         case "france":
             return MapTerms(level: ["Regions", "Sub-regions", "Appellations (AOC)"],
-                            hint: ["The big wine regions", "Sub-regions inside the regions", "Appellations (AOC) inside the sub-regions"])
+                            hint: ["The big wine regions", "Sub-regions of each region", "Appellations (AOC)"])
         case "italy":
             return MapTerms(level: ["Regions", "Zones", "Denominations (DOC/DOCG)"],
-                            hint: ["The wine regions", "Zones inside the regions", "Denominations (DOC/DOCG) inside the zones"])
+                            hint: ["The wine regions", "Zones of each region", "Denominations (DOC/DOCG)"])
         case "bordeaux":
-            return MapTerms(level: ["Appellations", "Communal AOCs"], hint: ["Regional and district appellations (AOC)", "Communal appellations (AOC) inside them"], places: "Communes")
+            return MapTerms(level: ["Appellations", "Communal AOCs"], hint: ["Regional appellations (AOC)", "Communal appellations (AOC)"], places: "Communes")
         case "burgundy":
             return MapTerms(level: ["Areas", "Appellations (AOC)"], hint: ["The main areas of Burgundy", "Village and cru appellations (AOC)"], places: "Communes")
         case "champagne":

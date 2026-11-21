@@ -14,7 +14,7 @@ enum Distribution {
     }()
 }
 
-/// Jero Plus: Levels 2 and 3 (and their guidebooks), every country in the atlas, unlimited atlas cards
+/// Jero Plus: every level but your starting one (and their guidebooks), every country in the atlas, unlimited atlas cards
 /// and the Journal. Level 1, Practice, France and Italy stay free.
 ///
 /// Buying goes through the App Store (StoreKit 2, `com.ralphgeb.jero.plus.monthly`) once the subscription

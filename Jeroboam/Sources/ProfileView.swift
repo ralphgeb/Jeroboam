@@ -260,12 +260,12 @@ struct PlusStatusCard: View {
             .padding(16)
             .background(HeroCardBackground().clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)))
         } else {
-            Button { PaywallPresenter.shared.show("Levels 2 and 3, the whole atlas and your journal.") } label: {
+            Button { PaywallPresenter.shared.show("Every level, the whole atlas and your journal.") } label: {
                 HStack(spacing: 14) {
                     SplashMark(color: .white, surface: Palette.cork).frame(width: 34, height: 34)
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Get Jero Plus").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
-                        Text("Levels 2 and 3, every country, your journal · \(Plus.shared.price)/month")
+                        Text("Every level, every country, your journal · \(Plus.shared.price)/month")
                             .font(.system(size: 13)).foregroundStyle(.white.opacity(0.8)).fixedSize(horizontal: false, vertical: true)
                     }
                     Spacer()

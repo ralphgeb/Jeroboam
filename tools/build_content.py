@@ -36,6 +36,23 @@ flows = load("flows.yaml")
 sat = load("sat.yaml")
 pairings = load("pairings.yaml")
 labels = load("labels.yaml")
+
+# ---- five levels. The grapes, regions and terms were written for three; they are spread over five here.
+def _relevel():
+    seen = {}
+    def nth(key, i): seen[key] = seen.get(key, -1) + 1; return seen[key]
+    for g in grapes:
+        o = g["level"]; g["old_level"] = o
+        g["level"] = 1 if o == 1 else (3 if o == 2 else (4 if nth("g3", 0) < 20 else 5))
+    for r in regions:
+        o = r["level"]; r["old_level"] = o
+        r["level"] = 2 if o == 1 else (3 if o == 2 else (4 if r["country"] == "France" else 5))
+    for t in glossary:
+        o = t.get("level", 1)
+        k = nth("w%d" % o, 0)
+        t["level"] = (1 if k < 14 else 2) if o == 1 else ((3 if k < 34 else 4) if o == 2 else (4 if k < 20 else 5))
+_relevel()
+UNIT_IDS = load("unit_ids.yaml")
 soils = load("soils.yaml") or {}
 lids = {l["id"] for l in labels}
 
@@ -219,6 +236,7 @@ def _region_questions(rs, rnd):
     return qs
 
 def _chunks(xs, n):
+    if not xs: return []
     k = max(1, -(-len(xs) // n)); size = -(-len(xs) // k)
     return [xs[i:i + size] for i in range(0, len(xs), size)]
 
@@ -247,8 +265,8 @@ def study_units(n):
                 t = c + (": " + ", ".join(names[:2]) + ("…" if len(names) > 2 else "") if names else "")
                 out.append({"title": t, "cards": [_region_card(r) for r in part] + _region_questions(part, rnd)})
         return out
-    groups = [("Appellations to know", "Every Level %d region on a card, with its map, grapes and climate." % n, order)] if n < 3 else [
-        ("Appellations: France", "Every French appellation in Level 3, on its map.", [c for c in order if c == "France"]),
+    groups = [("Appellations to know", "Every Level %d region on a card, with its map, grapes and climate." % n, order)] if n < 5 else [
+        ("Appellations: France", "Every French appellation in Level 5, on its map.", [c for c in order if c == "France"]),
         ("Appellations: rest of Europe", "Italy, Iberia, central Europe, Greece and Lebanon, region by region.", [c for c in order if c in EUROPE and c != "France"]),
         ("Appellations: New World", "The Americas, South Africa, Australia and New Zealand, region by region.", [c for c in order if c not in EUROPE])]
     for i, (t, s, cs) in enumerate(groups):
@@ -268,7 +286,7 @@ def study_units(n):
             opts = wrong + [t["def"]]; rnd.shuffle(opts)
             cards.append({"choice": f"What does **{t['term']}** mean?", "options": opts, "a": t["def"], "explain": f"{t['term']}: {_plain(t['def'])}"})
         lessons.append({"title": f"Vocabulary {i + 1}: {part[0]['term']} to {part[-1]['term']}", "cards": cards})
-    if n == 2:
+    if n == 3:
         for part in _chunks(styles, 6):
             cards = [{"learn": s["name"], "body": f"{_plain(s['summary'])}\n\n- **How:** {_plain(s['how'])}\n- **Examples:** {', '.join(s['examples'][:4])}.",
                       **({"visual": s["visual"]} if s.get("visual") else {})} for s in part]
@@ -300,7 +318,7 @@ for lv in levels_meta:
             extra = load(os.path.join("deep", ufile + ".yaml"))
             tail = [l for l in u["lessons"] if l["title"] == "Going further"]
             u["lessons"] = [l for l in u["lessons"] if l["title"] != "Going further"] + extra + tail
-        uid = f"l{lv['number']}u{ui + 1}"
+        uid = UNIT_IDS.get(ufile) or f"l{lv['number']}s{ui + 1}"
         unit = {"id": uid, "title": u["title"], "summary": u["summary"], "icon": u.get("icon", "book"), "lessons": []}
         if ufile.startswith("study-"): unit["study"] = True
         cover = u.get("cover") or UNIT_COVERS.get(ufile)

@@ -375,12 +375,20 @@ struct Achievement: Identifiable, Hashable {
             guard let l = ContentStore.shared.course.levels.first(where: { $0.number == 1 }) else { return false }
             return p.levelProgress(l) >= 1
         },
-        Achievement(id: "level-2", title: "Intermediate", detail: "Complete Level 2", icon: "2.circle.fill") { p in
+        Achievement(id: "level-2", title: "Essentials", detail: "Complete Level 2", icon: "2.circle.fill") { p in
             guard let l = ContentStore.shared.course.levels.first(where: { $0.number == 2 }) else { return false }
             return p.levelProgress(l) >= 1
         },
-        Achievement(id: "level-3", title: "Advanced", detail: "Complete Level 3", icon: "3.circle.fill") { p in
+        Achievement(id: "level-3", title: "Intermediate", detail: "Complete Level 3", icon: "3.circle.fill") { p in
             guard let l = ContentStore.shared.course.levels.first(where: { $0.number == 3 }) else { return false }
+            return p.levelProgress(l) >= 1
+        },
+        Achievement(id: "level-4", title: "Advanced", detail: "Complete Level 4", icon: "4.circle.fill") { p in
+            guard let l = ContentStore.shared.course.levels.first(where: { $0.number == 4 }) else { return false }
+            return p.levelProgress(l) >= 1
+        },
+        Achievement(id: "level-5", title: "Expert", detail: "Complete Level 5", icon: "5.circle.fill") { p in
+            guard let l = ContentStore.shared.course.levels.first(where: { $0.number == 5 }) else { return false }
             return p.levelProgress(l) >= 1
         },
         Achievement(id: "ampelographer", title: "Ampelographer", detail: "Open 20 grape profiles", icon: "leaf.fill") { $0.data.viewedGrapes.count >= 20 },

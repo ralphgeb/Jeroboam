@@ -110,7 +110,7 @@ struct LearnView: View {
 
     private var currentLevel: Level? { content.course.levels.first { $0.number == levelNumber } }
 
-    /// Levels 2 and 3 (lessons and guidebooks) are part of Jero Plus.
+    /// Every level except your starting one (lessons and guidebooks) is part of Jero Plus.
     private func plusLocked(_ n: Int) -> Bool { n != progress.data.startLevel && Plus.shared.locked }
 
     private func openGuide(_ unit: Unit, _ level: Level) {
@@ -474,7 +474,7 @@ extension Notification.Name {
     static let learnTabReselected = Notification.Name("jero.learnTabReselected")
 }
 
-/// At the top of Levels 2 and 3 for free users.
+/// At the top of the locked levels for free users.
 struct PlusLevelBanner: View {
     let level: Level
     var body: some View {

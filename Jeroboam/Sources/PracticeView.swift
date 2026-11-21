@@ -82,14 +82,16 @@ struct PracticeView: View {
     private var exams: some View {
         let unlocked = max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1)
         let info: [(String, String, String, CGFloat)] = [
-            ("Foundations", "Bottle", "Tasting, the great grapes, the classic regions", 0.62),
-            ("Intermediate", "Magnum", "Vineyard, winery, sparkling, labels, more grapes", 0.8),
-            ("Advanced", "Jeroboam", "Every appellation, viticulture and winemaking", 1.0),
+            ("Foundations", "Piccolo", "How wine is made, tasting and the great grapes", 0.5),
+            ("Essentials", "Bottle", "The wine world, food, serving, scores and history", 0.62),
+            ("Intermediate", "Magnum", "Vineyard, winery, labels and more grapes", 0.76),
+            ("Advanced", "Jeroboam", "Sparkling, sweet, viticulture, winemaking, Bordeaux and Burgundy", 0.9),
+            ("Expert", "Methuselah", "Every great region, in depth", 1.0),
         ]
         return VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: "Mock exams")
             VStack(spacing: 0) {
-                ForEach(1...3, id: \.self) { lv in
+                ForEach(1...5, id: \.self) { lv in
                     let open = lv <= unlocked
                     let i = info[lv - 1]
                     Button { if open { session = QuizGenerator.exam(level: lv) } } label: {

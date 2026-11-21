@@ -113,9 +113,11 @@ struct OnboardingView: View {
             }
             .padding(.top, 30)
             VStack(spacing: 10) {
-                levelOption(1, "New to wine", "Grapes, styles, tasting basics and food pairing.")
-                levelOption(2, "I know a little", "Climate, winemaking and the major regions.")
-                levelOption(3, "Ready for depth", "Viticulture, winemaking and the classic regions in detail.")
+                levelOption(1, "New to wine", "How wine is made, tasting and the great grapes.")
+                levelOption(2, "I drink it, I'd like to understand it", "The wine world, food pairing, serving and scores.")
+                levelOption(3, "I know a little", "Vineyard, winery, labels and more grapes.")
+                levelOption(4, "Keen and studying", "Sparkling, sweet, viticulture, winemaking, Bordeaux and Burgundy.")
+                levelOption(5, "Ready for the great regions", "Every classic region in depth, from the Rhône to the New World.")
             }
             .padding(.top, 22)
             HStack(alignment: .top, spacing: 10) {

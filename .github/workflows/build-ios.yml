@@ -164,11 +164,11 @@ jobs:
           if not sub:
               sub = (call("POST", "/v1/subscriptions", {"data": {"type": "subscriptions", "attributes": {
                   "name": "Jero Plus Monthly", "productId": PID, "subscriptionPeriod": "ONE_MONTH", "groupLevel": 1, "familySharable": False,
-                  "reviewNote": "Unlocks Levels 2 and 3, every country in the atlas, unlimited atlas cards and the wine journal."},
+                  "reviewNote": "Unlocks every level, every country in the atlas, unlimited atlas cards and the wine journal."},
                   "relationships": {"group": rel("subscriptionGroups", g["id"])}}}) or {}).get("data")
               if not sub: raise SystemExit
               call("POST", "/v1/subscriptionLocalizations", {"data": {"type": "subscriptionLocalizations", "attributes": {
-                  "name": "Jero Plus", "locale": "en-US", "description": "Levels 2-3, the whole atlas and your journal"},
+                  "name": "Jero Plus", "locale": "en-US", "description": "Every level, the whole atlas and your journal"},
                   "relationships": {"subscription": rel("subscriptions", sub["id"])}}})
               print("Created subscription", PID)
           sid = sub["id"]
