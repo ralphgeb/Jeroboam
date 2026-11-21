@@ -139,6 +139,17 @@ final class DuoSnapshots: XCTestCase {
         snap("lesson-question") { LessonPlayer(session: Session(title: "Practice", lessonID: nil, cards: Array(q.prefix(6)))) }
     }
 
+    /// Someone doing a lesson on the Learn tab: list on the left, the lesson in the right-hand pane.
+    func testLearnLesson() {
+        let cards = ContentStore.shared.orderedLessons.first?.cards ?? []
+        let firstQ = cards.firstIndex { $0.isQuestion } ?? 0
+        LearnView.snapshotStart = 0
+        snap("learn-lesson-card", settle: 2.5) { LearnView() }
+        LearnView.snapshotStart = firstQ
+        snap("learn-lesson-question", settle: 2.5) { LearnView() }
+        LearnView.snapshotStart = nil
+    }
+
     func testLearnHome() { snap("learn") { LearnView() } }
     func testRoot() { snap("root") { RootView() } }
     func testAtlas() { snap("atlas") { LibraryView() } }

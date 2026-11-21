@@ -9,6 +9,9 @@ struct LearnView: View {
     @State private var collapse: CGFloat = 0
     @Environment(\.hasRail) private var hasRail
     private let content = ContentStore.shared
+    #if DEBUG
+    static var snapshotStart: Int? = nil
+    #endif
 
     var body: some View {
         NavigationStack {
@@ -79,6 +82,14 @@ struct LearnView: View {
                                     text: "Choose a lesson on the left and it opens here."))
         })
         .sheet(item: $guidebook) { u in GuidebookView(unit: u) }
+        #if DEBUG
+        .onAppear {
+            // snapshot tests: open the first lesson (skipping some cards) as if it had been tapped
+            if let s = LearnView.snapshotStart, session == nil, let l = content.orderedLessons.first {
+                session = Session(title: l.title, lessonID: l.id, cards: Array(l.cards.dropFirst(s)), accent: Palette.level(1))
+            }
+        }
+        #endif
         .alert("Jump ahead?", isPresented: Binding(get: { askUnlock != nil }, set: { if !$0 { askUnlock = nil } })) {
             Button("Unlock Level \(askUnlock?.number ?? 2)") {
                 if let l = askUnlock { progress.unlockLevel(l.number) }
