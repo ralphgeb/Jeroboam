@@ -1,5 +1,6 @@
 import SwiftUI
 import WidgetKit
+import AppIntents
 
 // MARK: - Data (bundled in the widget, so it needs no shared storage with the app)
 
@@ -46,9 +47,9 @@ extension UIColor {
         self.init(red: CGFloat((v >> 16) & 255) / 255, green: CGFloat((v >> 8) & 255) / 255, blue: CGFloat(v & 255) / 255, alpha: 1)
     }
 }
-/// The look chosen in the app's settings (shared through the app group): 0 automatic, 1 white, 2 dark.
+/// The look chosen on the widget itself (Edit Widget > Appearance): 0 automatic, 1 white, 2 dark.
 enum WTheme {
-    static var current: Int { UserDefaults(suiteName: "group.com.ralphgeb.jero")?.integer(forKey: "jero.widgetTheme") ?? 0 }
+    static var current = 0
     static func pick(_ light: String, _ dark: String) -> Color {
         switch current {
         case 1: return Color(UIColor(hex: light))
@@ -57,6 +58,22 @@ enum WTheme {
         }
     }
 }
+
+enum WidgetThemeOption: String, AppEnum {
+    case automatic, white, dark
+    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Appearance"
+    static var caseDisplayRepresentations: [WidgetThemeOption: DisplayRepresentation] = [
+        .automatic: "Automatic", .white: "White", .dark: "Dark",
+    ]
+    var index: Int { self == .white ? 1 : (self == .dark ? 2 : 0) }
+}
+
+struct ThemeIntent: WidgetConfigurationIntent {
+    static var title: LocalizedStringResource = "Appearance"
+    static var description = IntentDescription("Automatic follows your phone; or always white, or always dark.")
+    @Parameter(title: "Appearance", default: .automatic) var theme: WidgetThemeOption
+}
+
 enum WPalette {
     static var paper: Color { WTheme.pick("#F5F4F2", "#1A0910") }
     static var ink: Color { WTheme.pick("#1B0D12", "#F0D9C4") }
@@ -68,18 +85,18 @@ enum WPalette {
 
 // MARK: - Provider
 
-struct DayEntry: TimelineEntry { let date: Date }
+struct DayEntry: TimelineEntry { let date: Date; var theme = 0 }
 
-struct DailyProvider: TimelineProvider {
+struct DailyProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> DayEntry { DayEntry(date: .now) }
-    func getSnapshot(in context: Context, completion: @escaping (DayEntry) -> Void) { completion(DayEntry(date: .now)) }
-    func getTimeline(in context: Context, completion: @escaping (Timeline<DayEntry>) -> Void) {
+    func snapshot(for configuration: ThemeIntent, in context: Context) async -> DayEntry { DayEntry(date: .now, theme: configuration.theme.index) }
+    func timeline(for configuration: ThemeIntent, in context: Context) async -> Timeline<DayEntry> {
         // one entry per day for two weeks, each starting at midnight
         let cal = Calendar.current
         let start = cal.startOfDay(for: .now)
-        var entries = [DayEntry(date: .now)]
-        for d in 1...14 { if let day = cal.date(byAdding: .day, value: d, to: start) { entries.append(DayEntry(date: day)) } }
-        completion(Timeline(entries: entries, policy: .atEnd))
+        var entries = [DayEntry(date: .now, theme: configuration.theme.index)]
+        for d in 1...14 { if let day = cal.date(byAdding: .day, value: d, to: start) { entries.append(DayEntry(date: day, theme: configuration.theme.index)) } }
+        return Timeline(entries: entries, policy: .atEnd)
     }
 }
 
@@ -93,6 +110,7 @@ struct FactView: View {
         return f.isEmpty ? "" : f[dayNumber(entry.date) % f.count]
     }
     var body: some View {
+        let _ = (WTheme.current = entry.theme)
         let medium = family == .systemMedium
         VStack(alignment: .leading, spacing: medium ? 10 : 8) {
             HStack(spacing: 6) {
@@ -114,7 +132,7 @@ struct FactView: View {
 
 struct FactWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "JeroFact", provider: DailyProvider()) { FactView(entry: $0) }
+        AppIntentConfiguration(kind: "JeroFact", intent: ThemeIntent.self, provider: DailyProvider()) { FactView(entry: $0) }
             .configurationDisplayName("Wine fact of the day")
             .description("A new wine fun fact on your home screen every day.")
             .supportedFamilies([.systemSmall, .systemMedium])
@@ -141,6 +159,7 @@ struct WineView: View {
         return parts.joined(separator: " · ")
     }
     var body: some View {
+        let _ = (WTheme.current = entry.theme)
         Group {
             if let w = wine {
                 let medium = family == .systemMedium
@@ -173,7 +192,7 @@ struct WineView: View {
 
 struct WineWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "JeroWine", provider: DailyProvider()) { WineView(entry: $0) }
+        AppIntentConfiguration(kind: "JeroWine", intent: ThemeIntent.self, provider: DailyProvider()) { WineView(entry: $0) }
             .configurationDisplayName("Wine to try")
             .description("One great wine from the top 100 each day, with the story behind it.")
             .supportedFamilies([.systemSmall, .systemMedium])

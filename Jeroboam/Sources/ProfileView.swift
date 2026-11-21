@@ -4,7 +4,6 @@ struct ProfileView: View {
     @Environment(GameProgress.self) private var progress
     @Environment(JournalStore.self) private var journal
     @State private var confirmReset = false
-    @State private var widgetTheme = SharedPrefs.widgetTheme
     @Environment(\.dismiss) private var dismiss
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
@@ -119,14 +118,12 @@ struct ProfileView: View {
                             .tint(Palette.wine)
                         }
                         Hairline()
-                        settingRow("Widgets") {
-                            Picker("Widgets", selection: Binding(get: { SharedPrefs.widgetTheme }, set: { SharedPrefs.widgetTheme = $0; widgetTheme = $0 })) {
-                                Text("Automatic").tag(0)
-                                Text("White").tag(1)
-                                Text("Dark").tag(2)
-                            }
-                            .tint(Palette.wine)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Widgets").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                            Text("Press and hold a Jero widget, tap Edit Widget, then Appearance: Automatic, White or Dark.")
+                                .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
                         Hairline()
                         Button(role: .destructive) { confirmReset = true } label: {
                             Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
