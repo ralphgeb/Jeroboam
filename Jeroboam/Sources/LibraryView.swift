@@ -277,7 +277,7 @@ struct StylesScreen: View {
                         SectionTitle(text: cat)
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                             ForEach(styles.filter { $0.category == cat }) { st in
-                                NavigationLink(value: st) { StyleTile(style: st) }.buttonStyle(PressableStyle())
+                                DetailLink(value: st) { StyleTile(style: st) }.buttonStyle(PressableStyle())
                             }
                         }
                     }
@@ -289,6 +289,7 @@ struct StylesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "styles") } }
+        .detailPane(first: styles.first.map { AnyHashable($0) })
     }
 }
 

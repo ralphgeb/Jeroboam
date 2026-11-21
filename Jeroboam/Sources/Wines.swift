@@ -101,7 +101,7 @@ struct WinesScreen: View {
                         let items = shown.filter { $0.country == c }.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
                         GroupCard {
                             ForEach(items) { w in
-                                NavigationLink(value: w) {
+                                DetailLink(value: w) {
                                     WineRow(wine: w, last: w == items.last)
                                 }
                                 .buttonStyle(RowPressStyle())
@@ -117,6 +117,7 @@ struct WinesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "wines") } }
+        .detailPane(first: shown.first.map { AnyHashable($0) })
     }
 }
 

@@ -19,7 +19,18 @@ extension EnvironmentValues {
     }
 }
 
+private struct HasRailKey: EnvironmentKey { static let defaultValue = false }
+extension EnvironmentValues {
+    /// True when the tabs stand up in a column on the right (the iPhone Duo's screens) instead of sitting at the bottom.
+    var hasRail: Bool {
+        get { self[HasRailKey.self] }
+        set { self[HasRailKey.self] = newValue }
+    }
+}
+
 enum AdaptiveLayout {
+    /// Width of the right-hand column that holds the tabs on the Duo.
+    static let railWidth: CGFloat = 78
     /// Side-by-side pictures and text need this much room (the open Duo held sideways); upright it keeps one roomy column.
     static let twoPaneThreshold: CGFloat = 760
     /// Windows at least this wide (in points) switch to the two-pane layout.

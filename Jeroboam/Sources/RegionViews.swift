@@ -17,7 +17,7 @@ struct RegionListView: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                             ForEach(countries) { c in
                                 if Plus.shared.active || Plus.freeCountries.contains(c.country) {
-                                    NavigationLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
+                                    DetailLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
                                 } else {
                                     // locked countries open the Jero Plus sheet straight away
                                     Button { PaywallPresenter.shared.show("France and Italy are free. \(c.name) and every other country come with Jero Plus.") } label: {
@@ -50,6 +50,7 @@ struct RegionListView: View {
         .searchable(text: $query, prompt: "Search regions")
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
+        .detailPane(first: countries.first.map { AnyHashable($0) })
     }
 
     private func countryCard(_ c: Region) -> some View {

@@ -23,7 +23,7 @@ struct GrapeListView: View {
 
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                     ForEach(grapes) { g in
-                        NavigationLink(value: g) { card(g) }.buttonStyle(PressableStyle())
+                        DetailLink(value: g) { card(g) }.buttonStyle(PressableStyle())
                     }
                 }
             }
@@ -33,6 +33,7 @@ struct GrapeListView: View {
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search grapes")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { ToolbarItem(placement: .topBarTrailing) { QuotaPill(section: "grapes") } }
+        .detailPane(first: grapes.first.map { AnyHashable($0) })
     }
 
     private func card(_ g: Grape) -> some View {

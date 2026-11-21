@@ -55,25 +55,51 @@ struct RootView: View {
     @Environment(\.scenePhase) private var phase
     @State private var tab = 0
 
+    private var tabBinding: Binding<Int> {
+        Binding(get: { tab }, set: { new in
+            if new == tab && new == 0 { NotificationCenter.default.post(name: .learnTabReselected, object: nil) }
+            tab = new
+        })
+    }
+
+    private var tabs: some View {
+        TabView(selection: tabBinding) {
+            LearnView()
+                .tabItem { Label("Learn", systemImage: "book.closed") }
+                .tag(0)
+            PracticeView()
+                .tabItem { Label("Practice", systemImage: "target") }
+                .tag(1)
+            LibraryView()
+                .tabItem { Label("Atlas", systemImage: "globe.europe.africa") }
+                .tag(2)
+            JournalView()
+                .tabItem { Label("Journal", systemImage: "camera.aperture") }
+                .tag(3)
+        }
+    }
+
     var body: some View {
         Group {
             if progress.data.onboarded {
-                TabView(selection: Binding(get: { tab }, set: { new in
-                    if new == tab && new == 0 { NotificationCenter.default.post(name: .learnTabReselected, object: nil) }
-                    tab = new
-                })) {
-                    LearnView()
-                        .tabItem { Label("Learn", systemImage: "book.closed") }
-                        .tag(0)
-                    PracticeView()
-                        .tabItem { Label("Practice", systemImage: "target") }
-                        .tag(1)
-                    LibraryView()
-                        .tabItem { Label("Atlas", systemImage: "globe.europe.africa") }
-                        .tag(2)
-                    JournalView()
-                        .tabItem { Label("Journal", systemImage: "camera.aperture") }
-                        .tag(3)
+                GeometryReader { g in
+                    // the Duo's screens are nearly as wide as they are tall: the tabs stand up in a column on the right
+                    let rail = g.size.height / max(g.size.width, 1) < 1.7 || g.size.width >= 640
+                    if rail {
+                        HStack(spacing: 0) {
+                            tabs.toolbar(.hidden, for: .tabBar)
+                                .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
+                                .frame(maxWidth: .infinity)
+                            Color.clear.frame(width: AdaptiveLayout.railWidth)
+                        }
+                        .environment(\.hasRail, true)
+                        .overlay(alignment: .bottomTrailing) {
+                            DuoRail(selection: tabBinding).frame(width: AdaptiveLayout.railWidth)
+                        }
+                        .background(Palette.paper.ignoresSafeArea())
+                    } else {
+                        tabs
+                    }
                 }
                 .transition(.opacity)
             } else {
@@ -106,5 +132,43 @@ struct RootView: View {
             }
             #endif
         }
+    }
+}
+
+/// The four tabs standing up in a slim column on the right (the iPhone Duo), in reach of the thumb.
+struct DuoRail: View {
+    @Binding var selection: Int
+    private let items: [(String, String, String)] = [
+        ("Learn", "book", "book.fill"), ("Practice", "target", "target"),
+        ("Atlas", "globe.europe.africa", "globe.europe.africa.fill"), ("Journal", "camera.aperture", "camera.aperture"),
+    ]
+    var body: some View {
+        VStack(spacing: 2) {
+            ForEach(Array(items.enumerated()), id: \.offset) { i, item in
+                let on = selection == i
+                Button { selection = i } label: {
+                    VStack(spacing: 3) {
+                        Image(systemName: on ? item.2 : item.1)
+                            .font(.system(size: 19, weight: .semibold))
+                            .frame(width: 46, height: 46)
+                            .background(on ? Palette.wine : .clear, in: Circle())
+                            .foregroundStyle(on ? Palette.onWine : Palette.ink)
+                        Text(item.0).font(.system(size: 10, weight: .semibold)).foregroundStyle(on ? Palette.wine : Palette.inkSoft)
+                    }
+                    .frame(width: 62, height: 70)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(item.0)
+                .accessibilityAddTraits(on ? .isSelected : [])
+            }
+        }
+        .padding(.vertical, 8)
+        .background(Palette.card, in: Capsule())
+        .overlay(Capsule().strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .padding(.horizontal, 7)
+        .padding(.bottom, 10)
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .animation(.snappy(duration: 0.25), value: selection)
     }
 }

@@ -412,7 +412,7 @@ struct GreatWinesScreen: View {
                 } else {
                     VStack(spacing: 0) {
                         ForEach(Array(rows.enumerated()), id: \.element.id) { i, w in
-                            NavigationLink(value: w) { row(w, last: i == rows.count - 1) }.buttonStyle(PressableStyle())
+                            DetailLink(value: w) { row(w, last: i == rows.count - 1) }.buttonStyle(PressableStyle())
                                 .simultaneousGesture(TapGesture().onEnded { GreatWinePlaylist.wines = rows })
                         }
                     }
@@ -433,6 +433,7 @@ struct GreatWinesScreen: View {
         .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
         .onSubmit(of: .search) { runSearch() }
         .onChange(of: query) { _, v in if v.isEmpty { applied = "" } }
+        .detailPane(first: ordered(shown).first.map { AnyHashable($0) })
     }
 
     private var listIdentity: String {
