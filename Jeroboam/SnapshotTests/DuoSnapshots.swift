@@ -95,6 +95,16 @@ final class DuoSnapshots: XCTestCase {
         for id in ["france", "italy", "spain", "tuscany"] { snap("explorer-\(id)", settle: 3.0) { MapExplorer(mapID: id) } }
     }
 
+    /// The Journal's wine map and charts, with the example data (an empty journal).
+    func testJournalInsights() {
+        snap("insights", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(JournalStore(empty: true)) }
+    }
+
+    func testMatchCard() {
+        guard let c = ContentStore.shared.orderedLessons.flatMap(\.cards).first(where: { $0.kind == .match }) else { return XCTFail("no match card") }
+        snap("match") { MatchCard(card: c, locked: false, onAnswer: { _, _ in }).padding(20) }
+    }
+
     func testDrinkWindow() {
         snap("drink-window") { VStack(spacing: 16) { DrinkWindowChart(window: "Now–2030", vintage: "2019"); DrinkWindowChart(window: "2026–2040", vintage: "2018") }.padding(20) }
     }

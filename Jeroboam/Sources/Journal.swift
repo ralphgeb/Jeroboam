@@ -255,6 +255,7 @@ struct JournalHome: View {
                     .pickerStyle(.segmented)
 
                     if section == 0 { cellarSection } else { tastingsSection }
+                    JournalInsights()
                     JournalExtras(onBlind: { blind = true })
                     Color.clear.frame(height: 20)
             }
