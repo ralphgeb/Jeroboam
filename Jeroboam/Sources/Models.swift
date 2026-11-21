@@ -230,6 +230,8 @@ struct Library: Decodable {
     let labels: [WineLabel]?
     var facts: [String]? = nil
     var great: [GreatWine]? = nil
+    /// What the ground is, by region or map-area id.
+    var soils: [String: String]? = nil
 }
 
 struct WineLabel: Decodable, Identifiable, Hashable {

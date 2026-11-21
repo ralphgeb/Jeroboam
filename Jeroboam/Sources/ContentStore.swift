@@ -64,6 +64,7 @@ final class ContentStore {
 
     func grape(_ id: String) -> Grape? { grapesByID[id] }
     func region(_ id: String) -> Region? { regionsByID[id] }
+    func soil(_ id: String) -> String? { library.soils?[id] }
     func color(_ id: String) -> WineColor? { colorsByID[id] }
     func flow(_ id: String) -> Flow? { flowsByID[id] }
     func label(_ id: String) -> WineLabel? { library.labels?.first { $0.id == id } }

@@ -958,6 +958,9 @@ struct MapExplorer: View {
             if let c = r.climate, !c.isEmpty {
                 fact("sun.max", "Climate", rich(c))
             }
+            if let s = ContentStore.shared.soil(r.id) {
+                fact("mountain.2", "Soil", rich(s))
+            }
             if let c = r.classification, !c.isEmpty {
                 fact("rosette", "Quality system", rich(c))
             }
@@ -1002,14 +1005,11 @@ struct MapExplorer: View {
                         Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
                     if (g?.maxLevel ?? 0) > 0 {
                         HStack(spacing: 4) {
-                            modeButton("Regions", 0)
-                            if (g?.maxLevel ?? 1) >= 2 {
-                                // three steps: Bordeaux → Haut-Médoc → Pauillac
-                                modeButton("Zones", 1)
-                                modeButton("Appellations", 2)
-                            } else {
-                                modeButton("Appellations", 1)
-                            }
+                            // each country's own words (see MapTerms); three steps in France and Italy
+                            let terms = MapTerms.for(mapID)
+                            modeButton(terms.name(0), 0)
+                            modeButton(terms.name(1), 1)
+                            if (g?.maxLevel ?? 1) >= 2 { modeButton(terms.name(2), 2) }
                         }
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
@@ -1060,14 +1060,12 @@ struct MapExplorer: View {
 
     private var levelHint: String {
         guard let g = MapGeometry.get(mapID) else { return "" }
-        if g.maxLevel == 0 { return "Regions" }
-        if let l = layer {
-            if g.maxLevel >= 2 { return ["The big wine regions", "Zones inside the regions", "Appellations inside the zones"][min(2, l)] }
-            return ["The big wine regions", "Appellations inside the regions"][min(1, l)]
-        }
-        if zoom >= 3.2 && g.maxLevel >= 2 { return "Villages & crus" }
-        if zoom >= 1.9 { return "Appellations · zoom for more" }
-        return "Regions · zoom in for appellations"
+        let t = MapTerms.for(mapID)
+        if g.maxLevel == 0 { return t.line(0) }
+        if let l = layer { return t.line(min(l, g.maxLevel)) }
+        if zoom >= 3.2 && g.maxLevel >= 2 { return t.line(2) }
+        if zoom >= 1.9 { return t.line(1) }
+        return "\(t.name(0)) · zoom in for \(t.name(1).lowercased())"
     }
 
     private func circleButton(_ icon: String, action: @escaping () -> Void) -> some View {
@@ -1095,6 +1093,13 @@ struct MapExplorer: View {
             }
             if let gr = a.grapes ?? region?.grapes.compactMap({ ContentStore.shared.grape($0)?.name }).prefix(3).joined(separator: " · ") , !gr.isEmpty {
                 Text(gr).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.mapColor(a.color).mix(with: .black, 0.15))
+            }
+            if let s = ContentStore.shared.soil(a.id) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Image(systemName: "mountain.2").font(.system(size: 13)).foregroundStyle(Palette.wine)
+                    Text(rich("**Soil:** " + s)).font(.system(size: 14)).foregroundStyle(Palette.ink.opacity(0.9))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             if let r = region {
                 Text(r.summary).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2).lineLimit(3)
@@ -1165,7 +1170,7 @@ struct MapListCard: View {
                 guard let v = visible else { return true }
                 return v.contains(a.centroid)
             }
-            let title = level == 0 ? "Regions" : (level == 1 ? "Appellations" : "Villages & crus")
+            let title = MapTerms.for(mapID).name(level)
             VStack(spacing: 0) {
                 Capsule().fill(Palette.line).frame(width: 36, height: 4).padding(.top, 8)
                 Button {

@@ -119,6 +119,9 @@ struct RegionDetailView: View {
                 if let c = r.climate {
                     infoRow(icon: "thermometer.medium", title: "Climate", text: c)
                 }
+                if let s = ContentStore.shared.soil(r.id) {
+                    infoRow(icon: "mountain.2", title: "Soil", text: s)
+                }
 
                 let grapes = ContentStore.shared.grapes(inRegion: r.id)
                 if !grapes.isEmpty {

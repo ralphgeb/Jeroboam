@@ -36,6 +36,7 @@ flows = load("flows.yaml")
 sat = load("sat.yaml")
 pairings = load("pairings.yaml")
 labels = load("labels.yaml")
+soils = load("soils.yaml") or {}
 lids = {l["id"] for l in labels}
 
 maps = {}
@@ -493,6 +494,12 @@ for gw in great:
     if gw.get("bottle") and gw["id"] in LABEL_POS: gw["labelY"] = LABEL_POS[gw["id"]]
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
            "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
+
+_known = set(rids)
+for _m in maps.values(): _known |= _m
+for k in soils:
+    if k not in _known: warn(f"soil for unknown place {k}")
+library["soils"] = soils
 
 for w in warnings: print("warning:", w)
 for e in errors: print("ERROR:", e)
