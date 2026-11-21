@@ -127,9 +127,61 @@ struct AromaWheelMini: View {
 
 struct AromaWheelScreen: View {
     @State private var selected: String? = nil
+    @Environment(\.windowWidth) private var width
 
     var body: some View {
         let lib = ContentStore.shared.library
+        if width >= AdaptiveLayout.twoPaneThreshold {
+            // the wheel fills the left half; the descriptors of the chosen slice (the first one to begin with) fill the right
+            let cats = ContentStore.shared.allAromaCategories()
+            let activeID = selected ?? cats.first?.id
+            HStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 14) {
+                    ScreenHeader(eyebrow: "The nose", title: "Aroma wheel", subtitle: "Tap a slice to see its descriptors.")
+                    AromaWheel(selected: $selected)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+                .frame(width: width / 2)
+                Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 22) {
+                        if let id = activeID, let cat = cats.first(where: { $0.id == id }) { categoryCard(cat) }
+                        ForEach(lib.aromas) { g in
+                            VStack(alignment: .leading, spacing: 12) {
+                                SectionTitle(text: g.name)
+                                Text(rich(g.summary)).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                ForEach(g.categories) { cat in
+                                    Button { selected = cat.id } label: {
+                                        HStack(spacing: 8) {
+                                            Circle().fill(Color(hex: cat.color)).frame(width: 9, height: 9)
+                                            Text(cat.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                            Spacer()
+                                            Text("\(cat.items.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                                        }
+                                        .padding(.vertical, 6)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            Hairline()
+                        }
+                    }
+                    .padding(.horizontal, 22).padding(.vertical, 12)
+                    .animation(.easeInOut(duration: 0.2), value: selected)
+                }
+                .scrollIndicators(.hidden)
+                .frame(width: width / 2 - 0.5)
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            narrowBody(lib)
+        }
+    }
+
+    @ViewBuilder private func narrowBody(_ lib: Library) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 26) {
                 ScreenHeader(eyebrow: "The nose", title: "Aroma wheel",

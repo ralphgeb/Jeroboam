@@ -419,6 +419,7 @@ struct TastingScreen: View {
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
+            .readable(720)
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
@@ -650,6 +651,7 @@ struct PairingScreen: View {
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
+            .readable(720)
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
@@ -750,6 +752,7 @@ struct BottlesScreen: View {
                 ForEach(formats) { f in row(f) }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
+            .readable(720)
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())

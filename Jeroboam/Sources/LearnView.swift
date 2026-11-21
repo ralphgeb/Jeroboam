@@ -71,9 +71,12 @@ struct LearnView: View {
                 }
             }
         }
-        .fullScreenCover(item: $session) { s in
-            LessonPlayer(session: s)
-        }
+        .sessionPane($session, idle: {
+            let next = currentLevel.flatMap { l in progress.isLevelUnlocked(l.number) ? progress.currentLesson(in: l) : nil }
+            return AnyView(PaneIdle(eyebrow: next == nil ? "Level \(levelNumber)" : "Up next", title: next?.title ?? "Pick a lesson",
+                                    text: next == nil ? "Choose a lesson on the left and it opens here." : "Your lessons stay on the left. The questions open here.",
+                                    button: next == nil ? nil : "Start lesson", action: { if let n = next { start(n) } }))
+        })
         .sheet(item: $guidebook) { u in GuidebookView(unit: u) }
         .alert("Jump ahead?", isPresented: Binding(get: { askUnlock != nil }, set: { if !$0 { askUnlock = nil } })) {
             Button("Unlock Level \(askUnlock?.number ?? 2)") {

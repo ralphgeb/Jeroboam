@@ -56,6 +56,7 @@ struct StyleGuideScreen: View {
                 ForEach(styles) { st in styleCard(st) }
             }
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
+            .readable(720)
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())

@@ -13,9 +13,12 @@ struct Session: Identifiable {
 struct LessonPlayer: View {
     let session: Session
     var onFinish: () -> Void = {}
+    /// Set when the player sits in the right-hand pane instead of covering the screen.
+    var onClose: (() -> Void)? = nil
 
     @Environment(GameProgress.self) private var progress
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismissEnv
+    private func dismiss() { if let c = onClose { c() } else { dismissEnv() } }
 
     @State private var queue: [Card] = []
     @State private var index = 0

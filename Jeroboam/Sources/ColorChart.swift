@@ -96,9 +96,58 @@ struct LiquidSwatch: View {
 struct ColorChartScreen: View {
     @State private var family = "white"
     @State private var picked: WineColor? = nil
+    @Environment(\.windowWidth) private var width
+    private var split: Bool { width >= AdaptiveLayout.twoPaneThreshold }
+    private var sheetBinding: Binding<WineColor?> { split ? .constant(nil) : $picked }
 
     var body: some View {
         let colors = ContentStore.shared.library.colors.filter { $0.chart == true && $0.family == family }
+        if split {
+            // the chart on the left; the open color (the first to begin with) with its glass on the right
+            HStack(spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        ScreenHeader(eyebrow: "Appearance", title: "Wine color chart", subtitle: "Tap a color to see what it tells you.")
+                        Picker("Family", selection: $family) {
+                            Text("White").tag("white"); Text("Rosé").tag("rose"); Text("Red").tag("red")
+                        }
+                        .pickerStyle(.segmented)
+                        .onChange(of: family) { _, _ in picked = nil }
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10, alignment: .top), count: 4), alignment: .leading, spacing: 14) {
+                            ForEach(Array(colors.enumerated()), id: \.element.id) { i, c in
+                                Button { picked = c } label: {
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        LiquidSwatch(core: Color(hex: c.hex), rim: Color(hex: c.rim), level: 1.2, live: false)
+                                            .aspectRatio(1, contentMode: .fit)
+                                            .overlay(Rectangle().strokeBorder((picked ?? colors.first)?.id == c.id ? Palette.wine : Palette.ink.opacity(0.06),
+                                                                              lineWidth: (picked ?? colors.first)?.id == c.id ? 2 : 0.5))
+                                        Text(c.name).font(.system(size: 11.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                                            .lineLimit(2).minimumScaleFactor(0.85).fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                                }
+                                .buttonStyle(PressableStyle())
+                            }
+                        }
+                    }
+                    .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+                }
+                .scrollIndicators(.hidden)
+                .frame(width: width / 2)
+                Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5)
+                Group {
+                    if let c = picked ?? colors.first { ColorDetailSheet(color: c).id(c.id) } else { Color.clear }
+                }
+                .frame(width: width / 2 - 0.5)
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            narrowBody(colors)
+        }
+    }
+
+    @ViewBuilder private func narrowBody(_ colors: [WineColor]) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 ScreenHeader(eyebrow: "Appearance", title: "Wine color chart",
@@ -135,7 +184,7 @@ struct ColorChartScreen: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $picked) { c in ColorDetailSheet(color: c) }
+        .sheet(item: sheetBinding) { c in ColorDetailSheet(color: c) }
     }
 }
 

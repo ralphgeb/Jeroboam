@@ -176,6 +176,7 @@ struct LabelsScreen: View {
                 ScreenHeader(eyebrow: "Read any bottle", title: "Label decoder",
                              subtitle: "Swipe between regions, then tap a numbered part of the label to see what it tells you.")
                     .padding(.horizontal, Metrics.margin)
+                    .readable(720)
                 ScrollViewReader { chips in
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {

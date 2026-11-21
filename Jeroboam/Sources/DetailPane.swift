@@ -84,3 +84,24 @@ struct DetailDestination: View {
         }
     }
 }
+
+extension View {
+    /// Content on the left half and `right` on the right half, when the window is wide enough; otherwise just the content.
+    func rightPane<R: View>(@ViewBuilder _ right: @escaping () -> R) -> some View { modifier(RightPaneModifier(right: right)) }
+}
+
+private struct RightPaneModifier<R: View>: ViewModifier {
+    let right: () -> R
+    @Environment(\.windowWidth) private var width
+    func body(content: Content) -> some View {
+        if width >= AdaptiveLayout.twoPaneThreshold {
+            HStack(spacing: 0) {
+                content.frame(width: width / 2)
+                Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
+                right().frame(width: width / 2 - 0.5).background(Palette.paper.ignoresSafeArea())
+            }
+        } else {
+            content
+        }
+    }
+}

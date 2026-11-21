@@ -145,6 +145,7 @@ struct WineCardsScreen: View {
         VStack(alignment: .leading, spacing: 14) {
             ScreenHeader(eyebrow: "\(grapes.count) cards", title: "Wine cards")
                 .padding(.horizontal, Metrics.margin)
+                .readable(720)
             Picker("Filter", selection: $filter) {
                 Text("All").tag(0)
                 Text("Red").tag(1)
@@ -283,6 +284,9 @@ struct BoldnessScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: reds) { _, _ in current = nil }
         .onChange(of: current) { _, _ in Haptics.tap() }
+        .rightPane {
+            if let g = list.first(where: { $0.id == activeID }) { GrapeDetailView(grape: g).id(g.id) }
+        }
     }
 
     private func row(_ g: Grape, active: Bool) -> some View {
