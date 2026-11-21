@@ -97,7 +97,7 @@ final class DuoSnapshots: XCTestCase {
 
     /// The Journal's wine map and charts, with the example data (an empty journal).
     func testJournalInsights() {
-        snap("insights", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(JournalStore(empty: true)) }
+        snap("insights", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(JournalStore()) }
     }
 
     func testMatchCard() {
