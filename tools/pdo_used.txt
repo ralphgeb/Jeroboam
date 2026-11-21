@@ -103,3 +103,63 @@ vouvray	PDO-FR-A0146	Vouvray
 touraine	PDO-FR-A0501	Touraine
 sancerre	PDO-FR-A0194	Sancerre
 pouilly-fume	PDO-FR-A0824	Pouilly-Fumé / Blanc Fumé de Pouilly
+friuli	PDO-IT-02176	Friuli / Friuli Venezia Giulia / Furlanija / Furlanija Julijska krajina
+abruzzo	PDO-IT-A0880	Abruzzo
+barolo	PDO-IT-A1389	Barolo
+barbaresco	PDO-IT-A1399	Barbaresco
+roero	PDO-IT-A1261	Roero
+dogliani	PDO-IT-A1330	Dogliani
+gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
+moscato-dasti	PDO-IT-A1396	Asti
+barbera-dasti	PDO-IT-A1398	Barbera d'Asti
+diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
+verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
+chianti-classico	PDO-IT-A1235	Chianti Classico
+montalcino	PDO-IT-A1199	Brunello di Montalcino
+montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
+bolgheri	PDO-IT-A1348	Bolgheri
+suvereto	PDO-IT-A1266	Suvereto
+val-di-cornia	PDO-IT-A1498	Val di Cornia
+montescudaio	PDO-IT-A1437	Montescudaio
+bibbona	PDO-IT-A1491	Terratico di Bibbona
+elba	PDO-IT-A1519	Elba
+carmignano	PDO-IT-A1220	Carmignano
+san-gimignano	PDO-IT-A1464	San Gimignano
+montecarlo	PDO-IT-A1421	Montecarlo
+colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
+candia	PDO-IT-A1377	Candia dei Colli Apuani
+cortona	PDO-IT-A1518	Cortona
+val-d-orcia	PDO-IT-A1442	Orcia
+montecucco	PDO-IT-A1433	Montecucco
+maremma	PDO-IT-A1260	Morellino di Scansano
+maremma-toscana	PDO-IT-A1413	Maremma toscana
+chianti	PDO-IT-A1228	Chianti
+barolo	PDO-IT-A1389	Barolo
+barbaresco	PDO-IT-A1399	Barbaresco
+roero	PDO-IT-A1261	Roero
+dogliani	PDO-IT-A1330	Dogliani
+gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
+moscato-dasti	PDO-IT-A1396	Asti
+barbera-dasti	PDO-IT-A1398	Barbera d'Asti
+diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
+verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
+chianti-classico	PDO-IT-A1235	Chianti Classico
+montalcino	PDO-IT-A1199	Brunello di Montalcino
+montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
+bolgheri	PDO-IT-A1348	Bolgheri
+suvereto	PDO-IT-A1266	Suvereto
+val-di-cornia	PDO-IT-A1498	Val di Cornia
+montescudaio	PDO-IT-A1437	Montescudaio
+bibbona	PDO-IT-A1491	Terratico di Bibbona
+elba	PDO-IT-A1519	Elba
+carmignano	PDO-IT-A1220	Carmignano
+san-gimignano	PDO-IT-A1464	San Gimignano
+montecarlo	PDO-IT-A1421	Montecarlo
+colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
+candia	PDO-IT-A1377	Candia dei Colli Apuani
+cortona	PDO-IT-A1518	Cortona
+val-d-orcia	PDO-IT-A1442	Orcia
+montecucco	PDO-IT-A1433	Montecucco
+maremma	PDO-IT-A1260	Morellino di Scansano
+maremma-toscana	PDO-IT-A1413	Maremma toscana
+chianti	PDO-IT-A1228	Chianti

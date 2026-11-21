@@ -300,10 +300,39 @@ def tints(pr, adm_geoms, tol, areas):
         if shapes: out.append({"c": best, "shapes": shapes})
     return out
 
-def water_polys(pr, water, estuary, tol):
+def _bearing(a, b):
+    return math.degrees(math.atan2(b[1] - a[1], (b[0] - a[0]) * math.cos(math.radians((a[1] + b[1]) / 2)))) % 180
+
+def snap_to_communes(ln, geoms, radius_km=1.4, max_turn=50):
+    """The river's true course: the commune boundaries that run along it. Commune borders follow the river (the two
+    banks meet in mid-stream), while the Natural Earth river line is coarse and can sit a kilometre off.
+    Returns the (sub)segments of commune boundaries within radius_km of ln that run roughly parallel to it."""
+    corridor = ln.buffer(km2deg(radius_km))
+    L = ln.length
+    kept = []
+    for g in geoms:
+        if not g.intersects(corridor): continue
+        for piece in lines_of(g.boundary.intersection(corridor)):
+            pts = list(piece.coords)
+            for i in range(len(pts) - 1):
+                p, q = pts[i], pts[i + 1]
+                if p == q: continue
+                mid = Point((p[0] + q[0]) / 2, (p[1] + q[1]) / 2)
+                t = ln.project(mid)
+                t0, t1 = max(0, t - L * 0.01), min(L, t + L * 0.01)
+                a0, a1 = ln.interpolate(t0).coords[0], ln.interpolate(t1).coords[0]
+                d = abs(_bearing(p, q) - _bearing(a0, a1))
+                d = min(d, 180 - d)
+                if d <= max_turn and mid.distance(ln) <= km2deg(radius_km):
+                    kept.append((LineString([p, q]), t / L if L else 0))
+    return kept
+
+def water_polys(pr, water, estuary, tol, geoms=None):
     """Wide rivers and estuaries as smooth water polygons (drawn over the wine areas, like a printed atlas).
     water = [(river name, half-width in km at the upstream end, half-width at the downstream end)];
-    estuary = (lon0, lat0, lon1, lat1): sea inside this box (from the 10m land) is smoothed and drawn as water."""
+    estuary = (lon0, lat0, lon1, lat1): sea inside this box (from the 10m land) is smoothed and drawn as water.
+    geoms: the communes of the map (lon/lat); when given, the water is snapped onto the real commune borders so land and
+    water meet exactly instead of leaving white gaps or cutting through appellations."""
     out = []
     view = box(-20, -20, pr.W + 20, pr.H + 20)
     la0, lo0, la1, lo1 = pr.bbox
@@ -317,12 +346,24 @@ def water_polys(pr, water, estuary, tol):
                 if n < 2: continue
                 # orient upstream -> downstream (rivers here flow west/north-west toward the sea)
                 if pts[0][0] < pts[-1][0]: pts = pts[::-1]
+                ln = LineString(pts)
                 segs = []
                 for i in range(n - 1):
                     t = i / max(1, n - 2)
                     r = km2deg(w0 + (w1 - w0) * t)
                     segs.append(LineString(pts[i:i + 2]).buffer(r, cap_style=1))
                 g = unary_union(segs).buffer(km2deg(0.15)).buffer(-km2deg(0.15))
+                if geoms:
+                    kept = snap_to_communes(ln, geoms)
+                    if kept:
+                        sn = [sg.buffer(km2deg(w0 + (w1 - w0) * t), cap_style=1) for sg, t in kept]
+                        snapped = unary_union(sn)
+                        support = unary_union([sg for sg, _ in kept]).buffer(km2deg(0.9))
+                        far = g.difference(support)
+                        # close the little gaps between boundary pieces, keep the banks sharp
+                        rc = min(0.9, max(0.3, 3.5 * max(w0, w1)))     # closing: fill the gaps between boundary pieces
+                        ro = 0.4 * min(w0, w1)                          # opening: drop thin spikes, never the river itself
+                        g = unary_union([snapped, far]).buffer(km2deg(rc)).buffer(-km2deg(rc)).buffer(-km2deg(ro)).buffer(km2deg(ro))
                 out += enc_polys(pr.geom(g).intersection(view), tol * 0.6, 1, smooth=True)
     if estuary:
         eb = box(*estuary)
@@ -330,6 +371,12 @@ def water_polys(pr, water, estuary, tol):
         sea = eb.difference(landg)
         r = km2deg(0.6)
         sea = sea.buffer(-r).buffer(2 * r).buffer(-r)  # smooth the coarse coastline both ways
+        if geoms:
+            # the coarse coast leaves white gaps between the water and the communes on the banks: widen the estuary
+            # into whatever near it is not commune land
+            cover = unary_union([g for g in geoms if g.intersects(eb.buffer(0.1))])
+            ext = sea.buffer(km2deg(3.0)).intersection(eb).difference(cover)
+            sea = unary_union([sea, ext]).buffer(km2deg(0.5)).buffer(-km2deg(0.5))
         out += enc_polys(pr.geom(sea.intersection(eb)).intersection(view), tol * 0.6, 4, smooth=True)
     return out
 
@@ -549,8 +596,9 @@ def build_france():
         pr = Proj(bbox, W)
         tol = 0.9
         land, focus, lk, rv = base_layers(pr, bbox, ["FRA"], tol=tol)
-        lk = lk + water_polys(pr, water, estuary, tol)
         specs = list(groups[g]) + list(extra_specs)
+        _depts = sorted({d for s in specs for d in s["depts"]})
+        lk = lk + water_polys(pr, water, estuary, tol, geoms=[gg for d in _depts for _, gg in fr_communes(d)])
         r = dict(resolved[g])
         areas = []
         allnames = set()
@@ -641,7 +689,7 @@ def build_italy():
         pr = Proj(bbox, 3000)
         tol = 0.9
         land, focus, lk, rv = base_layers(pr, bbox, ["ITA"], tol=tol)
-        lk = lk + water_polys(pr, water, None, tol)
+        lk = lk + water_polys(pr, water, None, tol, geoms=[gg for _, gg in it_comuni(reg)])
         r = resolve(specs, it_pool, {})
         areas, names = [], set()
         for s in specs:
