@@ -26,7 +26,7 @@ struct JeroboamApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AdaptiveRoot { RootView() }
+            DuoPreviewHost { AdaptiveRoot { RootView() } }
                 .environment(progress)
                 .environment(journal)
                 .preferredColorScheme(progress.colorScheme)

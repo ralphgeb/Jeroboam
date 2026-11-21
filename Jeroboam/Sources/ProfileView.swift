@@ -127,6 +127,7 @@ struct ProfileView: View {
 
                     // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.
                     if Distribution.isTestFlight {
+                        DuoPreviewPicker()
                         VStack(alignment: .leading, spacing: 0) {
                             SectionTitle(text: "TestFlight").padding(.bottom, 10)
                             Button {

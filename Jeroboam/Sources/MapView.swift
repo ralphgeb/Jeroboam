@@ -925,7 +925,7 @@ struct MapExplorer: View {
                 let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
                 MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: .constant(true)) { id in selected = id }
             }
-            .padding(.horizontal, 22).padding(.top, 70).padding(.bottom, 24)
+            .padding(.horizontal, 22).padding(.top, 8).padding(.bottom, 24)
         }
         .scrollIndicators(.hidden)
     }

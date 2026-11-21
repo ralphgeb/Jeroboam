@@ -92,7 +92,44 @@ final class DuoSnapshots: XCTestCase {
         snap("bottle-full") { BottleFullScreen(wine: w) }
     }
 
-    func testLearn() { snap("learn") { LearnView() } }
+    // ---- every page, at all three Duo sizes
+    private func page<V: View>(_ name: String, _ v: @autoclosure () -> V) { snap(name) { NavigationStack { v() } } }
+
+    func testPages1() {
+        page("grapes", GrapeListView())
+        page("regions", RegionListView())
+        page("wines", WinesScreen())
+        page("great-list", GreatWinesScreen())
+        page("aromas", AromaWheelScreen())
+        page("colors", ColorChartScreen())
+    }
+
+    func testPages2() {
+        page("styles", StylesScreen())
+        page("tasting", TastingScreen())
+        page("pairing", PairingScreen())
+        page("glossary", GlossaryScreen())
+        page("bottles", BottlesScreen())
+        page("wine-cards", WineCardsScreen())
+    }
+
+    func testPages3() {
+        page("boldness", BoldnessScreen())
+        page("labels", LabelsScreen())
+        page("style-guide", StyleGuideScreen())
+        snap("profile") { ProfileView() }
+        snap("onboarding") { OnboardingView() }
+        if let g = ContentStore.shared.library.grapes.first { page("grape", GrapeDetailView(grape: g)) }
+    }
+
+    func testLesson() {
+        let cards = ContentStore.shared.orderedLessons.first?.cards ?? []
+        let q = ContentStore.shared.orderedLessons.flatMap(\.cards).filter { $0.kind != .learn }
+        snap("lesson-learn") { LessonPlayer(session: Session(title: "Lesson", lessonID: nil, cards: Array(cards.prefix(4)))) }
+        snap("lesson-question") { LessonPlayer(session: Session(title: "Practice", lessonID: nil, cards: Array(q.prefix(6)))) }
+    }
+
+    func testLearnHome() { snap("learn") { LearnView() } }
     func testAtlas() { snap("atlas") { LibraryView() } }
     func testJournal() { snap("journal") { JournalView() } }
     func testPractice() { snap("practice") { PracticeView() } }

@@ -171,6 +171,7 @@ struct CollapsingPage<Content: View>: View {
     var showStatus = false
     @ViewBuilder let content: Content
     @State private var collapse: CGFloat = 0
+    @Environment(\.isWide) private var isWide
 
     var body: some View {
         ScrollView {
@@ -204,9 +205,9 @@ struct CollapsingPage<Content: View>: View {
                 if !showStatus || collapse > 0.5 { AvatarButton(size: 30) }
             }
         }
-        .frame(height: 44)
+        .frame(height: isWide ? 34 : 44)
         .padding(.horizontal, Metrics.margin)
-        .padding(.top, 4)
+        .padding(.top, isWide ? 0 : 4)
         .background(Palette.paper.ignoresSafeArea(edges: .top))
         .overlay(alignment: .bottom) { Hairline().opacity(collapse) }
     }
