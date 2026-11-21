@@ -130,7 +130,10 @@ struct AboutYouSection: View {
                                                                 "Studying WSET 3", "Trade professional", "Sommelier"])
                     pickerRow("Favorite style", $favorite, ["", "Crisp whites", "Rich whites", "Rosé", "Light reds", "Bold reds",
                                                             "Sparkling", "Sweet & fortified"])
-                    pickerRow("Country", $country, Self.countries(including: country), last: true)
+                    pickerRow("Country", $country, Self.countries(including: country))
+                    Hairline()
+                    // Sign in with Apple / iCloud sync lives here, with the rest of what is about you
+                    AccountCard().padding(14)
                 }
             }
             if UserProfile.photo() != nil {

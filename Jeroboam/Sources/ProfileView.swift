@@ -14,7 +14,6 @@ struct ProfileView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     AboutYouSection().padding(.top, 16)
-                    AccountCard()
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                       HStack(spacing: 16) {

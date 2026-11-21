@@ -90,6 +90,11 @@ final class DuoSnapshots: XCTestCase {
         snap("map-explorer", settle: 3.0) { MapExplorer(mapID: "bordeaux") }
     }
 
+    /// Whole-country explorers at the Duo sizes: regions, zones and appellations drawn together.
+    func testMapExplorersCountries() {
+        for id in ["france", "italy", "spain", "tuscany"] { snap("explorer-\(id)", settle: 3.0) { MapExplorer(mapID: id) } }
+    }
+
     func testDrinkWindow() {
         snap("drink-window") { VStack(spacing: 16) { DrinkWindowChart(window: "Now–2030", vintage: "2019"); DrinkWindowChart(window: "2026–2040", vintage: "2018") }.padding(20) }
     }

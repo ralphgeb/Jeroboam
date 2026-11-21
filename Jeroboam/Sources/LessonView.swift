@@ -584,9 +584,19 @@ struct MatchCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             QuestionHeader(label: "Match the pairs", text: card.question ?? "Tap the matching pairs")
-            HStack(alignment: .top, spacing: 12) {
-                VStack(spacing: 10) { ForEach(left, id: \.self) { tile($0, isLeft: true) } }
-                VStack(spacing: 10) { ForEach(right, id: \.self) { tile($0, isLeft: false) } }
+            Text(selL == nil ? "Tap an item on the left, then its match on the right." : "Now tap its match on the right.")
+                .font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).animation(.none, value: selL)
+            HStack(alignment: .top, spacing: 10) {
+                VStack(spacing: 10) {
+                    columnHeader("1 · Pick", systemImage: "arrow.left.circle.fill", leading: true)
+                    ForEach(left, id: \.self) { tile($0, isLeft: true) }
+                }
+                Image(systemName: "arrow.left.arrow.right").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                    .padding(.top, 52)
+                VStack(spacing: 10) {
+                    columnHeader("2 · Match", systemImage: "arrow.right.circle.fill", leading: false)
+                    ForEach(right, id: \.self) { tile($0, isLeft: false) }
+                }
             }
         }
         .onAppear {
@@ -595,6 +605,17 @@ struct MatchCard: View {
                 right = pairs.map { $0[1] }.shuffled()
             }
         }
+    }
+
+    private func columnHeader(_ title: String, systemImage: String, leading: Bool) -> some View {
+        HStack(spacing: 5) {
+            if leading { Image(systemName: systemImage).font(.system(size: 12)) }
+            Text(title.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1)
+            if !leading { Image(systemName: systemImage).font(.system(size: 12)) }
+        }
+        .foregroundStyle(Palette.wine)
+        .frame(maxWidth: .infinity, minHeight: 30)
+        .background(Capsule().fill(Palette.wineSoft))
     }
 
     private func tile(_ text: String, isLeft: Bool) -> some View {
@@ -613,6 +634,11 @@ struct MatchCard: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .buttonStyle(TileStyle(state: state))
+        // a bar on the outer edge tells the two columns apart: wine on the left, brass on the right
+        .overlay(alignment: isLeft ? .leading : .trailing) {
+            Capsule().fill(isLeft ? Palette.wine : Palette.brass).frame(width: 4).padding(.vertical, 9)
+                .padding(isLeft ? .leading : .trailing, 6).opacity(isMatched ? 0.4 : 1)
+        }
         .opacity(isMatched ? 0.55 : 1)
         .animation(.easeOut(duration: 0.2), value: state)
     }
