@@ -260,6 +260,7 @@ struct JournalHome: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .detailPane(first: section == 0 ? journal.cellar.first.map { AnyHashable($0) } : journal.entries.first.map { AnyHashable($0) })
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
             .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
@@ -314,7 +315,7 @@ struct JournalHome: View {
             }
             GroupCard {
                 ForEach(Array(journal.cellar.enumerated()), id: \.element.id) { i, b in
-                    NavigationLink(value: b) { cellarRow(b, last: i == journal.cellar.count - 1) }
+                    DetailLink(value: b) { cellarRow(b, last: i == journal.cellar.count - 1) }
                         .buttonStyle(RowPressStyle())
                 }
             }
@@ -357,7 +358,7 @@ struct JournalHome: View {
             }
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                 ForEach(journal.entries) { e in
-                    NavigationLink(value: e) { EntryTile(entry: e) }.buttonStyle(PressableStyle())
+                    DetailLink(value: e) { EntryTile(entry: e) }.buttonStyle(PressableStyle())
                 }
             }
         }

@@ -78,6 +78,10 @@ struct DetailDestination: View {
                 PlusGate(quota: "great", id: w.id) { GreatWinePager(wine: w) }
             } else if let s = value.base as? WineStyle {
                 PlusGate(quota: "styles", id: s.id) { StyleDetailView(style: s) }
+            } else if let b = value.base as? CellarBottle {
+                CellarDetailView(bottleID: b.id)
+            } else if let e = value.base as? JournalEntry {
+                EntryDetailView(entryID: e.id)
             } else {
                 Color.clear
             }

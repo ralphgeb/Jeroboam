@@ -157,6 +157,7 @@ struct ProfileView: View {
                     .padding(.top, 10).padding(.bottom, 30)
                 }
                 .padding(.horizontal, Metrics.margin)
+                .readable(720)
             }
             .scrollIndicators(.hidden)
             .background(Palette.paper.ignoresSafeArea())
