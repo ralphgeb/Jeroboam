@@ -26,9 +26,18 @@ final class DuoSnapshots: XCTestCase {
 
     private func snap<V: View>(_ name: String, settle: TimeInterval = 2.0, @ViewBuilder _ make: () -> V) {
         let progress = GameProgress()
+        progress.data.onboarded = true
         let journal = JournalStore.sample
         for (label, size) in Self.screens {
-            let root = AdaptiveRoot { make() }
+            // as on the Duo: the tabs stand up in a column on the right and the page gets the rest
+            let root = AdaptiveRoot {
+                HStack(spacing: 0) {
+                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).frame(maxWidth: .infinity)
+                    Color.clear.frame(width: AdaptiveLayout.railWidth)
+                }
+                .environment(\.hasRail, true)
+                .overlay(alignment: .bottomTrailing) { DuoRail(selection: .constant(2)).frame(width: AdaptiveLayout.railWidth) }
+            }
                 .environment(progress)
                 .environment(journal)
                 .background(Palette.paper)
@@ -130,6 +139,7 @@ final class DuoSnapshots: XCTestCase {
     }
 
     func testLearnHome() { snap("learn") { LearnView() } }
+    func testRoot() { snap("root") { RootView() } }
     func testAtlas() { snap("atlas") { LibraryView() } }
     func testJournal() { snap("journal") { JournalView() } }
     func testPractice() { snap("practice") { PracticeView() } }
