@@ -315,10 +315,10 @@ struct WorldTriedMap: View {
         GeometryReader { geo in
             let size = geo.size
             let mw = CGFloat(g?.map.w ?? 4800), mh = CGFloat(g?.map.h ?? 1755)
-            // start on the wine belt: Americas to Australasia, a little north to south of the vineyards
-            let base = size.width / (mw * 0.78)
+            // the whole world to start with; pinch to zoom in on a region
+            let base = size.width / mw
             let s = base * zoom
-            let origin = CGPoint(x: -mw * 0.095 * base * zoom + pan.width, y: -mh * 0.12 * base * zoom + pan.height)
+            let origin = CGPoint(x: (size.width - mw * s) / 2 + pan.width, y: (size.height - mh * s) / 2 + pan.height)
             Canvas { ctx, sz in
                 ctx.fill(Path(CGRect(origin: .zero, size: sz)), with: .color(Palette.sea))
                 if let g {
@@ -356,7 +356,7 @@ struct WorldTriedMap: View {
             .simultaneousGesture(MagnifyGesture().onChanged { zoom = min(10, max(1, lastZoom * $0.magnification)) }.onEnded { _ in lastZoom = zoom })
             .onTapGesture(count: 2) { withAnimation(.easeOut(duration: 0.25)) { zoom = 1; lastZoom = 1; pan = .zero; lastPan = .zero } }
         }
-        .frame(height: 220)
+        .frame(height: 200)
         .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
     }

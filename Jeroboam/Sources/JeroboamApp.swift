@@ -117,7 +117,8 @@ struct RootView: View {
             }
         }
         .onChange(of: tab, initial: true) { _, t in visited.insert(t) }
-        .safeAreaPadding(.top, 30)
+        // real padding: a NavigationStack ignores extra safe area, so this keeps every page the same distance from the top
+        .padding(.top, 30)
     }
 
     var body: some View {

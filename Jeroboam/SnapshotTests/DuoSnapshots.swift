@@ -32,7 +32,7 @@ final class DuoSnapshots: XCTestCase {
             // as on the Duo: the tabs stand up in a column on the right and the page gets the rest
             let root = AdaptiveRoot {
                 HStack(spacing: 0) {
-                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).safeAreaPadding(.top, 30).frame(maxWidth: .infinity)
+                    make().environment(\.windowWidth, size.width - AdaptiveLayout.railWidth).padding(.top, 30).frame(maxWidth: .infinity)
                     Color.clear.frame(width: AdaptiveLayout.railWidth)
                 }
                 .environment(\.hasRail, true)
