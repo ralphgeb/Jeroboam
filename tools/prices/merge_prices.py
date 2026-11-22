@@ -2,8 +2,8 @@
 # one row per wine + vintage + bottle size, duplicates merged, prices averaged across shops.
 # Run: python3 tools/prices/merge_prices.py content/prices/wine_prices.csv
 import csv,re,sys,unicodedata,collections,statistics,datetime
-RATES={'EUR':1.0,'GBP':0.83735,'USD':1.0990}  # ECB reference rates, 2026-11-20
-BAD=re.compile(r'\b(cassett\w*|\d+\s*(?:bottiglie|bottles|x\s*75cl)|\d+\s*pack|members case|case of|mixed case|gift ?box(ed)?|duo|trio|stopper|hamper|voucher|subscription|abonnement|coffret|analcolic\w*|alcohol[- ]free|grappa|gin|whisk(e)?y|rum|vodka|liquore|amaro|birra|beer|cider|olio|tequila|mezcal|cognac|armagnac|calvados|brandy|vermouth|sake|bitter|sciroppo|tasting|masterclass|ticket|glass(es)?|calice|decanter|book)\b',re.I)
+RATES={'EUR':1.0,'GBP':0.83735,'USD':1.0990,'AUD':1.6487,'CAD':1.5723,'NZD':1.9968}  # ECB reference rates, 2026-11-20
+BAD=re.compile(r'\b(non[- ]?alcoholic|pilsner|ipa|lager|ale|seltzer|soda|mineral water|cans?|case of \d+|pack of \d+|\d+\s*oz|gift box|build your own|wine club|shipping|protection|membership|cassett\w*|\d+\s*(?:bottiglie|bottles|x\s*75cl)|\d+\s*pack|members case|case of|mixed case|gift ?box(ed)?|duo|trio|stopper|hamper|voucher|subscription|abonnement|coffret|analcolic\w*|alcohol[- ]free|grappa|gin|whisk(e)?y|rum|vodka|liquore|amaro|birra|beer|cider|olio|tequila|mezcal|cognac|armagnac|calvados|brandy|vermouth|sake|bitter|sciroppo|tasting|masterclass|ticket|glass(es)?|calice|decanter|book)\b',re.I)
 YEAR=re.compile(r'\b(19[0-9]\d|20[0-2]\d)\b'); NV=re.compile(r'\bNV\b|non[- ]vintage|sans mill',re.I)
 FMT={'half':375,'half bottle':375,'magnum':1500,'double magnum':3000,'jeroboam':3000,'rehoboam':4500,'methuselah':6000,'imperial':6000,'salmanazar':9000}
 def ml(name,size):
@@ -37,8 +37,8 @@ for x in csv.DictReader(open(D+'sources/uk_supermarkets.csv')):
     add('UK supermarket',x['supermarket'],'UK',n,x['brand'],x['vintage'],x['size'] or '75cl',x['price_gbp'],'GBP','yes',x['trolley_url'])
 for x in csv.DictReader(open(D+'sources/us_wine_shops.csv')):
     add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price_usd'],'USD',x['in_stock'],x['url'])
-for x in csv.DictReader(open(D+'sources/europe_wine_shops.csv')):
-    add('UK wine shop' if x['location'].endswith('UK') else 'EU wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
+for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv'))):
+    add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
 print('offers',len(offers))
 # group: exact key+vintage+size first (merges same-shop duplicates), then fuzzy across shops
 parent=list(range(len(offers))); shops=[{o['shop']} for o in offers]
