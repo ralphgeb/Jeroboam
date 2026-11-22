@@ -607,7 +607,23 @@ struct PriceCard: View {
     let price: PriceInfo?
     var loading = false
     var quantity: Int? = nil
+    var wine: WineIdentity? = nil
     var onRefresh: (() -> Void)? = nil
+
+    /// The shop we found the price at, or else a search for this exact bottle on Wine-Searcher.
+    private var shopLink: (URL, String)? {
+        if let u = price?.url, let url = URL(string: u), let host = url.host {
+            return (url, "Cheapest found: " + host.replacingOccurrences(of: "www.", with: ""))
+        }
+        guard let w = wine else { return nil }
+        let words = [w.producer, w.name].filter { !$0.isEmpty }.joined(separator: " ")
+        guard !words.isEmpty else { return nil }
+        let slug = words.folding(options: .diacriticInsensitive, locale: .current).lowercased()
+            .components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }.joined(separator: "+")
+        let v = w.vintage.trimmingCharacters(in: .whitespaces)
+        guard let url = URL(string: "https://www.wine-searcher.com/find/" + slug + (v.count == 4 ? "/" + v : "")) else { return nil }
+        return (url, "Find the cheapest price")
+    }
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
@@ -629,9 +645,9 @@ struct PriceCard: View {
                                 (p.low > 0 && p.high > 0 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
                             .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
                     }
-                    if let u = p.url, let url = URL(string: u), let host = url.host {
+                    if let (url, text) = shopLink {
                         Link(destination: url) {
-                            Label("Cheapest found: \(host.replacingOccurrences(of: "www.", with: ""))", systemImage: "arrow.up.right.square")
+                            Label(text, systemImage: "arrow.up.right.square")
                                 .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
                         }
                         .foregroundStyle(Palette.wine).padding(.top, 2)
@@ -774,7 +790,7 @@ struct ScanFlow: View {
                     .font(.system(size: 17, weight: .semibold))
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
             }
-            PriceCard(price: price, loading: pricing, onRefresh: identified ? { Task { await findPrice() } } : nil)
+            PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
             if !pricing && identified { PricePaidField(price: $price) }
 
             VStack(spacing: 12) {
@@ -986,7 +1002,7 @@ struct TastingFlow: View {
                     Text("The only clue is the price. Taste it, guess the grape and the country, then see how close you were.")
                         .font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
                 }
-                PriceCard(price: entry.price, loading: pricing)
+                PriceCard(price: entry.price, loading: pricing, wine: entry.wine)
                 if let e = error { Text(e).font(.system(size: 13.5)).foregroundStyle(Palette.wrong) }
                 Button("Start blind tasting") { go(.look) }
                     .buttonStyle(PrimaryButtonStyle(enabled: entry.identified))
@@ -1315,7 +1331,7 @@ struct TastingFlow: View {
                     .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
                 }
                 WineInfoCard(wine: entry.wine)
-                if entry.price != nil { PriceCard(price: entry.price) }
+                if entry.price != nil { PriceCard(price: entry.price, wine: entry.wine) }
             } else {
                 ScreenHeader(eyebrow: "Journal", title: "Saved")
                 if !typical.isEmpty {
@@ -1454,7 +1470,7 @@ struct EntryDetailView: View {
                         }
                     }
                     if e.identified { WineInfoCard(wine: e.wine) }
-                    if let p = e.price { PriceCard(price: p) }
+                    if let p = e.price { PriceCard(price: p, wine: e.wine) }
                     if let c = e.colorID.flatMap({ ContentStore.shared.color($0) }) {
                         HStack(spacing: 12) {
                             Rectangle().fill(Color(hex: c.hex)).frame(width: 36, height: 36)
@@ -1530,7 +1546,7 @@ struct CellarDetailView: View {
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
                                  subtitle: "Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? "") + " · added " + b.added.formatted(date: .abbreviated, time: .omitted))
-                    PriceCard(price: b.price, loading: pricing, quantity: b.quantity) { Task { await refresh(b) } }
+                    PriceCard(price: b.price, loading: pricing, quantity: b.quantity, wine: b.wine) { Task { await refresh(b) } }
                     if !pricing {
                         PricePaidField(price: Binding(get: { b.price }, set: { v in var c = b; c.price = v; journal.upsert(c) }))
                     }
