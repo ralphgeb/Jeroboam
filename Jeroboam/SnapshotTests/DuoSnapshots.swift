@@ -130,6 +130,35 @@ final class DuoSnapshots: XCTestCase {
         window.isHidden = true
     }
 
+    private func shot<V: View>(_ name: String, _ size: CGSize, settle: TimeInterval = 3.5, _ view: V) {
+        let host = UIHostingController(rootView: AnyView(view))
+        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+        window.rootViewController = host
+        window.makeKeyAndVisible()
+        host.view.frame = window.bounds
+        host.view.layoutIfNeeded()
+        spin(settle)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true) }
+        if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent(name + ".png")) }
+        window.isHidden = true
+    }
+
+    /// Where does the chopped map come from? The cover without the preview, and the preview without the cover.
+    func testMapIsolation() {
+        let progress = GameProgress(); progress.data.onboarded = true
+        let journal = JournalStore.sample
+        // 1. the cover in a Duo-sized window (no preview)
+        CoverHost.shared.content = AnyView(MapExplorer(mapID: "france"))
+        shot("iso1-cover-only", CGSize(width: 951, height: 669), AdaptiveRoot { RootView() }.environment(progress).environment(journal))
+        CoverHost.shared.content = nil
+        // 2. the preview with the map as plain content (no cover)
+        UserDefaults.standard.set(3, forKey: "jero.duoPreview")
+        shot("iso2-preview-direct", CGSize(width: 440, height: 956),
+             DuoPreviewHost { AdaptiveRoot { MapExplorer(mapID: "france") } }.environment(progress).environment(journal))
+        UserDefaults.standard.set(0, forKey: "jero.duoPreview")
+    }
+
     func testDrinkWindow() {
         snap("drink-window") { VStack(spacing: 16) { DrinkWindowChart(window: "Now–2030", vintage: "2019"); DrinkWindowChart(window: "2026–2040", vintage: "2018") }.padding(20) }
     }
