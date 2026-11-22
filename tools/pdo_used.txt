@@ -26,6 +26,36 @@ julienas	PDO-FR-A1025	Juliénas
 saint-amour	PDO-FR-A1028	Saint-Amour
 chiroubles	PDO-FR-A0911	Chiroubles
 regnie	PDO-FR-A0912	Régnié
+marsannay	PDO-FR-A0175	Marsannay
+fixin	PDO-FR-A0642	Fixin
+gevrey-chambertin	PDO-FR-A0168	Gevrey-Chambertin
+morey-saint-denis	PDO-FR-A0913	Morey-Saint-Denis
+chambolle-musigny	PDO-FR-A1016	Chambolle-Musigny
+vougeot	PDO-FR-A0176	Vougeot
+vosne-romanee	PDO-FR-A0504	Vosne-Romanée
+nuits-saint-georges	PDO-FR-A0579	Nuits-Saint-Georges
+ladoix	PDO-FR-A0590	Ladoix
+aloxe-corton	PDO-FR-A0932	Aloxe-Corton
+pernand-vergelesses	PDO-FR-A0643	Pernand-Vergelesses
+savigny	PDO-FR-A0660	Savigny-lès-Beaune
+chorey	PDO-FR-A0659	Chorey-lès-Beaune
+beaune	PDO-FR-A1022	Beaune
+pommard	PDO-FR-A0193	Pommard
+volnay	PDO-FR-A0198	Volnay
+monthelie	PDO-FR-A0654	Monthélie
+auxey-duresses	PDO-FR-A0647	Auxey-Duresses
+saint-romain	PDO-FR-A0167	Saint-Romain
+meursault	PDO-FR-A1017	Meursault
+puligny-montrachet	PDO-FR-A0308	Puligny-Montrachet
+chassagne-montrachet	PDO-FR-A1021	Chassagne-Montrachet
+saint-aubin	PDO-FR-A0822	Saint-Aubin
+santenay	PDO-FR-A0589	Santenay
+maranges	PDO-FR-A0718	Maranges
+bouzeron	PDO-FR-A0576	Bouzeron
+rully	PDO-FR-A0937	Rully
+mercurey	PDO-FR-A0404	Mercurey
+givry	PDO-FR-A0578	Givry
+montagny	PDO-FR-A0403	Montagny
 cote-rotie	PDO-FR-A0199	Côte Rôtie
 condrieu	PDO-FR-A0685	Condrieu
 saint-joseph	PDO-FR-A0200	Saint-Joseph
@@ -81,6 +111,36 @@ julienas	PDO-FR-A1025	Juliénas
 saint-amour	PDO-FR-A1028	Saint-Amour
 chiroubles	PDO-FR-A0911	Chiroubles
 regnie	PDO-FR-A0912	Régnié
+marsannay	PDO-FR-A0175	Marsannay
+fixin	PDO-FR-A0642	Fixin
+gevrey-chambertin	PDO-FR-A0168	Gevrey-Chambertin
+morey-saint-denis	PDO-FR-A0913	Morey-Saint-Denis
+chambolle-musigny	PDO-FR-A1016	Chambolle-Musigny
+vougeot	PDO-FR-A0176	Vougeot
+vosne-romanee	PDO-FR-A0504	Vosne-Romanée
+nuits-saint-georges	PDO-FR-A0579	Nuits-Saint-Georges
+ladoix	PDO-FR-A0590	Ladoix
+aloxe-corton	PDO-FR-A0932	Aloxe-Corton
+pernand-vergelesses	PDO-FR-A0643	Pernand-Vergelesses
+savigny	PDO-FR-A0660	Savigny-lès-Beaune
+chorey	PDO-FR-A0659	Chorey-lès-Beaune
+beaune	PDO-FR-A1022	Beaune
+pommard	PDO-FR-A0193	Pommard
+volnay	PDO-FR-A0198	Volnay
+monthelie	PDO-FR-A0654	Monthélie
+auxey-duresses	PDO-FR-A0647	Auxey-Duresses
+saint-romain	PDO-FR-A0167	Saint-Romain
+meursault	PDO-FR-A1017	Meursault
+puligny-montrachet	PDO-FR-A0308	Puligny-Montrachet
+chassagne-montrachet	PDO-FR-A1021	Chassagne-Montrachet
+saint-aubin	PDO-FR-A0822	Saint-Aubin
+santenay	PDO-FR-A0589	Santenay
+maranges	PDO-FR-A0718	Maranges
+bouzeron	PDO-FR-A0576	Bouzeron
+rully	PDO-FR-A0937	Rully
+mercurey	PDO-FR-A0404	Mercurey
+givry	PDO-FR-A0578	Givry
+montagny	PDO-FR-A0403	Montagny
 cote-rotie	PDO-FR-A0199	Côte Rôtie
 condrieu	PDO-FR-A0685	Condrieu
 saint-joseph	PDO-FR-A0200	Saint-Joseph
@@ -103,63 +163,3 @@ vouvray	PDO-FR-A0146	Vouvray
 touraine	PDO-FR-A0501	Touraine
 sancerre	PDO-FR-A0194	Sancerre
 pouilly-fume	PDO-FR-A0824	Pouilly-Fumé / Blanc Fumé de Pouilly
-friuli	PDO-IT-02176	Friuli / Friuli Venezia Giulia / Furlanija / Furlanija Julijska krajina
-abruzzo	PDO-IT-A0880	Abruzzo
-barolo	PDO-IT-A1389	Barolo
-barbaresco	PDO-IT-A1399	Barbaresco
-roero	PDO-IT-A1261	Roero
-dogliani	PDO-IT-A1330	Dogliani
-gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
-moscato-dasti	PDO-IT-A1396	Asti
-barbera-dasti	PDO-IT-A1398	Barbera d'Asti
-diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
-verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
-chianti-classico	PDO-IT-A1235	Chianti Classico
-montalcino	PDO-IT-A1199	Brunello di Montalcino
-montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
-bolgheri	PDO-IT-A1348	Bolgheri
-suvereto	PDO-IT-A1266	Suvereto
-val-di-cornia	PDO-IT-A1498	Val di Cornia
-montescudaio	PDO-IT-A1437	Montescudaio
-bibbona	PDO-IT-A1491	Terratico di Bibbona
-elba	PDO-IT-A1519	Elba
-carmignano	PDO-IT-A1220	Carmignano
-san-gimignano	PDO-IT-A1464	San Gimignano
-montecarlo	PDO-IT-A1421	Montecarlo
-colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
-candia	PDO-IT-A1377	Candia dei Colli Apuani
-cortona	PDO-IT-A1518	Cortona
-val-d-orcia	PDO-IT-A1442	Orcia
-montecucco	PDO-IT-A1433	Montecucco
-maremma	PDO-IT-A1260	Morellino di Scansano
-maremma-toscana	PDO-IT-A1413	Maremma toscana
-chianti	PDO-IT-A1228	Chianti
-barolo	PDO-IT-A1389	Barolo
-barbaresco	PDO-IT-A1399	Barbaresco
-roero	PDO-IT-A1261	Roero
-dogliani	PDO-IT-A1330	Dogliani
-gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
-moscato-dasti	PDO-IT-A1396	Asti
-barbera-dasti	PDO-IT-A1398	Barbera d'Asti
-diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
-verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
-chianti-classico	PDO-IT-A1235	Chianti Classico
-montalcino	PDO-IT-A1199	Brunello di Montalcino
-montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
-bolgheri	PDO-IT-A1348	Bolgheri
-suvereto	PDO-IT-A1266	Suvereto
-val-di-cornia	PDO-IT-A1498	Val di Cornia
-montescudaio	PDO-IT-A1437	Montescudaio
-bibbona	PDO-IT-A1491	Terratico di Bibbona
-elba	PDO-IT-A1519	Elba
-carmignano	PDO-IT-A1220	Carmignano
-san-gimignano	PDO-IT-A1464	San Gimignano
-montecarlo	PDO-IT-A1421	Montecarlo
-colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
-candia	PDO-IT-A1377	Candia dei Colli Apuani
-cortona	PDO-IT-A1518	Cortona
-val-d-orcia	PDO-IT-A1442	Orcia
-montecucco	PDO-IT-A1433	Montecucco
-maremma	PDO-IT-A1260	Morellino di Scansano
-maremma-toscana	PDO-IT-A1413	Maremma toscana
-chianti	PDO-IT-A1228	Chianti

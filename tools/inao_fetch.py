@@ -14,18 +14,16 @@ for sp in shps:
     print(sp, len(g), g.crs); print(list(g.columns)); print(g.head(3).drop(columns="geometry").to_string())
     frames.append(g)
 g = frames[0]
-for sp, f in zip(shps, frames):
+for f in frames:
     if len(f) > len(g): g = f
 g = g.to_crs(4326)
-cols = [c for c in g.columns if c != "geometry"]
-txt = g[cols].astype(str).agg(" | ".join, axis=1)
-pat = r"montrachet|chambertin|musigny|vougeot|romanée|romanee|richebourg|tâche|tache|corton|bonnes.mares|clos de|echezeaux|échezeaux|lambrays|griotte|ruchottes|mazis|charmes|chapelle|saint-denis|chevalier|criots|bâtard|batard|bienvenues|chablis|rully|mercurey|givry|montagny|bouzeron|puligny|chassagne|meursault|pommard|volnay|beaune|santenay|savigny|gevrey|morey|chambolle|nuits|vosne|fixin|marsannay|ladoix|aloxe|pernand|auxey|monthelie|saint-romain|saint-aubin|maranges|côte de|cote de|pouilly|saint-véran|mâcon|macon"
-sel = g[txt.str.contains(pat, case=False, regex=True)]
-b = sel.cx[4.4:5.4, 46.7:47.5]
-print("selected", len(sel), "in Côte d'Or box", len(b))
-for c in cols:
-    if b[c].dtype == object:
-        vals = sorted(set(map(str, b[c])))
-        print(c, len(vals), vals[:80])
-b.to_file("out/inao_burgundy.geojson", driver="GeoJSON")
-print(os.path.getsize("out/inao_burgundy.geojson"))
+b = g.cx[4.6:5.2, 46.85:47.35]
+b = b[b["app"].notna()]
+print("in Côte d'Or box:", len(b))
+names = sorted(set(zip(b["app"], b["denom"].fillna(""))))
+print(len(names)); print(names)
+b = b.assign(key=b["app"].astype(str) + "|" + b["denom"].fillna("").astype(str))
+d = b.dissolve(by="key", as_index=False)[["app", "denom", "geometry"]]
+d["geometry"] = d.geometry.simplify(0.000015)
+d.to_file("out/inao_cotedor.geojson", driver="GeoJSON")
+print(os.path.getsize("out/inao_cotedor.geojson"))

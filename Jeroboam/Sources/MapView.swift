@@ -15,12 +15,25 @@ struct WineMapV2: Decodable {
         let ly: Int?
         let parent: String?
         let g: String?
+        /// Finer coordinates: map units x k (detailed regions inside a bigger map).
+        let k: Int?
     }
     struct City: Decodable { let n: String; let x: Int; let y: Int; let r: Int? }
     struct Label: Decodable { let t: String; let x: Int; let y: Int; let k: String }
     struct River: Decodable { let w: Int; let p: [Int] }
     struct Village: Decodable { let n: String; let x: Int; let y: Int }
     struct Tint: Decodable { let c: Int; let shapes: [[Int]] }
+    /// A wine region drawn K times finer than the map around it (coast, water, communes).
+    struct Inset: Decodable {
+        let k: Int
+        let box: [Int]
+        let land: [[Int]]
+        let focus: [[Int]]
+        let lakes: [[Int]]
+        let rivers: [River]
+        let communes: [[Int]]
+        let villages: [Village]
+    }
 
     let id: String
     let title: String
@@ -40,6 +53,9 @@ struct WineMapV2: Decodable {
     /// Points of interest (wineries), drawn as dots; names appear when zoomed in.
     let pois: [Village]?
     let tints: [Tint]?
+    let insets: [Inset]?
+    /// Zoom (relative to the whole map) at which levels 1, 2, 3… appear.
+    let lod: [Double]?
 }
 
 /// Pre-built vector paths for a map, in map units.
@@ -71,6 +87,16 @@ final class MapGeometry {
     let maxLevel: Int
     /// Light province tints behind the wine areas.
     let tints: [(Path, Int)]
+    struct InsetGeo { let box: CGRect; let land: Path; let focus: Path; let lakes: Path; let rivers: [(Path, CGFloat)]; let communes: Path; let villages: [(String, CGPoint)] }
+    let insets: [InsetGeo]
+    /// Zoom thresholds (relative to the whole map) for levels 1, 2, 3.
+    let lod: [CGFloat]
+    /// Level shown at a zoom relative to the whole-map view.
+    func level(atRel rel: CGFloat) -> Int {
+        var l = 0
+        for (i, t) in lod.enumerated() where rel >= t { l = i + 1 }
+        return min(l, maxLevel)
+    }
 
     private static var cache: [String: MapGeometry] = [:]
     private static let lock = NSLock()
@@ -87,14 +113,14 @@ final class MapGeometry {
         return g
     }
 
-    private static func pts(_ f: [Int]) -> [CGPoint] {
-        stride(from: 0, to: f.count - 1, by: 2).map { CGPoint(x: CGFloat(f[$0]), y: CGFloat(f[$0 + 1])) }
+    private static func pts(_ f: [Int], k: CGFloat = 1) -> [CGPoint] {
+        stride(from: 0, to: f.count - 1, by: 2).map { CGPoint(x: CGFloat(f[$0]) / k, y: CGFloat(f[$0 + 1]) / k) }
     }
 
-    private static func poly(_ list: [[Int]]) -> Path {
+    private static func poly(_ list: [[Int]], k: CGFloat = 1) -> Path {
         var p = Path()
         for f in list {
-            let ps = pts(f)
+            let ps = pts(f, k: k)
             guard ps.count > 2 else { continue }
             p.addLines(ps)
             p.closeSubpath()
@@ -102,10 +128,10 @@ final class MapGeometry {
         return p
     }
 
-    private static func lines(_ list: [[Int]], close: Bool = false) -> Path {
+    private static func lines(_ list: [[Int]], close: Bool = false, k: CGFloat = 1) -> Path {
         var p = Path()
         for f in list {
-            let ps = pts(f)
+            let ps = pts(f, k: k)
             guard ps.count > 1 else { continue }
             p.addLines(ps)
             if close { p.closeSubpath() }
@@ -121,6 +147,22 @@ final class MapGeometry {
         var mask = Path()
         mask.addPath(land)
         mask.addPath(focus)
+        var insetList: [InsetGeo] = []
+        for i in m.insets ?? [] {
+            let k = CGFloat(i.k)
+            guard i.box.count == 4 else { continue }
+            let f = Self.poly(i.focus, k: k)
+            mask.addPath(f)
+            mask.addPath(Self.poly(i.land, k: k))
+            insetList.append(InsetGeo(
+                box: CGRect(x: CGFloat(i.box[0]), y: CGFloat(i.box[1]), width: CGFloat(i.box[2] - i.box[0]), height: CGFloat(i.box[3] - i.box[1])),
+                land: Self.poly(i.land, k: k), focus: f, lakes: Self.poly(i.lakes, k: k),
+                rivers: i.rivers.map { r in var q = Path(); q.addLines(Self.pts(r.p, k: k)); return (q, CGFloat(r.w)) },
+                communes: Self.lines(i.communes, close: true, k: k),
+                villages: i.villages.map { ($0.n, CGPoint(x: CGFloat($0.x) / k, y: CGFloat($0.y) / k)) }))
+        }
+        insets = insetList
+        lod = (m.lod ?? [1.9, 3.2]).map { CGFloat($0) }
         landMask = mask
         borders = Self.lines(m.borders ?? [])
         communes = Self.lines(m.communes ?? [], close: true)
@@ -133,16 +175,17 @@ final class MapGeometry {
         for a in m.areas {
             var p = Path()
             var total: CGFloat = 0
+            let k = CGFloat(a.k ?? 1)
             for s in a.shapes {
-                let ps = Self.pts(s)
+                let ps = Self.pts(s, k: k)
                 guard ps.count > 2 else { continue }
                 p.addLines(ps)
                 p.closeSubpath()
                 total += abs(Self.area(ps))
             }
-            let lab: CGPoint? = (a.lx != nil && a.ly != nil) ? CGPoint(x: CGFloat(a.lx!), y: CGFloat(a.ly!)) : nil
+            let lab: CGPoint? = (a.lx != nil && a.ly != nil) ? CGPoint(x: CGFloat(a.lx!) / k, y: CGFloat(a.ly!) / k) : nil
             list.append(Area(id: a.id, name: a.name, level: a.lv, color: a.c, path: p,
-                             centroid: CGPoint(x: CGFloat(a.cx), y: CGFloat(a.cy)), label: lab, parent: a.parent,
+                             centroid: CGPoint(x: CGFloat(a.cx) / k, y: CGFloat(a.cy) / k), label: lab, parent: a.parent,
                              grapes: a.g, area: total))
         }
         areas = list
@@ -223,9 +266,7 @@ struct MapRenderer {
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return f }
-        if rel >= LOD.level2 { return 2 }
-        if rel >= LOD.level1 { return 1 }
-        return 0
+        return g.level(atRel: rel)
     }
 
     /// Converts a point in the view to map units.
@@ -278,6 +319,17 @@ struct MapRenderer {
             layer.translateBy(x: offset.width, y: offset.height)
             layer.scaleBy(x: s, y: s)
             layer.fill(g.focus, with: .color(Palette.focusLand))
+            // detailed regions (Bordeaux, Burgundy) replace the coarse coast and land inside their box
+            if !thumb {
+                for i in g.insets {
+                    var l = layer
+                    l.clip(to: Path(i.box))
+                    l.fill(Path(i.box), with: .color(Palette.sea))
+                    l.fill(i.land, with: .color(Palette.land))
+                    l.fill(i.focus, with: .color(Palette.focusLand))
+                    l.stroke(i.focus, with: .color(Palette.border.mix(with: .black, 0.15)), lineWidth: hair * 1.2)
+                }
+            }
             if showLabels || showCities {
                 layer.stroke(g.borders, with: .color(Palette.adminLine), lineWidth: hair * 0.8)
             }
@@ -357,10 +409,18 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
             }
-            if !thumb && (rel >= LOD.communes || (forcedLevel ?? 0) >= 2) {
+            let communeZoom = g.insets.isEmpty ? LOD.communes : (g.lod.count > 1 ? g.lod[1] * 1.3 : LOD.communes)
+            if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
+                for i in g.insets { regions.stroke(i.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7) }
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
+            for i in g.insets where !thumb {
+                layer.fill(i.lakes, with: .color(Palette.sea))
+                for (r, w) in i.rivers where showLabels || showCities {
+                    layer.stroke(r, with: .color(Palette.river), style: StrokeStyle(lineWidth: (w >= 2 ? 1.3 : 0.8) * hair, lineCap: .round, lineJoin: .round))
+                }
+            }
             for (r, w) in g.rivers where showLabels || showCities {
                 layer.stroke(r, with: .color(Palette.river), style: StrokeStyle(lineWidth: (w >= 2 ? 1.3 : 0.8) * hair, lineCap: .round, lineJoin: .round))
             }
@@ -437,7 +497,7 @@ struct MapRenderer {
         let calloutID = calloutArea
         let candidates = g.areas.filter { a in
             if a.level > shownLevel { return false }
-            if g.hasChildren.contains(a.id) && a.level < shownLevel && rel > LOD.level1 * 1.4 { return false }
+            if g.hasChildren.contains(a.id) && a.level < shownLevel && rel > (g.lod.first ?? 1.9) * 1.4 { return false }
             return true
         }.sorted { a, b in
             if a.level != b.level { return a.level > b.level }
@@ -466,6 +526,15 @@ struct MapRenderer {
                 let p = screen(CGPoint(x: CGFloat(v.x), y: CGFloat(v.y)))
                 guard full.contains(p) else { continue }
                 _ = place(Text(v.n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
+            }
+        }
+        if !g.insets.isEmpty, rel >= (g.lod.count > 1 ? g.lod[1] * 1.6 : 5) || (forcedLevel ?? 0) >= 2 {
+            for i in g.insets {
+                for (n, pt) in i.villages {
+                    let p = screen(pt)
+                    guard full.contains(p) else { continue }
+                    _ = place(Text(n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
+                }
             }
         }
 
@@ -560,6 +629,18 @@ struct WineMapView: View {
         if thumbnail { return g.thumbLayout(size: size, tight: tightThumb) }
         guard fill else { return (1, .zero) }
         let focusRect: CGRect? = {
+            if !g.insets.isEmpty, !focusOnly, pins.isEmpty {
+                // a village or cru on the France map: frame the zone around it so the place is seen in its setting
+                let byID = Dictionary(uniqueKeysWithValues: g.areas.map { ($0.id, $0) })
+                var rects: [CGRect] = []
+                for a in g.areas where highlight.contains(a.id) {
+                    var t = a
+                    let up = a.level >= 2 ? 1 : 0
+                    while t.level > up, let p = t.parent.flatMap({ byID[$0] }) { t = p }
+                    rects.append(t.path.boundingRect)
+                }
+                if let r = rects.first, !rects.isEmpty { return rects.dropFirst().reduce(r) { $0.union($1) } }
+            }
             let hl = g.areas.filter { highlight.contains($0.id) && (focusOnly || $0.level == 0) }
             guard !hl.isEmpty, pins.isEmpty else { return nil }
             return hl.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
@@ -732,7 +813,7 @@ struct ZoomableWineMap: View {
 
     private let maxZoom: CGFloat = 14
     /// France and Italy have the most detail, so they can be zoomed one step deeper.
-    private var maxFactor: CGFloat { ["france", "italy"].contains(mapID) ? 22 : 12 }
+    private var maxFactor: CGFloat { mapID == "france" ? 120 : (mapID == "italy" ? 22 : 12) }
 
     private func reportViewport(_ size: CGSize, _ g: MapGeometry) {
         guard let cb = onViewport else { return }
@@ -946,7 +1027,7 @@ struct MapExplorer: View {
                 if let id = selected, let a = g.areas.first(where: { $0.id == id }) {
                     selectedCard(a, g: g)
                 }
-                let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
+                let lv = min(g.maxLevel, layer ?? g.level(atRel: zoom))
                 MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: .constant(true)) { id in selected = id }
             }
             .padding(.horizontal, 22).padding(.top, 8).padding(.bottom, 24)
@@ -1035,6 +1116,7 @@ struct MapExplorer: View {
                             modeButton(terms.button(0), 0)
                             modeButton(terms.button(1), 1)
                             if (g?.maxLevel ?? 1) >= 2 { modeButton(terms.button(2), 2) }
+                            if (g?.maxLevel ?? 1) >= 3 { modeButton(terms.button(3), 3) }
                         }
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
@@ -1063,7 +1145,7 @@ struct MapExplorer: View {
                         .padding(.bottom, 12)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 } else if let g {
-                    let lv = min(g.maxLevel, layer ?? (zoom >= 3.2 ? 2 : (zoom >= 1.9 ? 1 : 0)))
+                    let lv = min(g.maxLevel, layer ?? g.level(atRel: zoom))
                     MapListCard(mapID: mapID, level: lv, visible: viewport, expanded: $listExpanded) { id in selected = id }
                         .padding(.horizontal, 12)
                         .padding(.bottom, 8)
@@ -1089,8 +1171,8 @@ struct MapExplorer: View {
         let t = MapTerms.for(mapID)
         if g.maxLevel == 0 { return t.line(0) }
         if let l = layer { return t.line(min(l, g.maxLevel)) }
-        if zoom >= 3.2 && g.maxLevel >= 2 { return t.line(2) }
-        if zoom >= 1.9 { return t.line(1) }
+        let zl = g.level(atRel: zoom)
+        if zl >= 1 { return t.line(zl) }
         return "\(t.name(0)) · zoom in for \(t.name(1).lowercased())"
     }
 

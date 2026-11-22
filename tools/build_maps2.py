@@ -14,6 +14,7 @@ import json, math, os, sys, unicodedata
 from shapely.geometry import shape, Polygon, MultiPolygon, Point, box, LineString, MultiLineString
 from shapely.ops import unary_union, transform
 from shapely.prepared import prep
+from shapely.geometry.polygon import orient
 
 sys.path.insert(0, os.path.dirname(__file__))
 import specs_fr as FR
@@ -113,6 +114,16 @@ class Proj:
     def geom(self, g):
         return transform(lambda x, y, z=None: ((x - self.lo0) * self.k * self.s, (self.la1 - y) * self.s), g)
 
+class FineProj(Proj):
+    """The France projection magnified K times: coordinates stay in France units x K, so detailed insets sit exactly on the country map."""
+    def __init__(self, base, K, bbox):
+        self.__dict__.update(base.__dict__)
+        self.K = K
+        self.s = base.s * K
+        self.W = base.W * K
+        self.H = base.H * K
+        self.bbox = bbox
+
 def polys_of(g):
     if g.is_empty: return []
     if isinstance(g, Polygon): return [g]
@@ -138,7 +149,7 @@ def enc_polys(g, tol, min_area, smooth=False):
     res = []
     for p in polys_of(g.simplify(tol * RES, preserve_topology=True)):
         if p.area < min_area * RES * RES: continue
-        coords = list(p.exterior.coords)
+        coords = list(orient(p, 1.0).exterior.coords)
         f = flat(chaikin(coords) if smooth else coords)
         if len(f) >= 6: res.append(f)
     return res
@@ -222,10 +233,9 @@ def osm_land(clipbox):
             return u.intersection(clipbox)
     return None
 
-def base_layers(pr, bbox, focus_codes, world=False, tol=1.0):
+def base_layers(pr, bbox, focus_codes, world=False, tol=1.0, pad=1.5):
     bbox = pr.bbox
     la0, lo0, la1, lo1 = bbox
-    pad = 1.5
     clipbox = box(lo0 - pad, la0 - pad, lo1 + pad, la1 + pad)
     view = box(-20, -20, pr.W + 20, pr.H + 20)
     land, focus = [], []
@@ -445,8 +455,8 @@ def pdo_geom(aid, name, geom_ll):
         return best[2]
     return None
 
-def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False):
-    off = pdo_geom(aid, name, geom_ll)
+def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None, grapes=None, min_area=4, soft=False, pdo=True):
+    off = pdo_geom(aid, name, geom_ll) if pdo else None
     if off is not None:
         geom_ll = off
     # keep areas on their map (e.g. a same-named municipality on an island far away)
@@ -464,6 +474,7 @@ def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None,
         rec["lx"], rec["ly"] = round(lx), round(ly)
     if parent: rec["parent"] = parent
     if grapes: rec["g"] = grapes
+    if getattr(pr, "K", 1) > 1: rec["k"] = pr.K
     return rec
 
 def commune_layer(pr, named_geoms, tol, minz=3.0):
@@ -509,6 +520,25 @@ def doc(mid, title, pr, land, focus, lk, rv, areas, cities=(), labels=(), border
         d["villages"] = communes[1]
     if extra: d.update(extra)
     return d
+
+
+def fine_inset(pr, pf, bbox, water, estuary, specs, res, tol, K):
+    """Detailed coast, water, rivers and commune lines of one wine region, K times finer than the France map."""
+    land, focus, lk, rv = base_layers(pf, bbox, ["FRA"], tol=tol, pad=0.02)
+    _depts = sorted({d for s in specs for d in s["depts"]})
+    lk = lk + water_polys(pf, water, estuary, tol, geoms=[gg for d in _depts for _, gg in fr_communes(d)])
+    allnames = set()
+    for s in specs:
+        if s["id"] in res: allnames.update(res[s["id"]][1])
+    named = [(n, gg) for d in _depts for n, gg in fr_communes(d) if n in allnames]
+    lines, names = commune_layer(pf, named, tol)
+    la0, lo0, la1, lo1 = bbox
+    x0, y0 = pr.xy(lo0, la1); x1, y1 = pr.xy(lo1, la0)
+    return {"k": K, "box": [round(x0), round(y0), round(x1), round(y1)], "land": land, "focus": focus, "lakes": lk,
+            "rivers": rv, "communes": lines, "villages": names}
+
+def grand_crus(pf, tol):
+    return []
 
 # ================================================================= FRANCE
 def build_france():
@@ -561,19 +591,37 @@ def build_france():
            "rhone": ("Rhône Valley", "claret", (44.9, 5.95), "Syrah · Grenache · Viognier"),
            "loire": ("Loire Valley", "green", (48.05, -0.4), "Chenin · Sauvignon · Cab Franc"),
            "champagne": ("Champagne", "violet", (49.65, 4.9), "Chardonnay · Pinot Noir · Meunier")}
+    # Bordeaux and Burgundy are drawn from the detailed maps: the same geometry, K times finer, sitting inside the France map.
+    K = 4
+    FINE = {"bordeaux": dict(bbox=(44.40, -1.35, 45.62, 0.35), water=[("Garonne", 0.14, 0.55), ("Dordogne", 0.14, 0.55)],
+                             estuary=(-0.95, 44.98, -0.5, 45.62)),
+            "burgundy": dict(bbox=(45.95, 3.45, 48.0, 5.45), water=[("Saône", 0.12, 0.16)], estuary=None)}
+    prs = {g: FineProj(pr, K, f["bbox"]) for g, f in FINE.items()}
+    tolf = 0.9
+    def P(g): return (prs[g], tolf) if g in prs else (pr, tol)
+    def note(g, aid):
+        if g in prs and (id(prs[g]), aid) in _GEOMS: _GEOMS[(id(pr), aid)] = _GEOMS[(id(prs[g]), aid)]
+    insets = []
     for g, (name, col, lab, grapes) in top.items():
         specs = groups[g]
+        pg, tg = P(g)
         geoms = [resolved[g][s["id"]][0] for s in specs if s["lv"] <= 1 and s["id"] in resolved[g] and s["id"] != "beaujolais"
                  and not s.get("parent")]
-        areas.append(area_record(pr, g, name, 0, cidx(col), unary_union(geoms), tol, label=lab, grapes=grapes))
+        areas.append(area_record(pg, g, name, 0, cidx(col), unary_union(geoms), tg, label=lab, grapes=grapes))
+        note(g, g)
         for s in specs:
             if s["lv"] == 1 and s["id"] in resolved[g]:
-                areas.append(area_record(pr, s["id"], s["name"], 1, cidx(col), resolved[g][s["id"]][0], tol, parent=g, grapes=s.get("grapes")))
+                areas.append(area_record(pg, s["id"], s["name"], 1, cidx(col), resolved[g][s["id"]][0], tg, parent=g, grapes=s.get("grapes")))
         # the appellations inside each zone (Pauillac in the Haut-Médoc, Gevrey-Chambertin in the Côte de Nuits…)
         for s in specs:
             if s["lv"] == 2 and s["id"] in resolved[g] and s.get("parent") in resolved[g]:
-                areas.append(area_record(pr, s["id"], s["name"], 2, cidx(s.get("color") or col), resolved[g][s["id"]][0], tol,
+                areas.append(area_record(pg, s["id"], s["name"], 2, cidx(s.get("color") or col), resolved[g][s["id"]][0], tg,
                                          parent=s["parent"], grapes=s.get("grapes"), min_area=1))
+        if g == "burgundy":
+            areas += grand_crus(pg, tg)
+        if g in prs:
+            f = FINE[g]
+            insets.append(fine_inset(pr, pg, f["bbox"], f["water"], f["estuary"], specs, resolved[g], tg, K))
     bj = resolved["burgundy"].get("beaujolais")
     if bj: areas.append(area_record(pr, "beaujolais", "Beaujolais", 0, cidx("rose"), bj[0], tol, label=(45.85, 3.6), grapes="Gamay"))
     for s in FR.OTHER:
@@ -589,7 +637,8 @@ def build_france():
                             ("English Channel", 50.2, -2.3, "sea"), ("Loire", 47.55, 0.15, "river"), ("Rhône", 44.55, 4.55, "river"),
                             ("Garonne", 44.2, 0.4, "river"), ("SPAIN", 42.2, -1.5, "area"), ("ITALY", 44.9, 8.6, "area"),
                             ("GERMANY", 50.3, 8.4, "area"), ("SWITZ.", 46.8, 7.7, "area")])
-    write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders, extra={"tints": fr_tints}))
+    write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders,
+                        extra={"tints": fr_tints, "insets": insets, "lod": [1.9, 3.4, 16]}))
 
     # ---- regional detail maps
     def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=(), water=(), estuary=None):
