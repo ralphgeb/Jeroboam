@@ -730,7 +730,8 @@ extension MapGeometry {
             var r = a.path.boundingRect
             switch a.level {
             case 3:
-                if let p = a.parent.flatMap({ byID[$0] }) { r = p.path.boundingRect.insetBy(dx: -p.path.boundingRect.width * 0.25, dy: -p.path.boundingRect.height * 0.25) }
+                // a vineyard of a kilometre or so: frame it with its neighbours on the slope
+                r = r.insetBy(dx: -r.width * 2.5, dy: -r.height * 2.5)
             case 2:
                 r = r.insetBy(dx: -r.width * 0.9, dy: -r.height * 0.9)
             default: break
