@@ -758,7 +758,7 @@ extension MapGeometry {
         let cover = max(size.width / W, size.height / H)
         let band = max(size.height * 0.35, size.height - top - bottom)
         let content = min(size.width * (1 - 2 * padding) / max(1, t.width), band * (1 - 2 * padding) / max(1, t.height))
-        let s = min(max(allowContain ? fit : cover, content), cover * (insets.isEmpty ? 10 : 90))
+        let s = min(max(allowContain ? fit : cover, content), cover * (insets.isEmpty ? 10 : 1000))
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))
@@ -827,7 +827,7 @@ struct ZoomableWineMap: View {
 
     private let maxZoom: CGFloat = 14
     /// France and Italy have the most detail, so they can be zoomed one step deeper.
-    private var maxFactor: CGFloat { mapID == "france" ? 120 : (mapID == "italy" ? 22 : 12) }
+    private var maxFactor: CGFloat { mapID == "france" ? 900 : (mapID == "italy" ? 22 : 12) }
 
     private func reportViewport(_ size: CGSize, _ g: MapGeometry) {
         guard let cb = onViewport else { return }

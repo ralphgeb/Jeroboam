@@ -684,7 +684,7 @@ def build_france():
                             ("Garonne", 44.2, 0.4, "river"), ("SPAIN", 42.2, -1.5, "area"), ("ITALY", 44.9, 8.6, "area"),
                             ("GERMANY", 50.3, 8.4, "area"), ("SWITZ.", 46.8, 7.7, "area")])
     write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders,
-                        extra={"tints": fr_tints, "insets": insets, "lod": [1.9, 3.4, 16]}))
+                        extra={"tints": fr_tints, "insets": insets, "lod": [1.9, 3.4, 30]}))
 
     # ---- regional detail maps
     def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=(), water=(), estuary=None):

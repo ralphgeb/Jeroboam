@@ -114,8 +114,10 @@ struct RegionDetailView: View {
                             }
                             .padding(12)
                         }
-                        if pinIDs.isEmpty { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
-                        Text("Tap a number for its name, again to open").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                        // a village or cru on a big nested map has too many neighbours for a numbered list: the full map has it
+                        let deep = (MapGeometry.get(m)?.areas.filter { hl.contains($0.id) }.map(\.level).max() ?? 0) >= 1 && !(MapGeometry.get(m)?.insets.isEmpty ?? true)
+                        if pinIDs.isEmpty && !deep { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
+                        if !deep { Text("Tap a number for its name, again to open").font(.system(size: 12)).foregroundStyle(Palette.inkFaint) }
                         Button { explore = MapRef(id: m, hl: hl) } label: {
                             Label("Open the full map", systemImage: "arrow.up.left.and.arrow.down.right")
                         }
