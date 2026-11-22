@@ -269,4 +269,10 @@ final class DuoSnapshots: XCTestCase {
         XCTAssertEqual(ContentStore.shared.regionMatching("Mendoza", country: "")?.id, "mendoza")
         XCTAssertEqual(ContentStore.shared.regionMatching("Kakheti", country: "Georgia")?.id, "kakheti")
     }
+
+    /// The grey loading cards of a scan, and the Journal with its heat map.
+    func testScanSkeleton() {
+        snap("scan-loading") { ScrollView { ScanSkeleton().padding(20) } }
+        snap("journal-heat", settle: 3.0) { ScrollView { JournalInsights().padding(20) } }
+    }
 }

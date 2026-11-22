@@ -127,8 +127,9 @@ struct JournalInsights: View {
     private var dots: [Dot] {
         var by: [String: (Region, Int)] = [:]
         for w in wines {
-            guard let r = ContentStore.shared.regionMatching(w.region, country: w.country),
-                  ContentStore.shared.coordinate(of: r) != nil else { continue }
+            var found = ContentStore.shared.regionMatching(w.region, country: w.country)
+            if let f = found, ContentStore.shared.coordinate(of: f) == nil { found = ContentStore.shared.regionMatching("", country: w.country) }
+            guard let r = found, ContentStore.shared.coordinate(of: r) != nil else { continue }
             by[r.id, default: (r, 0)].1 += 1
         }
         return by.values.compactMap { r, n -> Dot? in
