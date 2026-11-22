@@ -13,13 +13,13 @@ lessons:
           - **Warm climates** (California, Australia): peach, pineapple, fuller body.
           - **Oak and malolactic** add vanilla, toast and butter.
       - learn: Its home, Burgundy
-        visual: "map:burgundy:chablis,cote-de-beaune,maconnais"
+        visual: "map:france:chablis,cote-de-beaune,maconnais"
         body: |
           All white Burgundy is Chardonnay, from steely **Chablis** in the north to rich **Meursault** in the Côte de Beaune and the ripe wines of the **Mâconnais**.
       - choice: "Which region makes crisp, unoaked Chardonnay with high acidity?"
         options: [Chablis, Barossa, Napa Valley, Rioja]
         a: Chablis
-        visual: "map:burgundy:chablis"
+        visual: "map:france:chablis"
         explain: "Chablis is Burgundy's coolest, northernmost corner. Its Chardonnay is lean and mineral with green apple and lemon, and often unoaked."
       - choice: "Buttery aromas in Chardonnay usually come from…"
         options: [Malolactic conversion, Cold fermentation, Screwcaps, Cool climate]

@@ -83,64 +83,6 @@ beaujolais	PDO-FR-A0934	Beaujolais
 alsace	PDO-FR-A1101	Alsace / Vin d'Alsace
 savoie	PDO-FR-A0681	Vin de Savoie / Savoie
 languedoc	PDO-FR-A0922	Languedoc
-saint-estephe	PDO-FR-A0178	Saint-Estèphe
-pauillac	PDO-FR-A0713	Pauillac
-margaux	PDO-FR-A0329	Margaux
-moulis	PDO-FR-A0731	Moulis / Moulis-en-Médoc
-haut-medoc	PDO-FR-A0710	Haut-Médoc
-medoc	PDO-FR-A0730	Médoc
-pessac-leognan	PDO-FR-A0162	Pessac-Léognan
-sauternes	PDO-FR-A0819	Sauternes
-graves	PDO-FR-A1012	Graves
-saint-emilion	PDO-FR-A0988	Saint-Emilion
-pomerol	PDO-FR-A0273	Pomerol
-lalande	PDO-FR-A0171	Lalande-de-Pomerol
-fronsac	PDO-FR-A1103	Fronsac
-bourg	PDO-FR-A0828	Bourg / Côtes de Bourg / Bourgeais
-blaye	PDO-FR-A0712	Blaye
-entre-deux-mers	PDO-FR-A0406	Entre-deux-Mers
-chablis	PDO-FR-A0736	Chablis
-cote-de-beaune	PDO-FR-A0592	Côte de Beaune
-pouilly-fuisse	PDO-FR-A0653	Pouilly-Fuissé
-beaujolais	PDO-FR-A0934	Beaujolais
-moulin-a-vent	PDO-FR-A0933	Moulin-à-Vent
-fleurie	PDO-FR-A0930	Fleurie
-morgon	PDO-FR-A1024	Morgon
-brouilly	PDO-FR-A0935	Brouilly
-julienas	PDO-FR-A1025	Juliénas
-saint-amour	PDO-FR-A1028	Saint-Amour
-chiroubles	PDO-FR-A0911	Chiroubles
-regnie	PDO-FR-A0912	Régnié
-marsannay	PDO-FR-A0175	Marsannay
-fixin	PDO-FR-A0642	Fixin
-gevrey-chambertin	PDO-FR-A0168	Gevrey-Chambertin
-morey-saint-denis	PDO-FR-A0913	Morey-Saint-Denis
-chambolle-musigny	PDO-FR-A1016	Chambolle-Musigny
-vougeot	PDO-FR-A0176	Vougeot
-vosne-romanee	PDO-FR-A0504	Vosne-Romanée
-nuits-saint-georges	PDO-FR-A0579	Nuits-Saint-Georges
-ladoix	PDO-FR-A0590	Ladoix
-aloxe-corton	PDO-FR-A0932	Aloxe-Corton
-pernand-vergelesses	PDO-FR-A0643	Pernand-Vergelesses
-savigny	PDO-FR-A0660	Savigny-lès-Beaune
-chorey	PDO-FR-A0659	Chorey-lès-Beaune
-beaune	PDO-FR-A1022	Beaune
-pommard	PDO-FR-A0193	Pommard
-volnay	PDO-FR-A0198	Volnay
-monthelie	PDO-FR-A0654	Monthélie
-auxey-duresses	PDO-FR-A0647	Auxey-Duresses
-saint-romain	PDO-FR-A0167	Saint-Romain
-meursault	PDO-FR-A1017	Meursault
-puligny-montrachet	PDO-FR-A0308	Puligny-Montrachet
-chassagne-montrachet	PDO-FR-A1021	Chassagne-Montrachet
-saint-aubin	PDO-FR-A0822	Saint-Aubin
-santenay	PDO-FR-A0589	Santenay
-maranges	PDO-FR-A0718	Maranges
-bouzeron	PDO-FR-A0576	Bouzeron
-rully	PDO-FR-A0937	Rully
-mercurey	PDO-FR-A0404	Mercurey
-givry	PDO-FR-A0578	Givry
-montagny	PDO-FR-A0403	Montagny
 cote-rotie	PDO-FR-A0199	Côte Rôtie
 condrieu	PDO-FR-A0685	Condrieu
 saint-joseph	PDO-FR-A0200	Saint-Joseph

@@ -5,7 +5,7 @@ lessons:
   - title: The Côte d'Or
     cards:
       - learn: The golden slope
-        visual: "map:burgundy:cote-de-nuits,cote-de-beaune"
+        visual: "map:france:cote-de-nuits,cote-de-beaune"
         body: |
           A narrow, east-facing escarpment of limestone and marl south of Dijon.
 
@@ -36,13 +36,13 @@ lessons:
   - title: Chablis & the south
     cards:
       - learn: Chablis
-        visual: "map:burgundy:chablis"
+        visual: "map:france:chablis"
         body: |
           Far to the north-west, on **Kimmeridgian** limestone rich in fossilized oyster shells. Chardonnay here is **steely**, with green apple, lemon and wet stones. Levels: Petit Chablis, Chablis, Premier Cru and **seven Grand Cru** climats on one slope.
 
           Frost is the big risk, fought with heaters and sprinklers.
       - learn: Chalonnaise & Mâconnais
-        visual: "map:burgundy:cote-chalonnaise,maconnais"
+        visual: "map:france:cote-chalonnaise,maconnais"
         body: |
           - **Côte Chalonnaise**: Mercurey, Givry, Rully, Montagny. Value Burgundy.
           - **Mâconnais**: warmer and riper Chardonnay: Mâcon-Villages, **Pouilly-Fuissé**, **Saint-Véran**.
@@ -64,7 +64,7 @@ lessons:
   - title: Beaujolais
     cards:
       - learn: Gamay on granite
-        visual: "map:burgundy:beaujolais"
+        visual: "map:france:beaujolais"
         body: |
           Granite hills in the north, clay and limestone in the south.
 

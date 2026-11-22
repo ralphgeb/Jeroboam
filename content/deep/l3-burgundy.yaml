@@ -50,13 +50,13 @@
   icon: leaf
   cards:
     - learn: Chablis on Kimmeridgian clay
-      visual: "map:burgundy:chablis"
+      visual: "map:france:chablis"
       body: |
         Chablis is cool and isolated, nearer to Champagne than to Beaune. Its best slopes sit on **Kimmeridgian** marl full of tiny fossilized oyster shells.
 
         Levels: Petit Chablis, Chablis, Chablis Premier Cru, and **seven Grands Crus** on one south-west-facing hill above the town (Les Clos, Vaudésir, Blanchot…). Most is unoaked; some Grands Crus use old oak.
     - learn: Beaujolais and carbonic maceration
-      visual: "map:burgundy:beaujolais"
+      visual: "map:france:beaujolais"
       body: |
         **Gamay** on granite hills south of Mâcon. For juicy, fruity styles, whole bunches are sealed in tanks full of carbon dioxide: fermentation starts **inside each berry** (**carbonic maceration**), giving banana, bubblegum and kirsch notes and low tannin.
 
@@ -77,7 +77,7 @@
   icon: hourglass
   cards:
     - learn: A thousand years of plots
-      visual: "map:burgundy"
+      visual: "map:france"
       body: |
         Burgundy's vineyards were shaped by the Church. From the 10th century, the **Benedictines of Cluny** and then the **Cistercians of Cîteaux** (founded 1098) were given vineyards by nobles hoping for salvation.
 

@@ -223,7 +223,7 @@ struct RegionDetailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: m, hl: []) }
             }
             if DebugScreens.screen == "explorer", r.id == "bordeaux" {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: "bordeaux", hl: ["pauillac"]) }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { explore = MapRef(id: "france", hl: ["pauillac"]) }
             }
             #endif
         }

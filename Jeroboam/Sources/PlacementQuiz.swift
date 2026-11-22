@@ -32,7 +32,7 @@ enum PlacementBank {
         .init(level: 2, text: "Which Burgundy village is highlighted?",
               options: ["Chablis", "Pouilly-Fuissé", "Meursault", "Gevrey-Chambertin"],
               explain: "Chablis is Chardonnay grown on ancient Kimmeridgian limestone, packed with fossilized oyster shells. Maybe that's why it is the classic partner of fresh oysters.",
-              visual: "map:burgundy:chablis"),
+              visual: "map:france:chablis"),
         .init(level: 3, text: "Which white grape makes Santorini's famous mineral wines, keeping its acidity in the heat?",
               options: ["Assyrtiko", "Moschofilero", "Vidiano", "Roditis"],
               explain: "Assyrtiko. The vines are twisted into low baskets (kouloura) to shelter the grapes from wind and sun, and the volcanic ash soil spared them from phylloxera, so some vines are centuries old."),

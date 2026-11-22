@@ -9,7 +9,7 @@ lessons:
         body: |
           Small, thick-skinned berries give **deep color, high tannin and high acidity**. Expect blackcurrant, black cherry, green pepper and mint, plus cedar, vanilla and toast from oak.
       - learn: Bordeaux's Left Bank
-        visual: "map:bordeaux:haut-medoc,pauillac,margaux"
+        visual: "map:france:haut-medoc,pauillac,margaux"
         body: |
           Cabernet ripens late, so it needs warmth. On the gravel soils of Bordeaux's **Left Bank** (Médoc, Pauillac, Margaux) it is blended with Merlot. **Napa Valley** and **Coonawarra** make riper single-varietal versions.
       - choice: "Which aroma is most typical of Cabernet Sauvignon?"
@@ -23,7 +23,7 @@ lessons:
       - tf: "Cabernet Sauvignon is a key grape of Bordeaux's Left Bank."
         truth: true
         explain: "Bordeaux's Left Bank (Médoc, Pauillac, Margaux) has deep gravel soils that drain well and store heat. That helps late-ripening Cabernet Sauvignon reach full ripeness before autumn rains, so it leads the blend there. Merlot rules the clay of the Right Bank."
-        visual: "map:bordeaux:medoc,haut-medoc"
+        visual: "map:france:medoc,haut-medoc"
       - blank: "In cooler years, under-ripe Cabernet can smell of green bell ___."
         answers: [pepper]
         options: [apple, banana, lychee]
@@ -35,7 +35,7 @@ lessons:
         body: |
           **Merlot** gives fuller body, softer tannins and riper fruit than Cabernet: red and black plum, black cherry and chocolate. It ripens earlier, so it suits cooler clay soils.
       - learn: Bordeaux's Right Bank
-        visual: "map:bordeaux:saint-emilion,pomerol"
+        visual: "map:france:saint-emilion,pomerol"
         body: |
           Merlot is the most planted grape in Bordeaux and stars on the **Right Bank**: **Saint-Émilion** and **Pomerol** (home of Pétrus).
       - choice: "Compared with Cabernet Sauvignon, Merlot usually has…"
@@ -45,7 +45,7 @@ lessons:
       - choice: "Which Bordeaux area is dominated by Merlot?"
         options: [Pomerol, Pauillac, Margaux, Sauternes]
         a: Pomerol
-        visual: "map:bordeaux:pomerol"
+        visual: "map:france:pomerol"
         explain: "Pomerol's clay soils suit Merlot. Pauillac and Margaux are Left Bank Cabernet country; Sauternes makes sweet whites."
       - tf: "Merlot is the most widely planted grape in Bordeaux."
         truth: true
@@ -63,7 +63,7 @@ lessons:
 
           It is thin-skinned and fussy, and does best in **cool climates**.
       - learn: From Burgundy to the world
-        visual: "map:burgundy:cote-de-nuits,cote-de-beaune"
+        visual: "map:france:cote-de-nuits,cote-de-beaune"
         body: |
           Red **Burgundy** is Pinot Noir. Other great sources include **Champagne** (for sparkling wine), **Oregon**, **Central Otago**, **Sonoma** and Germany (as Spätburgunder).
       - choice: "Which statement fits Pinot Noir?"

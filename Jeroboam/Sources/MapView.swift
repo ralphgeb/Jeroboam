@@ -248,6 +248,8 @@ struct MapRenderer {
     var labelScale: CGFloat = 1
     var dark = false
     var forcedLevel: Int? = nil
+    var deepen = false
+    /// With a chosen level as the minimum, deeper levels still appear as you zoom in (explorer on maps with zoom steps).
     /// Zoom at which the map first appears; detail levels are relative to it.
     var lodBase: CGFloat = 1
     var rel: CGFloat { zoom / max(0.01, lodBase) }
@@ -265,7 +267,7 @@ struct MapRenderer {
     var hideNumbers = false
 
     func visibleLevel() -> Int {
-        if let f = forcedLevel { return f }
+        if let f = forcedLevel { return deepen && f >= 1 ? max(f, g.level(atRel: rel)) : f }
         return g.level(atRel: rel)
     }
 
@@ -410,8 +412,10 @@ struct MapRenderer {
                 }
             }
             let communeZoom = g.insets.isEmpty ? LOD.communes : (g.lod.count > 1 ? g.lod[1] * 1.3 : LOD.communes)
-            if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) {
+            if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) && g.insets.isEmpty {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
+            }
+            if !thumb && rel >= communeZoom {
                 for i in g.insets { regions.stroke(i.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7) }
             }
             layer.fill(g.lakes, with: .color(Palette.sea))
@@ -528,7 +532,7 @@ struct MapRenderer {
                 _ = place(Text(v.n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
             }
         }
-        if !g.insets.isEmpty, rel >= (g.lod.count > 1 ? g.lod[1] * 1.6 : 5) || (forcedLevel ?? 0) >= 2 {
+        if !g.insets.isEmpty, rel >= (g.lod.count > 1 ? g.lod[1] * 1.6 : 5) {
             for i in g.insets {
                 for (n, pt) in i.villages {
                     let p = screen(pt)
@@ -629,18 +633,7 @@ struct WineMapView: View {
         if thumbnail { return g.thumbLayout(size: size, tight: tightThumb) }
         guard fill else { return (1, .zero) }
         let focusRect: CGRect? = {
-            if !g.insets.isEmpty, !focusOnly, pins.isEmpty {
-                // a village or cru on the France map: frame the zone around it so the place is seen in its setting
-                let byID = Dictionary(uniqueKeysWithValues: g.areas.map { ($0.id, $0) })
-                var rects: [CGRect] = []
-                for a in g.areas where highlight.contains(a.id) {
-                    var t = a
-                    let up = a.level >= 2 ? 1 : 0
-                    while t.level > up, let p = t.parent.flatMap({ byID[$0] }) { t = p }
-                    rects.append(t.path.boundingRect)
-                }
-                if let r = rects.first, !rects.isEmpty { return rects.dropFirst().reduce(r) { $0.union($1) } }
-            }
+            if !focusOnly, pins.isEmpty, let r = g.zoneRect(for: highlight) { return r }
             let hl = g.areas.filter { highlight.contains($0.id) && (focusOnly || $0.level == 0) }
             guard !hl.isEmpty, pins.isEmpty else { return nil }
             return hl.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
@@ -727,6 +720,21 @@ struct WineMapView: View {
 }
 
 extension MapGeometry {
+    /// The zone around highlighted areas on a map with nested levels (a village or cru is framed inside its sub-region).
+    func zoneRect(for ids: Set<String>) -> CGRect? {
+        guard !insets.isEmpty, !ids.isEmpty else { return nil }
+        let byID = Dictionary(uniqueKeysWithValues: areas.map { ($0.id, $0) })
+        var rect: CGRect? = nil
+        for a in areas where ids.contains(a.id) {
+            var t = a
+            let up = a.level >= 2 ? 1 : 0
+            while t.level > up, let p = t.parent.flatMap({ byID[$0] }) { t = p }
+            let r = t.path.boundingRect
+            rect = rect.map { $0.union(r) } ?? r
+        }
+        return rect
+    }
+
     /// Bounding box of the wine areas (map units); the focus country when there are none.
     var contentBounds: CGRect {
         let a = areas.filter { $0.level == 0 }.map { $0.path.boundingRect }.reduce(CGRect.null) { $0.union($1) }
@@ -745,7 +753,7 @@ extension MapGeometry {
         let cover = max(size.width / W, size.height / H)
         let band = max(size.height * 0.35, size.height - top - bottom)
         let content = min(size.width * (1 - 2 * padding) / max(1, t.width), band * (1 - 2 * padding) / max(1, t.height))
-        let s = min(max(allowContain ? fit : cover, content), cover * 10)
+        let s = min(max(allowContain ? fit : cover, content), cover * (insets.isEmpty ? 10 : 90))
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))
@@ -795,6 +803,7 @@ struct ZoomableWineMap: View {
     var highlight: Set<String> = []
     var focus: String? = nil
     var forcedLevel: Int? = nil
+    var deepen = false
     var regionsOnly = false
     /// Two-pane layout: the list sits beside the map, so only the title card above it needs room.
     var wide = false
@@ -836,6 +845,7 @@ struct ZoomableWineMap: View {
                     r.selected = selected
                     r.dark = scheme == .dark
                     r.forcedLevel = forcedLevel
+                    r.deepen = deepen
                     r.regionsOnly = regionsOnly
                     r.draw(in: &ctx, size: sz)
                 }
@@ -873,6 +883,7 @@ struct ZoomableWineMap: View {
                     r.offset = offset
                     let m = r.toMap(pt, size: size)
                     r.forcedLevel = forcedLevel
+                    r.deepen = deepen
                     r.regionsOnly = regionsOnly
                     if let a = g.hit(m, maxLevel: r.visibleLevel()) {
                         Haptics.tap()
@@ -910,6 +921,8 @@ struct ZoomableWineMap: View {
         var target: CGRect? = c.insetBy(dx: -c.width * 0.03, dy: -c.height * 0.03)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
+        // on the France map the explorer opens on the zone around the place that was asked for
+        if let z = g.zoneRect(for: highlight.union(focus.map { [$0] } ?? [])) { target = z.insetBy(dx: -z.width * 0.2, dy: -z.height * 0.2) }
         // leave room for the header and the bottom card
         // the visible band sits between the header and the list card, with room to spare around the region
         let (z, o) = g.fitLayout(size: size, target: target, padding: 0.04, top: wide ? 130 : 175, bottom: wide ? 30 : 250, allowContain: false)
@@ -1097,7 +1110,7 @@ struct MapExplorer: View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
-                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
+                            forcedLevel: layer, deepen: (layer ?? 0) >= 1 && (g?.lod.count ?? 0) > 2, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
                             zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

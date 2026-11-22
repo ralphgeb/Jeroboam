@@ -88,7 +88,7 @@ lessons:
       - choice: "Beaujolais is made from…"
         options: [Gamay, Pinot Noir, Syrah, Grenache]
         a: Gamay
-        visual: "map:burgundy:beaujolais"
+        visual: "map:france:beaujolais"
         explain: "Beaujolais lies just south of Burgundy and is almost entirely Gamay. Its granite soils make light, fruity reds, with ten named crus such as Morgon and Fleurie being the most serious."
       - choice: "Which technique gives Beaujolais Nouveau its banana and bubblegum notes?"
         options: [Carbonic maceration, New oak, Malolactic conversion, Fortification]

@@ -5,13 +5,13 @@ lessons:
   - title: The Left Bank
     cards:
       - learn: Gravel and Cabernet
-        visual: "map:bordeaux:medoc,haut-medoc,pessac-leognan,graves"
+        visual: "map:france:medoc,haut-medoc,pessac-leognan,graves"
         body: |
           West of the Gironde estuary and the Garonne river lie the **Médoc** and **Graves**. Deep **gravel** banks drain well and store heat, ideal for late-ripening **Cabernet Sauvignon**, which leads the blends.
 
           The Haut-Médoc holds four famous communes, north to south: **Saint-Estèphe**, **Pauillac**, **Saint-Julien** and **Margaux**.
       - learn: The communes
-        visual: "map:bordeaux:saint-estephe,pauillac,saint-julien,margaux"
+        visual: "map:france:saint-estephe,pauillac,saint-julien,margaux"
         body: |
           - **Saint-Estèphe**: more clay, firmer, more rustic.
           - **Pauillac**: powerful; three First Growths.
@@ -20,7 +20,7 @@ lessons:
       - choice: "Which commune is home to three First Growths: Lafite, Latour and Mouton?"
         options: [Pauillac, Margaux, Saint-Julien, Saint-Estèphe]
         a: Pauillac
-        visual: "map:bordeaux:pauillac"
+        visual: "map:france:pauillac"
         explain: "Pauillac is the heart of the Médoc's greatest Cabernet. The other First Growths are Château Margaux and Haut-Brion (Pessac-Léognan)."
       - choice: "Which is the northernmost of the four famous Haut-Médoc communes?"
         options: [Saint-Estèphe, Margaux, Pauillac, Saint-Julien]
@@ -32,12 +32,12 @@ lessons:
       - choice: "Which Left Bank area makes both top reds and fine oaked dry whites?"
         options: [Pessac-Léognan, Pauillac, Saint-Émilion, Médoc]
         a: Pessac-Léognan
-        visual: "map:bordeaux:pessac-leognan"
+        visual: "map:france:pessac-leognan"
         explain: "Pessac-Léognan, on the southern edge of Bordeaux city, makes both top reds and fine oaked dry whites from Sauvignon Blanc and Sémillon. Haut-Brion and Domaine de Chevalier are the benchmarks, and it is the only place where reds and whites are both classified."
   - title: The Right Bank & beyond
     cards:
       - learn: Clay, limestone and Merlot
-        visual: "map:bordeaux:saint-emilion,pomerol,fronsac,castillon"
+        visual: "map:france:saint-emilion,pomerol,fronsac,castillon"
         body: |
           East of the Dordogne, cooler **clay and limestone** soils suit early-ripening **Merlot**, blended with **Cabernet Franc**.
 
@@ -71,7 +71,7 @@ lessons:
 
           Sauternes was classified too, with **Château d'Yquem** alone as *Premier Cru Supérieur*. Saint-Émilion's classification is revised roughly every ten years.
       - learn: Sauternes
-        visual: "map:bordeaux:sauternes"
+        visual: "map:france:sauternes"
         body: |
           Cool morning mists from the little **Ciron** river meet the warmer Garonne, encouraging **noble rot** on Sémillon and Sauvignon Blanc. Pickers make several passes, choosing only botrytized berries.
       - choice: "Which château was promoted to First Growth in 1973?"

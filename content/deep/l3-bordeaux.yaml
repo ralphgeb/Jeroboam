@@ -84,7 +84,7 @@
   icon: hourglass
   cards:
     - learn: Roman port, English market
-      visual: "map:bordeaux"
+      visual: "map:france"
       body: |
         The Romans planted vines at **Burdigala** in the 1st century AD. But Bordeaux's fortune came from **trade**: after **1152**, when Eleanor of Aquitaine married the future Henry II of England, Bordeaux shipped its light red **clairet** to London for three hundred years. The English still call red Bordeaux **claret**.
 

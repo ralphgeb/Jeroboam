@@ -70,7 +70,7 @@ lessons:
   - title: Terroir
     cards:
       - learn: A sense of place
-        visual: "map:burgundy"
+        visual: "map:france"
         body: |
           **Terroir** is everything about a site: soil, slope, aspect, altitude, climate and water. In Burgundy, neighboring vineyards a few meters apart can make very different wines.
       - learn: Slopes, soil and water
@@ -90,7 +90,7 @@ lessons:
       - choice: "Why are well-drained gravel soils prized in the Médoc?"
         options: ["They drain water and store heat", "They are rich in nutrients", "They keep vines very wet", "They block sunlight"]
         a: "They drain water and store heat"
-        visual: "map:bordeaux:haut-medoc"
+        visual: "map:france:haut-medoc"
         explain: "Gravel warms up and drains quickly, which helps late-ripening Cabernet Sauvignon ripen fully and keeps the vine's roots from sitting in water. That is why the best Médoc châteaux sit on the gravel mounds beside the Gironde."
       - blank: "The Mosel's steep slate slopes absorb and reflect ___ onto the vines."
         answers: [heat]

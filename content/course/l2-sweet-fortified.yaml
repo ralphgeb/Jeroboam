@@ -24,7 +24,7 @@ lessons:
       - tf: "Sauternes is a sweet wine made with grapes affected by noble rot."
         truth: true
         explain: "Sauternes and Barsac in southern Bordeaux make sweet wines from Sémillon and Sauvignon Blanc affected by noble rot (Botrytis). The fungus shrivels the grapes and concentrates sugar, acidity and flavors like honey and saffron."
-        visual: "map:bordeaux:sauternes"
+        visual: "map:france:sauternes"
       - blank: "Hungary's famous noble rot wine is Tokaji ___."
         answers: [Aszú]
         options: [Rosso, Brut, Fino]

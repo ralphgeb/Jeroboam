@@ -91,7 +91,7 @@ final class DuoSnapshots: XCTestCase {
     }
 
     func testMapExplorer() {
-        snap("map-explorer", settle: 3.0) { MapExplorer(mapID: "bordeaux") }
+        snap("map-explorer", settle: 3.0) { MapExplorer(mapID: "france", highlight: ["pauillac"]) }
     }
 
     /// Whole-country explorers at the Duo sizes: regions, zones and appellations drawn together.
@@ -243,5 +243,17 @@ final class DuoSnapshots: XCTestCase {
     func testRegions() {
         guard let r = ContentStore.shared.library.regions.first(where: { $0.id == "bordeaux" }) else { return XCTFail("no region") }
         snap("region") { NavigationStack { RegionDetailView(region: r) } }
+    }
+
+    /// The merged France map: Burgundy's villages and Grand Crus, Bordeaux's communes, in the explorer and as region cards.
+    func testFranceDetail() {
+        snap("fr-pauillac", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["pauillac"]) }
+        snap("fr-romanee", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["romanee-conti"]) }
+        snap("fr-montrachet", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["montrachet"]) }
+        snap("fr-whole", settle: 4.0) { MapExplorer(mapID: "france") }
+        for id in ["pauillac", "puligny-montrachet", "romanee-conti"] {
+            guard let r = ContentStore.shared.library.regions.first(where: { $0.id == id }) else { continue }
+            snap("fr-card-\(id)", settle: 4.0) { NavigationStack { RegionDetailView(region: r) } }
+        }
     }
 }
