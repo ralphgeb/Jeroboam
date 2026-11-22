@@ -85,6 +85,50 @@ BURGUNDY = [
     A("chiroubles", "Chiroubles", 2, ["69"], ["Chiroubles"], parent="beaujolais"),
     A("regnie", "Régnié", 2, ["69"], ["Régnié-Durette"], parent="beaujolais"),
 ]
+
+# village appellations of the Côte d'Or and Côte Chalonnaise (level 2, inside their zone)
+_VCOL = ["claret", "magenta", "rose", "coral", "plum", "orange", "violet", "teal"]
+def _villages(parent, items):
+    out = []
+    for i, (vid, name, communes, grapes) in enumerate(items):
+        out.append(A(vid, name, 2, ["21", "71"], communes, color=_VCOL[i % len(_VCOL)], parent=parent, grapes=grapes))
+    return out
+BURGUNDY += _villages("cote-de-nuits", [
+    ("marsannay", "Marsannay", ["Marsannay-la-Côte", "Couchey"], "Pinot Noir · rosé"),
+    ("fixin", "Fixin", ["Fixin"], "Pinot Noir"),
+    ("gevrey-chambertin", "Gevrey-Chambertin", ["Gevrey-Chambertin", "Brochon"], "Pinot Noir"),
+    ("morey-saint-denis", "Morey-Saint-Denis", ["Morey-Saint-Denis"], "Pinot Noir"),
+    ("chambolle-musigny", "Chambolle-Musigny", ["Chambolle-Musigny"], "Pinot Noir"),
+    ("vougeot", "Vougeot", ["Vougeot"], "Pinot Noir"),
+    ("vosne-romanee", "Vosne-Romanée", ["Vosne-Romanée", "Flagey-Echézeaux"], "Pinot Noir"),
+    ("nuits-saint-georges", "Nuits-Saint-Georges", ["Nuits-Saint-Georges", "Premeaux-Prissey"], "Pinot Noir"),
+])
+BURGUNDY += _villages("cote-de-beaune", [
+    ("ladoix", "Ladoix", ["Ladoix-Serrigny"], "Pinot Noir · Chardonnay"),
+    ("aloxe-corton", "Aloxe-Corton", ["Aloxe-Corton"], "Pinot Noir · Chardonnay"),
+    ("pernand-vergelesses", "Pernand-Vergelesses", ["Pernand-Vergelesses"], "Chardonnay · Pinot Noir"),
+    ("savigny", "Savigny-lès-Beaune", ["Savigny-lès-Beaune"], "Pinot Noir"),
+    ("chorey", "Chorey-lès-Beaune", ["Chorey-lès-Beaune"], "Pinot Noir"),
+    ("beaune", "Beaune", ["Beaune"], "Pinot Noir · Chardonnay"),
+    ("pommard", "Pommard", ["Pommard"], "Pinot Noir"),
+    ("volnay", "Volnay", ["Volnay"], "Pinot Noir"),
+    ("monthelie", "Monthélie", ["Monthelie"], "Pinot Noir"),
+    ("auxey-duresses", "Auxey-Duresses", ["Auxey-Duresses"], "Pinot Noir · Chardonnay"),
+    ("saint-romain", "Saint-Romain", ["Saint-Romain"], "Chardonnay · Pinot Noir"),
+    ("meursault", "Meursault", ["Meursault"], "Chardonnay"),
+    ("puligny-montrachet", "Puligny-Montrachet", ["Puligny-Montrachet"], "Chardonnay"),
+    ("chassagne-montrachet", "Chassagne-Montrachet", ["Chassagne-Montrachet"], "Chardonnay · Pinot Noir"),
+    ("saint-aubin", "Saint-Aubin", ["Saint-Aubin"], "Chardonnay"),
+    ("santenay", "Santenay", ["Santenay"], "Pinot Noir"),
+    ("maranges", "Maranges", ["Cheilly-lès-Maranges", "Dezize-lès-Maranges", "Sampigny-lès-Maranges"], "Pinot Noir"),
+])
+BURGUNDY += _villages("cote-chalonnaise", [
+    ("bouzeron", "Bouzeron", ["Bouzeron"], "Aligoté"),
+    ("rully", "Rully", ["Rully"], "Chardonnay · Pinot Noir"),
+    ("mercurey", "Mercurey", ["Mercurey"], "Pinot Noir"),
+    ("givry", "Givry", ["Givry", "Jambles", "Dracy-le-Fort"], "Pinot Noir"),
+    ("montagny", "Montagny", ["Montagny-lès-Buxy", "Buxy", "Saint-Vallerin", "Jully-lès-Buxy"], "Chardonnay"),
+])
 _cn = [a for a in BURGUNDY if a["id"] == "cote-de-nuits"][0]["communes"] + [a for a in BURGUNDY if a["id"] == "cote-de-beaune"][0]["communes"]
 [a for a in BURGUNDY if a["id"] == "cote-d-or"][0]["communes"] = _cn
 VILLAGES_BURGUNDY = ["Gevrey-Chambertin", "Morey-Saint-Denis", "Chambolle-Musigny", "Vougeot", "Vosne-Romanée",
