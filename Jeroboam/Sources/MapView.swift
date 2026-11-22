@@ -720,16 +720,21 @@ struct WineMapView: View {
 }
 
 extension MapGeometry {
-    /// The zone around highlighted areas on a map with nested levels (a village or cru is framed inside its sub-region).
+    /// How to frame highlighted areas on a map with nested levels: a cru inside its village, a village with its neighbours,
+    /// a sub-region or region whole.
     func zoneRect(for ids: Set<String>) -> CGRect? {
         guard !insets.isEmpty, !ids.isEmpty else { return nil }
         let byID = Dictionary(uniqueKeysWithValues: areas.map { ($0.id, $0) })
         var rect: CGRect? = nil
         for a in areas where ids.contains(a.id) {
-            var t = a
-            let up = a.level >= 2 ? 1 : 0
-            while t.level > up, let p = t.parent.flatMap({ byID[$0] }) { t = p }
-            let r = t.path.boundingRect
+            var r = a.path.boundingRect
+            switch a.level {
+            case 3:
+                if let p = a.parent.flatMap({ byID[$0] }) { r = p.path.boundingRect.insetBy(dx: -p.path.boundingRect.width * 0.25, dy: -p.path.boundingRect.height * 0.25) }
+            case 2:
+                r = r.insetBy(dx: -r.width * 0.9, dy: -r.height * 0.9)
+            default: break
+            }
             rect = rect.map { $0.union(r) } ?? r
         }
         return rect
@@ -922,7 +927,7 @@ struct ZoomableWineMap: View {
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }
         // on the France map the explorer opens on the zone around the place that was asked for
-        if let z = g.zoneRect(for: highlight.union(focus.map { [$0] } ?? [])) { target = z.insetBy(dx: -z.width * 0.2, dy: -z.height * 0.2) }
+        if let z = g.zoneRect(for: highlight.union(focus.map { [$0] } ?? [])) { target = z }
         // leave room for the header and the bottom card
         // the visible band sits between the header and the list card, with room to spare around the region
         let (z, o) = g.fitLayout(size: size, target: target, padding: 0.04, top: wide ? 130 : 175, bottom: wide ? 30 : 250, allowContain: false)
