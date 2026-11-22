@@ -362,6 +362,15 @@ struct Achievement: Identifiable, Hashable {
     static func == (a: Achievement, b: Achievement) -> Bool { a.id == b.id }
     func hash(into h: inout Hasher) { h.combine(id) }
 
+    /// Set by the app so the journal badges can look at the cellar and tastings.
+    static weak var journal: JournalStore?
+    private static var cellarCount: Int { journal?.bottleCount ?? 0 }
+    private static var tastingCount: Int { journal?.entries.count ?? 0 }
+    private static var blindEntries: [JournalEntry] { journal?.entries.filter { $0.blind == true } ?? [] }
+    private static var countryCount: Int {
+        Set(((journal?.cellar.map(\.wine.country) ?? []) + (journal?.entries.map(\.wine.country) ?? [])).filter { !$0.isEmpty }.map { $0.lowercased() }).count
+    }
+
     static let all: [Achievement] = [
         Achievement(id: "first-sip", title: "First sip", detail: "Finish your first lesson", icon: "wineglass") { $0.completedCount >= 1 },
         Achievement(id: "streak-3", title: "Three-day swirl", detail: "Reach a 3-day streak", icon: "flame") { $0.data.bestStreak >= 3 },
@@ -395,5 +404,22 @@ struct Achievement: Identifiable, Hashable {
         Achievement(id: "globetrotter", title: "Globetrotter", detail: "Explore 20 regions", icon: "globe.europe.africa.fill") { $0.data.viewedRegions.count >= 20 },
         Achievement(id: "practice-10", title: "Practice makes perfect", detail: "Finish 10 practice sessions", icon: "dumbbell.fill") { $0.data.practiceSessions >= 10 },
         Achievement(id: "answers-500", title: "Well read", detail: "Answer 500 questions", icon: "book.fill") { $0.data.answered >= 500 },
+        Achievement(id: "streak-14", title: "Fortnight in the glass", detail: "Reach a 14-day streak", icon: "flame.circle.fill") { $0.data.bestStreak >= 14 },
+        Achievement(id: "streak-100", title: "A hundred days", detail: "Reach a 100-day streak", icon: "crown.fill") { $0.data.bestStreak >= 100 },
+        Achievement(id: "xp-5000", title: "Grand cru", detail: "Earn 5,000 XP", icon: "trophy.fill") { $0.data.xp >= 5000 },
+        Achievement(id: "perfect-25", title: "Not a drop spilled", detail: "25 perfect lessons", icon: "star.circle.fill") { $0.data.perfectLessons >= 25 },
+        Achievement(id: "answers-2000", title: "Walking encyclopedia", detail: "Answer 2,000 questions", icon: "books.vertical.fill") { $0.data.answered >= 2000 },
+        Achievement(id: "practice-50", title: "Always practising", detail: "Finish 50 practice sessions", icon: "figure.run") { $0.data.practiceSessions >= 50 },
+        Achievement(id: "grapes-50", title: "Grape collector", detail: "Open 50 grape profiles", icon: "leaf.circle.fill") { $0.data.viewedGrapes.count >= 50 },
+        Achievement(id: "regions-60", title: "Atlas explorer", detail: "Explore 60 regions", icon: "map.fill") { $0.data.viewedRegions.count >= 60 },
+        Achievement(id: "first-scan", title: "Label reader", detail: "Scan your first wine", icon: "camera.viewfinder") { _ in cellarCount >= 1 },
+        Achievement(id: "cellar-10", title: "Cellar master", detail: "Keep 10 bottles in your cellar", icon: "square.stack.3d.up.fill") { _ in cellarCount >= 10 },
+        Achievement(id: "cellar-50", title: "Private collection", detail: "Keep 50 bottles in your cellar", icon: "building.columns.fill") { _ in cellarCount >= 50 },
+        Achievement(id: "first-tasting", title: "Note taker", detail: "Write your first tasting note", icon: "square.and.pencil") { _ in tastingCount >= 1 },
+        Achievement(id: "blind-first", title: "Blindfolded", detail: "Finish a blind tasting", icon: "eye.slash.fill") { _ in !blindEntries.isEmpty },
+        Achievement(id: "blind-80", title: "Palate of gold", detail: "Score 80 or more in a blind tasting", icon: "target") { _ in blindEntries.contains { ($0.score ?? 0) >= 80 } },
+        Achievement(id: "blind-10", title: "Trained nose", detail: "Finish 10 blind tastings", icon: "checkmark.seal.fill") { _ in blindEntries.count >= 10 },
+        Achievement(id: "countries-3", title: "Three countries", detail: "Taste wines from 3 countries", icon: "airplane") { _ in countryCount >= 3 },
+        Achievement(id: "countries-10", title: "Around the world", detail: "Taste wines from 10 countries", icon: "globe.americas.fill") { _ in countryCount >= 10 },
     ]
 }

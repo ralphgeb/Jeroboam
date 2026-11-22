@@ -21,11 +21,13 @@ struct WineIdentity: Codable, Hashable {
     var confidence: String
     var funFact: String
     var drinkWindow: String? = nil
+    /// Typical blend, in percent, in the same order as `grapes` (nil when unknown).
+    var grapePercent: [Int]? = nil
 
     enum CodingKeys: String, CodingKey {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
         case tastingNotes = "tasting_notes", priceLow = "price_low", priceHigh = "price_high", funFact = "fun_fact"
-        case drinkWindow = "drink_window"
+        case drinkWindow = "drink_window", grapePercent = "grape_percent"
     }
 
     static let empty = WineIdentity(found: false, name: "", producer: "", region: "", country: "", grapes: [], vintage: "",
@@ -174,7 +176,8 @@ enum WineRecognizer {
     price_low/price_high: typical current retail price range for one 750 ml bottle in US dollars, as an estimate from your knowledge (0 if unknown). \
     style: one of red, white, rose, sparkling, fortified, sweet, orange. confidence: high, medium or low. \
     fun_fact: one short, accurate sentence that teaches something about this wine, its region or grape. \
-    drink_window: when to drink it, e.g. "Now–2030" or "Drink now". Keep every field concise.
+    drink_window: when to drink it, e.g. "Now–2030" or "Drink now". \
+    grape_percent: the usual blend in whole percent, in the same order as grapes, adding up to 100 (a single-variety wine is [100]). Keep every field concise.
     """
 
     private static var schema: [String: Any] {
@@ -191,6 +194,7 @@ enum WineRecognizer {
                 "vintage": str,
                 "style": ["type": "string", "enum": ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"]],
                 "tasting_notes": strArr, "palate": str, "food": strArr, "price_low": num, "price_high": num, "currency": str,
+                "grape_percent": ["type": "array", "items": ["type": "integer"]],
                 "confidence": ["type": "string", "enum": ["high", "medium", "low"]], "fun_fact": str, "drink_window": str
             ]
         ]
@@ -249,13 +253,8 @@ struct PriceInfo: Codable, Hashable {
         return PriceInfo(average: avg, low: w.priceLow, high: w.priceHigh, currency: w.currency.isEmpty ? "USD" : w.currency, source: "Estimate")
     }
 
-    func format(_ v: Double) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .currency
-        f.currencyCode = currency.isEmpty ? "USD" : currency
-        f.maximumFractionDigits = v >= 100 ? 0 : 0
-        return f.string(from: NSNumber(value: v)) ?? "\(Int(v))"
-    }
+    /// In the currency chosen in Settings (the price itself stays in the currency it was found in).
+    func format(_ v: Double) -> String { Currency.format(v, from: currency) }
     var averageText: String { format(average) }
 }
 

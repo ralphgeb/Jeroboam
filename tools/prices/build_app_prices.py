@@ -19,6 +19,7 @@ with open(SRC, newline="") as f, open(OUT, "w") as out:
         hi = float(r["max_price_gbp"] or 0) * GBP_TO_USD
         clean = lambda s: (s or "").replace("\t", " ").replace("\n", " ").strip()
         out.write("\t".join([clean(r["wine"]), clean(r["producer"]), clean(r["vintage"]), clean(r["size_ml"]),
-                             f"{usd:.0f}", f"{lo:.0f}", f"{hi:.0f}", clean(r["shops_count"])]) + "\n")
+                             f"{usd:.0f}", f"{lo:.0f}", f"{hi:.0f}", clean(r["shops_count"]),
+                             clean(r.get("cheapest_link")).replace("https://", "", 1)]) + "\n")
         n += 1
 print(n, "wines,", round(os.path.getsize(OUT) / 1e6, 1), "MB")

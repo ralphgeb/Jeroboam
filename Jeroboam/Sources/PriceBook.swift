@@ -10,6 +10,7 @@ final class PriceBook {
         let vintage: String
         let size: Int
         let shops: Int
+        let link: String
         let tokens: Set<String>
     }
     private var rows: [Row] = []
@@ -45,7 +46,7 @@ final class PriceBook {
             let toks = Self.tokens(f[0] + " " + f[1])
             guard !toks.isEmpty else { continue }
             let i = Int32(rows.count)
-            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, tokens: toks))
+            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks))
             for t in toks { index[t, default: []].append(i) }
         }
     }
@@ -75,6 +76,6 @@ final class PriceBook {
         }
         guard let r = best?.1 else { return nil }
         return PriceInfo(average: r.usd, low: r.low > 0 ? r.low : r.usd * 0.9, high: r.high > 0 ? r.high : r.usd * 1.1, currency: "USD",
-                         source: r.shops > 1 ? "Average of \(r.shops) shops" : "Shop price", url: nil)
+                         source: r.shops > 1 ? "Average of \(r.shops) shops" : "Shop price", url: r.link.isEmpty ? nil : "https://" + r.link)
     }
 }

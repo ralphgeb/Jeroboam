@@ -8,11 +8,47 @@ struct ProfileView: View {
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
 
+    @Environment(\.windowWidth) private var width
+    @State private var currencyCode = Currency.code
+
     var body: some View {
-        @Bindable var p = progress
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 30) {
+            Group {
+                if width >= AdaptiveLayout.twoPaneThreshold {
+                    // Duo sideways: you and your progress on the left, the settings on the right
+                    HStack(spacing: 0) {
+                        ScrollView { VStack(alignment: .leading, spacing: 30) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
+                            .scrollIndicators(.hidden).frame(width: width / 2)
+                        Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
+                        ScrollView { VStack(alignment: .leading, spacing: 30) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
+                            .scrollIndicators(.hidden).frame(width: width / 2 - 0.5)
+                    }
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 30) {
+                            leftColumn()
+                            rightColumn()
+                        }
+                        .padding(.horizontal, Metrics.margin)
+                        .readable(720)
+                    }
+                    .scrollIndicators(.hidden)
+                }
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
+            .onAppear { progress.checkAchievements() }
+            .statusBarBackdrop()
+            .plusSheetHost()
+            .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
+                Button("Reset", role: .destructive) { progress.reset() }
+            } message: {
+                Text("Your streak, XP and finished lessons will be cleared.")
+            }
+        }
+    }
+
+    @ViewBuilder private func leftColumn() -> some View {
                     AboutYouSection().padding(.top, 16)
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
@@ -70,13 +106,17 @@ struct ProfileView: View {
                         }
                     }
 
+    }
+
+    @ViewBuilder private func rightColumn() -> some View {
+        let p = Bindable(progress)
                     PlusStatusCard()
 
                     // Settings
                     VStack(alignment: .leading, spacing: 0) {
                         SectionTitle(text: "Settings").padding(.bottom, 10)
                         settingRow("Daily goal") {
-                            Picker("Daily goal", selection: $p.data.dailyGoal) {
+                            Picker("Daily goal", selection: p.data.dailyGoal) {
                                 Text("Casual · 10 XP").tag(10)
                                 Text("Regular · 20 XP").tag(20)
                                 Text("Serious · 30 XP").tag(30)
@@ -110,10 +150,17 @@ struct ProfileView: View {
                         }
                         Hairline()
                         settingRow("Appearance") {
-                            Picker("Appearance", selection: $p.data.appearance) {
+                            Picker("Appearance", selection: p.data.appearance) {
                                 Text("Automatic").tag(0)
                                 Text("Light").tag(1)
                                 Text("Dark").tag(2)
+                            }
+                            .tint(Palette.wine)
+                        }
+                        Hairline()
+                        settingRow("Currency") {
+                            Picker("Currency", selection: Binding(get: { currencyCode }, set: { currencyCode = $0; Currency.code = $0 })) {
+                                ForEach(Currency.choices, id: \.self) { c in Text("\(c) · \(Locale.current.localizedString(forCurrencyCode: c) ?? c)").tag(c) }
                             }
                             .tint(Palette.wine)
                         }
@@ -161,21 +208,6 @@ struct ProfileView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 10).padding(.bottom, 30)
-                }
-                .padding(.horizontal, Metrics.margin)
-                .readable(720)
-            }
-            .scrollIndicators(.hidden)
-            .background(Palette.paper.ignoresSafeArea())
-            .toolbar(.hidden, for: .navigationBar)
-            .statusBarBackdrop()
-            .plusSheetHost()
-            .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
-                Button("Reset", role: .destructive) { progress.reset() }
-            } message: {
-                Text("Your streak, XP and finished lessons will be cleared.")
-            }
-        }
     }
 
     private func hourString(_ h: Int) -> String {

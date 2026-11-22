@@ -191,13 +191,7 @@ final class JournalStore {
     }
 }
 
-func money(_ v: Double, _ currency: String) -> String {
-    let f = NumberFormatter()
-    f.numberStyle = .currency
-    f.currencyCode = currency.isEmpty ? "USD" : currency
-    f.maximumFractionDigits = 0
-    return f.string(from: NSNumber(value: v)) ?? "\(Int(v))"
-}
+func money(_ v: Double, _ currency: String) -> String { Currency.format(v, from: currency) }
 
 func styleColor(_ s: String) -> Color {
     switch s {
@@ -541,7 +535,7 @@ struct WineInfoCard: View {
                     Text("This region isn't in the atlas yet.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                 }
             default:
-                if !w.grapes.isEmpty { grapeChips(w.grapes) }
+                if !w.grapes.isEmpty { grapeChips(w.grapes, percent: w.grapePercent) }
                 info("wineglass", w.style.capitalized)
                 if let d = w.drinkWindow, !d.isEmpty { DrinkWindowChart(window: d, vintage: w.vintage) }
                 if !w.funFact.isEmpty {
@@ -557,25 +551,37 @@ struct WineInfoCard: View {
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
     }
 
-    /// Grapes as chips; known varieties open their grape card.
-    private func grapeChips(_ names: [String]) -> some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 8) {
-                ForEach(names, id: \.self) { n in
-                    let g = matchGrape(n)
-                    Button { openGrape = g } label: {
-                        HStack(spacing: 6) {
-                            if let g { GrapeBadge(grape: g, size: 22) } else { Image(systemName: "leaf").font(.system(size: 12)) }
-                            Text(n).font(.system(size: 14, weight: .medium))
-                            if g != nil { Image(systemName: "chevron.right").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.inkFaint) }
+    /// Every grape on show at once, with its share of the blend; known varieties open their grape card.
+    private func grapeChips(_ names: [String], percent: [Int]? = nil) -> some View {
+        let shares: [Int] = (percent?.count == names.count) ? percent! : []
+        return VStack(alignment: .leading, spacing: 10) {
+            if !shares.isEmpty {
+                GeometryReader { geo in
+                    HStack(spacing: 2) {
+                        ForEach(Array(names.enumerated()), id: \.offset) { i, _ in
+                            Capsule().fill(Palette.wine.opacity(max(0.25, 1 - Double(i) * 0.22)))
+                                .frame(width: max(6, (geo.size.width - CGFloat(names.count - 1) * 2) * CGFloat(shares[i]) / 100))
                         }
-                        .foregroundStyle(Palette.ink)
-                        .padding(.leading, 6).padding(.trailing, 12).padding(.vertical, 6)
-                        .background(Capsule().fill(Palette.wineSoft))
                     }
-                    .buttonStyle(.plain)
-                    .disabled(g == nil)
                 }
+                .frame(height: 10)
+            }
+            ForEach(Array(names.enumerated()), id: \.offset) { i, n in
+                let g = matchGrape(n)
+                Button { openGrape = g } label: {
+                    HStack(spacing: 10) {
+                        if let g { GrapeBadge(grape: g, size: 26) } else { Image(systemName: "leaf").font(.system(size: 13)).frame(width: 26) }
+                        Text(n).font(.system(size: 15, weight: .medium))
+                        Spacer(minLength: 6)
+                        if !shares.isEmpty { Text("\(shares[i])%").font(.system(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine) }
+                        if g != nil { Image(systemName: "chevron.right").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.inkFaint) }
+                    }
+                    .foregroundStyle(Palette.ink)
+                    .padding(.horizontal, 10).padding(.vertical, 7)
+                    .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.wineSoft))
+                }
+                .buttonStyle(.plain)
+                .disabled(g == nil)
             }
         }
         .scrollIndicators(.hidden)
@@ -616,11 +622,20 @@ struct PriceCard: View {
                 } else if let p = price {
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text(p.averageText).font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                        Text("avg. per bottle").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                        Text(p.source == "You paid" ? "you paid per bottle" : "avg. per bottle").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
                     }
-                    Text(p.isEstimate ? (p.low > 0 && p.high > 0 ? "Estimated by Claude · \(p.format(p.low))–\(p.format(p.high))" : "Estimated by Claude") :
-                            (p.low > 0 && p.high > 0 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
-                        .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                    if p.source != "You paid" {
+                        Text(p.isEstimate ? (p.low > 0 && p.high > 0 ? "Estimated by Claude · \(p.format(p.low))–\(p.format(p.high))" : "Estimated by Claude") :
+                                (p.low > 0 && p.high > 0 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
+                            .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                    }
+                    if let u = p.url, let url = URL(string: u), let host = url.host {
+                        Link(destination: url) {
+                            Label("Cheapest found: \(host.replacingOccurrences(of: "www.", with: ""))", systemImage: "arrow.up.right.square")
+                                .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
+                        }
+                        .foregroundStyle(Palette.wine).padding(.top, 2)
+                    }
                     if let q = quantity, q > 1 {
                         Text("\(q) bottles · \(p.format(p.average * Double(q)))").font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
                     }
@@ -640,6 +655,31 @@ struct PriceCard: View {
         .padding(14)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+    }
+}
+
+/// Type in what you paid when the app found no price (it then counts as the bottle's price).
+struct PricePaidField: View {
+    @Binding var price: PriceInfo?
+    @State private var text = ""
+    var body: some View {
+        if price == nil || price?.source == "You paid" {
+            HStack(spacing: 10) {
+                Image(systemName: "banknote").font(.system(size: 15)).foregroundStyle(Palette.wine)
+                TextField("Price you paid (optional)", text: $text).keyboardType(.decimalPad)
+                Text(Currency.code).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+            }
+            .padding(14)
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+            .onAppear {
+                if let p = price, p.source == "You paid" { text = String(Int(Currency.convert(p.average, from: p.currency, to: Currency.code).rounded())) }
+            }
+            .onChange(of: text) { _, t in
+                let v = Double(t.replacingOccurrences(of: ",", with: ".")) ?? 0
+                price = v > 0 ? PriceInfo(average: v, low: v, high: v, currency: Currency.code, source: "You paid") : nil
+            }
+        }
     }
 }
 
@@ -735,6 +775,7 @@ struct ScanFlow: View {
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
             }
             PriceCard(price: price, loading: pricing, onRefresh: identified ? { Task { await findPrice() } } : nil)
+            if !pricing && identified { PricePaidField(price: $price) }
 
             VStack(spacing: 12) {
                 HStack {
@@ -1490,6 +1531,9 @@ struct CellarDetailView: View {
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
                                  subtitle: "Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? "") + " · added " + b.added.formatted(date: .abbreviated, time: .omitted))
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity) { Task { await refresh(b) } }
+                    if !pricing {
+                        PricePaidField(price: Binding(get: { b.price }, set: { v in var c = b; c.price = v; journal.upsert(c) }))
+                    }
                     HStack {
                         Text("Bottles").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
                         Spacer()

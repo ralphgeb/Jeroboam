@@ -109,6 +109,27 @@ final class DuoSnapshots: XCTestCase {
         snap("match") { MatchCard(card: c, locked: false, onAnswer: { _, _ in }).padding(20) }
     }
 
+    /// The Foldable preview exactly as on a phone (inside sideways, a 440×956 phone window), with the full-screen map open.
+    func testPreviewFullMap() {
+        UserDefaults.standard.set(3, forKey: "jero.duoPreview")
+        defer { UserDefaults.standard.set(0, forKey: "jero.duoPreview"); CoverHost.shared.content = nil }
+        let progress = GameProgress(); progress.data.onboarded = true
+        let size = CGSize(width: 440, height: 956)
+        CoverHost.shared.content = AnyView(MapExplorer(mapID: "france").environment(\.coverClose, { CoverHost.shared.content = nil }))
+        let root = DuoPreviewHost { AdaptiveRoot { RootView() } }.environment(progress).environment(JournalStore.sample)
+        let host = UIHostingController(rootView: AnyView(root))
+        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+        window.rootViewController = host
+        window.makeKeyAndVisible()
+        host.view.frame = window.bounds
+        host.view.layoutIfNeeded()
+        spin(3.5)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true) }
+        if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("preview-map-phone.png")) }
+        window.isHidden = true
+    }
+
     func testDrinkWindow() {
         snap("drink-window") { VStack(spacing: 16) { DrinkWindowChart(window: "Now–2030", vintage: "2019"); DrinkWindowChart(window: "2026–2040", vintage: "2018") }.padding(20) }
     }

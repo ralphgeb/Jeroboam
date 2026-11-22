@@ -55,8 +55,10 @@ struct JeroboamApp: App {
             .tint(Palette.wine)
             .task { await Plus.shared.refresh() }
             .task { await Plus.shared.listen() }
+            .task { await Currency.refresh() }
             .onAppear {
                 QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
+                Achievement.journal = journal
                 CloudSync.shared.start(progress, journal)
             }
         }

@@ -142,6 +142,10 @@ struct AboutYouSection: View {
                     .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
             }
         }
+        // your country sets the currency prices are shown in (it can still be changed in Settings)
+        .onChange(of: country) { _, c in
+            if let code = Currency.forCountry(named: c), Currency.choices.contains(code) { Currency.code = code }
+        }
         .onChange(of: item) { _, it in
             guard let it else { return }
             Task {
