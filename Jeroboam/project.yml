@@ -57,6 +57,8 @@ targets:
         NSCameraUsageDescription: Jero uses the camera to photograph wine labels for your tasting journal.
         NSPhotoLibraryAddUsageDescription: Jero can save your tasting photos.
         JeroAPIKey: $(JERO_API_KEY)
+        JeroPriceURL: $(JERO_PRICE_URL)
+        JeroPriceKey: $(JERO_PRICE_KEY)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ralphgeb.jero
@@ -64,6 +66,8 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         JERO_API_KEY: ""        # injected by CI from the ANTHROPIC_API_KEY secret (testing only)
+        JERO_PRICE_URL: ""      # the shared price list (backend/cloudflare), from the PRICE_DB_URL secret
+        JERO_PRICE_KEY: ""      # and its key, from PRICE_DB_KEY
 
   JeroWidget:
     type: app-extension

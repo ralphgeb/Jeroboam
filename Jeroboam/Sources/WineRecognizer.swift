@@ -271,18 +271,24 @@ extension WineRecognizer {
     /// Cheapest first: our own database, the Great wines list, the model's estimate from the identification, and only then
     /// one tiny question to Haiku (no web search, a fraction of a cent). Whatever is found is kept in the database.
     static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
+        // 1. this phone's own database, then the shared one online (a price anyone has already found)
         if let p = WineDB.shared.entry(for: w)?.price { return (p, 0) }
-        // the shop price list (about 70,000 wines), then the Great wines list
+        if let p = await PriceCloud.price(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
+        // 2. the shop price list (about 70,000 wines), then the Great wines list, then the model's own estimate
+        var found: PriceInfo? = nil
+        var cost = 0.0
         let shop = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w) }.value
-        if let p = shop { WineDB.shared.save(w, price: p); return (p, 0) }
-        if let p = WineDB.greatPrice(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
-        if !livePrices {
-            if let p = PriceInfo.estimate(from: w) { WineDB.shared.save(w, price: p); return (p, 0) }
-            let (p, cost) = await quickEstimate(for: w)
-            if let p { WineDB.shared.save(w, price: p) }
-            return (p, cost)
+        if let p = shop { found = p }
+        else if let p = WineDB.greatPrice(for: w) { found = p }
+        else if !livePrices {
+            if let p = PriceInfo.estimate(from: w) { found = p }
+            else { let (p, c) = await quickEstimate(for: w); found = p; cost = c }
+        } else {
+            let (p, c) = await livePrice(for: w); found = p; cost = c
         }
-        return await livePrice(for: w)
+        // 3. whatever was found goes into both databases, so nobody has to look for it again
+        if let p = found { WineDB.shared.save(w, price: p); PriceCloud.share(w, price: p) }
+        return (found, cost)
     }
 
     /// One short question, no tools: about $0.0002.

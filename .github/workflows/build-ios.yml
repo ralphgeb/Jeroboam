@@ -19,6 +19,8 @@ jobs:
       ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       JERO_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      JERO_PRICE_URL: ${{ secrets.PRICE_DB_URL }}
+      JERO_PRICE_KEY: ${{ secrets.PRICE_DB_KEY }}
 
     steps:
       - name: Checkout
@@ -235,6 +237,8 @@ jobs:
             CODE_SIGN_STYLE=Automatic \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             JERO_API_KEY="$JERO_API_KEY" \
+            JERO_PRICE_URL="$JERO_PRICE_URL" \
+            JERO_PRICE_KEY="$JERO_PRICE_KEY" \
             2>&1 | tee build/archive.log || {
               # Show the real reasons as red annotations at the top of the run page
               grep -E -A2 "error:|ARCHIVE FAILED|No profiles|requires a provisioning|Provisioning profile|No Accounts|not registered" build/archive.log \
