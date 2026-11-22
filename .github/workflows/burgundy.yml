@@ -1,10 +1,23 @@
-name: Burgundy probe
+name: Burgundy parcels
+# Downloads named vineyard parcels of the Côte d'Or from OpenStreetMap and publishes them to the burgundy-data branch.
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
-  probe:
+  fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/burgundy_probe.py
+      - run: python3 tools/burgundy_fetch.py
+      - name: Publish
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b burgundy-data
+          git add -A
+          git commit -qm "Burgundy parcels (OpenStreetMap, ODbL)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" burgundy-data
