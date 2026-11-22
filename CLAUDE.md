@@ -18,13 +18,14 @@ tools/build_maps2.py     map builder v2 (zoomable, levels 0/1/2). Sources in /ho
                          fr/communes-<dept>.geojson (gregoiredavid/france-geojson), it_comuni.geojson (openpolis/geojson-italy),
                          ava/ (UCDavisLibrary/ava). Run: python3 tools/build_maps2.py [fr|it|us|legacy]
 tools/inao_fetch.py + .github/workflows/inao.yml   INAO parcel-level AOC delimitation (data.gouv.fr, Licence Ouverte) -> `inao-data`
-                         branch -> extract to ~/geo/inao/inao_cotedor.geojson. build_maps2 `grand_crus()` turns the Burgundy Grand Cru
-                         parcels into level-3 areas (CRUS dict). The INAO file also has Premier Cru climats (not used yet).
-                         tools/burgundy_fetch.py + burgundy.yml: OSM vineyard parcels (not used by the build, kept for reference).
+                         branch (Côte d'Or: Grand Crus, Premier Cru climats). NOT used by the build: the owner asked to remove the Grand cru
+                         level; the data is there if climats are wanted later. tools/burgundy_fetch.py + burgundy.yml: OSM vineyard parcels (reference).
 France map = ONE map (france.json). Bordeaux and Burgundy are drawn K=4 times finer inside it (`FineProj`, area records carry `k`,
-                         doc has `insets` with fine coast/water/rivers/communes and `lod` zoom steps [1.9, 3.4, 30]). The separate
-                         bordeaux/burgundy maps were removed; region pages use `map: france` and the card/explorer frame the place via
-                         `MapGeometry.zoneRect`. Levels: 0 region, 1 sub-region, 2 village/commune appellation, 3 Grand Cru.
+                         doc has `insets` with fine coast/water/rivers and `lod` [1.9, 3.4]). The separate bordeaux/burgundy maps were removed;
+                         region pages use `map: france` and the card/explorer frame the place via `MapGeometry.zoneRect`. Levels: 0 region,
+                         1 sub-region, 2 appellation (village/commune). Explorer buttons Regions / Sub-regions / Appellations each show exactly
+                         that level (parents hatched behind); area names are drawn inside the borders when they fit (white on solid, dark on
+                         hatched or faded), else a number badge. Two-pane map layout only when the page is >= 760 pt wide (not on the upright inner screen).
 Maps beyond the atlas (Settings > More maps > ExtraAtlasView): content/extra/<map>.yaml = geometry spec + guide text for one map
                          (24 maps: US states by AVA, UK, Canada, Georgia, Armenia, Switzerland, Croatia, Slovenia, Romania, Bulgaria, Moldova,
                          Turkey, Uruguay, Brazil, Mexico, China, Japan, Cyprus; no Israel). `python3 tools/build_extra_maps.py [map]` builds
