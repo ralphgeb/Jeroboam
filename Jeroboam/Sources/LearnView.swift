@@ -25,7 +25,7 @@ struct LearnView: View {
                                 .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("learnScroll")).minY } action: { y in
                                     // 0 at rest, 1 once the level title has scrolled under the header
                                     let p = min(1, max(0, (18 - y) / 70))
-                                    if abs(p - collapse) > 0.01 { collapse = p }
+                                    if abs(p - collapse) > 0.01 { collapse = p; HeaderState.shared.collapsed["Learn"] = p > 0.5 }
                                 }
                             if plusLocked(level.number) {
                                 PlusLevelBanner(level: level)

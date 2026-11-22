@@ -428,7 +428,7 @@ struct GreatWinesScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .toolbar { QuotaToolbar(section: "great") }
         .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
         .onSubmit(of: .search) { runSearch() }
@@ -715,7 +715,7 @@ struct GreatWineDetail: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .fullScreenCover(isPresented: $showBottle) { BottleFullScreen(wine: w) }
     }
 

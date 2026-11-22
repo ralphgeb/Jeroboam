@@ -141,7 +141,7 @@ struct ColorChartScreen: View {
                 .frame(width: width / 2 - 0.5)
             }
             .background(Palette.paper.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
+            .pageChrome()
         } else {
             narrowBody(colors)
         }
@@ -183,7 +183,7 @@ struct ColorChartScreen: View {
             .readable(720)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .sheet(item: sheetBinding) { c in ColorDetailSheet(color: c) }
     }
 }

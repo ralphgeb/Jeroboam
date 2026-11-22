@@ -19,6 +19,7 @@ struct InsightWine: Identifiable {
 struct JournalInsights: View {
     @Environment(JournalStore.self) private var journal
     @State private var explore: MapRef? = nil
+    @State private var showWorld = false
 
     private var real: [InsightWine] {
         var out: [InsightWine] = []
@@ -63,6 +64,13 @@ struct JournalInsights: View {
             chartGrid
         }
         .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
+        .railCover(isPresented: $showWorld) {
+            let list = dots
+            WorldMapFull(dots: list.map { ($0.id, $0.point, $0.name, $0.count) }) { id in
+                showWorld = false
+                if let d = list.first(where: { $0.id == id }) { DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { explore = MapRef(id: d.map, hl: d.highlight) } }
+            }
+        }
     }
 
     // MARK: map
@@ -159,11 +167,18 @@ struct JournalInsights: View {
         let list = dots
         return VStack(alignment: .leading, spacing: 10) {
             let countries = Set(wines.map { norm($0.country) }).count
-            Text("\(countries) \(countries == 1 ? "country" : "countries") · \(list.count) \(list.count == 1 ? "place" : "places") tried. Pinch to zoom, tap a place to open it.")
+            Text("\(countries) \(countries == 1 ? "country" : "countries") · \(list.count) \(list.count == 1 ? "place" : "places") tried. Tap the map to open it, zoom in and tap a place for its appellations.")
                 .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
-            WorldTriedMap(dots: list.map { ($0.id, $0.point, $0.name, $0.count) }) { id in
-                if let d = list.first(where: { $0.id == id }) { explore = MapRef(id: d.map, hl: d.highlight) }
+            Button { showWorld = true } label: {
+                WorldTriedMap(dots: list.map { ($0.id, $0.point, $0.name, $0.count) }, interactive: false, height: 190) { _ in }
+                    .overlay(alignment: .bottomTrailing) {
+                        Label("Open the map", systemImage: "arrow.up.left.and.arrow.down.right")
+                            .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
+                            .padding(.horizontal, 12).padding(.vertical, 8)
+                            .background(.regularMaterial, in: Capsule()).padding(10)
+                    }
             }
+            .buttonStyle(.plain)
         }
     }
 
@@ -171,7 +186,10 @@ struct JournalInsights: View {
 
     private var chartGrid: some View {
         VStack(spacing: 14) {
-            stylesCard
+            HStack(alignment: .top, spacing: 12) {
+                stylesCard
+                topGrapeCard
+            }
             bodyCard
             grapesCard
             priceCard
@@ -198,23 +216,37 @@ struct JournalInsights: View {
     private var stylesCard: some View {
         let counts = ["red", "white", "rosé", "sparkling", "sweet"].map { s in (s, wines.filter { $0.style == s }.count) }.filter { $0.1 > 0 }
         let reds = wines.filter { $0.style == "red" }.count
-        return card("Reds and whites", "\(reds) of \(wines.count) are red") {
-            HStack(spacing: 18) {
+        return card("Reds and whites", "\(reds) of \(wines.count) red") {
+            VStack(alignment: .leading, spacing: 10) {
                 Chart(counts, id: \.0) { s, n in
-                    SectorMark(angle: .value("Wines", n), innerRadius: .ratio(0.62), angularInset: 1.5)
+                    SectorMark(angle: .value("Wines", n), innerRadius: .ratio(0.6), angularInset: 1.5)
                         .foregroundStyle(Self.styleColors[s] ?? Palette.wine)
                 }
-                .frame(width: 120, height: 120)
-                VStack(alignment: .leading, spacing: 6) {
+                .frame(width: 92, height: 92)
+                VStack(alignment: .leading, spacing: 4) {
                     ForEach(counts, id: \.0) { s, n in
-                        HStack(spacing: 8) {
-                            Circle().fill(Self.styleColors[s] ?? Palette.wine).frame(width: 9, height: 9)
-                            Text(s.capitalized).font(.system(size: 14)).foregroundStyle(Palette.ink)
-                            Spacer()
-                            Text("\(n)").font(.system(size: 14).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                        HStack(spacing: 6) {
+                            Circle().fill(Self.styleColors[s] ?? Palette.wine).frame(width: 8, height: 8)
+                            Text(s.capitalized).font(.system(size: 12.5)).foregroundStyle(Palette.ink)
+                            Spacer(minLength: 2)
+                            Text("\(n)").font(.system(size: 12.5).monospacedDigit()).foregroundStyle(Palette.inkSoft)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private var topGrapeCard: some View {
+        var tally: [String: Int] = [:]
+        for w in wines { for g in w.grapes.prefix(1) { tally[g, default: 0] += 1 } }
+        let top = tally.max { $0.value < $1.value || ($0.value == $1.value && $0.key > $1.key) }
+        let grape = matchGrape(top?.key)
+        return card("Your grape", top == nil ? "Taste a wine to find it" : "The one you pick most") {
+            VStack(alignment: .leading, spacing: 8) {
+                if let g = grape { GrapeBadge(grape: g, size: 62) }
+                Text(top?.key ?? "–").font(.system(size: 19, weight: .bold)).foregroundStyle(Palette.ink).lineLimit(2).minimumScaleFactor(0.8)
+                Text("\(top?.value ?? 0) \((top?.value ?? 0) == 1 ? "wine" : "wines")").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
             }
         }
     }
@@ -304,6 +336,10 @@ struct JournalInsights: View {
 /// double-tap to reset, tap a dot to open that country's map.
 struct WorldTriedMap: View {
     let dots: [(id: String, point: CGPoint, name: String, count: Int)]
+    var interactive = true
+    /// nil fills the space it is given (the full-screen map)
+    var height: CGFloat? = 200
+    var zoomCommand = 0
     let onOpen: (String) -> Void
     @State private var zoom: CGFloat = 1
     @State private var lastZoom: CGFloat = 1
@@ -344,6 +380,13 @@ struct WorldTriedMap: View {
                 }
             }
             .contentShape(Rectangle())
+            .allowsHitTesting(interactive)
+            .onChange(of: zoomCommand) { old, new in
+                withAnimation(.easeOut(duration: 0.2)) {
+                    zoom = min(40, max(1, zoom * (new > old ? 1.8 : 1 / 1.8))); lastZoom = zoom
+                    if zoom == 1 { pan = .zero; lastPan = .zero }
+                }
+            }
             .gesture(
                 SpatialTapGesture().onEnded { v in
                     let hit = dots.min { hypot(origin.x + $0.point.x * s - v.location.x, origin.y + $0.point.y * s - v.location.y)
@@ -353,11 +396,52 @@ struct WorldTriedMap: View {
             )
             .gesture(DragGesture(minimumDistance: 6).onChanged { pan = CGSize(width: lastPan.width + $0.translation.width, height: lastPan.height + $0.translation.height) }
                 .onEnded { _ in lastPan = pan })
-            .simultaneousGesture(MagnifyGesture().onChanged { zoom = min(10, max(1, lastZoom * $0.magnification)) }.onEnded { _ in lastZoom = zoom })
+            .simultaneousGesture(MagnifyGesture().onChanged { zoom = min(40, max(1, lastZoom * $0.magnification)) }.onEnded { _ in lastZoom = zoom })
             .onTapGesture(count: 2) { withAnimation(.easeOut(duration: 0.25)) { zoom = 1; lastZoom = 1; pan = .zero; lastPan = .zero } }
         }
-        .frame(height: 200)
-        .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+        .frame(height: height)
+        .clipShape(RoundedRectangle(cornerRadius: height == nil ? 0 : Metrics.radius, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+    }
+}
+
+
+/// The Journal's world map, full screen: pinch or use the buttons to zoom in, tap a place to open that country's map
+/// with its appellations.
+struct WorldMapFull: View {
+    let dots: [(id: String, point: CGPoint, name: String, count: Int)]
+    let onOpen: (String) -> Void
+    @Environment(\.dismiss) private var dismissEnv
+    @Environment(\.coverClose) private var coverClose
+    @State private var zoomCommand = 0
+
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            Palette.sea.ignoresSafeArea()
+            WorldTriedMap(dots: dots, interactive: true, height: nil, zoomCommand: zoomCommand, onOpen: onOpen).ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 2) {
+                Eyebrow("Your wine world", color: Palette.wine)
+                Text("\(dots.count) \(dots.count == 1 ? "place" : "places") tried").font(.system(size: 20, weight: .bold)).foregroundStyle(Palette.ink)
+                Text("Zoom in, then tap a place").font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+            }
+            .padding(.horizontal, 16).padding(.vertical, 12)
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.focusLand.opacity(0.94)))
+            .padding(.leading, 16).padding(.top, 10)
+            VStack(spacing: 10) {
+                button("xmark") { if let c = coverClose { c() } else { dismissEnv() } }
+                Spacer().frame(height: 6)
+                button("plus") { zoomCommand += 1 }
+                button("minus") { zoomCommand -= 1 }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing).padding(.trailing, 16).padding(.top, 10)
+        }
+    }
+
+    private func button(_ icon: String, _ action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: icon).font(.system(size: 15, weight: .bold)).foregroundStyle(Palette.ink)
+                .frame(width: 42, height: 42).background(Circle().fill(Palette.card))
+                .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
+        }
     }
 }

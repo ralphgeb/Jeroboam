@@ -114,7 +114,7 @@ struct StyleGuideScreen: View {
             .frame(width: width / 2 - 0.5)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private var narrowBody: some View {
@@ -130,7 +130,7 @@ struct StyleGuideScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private func shape(_ st: Style) -> GlassArt.Shape {

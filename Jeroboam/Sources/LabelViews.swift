@@ -220,7 +220,7 @@ struct LabelsScreen: View {
             .frame(width: width / 2 - 0.5)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private var narrowBody: some View {
@@ -272,6 +272,6 @@ struct LabelsScreen: View {
             .padding(.bottom, 30)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 }

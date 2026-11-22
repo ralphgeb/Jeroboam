@@ -892,9 +892,9 @@ struct MapExplorer: View {
         GeometryReader { geo in
             HStack(spacing: 0) {
                 // wide windows: exactly half the screen for the map, half for the text
-                mapArea(g).frame(width: isWide ? geo.size.width / 2 : geo.size.width)
+                mapArea(g).frame(width: isWide ? geo.size.width / 2 : geo.size.width, height: geo.size.height)
                 if isWide, let g {
-                    sidebar(g).frame(width: geo.size.width / 2).background(Palette.paper.ignoresSafeArea())
+                    sidebar(g).frame(width: geo.size.width / 2, height: geo.size.height).background(Palette.paper.ignoresSafeArea())
                 }
             }
         }
@@ -1019,7 +1019,8 @@ struct MapExplorer: View {
                             forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
                             zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
-                .ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(edges: isWide ? [] : .all)
 
             // header
             HStack(alignment: .top) {

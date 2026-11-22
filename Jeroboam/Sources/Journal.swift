@@ -583,6 +583,7 @@ struct WineInfoCard: View {
             NavigationStack {
                 GrapeDetailView(grape: g)
                     .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { openGrape = nil } } }
+                    .environment(\.hasRail, false)
             }
         }
     }
@@ -1444,7 +1445,7 @@ struct EntryDetailView: View {
                 .padding(.vertical, 12)
             }
             .background(Palette.paper.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
+            .pageChrome()
             .confirmationDialog("Delete this tasting?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Delete", role: .destructive) { journal.delete(e); dismiss() }
             }
@@ -1512,7 +1513,7 @@ struct CellarDetailView: View {
                 .padding(.vertical, 12)
             }
             .background(Palette.paper.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
+            .pageChrome()
             .fullScreenCover(isPresented: $tasting) {
                 TastingFlow(blind: false, wine: b.wine, image: JournalStore.image(b.photo), price: b.price)
             }

@@ -177,7 +177,7 @@ struct AromaWheelScreen: View {
                 .frame(width: width / 2 - 0.5)
             }
             .background(Palette.paper.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
+            .pageChrome()
         } else {
             narrowBody(lib)
         }
@@ -223,7 +223,7 @@ struct AromaWheelScreen: View {
             .animation(.easeInOut(duration: 0.2), value: selected)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private func categoryCard(_ cat: AromaCategory) -> some View {

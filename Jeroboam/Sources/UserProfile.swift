@@ -190,7 +190,7 @@ struct CollapsingPage<Content: View>: View {
                 ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
                     .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("collapsingPage")).minY } action: { y in
                         let p = min(1, max(0, (-12 - y) / 50))
-                        if abs(p - collapse) > 0.01 { collapse = p }
+                        if abs(p - collapse) > 0.01 { collapse = p; HeaderState.shared.collapsed[title] = p > 0.5 }
                     }
                 content
             }

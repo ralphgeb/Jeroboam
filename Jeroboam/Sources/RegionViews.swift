@@ -48,7 +48,7 @@ struct RegionListView: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .searchable(text: $query, prompt: "Search regions")
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
         .detailPane(first: countries.first.map { AnyHashable($0) })
     }
@@ -104,18 +104,22 @@ struct RegionDetailView: View {
                         }
                         .frame(height: 360)
                         .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
-                        if pinIDs.isEmpty { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
-                        HStack {
-                            Text("Tap a number for its name, again to open").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
-                            Spacer()
-                            Button {
-                                explore = MapRef(id: m, hl: hl)
-                            } label: {
+                        .overlay(alignment: .topTrailing) {
+                            Button { explore = MapRef(id: m, hl: hl) } label: {
                                 Label("Full map", systemImage: "arrow.up.left.and.arrow.down.right")
-                                    .font(.system(size: 13, weight: .semibold))
+                                    .font(.system(size: 15, weight: .bold)).foregroundStyle(Palette.onWine)
+                                    .padding(.horizontal, 14).padding(.vertical, 10)
+                                    .background(Capsule().fill(Palette.wine))
+                                    .shadow(color: .black.opacity(0.25), radius: 6, y: 2)
                             }
-                            .foregroundStyle(Palette.wine)
+                            .padding(12)
                         }
+                        if pinIDs.isEmpty { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
+                        Text("Tap a number for its name, again to open").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                        Button { explore = MapRef(id: m, hl: hl) } label: {
+                            Label("Open the full map", systemImage: "arrow.up.left.and.arrow.down.right")
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
                     }
                 }
 
@@ -208,7 +212,7 @@ struct RegionDetailView: View {
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
         .navigationDestination(item: $openSub) { sub in RegionDetailView(region: sub) }
         .onAppear {

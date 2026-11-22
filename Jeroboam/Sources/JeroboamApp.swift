@@ -71,6 +71,9 @@ struct RootView: View {
     private var tabBinding: Binding<Int> {
         Binding(get: { tab }, set: { new in
             if new == tab && new == 0 { NotificationCenter.default.post(name: .learnTabReselected, object: nil) }
+            // a full-screen map or the offer is closed by pressing a tab
+            CoverHost.shared.content = nil; CoverHost.shared.owner = nil
+            if CoverHost.shared.paywall != nil { CoverHost.shared.paywall = nil; PaywallPresenter.shared.target = nil }
             tab = new
         })
     }
@@ -155,7 +158,8 @@ struct RootView: View {
                         // one profile button, always in the same place: the top right of the left half (the Duo's camera and
                         // battery sit in the right-hand strip, so it stays out of there)
                         .overlay(alignment: .topLeading) {
-                            if covers.content == nil {
+                            // only on the first two tabs, and not once the big title has scrolled up into the small bar
+                            if covers.content == nil, tab <= 1, HeaderState.shared.collapsed[tab == 0 ? "Learn" : "Practice"] != true {
                             let page = g.size.width - AdaptiveLayout.railWidth
                             let edge = page >= AdaptiveLayout.twoPaneThreshold ? page / 2 : page
                             AvatarButton(size: 32, ignoreRail: true)

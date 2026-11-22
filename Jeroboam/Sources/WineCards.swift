@@ -178,7 +178,7 @@ struct WineCardsScreen: View {
         .padding(.top, 8)
         .background(Palette.paper.ignoresSafeArea())
         .halfPage()
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 }
 
@@ -282,7 +282,7 @@ struct BoldnessScreen: View {
             }
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .onChange(of: reds) { _, _ in current = nil }
         .onChange(of: current) { _, _ in Haptics.tap() }
         .rightPane {

@@ -150,3 +150,47 @@ private struct HalfPage: ViewModifier {
         }
     }
 }
+
+/// Which pages have scrolled their big title up into the small top bar; the profile button steps aside when one has.
+@Observable final class HeaderState {
+    static let shared = HeaderState()
+    var collapsed: [String: Bool] = [:]
+}
+
+// MARK: - Page chrome
+
+/// Pushed pages. On a phone: the usual small navigation bar. On the Duo the bar is hidden, so every page starts at the same
+/// height as the tab pages, and a round back button sits in the top-left corner instead.
+private struct PageChrome: ViewModifier {
+    @Environment(\.hasRail) private var hasRail
+    @Environment(\.isPresented) private var isPresented
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.windowWidth) private var width
+
+    func body(content: Content) -> some View {
+        if hasRail {
+            content
+                .toolbar(.hidden, for: .navigationBar)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    if isPresented {
+                        HStack {
+                            Button { dismiss() } label: {
+                                Image(systemName: "chevron.left").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                    .frame(width: 34, height: 34).background(Circle().fill(Palette.card))
+                                    .overlay(Circle().strokeBorder(Palette.line.opacity(0.8), lineWidth: 0.5))
+                            }
+                            .accessibilityLabel("Back")
+                            Spacer()
+                        }
+                        .padding(.horizontal, Metrics.margin).padding(.top, 2).padding(.bottom, 2)
+                    }
+                }
+        } else {
+            content.navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+extension View {
+    func pageChrome() -> some View { modifier(PageChrome()) }
+}

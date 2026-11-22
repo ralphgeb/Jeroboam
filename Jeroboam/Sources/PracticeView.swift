@@ -29,7 +29,9 @@ struct PracticeView: View {
         .sessionPane($session, idle: {
             AnyView(PaneIdle(eyebrow: "Practice", title: "Today's 10 questions",
                              text: "Pick the daily mix, a mock exam or a topic on the left. The questions open here.",
-                             button: "Start daily mix", action: { start(.mixed) }))
+                             button: "Start daily mix", action: { start(.mixed) },
+                             chips: [("flame.fill", "\(progress.data.streak) day streak"), ("bolt.fill", "\(progress.data.xp) XP"),
+                                     ("arrow.uturn.backward", "\(progress.data.mistakes.count) to review")]))
         })
         .onAppear {
             #if DEBUG

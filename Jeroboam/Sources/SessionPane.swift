@@ -49,29 +49,62 @@ private struct SessionPaneModifier: ViewModifier {
     }
 }
 
-/// What the right-hand pane shows between lessons.
+/// What the right-hand pane shows between lessons: a title, a small start button, and something underneath.
 struct PaneIdle: View {
     let eyebrow: String
     let title: String
     let text: String
     var button: String? = nil
     var action: (() -> Void)? = nil
+    var chips: [(String, String)] = []
     var body: some View {
-        VStack(spacing: 14) {
-            SplashMark().frame(width: 74, height: 74)
-            Eyebrow(eyebrow, color: Palette.wine)
-            Text(title).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
-            Text(text).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).frame(maxWidth: 360)
-            if let button, let action {
-                Button(action: action) { Text(button).frame(maxWidth: 280) }.buttonStyle(PrimaryButtonStyle()).padding(.top, 6)
+        ScrollView {
+            VStack(spacing: 14) {
+                ZStack { Circle().fill(Palette.wineSoft); SplashMark().frame(width: 52, height: 52) }.frame(width: 96, height: 96)
+                Eyebrow(eyebrow, color: Palette.wine)
+                Text(title).font(.system(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                Text(text).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).frame(maxWidth: 360)
+                if let button, let action { StartPill(title: button, action: action).padding(.top, 2) }
+                if !chips.isEmpty {
+                    HStack(spacing: 10) {
+                        ForEach(Array(chips.enumerated()), id: \.offset) { _, c in
+                            HStack(spacing: 6) {
+                                Image(systemName: c.0).font(.system(size: 13)).foregroundStyle(Palette.wine)
+                                Text(c.1).font(.system(size: 13.5, weight: .medium)).foregroundStyle(Palette.ink)
+                            }
+                            .padding(.horizontal, 12).padding(.vertical, 9)
+                            .background(Capsule().fill(Palette.card))
+                            .overlay(Capsule().strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+                        }
+                    }
+                    .padding(.top, 14)
+                }
             }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 24).padding(.top, 80).padding(.bottom, 30)
         }
-        .padding(30)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
-/// The right-hand pane on the Learn tab before a lesson starts: what the next lesson covers, from the top of the pane.
+/// A small rounded start button (the full-width one looked too heavy beside the lists).
+struct StartPill: View {
+    let title: String
+    let action: () -> Void
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Text(title).font(.system(size: 15.5, weight: .semibold))
+                Image(systemName: "arrow.right").font(.system(size: 12, weight: .bold))
+            }
+            .foregroundStyle(Palette.onWine)
+            .padding(.horizontal, 22).padding(.vertical, 11)
+            .background(Capsule().fill(Palette.wine))
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+/// The right-hand pane on the Learn tab before a lesson starts: the next lesson, a small start button and what is in it.
 struct LessonPreviewPane: View {
     let lesson: Lesson
     let level: Int
@@ -79,38 +112,32 @@ struct LessonPreviewPane: View {
     var body: some View {
         let topics = lesson.cards.filter { !$0.isQuestion }.compactMap(\.title)
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Eyebrow("Up next · Level \(level)", color: .white.opacity(0.75))
-                    Text(lesson.title).font(.system(size: 28, weight: .bold)).foregroundStyle(.white)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text("\(lesson.cards.count) cards · \(lesson.questionCount) questions")
-                        .font(.system(size: 14)).foregroundStyle(.white.opacity(0.8))
-                    Button(action: onStart) {
-                        Text("Start lesson").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.wine)
-                            .padding(.horizontal, 22).padding(.vertical, 12).background(Capsule().fill(.white))
-                    }
-                    .buttonStyle(.plain).padding(.top, 8)
-                }
-                .padding(22).frame(maxWidth: .infinity, alignment: .leading)
-                .background(RoundedRectangle(cornerRadius: Metrics.radius + 4, style: .continuous).fill(Palette.wine))
+            VStack(spacing: 14) {
+                ZStack { Circle().fill(Palette.wineSoft); SplashMark().frame(width: 52, height: 52) }.frame(width: 96, height: 96)
+                Eyebrow("Up next · Level \(level)", color: Palette.wine)
+                Text(lesson.title).font(.system(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                Text("\(lesson.cards.count) cards · \(lesson.questionCount) questions").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                StartPill(title: "Start lesson", action: onStart).padding(.top, 2)
                 if !topics.isEmpty {
                     VStack(alignment: .leading, spacing: 0) {
-                        SectionTitle(text: "In this lesson").padding(.bottom, 8)
+                        Text("In this lesson").font(.sectionTitle).foregroundStyle(Palette.ink).padding(.bottom, 6)
                         ForEach(Array(topics.enumerated()), id: \.offset) { i, t in
                             HStack(spacing: 12) {
-                                Text(String(format: "%02d", i + 1)).font(.system(size: 13, weight: .semibold).monospacedDigit())
-                                    .foregroundStyle(Palette.wine)
-                                Text(t).font(.system(size: 16)).foregroundStyle(Palette.ink)
+                                Text(String(format: "%02d", i + 1)).font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                                Text(t).font(.system(size: 15.5)).foregroundStyle(Palette.ink)
                                 Spacer(minLength: 0)
                             }
-                            .padding(.vertical, 11)
-                            Hairline()
+                            .padding(.vertical, 10)
+                            if i < topics.count - 1 { Hairline() }
                         }
                     }
+                    .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+                    .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+                    .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+                    .padding(.top, 14)
                 }
             }
-            .padding(.horizontal, Metrics.margin).padding(.top, 74).padding(.bottom, 24)
+            .padding(.horizontal, Metrics.margin).padding(.top, 80).padding(.bottom, 30)
         }
     }
 }

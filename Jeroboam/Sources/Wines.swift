@@ -115,7 +115,7 @@ struct WinesScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .toolbar { QuotaToolbar(section: "wines") }
         .detailPane(first: shown.first.map { AnyHashable($0) })
     }
@@ -275,7 +275,7 @@ struct WineDetailView: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private func factRow<V: View>(_ title: String, @ViewBuilder _ value: () -> V) -> some View {

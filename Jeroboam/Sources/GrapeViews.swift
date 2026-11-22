@@ -31,7 +31,7 @@ struct GrapeListView: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search grapes")
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .toolbar { QuotaToolbar(section: "grapes") }
         .detailPane(first: grapes.first.map { AnyHashable($0) })
     }
@@ -153,7 +153,7 @@ struct GrapeDetailView: View {
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .onAppear { progress.noteViewed(grape: g.id) }
     }
 

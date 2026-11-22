@@ -259,7 +259,7 @@ struct ColorsScreen: View {
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 }
 
@@ -287,7 +287,7 @@ struct StylesScreen: View {
         }
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .toolbar { QuotaToolbar(section: "styles") }
         .detailPane(first: styles.first.map { AnyHashable($0) })
     }
@@ -380,7 +380,7 @@ struct StyleDetailView: View {
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 }
 
@@ -423,7 +423,7 @@ struct TastingScreen: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .halfPage()
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .sheet(item: $open) { step in
             TastingStepSheet(step: step, section: secs.first { $0.title == step.satTitle })
                 .presentationDetents([.medium, .large])
@@ -657,7 +657,7 @@ struct PairingScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .halfPage()
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
         .sheet(item: $open) { p in
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
@@ -760,7 +760,7 @@ struct BottlesScreen: View {
         .scrollIndicators(.hidden)
         .background(Palette.paper.ignoresSafeArea())
         .halfPage()
-        .navigationBarTitleDisplayMode(.inline)
+        .pageChrome()
     }
 
     private func row(_ f: Format) -> some View {
