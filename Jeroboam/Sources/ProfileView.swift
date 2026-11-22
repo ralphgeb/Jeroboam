@@ -8,10 +8,16 @@ struct ProfileView: View {
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
 
-    @Environment(\.windowWidth) private var width
     @State private var currencyCode = Currency.code
 
     var body: some View {
+        // measured here, not taken from the page: this screen opens in a sheet, whose width is its own
+        GeometryReader { geo in
+            content(width: geo.size.width)
+        }
+    }
+
+    private func content(width: CGFloat) -> some View {
         NavigationStack {
             Group {
                 if width >= AdaptiveLayout.twoPaneThreshold {
@@ -19,9 +25,11 @@ struct ProfileView: View {
                     HStack(spacing: 0) {
                         ScrollView { VStack(alignment: .leading, spacing: 30) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
                             .scrollIndicators(.hidden).frame(width: width / 2)
+                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                         Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
                         ScrollView { VStack(alignment: .leading, spacing: 30) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
                             .scrollIndicators(.hidden).frame(width: width / 2 - 0.5)
+                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     }
                 } else {
                     ScrollView {
@@ -33,6 +41,7 @@ struct ProfileView: View {
                         .readable(720)
                     }
                     .scrollIndicators(.hidden)
+                    .environment(\.windowWidth, width).environment(\.isWide, false)
                 }
             }
             .background(Palette.paper.ignoresSafeArea())

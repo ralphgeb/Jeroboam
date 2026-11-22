@@ -415,9 +415,6 @@ struct MapRenderer {
             if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) && g.insets.isEmpty {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
-            if !thumb && rel >= communeZoom {
-                for i in g.insets { regions.stroke(i.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7) }
-            }
             layer.fill(g.lakes, with: .color(Palette.sea))
             for i in g.insets where !thumb {
                 layer.fill(i.lakes, with: .color(Palette.sea))
@@ -517,7 +514,68 @@ struct MapRenderer {
             ctx.stroke(circle, with: .color(.white.opacity(0.95)), lineWidth: 1)
             ctx.draw(Text("\(n)").font(.system(size: r * 1.12, weight: .bold).monospacedDigit()).foregroundColor(.white), at: c)
         }
-        for a in candidates where a.id != calloutID && !hideNumbers {
+        // Names inside the areas, when they fit: white on a solid appellation, dark on a hatched area. Anything that does not
+        // fit keeps its number (the list below the map has the names).
+        var named = Set<String>()
+        if !hideNumbers && !focusOnly && !solo {
+            func luminance(_ c: Color) -> CGFloat {
+                var r: CGFloat = 0, gr: CGFloat = 0, b: CGFloat = 0, al: CGFloat = 0
+                UIColor(c).getRed(&r, green: &gr, blue: &b, alpha: &al)
+                return 0.299 * r + 0.587 * gr + 0.114 * b
+            }
+            let nameList = g.areas.filter { $0.level <= shownLevel }.sorted { a, b in
+                if a.level != b.level { return a.level > b.level }
+                return a.area < b.area
+            }
+            for a in nameList where a.id != calloutID {
+                let isContainer = g.hasChildren.contains(a.id) && a.level < shownLevel
+                let isHL = highlight.contains(a.id) || selected == a.id
+                // a region that is only background to its own appellations gets no name where they cover its centre
+                if isContainer && g.areas.contains(where: { $0.parent == a.id && $0.level <= shownLevel && $0.path.contains(a.centroid) }) { continue }
+                let b = a.path.boundingRect
+                let sb = CGRect(x: b.minX * s + offset.width, y: b.minY * s + offset.height, width: b.width * s, height: b.height * s)
+                guard sb.width >= 22, sb.height >= 12, full.intersects(sb) else { continue }
+                let hatched = regionsOnly || ((isContainer || a.level == 0) && !isHL)
+                var fill = Palette.mapColor(a.color)
+                if a.level >= 2 { fill = fill.mix(with: .black, 0.18) }
+                let ink: Color = hatched ? Palette.ink.opacity(0.85) : (luminance(fill) < 0.6 ? .white : Palette.ink)
+                let fs = 11 * ls
+                let chars = Array(a.name)
+                var options: [[String]] = [[a.name]]
+                var cut: Int? = nil
+                for (i, ch) in chars.enumerated() where ch == " " || ch == "-" {
+                    if cut == nil || abs(i - chars.count / 2) < abs(cut! - chars.count / 2) { cut = i }
+                }
+                if let i = cut {
+                    let l1 = String(chars[...i]).trimmingCharacters(in: .whitespaces)
+                    let l2 = String(chars[(i + 1)...]).trimmingCharacters(in: .whitespaces)
+                    if !l1.isEmpty && !l2.isEmpty { options.append([l1, l2]) }
+                }
+                let screenArea = a.area * s * s
+                for opt in options {
+                    var t = ctx
+                    let resolved = opt.map { t.resolve(Text($0).font(.system(size: fs, weight: .semibold)).foregroundColor(ink)) }
+                    let sizes = resolved.map { $0.measure(in: CGSize(width: 300, height: 60)) }
+                    let w = sizes.map(\.width).max() ?? 0
+                    let h = sizes.map(\.height).reduce(0, +)
+                    guard w <= sb.width * 0.88, h <= sb.height * 0.8, screenArea >= w * h * 2.4 else { continue }
+                    let c = screen(a.centroid)
+                    let cx = min(max(c.x, sb.minX + w / 2 + 1), sb.maxX - w / 2 - 1)
+                    let cy = min(max(c.y, sb.minY + h / 2 + 1), sb.maxY - h / 2 - 1)
+                    let rect = CGRect(x: cx - w / 2, y: cy - h / 2, width: w, height: h)
+                    guard inset.contains(rect), !taken.contains(where: { $0.insetBy(dx: -2, dy: -1).intersects(rect) }) else { break }
+                    taken.append(rect)
+                    var y = rect.minY
+                    for (r, sz) in zip(resolved, sizes) {
+                        ctx.draw(r, at: CGPoint(x: cx, y: y + sz.height / 2), anchor: .center)
+                        y += sz.height
+                    }
+                    named.insert(a.id)
+                    break
+                }
+            }
+        }
+        for a in candidates where a.id != calloutID && !hideNumbers && !named.contains(a.id) {
             let c = screen(a.centroid)
             let b = a.path.boundingRect
             if let n = numbers[a.id], max(b.width * s, b.height * s) >= 3 {
@@ -532,16 +590,6 @@ struct MapRenderer {
                 _ = place(Text(v.n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
             }
         }
-        if !g.insets.isEmpty, rel >= (g.lod.count > 1 ? g.lod[1] * 1.6 : 5) {
-            for i in g.insets {
-                for (n, pt) in i.villages {
-                    let p = screen(pt)
-                    guard full.contains(p) else { continue }
-                    _ = place(Text(n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
-                }
-            }
-        }
-
         if showCities {
             for c in g.map.cities where (c.r ?? 1) == 0 || rel >= 1.5 {
                 let p = screen(CGPoint(x: CGFloat(c.x), y: CGFloat(c.y)))
@@ -759,7 +807,7 @@ extension MapGeometry {
         let cover = max(size.width / W, size.height / H)
         let band = max(size.height * 0.35, size.height - top - bottom)
         let content = min(size.width * (1 - 2 * padding) / max(1, t.width), band * (1 - 2 * padding) / max(1, t.height))
-        let s = min(max(allowContain ? fit : cover, content), cover * (insets.isEmpty ? 10 : 1000))
+        let s = min(max(allowContain ? fit : cover, content), cover * (insets.isEmpty ? 10 : 400))
         func axis(_ v: CGFloat, view: CGFloat, content: CGFloat) -> CGFloat {
             if content <= view { return (view - content) / 2 }
             return min(0, max(view - content, v))
@@ -828,7 +876,7 @@ struct ZoomableWineMap: View {
 
     private let maxZoom: CGFloat = 14
     /// France and Italy have the most detail, so they can be zoomed one step deeper.
-    private var maxFactor: CGFloat { mapID == "france" ? 900 : (mapID == "italy" ? 22 : 12) }
+    private var maxFactor: CGFloat { mapID == "france" ? 300 : (mapID == "italy" ? 22 : 12) }
 
     private func reportViewport(_ size: CGSize, _ g: MapGeometry) {
         guard let cb = onViewport else { return }
@@ -985,7 +1033,8 @@ struct MapExplorer: View {
     @State private var listExpanded = false
     @State private var viewport: CGRect? = nil
 
-    @Environment(\.isWide) private var isWide
+    @Environment(\.windowWidth) private var pageWidth
+    private var isWide: Bool { pageWidth >= AdaptiveLayout.twoPaneThreshold }
 
     var body: some View {
         let g = MapGeometry.get(mapID)
@@ -1116,7 +1165,7 @@ struct MapExplorer: View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
-                            forcedLevel: layer, deepen: (layer ?? 0) >= 1 && (g?.lod.count ?? 0) > 2, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
+                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
                             zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -1127,7 +1176,7 @@ struct MapExplorer: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Eyebrow("Wine map", color: Palette.wine)
                     Text(g?.map.title ?? "").font(.system(size: 22, weight: .bold)).foregroundStyle(Palette.ink)
-                        Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.8)
+                        Text(levelHint).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.7)
                     if (g?.maxLevel ?? 0) > 0 {
                         HStack(spacing: 4) {
                             // each country's own words (see MapTerms); three steps in France and Italy
@@ -1135,7 +1184,6 @@ struct MapExplorer: View {
                             modeButton(terms.button(0), 0)
                             modeButton(terms.button(1), 1)
                             if (g?.maxLevel ?? 1) >= 2 { modeButton(terms.button(2), 2) }
-                            if (g?.maxLevel ?? 1) >= 3 { modeButton(terms.button(3), 3) }
                         }
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
@@ -1177,9 +1225,9 @@ struct MapExplorer: View {
         let on = (layer ?? 0) == value
         return Button { withAnimation(.easeInOut(duration: 0.2)) { layer = value; selected = nil } } label: {
             Text(title).font(.system(size: 13, weight: .semibold))
-                .lineLimit(1).minimumScaleFactor(0.7).fixedSize(horizontal: true, vertical: false)
+                .lineLimit(1).minimumScaleFactor(0.7)
                 .foregroundStyle(on ? Palette.onWine : Palette.ink)
-                .padding(.horizontal, 12).padding(.vertical, 7)
+                .padding(.horizontal, 10).padding(.vertical, 7)
                 .background(Capsule().fill(on ? Palette.wine : .clear))
         }
         .buttonStyle(.plain)
@@ -1304,10 +1352,10 @@ struct MapListCard: View {
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) { expanded.toggle() }
                 } label: {
                     HStack {
-                        Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                        Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.75)
                         Text("\(list.count)").font(.system(size: 13).monospacedDigit()).foregroundStyle(Palette.inkFaint)
-                        Spacer()
-                        Text("Pinch to zoom").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                        Spacer(minLength: 8)
+                        Text("Pinch to zoom").font(.system(size: 12)).foregroundStyle(Palette.inkFaint).lineLimit(1).minimumScaleFactor(0.7)
                         Image(systemName: expanded ? "chevron.down" : "chevron.up").font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(Palette.inkSoft).padding(.leading, 6)
                     }

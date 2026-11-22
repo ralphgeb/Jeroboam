@@ -530,61 +530,11 @@ def fine_inset(pr, pf, bbox, water, estuary, specs, res, tol, K):
     allnames = set()
     for s in specs:
         if s["id"] in res: allnames.update(res[s["id"]][1])
-    named = [(n, gg) for d in _depts for n, gg in fr_communes(d) if n in allnames]
-    lines, names = commune_layer(pf, named, tol)
+    lines, names = [], []   # no commune lines or names: the appellations themselves carry the labels
     la0, lo0, la1, lo1 = bbox
     x0, y0 = pr.xy(lo0, la1); x1, y1 = pr.xy(lo1, la0)
     return {"k": K, "box": [round(x0), round(y0), round(x1), round(y1)], "land": land, "focus": focus, "lakes": lk,
             "rivers": rv, "communes": lines, "villages": names}
-
-# Burgundy Grand Crus: real vineyard parcels from the INAO delimitation (data.gouv.fr, Licence Ouverte), fetched by inao.yml.
-CRUS = {
-    "chambertin": ("Chambertin", "gevrey-chambertin", ["Chambertin"]),
-    "chambertin-clos-de-beze": ("Chambertin-Clos de Bèze", "gevrey-chambertin", ["Chambertin-Clos de Bèze"]),
-    "chapelle-chambertin": ("Chapelle-Chambertin", "gevrey-chambertin", ["Chapelle-Chambertin"]),
-    "charmes-chambertin": ("Charmes-Chambertin", "gevrey-chambertin", ["Charmes-Chambertin", "Mazoyères-Chambertin"]),
-    "griotte-chambertin": ("Griotte-Chambertin", "gevrey-chambertin", ["Griotte-Chambertin"]),
-    "latricieres-chambertin": ("Latricières-Chambertin", "gevrey-chambertin", ["Latricières-Chambertin"]),
-    "mazis-chambertin": ("Mazis-Chambertin", "gevrey-chambertin", ["Mazis-Chambertin"]),
-    "ruchottes-chambertin": ("Ruchottes-Chambertin", "gevrey-chambertin", ["Ruchottes-Chambertin"]),
-    "clos-de-la-roche": ("Clos de la Roche", "morey-saint-denis", ["Clos de la Roche"]),
-    "clos-saint-denis": ("Clos Saint-Denis", "morey-saint-denis", ["Clos Saint-Denis"]),
-    "clos-des-lambrays": ("Clos des Lambrays", "morey-saint-denis", ["Clos des Lambrays"]),
-    "clos-de-tart": ("Clos de Tart", "morey-saint-denis", ["Clos de Tart"]),
-    "musigny": ("Musigny", "chambolle-musigny", ["Musigny"]),
-    "bonnes-mares": ("Bonnes-Mares", "chambolle-musigny", ["Bonnes-Mares"]),
-    "clos-de-vougeot": ("Clos de Vougeot", "vougeot", ["Clos de Vougeot ou Clos Vougeot"]),
-    "echezeaux": ("Échezeaux", "vosne-romanee", ["Echezeaux"]),
-    "grands-echezeaux": ("Grands-Échezeaux", "vosne-romanee", ["Grands-Echezeaux"]),
-    "la-grande-rue": ("La Grande Rue", "vosne-romanee", ["La Grande Rue"]),
-    "la-romanee": ("La Romanée", "vosne-romanee", ["La Romanée"]),
-    "la-tache": ("La Tâche", "vosne-romanee", ["La Tâche"]),
-    "richebourg": ("Richebourg", "vosne-romanee", ["Richebourg"]),
-    "romanee-conti": ("Romanée-Conti", "vosne-romanee", ["Romanée-Conti"]),
-    "romanee-saint-vivant": ("Romanée-Saint-Vivant", "vosne-romanee", ["Romanée-Saint-Vivant"]),
-    "corton": ("Corton", "aloxe-corton", ["Corton"]),
-    "corton-charlemagne": ("Corton-Charlemagne", "aloxe-corton", ["Corton-Charlemagne", "Charlemagne"]),
-    "montrachet": ("Montrachet", "puligny-montrachet", ["Montrachet"]),
-    "chevalier-montrachet": ("Chevalier-Montrachet", "puligny-montrachet", ["Chevalier-Montrachet"]),
-    "batard-montrachet": ("Bâtard-Montrachet", "puligny-montrachet", ["Bâtard-Montrachet"]),
-    "bienvenues-batard-montrachet": ("Bienvenues-Bâtard-Montrachet", "puligny-montrachet", ["Bienvenues-Bâtard-Montrachet"]),
-    "criots-batard-montrachet": ("Criots-Bâtard-Montrachet", "chassagne-montrachet", ["Criots-Bâtard-Montrachet"]),
-}
-def grand_crus(pf, tol):
-    path = os.path.join(GEO, "inao", "inao_cotedor.geojson")
-    if not os.path.exists(path):
-        print("   ! no INAO data: Grand Crus skipped"); return []
-    by = {}
-    for f in load(path):
-        by.setdefault(f["properties"]["app"], []).append(shape(f["geometry"]).buffer(0))
-    out, cols = [], ["claret", "rose", "plum", "coral", "magenta", "violet"]
-    for i, (cid, (name, parent, apps)) in enumerate(CRUS.items()):
-        parts = [g for a in apps for g in by.get(a, [])]
-        if not parts:
-            print(f"   ! grand cru without parcels: {cid}"); continue
-        geom = unary_union(parts).buffer(0.00004).buffer(-0.00004)   # close the gaps between parcels
-        out.append(area_record(pf, cid, name, 3, cidx(cols[i % len(cols)]), geom, tol, parent=parent, min_area=1, pdo=False))
-    return [a for a in out if a]
 
 # ================================================================= FRANCE
 def build_france():
@@ -663,8 +613,6 @@ def build_france():
             if s["lv"] == 2 and s["id"] in resolved[g] and s.get("parent") in resolved[g]:
                 areas.append(area_record(pg, s["id"], s["name"], 2, cidx(s.get("color") or col), resolved[g][s["id"]][0], tg,
                                          parent=s["parent"], grapes=s.get("grapes"), min_area=1))
-        if g == "burgundy":
-            areas += grand_crus(pg, tg)
         if g in prs:
             f = FINE[g]
             insets.append(fine_inset(pr, pg, f["bbox"], f["water"], f["estuary"], specs, resolved[g], tg, K))
@@ -684,7 +632,7 @@ def build_france():
                             ("Garonne", 44.2, 0.4, "river"), ("SPAIN", 42.2, -1.5, "area"), ("ITALY", 44.9, 8.6, "area"),
                             ("GERMANY", 50.3, 8.4, "area"), ("SWITZ.", 46.8, 7.7, "area")])
     write("france", doc("france", "France", pr, land, focus, lk, rv, areas, cities, labels, borders,
-                        extra={"tints": fr_tints, "insets": insets, "lod": [1.9, 3.4, 30]}))
+                        extra={"tints": fr_tints, "insets": insets, "lod": [1.9, 3.4]}))
 
     # ---- regional detail maps
     def detail(mid, title, g, bbox, W, sublv2_from_children=True, cities=(), labels=(), extra_specs=(), water=(), estuary=None):

@@ -13,8 +13,8 @@ struct MapTerms {
     static func `for`(_ mapID: String) -> MapTerms {
         switch mapID {
         case "france":
-            return MapTerms(level: ["Regions", "Sub-regions", "Appellations (AOC)", "Grand crus"],
-                            hint: ["The big wine regions", "Sub-regions of each region", "Appellations (AOC): villages and communes", "Grand cru vineyards"],
+            return MapTerms(level: ["Regions", "Sub-regions", "Appellations"],
+                            hint: ["The big wine regions", "The large areas inside each region", "Appellations (AOC), village by village"],
                             places: "Communes")
         case "italy":
             return MapTerms(level: ["Regions", "Zones", "Denominations (DOC/DOCG)"],

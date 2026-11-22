@@ -245,15 +245,13 @@ final class DuoSnapshots: XCTestCase {
         snap("region") { NavigationStack { RegionDetailView(region: r) } }
     }
 
-    /// The merged France map: Burgundy's villages and Grand Crus, Bordeaux's communes, in the explorer and as region cards.
+    /// The merged France map: layers, names inside the areas, and the phone-style layout on the upright inner screen.
     func testFranceDetail() {
-        snap("fr-pauillac", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["pauillac"]) }
-        snap("fr-romanee", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["romanee-conti"]) }
-        snap("fr-montrachet", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["montrachet"]) }
         snap("fr-whole", settle: 4.0) { MapExplorer(mapID: "france") }
-        for id in ["pauillac", "puligny-montrachet", "romanee-conti"] {
-            guard let r = ContentStore.shared.library.regions.first(where: { $0.id == id }) else { continue }
-            snap("fr-card-\(id)", settle: 4.0) { NavigationStack { RegionDetailView(region: r) } }
-        }
+        snap("fr-pauillac", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["pauillac"]) }
+        snap("fr-nuits", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["vosne-romanee"]) }
+        snap("fr-subregions", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["cote-de-beaune"]) }
+        snap("pt-whole", settle: 3.0) { MapExplorer(mapID: "portugal") }
+        snap("profile2") { ProfileView() }
     }
 }
