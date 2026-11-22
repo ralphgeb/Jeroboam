@@ -94,7 +94,8 @@ for xs in G.values():
       'shops_count':len(use),'in_stock':'yes' if any(o['instock']=='yes' for o in xs) else 'no',
       'sold_in':' / '.join(sorted({o['region'] for o in xs})),
       'prices':' ; '.join(f"{o['shop']} ({o['location']}): {o['price']:.2f} {o['cur']}" for o in sorted(use,key=lambda o:o['eur'])),
-      'example_url':use[0]['url']})
+      'cheapest_link':min(use,key=lambda o:o['eur'])['url'],
+      'links':' ; '.join(f"{o['shop']}: {o['url']}" for o in sorted(use,key=lambda o:o['eur']))})
 out.sort(key=lambda r:(re.sub(r'^[^a-z0-9]+','',unicodedata.normalize('NFKD',r['wine']).encode('ascii','ignore').decode().lower()),r['vintage'],r['size_ml']))
 cols=list(out[0].keys())
 w=csv.DictWriter(open(sys.argv[1],'w',newline=''),fieldnames=cols); w.writeheader(); w.writerows(out)

@@ -3,7 +3,8 @@
 - `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (72k wines). Duplicates are merged and,
   when a wine is sold by several shops, the price is the average of one price per shop (in-stock prices preferred,
   outliers more than 2.5x off the median dropped). Prices in GBP, EUR and USD (ECB rates of 2026-11-20:
-  1 EUR = 0.83735 GBP = 1.0990 USD). `prices` lists every shop price used.
+  1 EUR = 0.83735 GBP = 1.0990 USD). `prices` lists every shop price used (cheapest first);
+  `links` has the matching product page for each price, and `cheapest_link` the cheapest one.
 - `sources/uk_supermarkets.csv` — Tesco, Sainsbury's, Waitrose, Morrisons, Asda, Aldi, Iceland (via trolley.co.uk).
 - `sources/us_wine_shops.csv` — Zachys, Flatiron Wines (NY, SF), Verve, Vintage Berkeley, Leon & Son, Thatcher's.
 - `sources/europe_wine_shops.csv` — Hedonism, The Good Wine Shop, Highbury Vintners, Secret Bottle Shop,
