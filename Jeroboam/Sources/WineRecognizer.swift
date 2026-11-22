@@ -271,7 +271,8 @@ extension WineRecognizer {
     /// one tiny question to Haiku (no web search, a fraction of a cent). Whatever is found is kept in the database.
     static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
         // 1. this phone's own database, then the shared one online (a price anyone has already found)
-        if let p = WineDB.shared.entry(for: w)?.price { return (p, 0) }
+        // (prices saved by older builds as 'Average of N shops' are looked up again: the list now gives the cheapest shop)
+        if let p = WineDB.shared.entry(for: w)?.price, !p.source.hasPrefix("Average of") { return (p, 0) }
         if let p = await PriceCloud.price(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
         // 2. the shop price list (about 70,000 wines), then the Great wines list, then the model's own estimate
         var found: PriceInfo? = nil

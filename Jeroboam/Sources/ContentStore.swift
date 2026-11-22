@@ -9,6 +9,8 @@ final class ContentStore {
     /// Wine places that are not in the atlas: mapped for the Journal and shown from Settings.
     private(set) var extraRegions: [Region] = []
     private var extraSoils: [String: String] = [:]
+    /// Latitude and longitude of every mapped place (and a centre for each country page).
+    private var places: [String: [Double]] = [:]
 
     private(set) var grapesByID: [String: Grape] = [:]
     private(set) var regionsByID: [String: Region] = [:]
@@ -26,6 +28,7 @@ final class ContentStore {
             ?? Library(wines: [], grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [], labels: [])
         for g in library.grapes { grapesByID[g.id] = g }
         for r in library.regions { regionsByID[r.id] = r }
+        places = Self.load("places", as: [String: [Double]].self) ?? [:]
         if let x = Self.load("extra", as: ExtraLibrary.self) {
             extraRegions = x.regions
             extraSoils = x.soils ?? [:]
@@ -80,6 +83,14 @@ final class ContentStore {
 
     /// Region entries that can be opened from a map region id (the map's own region ids match library ids).
     func regionForMapArea(_ id: String) -> Region? { regionsByID[id] }
+
+    /// Where a place is on the earth: its own centre when it is a mapped area, else the centre of the country's wine areas.
+    func coordinate(of r: Region) -> (lat: Double, lon: Double)? {
+        for id in [r.highlight?.first, r.id].compactMap({ $0 }) {
+            if let p = places[id], p.count == 2 { return (p[0], p[1]) }
+        }
+        return nil
+    }
 
     /// The atlas page for a wine's region as written on a label or by the model ("Uco Valley, Mendoza", "Mendoza"…):
     /// the most specific place whose name appears in the text, else the page of the country.

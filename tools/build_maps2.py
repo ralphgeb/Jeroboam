@@ -469,6 +469,11 @@ def area_record(pr, aid, name, lv, color, geom_ll, tol, label=None, parent=None,
     if not shapes: return None
     cx, cy = label_point(max(polys_of(g.simplify(tol * RES)), key=lambda p: p.area))
     rec = {"id": aid, "name": name, "lv": lv, "c": color, "shapes": shapes, "cx": round(cx), "cy": round(cy)}
+    try:   # where it is on the earth (for the Journal's world map): a point inside its biggest piece, as lat/lon
+        big = max(polys_of(geom_ll), key=lambda p: p.area).representative_point()
+        rec["ll"] = [round(big.y, 3), round(big.x, 3)]
+    except ValueError:
+        pass
     if label:
         lx, ly = pr.xy(label[1], label[0])
         rec["lx"], rec["ly"] = round(lx), round(ly)

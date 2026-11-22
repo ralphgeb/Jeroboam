@@ -305,8 +305,10 @@ struct JournalHome: View {
         } else {
             HStack(spacing: 10) {
                 stat("\(journal.bottleCount)", journal.bottleCount == 1 ? "bottle" : "bottles")
-                stat(money(journal.cellarValue, journal.cellarCurrency), "cellar value")
-                stat(journal.bottleCount > 0 ? money(journal.cellarValue / Double(journal.bottleCount), journal.cellarCurrency) : "–", "avg. bottle")
+                let countries = Set(journal.cellar.map { $0.wine.country.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }).count
+                let regions = Set(journal.cellar.map { $0.wine.region.trimmingCharacters(in: .whitespaces).lowercased() }.filter { !$0.isEmpty }).count
+                stat("\(countries)", countries == 1 ? "country" : "countries")
+                stat("\(regions)", regions == 1 ? "region" : "regions")
             }
             GroupCard {
                 ForEach(Array(journal.cellar.enumerated()), id: \.element.id) { i, b in
@@ -314,8 +316,6 @@ struct JournalHome: View {
                         .buttonStyle(RowPressStyle())
                 }
             }
-            Text("Average prices from Wine-Searcher or CellarTracker where found; otherwise an estimate.")
-                .font(.system(size: 11.5)).foregroundStyle(Palette.inkFaint)
         }
     }
 
@@ -629,9 +629,10 @@ struct PriceCard: View {
                 .frame(width: 40, height: 40).background(Circle().fill(Palette.wineSoft))
             VStack(alignment: .leading, spacing: 2) {
                 if loading {
-                    HStack(spacing: 8) {
-                        ProgressView().controlSize(.small)
-                        Text("Estimating the price…").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    VStack(alignment: .leading, spacing: 8) {
+                        SkeletonBar(width: 130, height: 18)
+                        SkeletonBar(width: 190, height: 10)
+                        SkeletonBar(width: 150, height: 10)
                     }
                 } else if let p = price {
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
@@ -775,11 +776,7 @@ struct ScanFlow: View {
                 .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
         }
         if working {
-            HStack(spacing: 12) {
-                ProgressView()
-                Text("Reading the label…").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
-            }
-            .padding(.vertical, 16)
+            ScanSkeleton()
         } else {
             if let e = error { Text(e).font(.system(size: 13.5)).foregroundStyle(Palette.wrong) }
             if identified { WineInfoCard(wine: wine) }
@@ -1572,6 +1569,8 @@ struct CellarDetailView: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .pageChrome()
+            // prices saved as an average by older builds are checked again: the list now shows the cheapest shop
+            .task { if let p = b.price, p.source.hasPrefix("Average of"), !pricing { await refresh(b) } }
             .fullScreenCover(isPresented: $tasting) {
                 TastingFlow(blind: false, wine: b.wine, image: JournalStore.image(b.photo), price: b.price)
             }

@@ -51,31 +51,44 @@ final class PriceBook {
         }
     }
 
-    /// The best matching wine in the list, as a price: same vintage preferred, 750 ml preferred.
+    /// The cheapest price for this wine in the list. Among the rows that match the name, the vintage decides first (the same
+    /// year, else the closest year), then 750 ml, then the lowest price; the price shown is that cheapest shop's price and the
+    /// link goes to the same shop.
     func price(for w: WineIdentity) -> PriceInfo? {
         loadIfNeeded()
         let q = Self.tokens(w.producer + " " + w.name)
         guard !q.isEmpty, !rows.isEmpty else { return nil }
-        // candidates come from the rarest words of the query
         let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(3)
         guard !rare.isEmpty else { return nil }
         var seen = Set<Int32>()
-        var best: (Double, Row)? = nil
-        let vintage = w.vintage.trimmingCharacters(in: .whitespaces)
+        var cands: [(score: Double, row: Row)] = []
         for (_, posting) in rare where posting.count < 12_000 {
             for i in posting where seen.insert(i).inserted {
                 let r = rows[Int(i)]
                 let matched = q.intersection(r.tokens).count
                 let coverage = Double(matched) / Double(q.count)
                 guard coverage >= 0.75, matched >= min(2, q.count) else { continue }
-                var rank = coverage * 10 - Double(r.tokens.count - matched) * 0.15
-                if !vintage.isEmpty { rank += r.vintage == vintage ? 3 : (r.vintage.isEmpty ? 0.5 : 0) }
-                if r.size == 750 { rank += 1 }
-                if best == nil || rank > best!.0 { best = (rank, r) }
+                cands.append((coverage * 10 - Double(r.tokens.count - matched) * 0.15, r))
             }
         }
-        guard let r = best?.1 else { return nil }
-        return PriceInfo(average: r.usd, low: r.low > 0 ? r.low : r.usd * 0.9, high: r.high > 0 ? r.high : r.usd * 1.1, currency: "USD",
-                         source: r.shops > 1 ? "Average of \(r.shops) shops" : "Shop price", url: r.link.isEmpty ? nil : "https://" + r.link)
+        guard let top = cands.map(\.score).max() else { return nil }
+        // the best-matching names only (a different wine of the same house must not win on price)
+        let pool = cands.filter { $0.score >= top - 0.8 }.map(\.row)
+        let want = Int(w.vintage.trimmingCharacters(in: .whitespaces))
+        func gap(_ r: Row) -> Int {
+            guard let want else { return 0 }
+            guard let y = Int(r.vintage) else { return 40 }   // no vintage in the list: after any real year
+            return abs(y - want)
+        }
+        func lowest(_ r: Row) -> Double { r.low > 0 ? r.low : r.usd }
+        guard let r = pool.min(by: { a, b in
+            if gap(a) != gap(b) { return gap(a) < gap(b) }
+            if (a.size == 750) != (b.size == 750) { return a.size == 750 }
+            return lowest(a) < lowest(b)
+        }) else { return nil }
+        let off = want != nil && gap(r) > 0 && Int(r.vintage) != nil
+        let src = (r.shops > 1 ? "Cheapest of \(r.shops) shops" : "Shop price") + (off ? " · \(r.vintage) vintage" : "")
+        return PriceInfo(average: lowest(r), low: lowest(r), high: max(r.high, lowest(r)), currency: "USD",
+                         source: src, url: r.link.isEmpty ? nil : "https://" + r.link)
     }
 }

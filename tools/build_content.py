@@ -549,6 +549,21 @@ for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
         extra_regions.append(entry(r, "subregion" if r.get("parent") else "region", kids or None))
         if r.get("soil"): extra_soils[r["id"]] = r["soil"]
 
+# ---- where places are on the earth (lat, lon): every map area, plus a centre for each country page. The Journal's world map uses it.
+places, _lv0 = {}, {}
+for _p in glob.glob(os.path.join(MAPS, "*.json")):
+    _m = json.load(open(_p))
+    for _a in _m.get("areas", []):
+        if _a.get("ll"):
+            places.setdefault(_a["id"], _a["ll"])
+            if _a.get("lv", 0) == 0: _lv0.setdefault(_m["id"], []).append(_a["ll"])
+    if _m["id"] not in _lv0:
+        _lv0[_m["id"]] = [a["ll"] for a in _m.get("areas", []) if a.get("ll")]
+for _r in regions + extra_regions:
+    if _r["kind"] == "country" and _r.get("map") and _lv0.get(_r["map"]):
+        _pts = _lv0[_r["map"]]
+        places[_r["id"]] = [round(sum(p[0] for p in _pts) / len(_pts), 3), round(sum(p[1] for p in _pts) / len(_pts), 3)]
+
 for w in warnings: print("warning:", w)
 for e in errors: print("ERROR:", e)
 if errors:
@@ -557,6 +572,8 @@ if errors:
 os.makedirs(OUT, exist_ok=True)
 json.dump(course, open(os.path.join(OUT, "course.json"), "w"), ensure_ascii=False, separators=(",", ":"))
 json.dump(library, open(os.path.join(OUT, "library.json"), "w"), ensure_ascii=False, separators=(",", ":"))
+json.dump(places, open(os.path.join(OUT, "places.json"), "w"), separators=(",", ":"))
+print(f"places: {len(places)} with coordinates")
 json.dump({"regions": extra_regions, "soils": extra_soils}, open(os.path.join(OUT, "extra.json"), "w"), ensure_ascii=False, separators=(",", ":"))
 print(f"extra atlas: {len([r for r in extra_regions if r['kind'] == 'country'])} maps, {len(extra_regions)} places")
 n_lessons = sum(len(u["lessons"]) for l in course["levels"] for u in l["units"])

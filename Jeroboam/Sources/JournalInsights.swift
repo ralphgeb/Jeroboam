@@ -113,31 +113,6 @@ struct JournalInsights: View {
     // world coordinates: the world map is a plain lat/lon grid, 13.71 map units per degree, 0° east at x 2331 and 44.84° north at y 372
     private static func mapPoint(lat: Double, lon: Double) -> CGPoint { CGPoint(x: 2331 + 13.71 * lon, y: 372 - 13.74 * (lat - 44.84)) }
 
-    private static let places: [String: (Double, Double)] = [
-        "pauillac": (45.20, -0.75), "margaux": (45.04, -0.67), "saint estephe": (45.26, -0.77), "saint julien": (45.15, -0.74), "medoc": (45.3, -0.9),
-        "haut medoc": (45.2, -0.8), "bordeaux": (44.84, -0.58), "saint emilion": (44.89, -0.15), "pomerol": (44.93, -0.2), "sauternes": (44.54, -0.35),
-        "graves": (44.6, -0.45), "pessac leognan": (44.75, -0.65), "burgundy": (47.0, 4.8), "chablis": (47.8, 3.8), "cote d or": (47.1, 4.9),
-        "champagne": (49.05, 4.0), "sancerre": (47.33, 2.84), "loire": (47.4, 0.7), "chinon": (47.16, 0.24), "vouvray": (47.41, 0.8), "alsace": (48.2, 7.3),
-        "chateauneuf du pape": (44.06, 4.83), "rhone": (45.0, 4.8), "hermitage": (45.07, 4.84), "cote rotie": (45.48, 4.78), "beaujolais": (46.1, 4.6),
-        "provence": (43.5, 6.0), "languedoc": (43.5, 3.0), "jura": (46.8, 5.7),
-        "barolo": (44.61, 7.94), "barbaresco": (44.73, 8.08), "piedmont": (44.7, 8.0), "chianti": (43.5, 11.3), "chianti classico": (43.45, 11.3),
-        "montalcino": (43.06, 11.49), "tuscany": (43.4, 11.2), "bolgheri": (43.23, 10.6), "veneto": (45.5, 11.5), "sicily": (37.6, 14.0), "etna": (37.75, 15.0),
-        "rioja": (42.4, -2.5), "ribera del duero": (41.65, -3.7), "priorat": (41.2, 0.8), "rias baixas": (42.4, -8.7), "penedes": (41.4, 1.7), "jerez": (36.7, -6.1),
-        "douro": (41.15, -7.8), "vinho verde": (41.6, -8.4), "alentejo": (38.5, -7.9), "dao": (40.5, -7.9),
-        "mosel": (49.95, 7.0), "rheingau": (50.0, 8.0), "pfalz": (49.3, 8.1), "rheinhessen": (49.8, 8.2), "wachau": (48.37, 15.4), "tokaj": (48.1, 21.4),
-        "santorini": (36.4, 25.4), "napa valley": (38.5, -122.3), "napa": (38.5, -122.3), "sonoma": (38.5, -122.9), "willamette": (45.2, -123.1),
-        "willamette valley": (45.2, -123.1), "walla walla": (46.1, -118.3), "paso robles": (35.6, -120.7),
-        "mendoza": (-33.0, -68.8), "uco valley": (-33.6, -69.2), "maipo": (-33.7, -70.7), "colchagua": (-34.6, -71.2), "casablanca": (-33.3, -71.4),
-        "barossa": (-34.55, 138.95), "barossa valley": (-34.55, 138.95), "mclaren vale": (-35.2, 138.55), "coonawarra": (-37.3, 140.8), "margaret river": (-33.95, 115.05),
-        "hunter valley": (-32.8, 151.3), "yarra valley": (-37.7, 145.5), "marlborough": (-41.5, 173.9), "central otago": (-45.0, 169.2), "hawkes bay": (-39.6, 176.8),
-        "stellenbosch": (-33.9, 18.85), "swartland": (-33.3, 18.7), "constantia": (-34.03, 18.42), "bekaa valley": (33.8, 35.9), "bekaa": (33.8, 35.9), "batroun": (34.25, 35.65),
-    ]
-    private static let countryCentre: [String: (Double, Double)] = [
-        "france": (46.6, 2.3), "italy": (42.8, 12.5), "spain": (40.2, -3.7), "portugal": (39.7, -8.0), "germany": (50.5, 9.0), "austria": (47.6, 14.5),
-        "hungary": (47.1, 19.5), "greece": (38.6, 22.5), "united states": (38.0, -120.5), "usa": (38.0, -120.5), "chile": (-34.5, -71.0),
-        "argentina": (-33.5, -68.8), "australia": (-33.5, 140.0), "new zealand": (-41.5, 173.0), "south africa": (-33.6, 19.0), "lebanon": (33.9, 35.8),
-    ]
-
     private struct Dot: Identifiable {
         let id: String
         let point: CGPoint
@@ -147,21 +122,22 @@ struct JournalInsights: View {
         let highlight: Set<String>
     }
 
+    /// One dot per place you have wine from, at the real centre of that place (the atlas and "beyond the atlas" maps know where
+    /// every region is); a wine whose region is not known is not drawn rather than drawn in the wrong place.
     private var dots: [Dot] {
-        var by: [String: (WineKey, Int)] = [:]
+        var by: [String: (Region, Int)] = [:]
         for w in wines {
-            let key = norm(w.region).isEmpty ? norm(w.country) : norm(w.region)
-            by[key, default: (WineKey(country: w.country, region: w.region), 0)].1 += 1
+            guard let r = ContentStore.shared.regionMatching(w.region, country: w.country),
+                  ContentStore.shared.coordinate(of: r) != nil else { continue }
+            by[r.id, default: (r, 0)].1 += 1
         }
-        return by.compactMap { key, v in
-            let loc = Self.places[key] ?? Self.countryCentre[norm(v.0.country)]
-            guard let (lat, lon) = loc, let map = Self.mapOf[norm(v.0.country)] else { return nil }
-            let name = v.0.region.isEmpty ? v.0.country : v.0.region
-            return Dot(id: key, point: Self.mapPoint(lat: lat, lon: lon), name: name, count: v.1, map: map, highlight: tried(in: map, regions: [v.0.region]))
+        return by.values.compactMap { r, n -> Dot? in
+            guard let c = ContentStore.shared.coordinate(of: r), let map = r.map else { return nil }
+            return Dot(id: r.id, point: Self.mapPoint(lat: c.lat, lon: c.lon), name: r.name, count: n, map: map,
+                       highlight: Set(r.highlight ?? (r.kind == "country" ? [] : [r.id])))
         }
         .sorted { $0.name < $1.name }
     }
-    private struct WineKey { let country: String; let region: String }
 
     private var mapCards: some View {
         let list = dots
@@ -345,13 +321,31 @@ struct WorldTriedMap: View {
     @State private var lastZoom: CGFloat = 1
     @State private var pan: CGSize = .zero
     @State private var lastPan: CGSize = .zero
+    @State private var fittedFor = ""
     private let g = MapGeometry.get("world")
+
+    /// Opens zoomed in on the places that have wine, instead of on the whole world.
+    private func fit(_ size: CGSize) {
+        let key = dots.map(\.id).joined(separator: ",") + "|\(Int(size.width))x\(Int(size.height))"
+        guard size.width > 0, size.height > 0, !dots.isEmpty, key != fittedFor else { return }
+        fittedFor = key
+        let mw = CGFloat(g?.map.w ?? 4800), mh = CGFloat(g?.map.h ?? 1755)
+        let xs = dots.map(\.point.x), ys = dots.map(\.point.y)
+        let c = CGPoint(x: (xs.min()! + xs.max()!) / 2, y: (ys.min()! + ys.max()!) / 2)
+        let bw = max(xs.max()! - xs.min()!, 300), bh = max(ys.max()! - ys.min()!, 220)   // never tighter than about 22° by 16°
+        let base = size.width / mw
+        let z = min(30, max(1, min(size.width * 0.74 / bw, size.height * 0.68 / bh) / base))
+        zoom = z; lastZoom = z
+        let sNew = base * z
+        pan = CGSize(width: size.width / 2 - c.x * sNew - (size.width - mw * sNew) / 2,
+                     height: size.height / 2 - c.y * sNew - (size.height - mh * sNew) / 2)
+        lastPan = pan
+    }
 
     var body: some View {
         GeometryReader { geo in
             let size = geo.size
             let mw = CGFloat(g?.map.w ?? 4800), mh = CGFloat(g?.map.h ?? 1755)
-            // the whole world to start with; pinch to zoom in on a region
             let base = size.width / mw
             let s = base * zoom
             let origin = CGPoint(x: (size.width - mw * s) / 2 + pan.width, y: (size.height - mh * s) / 2 + pan.height)
@@ -364,21 +358,40 @@ struct WorldTriedMap: View {
                     layer.fill(g.landMask, with: .color(Palette.focusLand))
                     layer.stroke(g.landMask, with: .color(Palette.border), lineWidth: 0.8 / s)
                 }
+                // heat: soft glows that add up where bottles are close together, then a crisp dot at the exact place
+                let heatScale = min(1 + (zoom - 1) * 0.25, 2.6)
+                let hot = Color(hex: "#C21A4C"), warm = Color(hex: "#EA6A2E"), glow = Color(hex: "#F5B13D")
                 for d in dots {
                     let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
-                    let r: CGFloat = 5 + min(5, CGFloat(d.count))
-                    let halo = Path(ellipseIn: CGRect(x: p.x - r - 4, y: p.y - r - 4, width: 2 * (r + 4), height: 2 * (r + 4)))
-                    ctx.fill(halo, with: .color(Palette.bordeaux.opacity(0.22)))
+                    let rad = (15 + 8 * sqrt(CGFloat(d.count))) * heatScale
+                    let grad = Gradient(stops: [.init(color: hot.opacity(0.78), location: 0), .init(color: warm.opacity(0.42), location: 0.42),
+                                                .init(color: glow.opacity(0.14), location: 0.75), .init(color: glow.opacity(0), location: 1)])
+                    ctx.fill(Path(ellipseIn: CGRect(x: p.x - rad, y: p.y - rad, width: 2 * rad, height: 2 * rad)),
+                             with: .radialGradient(grad, center: p, startRadius: 0, endRadius: rad))
+                }
+                var taken: [CGRect] = []
+                for d in dots.sorted(by: { $0.count > $1.count }) {
+                    let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
+                    let r: CGFloat = 3.6
                     let dot = Path(ellipseIn: CGRect(x: p.x - r, y: p.y - r, width: 2 * r, height: 2 * r))
                     ctx.fill(dot, with: .color(Palette.bordeaux))
-                    ctx.stroke(dot, with: .color(.white), lineWidth: 1.4)
-                    if zoom >= 2.2 {
+                    ctx.stroke(dot, with: .color(.white), lineWidth: 1.2)
+                    if zoom >= 1.8 {
                         var t = ctx
-                        t.addFilter(.shadow(color: .white.opacity(0.95), radius: 2))
-                        t.draw(Text(d.name).font(.system(size: 11, weight: .semibold)).foregroundColor(Palette.ink), at: CGPoint(x: p.x, y: p.y + r + 9), anchor: .center)
+                        let text = t.resolve(Text(d.name).font(.system(size: 10.5, weight: .semibold)).foregroundColor(Palette.ink))
+                        let sz = text.measure(in: CGSize(width: 200, height: 30))
+                        let rect = CGRect(x: p.x - sz.width / 2, y: p.y + 7, width: sz.width, height: sz.height)
+                        if CGRect(origin: .zero, size: size).insetBy(dx: 2, dy: 2).contains(rect), !taken.contains(where: { $0.insetBy(dx: -3, dy: -1).intersects(rect) }) {
+                            taken.append(rect)
+                            t.addFilter(.shadow(color: Palette.focusLand.opacity(0.95), radius: 2))
+                            t.draw(text, at: CGPoint(x: rect.midX, y: rect.midY), anchor: .center)
+                        }
                     }
                 }
             }
+            .onAppear { fit(size) }
+            .onChange(of: size) { _, new in fit(new) }
+            .onChange(of: dots.count) { _, _ in fit(size) }
             .contentShape(Rectangle())
             .allowsHitTesting(interactive)
             .onChange(of: zoomCommand) { old, new in
