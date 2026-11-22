@@ -45,6 +45,53 @@ struct NoInsetHost<C: View>: UIViewControllerRepresentable {
     func updateUIViewController(_ c: NoInsetController<C>, context: Context) { c.rootView = root }
 }
 
+/// Shows a Duo-sized screen scaled to fit this phone. The scaling is done in UIKit (a transform on the hosted screen) rather
+/// than with SwiftUI's scaleEffect: a screen bigger than the phone, scaled by SwiftUI, was only drawn in part (the maps came
+/// out cut off), while a UIKit transform draws all of it.
+final class ScaledPreviewController<C: View>: UIViewController {
+    private let child: NoInsetController<C>
+    private let screen: CGSize
+
+    init(root: C, screen: CGSize) {
+        child = NoInsetController(rootView: root)
+        self.screen = screen
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    var root: C { get { child.rootView } set { child.rootView = newValue } }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        addChild(child)
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        child.view.translatesAutoresizingMaskIntoConstraints = true
+        child.view.autoresizingMask = []
+        child.view.backgroundColor = UIColor(Palette.paper)
+        child.view.layer.cornerRadius = 26
+        child.view.layer.cornerCurve = .continuous
+        child.view.clipsToBounds = true
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let s = min(view.bounds.width / screen.width, view.bounds.height / screen.height)
+        child.view.transform = .identity
+        child.view.bounds = CGRect(origin: .zero, size: screen)
+        child.view.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        child.view.transform = CGAffineTransform(scaleX: s, y: s)
+    }
+}
+
+struct ScaledPreview<C: View>: UIViewControllerRepresentable {
+    let root: C
+    let screen: CGSize
+    func makeUIViewController(context: Context) -> ScaledPreviewController<C> { ScaledPreviewController(root: root, screen: screen) }
+    func updateUIViewController(_ c: ScaledPreviewController<C>, context: Context) { c.root = root }
+}
+
 struct DuoPreviewHost<Content: View>: View {
     @AppStorage("jero.duoPreview") private var raw = 0
     @Environment(GameProgress.self) private var progress
@@ -54,16 +101,11 @@ struct DuoPreviewHost<Content: View>: View {
     var body: some View {
         if let size = DuoPreviewMode(rawValue: raw)?.size {
             GeometryReader { geo in
-                let s = min(geo.size.width / size.width, geo.size.height / size.height)
                 ZStack {
                     Color.black.ignoresSafeArea()
-                    NoInsetHost(root: content.environment(progress).environment(journal))
-                        .frame(width: size.width, height: size.height)
-                        .ignoresSafeArea()
-                        .background(Palette.paper)
-                        .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
-                        .scaleEffect(s)
+                    ScaledPreview(root: content.environment(progress).environment(journal), screen: size)
                         .frame(width: geo.size.width, height: geo.size.height)
+                        .ignoresSafeArea()
                 }
                 .overlay(alignment: .top) {
                     Button { raw = 0 } label: {
