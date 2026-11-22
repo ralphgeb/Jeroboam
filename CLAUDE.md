@@ -25,6 +25,14 @@ France map = ONE map (france.json). Bordeaux and Burgundy are drawn K=4 times fi
                          doc has `insets` with fine coast/water/rivers/communes and `lod` zoom steps [1.9, 3.4, 30]). The separate
                          bordeaux/burgundy maps were removed; region pages use `map: france` and the card/explorer frame the place via
                          `MapGeometry.zoneRect`. Levels: 0 region, 1 sub-region, 2 village/commune appellation, 3 Grand Cru.
+Maps beyond the atlas (Settings > More maps > ExtraAtlasView): content/extra/<map>.yaml = geometry spec + guide text for one map
+                         (24 maps: US states by AVA, UK, Canada, Georgia, Armenia, Switzerland, Croatia, Slovenia, Romania, Bulgaria, Moldova,
+                         Turkey, Uruguay, Brazil, Mexico, China, Japan, Cyprus; no Israel). `python3 tools/build_extra_maps.py [map]` builds
+                         Resources/Maps/<map>.json (geoBoundaries ADM units via `units`, AVAs via `ava`, sketches via `poly`/`within`,
+                         `clip`/`minus`); build_content.py turns the same files into Resources/Content/extra.json (ContentStore.extraRegions,
+                         `Region.local` = grape names without an atlas page). `tools/preview_map.py <map> out.png` draws a quick check picture.
+                         Region ids must be unique across the atlas and all extras. `ContentStore.regionMatching` finds a place from a label's
+                         region text (atlas and extras, else the country page); the Journal uses it.
 tools/specs_fr.py        French appellations as real commune lists or commune-centroid polygons
 tools/specs_world.py     Italy zones/DOCGs (comuni), US AVA lists
 tools/specs_gb.py        Portugal, Spain, Germany, Austria, Hungary, Greece, Chile/Argentina, Australia, NZ, South Africa and Lebanon
