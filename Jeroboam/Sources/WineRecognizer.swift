@@ -272,6 +272,9 @@ extension WineRecognizer {
     /// one tiny question to Haiku (no web search, a fraction of a cent). Whatever is found is kept in the database.
     static func averagePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
         if let p = WineDB.shared.entry(for: w)?.price { return (p, 0) }
+        // the shop price list (about 70,000 wines), then the Great wines list
+        let shop = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w) }.value
+        if let p = shop { WineDB.shared.save(w, price: p); return (p, 0) }
         if let p = WineDB.greatPrice(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
         if !livePrices {
             if let p = PriceInfo.estimate(from: w) { WineDB.shared.save(w, price: p); return (p, 0) }
