@@ -1,0 +1,27 @@
+name: INAO parcels
+# Downloads the INAO parcel-level AOC delimitation (data.gouv.fr, Licence Ouverte) and keeps the Burgundy part on the inao-data branch.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install geopandas pyogrio shapely
+      - run: python tools/inao_fetch.py
+      - name: Publish
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b inao-data
+          git add -A
+          git commit -qm "INAO parcels (Burgundy)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" inao-data
