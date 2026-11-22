@@ -17,6 +17,14 @@ tools/build_content.py   YAML -> Jeroboam/Resources/Content/{course,library}.jso
 tools/build_maps2.py     map builder v2 (zoomable, levels 0/1/2). Sources in /home/user/ne (Natural Earth) and /home/user/geo:
                          fr/communes-<dept>.geojson (gregoiredavid/france-geojson), it_comuni.geojson (openpolis/geojson-italy),
                          ava/ (UCDavisLibrary/ava). Run: python3 tools/build_maps2.py [fr|it|us|legacy]
+tools/inao_fetch.py + .github/workflows/inao.yml   INAO parcel-level AOC delimitation (data.gouv.fr, Licence Ouverte) -> `inao-data`
+                         branch -> extract to ~/geo/inao/inao_cotedor.geojson. build_maps2 `grand_crus()` turns the Burgundy Grand Cru
+                         parcels into level-3 areas (CRUS dict). The INAO file also has Premier Cru climats (not used yet).
+                         tools/burgundy_fetch.py + burgundy.yml: OSM vineyard parcels (not used by the build, kept for reference).
+France map = ONE map (france.json). Bordeaux and Burgundy are drawn K=4 times finer inside it (`FineProj`, area records carry `k`,
+                         doc has `insets` with fine coast/water/rivers/communes and `lod` zoom steps [1.9, 3.4, 30]). The separate
+                         bordeaux/burgundy maps were removed; region pages use `map: france` and the card/explorer frame the place via
+                         `MapGeometry.zoneRect`. Levels: 0 region, 1 sub-region, 2 village/commune appellation, 3 Grand Cru.
 tools/specs_fr.py        French appellations as real commune lists or commune-centroid polygons
 tools/specs_world.py     Italy zones/DOCGs (comuni), US AVA lists
 tools/specs_gb.py        Portugal, Spain, Germany, Austria, Hungary, Greece, Chile/Argentina, Australia, NZ, South Africa and Lebanon
