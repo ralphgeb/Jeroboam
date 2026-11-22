@@ -1,0 +1,66 @@
+map: mexico-baja
+title: Baja California
+iso: [MEX]
+focus: [MEX]
+bbox: [30.0, -117.6, 33.0, -114.5]
+W: 2800
+cities:
+  - [Tijuana, 32.51, -117.04, 0]
+  - [Ensenada, 31.87, -116.60, 0]
+  - [Tecate, 32.57, -116.63]
+  - [Valle de Guadalupe, 32.09, -116.62]
+  - [San Vicente, 31.33, -116.25]
+labels:
+  - [Pacific Ocean, 31.4, -117.4, sea]
+  - [Gulf of California, 31.5, -114.7, sea]
+  - [UNITED STATES, 32.85, -116.0, area]
+country:
+  name: Baja California
+  summary: "Mexico's best-known wine region: a Mediterranean-like peninsula with a thriving food and wine scene around the Valle de Guadalupe, 90 minutes south of San Diego. It makes about 70–90% of Mexican wine."
+  grapes: [cabernet-sauvignon, merlot, tempranillo, nebbiolo, grenache, syrah, sauvignon-blanc, chardonnay, mourvedre, zinfandel]
+  local: [Chenin Blanc, Barbera, Mission, Palomino]
+  climate: "Mediterranean: dry, sunny summers and cool nights from the Pacific, with winter rain."
+  styles: "Bold Cabernet-based blends and Rhône or Italian varieties, with fresh whites such as Sauvignon Blanc and Chenin."
+  classification: "No national appellation system yet; wineries label by valley: Valle de Guadalupe, Valle de Santo Tomás, Ojos Negros, San Vicente and Tecate."
+  history: "Spanish Dominican missionaries planted Mission grapes in the 1700s, and Russian Molokan settlers brought winemaking to Guadalupe in the early 20th century."
+  facts:
+    - "Baja California is the oldest and biggest wine region in Mexico by far."
+    - "Valle de Guadalupe has more than 150 wineries within about 30 km."
+regions:
+  - id: valle-de-guadalupe
+    name: Valle de Guadalupe
+    poly: [[32.15,-116.70],[32.15,-116.45],[32.00,-116.45],[32.00,-116.72]]
+    clip: {adm: MEX/ADM1, names: [Baja California]}
+    grapes: [cabernet-sauvignon, merlot, tempranillo, nebbiolo, grenache, syrah, sauvignon-blanc]
+    summary: "The flagship valley, with a Mediterranean climate and granite and alluvial soils, 20 km from the Pacific. Home of the best-known wineries and restaurants."
+    soil: "Granite, sandy alluvium and clay."
+  - id: valle-de-ojos-negros
+    name: Valle de Ojos Negros
+    poly: [[31.98,-116.35],[31.98,-116.10],[31.82,-116.10],[31.82,-116.35]]
+    clip: {adm: MEX/ADM1, names: [Baja California]}
+    grapes: [chardonnay, cabernet-sauvignon, merlot]
+    summary: "A higher, cooler basin north-east of Ensenada, with cold nights and big temperature swings."
+  - id: valle-de-santo-tomas
+    name: Valle de Santo Tomás
+    poly: [[31.65,-116.55],[31.65,-116.30],[31.50,-116.30],[31.50,-116.55]]
+    clip: {adm: MEX/ADM1, names: [Baja California]}
+    grapes: [cabernet-sauvignon, nebbiolo, zinfandel, grenache]
+    summary: "The site of Baja's first mission vineyards (1791), home to historic wineries."
+  - id: valle-de-san-vicente
+    name: Valle de San Vicente
+    poly: [[31.40,-116.40],[31.40,-116.15],[31.20,-116.15],[31.20,-116.40]]
+    clip: {adm: MEX/ADM1, names: [Baja California]}
+    grapes: [cabernet-sauvignon, merlot, syrah]
+    summary: "A small, southern valley with a cooler climate from the coast, and a growing set of boutique wineries."
+  - id: tecate-valley
+    name: Tecate
+    poly: [[32.65,-116.80],[32.65,-116.40],[32.45,-116.40],[32.45,-116.80]]
+    clip: {adm: MEX/ADM1, names: [Baja California]}
+    grapes: [cabernet-sauvignon, merlot, tempranillo]
+    summary: "On the US border, a dry, warm area of vineyards and small wineries."
+  - id: baja-california
+    name: Rest of Baja California
+    units: {adm: MEX/ADM1, names: [Baja California]}
+    minus: [valle-de-guadalupe, valle-de-ojos-negros, valle-de-santo-tomas, valle-de-san-vicente, tecate-valley]
+    grapes: []
+    summary: "The rest of the northern peninsula, including the cities of Tijuana and Ensenada."

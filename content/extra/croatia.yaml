@@ -1,0 +1,79 @@
+map: croatia
+title: Croatia
+iso: [HRV]
+focus: [HRV]
+bbox: [42.2, 13.3, 46.6, 19.6]
+W: 2800
+cities:
+  - [Zagreb, 45.81, 15.98, 0]
+  - [Split, 43.51, 16.44, 0]
+  - [Dubrovnik, 42.65, 18.09]
+  - [Rovinj, 45.08, 13.64]
+  - [Osijek, 45.55, 18.69]
+  - [Zadar, 44.12, 15.23]
+labels:
+  - [Adriatic Sea, 43.4, 15.0, sea]
+  - [SLOVENIA, 45.9, 14.6, area]
+  - [BOSNIA & HERZ., 44.2, 17.6, area]
+  - [HUNGARY, 46.2, 18.0, area]
+country:
+  name: Croatia
+  summary: "A long coast and a continental interior with 130 native grapes: Istria's Malvazija, the Dalmatian Plavac Mali (a close cousin of Zinfandel) and Slavonian oak for the world."
+  grapes: [chardonnay, riesling, zinfandel, merlot, pinot-noir, sauvignon-blanc]
+  local: [Plavac Mali, Malvazija Istarska, Graševina, Pošip, Grk, Babić, Teran, Debit, Crljenak Kaštelanski]
+  climate: "Mediterranean on the Adriatic coast and islands; cooler continental in the north and east."
+  styles: "Dry, fresh whites (Malvazija, Pošip, Graševina), rich reds from Plavac Mali and the island of Vis, and sweet wines such as Prošek."
+  classification: "Four wine regions (Slavonia & Croatian Danube, Plateau, Istria & Kvarner, Dalmatia) split into sub-regions and about 66 appellations."
+  history: "Greeks planted vines on Adriatic islands in the 4th century BC. DNA tests in 2001 showed that Zinfandel in California is the same grape as Crljenak Kaštelanski from Dalmatia, and Plavac Mali is its offspring."
+  facts:
+    - "Dingač on the Pelješac peninsula was the first protected wine region in Yugoslavia (1961)."
+    - "Slavonian oak from Croatia's eastern forests is prized for barrels worldwide."
+regions:
+  - id: slavonia-danube
+    name: Slavonia & the Danube
+    units: {adm: HRV/ADM1, names: [Osijek-Baranja, Vukovar-Syrmia, Brod-Posavina, Požega-Slavonia, Virovitica-Podravina]}
+    grapes: [chardonnay, riesling, merlot]
+    local: [Graševina, Frankovka, Traminac]
+    summary: "The eastern lowlands, between the Sava and Drava rivers and the Danube: the home of Graševina, a floral, easy white that is Croatia's most planted grape."
+  - id: plateau
+    name: Plateau (Continental Croatia)
+    units: {adm: HRV/ADM1, names: [Zagreb County, City of Zagreb, Krapina-Zagorje, Varaždin, Međimurje, Koprivnica-Križevci, Bjelovar-Bilogora, Karlovac, Sisak-Moslavina]}
+    grapes: [chardonnay, riesling, pinot-noir, sauvignon-blanc]
+    local: [Graševina, Škrlet, Plavec Žuti, Pušipel]
+    summary: "The cool hills around Zagreb and the Slovenian border: crisp whites and sparkling wines, especially from Plešivica and Međimurje."
+  - id: istria-kvarner
+    name: Istria & Kvarner
+    units: {adm: HRV/ADM1, names: [Istria, Primorje-Gorski Kotar, Lika-Senj]}
+    grapes: [merlot, chardonnay, sauvignon-blanc]
+    local: [Malvazija Istarska, Teran, Refošk, Žlahtina]
+    summary: "The north Adriatic peninsula with red 'terra rossa' soil: very fresh Malvazija, the white grape of Istria, and earthy Teran."
+    soil: "Red clay (terra rossa) over limestone, and grey marl."
+  - id: dalmatia
+    name: Dalmatia
+    units: {adm: HRV/ADM1, names: [Zadar County, Šibenik-Knin, Split-Dalmatia, Dubrovnik-Neretva]}
+    grapes: [zinfandel, syrah, cabernet-sauvignon]
+    local: [Plavac Mali, Babić, Pošip, Grk, Maraština, Vugava]
+    summary: "The long Adriatic coast and its islands: sun-baked limestone slopes growing powerful Plavac Mali reds and mineral whites."
+    climate: "Mediterranean, with hot summers and mild winters."
+  - id: istria
+    name: Istria
+    parent: istria-kvarner
+    units: {adm: HRV/ADM1, names: [Istria]}
+    grapes: [merlot, chardonnay]
+    local: [Malvazija Istarska, Teran, Refošk]
+    summary: "A green peninsula with Italian influence: Malvazija from 'terra rossa' soil is Croatia's most exciting white."
+  - id: peljesac
+    name: Pelješac Peninsula
+    parent: dalmatia
+    poly: [[43.10,17.10],[43.10,17.55],[42.85,17.85],[42.85,17.05]]
+    clip: {adm: HRV/ADM1, names: [Dubrovnik-Neretva]}
+    grapes: []
+    local: [Plavac Mali]
+    summary: "A rocky peninsula with the famous Dingač and Postup slopes, where Plavac Mali on steep, sun-drenched terraces by the sea makes Croatia's most powerful reds."
+  - id: central-dalmatia
+    name: Central Dalmatia & islands
+    parent: dalmatia
+    units: {adm: HRV/ADM1, names: [Split-Dalmatia]}
+    grapes: []
+    local: [Plavac Mali, Pošip, Babić, Vugava]
+    summary: "The Split coast and the islands of Hvar, Brač, Vis and Korčula, with the oldest vines on the Adriatic."

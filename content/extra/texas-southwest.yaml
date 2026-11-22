@@ -1,0 +1,102 @@
+map: texas-southwest
+title: Texas & the Southwest
+iso: [USA]
+focus: [USA]
+states: [USA]
+bbox: [30.0, -112.2, 36.6, -94.0]
+W: 3000
+cities:
+  - [Austin, 30.27, -97.74, 0]
+  - [Dallas, 32.78, -96.80]
+  - [Lubbock, 33.58, -101.86]
+  - [Fredericksburg, 30.27, -98.87]
+  - [Albuquerque, 35.08, -106.65, 0]
+  - [El Paso, 31.76, -106.49]
+  - [Tucson, 32.22, -110.97]
+  - [Phoenix, 33.45, -112.07]
+labels:
+  - [MEXICO, 30.4, -105.0, area]
+  - [Rio Grande, 32.5, -106.9, river]
+country:
+  name: Texas & the Southwest
+  summary: "Hot, high and dry: Texas (the second most visited wine region in the US), New Mexico (America's oldest wine tradition, 1629) and Arizona grow Mediterranean grapes such as Tempranillo, Mourvèdre, Viognier and Grenache."
+  grapes: [tempranillo, mourvedre, viognier, grenache, cabernet-sauvignon, sangiovese, tannat, albarino]
+  local: [Black Spanish]
+  climate: "Hot summers, big day-night swings at altitude, and very little rain. Cool, high plains sites and the Hill Country do best."
+  styles: "Rhône and Spanish varieties: Tempranillo, Mourvèdre, Viognier, Grenache, plus Bordeaux reds and sparkling."
+  classification: "American Viticultural Areas (AVAs) such as Texas Hill Country, Texas High Plains, Mesilla Valley, Sonoita and Willcox."
+  facts:
+    - "About 85% of Texas grapes are grown in the High Plains near Lubbock, on high, dry plateau."
+    - "New Mexico's first vines were planted by Spanish missionaries in the 1620s, the oldest wine region in the United States."
+regions:
+  - id: texas-hill-country
+    name: Texas Hill Country
+    ava: [Texas Hill Country]
+    grapes: [tempranillo, viognier, mourvedre, cabernet-sauvignon, sangiovese]
+    local: [Black Spanish]
+    summary: "The state's best-known wine area, in the rolling hills around Austin and San Antonio. The second-largest AVA in the US by area and a big wine-tourism draw."
+    soil: "Limestone and sandy loam."
+  - id: fredericksburg
+    name: Fredericksburg in the Texas Hill Country
+    parent: texas-hill-country
+    ava: [Fredericksburg in the Texas Hill Country]
+    grapes: [tempranillo, viognier, mourvedre]
+    summary: "A German-settled town and the Hill Country's wine hub: dozens of tasting rooms in a few miles."
+  - id: bell-mountain
+    name: Bell Mountain
+    parent: texas-hill-country
+    ava: [Bell Mountain]
+    grapes: [cabernet-sauvignon, tempranillo, viognier]
+    summary: "A small, high AVA of granite soils in the Hill Country, the first in Texas."
+  - id: texas-high-plains
+    name: Texas High Plains
+    ava: [Texas High Plains]
+    grapes: [tempranillo, viognier, sangiovese, cabernet-sauvignon, mourvedre]
+    summary: "A high, flat, windy plateau around Lubbock at over 3,000 ft. It grows most of the state's grapes, with cool nights and strong sun."
+    soil: "Sandy loam over limestone and caliche."
+  - id: texoma
+    name: Texoma
+    ava: [Texoma]
+    grapes: [cabernet-sauvignon, merlot, tempranillo]
+    summary: "North Texas along the Red River and the Oklahoma border."
+  - id: texas-davis-mountains
+    name: Texas Davis Mountains
+    ava: [Texas Davis Mountains]
+    grapes: [tempranillo, mourvedre]
+    summary: "A remote mountain AVA in West Texas, at over 4,500 ft."
+  - id: escondido-valley
+    name: Escondido Valley
+    ava: [Escondido Valley]
+    grapes: [tempranillo, cabernet-sauvignon]
+    summary: "A small desert valley in the far west of Texas."
+  - id: mesilla-valley
+    name: Mesilla Valley
+    ava: [Mesilla Valley]
+    grapes: [tempranillo, merlot]
+    summary: "South New Mexico and a corner of Texas along the Rio Grande, where Spanish friars planted vines in the 1600s."
+  - id: middle-rio-grande-valley
+    name: Middle Rio Grande Valley
+    ava: [Middle Rio Grande Valley]
+    grapes: [chardonnay, tempranillo]
+    local: [Vidal Blanc, Melon]
+    summary: "New Mexico's central valley, with Albuquerque at the centre and sparkling wine as a speciality."
+  - id: mimbres-valley
+    name: Mimbres Valley
+    ava: [Mimbres Valley]
+    grapes: [tempranillo]
+    summary: "A very small, high AVA in south-west New Mexico."
+  - id: sonoita
+    name: Sonoita
+    ava: [Sonoita]
+    grapes: [tempranillo, mourvedre, viognier, cabernet-sauvignon]
+    summary: "Arizona's first AVA, a high grassland valley south-east of Tucson at about 5,000 ft with cool nights."
+  - id: willcox
+    name: Willcox
+    ava: [Willcox]
+    grapes: [tempranillo, mourvedre, viognier, cabernet-sauvignon]
+    summary: "A high desert plateau in south-east Arizona that grows most of the state's grapes."
+  - id: verde-valley
+    name: Verde Valley
+    ava: [Verde Valley]
+    grapes: [syrah, viognier, grenache]
+    summary: "A river valley near Sedona with a growing group of wineries."

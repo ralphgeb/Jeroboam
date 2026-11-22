@@ -1,0 +1,66 @@
+map: japan
+title: Japan
+iso: [JPN]
+focus: [JPN]
+bbox: [33.2, 129.5, 45.6, 146.0]
+W: 3000
+cities:
+  - [Tokyo, 35.68, 139.69, 0]
+  - [Kōfu, 35.66, 138.57]
+  - [Nagano, 36.65, 138.18]
+  - [Sapporo, 43.06, 141.35, 0]
+  - [Osaka, 34.69, 135.50]
+  - [Yoichi, 43.19, 140.78]
+labels:
+  - [Pacific Ocean, 36.0, 143.5, sea]
+  - [Sea of Japan, 40.0, 135.5, sea]
+country:
+  name: Japan
+  summary: "A very small but beautiful wine industry, built on Koshu, a pale pink grape grown in Yamanashi for over 1,000 years, and on increasingly serious wines from Nagano and Hokkaido."
+  grapes: [chardonnay, merlot, cabernet-sauvignon, pinot-noir, riesling, cabernet-franc, syrah, pinot-grigio]
+  local: [Koshu, Muscat Bailey A, Delaware, Niagara, Zweigelt, Kerner]
+  climate: "Humid with typhoon rain in summer, so vines are trained overhead (pergola style) to keep the grapes dry."
+  styles: "Delicate, citrusy Koshu, fresh whites, light reds and fine sparkling wine."
+  classification: "Japan Wine (made only from grapes grown in Japan) and Geographical Indications for Yamanashi, Hokkaido, Nagano and Yamagata."
+  history: "Legend says the Buddhist monk Gyoki brought Koshu in 718 AD. Modern winemaking began in Yamanashi in 1877."
+  facts:
+    - "Koshu is grown on tall pergolas to avoid rot in Japan's rain and humidity."
+    - "Only wines made entirely from grapes grown in Japan may be called Japan Wine (nihon wain)."
+regions:
+  - id: yamanashi
+    name: Yamanashi
+    units: {adm: JPN/ADM1, names: [Yamanashi]}
+    grapes: [chardonnay, merlot, cabernet-sauvignon]
+    local: [Koshu, Muscat Bailey A]
+    summary: "The cradle of Japanese wine, west of Tokyo under Mount Fuji: about 30% of Japan's wineries. Koshu grown at Katsunuma makes delicate, citrus-fresh whites."
+    soil: "Granite and alluvial gravel."
+  - id: nagano
+    name: Nagano
+    units: {adm: JPN/ADM1, names: [Nagano]}
+    grapes: [merlot, chardonnay, pinot-noir, riesling]
+    local: [Niagara, Concord]
+    summary: "The Japan Alps: cool, high vineyards at 600 to 800 m and Merlot from Kikyogahara and Chikuma River. Japan's second-biggest wine area."
+  - id: hokkaido
+    name: Hokkaido
+    units: {adm: JPN/ADM1, names: [Hokkaido]}
+    grapes: [pinot-noir, riesling, pinot-grigio, chardonnay]
+    local: [Kerner, Zweigelt, Müller-Thurgau]
+    summary: "The cool northern island of Yoichi and Furano: Germanic whites, Pinot Noir and sparkling wine in a climate like Alsace."
+  - id: yamagata-tohoku
+    name: Yamagata & the north
+    units: {adm: JPN/ADM1, names: [Yamagata, Akita, Iwate, Aomori, Miyagi, Fukushima, Niigata]}
+    grapes: [chardonnay, merlot, cabernet-sauvignon]
+    local: [Delaware, Muscat Bailey A, Niagara]
+    summary: "Tohoku and the Sea of Japan coast: Yamagata's Tendo and Kaminoyama make crisp whites and reds."
+  - id: kansai-chugoku
+    name: Kansai & the west
+    units: {adm: JPN/ADM1, names: [Osaka Prefecture, Hyogo Prefecture, Kyoto Prefecture, Okayama Prefecture, Hiroshima, Shimane, Yamaguchi, Tottori Prefecture, Kagawa Prefecture, Fukuoka Prefecture, Oita, Kumamoto, Miyazaki Prefecture, Kagoshima Prefecture, Wakayama Prefecture, Nara Prefecture, Shiga, Mie Prefecture]}
+    grapes: [chardonnay, merlot]
+    local: [Delaware, Muscat Bailey A]
+    summary: "Western Japan, with older vineyards in Osaka (Kashiwara) and small wineries."
+  - id: kanto-chubu
+    name: Kantō & central Honshu
+    units: {adm: JPN/ADM1, names: [Tochigi, Gunma, Ibaraki, Saitama, Chiba, Tokyo, Kanagawa, Shizuoka, Aichi Prefecture, Gifu Prefecture, Toyama, Ishikawa Prefecture, Fukui Prefecture]}
+    grapes: [chardonnay, merlot]
+    local: [Muscat Bailey A, Delaware]
+    summary: "The hills around Tokyo and the central Alps, with boutique winemakers like those of Tochigi's Coco Farm."

@@ -157,6 +157,7 @@ struct RegionDetailView: View {
                     }
                 }
 
+                if let l = r.local, !l.isEmpty { infoRow(icon: "leaf", title: "Local grapes", text: l.joined(separator: ", ")) }
                 if let h = r.history { textBlock("History", h) }
                 if let s = r.styles { textBlock("Styles", s) }
                 if let c = r.classification { textBlock("Classification", c) }

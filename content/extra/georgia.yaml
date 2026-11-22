@@ -1,0 +1,126 @@
+map: georgia
+title: Georgia
+iso: [GEO]
+focus: [GEO]
+bbox: [41.0, 40.0, 43.6, 46.8]
+W: 2800
+cities:
+  - [Tbilisi, 41.72, 44.79, 0]
+  - [Kutaisi, 42.27, 42.70, 0]
+  - [Telavi, 41.92, 45.47]
+  - [Batumi, 41.65, 41.63]
+  - [Gori, 41.98, 44.11]
+  - [Sighnaghi, 41.62, 45.92]
+  - [Ambrolauri, 42.52, 43.15]
+labels:
+  - [Black Sea, 42.6, 40.55, sea]
+  - [RUSSIA, 43.35, 42.5, area]
+  - [TURKEY, 41.2, 41.9, area]
+  - [ARMENIA, 41.0, 44.6, area]
+  - [AZERBAIJAN, 41.3, 46.4, area]
+country:
+  name: Georgia
+  summary: "The cradle of wine: 8,000 years of winemaking, ancient clay-vessel (qvevri) wines, amber whites and more than 500 native grape varieties."
+  grapes: []
+  local: [Saperavi, Rkatsiteli, Mtsvane, Kisi, Khikhvi, Tsolikouri, Tsitska, Krakhuna, Chinuri, Goruli Mtsvane, Aladasturi, Otskhanuri Sapere, Tavkveri]
+  climate: "Subtropical in the west (Black Sea), continental in the east, with the Greater Caucasus shielding the vineyards from the north."
+  styles: "Two traditions side by side: European-style fresh whites and reds, and the ancient method where grapes ferment with their skins in buried clay qvevri, giving amber (orange) wines, tannic and savory."
+  classification: "Protected designations of origin (PDO, 'appellations') such as Tsinandali, Mukuzani, Kindzmarauli and Khvanchkara; about 25 in total."
+  history: "Archaeologists found 8,000-year-old wine residue in clay jars in southern Georgia, the oldest known evidence of winemaking. Vines are woven into Georgian culture, and the traditional qvevri method is on UNESCO's intangible heritage list."
+  facts:
+    - "Saperavi is a rare red grape with red flesh as well as red skin, so its wines are inky and long-lived."
+    - "Qvevri are egg-shaped clay jars buried to the neck, used for fermenting, ageing and storing the wine."
+    - "A Georgian feast (supra) has a toastmaster (tamada) who leads the toasts."
+regions:
+  - id: kakheti
+    name: Kakheti
+    units: {adm: GEO/ADM1, names: [Kakheti]}
+    grapes: []
+    local: [Rkatsiteli, Saperavi, Mtsvane, Kisi, Khikhvi]
+    summary: "The heart of Georgian wine, in the east at the foot of the Caucasus: about 70% of all Georgian wine, from fresh whites to qvevri amber wines and dark Saperavi."
+    climate: "Continental with long, warm summers and cold winters; the mountains to the north protect the vines from cold winds."
+    soil: "Alluvial gravel and clay on the valley floor, limestone and clay on the slopes."
+    styles: "Amber Rkatsiteli aged in qvevri, off-dry reds like Kindzmarauli, and fresh European-style whites."
+  - id: telavi
+    name: Telavi district
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Telavi]}
+    grapes: []
+    local: [Rkatsiteli, Mtsvane, Saperavi]
+    summary: "Around the town of Telavi: home of the Tsinandali (white), Mukuzani (red), Napareuli, Teliani and Kardenakhi designations. Mukuzani is a classic oaked Saperavi."
+  - id: gurjaani
+    name: Gurjaani district
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Gurjaani]}
+    grapes: []
+    local: [Rkatsiteli, Mtsvane, Saperavi]
+    summary: "A big grape-growing area in central Kakheti, with the Gurjaani, Vazisubani and Manavi designations. Fresh, mineral whites, many made in qvevri."
+  - id: kvareli
+    name: Kvareli district
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Qvareli]}
+    grapes: []
+    local: [Saperavi, Rkatsiteli]
+    summary: "North-east Kakheti, below the mountains: home of Kindzmarauli, the best-known off-dry red, soft and velvety, with dark cherry and pomegranate."
+  - id: sighnaghi
+    name: Sighnaghi district
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Sighnaghi]}
+    grapes: []
+    local: [Rkatsiteli, Saperavi, Kisi]
+    summary: "The hilltop wine town on the border with Azerbaijan, with views across the Alazani valley; many small qvevri producers."
+  - id: sagarejo
+    name: Sagarejo district
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Sagarejo]}
+    grapes: []
+    local: [Saperavi, Rkatsiteli, Kisi]
+    summary: "Western Kakheti, a mix of vineyards and forest: the Manavi and Tibaani areas, known for their lively whites."
+  - id: lagodekhi
+    name: Lagodekhi & Akhmeta
+    parent: kakheti
+    units: {adm: GEO/ADM2, names: [Lagodekhi, Akhmeta]}
+    grapes: []
+    local: [Saperavi, Rkatsiteli, Khikhvi]
+    summary: "The north-east and north-west edges of Kakheti, with cool mountain air: the home of the rare, delicate Khikhvi."
+  - id: kartli
+    name: Kartli
+    units: {adm: GEO/ADM1, names: [Shida Kartli, Kvemo Kartli, Mtskheta-Mtianeti]}
+    grapes: []
+    local: [Chinuri, Goruli Mtsvane, Tavkveri, Saperavi]
+    summary: "The central plain around Tbilisi and Gori: light, fresh whites from Goruli Mtsvane and Chinuri, traditional-method sparkling wines and the red Tavkveri."
+    climate: "Continental, drier and cooler than Kakheti."
+    soil: "Brown and limestone soils on the hills along the Kura River."
+  - id: imereti
+    name: Imereti
+    units: {adm: GEO/ADM1, names: [Imereti]}
+    grapes: []
+    local: [Tsolikouri, Tsitska, Krakhuna]
+    summary: "Western Georgia, around Kutaisi: softer, lighter whites with less skin contact than Kakheti. Tsitska and Tsolikouri are the stars."
+    climate: "Humid subtropical with plenty of rain."
+    soil: "Limestone and clay on hillsides."
+  - id: racha-lechkhumi
+    name: Racha-Lechkhumi
+    units: {adm: GEO/ADM1, names: [Racha-Lechkhumi and Kvemo Svaneti]}
+    grapes: []
+    local: [Alexandrouli, Mujuretuli, Tsolikouri]
+    summary: "A remote mountain region in the north-west, famous for Khvanchkara: a naturally semi-sweet red from Alexandrouli and Mujuretuli, scented with raspberry and spice."
+    climate: "Cool, mountain climate with long autumns."
+  - id: samegrelo
+    name: Samegrelo
+    units: {adm: GEO/ADM1, names: [Samegrelo-Zemo Svaneti]}
+    grapes: []
+    local: [Ojaleshi, Chkhaveri]
+    summary: "Near the Black Sea in the north-west: the home of the red Ojaleshi, a light, fruity wine, and a lush, green landscape."
+  - id: guria-adjara
+    name: Guria & Adjara
+    units: {adm: GEO/ADM1, names: [Guria, Adjara]}
+    grapes: []
+    local: [Chkhaveri, Tsolikouri]
+    summary: "The wet Black Sea coast, with tiny plots of the rare Chkhaveri, which makes pink, high-acid wines."
+  - id: meskheti
+    name: Meskheti
+    units: {adm: GEO/ADM1, names: [Samtskhe–Javakheti]}
+    grapes: []
+    local: [Tavkveri, Mtsvane]
+    summary: "A high, cool plateau in the south-west, mostly mountain pasture, with a small revived wine tradition."

@@ -1,0 +1,57 @@
+map: bulgaria
+title: Bulgaria
+iso: [BGR]
+focus: [BGR]
+bbox: [41.2, 22.3, 44.3, 28.7]
+W: 2800
+cities:
+  - [Sofia, 42.70, 23.32, 0]
+  - [Plovdiv, 42.14, 24.75]
+  - [Varna, 43.21, 27.91]
+  - [Melnik, 41.52, 23.40]
+  - [Ruse, 43.85, 25.95]
+  - [Burgas, 42.50, 27.47]
+labels:
+  - [Black Sea, 43.0, 28.2, sea]
+  - [ROMANIA, 44.2, 25.5, area]
+  - [SERBIA, 43.3, 22.5, area]
+  - [GREECE, 41.3, 24.5, area]
+  - [TURKEY, 41.4, 27.0, area]
+  - [Danube, 43.9, 24.0, river]
+country:
+  name: Bulgaria
+  summary: "An old wine land of the Thracians, with a Soviet-era export boom and a revival of native grapes: Mavrud, Melnik, Gamza and Rubin, plus excellent international varieties."
+  grapes: [cabernet-sauvignon, merlot, chardonnay, syrah, pinot-noir, muscat, riesling]
+  local: [Mavrud, Melnik, Gamza, Rubin, Pamid, Dimiat, Misket Cherven, Shiroka Melnishka Loza]
+  climate: "Continental in the north and Mediterranean in the south, with the Balkan Mountains between."
+  styles: "Rich, dark reds (Mavrud, Melnik), simple fresh whites and aromatic Misket."
+  classification: "Five wine regions (Danube Plain, Black Sea, Thracian Valley, Rose Valley, Struma Valley) with PDO (Protected Designation of Origin) appellations."
+  history: "The Thracians drank wine from the 2nd millennium BC, and Orpheus is said to have come from here. Bulgaria was the world's second-biggest wine exporter in the 1980s."
+  facts:
+    - "Melnik is a tiny town in the south-west, famed for its sandstone pyramids and wine cellars cut into the rock."
+    - "Mavrud is among the oldest Bulgarian grapes, linked to a Thracian legend of a young man's dark wine."
+regions:
+  - id: danube-plain
+    name: Danube Plain
+    units: {adm: BGR/ADM1, names: [Vidin, Montana, Vratsa, Lovech, Pleven, Ruse, Veliko Tarnovo, Razgrad, Silistra, Gabrovo]}
+    grapes: [cabernet-sauvignon, merlot, chardonnay, pinot-noir]
+    local: [Gamza, Pamid, Rubin]
+    summary: "The northern plain along the river Danube: Bulgaria's biggest area, with Gamza and Merlot in Vidin and Pleven."
+  - id: black-sea
+    name: Black Sea
+    units: {adm: BGR/ADM1, names: [Varna, Dobrich, Burgas, Shumen, Targovishte]}
+    grapes: [chardonnay, pinot-grigio, riesling, sauvignon-blanc]
+    local: [Dimiat, Misket, Ugni Blanc]
+    summary: "The eastern coast: cool breezes for fresh, light whites, with Dimiat and Chardonnay."
+  - id: thracian-valley
+    name: Thracian Valley
+    units: {adm: BGR/ADM1, names: [Plovdiv, Pazardzhik, Stara Zagora, Haskovo, Sliven, Yambol, Kardzhali, Smolyan]}
+    grapes: [cabernet-sauvignon, merlot, syrah, chardonnay]
+    local: [Mavrud, Pamid, Rubin, Misket]
+    summary: "The warm southern plain: Bulgaria's best-known red area, with Mavrud around Asenovgrad."
+  - id: struma-valley
+    name: Struma Valley
+    units: {adm: BGR/ADM1, names: [Blagoevgrad, Kyustendil, Pernik, Sofia, Sofia City]}
+    grapes: [cabernet-sauvignon, syrah, merlot]
+    local: [Melnik, Shiroka Melnishka Loza, Melnik 55]
+    summary: "The far south-west near Greece and North Macedonia: the hottest, driest part, home of the Melnik grape, a dark, spicy red that ages well."

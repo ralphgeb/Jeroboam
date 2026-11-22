@@ -1,0 +1,54 @@
+map: mexico
+title: Mexico
+iso: [MEX]
+focus: [MEX]
+bbox: [19.4, -106.0, 29.0, -98.0]
+W: 2800
+cities:
+  - [Mexico City, 19.43, -99.13, 0]
+  - [Parras de la Fuente, 25.44, -102.18]
+  - [Querétaro, 20.59, -100.39, 0]
+  - [Aguascalientes, 21.88, -102.30]
+  - [Zacatecas, 22.77, -102.58]
+  - [Monterrey, 25.67, -100.31]
+labels:
+  - [Gulf of Mexico, 24.5, -97.8, sea]
+  - [Pacific Ocean, 20.2, -105.7, sea]
+  - [UNITED STATES, 28.7, -100.0, area]
+country:
+  name: Mexico
+  summary: "The oldest wine country in the Americas: Hernán Cortés ordered vines planted in 1524, and Casa Madero in Parras (1597) is the oldest winery in the Americas. Today the high plateau and the north produce a growing quality wine scene."
+  grapes: [cabernet-sauvignon, merlot, tempranillo, chardonnay, malbec, syrah, grenache, sangiovese, nebbiolo]
+  local: [Mission, Chenin Blanc, Viognier]
+  climate: "High plateau, dry and sunny, with cool nights at 1,500 to 2,000 m."
+  styles: "Bold, ripe reds, fresh whites and growing sparkling wine, from the same latitude as the Canaries."
+  classification: "No national appellation system: wineries label by valley (Valle de Parras, Querétaro, Guanajuato, Zacatecas…). The Valle de Guadalupe is on its own map (Baja California)."
+  facts:
+    - "In 1699 the Spanish crown banned wine production in the New World to protect Spanish exports; missions kept making sacramental wine."
+    - "Querétaro is Mexico's second-biggest wine area, with a big sparkling wine tradition near Tequisquiapan."
+regions:
+  - id: coahuila-parras
+    name: Coahuila & Parras
+    units: {adm: MEX/ADM1, names: [Coahuila de Zaragoza]}
+    grapes: [cabernet-sauvignon, merlot, syrah, chardonnay, tempranillo]
+    summary: "The oldest wine area in the Americas, at the high desert around Parras de la Fuente, home of Casa Madero (1597)."
+  - id: queretaro
+    name: Querétaro
+    units: {adm: MEX/ADM1, names: [Queretaro de Arteaga]}
+    grapes: [tempranillo, cabernet-sauvignon, malbec, syrah, chardonnay]
+    summary: "A plateau at 1,700 to 2,000 m, with the Freixenet and Cava-style sparkling houses, and Bernal and Tequisquiapan wine routes."
+  - id: guanajuato
+    name: Guanajuato
+    units: {adm: MEX/ADM1, names: [Guanajuato]}
+    grapes: [cabernet-sauvignon, merlot, tempranillo, chardonnay]
+    summary: "Mexico's high colonial heartland, near San Miguel de Allende and Dolores Hidalgo: a fast-growing wine route."
+  - id: zacatecas-aguascalientes
+    name: Zacatecas & Aguascalientes
+    units: {adm: MEX/ADM1, names: [Zacatecas, Aguascalientes]}
+    grapes: [cabernet-sauvignon, merlot, syrah, chardonnay]
+    summary: "High, dry plains of the central highlands, with vineyards at nearly 2,000 m."
+  - id: northern-highlands
+    name: Chihuahua, Durango & Nuevo León
+    units: {adm: MEX/ADM1, names: [Chihuahua, Durango, Nuevo Leon, San Luis Potosi, Sonora]}
+    grapes: [cabernet-sauvignon, merlot, syrah]
+    summary: "Scattered vineyards in the northern states, from the Chihuahuan desert to the Sierra Madre."

@@ -174,7 +174,7 @@ enum WineRecognizer {
     tasting_notes: 4-6 short aroma/flavor descriptors typical of this wine (e.g. "Black cherry", "Vanilla"). \
     palate: one sentence on structure (sweetness, acidity, tannin, body). \
     price_low/price_high: typical current retail price range for one 750 ml bottle in US dollars, as an estimate from your knowledge (0 if unknown). \
-    style: one of red, white, rose, sparkling, fortified, sweet, orange. confidence: high, medium or low. \
+    region: always name the wine region or appellation (for example Mendoza, Pauillac, Rioja), working it out from the producer and wine when the label does not print it.     style: one of red, white, rose, sparkling, fortified, sweet, orange. confidence: high, medium or low. \
     fun_fact: one short, accurate sentence that teaches something about this wine, its region or grape. \
     drink_window: when to drink it, e.g. "Now–2030" or "Drink now". \
     grape_percent: the usual blend in whole percent, in the same order as grapes, adding up to 100 (a single-variety wine is [100]). Keep every field concise.

@@ -1,0 +1,95 @@
+map: switzerland
+title: Switzerland
+iso: [CHE]
+focus: [CHE]
+bbox: [45.7, 5.9, 47.9, 10.6]
+W: 2800
+cities:
+  - [Bern, 46.95, 7.45, 0]
+  - [Zürich, 47.38, 8.54, 0]
+  - [Geneva, 46.20, 6.14, 0]
+  - [Lausanne, 46.52, 6.63]
+  - [Sion, 46.23, 7.36]
+  - [Lugano, 46.00, 8.95]
+  - [Chur, 46.85, 9.53]
+labels:
+  - [FRANCE, 46.4, 6.0, area]
+  - [ITALY, 45.9, 8.3, area]
+  - [GERMANY, 47.75, 8.7, area]
+  - [AUSTRIA, 47.2, 10.4, area]
+  - [Lake Geneva, 46.45, 6.55, river]
+country:
+  name: Switzerland
+  summary: "Small, steep and mostly drunk at home: Swiss wine hardly leaves the country. Mountain terraces make crisp Chasselas, lively Pinot Noir and rare local grapes such as Petite Arvine and Cornalin."
+  grapes: [pinot-noir, gamay, merlot, chardonnay, sauvignon-blanc, syrah, riesling, pinot-grigio]
+  local: [Chasselas, Petite Arvine, Cornalin, Humagne Rouge, Humagne Blanche, Heida, Amigne, Räuschling, Completer, Garanoir, Gamaret]
+  climate: "Alpine to continental, with sunny, sheltered slopes by lakes and in the high Alpine valleys."
+  styles: "Light, mineral white Chasselas (Fendant), Pinot Noir and Gamay blends such as Dôle, and Merlot from Ticino."
+  classification: "Swiss AOCs follow cantons and districts: Valais, Vaud, Genève, Ticino and others, with Grand Cru in Vaud and Valais."
+  history: "The Romans planted vines on the shores of Lake Geneva; medieval monks built the terraces of Lavaux, now a UNESCO World Heritage site."
+  facts:
+    - "Chasselas (known as Fendant in Valais) is the most planted white grape and shows the soil of each place very clearly."
+    - "Only about 2% of Swiss wine is exported."
+regions:
+  - id: valais
+    name: Valais
+    units: {adm: CHE/ADM1, names: [Valais]}
+    grapes: [pinot-noir, syrah, gamay, chardonnay]
+    local: [Chasselas, Petite Arvine, Cornalin, Humagne Rouge, Amigne, Heida]
+    summary: "The biggest and driest wine canton, in the upper Rhône valley between high Alps. Terraced vineyards up to 1,100 m, with the most varied grapes in the country."
+    climate: "Very dry and sunny, one of the driest places in Switzerland."
+    soil: "Schist, limestone, gravel and moraine."
+  - id: vaud
+    name: Vaud
+    units: {adm: CHE/ADM1, names: [Vaud]}
+    grapes: [pinot-noir, gamay]
+    local: [Chasselas, Gamaret, Garanoir]
+    summary: "North shore of Lake Geneva: Chasselas country, with the famous terraces of Lavaux, La Côte and Chablais."
+    soil: "Molasse, moraine and limestone."
+  - id: geneve
+    name: Geneva
+    units: {adm: CHE/ADM1, names: [Genève]}
+    grapes: [chardonnay, pinot-noir, gamay, sauvignon-blanc]
+    local: [Chasselas, Gamaret]
+    summary: "A city canton ringed by vines. The third-largest wine canton, with a mild lake climate and a wide range of grapes."
+  - id: trois-lacs
+    name: Three Lakes
+    units: {adm: CHE/ADM1, names: [Neuchâtel, Fribourg, Bern, Jura, Solothurn]}
+    grapes: [pinot-noir, chardonnay, pinot-grigio]
+    local: [Chasselas, Œil de Perdrix]
+    summary: "The lakes of Neuchâtel, Biel and Murten at the foot of the Jura: light Chasselas, Pinot Noir and the pink Œil de Perdrix."
+  - id: ticino
+    name: Ticino
+    units: {adm: CHE/ADM1, names: [Ticino]}
+    grapes: [merlot]
+    summary: "The Italian-speaking south: Merlot rules, from fresh rosé-style blanc de noirs to deeper reds, on warm slopes above the Lombard lakes."
+  - id: german-switzerland
+    name: German-speaking Switzerland
+    units: {adm: CHE/ADM1, names: [Zürich, Schaffhausen, Thurgau, Aargau, Basel-Landschaft, Basel-Stadt, St. Gallen, Graubünden, Luzern, Schwyz, Zug]}
+    grapes: [pinot-noir, riesling, pinot-grigio, chardonnay]
+    local: [Müller-Thurgau, Räuschling, Completer, Pinot Noir (Blauburgunder)]
+    summary: "The north and east: many small family vineyards. Pinot Noir (Blauburgunder) is the main grape, and Graubünden's Bündner Herrschaft makes some of the best."
+  - id: lavaux
+    name: Lavaux
+    parent: vaud
+    poly: [[46.52,6.72],[46.52,6.90],[46.46,6.92],[46.44,6.72]]
+    clip: {adm: CHE/ADM1, names: [Vaud]}
+    grapes: []
+    local: [Chasselas]
+    summary: "A UNESCO World Heritage site: 800 years of vine terraces rising 400 m from Lake Geneva, with Chasselas wines from Dézaley and Saint-Saphorin."
+  - id: la-cote
+    name: La Côte
+    parent: vaud
+    poly: [[46.55,6.15],[46.55,6.55],[46.42,6.55],[46.38,6.15]]
+    clip: {adm: CHE/ADM1, names: [Vaud]}
+    grapes: [pinot-noir, gamay]
+    local: [Chasselas]
+    summary: "The long, gentle slope between Lausanne and Geneva: the biggest Vaud district, with light and fresh Chasselas."
+  - id: chablais
+    name: Chablais
+    parent: vaud
+    poly: [[46.40,6.88],[46.40,7.10],[46.25,7.10],[46.25,6.88]]
+    clip: {adm: CHE/ADM1, names: [Vaud]}
+    grapes: []
+    local: [Chasselas]
+    summary: "The Rhône delta at the eastern end of Lake Geneva, with famous names such as Yvorne, Aigle and Bex."

@@ -1,0 +1,56 @@
+map: mountain-west
+title: Idaho & Colorado
+iso: [USA]
+focus: [USA]
+states: [USA]
+bbox: [36.8, -117.4, 46.2, -104.5]
+W: 3000
+cities:
+  - [Boise, 43.62, -116.20, 0]
+  - [Denver, 39.74, -104.99, 0]
+  - [Grand Junction, 39.06, -108.55]
+  - [Lewiston, 46.42, -117.02]
+  - [Salt Lake City, 40.76, -111.89]
+labels:
+  - [IDAHO, 44.4, -114.0, area]
+  - [COLORADO, 38.8, -106.0, area]
+  - [UTAH, 39.5, -111.8, area]
+country:
+  name: Idaho & Colorado
+  summary: "Vineyards at serious altitude: Idaho's Snake River Valley and Colorado's high Western Slope grow Syrah, Riesling, Cabernet and Merlot at 1,500 to 6,000 feet."
+  grapes: [syrah, riesling, merlot, cabernet-sauvignon, tempranillo, chardonnay]
+  local: []
+  climate: "High, dry continental climate: hot days, cold nights and winter freezes that make site choice critical."
+  styles: "Syrah, Riesling, Tempranillo and Bordeaux reds, with fresh, bright whites."
+  classification: "American Viticultural Areas (AVAs) such as Snake River Valley, Eagle Foothills, Grand Valley and West Elks."
+  facts:
+    - "Colorado's Grand Valley is among the highest-altitude wine regions in the world, at about 4,500 to 6,400 ft."
+    - "The Snake River Valley AVA shares a border with Oregon and is the Pacific Northwest's third wine hub after Washington and Oregon."
+regions:
+  - id: snake-river-valley
+    name: Snake River Valley
+    ava: [Snake River Valley]
+    grapes: [syrah, riesling, merlot, cabernet-sauvignon, tempranillo, chardonnay]
+    summary: "Idaho's big wine region, in the Snake River plain from Boise to the Oregon border. High-desert sunshine, cool nights and volcanic-ash soils."
+    soil: "Ancient lake sediment and volcanic ash."
+  - id: eagle-foothills
+    name: Eagle Foothills
+    parent: snake-river-valley
+    ava: [Eagle Foothills]
+    grapes: [syrah, cabernet-sauvignon, merlot]
+    summary: "A hillside AVA north of Boise at 2,600 to 3,000 ft, with slopes that sit above the frosty valley floor."
+  - id: lewis-clark-valley
+    name: Lewis-Clark Valley
+    ava: [Lewis-Clark Valley]
+    grapes: [syrah, merlot, cabernet-sauvignon, riesling]
+    summary: "Idaho's lowest, warmest wine area, in a deep river canyon at the Washington border."
+  - id: grand-valley
+    name: Grand Valley
+    ava: [Grand Valley]
+    grapes: [riesling, merlot, cabernet-franc, syrah, chardonnay]
+    summary: "Colorado's main wine region around Grand Junction on the Western Slope, at about 4,500 ft, with orchards as well as vines."
+  - id: west-elks
+    name: West Elks
+    ava: [West Elks]
+    grapes: [riesling, pinot-noir, chardonnay]
+    summary: "One of America's highest AVAs at around 6,000 ft, in cool Colorado hills near Paonia."

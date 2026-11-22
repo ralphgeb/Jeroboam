@@ -1,0 +1,128 @@
+map: new-york
+title: New York & New England
+iso: [USA]
+focus: [USA]
+states: [USA]
+bbox: [40.3, -81.6, 45.2, -69.8]
+W: 2800
+cities:
+  - [New York, 40.71, -74.01, 0]
+  - [Albany, 42.65, -73.76]
+  - [Buffalo, 42.89, -78.88]
+  - [Ithaca, 42.44, -76.50]
+  - [Rochester, 43.16, -77.61]
+  - [Boston, 42.36, -71.06, 0]
+  - [Providence, 41.82, -71.41]
+  - [Hartford, 41.76, -72.68]
+labels:
+  - [Atlantic Ocean, 40.7, -71.6, sea]
+  - [Lake Erie, 42.5, -79.6, sea]
+  - [Lake Ontario, 43.7, -77.6, sea]
+  - [CANADA, 44.9, -75.6, area]
+country:
+  name: New York & New England
+  summary: "America's oldest wine state and its cool-climate frontier: Riesling and Cabernet Franc by the Finger Lakes, maritime vines on Long Island and tiny, determined vineyards across New England."
+  grapes: [riesling, cabernet-franc, chardonnay, merlot, pinot-noir]
+  local: [Cayuga White, Vidal Blanc, Seyval Blanc, Traminette, Concord, Niagara, Baco Noir]
+  climate: "Cool continental. The big lakes (and on Long Island the Atlantic) soften the winter cold and delay spring, so vines escape frost."
+  styles: "Crisp, aromatic Riesling (dry to sweet, including ice wine), elegant Cabernet Franc and Merlot, Chardonnay and sparkling wine."
+  classification: "American Viticultural Areas (AVAs), such as Finger Lakes and Long Island. New York also has its own 'Appellation' rules for labelling."
+  history: "Vines have grown here since Dutch settlers in the 1600s. In 1962 Konstantin Frank, a Ukrainian immigrant, proved that European Vitis vinifera such as Riesling could survive Finger Lakes winters."
+  facts:
+    - "New York is the third-largest wine-producing state, after California and Washington."
+    - "The Finger Lakes are deep glacial lakes: Seneca Lake never freezes and warms the vineyards around it."
+regions:
+  - id: finger-lakes
+    name: Finger Lakes
+    ava: [Finger Lakes]
+    grapes: [riesling, chardonnay, cabernet-franc, pinot-noir, gewurztraminer]
+    local: [Cayuga White, Vidal Blanc, Traminette]
+    summary: "The state's flagship region: long, narrow glacial lakes with steep slopes of vines above the water. Riesling is the star, from bone-dry to sweet, with fine Cabernet Franc and sparkling wine."
+    climate: "Cool continental, moderated by deep lakes that store summer heat and release it in autumn."
+    soil: "Glacial shale, slate and limestone on steep lakeside slopes."
+  - id: seneca-lake
+    name: Seneca Lake
+    parent: finger-lakes
+    ava: [Seneca Lake]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    summary: "The deepest Finger Lake and the one that holds the most wineries: powerful Riesling and Chardonnay from slopes on both shores."
+  - id: cayuga-lake
+    name: Cayuga Lake
+    parent: finger-lakes
+    ava: [Cayuga Lake]
+    grapes: [riesling, cabernet-franc, pinot-noir]
+    summary: "The first wine trail in America: shale slopes above the longest Finger Lake, with elegant Riesling and Cabernet Franc."
+  - id: long-island
+    name: Long Island
+    ava: [Long Island]
+    grapes: [merlot, cabernet-franc, chardonnay, sauvignon-blanc, cabernet-sauvignon]
+    summary: "A maritime region two hours from New York City. Sea breezes and a long season give Bordeaux-style reds led by Merlot, plus fresh whites."
+    climate: "Maritime, with long autumns tempered by the Atlantic and Long Island Sound."
+    soil: "Sandy loam over glacial gravel, which drains well."
+  - id: north-fork
+    name: North Fork
+    parent: long-island
+    ava: [North Fork of Long Island]
+    grapes: [merlot, cabernet-franc, chardonnay, sauvignon-blanc]
+    summary: "The long, narrow peninsula with water on both sides, home of most Long Island wineries: Merlot, Cabernet Franc and clean, crisp whites."
+  - id: the-hamptons
+    name: The Hamptons
+    parent: long-island
+    ava: ["The Hamptons, Long Island"]
+    grapes: [merlot, chardonnay, cabernet-franc]
+    summary: "The south fork, famous for its summer homes: a smaller group of vineyards on fertile, sandy soil with mild, maritime weather."
+  - id: hudson-river
+    name: Hudson River Region
+    ava: [Hudson River Region]
+    grapes: [chardonnay, cabernet-franc, pinot-noir]
+    local: [Seyval Blanc, Baco Noir, Marechal Foch]
+    summary: "The oldest continuous wine region in the United States (since 1677), in the Hudson Valley north of New York City: French-American hybrids and growing plantings of Cabernet Franc."
+  - id: upper-hudson
+    name: Upper Hudson
+    ava: [Upper Hudson]
+    grapes: [chardonnay, riesling]
+    local: [Marquette, Frontenac]
+    summary: "A cold, small AVA near Saratoga, where very hardy hybrids such as Marquette and Frontenac survive hard winters."
+  - id: champlain-valley
+    name: Champlain Valley
+    ava: [Champlain Valley of New York]
+    grapes: []
+    local: [Marquette, Frontenac, La Crescent]
+    summary: "The state's northernmost wine area, by Lake Champlain, growing cold-hardy grapes bred in Minnesota and Cornell."
+  - id: lake-erie
+    name: Lake Erie
+    ava: [Lake Erie]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Concord, Niagara, Catawba, Vidal Blanc]
+    summary: "A long strip along the shore of Lake Erie across New York, Pennsylvania and Ohio. The biggest grape-growing region in the east, mostly Concord for juice, with growing quality wine."
+    climate: "Lake-effect snow insulates the vines, and the water delays spring."
+  - id: niagara-escarpment
+    name: Niagara Escarpment
+    ava: [Niagara Escarpment]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    summary: "A limestone ridge on the south shore of Lake Ontario, the same escarpment that makes the nearby Ontario wines: fresh whites and light reds."
+  - id: southeastern-new-england
+    name: Southeastern New England
+    ava: [Southeastern New England]
+    grapes: [chardonnay, merlot, cabernet-franc, riesling]
+    local: [Vidal Blanc, Cayuga White]
+    summary: "Coastal Connecticut, Rhode Island and Massachusetts: a mild, maritime strip for crisp whites, sparkling wine and light reds."
+    climate: "Maritime, with sea breezes that moderate the cold winters."
+  - id: marthas-vineyard
+    name: Martha's Vineyard
+    parent: southeastern-new-england
+    ava: [Martha's Vineyard]
+    grapes: [chardonnay, pinot-noir, cabernet-franc]
+    summary: "An island AVA south of Cape Cod: a few vineyards that make clean, salty-fresh Chardonnay and Pinot Noir."
+  - id: western-connecticut-highlands
+    name: Western Connecticut Highlands
+    ava: [Western Connecticut Highlands]
+    grapes: [chardonnay, cabernet-franc, riesling]
+    local: [Vidal Blanc, Seyval Blanc]
+    summary: "Hills in north-west Connecticut with cool nights and well-drained slopes, planted with Chardonnay and French-American hybrids."
+  - id: eastern-connecticut-highlands
+    name: Eastern Connecticut Highlands
+    ava: [Eastern Connecticut Highlands]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Vidal Blanc, Cayuga White]
+    summary: "The rolling eastern uplands of Connecticut: small wineries with aromatic whites and light reds."

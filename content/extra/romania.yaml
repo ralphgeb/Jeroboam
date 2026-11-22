@@ -1,0 +1,64 @@
+map: romania
+title: Romania
+iso: [ROU]
+focus: [ROU]
+bbox: [43.5, 20.2, 48.3, 29.8]
+W: 2800
+cities:
+  - [Bucharest, 44.43, 26.10, 0]
+  - [Cluj-Napoca, 46.77, 23.59]
+  - [Iași, 47.16, 27.59]
+  - [Timișoara, 45.75, 21.23]
+  - [Constanța, 44.18, 28.65]
+  - [Sibiu, 45.80, 24.15]
+labels:
+  - [Black Sea, 44.2, 29.4, sea]
+  - [HUNGARY, 47.3, 20.7, area]
+  - [UKRAINE, 48.0, 25.5, area]
+  - [MOLDOVA, 47.0, 28.7, area]
+  - [BULGARIA, 43.7, 25.5, area]
+  - [Danube, 44.0, 24.0, river]
+country:
+  name: Romania
+  summary: "The fifth-largest wine producer in Europe, with 2,000 years of vines, wide hills from the Carpathians to the Black Sea and native grapes such as Fetească."
+  grapes: [merlot, cabernet-sauvignon, pinot-noir, sauvignon-blanc, chardonnay, riesling, muscat, pinot-grigio, gewurztraminer]
+  local: [Fetească Albă, Fetească Regală, Fetească Neagră, Tămâioasă Românească, Grasă de Cotnari, Busuioacă, Crâmpoșie]
+  climate: "Temperate continental, with warm summers and cold winters; the Carpathian arc and the Black Sea shape the climate."
+  styles: "Fruity, off-dry whites and increasing quality in dry reds; Fetească Neagră is the leading red native."
+  classification: "Eight wine regions and 40+ DOCs (denumire de origine controlată), such as Cotnari, Dealu Mare and Murfatlar."
+  history: "The Greeks planted vines on the Black Sea coast in the 7th century BC; the Dacians already made wine. Cotnari was famous in medieval Moldavia as the wine of kings."
+  facts:
+    - "Romania has the second-largest vineyard area of any EU country after France."
+    - "The Murfatlar region on the Black Sea is known for its sweet, late-harvest wines."
+regions:
+  - id: transylvania
+    name: Transylvania
+    units: {adm: ROU/ADM1, names: [ALBA, CLUJ, MURES, SIBIU, BISTRITA-NASAUD, HARGHITA, COVASNA, BRASOV, SALAJ]}
+    grapes: [sauvignon-blanc, pinot-grigio, riesling, gewurztraminer]
+    local: [Fetească Albă, Fetească Regală, Tămâioasă Românească]
+    summary: "The high plateau inside the Carpathians: cool, aromatic whites such as Fetească Regală and sparkling wine."
+  - id: moldavia-romania
+    name: Moldavia (Romania)
+    units: {adm: ROU/ADM1, names: [IASI, VASLUI, NEAMT, BACAU, VRANCEA, GALATI, BOTOSANI, SUCEAVA]}
+    grapes: [pinot-grigio, chardonnay, cabernet-sauvignon, merlot]
+    local: [Fetească Albă, Fetească Neagră, Grasă de Cotnari, Frâncușă]
+    summary: "The largest vineyard region, on the eastern slopes of the Carpathians. It includes Cotnari (sweet, historic whites) and Vrancea, the biggest single wine county."
+  - id: muntenia-oltenia
+    name: Muntenia & Oltenia
+    units: {adm: ROU/ADM1, names: [PRAHOVA, BUZAU, ARGES, DAMBOVITA, DOLJ, OLT, VALCEA, GORJ, MEHEDINTI, TELEORMAN, GIURGIU, CALARASI, IALOMITA, BRAILA, ILFOV, BUCURESTI]}
+    grapes: [cabernet-sauvignon, merlot, pinot-noir, syrah, sauvignon-blanc]
+    local: [Fetească Neagră, Fetească Regală, Tămâioasă Românească]
+    summary: "The southern foothills: sunny slopes of Dealu Mare ('Big Hill') with Cabernet, Merlot and Fetească Neagră. Romania's top reds."
+    climate: "The warmest wine area."
+  - id: banat-crisana
+    name: Banat & Crișana
+    units: {adm: ROU/ADM1, names: [TIMIS, CARAS-SEVERIN, ARAD, BIHOR, HUNEDOARA, SATU MARE, MARAMURES]}
+    grapes: [riesling, merlot, cabernet-sauvignon, pinot-noir]
+    local: [Mustoasă de Măderat, Fetească Regală, Cadarcă, Kadarka]
+    summary: "The western plains next to Hungary and Serbia, with small, historic districts such as Recaș and Miniș."
+  - id: dobrogea
+    name: Dobrogea
+    units: {adm: ROU/ADM1, names: [CONSTANTA, TULCEA]}
+    grapes: [chardonnay, merlot, cabernet-sauvignon, muscat]
+    local: [Fetească Neagră]
+    summary: "The Black Sea coast and Danube delta: warm and dry, home of Murfatlar, famed for late-harvest sweet wines."

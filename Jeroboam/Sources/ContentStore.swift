@@ -6,6 +6,9 @@ final class ContentStore {
 
     let course: Course
     let library: Library
+    /// Wine places that are not in the atlas: mapped for the Journal and shown from Settings.
+    private(set) var extraRegions: [Region] = []
+    private var extraSoils: [String: String] = [:]
 
     private(set) var grapesByID: [String: Grape] = [:]
     private(set) var regionsByID: [String: Region] = [:]
@@ -23,6 +26,11 @@ final class ContentStore {
             ?? Library(wines: [], grapes: [], regions: [], aromas: [], colors: [], glossary: [], styles: [], flows: [], sat: [], pairings: [], labels: [])
         for g in library.grapes { grapesByID[g.id] = g }
         for r in library.regions { regionsByID[r.id] = r }
+        if let x = Self.load("extra", as: ExtraLibrary.self) {
+            extraRegions = x.regions
+            extraSoils = x.soils ?? [:]
+            for r in x.regions where regionsByID[r.id] == nil { regionsByID[r.id] = r }
+        }
         for c in library.colors { colorsByID[c.id] = c }
         for f in library.flows { flowsByID[f.id] = f }
         for s in library.styles { stylesByID[s.id] = s }
@@ -64,7 +72,7 @@ final class ContentStore {
 
     func grape(_ id: String) -> Grape? { grapesByID[id] }
     func region(_ id: String) -> Region? { regionsByID[id] }
-    func soil(_ id: String) -> String? { library.soils?[id] }
+    func soil(_ id: String) -> String? { library.soils?[id] ?? extraSoils[id] }
     func color(_ id: String) -> WineColor? { colorsByID[id] }
     func flow(_ id: String) -> Flow? { flowsByID[id] }
     func label(_ id: String) -> WineLabel? { library.labels?.first { $0.id == id } }
@@ -72,6 +80,34 @@ final class ContentStore {
 
     /// Region entries that can be opened from a map region id (the map's own region ids match library ids).
     func regionForMapArea(_ id: String) -> Region? { regionsByID[id] }
+
+    /// The atlas page for a wine's region as written on a label or by the model ("Uco Valley, Mendoza", "Mendoza"…):
+    /// the most specific place whose name appears in the text, else the page of the country.
+    func regionMatching(_ text: String, country: String = "") -> Region? {
+        func norm(_ s: String) -> String {
+            s.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
+                .replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: "'", with: "")
+        }
+        let t = " " + norm(text).components(separatedBy: CharacterSet.alphanumerics.inverted.subtracting(CharacterSet(charactersIn: " "))).joined(separator: " ") + " "
+        var best: (Region, Int)? = nil
+        if !text.trimmingCharacters(in: .whitespaces).isEmpty {
+            for r in library.regions + extraRegions where r.kind != "country" {
+                let n = norm(r.name)
+                guard n.count >= 3 else { continue }
+                if t.contains(" " + n + " ") || (n.count >= 5 && t.contains(n)) {
+                    let score = n.count + (r.kind == "subregion" ? 4 : 0)
+                    if best == nil || score > best!.1 { best = (r, score) }
+                }
+            }
+        }
+        if let b = best { return b.0 }
+        let c = norm(country).trimmingCharacters(in: .whitespaces)
+        if !c.isEmpty {
+            return (library.regions + extraRegions).first { $0.kind == "country" && norm($0.name) == c }
+                ?? (library.regions + extraRegions).first { $0.kind == "country" && (norm($0.name).contains(c) || c.contains(norm($0.name))) }
+        }
+        return nil
+    }
 
     func allAromaCategories() -> [AromaCategory] { library.aromas.flatMap { $0.categories } }
 

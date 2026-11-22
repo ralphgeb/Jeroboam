@@ -1,0 +1,76 @@
+map: armenia
+title: Armenia
+iso: [ARM]
+focus: [ARM]
+bbox: [38.7, 43.3, 41.4, 46.8]
+W: 2800
+cities:
+  - [Yerevan, 40.18, 44.51, 0]
+  - [Areni, 39.73, 45.19]
+  - [Gyumri, 40.79, 43.85]
+  - [Goris, 39.51, 46.34]
+  - [Vanadzor, 40.81, 44.49]
+labels:
+  - [GEORGIA, 41.2, 44.4, area]
+  - [AZERBAIJAN, 40.4, 46.6, area]
+  - [TURKEY, 40.0, 43.6, area]
+  - [IRAN, 38.9, 45.5, area]
+  - [Lake Sevan, 40.25, 45.35, river]
+country:
+  name: Armenia
+  summary: "Home of the oldest winery ever found: a 6,100-year-old cave at Areni. High-altitude vineyards, volcanic soils and native grapes make fresh, mineral wines."
+  grapes: []
+  local: [Areni, Voskehat, Kangun, Khatun Kharji, Garan Dmak, Haghtanak, Kakhet, Sireni, Kharji]
+  climate: "Continental with hot summers and cold winters; vineyards sit at 800 to 2,000 m, among the highest in the world."
+  styles: "Dry and fortified wines, especially from Areni (a light, spicy red) and Voskehat (a rich, floral white)."
+  classification: "Wine regions: Ararat Valley, Vayots Dzor, Aragatsotn, Armavir, Tavush, Syunik, Kotayk and Shirak, with a growing system of appellations."
+  history: "In 2007 archaeologists found a 6,100-year-old winery in the Areni-1 cave, with a wine press, fermentation vats and storage jars. Armenian legend says Noah planted the first vineyard on the slopes of Mount Ararat."
+  facts:
+    - "Areni-1 is the oldest known winery in the world."
+    - "Armenia's high elevations and sandy volcanic soils protected many vines from phylloxera, so lots of old, ungrafted vines survive."
+regions:
+  - id: ararat-valley
+    name: Ararat Valley
+    units: {adm: ARM/ADM1, names: [Ararat, Armavir, Yerevan]}
+    grapes: []
+    local: [Voskehat, Kangun, Garan Dmak]
+    summary: "The wide plain around Yerevan, below Mount Ararat: the big source of Armenian brandy grapes and fortified wines, with hot summers."
+    climate: "Hot and dry in summer, cold in winter."
+    soil: "Alluvial plains and volcanic soils."
+  - id: vayots-dzor
+    name: Vayots Dzor
+    units: {adm: ARM/ADM1, names: [Vayots Dzor]}
+    grapes: []
+    local: [Areni, Karmrahyut]
+    summary: "The 'Valley of Sorrow': a high, dry canyon landscape with the Areni cave and the home of the Areni grape. Vineyards climb to 1,700 m."
+    soil: "Volcanic and limestone."
+  - id: aragatsotn
+    name: Aragatsotn
+    units: {adm: ARM/ADM1, names: [Aragatsotn]}
+    grapes: []
+    local: [Voskehat, Kangun, Areni]
+    summary: "The foothills of Mount Aragats, the highest peak in Armenia, with volcanic soils and old vineyards in the villages of Ashtarak and Karmrashen."
+  - id: kotayk
+    name: Kotayk & Gegharkunik
+    units: {adm: ARM/ADM1, names: [Kotayk, Gegharkunik]}
+    grapes: []
+    local: [Voskehat, Haghtanak]
+    summary: "Mountain slopes north-east of Yerevan and the shores of Lake Sevan: small, cool plots."
+  - id: tavush
+    name: Tavush
+    units: {adm: ARM/ADM1, names: [Tavush]}
+    grapes: []
+    local: [Kangun, Haghtanak, Sireni]
+    summary: "The forested north-east, on the border with Georgia: a cooler region with a long tradition of home winemaking."
+  - id: syunik
+    name: Syunik
+    units: {adm: ARM/ADM1, names: [Syunik]}
+    grapes: []
+    local: [Khatun Kharji, Areni]
+    summary: "The mountainous south, near the Iranian border, with a few high-altitude vineyards and ancient vines."
+  - id: lori-shirak
+    name: Lori & Shirak
+    units: {adm: ARM/ADM1, names: [Lori, Shirak]}
+    grapes: []
+    local: [Voskehat, Haghtanak]
+    summary: "The high north-west plateau, too cold for most vines but with a few hardy plots."

@@ -519,6 +519,36 @@ for k in soils:
     if k not in _known: warn(f"soil for unknown place {k}")
 library["soils"] = soils
 
+# ---- maps beyond the atlas (content/extra/<map>.yaml): their own guide entries, shown from Settings and used by the Journal
+extra_regions, extra_soils = [], {}
+_taken = set(rids)
+for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
+    spec = yaml.safe_load(open(fp, encoding="utf-8"))
+    mid, c = spec["map"], spec["country"]
+    if mid not in maps:
+        err(f"extra map {mid}: map file not built"); continue
+    if mid in _taken: err(f"extra map id {mid} collides with another place")
+    _taken.add(mid)
+    top = [r["id"] for r in spec["regions"] if not r.get("parent")]
+    def entry(r, kind, sub=None):
+        for gid in r.get("grapes", []) or []:
+            if gid not in gset: err(f"extra {r['id']} -> unknown grape {gid}")
+        e = {"id": r["id"], "name": r["name"], "country": c["name"], "kind": kind, "map": mid,
+             "highlight": [] if kind == "country" else [r["id"]], "grapes": r.get("grapes") or [], "summary": r["summary"], "level": 3}
+        for k in ("climate", "styles", "classification", "history", "facts", "local"):
+            if r.get(k): e[k] = r[k]
+        if sub: e["sub"] = sub
+        return e
+    extra_regions.append(entry({"id": mid, "name": c["name"], **c}, "country", top))
+    if c.get("soil"): extra_soils[mid] = c["soil"]
+    for r in spec["regions"]:
+        if r["id"] in _taken: err(f"extra region id {r['id']} is already used")
+        _taken.add(r["id"])
+        if r["id"] not in maps[mid]: err(f"extra region {r['id']} is not on map {mid} (geometry missing?)")
+        kids = [k["id"] for k in spec["regions"] if k.get("parent") == r["id"]]
+        extra_regions.append(entry(r, "subregion" if r.get("parent") else "region", kids or None))
+        if r.get("soil"): extra_soils[r["id"]] = r["soil"]
+
 for w in warnings: print("warning:", w)
 for e in errors: print("ERROR:", e)
 if errors:
@@ -527,6 +557,8 @@ if errors:
 os.makedirs(OUT, exist_ok=True)
 json.dump(course, open(os.path.join(OUT, "course.json"), "w"), ensure_ascii=False, separators=(",", ":"))
 json.dump(library, open(os.path.join(OUT, "library.json"), "w"), ensure_ascii=False, separators=(",", ":"))
+json.dump({"regions": extra_regions, "soils": extra_soils}, open(os.path.join(OUT, "extra.json"), "w"), ensure_ascii=False, separators=(",", ":"))
+print(f"extra atlas: {len([r for r in extra_regions if r['kind'] == 'country'])} maps, {len(extra_regions)} places")
 n_lessons = sum(len(u["lessons"]) for l in course["levels"] for u in l["units"])
 n_units = sum(len(l["units"]) for l in course["levels"])
 print(f"OK: {len(course['levels'])} levels, {n_units} units, {n_lessons} lessons, {card_count} cards; "

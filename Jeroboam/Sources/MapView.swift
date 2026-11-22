@@ -386,7 +386,7 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.mapColor(a.color).opacity(solo ? 0.16 : 0.35)), lineWidth: hair * 0.8)
                     continue
                 }
-                if (isContainer || a.level == 0) && !isHL {
+                if (isContainer || (a.level == 0 && g.maxLevel > 0)) && !isHL {
                     // big regions: a faint tint plus a faded hatch in the region's color; appellations stay solid
                     let base = Palette.mapColor(a.color)
                     let dim = anyHL && !(highlight.contains(a.parent ?? "")) ? 0.5 : 1.0
@@ -535,10 +535,12 @@ struct MapRenderer {
                 let b = a.path.boundingRect
                 let sb = CGRect(x: b.minX * s + offset.width, y: b.minY * s + offset.height, width: b.width * s, height: b.height * s)
                 guard sb.width >= 22, sb.height >= 12, full.intersects(sb) else { continue }
-                let hatched = regionsOnly || ((isContainer || a.level == 0) && !isHL)
+                let hatched = regionsOnly || ((isContainer || (a.level == 0 && g.maxLevel > 0)) && !isHL)
                 var fill = Palette.mapColor(a.color)
                 if a.level >= 2 { fill = fill.mix(with: .black, 0.18) }
-                let ink: Color = hatched ? Palette.ink.opacity(0.85) : (luminance(fill) < 0.6 ? .white : Palette.ink)
+                // areas faded behind a selection are pale: dark text there too
+                let faded = (!highlight.isEmpty || selected != nil) && !isHL && !highlight.contains(a.parent ?? "") && !isContainer
+                let ink: Color = (hatched || faded) ? Palette.ink.opacity(0.85) : (luminance(fill) < 0.6 ? .white : Palette.ink)
                 let fs = 11 * ls
                 let chars = Array(a.name)
                 var options: [[String]] = [[a.name]]

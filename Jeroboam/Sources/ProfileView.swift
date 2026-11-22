@@ -9,6 +9,7 @@ struct ProfileView: View {
     private var journalSpent: Double { journal.spentUSD }
 
     @State private var currencyCode = Currency.code
+    @State private var showExtraAtlas = false
 
     var body: some View {
         // measured here, not taken from the page: this screen opens in a sheet, whose width is its own
@@ -49,6 +50,7 @@ struct ProfileView: View {
             .onAppear { progress.checkAchievements() }
             .statusBarBackdrop()
             .plusSheetHost()
+            .sheet(isPresented: $showExtraAtlas) { ExtraAtlasView() }
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -185,6 +187,24 @@ struct ProfileView: View {
                             Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
                                 .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14)
                         }
+                    }
+
+                    // maps for places that are not in the atlas
+                    VStack(alignment: .leading, spacing: 0) {
+                        SectionTitle(text: "More maps").padding(.bottom, 10)
+                        Button { showExtraAtlas = true } label: {
+                            HStack(spacing: 12) {
+                                Image(systemName: "map").font(.system(size: 16)).foregroundStyle(Palette.wine).frame(width: 24)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Maps beyond the atlas").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                                    Text("Wine places that are not in the course").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                            }
+                            .padding(.vertical, 12).contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
                     }
 
                     // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.

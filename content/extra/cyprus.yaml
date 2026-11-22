@@ -1,0 +1,60 @@
+map: cyprus
+title: Cyprus
+iso: [CYP]
+focus: [CYP]
+bbox: [34.5, 32.2, 35.7, 34.7]
+W: 2800
+cities:
+  - [Nicosia, 35.17, 33.36, 0]
+  - [Limassol, 34.68, 33.04]
+  - [Paphos, 34.77, 32.42]
+  - [Larnaca, 34.92, 33.63]
+  - [Omodos, 34.84, 32.80]
+labels:
+  - [Mediterranean Sea, 34.6, 33.0, sea]
+  - [Troodos Mountains, 34.93, 32.85, area]
+country:
+  name: Cyprus
+  summary: "The home of Commandaria, one of the world's oldest named wines (since the 12th century), and Xynisteri and Mavro grapes grown among Troodos mountain villages."
+  grapes: [syrah, cabernet-sauvignon, grenache, mourvedre, chardonnay, sauvignon-blanc, muscat]
+  local: [Xynisteri, Mavro, Maratheftiko, Yiannoudi, Ofthalmo, Promara, Spourtiko]
+  climate: "Hot, dry Mediterranean summers; the best vineyards climb the Troodos mountains to 1,500 m."
+  styles: "Dry whites from Xynisteri, red Maratheftiko, and the sweet, raisined Commandaria."
+  classification: "Regional PDO and PGI areas such as Commandaria, Laona-Akamas, Pitsilia, Krasochoria and Vouni Panagias-Ambelitis."
+  history: "Cyprus has made wine for 6,000 years. Commandaria was served at the wedding of Richard the Lionheart in 1191 and is thought to be the oldest still-made wine."
+  facts:
+    - "Many Cypriot vines are old, ungrafted bush vines, as phylloxera never arrived on the island."
+    - "Commandaria is made from sun-dried Xynisteri and Mavro grapes in 14 villages of the Limassol mountains."
+regions:
+  - id: limassol-troodos
+    name: Limassol & the southern Troodos
+    units: {adm: CYP/ADM1, names: [Limassol]}
+    grapes: [syrah, cabernet-sauvignon]
+    local: [Xynisteri, Mavro, Maratheftiko, Mavro Ambelissimo]
+    summary: "The wine heart of the island: mountain villages such as Omodos and Laneia above the coast, with old bush vines on chalk and volcanic soils at 600 to 1,500 m."
+  - id: commandaria
+    name: Commandaria
+    parent: limassol-troodos
+    poly: [[34.97,32.95],[34.97,33.25],[34.75,33.25],[34.75,32.95]]
+    clip: {adm: CYP/ADM1, names: [Limassol]}
+    grapes: []
+    local: [Xynisteri, Mavro]
+    summary: "A zone of 14 villages in the Limassol foothills, making sweet, dark Commandaria from sun-dried grapes, the world's oldest named wine."
+  - id: paphos-laona
+    name: Paphos & Laona-Akamas
+    units: {adm: CYP/ADM1, names: [Paphos]}
+    grapes: [chardonnay, cabernet-sauvignon]
+    local: [Maratheftiko, Xynisteri, Spourtiko, Vasilissa]
+    summary: "The wild west of Cyprus, with Laona, Akamas and the Paphos highlands: the home of the red Maratheftiko and rare local white grapes."
+  - id: nicosia-pitsilia
+    name: Nicosia & Pitsilia
+    units: {adm: CYP/ADM1, names: [Nicosia]}
+    grapes: [syrah, grenache]
+    local: [Xynisteri, Mavro, Promara]
+    summary: "The central plain and the northern Troodos slopes, with the cool, high-altitude Pitsilia area."
+  - id: larnaca
+    name: Larnaca
+    units: {adm: CYP/ADM1, names: [Larnaca]}
+    grapes: [grenache, syrah]
+    local: [Mavro, Xynisteri]
+    summary: "The eastern coast, with some old vineyards in the Vouni Panagias area and a long winemaking tradition."

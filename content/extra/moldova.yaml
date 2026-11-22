@@ -1,0 +1,52 @@
+map: moldova
+title: Moldova
+iso: [MDA]
+focus: [MDA]
+bbox: [45.4, 26.6, 48.6, 30.2]
+W: 2800
+cities:
+  - [Chișinău, 47.01, 28.86, 0]
+  - [Bălți, 47.76, 27.93]
+  - [Cricova, 47.14, 28.86]
+  - [Cahul, 45.90, 28.19]
+  - [Comrat, 46.30, 28.66]
+labels:
+  - [ROMANIA, 47.0, 26.8, area]
+  - [UKRAINE, 47.8, 29.8, area]
+  - [Prut, 47.5, 27.5, river]
+country:
+  name: Moldova
+  summary: "One of the most vine-covered countries per head in the world, famous for vast underground cellars (Mileștii Mici has 200 km of tunnels) and a revival of Fetească and Rară Neagră."
+  grapes: [chardonnay, pinot-noir, cabernet-sauvignon, merlot, sauvignon-blanc, pinot-grigio, riesling]
+  local: [Fetească Albă, Fetească Regală, Fetească Neagră, Rară Neagră, Plavai, Viorica, Rkatsiteli]
+  climate: "Temperate continental, mild and sunny, with long summers and hard winters."
+  styles: "Simple fruity whites, sparkling wine made in underground cellars, and richer reds from Fetească Neagră and Rară Neagră."
+  classification: "Three PGI regions (Valul lui Traian, Ștefan Vodă, Codru) plus Divin (brandy) and PDO regions such as Codru, Ștefan Vodă and Valul lui Traian."
+  facts:
+    - "The Mileștii Mici cellar holds the biggest wine collection in the world (almost 2 million bottles) in tunnels 85 m below ground."
+    - "Wine has long been Moldova's top export, with the former Soviet Union as its main market."
+regions:
+  - id: codru
+    name: Codru
+    units: {adm: MDA/ADM1, names: [Chisinau, Ialoveni, Straseni, Calarasi, Nisporeni, Hincesti, Ungheni, Orhei, Criuleni, Telenesti, Rezina, Dubasari, Soldanesti]}
+    grapes: [chardonnay, pinot-noir, cabernet-sauvignon, merlot, sauvignon-blanc]
+    local: [Fetească Albă, Fetească Regală, Rară Neagră]
+    summary: "The wooded hills of central Moldova around Chișinău, the heart of the wine industry. It holds the famous Cricova and Mileștii Mici cellars."
+  - id: stefan-voda
+    name: Ștefan Vodă
+    units: {adm: MDA/ADM1, names: [Stefan Voda, Causeni, Anenii Noi]}
+    grapes: [merlot, cabernet-sauvignon, chardonnay]
+    local: [Rară Neagră, Fetească Neagră]
+    summary: "The south-east, near the Dniester river and the Black Sea: warm days and ripe reds."
+  - id: valul-lui-traian
+    name: Valul lui Traian
+    units: {adm: MDA/ADM1, names: [Cahul, Taraclia, Cimislia, Basarabeasca, Leova, Cantemir, Gagauzia]}
+    grapes: [cabernet-sauvignon, merlot, chardonnay, muscat]
+    local: [Fetească Neagră, Rară Neagră]
+    summary: "Named after the Trajan's Wall earthworks, the hot, dry south, known for full-bodied reds and Muscat."
+  - id: northern-moldova
+    name: North Moldova
+    units: {adm: MDA/ADM1, names: [Balti, Briceni, Donduseni, Drochia, Edinet, Falesti, Floresti, Glodeni, Ocnita, RIscani, SIngerei, Soroca]}
+    grapes: [riesling, pinot-grigio, pinot-noir]
+    local: [Fetească Albă, Fetească Regală]
+    summary: "A cooler, hillier part of the country, with fewer vineyards."

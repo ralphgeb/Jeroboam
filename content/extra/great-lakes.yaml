@@ -1,0 +1,127 @@
+map: great-lakes
+title: Great Lakes & Midwest
+iso: [USA]
+focus: [USA]
+states: [USA]
+bbox: [38.3, -92.5, 47.2, -82.0]
+W: 2800
+cities:
+  - [Chicago, 41.88, -87.63, 0]
+  - [Detroit, 42.33, -83.05]
+  - [Traverse City, 44.76, -85.62]
+  - [Cleveland, 41.50, -81.69]
+  - [Milwaukee, 43.04, -87.91]
+  - [Minneapolis, 44.98, -93.27]
+  - [Columbus, 39.96, -83.00]
+  - [Cincinnati, 39.10, -84.51]
+labels:
+  - [Lake Michigan, 43.6, -87.0, sea]
+  - [Lake Superior, 47.0, -88.0, sea]
+  - [Lake Huron, 44.9, -82.5, sea]
+  - [Lake Erie, 41.9, -82.3, sea]
+country:
+  name: Great Lakes & Midwest
+  summary: "Cool-climate wine on the shores of the Great Lakes (Michigan, Ohio, Pennsylvania) and up the Mississippi: Riesling, Pinot Gris, ice wine and hardy hybrids."
+  grapes: [riesling, pinot-grigio, chardonnay, cabernet-franc, pinot-noir]
+  local: [Vidal Blanc, Chambourcin, Marquette, Frontenac, La Crescent, Norton, Catawba, Concord]
+  climate: "Cold winters and warm summers, softened by the huge lakes whose water releases heat in autumn and delays spring."
+  styles: "Dry and off-dry Riesling, ice wine, sparkling wine, and Norton, a native grape with deep colour."
+  classification: "American Viticultural Areas (AVAs) such as Leelanau Peninsula, Old Mission Peninsula, Lake Erie and Ohio River Valley."
+  facts:
+    - "The Leelanau and Old Mission peninsulas in Michigan sit on the 45th parallel, the same latitude as Bordeaux and the Piedmont."
+    - "Missouri's Hermann was the first AVA in the United States, in 1980."
+regions:
+  - id: leelanau-peninsula
+    name: Leelanau Peninsula
+    ava: [Leelanau Peninsula]
+    grapes: [riesling, pinot-grigio, chardonnay, pinot-noir, cabernet-franc]
+    summary: "A narrow peninsula in north-west Michigan with Lake Michigan on three sides. Some of the best Riesling and Pinot Gris of the Midwest."
+    soil: "Sandy, glacial loam over clay."
+  - id: old-mission-peninsula
+    name: Old Mission Peninsula
+    ava: [Old Mission Peninsula]
+    grapes: [riesling, pinot-grigio, chardonnay, merlot]
+    summary: "A 19-mile finger of land in Grand Traverse Bay: cool, breezy vineyards with ripe whites and clean, lean reds."
+  - id: lake-michigan-shore
+    name: Lake Michigan Shore
+    ava: [Lake Michigan Shore]
+    grapes: [riesling, chardonnay, cabernet-franc, merlot]
+    local: [Vidal Blanc, Concord]
+    summary: "Michigan's south-west corner, on sand dunes with lake-moderated weather. The state's oldest wine region."
+  - id: fennville
+    name: Fennville
+    ava: [Fennville]
+    grapes: [riesling, chardonnay]
+    summary: "A small AVA inland from Lake Michigan, in fruit-growing country."
+  - id: tip-of-the-mitt
+    name: Tip of the Mitt
+    ava: [Tip of the Mitt]
+    grapes: [riesling]
+    local: [Marquette, Frontenac, La Crescent]
+    summary: "Michigan's far north: cold-hardy grapes among the resort towns of Lake Huron."
+  - id: lake-erie-shore
+    name: Lake Erie (Great Lakes)
+    ava: [Lake Erie]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Concord, Niagara, Catawba, Vidal Blanc]
+    summary: "A big, long AVA along the south shore of Lake Erie across Ohio, Pennsylvania and New York: the biggest grape region in the east, from Concord juice grapes to quality ice wine."
+  - id: grand-river-valley
+    name: Grand River Valley
+    ava: [Grand River Valley]
+    grapes: [riesling, chardonnay, pinot-noir]
+    local: [Vidal Blanc, Catawba]
+    summary: "North-east Ohio, near Lake Erie: cool and snowy winters, producing aromatic whites and ice wine."
+  - id: ohio-river-valley
+    name: Ohio River Valley
+    ava: [Ohio River Valley]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Norton, Chambourcin, Vidal Blanc, Catawba]
+    summary: "The enormous, historic AVA along the Ohio River across Ohio, Indiana, Kentucky and West Virginia. Cincinnati was once the biggest wine town in the US, famous for Catawba sparkling wine."
+  - id: indiana-uplands
+    name: Indiana Uplands
+    ava: [Indiana Uplands]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Chambourcin, Traminette]
+    summary: "Limestone hills in southern Indiana with small family wineries."
+  - id: hermann
+    name: Hermann
+    ava: [Hermann]
+    grapes: []
+    local: [Norton, Vignoles, Chambourcin]
+    summary: "The first AVA in the United States (1980), in the Missouri River valley. German settlers made it the centre of the Norton grape."
+  - id: augusta
+    name: Augusta
+    ava: [Augusta]
+    grapes: []
+    local: [Norton, Vignoles, Chardonel]
+    summary: "America's very first AVA (1980), in the Missouri River hills above St. Louis, with Norton as the star."
+  - id: ozark-highlands
+    name: Ozark Highlands
+    ava: [Ozark Highlands]
+    grapes: []
+    local: [Norton, Concord, Cynthiana]
+    summary: "A cool, hilly area in southern Missouri with old Norton plantings."
+  - id: shawnee-hills
+    name: Shawnee Hills
+    ava: [Shawnee Hills]
+    grapes: [chardonnay]
+    local: [Chambourcin, Vidal Blanc, Norton]
+    summary: "Southern Illinois hills with a wine trail among the forests."
+  - id: upper-mississippi-river-valley
+    name: Upper Mississippi River Valley
+    ava: [Upper Mississippi River Valley]
+    grapes: [riesling]
+    local: [Marquette, Frontenac, La Crescent, Vidal Blanc]
+    summary: "A huge AVA across Wisconsin, Minnesota, Illinois and Iowa along the river, where cold-hardy hybrids thrive."
+  - id: wisconsin-ledge
+    name: Wisconsin Ledge
+    ava: [Wisconsin Ledge]
+    grapes: [riesling]
+    local: [Vidal Blanc, Frontenac]
+    summary: "Door County and the limestone cliffs of eastern Wisconsin, softened by Lake Michigan."
+  - id: lake-wisconsin
+    name: Lake Wisconsin
+    ava: [Lake Wisconsin]
+    grapes: [riesling]
+    local: [Marquette, La Crescent]
+    summary: "A small AVA near Madison with cool-climate hybrids."

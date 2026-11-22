@@ -131,6 +131,8 @@ struct Region: Decodable, Identifiable, Hashable {
     let classification: String?
     let facts: [String]?
     var history: String? = nil
+    /// Local grape names that have no page of their own (maps beyond the atlas).
+    var local: [String]? = nil
     let sub: [String]?
     let level: Int
 
@@ -275,4 +277,10 @@ struct WineMap: Decodable {
     let cities: [City]
     let labels: [Label]
     let belts: [Int]?
+}
+
+/// The places that are mapped but not part of the atlas (content/extra/*.yaml).
+struct ExtraLibrary: Decodable {
+    let regions: [Region]
+    let soils: [String: String]?
 }

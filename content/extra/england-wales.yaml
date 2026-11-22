@@ -1,0 +1,134 @@
+map: england-wales
+title: England & Wales
+iso: [GBR]
+focus: [GBR]
+bbox: [49.8, -6.0, 53.4, 1.9]
+W: 2800
+cities:
+  - [London, 51.51, -0.13, 0]
+  - [Brighton, 50.82, -0.14]
+  - [Canterbury, 51.28, 1.08]
+  - [Southampton, 50.90, -1.40]
+  - [Bristol, 51.45, -2.59]
+  - [Cardiff, 51.48, -3.18]
+  - [Exeter, 50.72, -3.53]
+  - [Cambridge, 52.21, 0.12]
+labels:
+  - [English Channel, 49.95, -1.5, sea]
+  - [North Sea, 52.3, 1.7, sea]
+  - [Irish Sea, 53.1, -4.8, sea]
+  - [FRANCE, 49.9, 1.2, area]
+country:
+  name: England & Wales
+  summary: "The world's fastest-growing cool-climate wine country, led by sparkling wine from chalk soils that run under the English Channel to Champagne."
+  grapes: [chardonnay, pinot-noir, meunier, pinot-blanc, riesling, cabernet-franc]
+  local: [Bacchus, Ortega, Seyval Blanc, Solaris, Pinot Meunier, Rondo, Reichensteiner]
+  climate: "Cool and maritime. Warmer summers than a generation ago have made ripening more reliable, but spring frost and wet summers are the main risks."
+  styles: "Traditional-method sparkling wine from Chardonnay, Pinot Noir and Pinot Meunier (the Champagne grapes), plus aromatic still whites such as Bacchus."
+  classification: "Protected designations of origin (PDO): Sussex, Darnibbles, Essex, Cornwall, Hampshire (as English Sparkling), plus 'English Wine' and 'Welsh Wine' as national categories."
+  history: "The Romans planted vines here, and monks kept some going in the Middle Ages. The modern industry began in Hampshire in the 1950s; in 2018 vineyards covered more than 3,000 hectares."
+  facts:
+    - "Ground in Kent, Sussex and Hampshire is the same Cretaceous chalk as Champagne, about 150 km away across the Channel."
+    - "Many Champagne houses, such as Taittinger, have planted vineyards in England."
+regions:
+  - id: south-east-england
+    name: South-East England
+    units: {adm: GBR/ADM2, names: [Kent, East Sussex, West Sussex, Brighton and Hove, Surrey, Hampshire, Isle of Wight, Portsmouth, Southampton, Medway, West Berkshire, Reading, Windsor and Maidenhead, Wokingham, Bracknell Forest, Slough, Buckinghamshire, Oxfordshire, Milton Keynes]}
+    grapes: [chardonnay, pinot-noir, meunier]
+    local: [Bacchus, Pinot Meunier]
+    summary: "The heartland of English sparkling wine: chalk downs and greensand ridges, a warm, sunny corner of the country, with most of the best-known producers."
+    climate: "The warmest and driest part of England."
+    soil: "Chalk, greensand and clay."
+  - id: kent
+    name: Kent
+    parent: south-east-england
+    units: {adm: GBR/ADM2, names: [Kent, Medway]}
+    grapes: [chardonnay, pinot-noir, meunier]
+    local: [Bacchus]
+    summary: "The Garden of England, with chalk on the North Downs and some of the largest vineyards, such as Chapel Down. Excellent sparkling wine."
+  - id: sussex
+    name: Sussex
+    parent: south-east-england
+    units: {adm: GBR/ADM2, names: [East Sussex, West Sussex, Brighton and Hove]}
+    grapes: [chardonnay, pinot-noir, meunier]
+    summary: "The first English region with its own protected designation (PDO Sussex, 2022), on the South Downs. Home of Nyetimber, Ridgeview and Rathfinny."
+    soil: "South Downs chalk, greensand and clay."
+  - id: surrey
+    name: Surrey
+    parent: south-east-england
+    units: {adm: GBR/ADM2, names: [Surrey]}
+    grapes: [chardonnay, pinot-noir, meunier]
+    summary: "The North Downs of Surrey, just outside London, with the chalk and flint of Denbies, England's biggest single vineyard."
+  - id: hampshire
+    name: Hampshire & Isle of Wight
+    parent: south-east-england
+    units: {adm: GBR/ADM2, names: [Hampshire, Isle of Wight, Portsmouth, Southampton]}
+    grapes: [chardonnay, pinot-noir, meunier]
+    summary: "Where modern English wine began (Hambledon, 1952). Chalk downland with some of the warmest sites; Hattingley and Exton Park."
+  - id: thames-valley
+    name: Thames Valley & Chilterns
+    parent: south-east-england
+    units: {adm: GBR/ADM2, names: [West Berkshire, Reading, Windsor and Maidenhead, Wokingham, Bracknell Forest, Slough, Buckinghamshire, Oxfordshire, Milton Keynes]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus]
+    summary: "The Chilterns and Thames valley west of London, a growing area of chalk vineyards."
+  - id: east-of-england
+    name: East of England
+    units: {adm: GBR/ADM2, names: [Essex, Suffolk, Norfolk, Cambridgeshire, Hertfordshire, Bedford, Central Bedfordshire, Luton, Peterborough, Southend-on-Sea, Thurrock]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus, Solaris, Ortega]
+    summary: "The driest, sunniest part of Britain: flat, open land where aromatic whites and sparkling wines are grown."
+    climate: "Dry and sunny, but cooler in spring, with a frost risk."
+  - id: essex
+    name: Essex
+    parent: east-of-england
+    units: {adm: GBR/ADM2, names: [Essex, Southend-on-Sea, Thurrock]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus]
+    summary: "A PDO region on clay soils that give structured still wines as well as sparkling."
+  - id: norfolk-suffolk
+    name: Norfolk & Suffolk
+    parent: east-of-england
+    units: {adm: GBR/ADM2, names: [Suffolk, Norfolk]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus, Solaris]
+    summary: "East Anglian vineyards close to the North Sea, producing crisp Bacchus and sparkling wine."
+  - id: south-west-england
+    name: South-West England
+    units: {adm: GBR/ADM2, names: [Cornwall, Devon, Somerset, Dorset, Wiltshire, Bath and North East Somerset, North Somerset, South Gloucestershire, "Bristol, City of", Plymouth, Torbay, "Bournemouth, Christchurch and Poole", Swindon, Gloucestershire, Isles of Scilly]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus, Seyval Blanc, Rondo]
+    summary: "A mild, wet maritime region with south-facing slopes: sparkling wine in Cornwall and Dorset, aromatic whites in Devon and Somerset."
+  - id: cornwall
+    name: Cornwall
+    parent: south-west-england
+    units: {adm: GBR/ADM2, names: [Cornwall, Isles of Scilly]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus]
+    summary: "A protected designation at England's south-western tip, with mild winters and sea breezes."
+  - id: devon-dorset
+    name: Devon, Dorset & Somerset
+    parent: south-west-england
+    units: {adm: GBR/ADM2, names: [Devon, Dorset, Somerset, Plymouth, Torbay, "Bournemouth, Christchurch and Poole"]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus, Seyval Blanc]
+    summary: "The Jurassic coast and Somerset levels: rolling hills with a long tradition of cider, now also making sparkling and aromatic wine."
+  - id: wiltshire-gloucestershire
+    name: Wiltshire & Gloucestershire
+    parent: south-west-england
+    units: {adm: GBR/ADM2, names: [Wiltshire, Gloucestershire, Swindon, South Gloucestershire, "Bristol, City of", Bath and North East Somerset, North Somerset]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Bacchus, Rondo]
+    summary: "Cotswold limestone and the Severn vale, home of some of the oldest vineyards in the country."
+  - id: midlands
+    name: Midlands & the North
+    units: {adm: GBR/ADM2, names: ["Herefordshire, County of", Worcestershire, Shropshire, Staffordshire, Warwickshire, Leicestershire, Lincolnshire, Rutland, Nottinghamshire, Derbyshire, North Yorkshire, East Riding of Yorkshire, York]}
+    grapes: [chardonnay, pinot-noir]
+    local: [Solaris, Bacchus, Seyval Blanc, Madeleine Angevine]
+    summary: "The cooler, wetter centre and north, where early-ripening varieties such as Solaris succeed in sheltered sites."
+  - id: wales
+    name: Wales
+    units: {adm: GBR/ADM1, names: [Wales]}
+    grapes: [pinot-noir, chardonnay]
+    local: [Seyval Blanc, Solaris, Rondo]
+    summary: "Around 20 vineyards, most in the south and west, from the Vale of Glamorgan and Monmouthshire to Pembrokeshire. Mild, wet and breezy; Welsh Wine is its own protected category."

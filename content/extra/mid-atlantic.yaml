@@ -1,0 +1,135 @@
+map: mid-atlantic
+title: Virginia & the Mid-Atlantic
+iso: [USA]
+focus: [USA]
+states: [USA]
+bbox: [36.3, -82.4, 41.2, -73.8]
+W: 2800
+cities:
+  - [Washington DC, 38.91, -77.04, 0]
+  - [Richmond, 37.54, -77.44]
+  - [Charlottesville, 38.03, -78.48]
+  - [Philadelphia, 39.95, -75.17, 0]
+  - [Baltimore, 39.29, -76.61]
+  - [Roanoke, 37.27, -79.94]
+  - [Harrisburg, 40.27, -76.88]
+labels:
+  - [Atlantic Ocean, 37.5, -74.9, sea]
+  - [Chesapeake Bay, 38.3, -76.3, sea]
+country:
+  name: Virginia & the Mid-Atlantic
+  summary: "Thomas Jefferson's dream: Virginia, Maryland, Pennsylvania, New Jersey and West Virginia make elegant Viognier, Cabernet Franc, Petit Verdot and Chardonnay in a warm, humid climate."
+  grapes: [viognier, cabernet-franc, chardonnay, merlot, petit-verdot, riesling]
+  local: [Norton, Chambourcin, Vidal Blanc, Traminette, Seyval Blanc]
+  climate: "Warm, humid summers and cold winters. Rain at harvest is the main risk, so growers pick well-drained slopes."
+  styles: "Viognier (Virginia's signature white), Bordeaux-style reds led by Cabernet Franc, Chardonnay, sparkling wine and sweet Riesling."
+  classification: "American Viticultural Areas (AVAs) such as Monticello, Shenandoah Valley, Lehigh Valley and Outer Coastal Plain."
+  history: "Jefferson planted European vines at Monticello in the 1770s but they died of disease; modern Virginia wine took off in the 1970s. The native grape Norton is called Virginia's grape."
+  facts:
+    - "Virginia has more than 300 wineries, a leading wine state on the East Coast."
+    - "Viognier was chosen as Virginia's official state grape in 2011."
+regions:
+  - id: monticello
+    name: Monticello
+    ava: [Monticello]
+    grapes: [viognier, cabernet-franc, chardonnay, merlot]
+    local: [Petit Manseng, Norton]
+    summary: "Around Charlottesville and Jefferson's home: red clay hills where Viognier and Cabernet Franc do best. Home of the first Virginia AVA (1984)."
+    soil: "Red clay and granite on the Blue Ridge foothills."
+  - id: shenandoah-valley
+    name: Shenandoah Valley
+    ava: [Shenandoah Valley]
+    grapes: [chardonnay, riesling, cabernet-franc, merlot]
+    local: [Vidal Blanc, Chambourcin]
+    summary: "A long valley between the Blue Ridge and the Alleghenies across Virginia and West Virginia, with limestone soils and cooler nights."
+  - id: middleburg
+    name: Middleburg
+    ava: [Middleburg Virginia]
+    grapes: [cabernet-franc, merlot, chardonnay, viognier]
+    summary: "Horse country west of Washington DC: high, well-drained hills and elegant Bordeaux-style blends."
+  - id: northern-neck
+    name: Northern Neck
+    ava: [Northern Neck George Washington Birthplace]
+    grapes: [chardonnay, cabernet-franc, merlot]
+    summary: "A peninsula of the Chesapeake region where George Washington was born: warm, maritime and mostly Bordeaux varieties."
+  - id: virginia-peninsula
+    name: Virginia Peninsula
+    ava: [Virginia Peninsula]
+    grapes: [chardonnay, merlot]
+    summary: "A small, flat AVA at Virginia's old colonial heart (Jamestown, Williamsburg)."
+  - id: eastern-shore
+    name: Virginia's Eastern Shore
+    ava: ["Virginia’s Eastern Shore"]
+    grapes: [chardonnay, cabernet-franc, merlot]
+    summary: "A sandy finger of land between the Atlantic and the Chesapeake Bay with sea breezes and an extended season."
+  - id: north-fork-roanoke
+    name: North Fork of Roanoke
+    ava: [North Fork of Roanoke]
+    grapes: [cabernet-franc, merlot, chardonnay]
+    summary: "An upland valley in south-west Virginia with a cooler climate and mountain views."
+  - id: rocky-knob
+    name: Rocky Knob
+    ava: [Rocky Knob]
+    grapes: [cabernet-franc, chardonnay, riesling]
+    summary: "A tiny, high-altitude AVA along the Blue Ridge Parkway with cool, long ripening."
+  - id: appalachian-high-country
+    name: Appalachian High Country
+    ava: [Appalachian High Country]
+    grapes: [riesling, chardonnay]
+    local: [Cabernet Franc, Vidal Blanc]
+    summary: "A mountain AVA across North Carolina, Virginia and Tennessee: vineyards from 2,500 ft up, with cold winters."
+  - id: yadkin-valley
+    name: Yadkin Valley
+    ava: [Yadkin Valley]
+    grapes: [chardonnay, viognier, merlot, cabernet-franc]
+    local: [Chambourcin, Scuppernong]
+    summary: "North Carolina's first and largest AVA, in the Piedmont: warm days and ripe reds."
+  - id: catoctin
+    name: Catoctin
+    ava: [Catoctin]
+    grapes: [chardonnay, cabernet-franc, merlot]
+    summary: "A ridge in northern Maryland with slate soils and good drainage."
+  - id: linganore
+    name: Linganore
+    ava: [Linganore]
+    grapes: [chardonnay, cabernet-franc]
+    local: [Vidal Blanc, Chambourcin]
+    summary: "Maryland's rolling piedmont, with some of the state's oldest wineries."
+  - id: cumberland-valley
+    name: Cumberland Valley
+    ava: [Cumberland Valley]
+    grapes: [chardonnay, cabernet-franc, riesling]
+    summary: "A valley across Maryland and Pennsylvania with limestone-rich soils."
+  - id: lancaster-valley
+    name: Lancaster Valley
+    ava: [Lancaster Valley]
+    grapes: [chardonnay, riesling, cabernet-franc]
+    local: [Vidal Blanc, Chambourcin]
+    summary: "Pennsylvania's Amish country, with calcium-rich soils."
+  - id: lehigh-valley
+    name: Lehigh Valley
+    ava: [Lehigh Valley]
+    grapes: [riesling, chardonnay, cabernet-franc]
+    local: [Vidal Blanc, Chambourcin]
+    summary: "Pennsylvania's north-east, on the slopes of the Blue Mountain: fresh whites and growing quality."
+  - id: central-delaware-valley
+    name: Central Delaware Valley
+    ava: [Central Delaware Valley]
+    grapes: [chardonnay, cabernet-franc, merlot]
+    summary: "On both sides of the Delaware River between Pennsylvania and New Jersey, with river air that cools the vines."
+  - id: outer-coastal-plain
+    name: Outer Coastal Plain
+    ava: [Outer Coastal Plain]
+    grapes: [chardonnay, merlot, cabernet-franc]
+    summary: "Southern New Jersey: sandy soils and a long ripening season under maritime influence."
+  - id: warren-hills
+    name: Warren Hills
+    ava: [Warren Hills]
+    grapes: [chardonnay, cabernet-franc]
+    summary: "New Jersey's cool north-west hills, on limestone and shale."
+  - id: kanawha-river-valley
+    name: Kanawha River Valley
+    ava: [Kanawha River Valley]
+    grapes: [chardonnay]
+    local: [Vidal Blanc, Chambourcin]
+    summary: "A river AVA in West Virginia with deep, well-drained soil beside the river."

@@ -1,0 +1,53 @@
+map: uruguay
+title: Uruguay
+iso: [URY]
+focus: [URY]
+bbox: [-35.1, -58.6, -30.0, -53.0]
+W: 2800
+cities:
+  - [Montevideo, -34.90, -56.19, 0]
+  - [Colonia, -34.47, -57.84]
+  - [Punta del Este, -34.95, -54.95]
+  - [Salto, -31.38, -57.96]
+  - [Rivera, -30.90, -55.55]
+  - [Las Piedras, -34.73, -56.22]
+labels:
+  - [Atlantic Ocean, -34.8, -53.4, sea]
+  - [Río de la Plata, -34.7, -57.0, sea]
+  - [ARGENTINA, -32.5, -58.5, area]
+  - [BRAZIL, -31.0, -54.0, area]
+country:
+  name: Uruguay
+  summary: "South America's fourth wine producer, and the home of Tannat, a grape from south-west France that has become the national red. Near-ocean vines make fresh Albariño and elegant reds."
+  grapes: [tannat, merlot, cabernet-franc, cabernet-sauvignon, albarino, chardonnay, sauvignon-blanc, pinot-noir, syrah]
+  local: [Tannat, Albariño, Viognier]
+  climate: "Maritime and humid with rain at harvest, tempered by Atlantic and River Plate breezes, closer to Bordeaux than Mendoza."
+  styles: "Tannat (deep, tannic reds with fruit and spice), Albariño (a salty, fresh white), Bordeaux blends and a growing sparkling and rosé scene."
+  classification: "The national wine regions are Montevideo, Canelones, Colonia, San José, Maldonado, Rocha and the north (Rivera, Salto, Tacuarembó, Rivera)."
+  history: "Tannat came with Basque settlers in 1870, led by Pascual Harriague. Today it is Uruguay's flagship, and a lighter, fresher modern style is replacing the old tannic wines."
+  facts:
+    - "Uruguay has about 200 wineries, mostly small family estates in the south."
+    - "Pascual Harriague's name is still used in Uruguay for Tannat ('Harriague')."
+regions:
+  - id: canelones
+    name: Canelones & Montevideo
+    units: {adm: URY/ADM1, names: [Canelones, Montevideo, San José]}
+    grapes: [tannat, merlot, cabernet-franc, chardonnay]
+    summary: "The country's biggest wine area, on the outskirts of the capital: about 60% of production. Cool, humid weather and clay soils."
+    soil: "Clay and limestone."
+  - id: colonia
+    name: Colonia
+    units: {adm: URY/ADM1, names: [Colonia, Soriano, Flores, Florida]}
+    grapes: [tannat, merlot, albarino, chardonnay]
+    summary: "Along the River Plate in the west, with historic Colonia del Sacramento and some old family estates. Warmer than Canelones."
+  - id: maldonado-rocha
+    name: Maldonado & Rocha
+    units: {adm: URY/ADM1, names: [Maldonado, Rocha]}
+    grapes: [tannat, albarino, pinot-noir, merlot, syrah]
+    summary: "The Atlantic coast near Punta del Este and the Garzón area: sea breezes and granite hills give the freshest wines in the country, led by Albariño and Tannat."
+    soil: "Granite and clay."
+  - id: north-uruguay
+    name: Northern Uruguay
+    units: {adm: URY/ADM1, names: [Rivera, Tacuarembó, Salto, Artigas, Paysandú, Río Negro, Cerro Largo, Treinta y Tres, Lavalleja, Durazno]}
+    grapes: [tannat, merlot, cabernet-sauvignon]
+    summary: "A warmer, inland area on the border with Brazil and Argentina, with sandstone and basalt soils."

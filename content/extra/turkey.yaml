@@ -1,0 +1,61 @@
+map: turkey
+title: Turkey
+iso: [TUR]
+focus: [TUR]
+bbox: [35.7, 25.6, 42.2, 45.0]
+W: 3000
+cities:
+  - [Ankara, 39.93, 32.86, 0]
+  - [Istanbul, 41.01, 28.98, 0]
+  - [İzmir, 38.42, 27.14]
+  - [Göreme, 38.64, 34.83]
+  - [Elazığ, 38.67, 39.22]
+  - [Diyarbakır, 37.91, 40.24]
+labels:
+  - [Black Sea, 41.8, 35.0, sea]
+  - [Mediterranean Sea, 36.1, 31.0, sea]
+  - [Aegean Sea, 38.5, 25.9, sea]
+country:
+  name: Turkey
+  summary: "One of the world's biggest grape growers (mostly for eating and raisins), and the cradle of winemaking in Anatolia, 4,000 years old. A small, fast-improving quality wine industry uses over 1,000 native grape varieties."
+  grapes: [syrah, cabernet-sauvignon, merlot, chardonnay, sauvignon-blanc, tempranillo]
+  local: [Öküzgözü, Boğazkere, Kalecik Karası, Narince, Emir, Sultaniye, Papazkarası, Bornova Misketi, Çalkarası]
+  climate: "Varied: Mediterranean on the coast, continental and cold on the high central plateau and the east."
+  styles: "Dry reds, fresh mineral whites, rakı (aniseed spirit) and a growing group of boutique wineries."
+  classification: "Wine areas by region (Thrace & Marmara, Aegean, Central Anatolia, Eastern Anatolia, Mediterranean) with geographical indication (PGI) status."
+  history: "The Hittites made wine in Anatolia 4,000 years ago; Dionysus, god of wine, was worshipped in the Aegean cities of Asia Minor. Noah's ark is said to have landed on Mount Ararat in the east."
+  facts:
+    - "Boğazkere and Öküzgözü are the two great red grapes of eastern Anatolia; they are often blended, one for tannin and the other for fruit."
+    - "In Cappadocia, vines grow among tuff fairy chimneys and cave cellars."
+regions:
+  - id: thrace-marmara
+    name: Thrace & Marmara
+    units: {adm: TUR/ADM1, names: [Tekirdağ, Edirne, Kırklareli, Çanakkale, Balıkesir, Bursa, Yalova, Kocaeli, İstanbul]}
+    grapes: [cabernet-sauvignon, merlot, chardonnay, sauvignon-blanc, syrah]
+    local: [Papazkarası, Adakarası, Karasakız, Gamay]
+    summary: "The European corner of Turkey, around the Sea of Marmara: about 40% of Turkish wine, with Bordeaux grapes and the coastal Şarköy-Mürefte area."
+  - id: aegean
+    name: Aegean
+    units: {adm: TUR/ADM1, names: [İzmir, Manisa, Denizli, Aydın, Muğla, Uşak, Afyonkarahisar]}
+    grapes: [syrah, cabernet-sauvignon, merlot, chardonnay, sauvignon-blanc]
+    local: [Sultaniye, Bornova Misketi, Çalkarası, Boğazkere]
+    summary: "Sunny hills and islands near İzmir (Urla, Manisa, Denizli): the biggest area for table grapes and raisins, and a growing hub for fresh, Mediterranean wines."
+  - id: central-anatolia
+    name: Central Anatolia
+    units: {adm: TUR/ADM1, names: [Ankara, Nevşehir, Kayseri, Niğde, Aksaray, Kırşehir, Kırıkkale, Çankırı, Tokat, Yozgat, Sivas, Konya, Karaman, Eskişehir]}
+    grapes: [syrah, cabernet-sauvignon, merlot, chardonnay]
+    local: [Kalecik Karası, Emir, Narince, Boğazkere]
+    summary: "The high plateau around Ankara and Cappadocia, with big day-night swings: Emir (Cappadocia, a crisp white), Kalecik Karası (a light, aromatic red) and Narince (Tokat)."
+    climate: "Continental, with hot summers and bitterly cold winters."
+  - id: eastern-anatolia
+    name: Eastern Anatolia
+    units: {adm: TUR/ADM1, names: [Elazığ, Malatya, Diyarbakır, Tunceli, Bingöl, Erzincan, Adıyaman, Şanlıurfa, Mardin, Batman, Siirt, Van, Bitlis, Muş, Erzurum]}
+    grapes: []
+    local: [Öküzgözü, Boğazkere, Dimrit]
+    summary: "The mountains and basins of the east, near the Euphrates and Tigris: the home of Öküzgözü and Boğazkere, the country's top reds."
+  - id: mediterranean
+    name: Mediterranean & South
+    units: {adm: TUR/ADM1, names: [Antalya, Mersin, Adana, Hatay, Gaziantep, Osmaniye, Kahramanmaraş, Isparta, Burdur, Kilis]}
+    grapes: [syrah, cabernet-sauvignon]
+    local: [Öküzgözü, Boğazkere]
+    summary: "A hot coastal strip with a few vineyards at altitude in the Taurus mountains."

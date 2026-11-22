@@ -1,0 +1,92 @@
+map: canada-west
+title: British Columbia
+iso: [CAN]
+focus: [CAN]
+bbox: [48.2, -125.4, 51.2, -117.6]
+W: 2800
+cities:
+  - [Vancouver, 49.28, -123.12, 0]
+  - [Kelowna, 49.89, -119.50, 0]
+  - [Victoria, 48.43, -123.37]
+  - [Penticton, 49.50, -119.59]
+  - [Osoyoos, 49.03, -119.45]
+  - [Vernon, 50.27, -119.27]
+labels:
+  - [Pacific Ocean, 48.9, -125.0, sea]
+  - [UNITED STATES, 48.35, -120.8, area]
+  - [Okanagan Lake, 49.95, -119.55, river]
+country:
+  name: British Columbia
+  summary: "Canada's biggest wine province: sunny, desert-like valleys in the interior and cool coastal islands, with fresh whites, Pinot Noir and serious Bordeaux-style reds."
+  grapes: [pinot-noir, merlot, chardonnay, cabernet-franc, riesling, pinot-grigio, syrah, gewurztraminer]
+  local: [Pinot Gris, Gewürztraminer, Marechal Foch]
+  climate: "The interior valleys are hot and dry, sheltered from the Pacific by mountains; the coast is cool and wet."
+  styles: "Pinot Noir, Merlot, Chardonnay, Riesling and ice wine; fresh aromatic whites and big, ripe reds in the south."
+  classification: "Geographical Indications (GIs) under the Vintners Quality Alliance (VQA): Okanagan Valley, Similkameen Valley, Fraser Valley, Vancouver Island and Gulf Islands."
+  facts:
+    - "The Okanagan Valley is home to Canada's only true desert, at Osoyoos, where vines grow beside cactus."
+    - "More than 80% of Canadian ice wine is made in Ontario, but BC also makes it in cold years."
+regions:
+  - id: okanagan-valley
+    name: Okanagan Valley
+    poly: [[50.65,-119.25],[50.40,-119.05],[50.00,-119.20],[49.60,-119.30],[49.25,-119.35],[49.00,-119.30],[49.00,-119.70],[49.30,-119.85],[49.65,-119.85],[50.05,-119.80],[50.40,-119.50]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, merlot, chardonnay, cabernet-franc, riesling, pinot-grigio, syrah]
+    summary: "A 250 km valley of lakes from Vernon down to the US border: Canada's best-known and biggest wine region, with more than 80% of BC's vines."
+    climate: "Hot, dry summers (up to 40°C) and cool nights in the south; cooler in the north."
+    soil: "Glacial sand, gravel and clay."
+  - id: osoyoos-oliver
+    name: Osoyoos & Oliver
+    parent: okanagan-valley
+    poly: [[49.35,-119.45],[49.35,-119.70],[49.00,-119.70],[49.00,-119.35]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [merlot, cabernet-franc, syrah, chardonnay]
+    summary: "The 'Golden Mile' and the desert far south: the hottest part of Canada, famous for ripe Merlot, Syrah and Bordeaux blends."
+  - id: skaha-okanagan-falls
+    name: Skaha & Okanagan Falls
+    parent: okanagan-valley
+    poly: [[49.45,-119.48],[49.45,-119.70],[49.34,-119.70],[49.34,-119.45]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, chardonnay, riesling, pinot-grigio]
+    summary: "A cooler stretch around Skaha Lake and Okanagan Falls, with granite and limestone benches ideal for Pinot Noir and Riesling."
+  - id: naramata-bench
+    name: Naramata Bench
+    parent: okanagan-valley
+    poly: [[49.70,-119.45],[49.70,-119.62],[49.50,-119.62],[49.50,-119.45]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, merlot, chardonnay, syrah]
+    summary: "A terraced bench on the east shore of Okanagan Lake, with a lake influence and some of the valley's most celebrated boutique wineries."
+  - id: kelowna-lake-country
+    name: Kelowna & Lake Country
+    parent: okanagan-valley
+    poly: [[50.15,-119.30],[50.15,-119.60],[49.75,-119.65],[49.75,-119.30]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, riesling, chardonnay, gewurztraminer]
+    summary: "Around the city of Kelowna and the north shore: a cooler area for aromatic whites, Pinot Noir and sparkling wine."
+  - id: similkameen-valley
+    name: Similkameen Valley
+    poly: [[49.45,-120.20],[49.45,-119.90],[49.15,-119.75],[49.00,-119.95],[49.00,-120.25],[49.20,-120.20]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [merlot, cabernet-franc, chardonnay, pinot-noir]
+    summary: "A narrow, windy valley west of the Okanagan, around Keremeos. Many organic vineyards on stony soil, and wines with natural freshness."
+  - id: fraser-valley
+    name: Fraser Valley
+    poly: [[49.30,-122.30],[49.30,-121.60],[49.05,-121.60],[49.00,-122.30]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, chardonnay, riesling, pinot-grigio]
+    local: [Madeleine Sylvaner, Ortega]
+    summary: "A cool, rainy coastal valley east of Vancouver: aromatic whites and light reds."
+  - id: vancouver-island
+    name: Vancouver Island
+    poly: [[49.20,-124.80],[49.20,-123.50],[48.30,-123.30],[48.30,-124.50]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, pinot-grigio, chardonnay]
+    local: [Ortega, Pinot Gris, Siegerrebe]
+    summary: "Cowichan Valley and the island south of Nanaimo: cool and maritime, with lively whites and Pinot Noir, and many small wineries."
+  - id: gulf-islands
+    name: Gulf Islands
+    poly: [[49.05,-123.80],[49.05,-123.20],[48.65,-123.05],[48.60,-123.60]]
+    clip: {adm: CAN/ADM1, names: [British Columbia]}
+    grapes: [pinot-noir, chardonnay]
+    local: [Ortega, Pinot Gris]
+    summary: "Sheltered islands in the Strait of Georgia (Salt Spring, Pender, Saturna) with a Mediterranean-like mild climate."

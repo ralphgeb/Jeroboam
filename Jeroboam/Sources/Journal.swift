@@ -492,9 +492,7 @@ struct WineInfoCard: View {
 
     var body: some View {
         let w = wine
-        let region = ContentStore.shared.library.regions.first { r in
-            !w.region.isEmpty && (w.region.localizedCaseInsensitiveContains(r.name) || r.name.localizedCaseInsensitiveContains(w.region))
-        }
+        let region = ContentStore.shared.regionMatching(w.region, country: w.country)
         VStack(alignment: .leading, spacing: 14) {
             VStack(alignment: .leading, spacing: 3) {
                 if !w.producer.isEmpty { Eyebrow(w.producer, color: styleColor(w.style)) }

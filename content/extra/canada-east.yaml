@@ -1,0 +1,81 @@
+map: canada-east
+title: Ontario, Quebec & Nova Scotia
+iso: [CAN]
+focus: [CAN]
+bbox: [41.6, -83.6, 46.6, -62.8]
+W: 3000
+cities:
+  - [Toronto, 43.65, -79.38, 0]
+  - [Niagara-on-the-Lake, 43.25, -79.07]
+  - [Montreal, 45.50, -73.57, 0]
+  - [Halifax, 44.65, -63.58]
+  - [Wolfville, 45.09, -64.36]
+  - [Windsor, 42.31, -83.04]
+  - [Picton, 44.0, -77.14]
+labels:
+  - [Lake Ontario, 43.65, -77.7, sea]
+  - [Lake Erie, 42.2, -81.2, sea]
+  - [Atlantic Ocean, 44.0, -62.9, sea]
+  - [UNITED STATES, 42.9, -80.4, area]
+country:
+  name: Ontario, Quebec & Nova Scotia
+  summary: "Canada's cool-climate East. Ontario is the world's largest ice wine producer and a rising star for Riesling, Chardonnay and Pinot Noir; Nova Scotia and Quebec grow crisp sparkling wines and hardy hybrids."
+  grapes: [riesling, chardonnay, cabernet-franc, pinot-noir, gamay, cabernet-sauvignon]
+  local: [Vidal Blanc, L'Acadie Blanc, Baco Noir, Frontenac]
+  climate: "Cold continental winters. The Great Lakes (and the Atlantic in Nova Scotia) keep winter lows just above the point where vines die."
+  styles: "Ice wine (Vidal and Riesling), sparkling wine, Riesling, Chardonnay and Cabernet Franc."
+  classification: "Vintners Quality Alliance (VQA) designated viticultural areas: Niagara Peninsula, Prince Edward County, Lake Erie North Shore, Nova Scotia."
+  facts:
+    - "Ice wine grapes are picked frozen by hand at -8°C or lower, often at night."
+    - "Prince Edward County sits on the same limestone as parts of Burgundy; growers there bury their vines each winter to protect them from the cold."
+regions:
+  - id: niagara-peninsula
+    name: Niagara Peninsula
+    poly: [[43.30,-79.75],[43.30,-79.05],[43.05,-79.05],[43.05,-79.75]]
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    grapes: [riesling, chardonnay, cabernet-franc, pinot-noir, gamay]
+    local: [Vidal Blanc]
+    summary: "Ontario's powerhouse, between lakes Ontario and Erie, with the Niagara Escarpment sheltering the vines. Excellent Riesling, Chardonnay, Cabernet Franc and ice wine."
+    soil: "Clay, limestone and glacial silt on gentle benches."
+  - id: niagara-on-the-lake
+    name: Niagara-on-the-Lake
+    parent: niagara-peninsula
+    poly: [[43.28,-79.30],[43.28,-79.03],[43.12,-79.03],[43.12,-79.30]]
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    grapes: [cabernet-franc, merlot, riesling, chardonnay]
+    summary: "Flat, warm land near Lake Ontario; Niagara's biggest wineries and the world capital of ice wine."
+  - id: niagara-escarpment-benches
+    name: Beamsville & Twenty Mile Benches
+    parent: niagara-peninsula
+    poly: [[43.20,-79.75],[43.20,-79.35],[43.10,-79.35],[43.10,-79.75]]
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    grapes: [riesling, chardonnay, pinot-noir, cabernet-franc]
+    summary: "Terraces below the Escarpment where cool breezes slow ripening, ideal for Riesling, Chardonnay and Pinot Noir."
+  - id: prince-edward-county
+    name: Prince Edward County
+    poly: [[44.15,-77.50],[44.15,-76.75],[43.85,-76.75],[43.85,-77.50]]
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    grapes: [pinot-noir, chardonnay, gamay, riesling]
+    summary: "An island-like peninsula in Lake Ontario with thin limestone soil. It makes some of Canada's most Burgundian Pinot Noir and Chardonnay."
+    soil: "Limestone with very little topsoil."
+  - id: lake-erie-north-shore
+    name: Lake Erie North Shore
+    poly: [[42.30,-83.10],[42.30,-82.30],[41.95,-82.30],[41.95,-83.10]]
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    grapes: [cabernet-franc, chardonnay, merlot, pinot-grigio]
+    local: [Vidal Blanc]
+    summary: "Ontario's warmest wine area, at the same latitude as northern California. It includes Pelee Island, Canada's most southerly vineyard."
+  - id: annapolis-valley
+    name: Annapolis Valley
+    poly: [[45.30,-65.30],[45.30,-64.30],[44.95,-64.30],[44.95,-65.30]]
+    clip: {adm: CAN/ADM1, names: [Nova Scotia]}
+    grapes: [chardonnay, pinot-noir]
+    local: [L'Acadie Blanc, Baco Noir, Seyval Blanc]
+    summary: "A sheltered valley in Nova Scotia, with the Bay of Fundy's huge tides. Canada's best sparkling wines from the cold-climate grape L'Acadie Blanc."
+  - id: eastern-townships
+    name: Eastern Townships
+    poly: [[45.45,-72.80],[45.45,-71.85],[45.00,-71.85],[45.00,-72.80]]
+    clip: {adm: CAN/ADM1, names: [Quebec]}
+    grapes: []
+    local: [Vidal Blanc, Seyval Blanc, Frontenac]
+    summary: "South-east Quebec near the Vermont border, where vines are buried or covered each winter and cold-hardy hybrids are made into whites, ice cider and fortified wine."

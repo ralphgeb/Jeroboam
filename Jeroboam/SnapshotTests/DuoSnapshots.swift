@@ -254,4 +254,19 @@ final class DuoSnapshots: XCTestCase {
         snap("pt-whole", settle: 3.0) { MapExplorer(mapID: "portugal") }
         snap("profile2") { ProfileView() }
     }
+
+    /// Maps beyond the atlas: the list from Settings, a country page and its explorer.
+    func testExtraAtlas() {
+        snap("extra-list", settle: 3.0) { ExtraAtlasView() }
+        for id in ["georgia", "new-york", "england-wales"] {
+            guard let r = ContentStore.shared.region(id) else { continue }
+            snap("extra-\(id)", settle: 3.0) { NavigationStack { RegionDetailView(region: r) } }
+            snap("extra-explorer-\(id)", settle: 4.0) { MapExplorer(mapID: id) }
+        }
+        let m = ContentStore.shared.regionMatching("", country: "Argentina")
+        XCTAssertEqual(m?.id, "argentina")
+        XCTAssertEqual(ContentStore.shared.regionMatching("Uco Valley, Mendoza", country: "Argentina")?.id, "uco-valley")
+        XCTAssertEqual(ContentStore.shared.regionMatching("Mendoza", country: "")?.id, "mendoza")
+        XCTAssertEqual(ContentStore.shared.regionMatching("Kakheti", country: "Georgia")?.id, "kakheti")
+    }
 }
