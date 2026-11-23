@@ -82,7 +82,7 @@ enum QuizGenerator {
         let lessonQs: [Card]
         if version >= 1, pool.count >= 20 {
             // one fixed shuffle per level, cut into slices so the versions never share a question
-            var rng = SeededRandom(seed: UInt64(level) &* 7919 &+ 17)
+            var rng = ExamShuffleRNG(seed: UInt64(level) &* 7919 &+ 17)
             let fixed = pool.sorted { $0.id < $1.id }.shuffled(using: &rng)
             let per = 20
             let start = ((version - 1) * per) % max(per, fixed.count)
@@ -419,7 +419,7 @@ enum QuizMemory {
 
 
 /// A small repeatable random generator (so a numbered exam version always holds the same lesson questions).
-struct SeededRandom: RandomNumberGenerator {
+struct ExamShuffleRNG: RandomNumberGenerator {
     private var state: UInt64
     init(seed: UInt64) { state = seed == 0 ? 0x9E3779B97F4A7C15 : seed }
     mutating func next() -> UInt64 {
