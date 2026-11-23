@@ -322,4 +322,17 @@ final class DuoSnapshots: XCTestCase {
         let price = PriceInfo(average: 215, low: 215, high: 215, currency: "USD", source: "Cheapest of 2 shops · 3 L bottle, per 750 ml", url: "https://example.com")
         snap("wine-glance", settle: 3.0) { ScrollView { VStack(spacing: 14) { WineGlance(wine: w, price: price, points: 94, pointsAreGuess: true); WineInfoCard(wine: w) }.padding(20) } }
     }
+
+    /// Round check: Oregon in the atlas, the heat map blobs, the wine page and the Great wines search.
+    func testRound() {
+        testWineGlance()
+        testScanSkeleton()
+        XCTAssertNotNil(ContentStore.shared.region("willamette-valley"))
+        for (id, hl) in [("oregon", Set<String>()), ("oregon", Set(["dundee-hills"])), ("oregon", Set(["red-mountain"]))] {
+            snap("oregon-\(hl.first ?? "all")", settle: 4.0) { MapExplorer(mapID: id, highlight: hl) }
+        }
+        snap("oregon-page", settle: 3.0) { NavigationStack { RegionDetailView(region: ContentStore.shared.region("willamette-valley")!) } }
+        snap("atlas-search-oregon", settle: 3.0) { NavigationStack { RegionListView(query: "oregon") } }
+        snap("great-wines", settle: 3.0) { NavigationStack { GreatWinesScreen() } }
+    }
 }
