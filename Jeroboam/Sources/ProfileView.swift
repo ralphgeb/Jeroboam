@@ -10,7 +10,6 @@ struct ProfileView: View {
 
     @State private var currencyCode = Currency.code
     @State private var showExtraAtlas = false
-    @State private var widgetTheme = WidgetSettings.theme
 
     var body: some View {
         // measured here, not taken from the page: this screen opens in a sheet, whose width is its own
@@ -176,14 +175,12 @@ struct ProfileView: View {
                             .tint(Palette.wine)
                         }
                         Hairline()
-                        settingRow("Widgets") {
-                            Picker("Widgets", selection: Binding(get: { widgetTheme }, set: { widgetTheme = $0; WidgetSettings.theme = $0 })) {
-                                Text("Automatic").tag(0)
-                                Text("White").tag(1)
-                                Text("Dark").tag(2)
-                            }
-                            .tint(Palette.wine)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Widgets").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                            Text("Jero widgets follow your phone's light or dark setting.")
+                                .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
                         Hairline()
                         Button(role: .destructive) { confirmReset = true } label: {
                             Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)

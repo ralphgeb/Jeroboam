@@ -40,7 +40,6 @@ targets:
       properties:
         com.apple.developer.applesignin: [Default]
         com.apple.developer.ubiquity-kvstore-identifier: $(TeamIdentifierPrefix)$(CFBundleIdentifier)
-        com.apple.security.application-groups: [group.com.ralphgeb.jero]
     info:
       path: Sources/Info.plist
       properties:
@@ -73,10 +72,6 @@ targets:
   JeroWidget:
     type: app-extension
     platform: iOS
-    entitlements:
-      path: JeroWidget/JeroWidget.entitlements
-      properties:
-        com.apple.security.application-groups: [group.com.ralphgeb.jero]
     sources:
       - path: JeroWidget
         excludes:
