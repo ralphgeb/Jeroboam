@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /// Every wine you have scanned or looked up, kept on the phone, so the same bottle is never searched (or paid for) twice.
 /// Looked up by the label's own text (a second photo of the same label), or by producer, name and vintage.
@@ -9,6 +10,10 @@ final class WineDB {
         var identity: WineIdentity
         var price: PriceInfo?
         var saved = Date()
+        /// When it was last scanned or looked up, how many times, and a small picture of the label (kept even if the bottle leaves the cellar).
+        var lastSeen: Date? = nil
+        var scans: Int? = nil
+        var thumb: Data? = nil
     }
     private struct Store: Codable {
         var wines: [String: Entry] = [:]
@@ -61,6 +66,35 @@ final class WineDB {
         lock.unlock()
         if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
     }
+    /// Remembers a scan: the wine stays in this list for good, even when it is removed from the cellar or the tastings.
+    func noteScan(_ w: WineIdentity, image: UIImage?) {
+        guard !w.name.isEmpty else { return }
+        let small: Data? = image.flatMap { img in
+            let side = max(img.size.width, img.size.height)
+            let k = min(1, 240 / max(1, side))
+            let size = CGSize(width: img.size.width * k, height: img.size.height * k)
+            let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1; fmt.opaque = true
+            return UIGraphicsImageRenderer(size: size, format: fmt).image { _ in img.draw(in: CGRect(origin: .zero, size: size)) }.jpegData(compressionQuality: 0.6)
+        }
+        lock.lock()
+        let k = Self.key(w)
+        var e = store.wines[k] ?? Entry(identity: w, price: nil)
+        e.identity = w
+        e.lastSeen = Date()
+        e.scans = (e.scans ?? 0) + 1
+        if let small { e.thumb = small }
+        store.wines[k] = e
+        let snapshot = store
+        lock.unlock()
+        if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
+    }
+
+    /// Everything ever scanned, newest first.
+    func history() -> [Entry] {
+        allEntries().filter { !$0.identity.name.isEmpty && ($0.lastSeen != nil || $0.scans != nil) }
+            .sorted { ($0.lastSeen ?? $0.saved) > ($1.lastSeen ?? $1.saved) }
+    }
+
     func allEntries() -> [Entry] {
         lock.lock(); defer { lock.unlock() }
         return Array(store.wines.values)

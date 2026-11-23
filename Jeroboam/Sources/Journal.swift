@@ -46,11 +46,21 @@ struct CellarBottle: Codable, Identifiable, Hashable {
     var quantity = 1
     var price: PriceInfo? = nil
     var notes = ""
+    /// What you paid for one bottle, in US dollars (optional): the cellar compares it with today's value.
+    var paidUSD: Double? = nil
     /// A tiny picture of the bottle, kept in iCloud so the cellar looks the same on every phone.
     var thumb: Data? = nil
 
     var title: String { wine.name.isEmpty ? "Untitled wine" : wine.name }
     var value: Double { (price?.average ?? 0) * Double(quantity) }
+    var paidTotal: Double? { paidUSD.map { $0 * Double(quantity) } }
+    /// Sets what you paid; when no market price is known, it also stands in as the bottle's value.
+    mutating func setPaid(_ v: Double?) {
+        paidUSD = v
+        if price == nil || price?.source == "You paid" {
+            price = v.map { PriceInfo(average: $0, low: $0, high: $0, currency: "USD", source: "You paid") }
+        }
+    }
 
     /// A rough guess at the critic score: from the Great wines list when this bottle is on it, otherwise from the price.
     var roughRating: Int? {
@@ -265,6 +275,22 @@ struct JournalHome: View {
                     if section == 0 { cellarSection } else { tastingsSection }
                     JournalInsights()
                     JournalExtras(onBlind: { blind = true })
+                    NavigationLink(value: HistoryRoute()) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "clock.arrow.circlepath").font(.system(size: 16)).foregroundStyle(Palette.wine)
+                                .frame(width: 38, height: 38).background(Circle().fill(Palette.wineSoft))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("See all previously scanned wines").font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Text("Everything you have scanned, even if it left your cellar").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1).minimumScaleFactor(0.8)
+                            }
+                            Spacer(minLength: 4)
+                            Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                        }
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+                        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+                    }
+                    .buttonStyle(PressableStyle())
                     Color.clear.frame(height: 20)
             }
             .background(Palette.paper.ignoresSafeArea())
@@ -272,6 +298,8 @@ struct JournalHome: View {
             .detailPane(first: section == 0 ? journal.cellar.first.map { AnyHashable($0) } : journal.entries.first.map { AnyHashable($0) })
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
+            .navigationDestination(for: CellarRoute.self) { _ in CellarView() }
+            .navigationDestination(for: HistoryRoute.self) { _ in ScanHistoryView() }
             .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
             .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
             .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
@@ -324,12 +352,29 @@ struct JournalHome: View {
                 stat("\(countries)", countries == 1 ? "country" : "countries")
                 stat("\(regions)", regions == 1 ? "region" : "regions")
             }
+            let first = Array(journal.cellar.prefix(6))
             GroupCard {
-                ForEach(Array(journal.cellar.enumerated()), id: \.element.id) { i, b in
-                    DetailLink(value: b) { cellarRow(b, last: i == journal.cellar.count - 1) }
+                ForEach(Array(first.enumerated()), id: \.element.id) { i, b in
+                    DetailLink(value: b) { cellarRow(b, last: i == first.count - 1) }
                         .buttonStyle(RowPressStyle())
                 }
             }
+            NavigationLink(value: CellarRoute()) {
+                HStack(spacing: 12) {
+                    Image(systemName: "square.stack.3d.up.fill").font(.system(size: 17)).foregroundStyle(Palette.onWine)
+                        .frame(width: 38, height: 38).background(Circle().fill(Palette.onWine.opacity(0.16)))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Open your cellar").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.onWine)
+                        Text("\(journal.bottleCount) \(journal.bottleCount == 1 ? "bottle" : "bottles") · worth \(money(journal.cellarValue, journal.cellarCurrency)) · filter and sort")
+                            .font(.system(size: 12.5)).foregroundStyle(Palette.onWine.opacity(0.8)).lineLimit(1).minimumScaleFactor(0.8)
+                    }
+                    Spacer(minLength: 4)
+                    Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.onWine.opacity(0.8))
+                }
+                .padding(14)
+                .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.wine))
+            }
+            .buttonStyle(PressableStyle())
         }
     }
 
@@ -452,6 +497,8 @@ struct CaptureStep: View {
     var title: String
     var subtitle: String
     @Binding var image: UIImage?
+    /// Called the moment a library photo is chosen, before it has loaded, so the next screen can appear at once.
+    var onPicking: (() -> Void)? = nil
     var onTyped: (String) -> Void
     @State private var showCamera = false
     @State private var pickerItem: PhotosPickerItem? = nil
@@ -462,7 +509,7 @@ struct CaptureStep: View {
             ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
             Button { showCamera = true } label: { Label("Take a photo", systemImage: "camera") }
                 .buttonStyle(PrimaryButtonStyle())
-            PhotosPicker(selection: $pickerItem, matching: .images) {
+            PhotosPicker(selection: $pickerItem, matching: .images, preferredItemEncoding: .current) {
                 Text("Choose from library").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                     .frame(maxWidth: .infinity).frame(height: 48)
                     .background(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line, lineWidth: 1))
@@ -489,6 +536,7 @@ struct CaptureStep: View {
         .sheet(isPresented: $showCamera) { CameraPicker(image: $image).ignoresSafeArea() }
         .onChange(of: pickerItem) { _, item in
             guard let item else { return }
+            onPicking?()
             Task {
                 if let data = try? await item.loadTransferable(type: Data.self) {
                     let img = await Task.detached(priority: .userInitiated) { UIImage.jeroThumbnail(from: data) }.value
@@ -638,7 +686,8 @@ struct PriceCard: View {
             return (url, "Cheapest found: " + host.replacingOccurrences(of: "www.", with: ""))
         }
         guard let w = wine else { return nil }
-        let words = [w.producer, w.name].filter { !$0.isEmpty }.joined(separator: " ")
+        // only the wine's name and the vintage: extra words (producer, region, country) make Wine-Searcher find nothing
+        let words = w.name
         guard !words.isEmpty else { return nil }
         let slug = words.folding(options: .diacriticInsensitive, locale: .current).lowercased()
             .components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }.joined(separator: "+")
@@ -722,6 +771,27 @@ struct PricePaidField: View {
     }
 }
 
+/// What you paid for a bottle: editable any time, and the cellar compares it with today's value.
+struct PaidField: View {
+    @Binding var paidUSD: Double?
+    @State private var text = ""
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "creditcard").font(.system(size: 15)).foregroundStyle(Palette.wine)
+            TextField("What you paid per bottle (optional)", text: $text).keyboardType(.decimalPad)
+            Text(Currency.code).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+        }
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .onAppear { if let p = paidUSD { text = String(Int(Currency.convert(p, from: "USD", to: Currency.code).rounded())) } }
+        .onChange(of: text) { _, t in
+            let v = Double(t.replacingOccurrences(of: ",", with: ".")) ?? 0
+            paidUSD = v > 0 ? Currency.convert(v, from: Currency.code, to: "USD") : nil
+        }
+    }
+}
+
 /// Close button + progress bar used by the flows.
 struct FlowHeader: View {
     var progress: Double
@@ -763,6 +833,7 @@ struct ScanFlow: View {
     @State private var added = false
     @State private var tasteNow = false
     @State private var started = false
+    @State private var paidUSD: Double? = nil
 
     var body: some View {
         VStack(spacing: 0) {
@@ -772,7 +843,7 @@ struct ScanFlow: View {
                     if !started {
                         CaptureStep(eyebrow: "Scan a wine", title: "Snap the label",
                                     subtitle: "Fill the frame with the front label. You'll get the details and the average price.",
-                                    image: $image) { typed in
+                                    image: $image, onPicking: { withAnimation { started = true }; working = WineRecognizer.isAvailable }) { typed in
                             wine.name = typed
                             begin()
                         }
@@ -810,7 +881,7 @@ struct ScanFlow: View {
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
             }
             PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
-            if !pricing && identified { PricePaidField(price: $price) }
+            if identified { PaidField(paidUSD: $paidUSD) }
 
             VStack(spacing: 12) {
                 HStack {
@@ -853,6 +924,7 @@ struct ScanFlow: View {
             wine = w
             identified = true
             journal.noteCost(r.costUSD)
+            WineDB.shared.noteScan(w, image: image)
         } catch { self.error = error.localizedDescription }
         working = false
         if identified { await findPrice() }
@@ -871,6 +943,7 @@ struct ScanFlow: View {
         b.wine = wine
         b.quantity = quantity
         b.price = price
+        b.setPaid(paidUSD)
         if let img = image { b.photo = journal.savePhoto(img, id: b.id) }
         journal.upsert(b)
         Haptics.success()
@@ -1049,6 +1122,7 @@ struct TastingFlow: View {
                 entry.wine = w
                 entry.identified = true
                 journal.noteCost(r.costUSD)
+                WineDB.shared.noteScan(w, image: photo)
             } catch { self.error = error.localizedDescription }
             working = false
             if entry.identified && blind {
@@ -1568,8 +1642,16 @@ struct CellarDetailView: View {
                                  subtitle: [b.wine.producer, "Added " + b.added.formatted(date: .abbreviated, time: .omitted)].filter { !$0.isEmpty }.joined(separator: " · "))
                     WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity, wine: b.wine) { Task { await refresh(b) } }
-                    if !pricing {
-                        PricePaidField(price: Binding(get: { b.price }, set: { v in var c = b; c.price = v; journal.upsert(c) }))
+                    PaidField(paidUSD: Binding(get: { b.paidUSD }, set: { v in var c = b; c.setPaid(v); journal.upsert(c) }))
+                    if let paid = b.paidTotal, b.value > 0 {
+                        let diff = b.value - paid
+                        HStack {
+                            Text("Today vs. what you paid").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                            Spacer()
+                            Text((diff >= 0 ? "+" : "−") + money(abs(diff), b.price?.currency ?? "USD"))
+                                .font(.system(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(diff >= 0 ? Palette.correct : Palette.wrong)
+                        }
+                        .padding(.horizontal, 4)
                     }
                     HStack {
                         Text("Bottles").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)

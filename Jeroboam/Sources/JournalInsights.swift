@@ -61,6 +61,7 @@ struct JournalInsights: View {
                     .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).padding(.top, -16)
             }
             mapCards
+            countriesCard
             chartGrid
         }
         .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
@@ -157,6 +158,46 @@ struct JournalInsights: View {
             }
             .buttonStyle(.plain)
         }
+    }
+
+    // MARK: countries (flags and bottle counts)
+
+    private var countriesCard: some View {
+        var tally: [String: (name: String, n: Int)] = [:]
+        for w in wines { let k = norm(w.country); tally[k] = (tally[k]?.name ?? w.country, (tally[k]?.n ?? 0) + 1) }
+        let rows = tally.values.sorted { $0.n > $1.n || ($0.n == $1.n && $0.name < $1.name) }
+        let most = max(1, rows.first?.n ?? 1)
+        return Button { showWorld = true } label: {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Where your wines come from").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("\(rows.count) \(rows.count == 1 ? "country" : "countries"). Tap to open the detailed map.").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                }
+                VStack(spacing: 10) {
+                    ForEach(rows.prefix(8), id: \.name) { r in
+                        HStack(spacing: 12) {
+                            Text(Flag.emoji(for: r.name)).font(.system(size: 26))
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(r.name).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.ink)
+                                GeometryReader { geo in
+                                    Capsule().fill(Palette.wine.opacity(0.85)).frame(width: max(8, geo.size.width * CGFloat(r.n) / CGFloat(most)))
+                                }
+                                .frame(height: 6)
+                            }
+                            Text("\(r.n)").font(.system(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                                .frame(minWidth: 24, alignment: .trailing)
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .cardStyle(padding: 16)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: charts
@@ -380,7 +421,7 @@ struct WorldTriedMap: View {
                 // a real heat map: every place adds a soft glow, the glows add up where places are close together,
                 // and the total is coloured from pale yellow through orange to deep red
                 let pts = dots.map { (CGPoint(x: origin.x + $0.point.x * s, y: origin.y + $0.point.y * s), 1 + 0.7 * log(Double(max(1, $0.count)))) }
-                if let img = HeatImage.make(points: pts, size: size, sigma: 12 * heatScale) {
+                if let img = HeatImage.make(points: pts, size: size, sigma: 6.5 * heatScale) {
                     ctx.draw(ctx.resolve(Image(decorative: img, scale: 1).interpolation(.high)), in: CGRect(origin: .zero, size: size))
                 }
                 var taken: [CGRect] = []
@@ -526,7 +567,7 @@ enum HeatImage {
         for i in 0..<(w * h) {
             let v = field[i]
             if !v.isFinite || v < 0.01 { continue }
-            let t = 1 - exp(-1.05 * v)
+            let t = 1 - exp(-1.25 * v)
             let c = lut[min(255, Int(t * 255))]
             px[i * 4] = c.0; px[i * 4 + 1] = c.1; px[i * 4 + 2] = c.2; px[i * 4 + 3] = c.3
         }
