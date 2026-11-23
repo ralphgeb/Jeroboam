@@ -57,4 +57,27 @@ enum PriceCloud {
         }
         UserDefaults.standard.set(true, forKey: "priceCloudSeeded")
     }
+
+    // MARK: wines (every scan is counted, and what Claude found out is kept so nobody pays for it twice)
+
+    /// The wine's details as already found for a label with this signature (or this wine key).
+    static func wine(sig: String?, key: String? = nil) async -> WineIdentity? {
+        var q: [URLQueryItem] = []
+        if let sig { q.append(URLQueryItem(name: "sig", value: sig)) } else if let key { q.append(URLQueryItem(name: "key", value: key)) } else { return nil }
+        guard let req = request("wine", query: q),
+              let (data, resp) = try? await URLSession.shared.data(for: req), (resp as? HTTPURLResponse)?.statusCode == 200,
+              let o = try? JSONSerialization.jsonObject(with: data) as? [String: Any], let j = o["json"] as? String,
+              let w = try? JSONDecoder().decode(WineIdentity.self, from: Data(j.utf8)), !w.name.isEmpty else { return nil }
+        return w
+    }
+
+    /// Counts one more scan of this wine and keeps its details. Only the wine itself goes out: no photo, no name, no device or account.
+    static func shareWine(_ w: WineIdentity, sig: String? = nil) {
+        guard w.found, !w.name.isEmpty, let json = (try? JSONEncoder().encode(w)).flatMap({ String(data: $0, encoding: .utf8) }) else { return }
+        var body: [String: Any] = ["key": WineDB.key(w), "json": json, "name": w.name, "producer": w.producer, "vintage": w.vintage,
+                                   "region": w.region, "country": w.country, "style": w.style]
+        if let sig { body["sig"] = sig }
+        guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine", method: "POST", body: data) else { return }
+        Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
+    }
 }

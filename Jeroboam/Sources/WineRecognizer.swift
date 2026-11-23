@@ -103,9 +103,15 @@ enum WineRecognizer {
         if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
             return RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
         }
+        // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
+        if let sig, let w = await PriceCloud.wine(sig: sig) {
+            WineDB.shared.save(w, signature: sig)
+            return RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+        }
         var r = try await identifyFresh(image: image)
         r.identity = tidy(r.identity)
         WineDB.shared.save(r.identity, signature: sig)
+        PriceCloud.shareWine(r.identity, sig: sig)
         return r
     }
 
