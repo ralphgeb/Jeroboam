@@ -872,6 +872,10 @@ def build_gb(only=None):
         W, tol = 3000, 1.0
         pr = Proj(spec["bbox"], W)
         land, focus, lk, rv = base_layers(pr, spec["bbox"], spec["focus"], tol=tol)
+        if mid == "spain":   # the Canary Islands are not on this map: they stretched the country's frame in the Atlas thumbnails
+            ycut = pr.xy(-9, 34.8)[1]
+            focus = [f for f in focus if min(f[1::2]) < ycut]
+            land = [f for f in land if min(f[1::2]) < ycut]
         sketches = {r["id"]: unary_union([Polygon(shape_latlon(s)).buffer(0) for s in r["shapes"]]) for r in spec["regions"]}
         geoms = {}
         for r in spec["regions"]:
