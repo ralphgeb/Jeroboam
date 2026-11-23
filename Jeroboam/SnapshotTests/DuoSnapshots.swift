@@ -287,4 +287,32 @@ final class DuoSnapshots: XCTestCase {
         snap("fr-lines-rhone", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["chateauneuf-du-pape"]) }
         XCTAssertNotNil(ContentStore.shared.region("tsinandali"))
     }
+
+    /// Search: the matching rules, and what the Atlas search finds.
+    func testSearchRules() {
+        XCTAssertTrue(Search.matches("cotes du rhone", "Côtes du Rhône"))
+        XCTAssertTrue(Search.matches("CHATEAUNEUF", "Châteauneuf-du-Pape"))
+        XCTAssertTrue(Search.matches("pa", "Châteauneuf-du-Pape"))
+        XCTAssertFalse(Search.matches("zzz", "Pauillac"))
+        for q in ["pauillac", "barolo", "mendoza", "kakheti", "tsinandali", "georgia", "napa", "rioja", "willamette", "cote de nuits", "burgundy"] {
+            XCTAssertFalse(AtlasSearchResults.places(q).isEmpty, "no place found for \(q)")
+        }
+        for q in ["cab", "riesling", "malbec", "pinot"] { XCTAssertFalse(AtlasSearchResults.grapes(q).isEmpty, "no grape for \(q)") }
+        XCTAssertEqual(AtlasSearchResults.places("pauillac").first?.id, "pauillac")
+        XCTAssertEqual(FlavorGlyph.kind(for: "Dried rose", category: nil), .rose)
+        XCTAssertEqual(FlavorGlyph.kind(for: "Tar", category: nil), .tar)
+        XCTAssertEqual(FlavorGlyph.kind(for: "Licorice", category: nil), .liquorice)
+        XCTAssertNotEqual(FlavorGlyph.kind(for: "Wet slate", category: nil), .generic)
+        XCTAssertNotEqual(FlavorGlyph.kind(for: "Totally unknown thing", category: nil), .generic)
+    }
+
+    /// The wine pages in the Journal: the glance tiles and the region map.
+    func testWineGlance() {
+        var w = WineIdentity.empty
+        w.name = "Barolo Pira"; w.producer = "Roagna"; w.region = "Barolo, Piedmont"; w.country = "Italy"; w.vintage = "2012"
+        w.grapes = ["Nebbiolo"]; w.funFact = "Pira is a historic vineyard in Castiglione Falletto."; w.drinkWindow = "2024–2040"
+        w.tastingNotes = ["Dried rose", "Tar", "Red cherry", "Licorice", "Dried herbs"]
+        let price = PriceInfo(average: 215, low: 215, high: 215, currency: "USD", source: "Cheapest of 2 shops · 3 L bottle, per 750 ml", url: "https://example.com")
+        snap("wine-glance", settle: 3.0) { ScrollView { VStack(spacing: 14) { WineGlance(wine: w, price: price, points: 94, pointsAreGuess: true); WineInfoCard(wine: w) }.padding(20) } }
+    }
 }

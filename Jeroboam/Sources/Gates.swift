@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Wraps an atlas card. Free users: France and Italy are open, other countries need Jero Plus, and each atlas
+/// Wraps an atlas card. Free users: France is open, other countries need Jero Plus, and each atlas
 /// section (grapes, wines, styles, great wines…) opens five cards for free. A locked card shows faded under
 /// the Bordeaux lock and brings up the Jero Plus sheet.
 struct PlusGate<Content: View>: View {
@@ -26,7 +26,7 @@ struct PlusGate<Content: View>: View {
                     .allowsHitTesting(false)
                     .overlay {
                         PlusCallout(title: countryLocked ? "\(country ?? "This country") is in Jero Plus" : "Your free cards are used",
-                                    message: countryLocked ? "France and Italy are free. Every other country, map and appellation comes with Jero Plus."
+                                    message: countryLocked ? "France is free. Every other country, map and appellation comes with Jero Plus."
                                                            : "You opened \(Plus.freeOpens) cards here for free. Jero Plus opens them all.")
                             .onTapGesture { PaywallPresenter.shared.show(reason) }
                     }

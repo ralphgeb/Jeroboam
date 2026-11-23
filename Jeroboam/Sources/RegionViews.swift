@@ -22,7 +22,7 @@ struct RegionListView: View {
                                     DetailLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
                                 } else {
                                     // locked countries open the Jero Plus sheet straight away
-                                    Button { PaywallPresenter.shared.show("France and Italy are free. \(c.name) and every other country come with Jero Plus.") } label: {
+                                    Button { PaywallPresenter.shared.show("France is free. \(c.name) and every other country come with Jero Plus.") } label: {
                                         countryCard(c).overlay(alignment: .topTrailing) { LockDot(size: 26).padding(10) }
                                     }
                                     .buttonStyle(PressableStyle())

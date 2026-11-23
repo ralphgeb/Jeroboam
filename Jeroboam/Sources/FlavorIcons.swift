@@ -98,10 +98,75 @@ enum FlavorGlyph {
         case leather, earth, mushroom, feather, steak, truffle
         case honeycomb, petrol, hay
         case almond, hazelnut, walnut
+        case tar, pencil, olive, drop
         case generic
     }
 
+    /// Words inside a free-text descriptor ("dried rose", "licorice", "tar", "wet slate"…) and the icon they call for. The first
+    /// match wins, so the specific words come before the general ones. Longer phrases are checked as whole words.
+    private static let keywords: [(String, Kind)] = [
+        ("rosemary", .thyme), ("rose", .rose), ("licorice", .liquorice), ("liquorice", .liquorice), ("anise", .fennel), ("star anise", .fennel),
+        ("tarragon", .dill), ("tart", .cherry), ("tar", .tar), ("asphalt", .tar), ("bitumen", .tar), ("pencil", .pencil), ("graphite", .pencil), ("lead", .pencil),
+        ("kirsch", .cherry), ("cherry", .cherry), ("cherries", .cherry),
+        ("strawberr", .strawberry), ("raspberr", .raspberry), ("blackberr", .raspberry), ("bramble", .raspberry), ("mulberr", .raspberry),
+        ("blueberr", .blueberry), ("bilberr", .blueberry), ("cassis", .currants), ("currant", .currants), ("cranberr", .currants),
+        ("pomegranate", .pomegranate), ("plum", .plum), ("damson", .plum), ("sloe", .plum), ("prune", .prune), ("raisin", .raisin),
+        ("sultana", .raisin), ("date", .raisin), ("fig", .fig), ("dried fruit", .raisin), ("fruit cake", .fruitCake), ("christmas", .fruitCake),
+        ("apple", .apple), ("pear", .pear), ("quince", .quince), ("grape", .grape),
+        ("lemon", .lemon), ("lime", .lime), ("grapefruit", .grapefruit), ("orange", .yuzu), ("mandarin", .yuzu), ("tangerine", .yuzu), ("citrus", .peel),
+        ("zest", .peel), ("marmalade", .jar), ("jam", .jar), ("compote", .jar), ("stewed", .jar), ("cooked fruit", .jar),
+        ("peach", .peach), ("nectarine", .peach), ("apricot", .apricot), ("banana", .banana), ("lychee", .lychee), ("mango", .mango),
+        ("melon", .melon), ("passion", .passionFruit), ("pineapple", .pineapple), ("tropical", .mango), ("guava", .mango), ("papaya", .mango),
+        ("violet", .violet), ("lavender", .lavender), ("elderflower", .elderflower), ("honeysuckle", .honeysuckle), ("acacia", .acacia),
+        ("orange blossom", .orangeBlossom), ("jasmine", .flower), ("blossom", .flower), ("floral", .flower), ("flower", .flower),
+        ("peony", .flower), ("iris", .flower), ("geranium", .flower), ("lilac", .flower), ("potpourri", .flower), ("chamomile", .flower),
+        ("mint", .mint), ("menthol", .mint), ("eucalyptus", .eucalyptus), ("thyme", .thyme), ("sage", .thyme), ("oregano", .thyme),
+        ("basil", .thyme), ("garrigue", .herbBundle), ("herb", .thyme), ("dill", .dill), ("fennel", .fennel),
+        ("tomato", .tomatoLeaf), ("bell pepper", .bellPepper), ("capsicum", .bellPepper), ("green pepper", .bellPepper), ("asparagus", .asparagus),
+        ("white pepper", .whitePepper), ("pepper", .peppercorns), ("grass", .grass), ("hay", .hay), ("straw", .hay), ("nettle", .nettle),
+        ("tea", .leaf), ("leaf", .leaf), ("leaves", .fallenLeaves), ("forest", .fallenLeaves), ("tobacco", .tobacco), ("cigar", .tobacco),
+        ("leather", .leather), ("saddle", .leather), ("earth", .earth), ("soil", .earth), ("humus", .earth), ("dust", .earth), ("mushroom", .mushroom),
+        ("truffle", .truffle), ("game", .feather), ("gamey", .feather), ("bacon", .steak), ("meat", .steak), ("beef", .steak), ("blood", .steak), ("savory", .steak),
+        ("olive", .olive), ("flint", .flint), ("gunpowder", .flint), ("match", .flint), ("slate", .pebbles), ("stone", .pebbles), ("mineral", .pebbles),
+        ("wet", .pebbles), ("chalk", .chalk), ("limestone", .chalk), ("salt", .saline), ("saline", .saline), ("sea", .saline), ("iodine", .saline), ("oyster", .saline),
+        ("wool", .wool), ("petrol", .petrol), ("kerosene", .petrol), ("diesel", .petrol), ("gasoline", .petrol),
+        ("clove", .clove), ("nutmeg", .nutmeg), ("cinnamon", .cinnamon), ("ginger", .cinnamon), ("spice", .cinnamon), ("saffron", .cinnamon), ("cardamom", .cinnamon),
+        ("vanilla", .vanilla), ("coconut", .coconut), ("caramel", .caramel), ("toffee", .candy), ("butterscotch", .candy), ("candy", .candy), ("cola", .candy), ("sweet", .candy),
+        ("toast", .toast), ("smoke", .smoke), ("smoky", .smoke), ("ash", .smoke), ("char", .charred), ("burnt", .charred), ("cedar", .log), ("oak", .log), ("wood", .log),
+        ("sandalwood", .log), ("pine", .log), ("resin", .log), ("juniper", .log),
+        ("chocolate", .chocolate), ("cocoa", .chocolate), ("mocha", .coffeeCup), ("espresso", .coffeeBean), ("coffee", .coffeeCup),
+        ("brioche", .brioche), ("biscuit", .biscuit), ("cracker", .biscuit), ("bread", .bread), ("yeast", .bread), ("dough", .dough), ("pastry", .croissant),
+        ("croissant", .croissant), ("cheese", .cheese), ("butter", .butter), ("cream", .jug), ("yogurt", .tub), ("yoghurt", .tub), ("milk", .jug),
+        ("honey", .honeycomb), ("wax", .honeycomb), ("almond", .almond), ("marzipan", .almond), ("hazelnut", .hazelnut), ("walnut", .walnut), ("nut", .hazelnut), ("nutty", .hazelnut),
+    ]
+
+    /// Words that only describe how a smell is, not what it is: dropped before looking a descriptor up.
+    private static let softeners: Set<String> = ["dried", "fresh", "ripe", "ripened", "wild", "baked", "crushed", "toasted", "roasted", "candied", "sweet", "overripe",
+                                                 "light", "hint", "touch", "notes", "note", "of", "and", "with", "subtle", "intense", "delicate", "mature", "aged", "young", "green",
+                                                 "black", "red", "white", "yellow", "dark", "pink"]
+
     static func kind(for aroma: String, category: String?) -> Kind {
+        let exact = exactKind(for: aroma, category: category)
+        if exact != .generic { return exact }
+        let words = aroma.lowercased().folding(options: .diacriticInsensitive, locale: nil)
+            .components(separatedBy: CharacterSet.letters.inverted).filter { !$0.isEmpty }
+        let text = " " + words.joined(separator: " ") + " "
+        // the whole phrase and each word, with and without the colour/ripeness words, against the keyword list
+        // short words must be whole words ("tar" is not "tart", "ash" is not "ashen"); longer ones may be the start of a word
+        func hit(_ k: String, in t: String) -> Bool { k.count <= 4 ? t.contains(" " + k + " ") : t.contains(" " + k) }
+        for (k, kind) in keywords where hit(k, in: text) { return kind }
+        let core = words.filter { !softeners.contains($0) }
+        if core != words, !core.isEmpty {
+            let again = exactKind(for: core.joined(separator: " "), category: category)
+            if again != .generic { return again }
+            let t2 = " " + core.joined(separator: " ") + " "
+            for (k, kind) in keywords where hit(k, in: t2) { return kind }
+        }
+        if let cat = category, !cat.isEmpty { return exactKind(for: "", category: cat) }
+        return .drop
+    }
+
+    private static func exactKind(for aroma: String, category: String?) -> Kind {
         switch aroma.lowercased() {
         case "red cherry", "black cherry", "kirsch", "cherry", "sour cherry": return .cherry
         case "raspberry", "blackberry", "mulberry", "boysenberry": return .raspberry
@@ -747,6 +812,24 @@ enum FlavorGlyph {
             g.stroke.seg(12, 3, 12, 21)
             g.thin.quad(5, 9, 8, 8, 9.5, 11); g.thin.quad(5, 15, 8, 13, 9.5, 16)
             g.thin.quad(19, 9, 16, 8, 14.5, 11); g.thin.quad(19, 15, 16, 13, 14.5, 16)
+        case .tar:
+            // a heavy, slow drop with a shine on it
+            g.stroke.shape(12, 3, [(14.5, 6.5, 19, 9.5, 19, 14.5), (19, 18.8, 15.8, 21.5, 12, 21.5), (8.2, 21.5, 5, 18.8, 5, 14.5), (5, 9.5, 9.5, 6.5, 12, 3)])
+            g.thin.quad(8.5, 14, 8.7, 11.8, 10.4, 10.4)
+            g.fill.oval(15, 17.5, 1.0, 1.0)
+        case .pencil:
+            // graphite: a sharpened pencil on the slant
+            g.stroke.poly([(4.5, 19.5), (7, 14), (17, 4), (20, 7), (10, 17)], close: true)
+            g.stroke.poly([(7, 14), (10, 17)])
+            g.thin.seg(12, 9, 15, 12)
+            g.fill.poly([(4.5, 19.5), (5.6, 16.9), (7.1, 18.4)], close: true)
+        case .olive:
+            g.stroke.oval(11.5, 13.5, 5.2, 6.8, 25)
+            g.stroke.quad(14, 7, 15.5, 4.5, 18.5, 4)
+            g.fill.circle(10.5, 14, 1.0)
+        case .drop:
+            g.stroke.shape(12, 3.5, [(14, 7, 17.5, 10, 17.5, 14), (17.5, 17.5, 15, 20.5, 12, 20.5), (9, 20.5, 6.5, 17.5, 6.5, 14), (6.5, 10, 10, 7, 12, 3.5)])
+            g.thin.quad(9.6, 15, 9.8, 12.8, 11.2, 11.6)
         case .generic:
             g.stroke.circle(12, 12, 7)
         }

@@ -15,7 +15,7 @@ enum Distribution {
 }
 
 /// Jero Plus: every level but your starting one (and their guidebooks), every country in the atlas, unlimited atlas cards
-/// and the Journal. Level 1, Practice, France and Italy stay free.
+/// and the Journal. Level 1, Practice and France stay free.
 ///
 /// Buying goes through the App Store (StoreKit 2, `com.ralphgeb.jero.plus.monthly`) once the subscription
 /// exists in App Store Connect; until then a test checkout that follows Apple's sheet (Face ID, nothing charged).
@@ -26,7 +26,7 @@ enum Distribution {
     static let storeKey = "jero.plus.store"
     /// Atlas sections free users can open a few cards in.
     static let freeOpens = 5
-    static let freeCountries: Set<String> = ["France", "Italy"]
+    static let freeCountries: Set<String> = ["France"]
 
     private(set) var active: Bool
     var product: Product?
@@ -374,8 +374,8 @@ struct PlusSheet: View {
                 row("Your starting level", free: true, plus: true)
                 row("Other levels and guidebooks", free: false, plus: true)
                 row("Practice quizzes", free: true, plus: true)
-                row("Atlas: France and Italy", free: true, plus: true)
-                row("Atlas: all 15 countries", free: false, plus: true)
+                row("Atlas: France", free: true, plus: true)
+                row("Atlas: every other country", free: false, plus: true)
                 row("Journal, cellar and blind tastings", free: false, plus: true)
                 row("Great wines to try", free: false, plus: true)
             }

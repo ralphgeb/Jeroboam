@@ -66,13 +66,13 @@ struct AtlasSearchResults: View {
     /// Only the places of "Maps beyond the atlas" (no grapes).
     var onlyExtras = false
 
-    private var places: [Region] {
+    /// The places that match (atlas and beyond), best first. Static so it can be tested.
+    static func places(_ query: String, onlyExtras: Bool = false) -> [Region] {
         let c = ContentStore.shared
         var seen = Set<String>()
         let all = ((onlyExtras ? [] : c.library.regions) + c.extraRegions).filter { seen.insert($0.id).inserted }
         let hits = all.filter { r in
-            let parent = r.country
-            return Search.matches(query, r.name, parent) || Search.matches(query, r.name, (r.local ?? []).joined(separator: " "))
+            Search.matches(query, r.name, r.country) || Search.matches(query, r.name, (r.local ?? []).joined(separator: " "))
         }
         return hits.sorted { a, b in
             let ra = Search.rank(query, a.name), rb = Search.rank(query, b.name)
@@ -83,11 +83,13 @@ struct AtlasSearchResults: View {
         }
     }
 
-    private var grapes: [Grape] {
-        if onlyExtras { return [] }
-        return ContentStore.shared.library.grapes.filter { Search.matches(query, $0.name, ($0.aka ?? []).joined(separator: " ")) }
+    static func grapes(_ query: String) -> [Grape] {
+        ContentStore.shared.library.grapes.filter { Search.matches(query, $0.name, ($0.aka ?? []).joined(separator: " ")) }
             .sorted { Search.rank(query, $0.name) < Search.rank(query, $1.name) }
     }
+
+    private var places: [Region] { Self.places(query, onlyExtras: onlyExtras) }
+    private var grapes: [Grape] { onlyExtras ? [] : Self.grapes(query) }
 
     var body: some View {
         let p = places, g = grapes

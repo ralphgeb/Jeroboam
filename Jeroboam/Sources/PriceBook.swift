@@ -73,22 +73,32 @@ final class PriceBook {
         }
         guard let top = cands.map(\.score).max() else { return nil }
         // the best-matching names only (a different wine of the same house must not win on price)
-        let pool = cands.filter { $0.score >= top - 0.8 }.map(\.row)
+        let pool = cands.filter { $0.score >= top - 0.35 }
         let want = Int(w.vintage.trimmingCharacters(in: .whitespaces))
         func gap(_ r: Row) -> Int {
             guard let want else { return 0 }
             guard let y = Int(r.vintage) else { return 40 }   // no vintage in the list: after any real year
             return abs(y - want)
         }
-        func lowest(_ r: Row) -> Double { r.low > 0 ? r.low : r.usd }
-        guard let r = pool.min(by: { a, b in
-            if gap(a) != gap(b) { return gap(a) < gap(b) }
-            if (a.size == 750) != (b.size == 750) { return a.size == 750 }
-            return lowest(a) < lowest(b)
+        /// A price per 750 ml bottle: a magnum or a 3 L bottle is divided down, a half bottle scaled up.
+        func per750(_ r: Row, _ v: Double) -> Double { r.size > 0 && abs(r.size - 750) > 60 ? v * 750 / Double(r.size) : v }
+        func lowest(_ r: Row) -> Double { per750(r, r.low > 0 ? r.low : r.usd) }
+        func sizeGap(_ r: Row) -> Double { r.size > 0 ? abs(log(Double(r.size) / 750)) : 0 }
+        // 1) the same vintage, else the closest; 2) the size closest to 750 ml; 3) the cleanest name match; 4) the lowest price
+        guard let best = pool.min(by: { a, b in
+            if gap(a.row) != gap(b.row) { return gap(a.row) < gap(b.row) }
+            if abs(sizeGap(a.row) - sizeGap(b.row)) > 0.05 { return sizeGap(a.row) < sizeGap(b.row) }
+            if abs(a.score - b.score) > 0.01 { return a.score > b.score }
+            return lowest(a.row) < lowest(b.row)
         }) else { return nil }
-        let off = want != nil && gap(r) > 0 && Int(r.vintage) != nil
-        let src = (r.shops > 1 ? "Cheapest of \(r.shops) shops" : "Shop price") + (off ? " · \(r.vintage) vintage" : "")
-        return PriceInfo(average: lowest(r), low: lowest(r), high: max(r.high, lowest(r)), currency: "USD",
+        let r = best.row
+        var src = r.shops > 1 ? "Cheapest of \(r.shops) shops" : "Shop price"
+        if let want, let y = Int(r.vintage), y != want { src += " · \(r.vintage) vintage" }
+        if r.size > 0 && abs(r.size - 750) > 60 {
+            let l = Double(r.size) / 1000
+            src += " · \(l == l.rounded() ? String(Int(l)) : String(format: "%.1f", l)) L bottle, per 750 ml"
+        }
+        return PriceInfo(average: lowest(r), low: lowest(r), high: max(per750(r, r.high), lowest(r)), currency: "USD",
                          source: src, url: r.link.isEmpty ? nil : "https://" + r.link)
     }
 }

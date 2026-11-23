@@ -326,7 +326,7 @@ struct JournalHome: View {
                 Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
                 Text([b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
-                Text("Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? ""))
+                Text("Vintage \(b.vintageText)")
                     .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
             }
             Spacer(minLength: 8)
@@ -408,14 +408,12 @@ struct EntryTile: View {
                 Thumb(photo: entry.photo, style: entry.wine.style)
                     .frame(height: 150).frame(maxWidth: .infinity)
                     .clipShape(Rectangle())
-                HStack(spacing: 4) {
-                    if entry.isBlind { Image(systemName: "eye.slash").font(.system(size: 10, weight: .semibold)) }
-                    Text("\(entry.points) pts").font(.system(size: 12, weight: .semibold).monospacedDigit())
+                if entry.isBlind {
+                    Image(systemName: "eye.slash").font(.system(size: 10, weight: .semibold)).foregroundStyle(.white)
+                        .padding(.horizontal, 8).padding(.vertical, 5)
+                        .background(Capsule().fill(Palette.bordeaux.opacity(0.92)))
+                        .padding(8)
                 }
-                .foregroundStyle(.white)
-                .padding(.horizontal, 8).padding(.vertical, 4)
-                .background(Capsule().fill(Palette.bordeaux.opacity(0.92)))
-                .padding(8)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.title).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
@@ -637,11 +635,11 @@ struct PriceCard: View {
                 } else if let p = price {
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text(p.averageText).font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                        Text(p.source == "You paid" ? "you paid per bottle" : "avg. per bottle").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                        Text(p.source == "You paid" ? "you paid per bottle" : ((p.source.hasPrefix("Cheapest") || p.source.hasPrefix("Shop price")) ? "lowest per 750 ml" : "avg. per bottle")).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
                     }
                     if p.source != "You paid" {
                         Text(p.isEstimate ? (p.low > 0 && p.high > 0 ? "Estimated by Claude · \(p.format(p.low))–\(p.format(p.high))" : "Estimated by Claude") :
-                                (p.low > 0 && p.high > 0 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
+                                (p.low > 0 && p.high > p.low * 1.02 ? "\(p.format(p.low))–\(p.format(p.high)) · \(p.source)" : p.source))
                             .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
                     }
                     if let (url, text) = shopLink {
@@ -1464,6 +1462,7 @@ struct EntryDetailView: View {
                             }
                         }
                     }
+                    if e.identified { WineGlance(wine: e.wine, price: e.price, points: e.points) }
                     if e.identified { WineInfoCard(wine: e.wine) }
                     if let p = e.price { PriceCard(price: p, wine: e.wine) }
                     if let c = e.colorID.flatMap({ ContentStore.shared.color($0) }) {
@@ -1540,7 +1539,8 @@ struct CellarDetailView: View {
                             .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
-                                 subtitle: "Vintage \(b.vintageText)" + (b.roughRating.map { " · about \($0) pts" } ?? "") + " · added " + b.added.formatted(date: .abbreviated, time: .omitted))
+                                 subtitle: [b.wine.producer, "Added " + b.added.formatted(date: .abbreviated, time: .omitted)].filter { !$0.isEmpty }.joined(separator: " · "))
+                    WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity, wine: b.wine) { Task { await refresh(b) } }
                     if !pricing {
                         PricePaidField(price: Binding(get: { b.price }, set: { v in var c = b; c.price = v; journal.upsert(c) }))

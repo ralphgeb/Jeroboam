@@ -491,7 +491,9 @@ def commune_layer(pr, named_geoms, tol, minz=3.0):
             f = flat(chaikin(list(p.exterior.coords)))
             if len(f) >= 6: lines.append(f)
         x, y = label_point(pg)
-        names.append({"n": n, "x": round(x), "y": round(y)})
+        x0, y0, x1, y1 = pg.bounds
+        # size of the commune, so the app only writes its name when the name fits inside it
+        names.append({"n": n, "x": round(x), "y": round(y), "w": round(x1 - x0), "h": round(y1 - y0), "a": round(pg.area)})
     return lines, names
 
 def write(mid, data):
@@ -536,8 +538,7 @@ def fine_inset(pr, pf, bbox, water, estuary, specs, res, tol, K):
     for s in specs:
         if s["id"] in res: allnames.update(res[s["id"]][1])
     named = [(n, gg) for d in _depts for n, gg in fr_communes(d) if n in allnames]
-    lines, _ = commune_layer(pf, named, tol)   # the commune lines stay as fine line work under the appellations (no names)
-    names = []
+    lines, names = commune_layer(pf, named, tol)   # commune lines as fine line work, and the names (drawn only where they fit)
     la0, lo0, la1, lo1 = bbox
     x0, y0 = pr.xy(lo0, la1); x1, y1 = pr.xy(lo1, la0)
     return {"k": K, "box": [round(x0), round(y0), round(x1), round(y1)], "land": land, "focus": focus, "lakes": lk,

@@ -21,7 +21,7 @@ struct WineMapV2: Decodable {
     struct City: Decodable { let n: String; let x: Int; let y: Int; let r: Int? }
     struct Label: Decodable { let t: String; let x: Int; let y: Int; let k: String }
     struct River: Decodable { let w: Int; let p: [Int] }
-    struct Village: Decodable { let n: String; let x: Int; let y: Int }
+    struct Village: Decodable { let n: String; let x: Int; let y: Int; let w: Int?; let h: Int?; let a: Int? }
     struct Tint: Decodable { let c: Int; let shapes: [[Int]] }
     /// A wine region drawn K times finer than the map around it (coast, water, communes).
     struct Inset: Decodable {
@@ -87,7 +87,7 @@ final class MapGeometry {
     let maxLevel: Int
     /// Light province tints behind the wine areas.
     let tints: [(Path, Int)]
-    struct InsetGeo { let box: CGRect; let land: Path; let focus: Path; let lakes: Path; let rivers: [(Path, CGFloat)]; let communes: Path; let villages: [(String, CGPoint)] }
+    struct InsetGeo { let box: CGRect; let land: Path; let focus: Path; let lakes: Path; let rivers: [(Path, CGFloat)]; let communes: Path; let villages: [(name: String, at: CGPoint, size: CGSize, area: CGFloat)] }
     let insets: [InsetGeo]
     /// Zoom thresholds (relative to the whole map) for levels 1, 2, 3.
     let lod: [CGFloat]
@@ -159,7 +159,8 @@ final class MapGeometry {
                 land: Self.poly(i.land, k: k), focus: f, lakes: Self.poly(i.lakes, k: k),
                 rivers: i.rivers.map { r in var q = Path(); q.addLines(Self.pts(r.p, k: k)); return (q, CGFloat(r.w)) },
                 communes: Self.lines(i.communes, close: true, k: k),
-                villages: i.villages.map { ($0.n, CGPoint(x: CGFloat($0.x) / k, y: CGFloat($0.y) / k)) }))
+                villages: i.villages.map { (name: $0.n, at: CGPoint(x: CGFloat($0.x) / k, y: CGFloat($0.y) / k),
+                                            size: CGSize(width: CGFloat($0.w ?? 0) / k, height: CGFloat($0.h ?? 0) / k), area: CGFloat($0.a ?? 0) / (k * k)) }))
         }
         insets = insetList
         lod = (m.lod ?? [1.9, 3.2]).map { CGFloat($0) }
@@ -265,6 +266,8 @@ struct MapRenderer {
     var solo = false
     /// No numbered badges (a highlighted map must show which area is highlighted).
     var hideNumbers = false
+    /// Commune names inside the wine regions of the France map, each written only where it fits in its commune.
+    var placeNames = false
 
     func visibleLevel() -> Int {
         if let f = forcedLevel { return deepen && f >= 1 ? max(f, g.level(atRel: rel)) : f }
@@ -596,6 +599,31 @@ struct MapRenderer {
                 _ = place(Text(v.n).font(.system(size: 9 * ls, weight: .medium).italic()).foregroundColor(Palette.inkSoft), at: p, anchor: .center)
             }
         }
+        // the smaller places (communes) inside the appellations: sharp text, only where the name fits inside the commune
+        if placeNames, !thumb, rel >= 2.2, !g.insets.isEmpty {
+            let fs = 9.5 * ls
+            for i in g.insets {
+                for v in i.villages where v.size.width > 0 {
+                    let w = v.size.width * s, h = v.size.height * s
+                    guard w >= 24, h >= 10 else { continue }
+                    let c = screen(v.at)
+                    guard full.insetBy(dx: -40, dy: -20).contains(c) else { continue }
+                    var t = ctx
+                    let ink = t.resolve(Text(v.name).font(.system(size: fs, weight: .medium)).foregroundColor(Palette.ink.opacity(0.82)))
+                    let sz = ink.measure(in: CGSize(width: 220, height: 30))
+                    guard sz.width <= w * 0.9, sz.height <= h * 0.8, v.area * s * s >= sz.width * sz.height * 2.4 else { continue }
+                    let rect = CGRect(x: c.x - sz.width / 2, y: c.y - sz.height / 2, width: sz.width, height: sz.height)
+                    guard inset.contains(rect), !taken.contains(where: { $0.insetBy(dx: -1.5, dy: -1).intersects(rect) }) else { continue }
+                    taken.append(rect)
+                    // a thin light outline (four sharp copies, no blur) keeps it readable on dark and pale areas alike
+                    let halo = t.resolve(Text(v.name).font(.system(size: fs, weight: .medium)).foregroundColor(Palette.focusLand.opacity(0.9)))
+                    for d in [CGPoint(x: -0.8, y: 0), CGPoint(x: 0.8, y: 0), CGPoint(x: 0, y: -0.8), CGPoint(x: 0, y: 0.8)] {
+                        ctx.draw(halo, at: CGPoint(x: c.x + d.x, y: c.y + d.y), anchor: .center)
+                    }
+                    ctx.draw(ink, at: c, anchor: .center)
+                }
+            }
+        }
         if showCities {
             for c in g.map.cities where (c.r ?? 1) == 0 || rel >= 1.5 {
                 let p = screen(CGPoint(x: CGFloat(c.x), y: CGFloat(c.y)))
@@ -865,6 +893,7 @@ struct ZoomableWineMap: View {
     var forcedLevel: Int? = nil
     var deepen = false
     var regionsOnly = false
+    var placeNames = false
     /// Two-pane layout: the list sits beside the map, so only the title card above it needs room.
     var wide = false
     var zoomCommand: Int = 0
@@ -907,6 +936,7 @@ struct ZoomableWineMap: View {
                     r.forcedLevel = forcedLevel
                     r.deepen = deepen
                     r.regionsOnly = regionsOnly
+                    r.placeNames = placeNames
                     r.draw(in: &ctx, size: sz)
                 }
                 .contentShape(Rectangle())
@@ -1037,6 +1067,7 @@ struct MapExplorer: View {
     @State private var layer: Int? = nil
     @State private var zoomCommand = 0
     @State private var listExpanded = false
+    @State private var placeNames = true
     @State private var viewport: CGRect? = nil
 
     @Environment(\.windowWidth) private var pageWidth
@@ -1171,7 +1202,7 @@ struct MapExplorer: View {
         ZStack(alignment: .top) {
             Palette.sea.ignoresSafeArea()
             ZoomableWineMap(mapID: mapID, highlight: highlight, focus: highlight.count == 1 ? highlight.first : focus,
-                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, wide: isWide,
+                            forcedLevel: layer, regionsOnly: (layer ?? 0) == 0 && (g?.maxLevel ?? 0) > 0, placeNames: placeNames, wide: isWide,
                             zoomCommand: zoomCommand, onViewport: { viewport = $0 }, selected: $selected, zoom: $zoom)
                 .id(resetToken)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -1205,6 +1236,17 @@ struct MapExplorer: View {
                     Spacer().frame(height: 6)
                     circleButton("plus") { zoomCommand += 1 }
                     circleButton("minus") { zoomCommand -= 1 }
+                    // the smaller places inside the appellations (communes), written where they fit
+                    if !(g?.insets.isEmpty ?? true) {
+                        Spacer().frame(height: 6)
+                        Button { withAnimation(.easeInOut(duration: 0.2)) { placeNames.toggle() }; Haptics.tap() } label: {
+                            Image(systemName: "textformat").font(.system(size: 15, weight: .bold))
+                                .foregroundStyle(placeNames ? Palette.onWine : Palette.ink)
+                                .frame(width: 42, height: 42)
+                                .background(Circle().fill(placeNames ? Palette.wine : Palette.focusLand.opacity(0.94)))
+                        }
+                        .accessibilityLabel(placeNames ? "Hide place names" : "Show place names")
+                    }
                 }
             }
             .padding(.horizontal, 16)
