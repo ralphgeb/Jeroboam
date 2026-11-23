@@ -63,7 +63,7 @@ struct WineGlance: View {
             }
             Text(note).font(.system(size: 11.5)).foregroundStyle(Palette.inkFaint).lineLimit(1).minimumScaleFactor(0.8)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, minHeight: 98, alignment: .topLeading)
         .padding(12)
         .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))

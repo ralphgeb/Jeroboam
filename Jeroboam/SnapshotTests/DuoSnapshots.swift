@@ -290,20 +290,26 @@ final class DuoSnapshots: XCTestCase {
 
     /// Search: the matching rules, and what the Atlas search finds.
     func testSearchRules() {
-        XCTAssertTrue(Search.matches("cotes du rhone", "Côtes du Rhône"))
-        XCTAssertTrue(Search.matches("CHATEAUNEUF", "Châteauneuf-du-Pape"))
-        XCTAssertTrue(Search.matches("pa", "Châteauneuf-du-Pape"))
-        XCTAssertFalse(Search.matches("zzz", "Pauillac"))
-        for q in ["pauillac", "barolo", "mendoza", "kakheti", "tsinandali", "georgia", "napa", "rioja", "willamette", "cote de nuits", "burgundy"] {
-            XCTAssertFalse(AtlasSearchResults.places(q).isEmpty, "no place found for \(q)")
+        var lines: [String] = []
+        func check(_ ok: Bool, _ what: String) { lines.append((ok ? "OK    " : "FAIL  ") + what); XCTAssertTrue(ok, what) }
+        check(Search.matches("cotes du rhone", "Côtes du Rhône"), "accents ignored")
+        check(Search.matches("CHATEAUNEUF", "Châteauneuf-du-Pape"), "capitals and hyphens ignored")
+        check(Search.matches("pa", "Châteauneuf-du-Pape"), "start of a later word")
+        check(!Search.matches("zzz", "Pauillac"), "no false hit")
+        for q in ["pauillac", "barolo", "mendoza", "kakheti", "tsinandali", "georgia", "napa", "rioja", "willamette", "cote de nuits", "burgundy", "chianti", "marlborough", "stellenbosch"] {
+            let n = AtlasSearchResults.places(q).count
+            check(n > 0, "place search '\(q)' → \(n) (first: \(AtlasSearchResults.places(q).first?.name ?? "-"))")
         }
-        for q in ["cab", "riesling", "malbec", "pinot"] { XCTAssertFalse(AtlasSearchResults.grapes(q).isEmpty, "no grape for \(q)") }
-        XCTAssertEqual(AtlasSearchResults.places("pauillac").first?.id, "pauillac")
-        XCTAssertEqual(FlavorGlyph.kind(for: "Dried rose", category: nil), .rose)
-        XCTAssertEqual(FlavorGlyph.kind(for: "Tar", category: nil), .tar)
-        XCTAssertEqual(FlavorGlyph.kind(for: "Licorice", category: nil), .liquorice)
-        XCTAssertNotEqual(FlavorGlyph.kind(for: "Wet slate", category: nil), .generic)
-        XCTAssertNotEqual(FlavorGlyph.kind(for: "Totally unknown thing", category: nil), .generic)
+        for q in ["cab", "riesling", "malbec", "pinot", "syrah", "chard"] {
+            let n = AtlasSearchResults.grapes(q).count
+            check(n > 0, "grape search '\(q)' → \(n)")
+        }
+        check(AtlasSearchResults.places("pauillac").first?.id == "pauillac", "Pauillac is the first hit for pauillac")
+        for (a, k) in [("Dried rose", FlavorGlyph.Kind.rose), ("Tar", .tar), ("Licorice", .liquorice), ("Wet slate", .pebbles), ("Pencil shavings", .pencil)] {
+            check(FlavorGlyph.kind(for: a, category: nil) == k, "icon for \(a)")
+        }
+        check(FlavorGlyph.kind(for: "Totally unknown thing", category: nil) == .drop, "unknown aroma gets the drop, not an empty circle")
+        snap("search-report") { ScrollView { Text(lines.joined(separator: "\n")).font(.system(size: 11, design: .monospaced)).padding(16).frame(maxWidth: .infinity, alignment: .leading) } }
     }
 
     /// The wine pages in the Journal: the glance tiles and the region map.
