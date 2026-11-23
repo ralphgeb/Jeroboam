@@ -73,26 +73,21 @@ enum QuizGenerator {
         return Session(title: kind.title, lessonID: nil, cards: cards)
     }
 
-    /// A mock exam for one level: questions from that level's lessons plus generated ones, 30 in all.
-    /// `version` 1...4 gives four different exams (20 lesson questions each, none shared between versions, plus 10 freshly generated
-    /// ones that change every time: 120 questions in all); version 0 is a random mix.
-    static func exam(level: Int, count: Int = 30, version: Int = 0) -> Session {
+    /// A mock exam for one level: 30 questions drawn at random from about 120 (20 lesson questions of that level, kept apart
+    /// from the ones you were asked last time, plus 10 freshly generated ones), so every attempt is a different exam.
+    static func exam(level: Int, count: Int = 30) -> Session {
         let lessons = content.course.levels.first { $0.number == level }?.courseUnits.flatMap(\.lessons) ?? []
         let pool = lessons.flatMap { $0.cards.filter(\.isQuestion) }
-        let lessonQs: [Card]
-        if version >= 1, pool.count >= 20 {
-            // one fixed shuffle per level, cut into slices so the versions never share a question
-            var rng = ExamShuffleRNG(seed: UInt64(level) &* 7919 &+ 17)
-            let fixed = pool.sorted { $0.id < $1.id }.shuffled(using: &rng)
-            let per = 20
-            let start = ((version - 1) * per) % max(per, fixed.count)
-            lessonQs = (0..<per).map { fixed[(start + $0) % fixed.count] }
-        } else {
-            lessonQs = Array(pool.shuffled().prefix(count * 2 / 3))
-        }
+        let want = count * 2 / 3
+        let seenKey = "jero.examSeen.\(level)"
+        var seen = Set(UserDefaults.standard.stringArray(forKey: seenKey) ?? [])
+        var fresh = pool.filter { !seen.contains($0.id) }
+        if fresh.count < want { seen = []; fresh = pool }          // everything has been asked: start the round again
+        let lessonQs = Array(fresh.shuffled().prefix(want))
+        seen.formUnion(lessonQs.map(\.id))
+        UserDefaults.standard.set(Array(seen), forKey: seenKey)
         let generated = session(.mixed, count: count - lessonQs.count, maxLevel: level).cards
-        let cards = (lessonQs + generated).shuffled()
-        return Session(title: version == 0 ? "Level \(level) mock exam" : "Level \(level) mock exam · version \(version)", lessonID: nil, cards: cards)
+        return Session(title: "Level \(level) mock exam", lessonID: nil, cards: (lessonQs + generated).shuffled())
     }
 
     static func mistakes(_ ids: [String]) -> Session {
@@ -418,15 +413,3 @@ enum QuizMemory {
 }
 
 
-/// A small repeatable random generator (so a numbered exam version always holds the same lesson questions).
-struct ExamShuffleRNG: RandomNumberGenerator {
-    private var state: UInt64
-    init(seed: UInt64) { state = seed == 0 ? 0x9E3779B97F4A7C15 : seed }
-    mutating func next() -> UInt64 {
-        state &+= 0x9E3779B97F4A7C15
-        var z = state
-        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
-        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
-        return z ^ (z >> 31)
-    }
-}

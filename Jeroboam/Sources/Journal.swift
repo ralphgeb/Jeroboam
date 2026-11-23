@@ -193,6 +193,42 @@ final class JournalStore {
         if let i = cellar.firstIndex(where: { $0.id == b.id }) { cellar[i] = b } else { cellar.insert(b, at: 0) }
     }
 
+    /// Adds a scanned bottle; if the same wine (same name, producer and vintage) is already in the cellar, it is counted there
+    /// instead of making a second card. Returns true when it was merged into an existing one.
+    @discardableResult func addOrMerge(_ b: CellarBottle) -> Bool {
+        let k = WineDB.key(b.wine)
+        guard !k.isEmpty, let i = cellar.firstIndex(where: { WineDB.key($0.wine) == k }) else { cellar.insert(b, at: 0); return false }
+        var c = cellar[i]
+        c.quantity += b.quantity
+        if let p = b.paidUSD { c.paidUSD = p }
+        if c.price == nil || c.price?.source == "You paid" { c.price = b.price ?? c.price }
+        if c.photo == nil { c.photo = b.photo }
+        cellar[i] = c
+        return true
+    }
+
+    /// Groups of cellar cards that are the same wine (made before scans were merged automatically).
+    var duplicateGroups: [[CellarBottle]] {
+        Dictionary(grouping: cellar) { WineDB.key($0.wine) }.filter { !$0.key.isEmpty && $0.value.count > 1 }.map(\.value)
+    }
+
+    /// Merges every duplicate into one card: bottles add up, and the price paid per bottle is averaged.
+    func mergeDuplicates() {
+        for group in duplicateGroups {
+            guard var keep = group.first else { continue }
+            let qty = group.reduce(0) { $0 + $1.quantity }
+            let paid = group.filter { $0.paidUSD != nil }
+            if !paid.isEmpty { keep.paidUSD = paid.reduce(0.0) { $0 + ($1.paidUSD ?? 0) * Double($1.quantity) } / Double(max(1, paid.reduce(0) { $0 + $1.quantity })) }
+            if keep.price == nil || keep.price?.source == "You paid" { keep.price = group.compactMap(\.price).first(where: { $0.source != "You paid" }) ?? keep.price }
+            if keep.photo == nil { keep.photo = group.compactMap(\.photo).first }
+            keep.quantity = qty
+            let drop = Set(group.dropFirst().map(\.id))
+            for d in drop { CloudSync.shared.noteDeleted(d) }
+            cellar.removeAll { drop.contains($0.id) }
+            if let i = cellar.firstIndex(where: { $0.id == keep.id }) { cellar[i] = keep }
+        }
+    }
+
     func delete(_ b: CellarBottle) {
         CloudSync.shared.noteDeleted(b.id)
         cellar.removeAll { $0.id == b.id }
@@ -775,19 +811,30 @@ struct PricePaidField: View {
 struct PaidField: View {
     @Binding var paidUSD: Double?
     @State private var text = ""
+    @State private var saved = false
+    @FocusState private var focused: Bool
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: "creditcard").font(.system(size: 15)).foregroundStyle(Palette.wine)
-            TextField("What you paid per bottle (optional)", text: $text).keyboardType(.decimalPad)
+            TextField("What you paid per bottle (optional)", text: $text).keyboardType(.decimalPad).focused($focused)
             Text(Currency.code).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+            if focused {
+                Button("Save") { focused = false; Haptics.success(); withAnimation { saved = true } }
+                    .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.onWine)
+                    .padding(.horizontal, 12).padding(.vertical, 6).background(Capsule().fill(Palette.wine))
+            } else if saved || paidUSD != nil {
+                Label("Saved", systemImage: "checkmark.circle.fill").font(.system(size: 12.5, weight: .semibold)).foregroundStyle(Palette.correct).labelStyle(.titleAndIcon)
+            }
         }
         .padding(14)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .toolbar { ToolbarItemGroup(placement: .keyboard) { Spacer(); Button("Save") { focused = false; Haptics.success(); withAnimation { saved = true } }.fontWeight(.semibold) } }
         .onAppear { if let p = paidUSD { text = String(Int(Currency.convert(p, from: "USD", to: Currency.code).rounded())) } }
         .onChange(of: text) { _, t in
             let v = Double(t.replacingOccurrences(of: ",", with: ".")) ?? 0
             paidUSD = v > 0 ? Currency.convert(v, from: Currency.code, to: "USD") : nil
+            saved = false
         }
     }
 }
@@ -945,7 +992,7 @@ struct ScanFlow: View {
         b.price = price
         b.setPaid(paidUSD)
         if let img = image { b.photo = journal.savePhoto(img, id: b.id) }
-        journal.upsert(b)
+        journal.addOrMerge(b)
         Haptics.success()
         withAnimation { added = true }
     }

@@ -19,6 +19,7 @@ struct CellarView: View {
     @State private var priceBand = 0            // 0 any, 1 under $25, 2 $25–50, 3 $50–100, 4 $100+
     @State private var minRating = 0            // 0 any, 80, 85, 90
     @State private var vintage = ""             // "" any
+    @AppStorage("jero.cellarAsList") private var asList = false
 
     private func family(_ s: String) -> String {
         let t = s.lowercased()
@@ -68,9 +69,28 @@ struct CellarView: View {
                 stats(list)
                 chips
                 filterBar
+                if !journal.duplicateGroups.isEmpty {
+                    let n = journal.duplicateGroups.reduce(0) { $0 + $1.count - 1 }
+                    Button { withAnimation { journal.mergeDuplicates() } } label: {
+                        HStack(spacing: 10) {
+                            Image(systemName: "square.on.square").foregroundStyle(Palette.wine)
+                            Text("\(n) \(n == 1 ? "wine is" : "wines are") in your cellar twice. Merge them into one card each.")
+                                .font(.system(size: 13.5)).foregroundStyle(Palette.ink).multilineTextAlignment(.leading)
+                            Spacer(minLength: 4)
+                            Text("Merge").font(.system(size: 13.5, weight: .semibold)).foregroundStyle(Palette.onWine)
+                                .padding(.horizontal, 12).padding(.vertical, 6).background(Capsule().fill(Palette.wine))
+                        }
+                        .padding(12).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.wineSoft))
+                    }.buttonStyle(.plain)
+                }
                 HStack {
                     Text("\(list.count) \(list.count == 1 ? "wine" : "wines")\(filtersOn ? " match" : "")").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                     Spacer()
+                    Picker("Layout", selection: $asList) {
+                        Image(systemName: "square.grid.2x2").tag(false)
+                        Image(systemName: "list.bullet").tag(true)
+                    }
+                    .pickerStyle(.segmented).frame(width: 96)
                     if filtersOn {
                         Button("Clear filters") { withAnimation(.smooth(duration: 0.25)) { color = ""; priceBand = 0; minRating = 0; vintage = "" } }
                             .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
@@ -79,8 +99,14 @@ struct CellarView: View {
                 if list.isEmpty {
                     Text("No bottles match these filters.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                         .frame(maxWidth: .infinity).padding(.vertical, 40)
+                } else if asList {
+                    GroupCard {
+                        ForEach(Array(list.enumerated()), id: \.element.id) { i, b in
+                            DetailLink(value: b) { row(b, last: i == list.count - 1) }.buttonStyle(RowPressStyle())
+                        }
+                    }
                 } else {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12, alignment: .top)], alignment: .center, spacing: 12) {
                         ForEach(list) { b in
                             DetailLink(value: b) { tile(b) }.buttonStyle(PressableStyle())
                         }
@@ -115,9 +141,11 @@ struct CellarView: View {
             }
             if !paidBottles.isEmpty {
                 let diff = worthOfPaid - paid
+                let nPaid = paidBottles.reduce(0) { $0 + $1.quantity }
                 HStack(spacing: 10) {
-                    statTile(money(paid, "USD"), "you paid (\(paidBottles.count) \(paidBottles.count == 1 ? "wine" : "wines"))")
-                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain on those" : "loss on those")
+                    statTile(money(paid / Double(max(1, nPaid)), "USD"), "you paid per bottle")
+                    statTile(money(paid, "USD"), "total paid (\(nPaid) \(nPaid == 1 ? "bottle" : "bottles"))")
+                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain" : "loss")
                 }
             }
         }
@@ -194,14 +222,14 @@ struct CellarView: View {
     private func tile(_ b: CellarBottle) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .topTrailing) {
-                Thumb(photo: b.photo, style: b.wine.style).frame(height: 150).frame(maxWidth: .infinity).clipShape(Rectangle())
+                Thumb(photo: b.photo, style: b.wine.style).frame(height: 150).frame(maxWidth: .infinity).clipped()
                 if b.quantity > 1 {
                     Text("× \(b.quantity)").font(.system(size: 11, weight: .bold).monospacedDigit()).foregroundStyle(.white)
                         .padding(.horizontal, 8).padding(.vertical, 4).background(Capsule().fill(Palette.bordeaux.opacity(0.92))).padding(8)
                 }
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(b.title).font(.system(size: 13.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
+                Text(b.title).font(.system(size: 13.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
                 Text([b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 HStack {
                     Text(b.price.map { $0.averageText } ?? "–").font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
@@ -211,8 +239,32 @@ struct CellarView: View {
             }
             .padding(10)
         }
+        .frame(maxHeight: .infinity, alignment: .top)
         .background(Palette.card)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
+    }
+
+    private func row(_ b: CellarBottle, last: Bool) -> some View {
+        HStack(spacing: 12) {
+            Thumb(photo: b.photo, style: b.wine.style).frame(width: 46, height: 58)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text([b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                HStack(spacing: 8) {
+                    Text("Vintage \(b.vintageText)").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine)
+                    if let r = b.roughRating { Text("\(r) pts").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft) }
+                }
+            }
+            Spacer(minLength: 8)
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(b.price.map { $0.averageText } ?? "–").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                if let p = b.paidUSD { Text("paid " + money(p, "USD")).font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
+                Text("× \(b.quantity)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 72) } }
+        .contentShape(Rectangle())
     }
 }

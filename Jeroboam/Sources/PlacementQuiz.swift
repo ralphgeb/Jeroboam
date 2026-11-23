@@ -14,12 +14,12 @@ enum PlacementBank {
     static let sets: [[PlacementQuestion]] = [setA, setB, setC]
 
     static let setA: [PlacementQuestion] = [
-        .init(level: 1, text: "Which grape is Argentina's signature red?",
-              options: ["Malbec", "Tempranillo", "Syrah", "Pinot Noir"],
-              explain: "Malbec. It began in Cahors, France, but found its true home in Mendoza, where vineyards at 900–1,500 m give it deep color, ripe plum fruit and fresh acidity from cool nights."),
-        .init(level: 1, text: "Red wine gets its color from the grape juice.",
-              options: ["False", "True"],
-              explain: "Almost all grape juice is clear, even from black grapes. Red color comes from the skins steeping in the juice during fermentation. Only a few rare grapes, like Alicante Bouschet, are red inside."),
+        .init(level: 1, text: "Which grape is the main variety in Châteauneuf-du-Pape reds?",
+              options: ["Grenache", "Syrah", "Pinot Noir", "Cabernet Franc"],
+              explain: "Grenache. Up to 13 grapes are allowed in Châteauneuf-du-Pape, but Grenache is the backbone: ripe red fruit, warmth and spice, grown on stony 'galets' that hold the sun's heat overnight."),
+        .init(level: 1, text: "What does 'terroir' mean?",
+              options: ["The place: soil, climate and slope that shape a wine", "The age of the vines", "A type of oak barrel", "The winery's cellar"],
+              explain: "Terroir is the whole growing place: soil, climate, slope and the local traditions. It is the idea behind why a Pinot Noir from Burgundy tastes different from one grown just a few miles away."),
         .init(level: 2, text: "Chianti is made mainly from which grape?",
               options: ["Sangiovese", "Nebbiolo", "Barbera", "Montepulciano"],
               explain: "Sangiovese, Tuscany's signature red: cherry, dried herbs and high acidity. Chianti Classico requires at least 80%, and the black rooster on the neck label marks the heartland between Florence and Siena."),
@@ -48,12 +48,12 @@ enum PlacementBank {
     ]
 
     static let setB: [PlacementQuestion] = [
-        .init(level: 1, text: "Which grape made Marlborough, New Zealand famous?",
-              options: ["Sauvignon Blanc", "Chardonnay", "Merlot", "Riesling"],
-              explain: "Marlborough Sauvignon Blanc exploded in the 1980s with its burst of passion fruit and grapefruit. Warm sunny days and cold nights keep the grapes aromatic and fresh."),
-        .init(level: 1, text: "Real Champagne can only come from Champagne, France.",
-              options: ["True", "False"],
-              explain: "The name is legally protected. The same method elsewhere has to go by another name: Cava in Spain, Crémant elsewhere in France, Franciacorta in Italy, Cap Classique in South Africa."),
+        .init(level: 1, text: "Prosecco is made mainly from which grape?",
+              options: ["Glera", "Trebbiano", "Pinot Grigio", "Moscato"],
+              explain: "Glera, grown in the hills of north-east Italy. Most Prosecco is made in a pressurised tank (the Charmat method) rather than in the bottle, which keeps it fresh, floral and affordable."),
+        .init(level: 1, text: "Tannin gives a red wine which sensation?",
+              options: ["A dry, grippy feeling on the gums", "Sweetness", "A fizzy feeling", "A burning warmth"],
+              explain: "Tannin comes from grape skins, seeds and oak. It makes your mouth feel dry and slightly rough, a bit like strong black tea. Rich food and time in the bottle both soften it."),
         .init(level: 2, text: "Which region makes most of Spain's Cava?",
               options: ["Penedès", "Rioja", "Jerez", "Rías Baixas"],
               explain: "Penedès, near Barcelona. Cava is made by the traditional method (second fermentation in the bottle) mostly from Macabeo, Xarel·lo and Parellada, and the best must age at least nine months on the lees."),
@@ -83,12 +83,12 @@ enum PlacementBank {
     ]
 
     static let setC: [PlacementQuestion] = [
-        .init(level: 1, text: "Which grape is Sancerre made from?",
-              options: ["Sauvignon Blanc", "Chardonnay", "Chenin Blanc", "Riesling"],
-              explain: "Sauvignon Blanc from the Loire: grapefruit, gooseberry and wet stone. The classic local pairing is Crottin de Chavignol, a goat's cheese from the same hills."),
-        .init(level: 1, text: "What is the best serving temperature for most reds?",
-              options: ["A little cool: about 60–65°F (16–18°C)", "Warm room temperature, about 75°F", "Ice cold", "Straight from the freezer"],
-              explain: "'Room temperature' comes from drafty old castles. Served too warm, red wine tastes flabby and the alcohol burns. Twenty minutes in the fridge brings most reds to the sweet spot."),
+        .init(level: 1, text: "Chablis is made from which grape?",
+              options: ["Chardonnay", "Sauvignon Blanc", "Pinot Blanc", "Aligoté"],
+              explain: "Chardonnay, grown on chalky Kimmeridgian soil in northern Burgundy. With little or no oak, it is steely and mineral, quite unlike a buttery, oaked New World Chardonnay."),
+        .init(level: 1, text: "Which of these is a sparkling wine from Spain?",
+              options: ["Cava", "Prosecco", "Crémant", "Franciacorta"],
+              explain: "Cava, mostly from the Penedès near Barcelona. It is made by the traditional method, as in Champagne, but from local grapes such as Macabeo, Xarel·lo and Parellada."),
         .init(level: 2, text: "What does 'Brut' on a Champagne label tell you?",
               options: ["It is dry, with little added sugar", "It is sweet", "It was aged in oak", "It is from a single vintage"],
               explain: "Brut means dry: up to 12 g/L of sugar, and most Champagne is Brut. Extra Brut is drier still, while Demi-Sec at 32 to 50 g/L tastes properly sweet."),

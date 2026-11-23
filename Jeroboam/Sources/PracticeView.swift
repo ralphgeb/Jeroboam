@@ -3,7 +3,6 @@ import SwiftUI
 struct PracticeView: View {
     @Environment(GameProgress.self) private var progress
     @State private var session: Session? = nil
-    @State private var pickExam: Int? = nil
 
     var body: some View {
         NavigationStack {
@@ -26,15 +25,6 @@ struct PracticeView: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
-            .confirmationDialog("Which exam?", isPresented: Binding(get: { pickExam != nil }, set: { if !$0 { pickExam = nil } }), titleVisibility: .visible) {
-                let lv = pickExam ?? 1
-                ForEach(1...4, id: \.self) { v in
-                    Button("Version \(v) · 30 questions") { session = QuizGenerator.exam(level: lv, version: v) }
-                }
-                Button("Random mix") { session = QuizGenerator.exam(level: lv) }
-            } message: {
-                Text("Four different exams of 30 questions for each level, 120 questions in all. Do them all, or mix them up.")
-            }
         }
         .sessionPane($session, idle: {
             AnyView(PaneIdle(eyebrow: "Practice", title: "Today's 10 questions",
@@ -105,7 +95,7 @@ struct PracticeView: View {
                 ForEach(1...5, id: \.self) { lv in
                     let open = true   // every mock exam is open from the start: they are for testing yourself, not a reward
                     let i = info[lv - 1]
-                    Button { if open { pickExam = lv } } label: {
+                    Button { if open { session = QuizGenerator.exam(level: lv) } } label: {
                         HStack(spacing: 14) {
                             ZStack(alignment: .bottom) {
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -126,8 +116,8 @@ struct PracticeView: View {
                             Spacer(minLength: 6)
                             VStack(spacing: 2) {
                                 if open {
-                                    Text("120").font(.system(size: 17, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                                    Text("4 versions").font(.system(size: 10.5)).foregroundStyle(Palette.inkSoft)
+                                    Text("30").font(.system(size: 17, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                                    Text("questions").font(.system(size: 10.5)).foregroundStyle(Palette.inkSoft)
                                 } else {
                                     Image(systemName: "lock.fill").font(.system(size: 13)).foregroundStyle(Palette.inkFaint)
                                 }
