@@ -420,6 +420,8 @@ def _pdo_index():
         nm = names.get(pid)
         if not nm or not f["geometry"]: continue
         g = shape(f["geometry"]).buffer(0)
+        if pid.startswith("PDO-HU-"):   # Hungary's districts are lists of scattered communes: close the gaps between them
+            g = g.buffer(0.045, 6).buffer(-0.04, 6)
         for part in nm.split("/"):
             _PDO.setdefault(pkey(part.strip()), []).append((pid, nm, g))
     # Australian GIs (and other non-EU regions) from github.com/adynak/WineRegions (CC0)
