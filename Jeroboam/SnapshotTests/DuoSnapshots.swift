@@ -335,4 +335,11 @@ final class DuoSnapshots: XCTestCase {
         snap("atlas-search-oregon", settle: 3.0) { NavigationStack { RegionListView(query: "oregon") } }
         snap("great-wines", settle: 3.0) { NavigationStack { GreatWinesScreen() } }
     }
+
+    /// Every big atlas map in its explorer, to review them one by one.
+    func testMapsTidy() {
+        for id in ["france", "italy", "spain", "portugal", "germany", "california", "oregon", "australia", "new-zealand", "south-africa", "chile", "argentina"] {
+            snap("tidy-\(id)", settle: 4.0) { MapExplorer(mapID: id) }
+        }
+    }
 }

@@ -7,11 +7,7 @@ focus:
 - USA
 states:
 - USA
-bbox:
-- 41.9
-- -124.9
-- 48.9
-- -116.3
+bbox: [41.9, -124.8, 48.8, -117.0]
 W: 3200
 cities:
 - - Portland
