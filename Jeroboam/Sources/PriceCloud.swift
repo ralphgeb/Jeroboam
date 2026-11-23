@@ -40,4 +40,18 @@ enum PriceCloud {
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("price", method: "POST", body: data) else { return }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
     }
+
+    /// Once per phone: every price this phone already knows goes into the shared list (sent slowly, a few at a time).
+    static func seedOnce() async {
+        guard isOn, !UserDefaults.standard.bool(forKey: "priceCloudSeeded") else { return }
+        let items = WineDB.shared.allEntries().compactMap { e -> (WineIdentity, PriceInfo)? in
+            guard let p = e.price, p.source != "Estimate", p.currency == "USD" || p.currency.isEmpty else { return nil }
+            return (e.identity, p)
+        }
+        for (w, p) in items.prefix(500) {
+            share(w, price: p)
+            try? await Task.sleep(nanoseconds: 150_000_000)
+        }
+        UserDefaults.standard.set(true, forKey: "priceCloudSeeded")
+    }
 }

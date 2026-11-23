@@ -273,12 +273,13 @@ extension WineRecognizer {
         // 1. this phone's own database, then the shared one online (a price anyone has already found)
         // (prices saved by older builds as 'Average of N shops' are looked up again: the list now gives the cheapest shop)
         if let p = WineDB.shared.entry(for: w)?.price, !p.source.hasPrefix("Average of") { return (p, 0) }
-        if let p = await PriceCloud.price(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
-        // 2. the shop price list (about 70,000 wines), then the Great wines list, then the model's own estimate
+        // 2. the shop price list (about 70,000 wines, with the cheapest shop's link) comes first, then the shared list online
+        // (a price someone's phone had to search for), then the Great wines list, then the model's own estimate
         var found: PriceInfo? = nil
         var cost = 0.0
         let shop = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w) }.value
         if let p = shop { found = p }
+        else if let p = await PriceCloud.price(for: w) { WineDB.shared.save(w, price: p); return (p, 0) }
         else if let p = WineDB.greatPrice(for: w) { found = p }
         else if !livePrices {
             if let p = PriceInfo.estimate(from: w) { found = p }

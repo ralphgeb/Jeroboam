@@ -46,6 +46,10 @@ final class WineDB {
         lock.lock(); defer { lock.unlock() }
         return store.signatures[sig].flatMap { store.wines[$0] }
     }
+    func allEntries() -> [Entry] {
+        lock.lock(); defer { lock.unlock() }
+        return Array(store.wines.values)
+    }
     func entry(for w: WineIdentity) -> Entry? {
         lock.lock(); defer { lock.unlock() }
         return store.wines[Self.key(w)]
