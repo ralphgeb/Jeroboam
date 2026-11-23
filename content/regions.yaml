@@ -1006,3 +1006,139 @@
   grapes: []
   local: [Callet, Manto Negro]
   summary: A DO in central and eastern Mallorca with Callet and Manto Negro, and international varieties.
+- id: sopron
+  name: Sopron
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [sopron]
+  level: 3
+  grapes: []
+  local: [Kékfrankos]
+  summary: 'Hungary''s western corner by the Austrian border: Kékfrankos (Blaufränkisch) reds with a cool, Lake Neusiedl influence.'
+- id: matra
+  name: Mátra
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [matra]
+  level: 3
+  grapes: []
+  local: [Olaszrizling, Kékfrankos]
+  summary: 'Volcanic hills in northern Hungary: fresh whites and Bordeaux-style reds.'
+- id: etyek-buda
+  name: Etyek-Buda
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [etyek-buda]
+  level: 3
+  grapes: [chardonnay, sauvignon-blanc]
+  summary: A cool region west of Budapest known for sparkling base wines, Chardonnay and Sauvignon Blanc.
+- id: balatonboglar
+  name: Balatonboglár
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [balatonboglar]
+  level: 3
+  grapes: [chardonnay, pinot-grigio]
+  summary: 'The sunny south shore of Lake Balaton: warm, fruity whites and reds on volcanic and sandy soils.'
+- id: bukk
+  name: Bükk
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [bukk]
+  level: 3
+  grapes: [pinot-noir]
+  local: [Olaszrizling]
+  summary: A cool, hilly region in northern Hungary with whites and Pinot Noir.
+- id: zala
+  name: Zala
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [zala]
+  level: 3
+  grapes: [riesling]
+  local: [Olaszrizling]
+  summary: A hilly area west of Lake Balaton known for fresh, light white wines.
+- id: neszmely
+  name: Neszmély
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [neszmely]
+  level: 3
+  grapes: [chardonnay]
+  local: [Irsai Olivér]
+  summary: A Danube-side district in the north-west of Hungary that makes lean, aromatic whites.
+- id: pecs
+  name: Pécs
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [pecs]
+  level: 3
+  grapes: [chardonnay, cabernet-franc]
+  summary: A warm southern area, close to Villány, with Chardonnay and Cabernet Franc.
+- id: pannonhalma
+  name: Pannonhalma
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [pannonhalma]
+  level: 3
+  grapes: [pinot-noir, chardonnay]
+  summary: A hilltop region around the Benedictine Archabbey, with white wines and some Pinot Noir.
+- id: balaton-felvidek
+  name: Balaton-felvidék
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [balaton-felvidek]
+  level: 3
+  grapes: [riesling]
+  local: [Olaszrizling, Kéknyelű]
+  summary: 'The cool north shore of Lake Balaton: mineral whites from volcanic hills such as Badacsony and Somló.'
+- id: badacsony
+  name: Badacsony
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [badacsony]
+  level: 3
+  grapes: [pinot-grigio]
+  local: [Kéknyelű, Olaszrizling]
+  summary: Volcanic basalt hill above Lake Balaton, giving smoky, mineral Kéknyelű, Szürkebarát and Olaszrizling.
+- id: mor
+  name: Mór
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [mor]
+  level: 3
+  grapes: []
+  local: [Ezerjó]
+  summary: A small white-wine area northwest of Budapest, known for the grape Ezerjó.
+- id: balatonfured-csopak
+  name: Balatonfüred-Csopak
+  country: Hungary
+  kind: region
+  map: hungary
+  highlight: [balatonfured-csopak]
+  level: 3
+  grapes: [furmint, riesling]
+  local: [Olaszrizling]
+  summary: Lake Balaton's northern coast, known for Olaszrizling, Riesling and Furmint.
+- id: lafoes
+  name: Lafões
+  country: Portugal
+  kind: region
+  map: portugal
+  highlight: [lafoes]
+  level: 3
+  grapes: []
+  local: [Arinto, Bical]
+  summary: A small inland Vinho Verde-like region south of the Douro, with high-acid whites and reds.
