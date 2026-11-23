@@ -379,7 +379,7 @@ struct WorldTriedMap: View {
                 let hot = Color(hex: "#C21A4C"), warm = Color(hex: "#EA6A2E"), glow = Color(hex: "#F5B13D")
                 // a real heat map: every place adds a soft glow, the glows add up where places are close together,
                 // and the total is coloured from pale yellow through orange to deep red
-                let pts = dots.map { (CGPoint(x: origin.x + $0.point.x * s, y: origin.y + $0.point.y * s), 1 + 0.7 * log(Double($0.count))) }
+                let pts = dots.map { (CGPoint(x: origin.x + $0.point.x * s, y: origin.y + $0.point.y * s), 1 + 0.7 * log(Double(max(1, $0.count)))) }
                 if let img = HeatImage.make(points: pts, size: size, sigma: 21 * heatScale) {
                     ctx.draw(ctx.resolve(Image(decorative: img, scale: 1).interpolation(.high)), in: CGRect(origin: .zero, size: size))
                 }
@@ -510,7 +510,7 @@ enum HeatImage {
         let w = max(8, Int(size.width / cell)), h = max(8, Int(size.height / cell))
         var field = [Double](repeating: 0, count: w * h)
         let sg = Double(sigma / cell), reach = Int((sg * 3).rounded(.up))
-        for (p, weight) in points {
+        for (p, weight) in points where p.x.isFinite && p.y.isFinite && weight.isFinite {
             let cx = Double(p.x / cell), cy = Double(p.y / cell)
             let x0 = max(0, Int(cx) - reach), x1 = min(w - 1, Int(cx) + reach), y0 = max(0, Int(cy) - reach), y1 = min(h - 1, Int(cy) + reach)
             if x0 > x1 || y0 > y1 { continue }
@@ -525,7 +525,7 @@ enum HeatImage {
         var px = [UInt8](repeating: 0, count: w * h * 4)
         for i in 0..<(w * h) {
             let v = field[i]
-            if v < 0.01 { continue }
+            if !v.isFinite || v < 0.01 { continue }
             let t = 1 - exp(-1.5 * v)
             let c = lut[min(255, Int(t * 255))]
             px[i * 4] = c.0; px[i * 4 + 1] = c.1; px[i * 4 + 2] = c.2; px[i * 4 + 3] = c.3
