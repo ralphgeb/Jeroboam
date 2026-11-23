@@ -342,4 +342,15 @@ final class DuoSnapshots: XCTestCase {
             snap("tidy-\(id)", settle: 4.0) { MapExplorer(mapID: id) }
         }
     }
+
+    /// Spain and neighbours after the official-boundary pass, and the Old World / New World lists.
+    func testSpainPass() {
+        snap("atlas-list2", settle: 3.0) { NavigationStack { RegionListView() } }
+        snap("spain-all", settle: 4.0) { MapExplorer(mapID: "spain") }
+        for id in ["ribeira-sacra", "getariako-txakolina", "malaga-do", "tarragona", "rioja"] {
+            snap("spain-\(id)", settle: 4.0) { MapExplorer(mapID: "spain", highlight: [id]) }
+        }
+        snap("portugal-all", settle: 4.0) { MapExplorer(mapID: "portugal") }
+        snap("hungary-all", settle: 4.0) { MapExplorer(mapID: "hungary") }
+    }
 }
