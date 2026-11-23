@@ -110,6 +110,10 @@ struct AboutYouSection: View {
                     TextField("Your name", text: $name).font(.system(size: 20, weight: .semibold))
                     Text(experience.isEmpty ? "Tell us a little about you" : experience)
                         .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                    if UserProfile.photo() != nil {
+                        Button("Remove photo") { UserProfile.removePhoto(); version += 1 }
+                            .font(.system(size: 12.5)).foregroundStyle(Palette.inkFaint)
+                    }
                 }
             }
             GroupCard {
@@ -136,10 +140,6 @@ struct AboutYouSection: View {
                     // Sign in with Apple / iCloud sync lives here, with the rest of what is about you
                     AccountCard().padding(14)
                 }
-            }
-            if UserProfile.photo() != nil {
-                Button("Remove photo") { UserProfile.removePhoto(); version += 1 }
-                    .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
             }
         }
         // your country sets the currency prices are shown in (it can still be changed in Settings)

@@ -353,4 +353,12 @@ final class DuoSnapshots: XCTestCase {
         snap("portugal-all", settle: 4.0) { MapExplorer(mapID: "portugal") }
         snap("hungary-all", settle: 4.0) { MapExplorer(mapID: "hungary") }
     }
+
+    /// Heat map, Oregon centering, profile spacing, region page without the big map button.
+    func testRound3() {
+        snap("heat3", settle: 3.0) { ScrollView { JournalInsights().padding(20) } }
+        snap("oregon3", settle: 4.0) { MapExplorer(mapID: "oregon") }
+        snap("profile3", settle: 3.0) { ProfileView() }
+        if let r = ContentStore.shared.region("spain") { snap("spain-page3", settle: 3.0) { NavigationStack { RegionDetailView(region: r) } } }
+    }
 }

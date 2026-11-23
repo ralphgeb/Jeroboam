@@ -1,4 +1,5 @@
 import SwiftUI
+import ImageIO
 import PhotosUI
 import Observation
 
@@ -489,7 +490,10 @@ struct CaptureStep: View {
         .onChange(of: pickerItem) { _, item in
             guard let item else { return }
             Task {
-                if let data = try? await item.loadTransferable(type: Data.self), let img = UIImage(data: data) { image = img }
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    let img = await Task.detached(priority: .userInitiated) { UIImage.jeroThumbnail(from: data) }.value
+                    if let img { image = img }
+                }
             }
         }
     }
@@ -1613,6 +1617,26 @@ struct CellarDetailView: View {
 
 // MARK: - Camera
 
+extension UIImage {
+    /// A copy no bigger than `maxSide` points on its long edge (a camera photo is 12 megapixels: decoding and drawing it
+    /// at full size made the scan screen freeze for a second after the shutter).
+    func jeroScaled(maxSide: CGFloat = 1600) -> UIImage {
+        let longest = max(size.width, size.height)
+        guard longest > maxSide else { return self }
+        let k = maxSide / longest
+        let target = CGSize(width: size.width * k, height: size.height * k)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1; fmt.opaque = true
+        return UIGraphicsImageRenderer(size: target, format: fmt).image { _ in draw(in: CGRect(origin: .zero, size: target)) }
+    }
+    /// Decodes a picked photo straight to a small size (never builds the full-size bitmap).
+    static func jeroThumbnail(from data: Data, maxSide: CGFloat = 1600) -> UIImage? {
+        let opts: [CFString: Any] = [kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true,
+                                     kCGImageSourceShouldCacheImmediately: true, kCGImageSourceThumbnailMaxPixelSize: maxSide]
+        guard let src = CGImageSourceCreateWithData(data as CFData, nil), let cg = CGImageSourceCreateThumbnailAtIndex(src, 0, opts as CFDictionary) else { return nil }
+        return UIImage(cgImage: cg)
+    }
+}
+
 struct CameraPicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Environment(\.dismiss) private var dismiss
@@ -1632,7 +1656,8 @@ struct CameraPicker: UIViewControllerRepresentable {
         let parent: CameraPicker
         init(_ p: CameraPicker) { parent = p }
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            parent.image = info[.originalImage] as? UIImage
+            // show the next screen at once: hand over a small copy
+            parent.image = (info[.originalImage] as? UIImage)?.jeroScaled()
             parent.dismiss()
         }
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { parent.dismiss() }

@@ -377,19 +377,11 @@ struct WorldTriedMap: View {
                 // heat: soft glows that add up where bottles are close together, then a crisp dot at the exact place
                 let heatScale = min(1 + (zoom - 1) * 0.25, 2.6)
                 let hot = Color(hex: "#C21A4C"), warm = Color(hex: "#EA6A2E"), glow = Color(hex: "#F5B13D")
-                // blobs: bottles close together melt into one shape (blur, then a hard cut-off), in three nested bands
-                let bands: [(mul: CGFloat, blur: CGFloat, cut: Double, color: Color)] = [
-                    (1.0, 14, 0.30, glow.opacity(0.30)), (0.72, 11, 0.40, warm.opacity(0.50)), (0.42, 8, 0.50, hot.opacity(0.80))]
-                for band in bands {
-                    ctx.drawLayer { l in
-                        l.addFilter(.alphaThreshold(min: band.cut, color: band.color))
-                        l.addFilter(.blur(radius: band.blur * min(heatScale, 1.6)))
-                        for d in dots {
-                            let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
-                            let rad = (13 + 7 * sqrt(CGFloat(d.count))) * heatScale * band.mul
-                            l.fill(Path(ellipseIn: CGRect(x: p.x - rad, y: p.y - rad, width: 2 * rad, height: 2 * rad)), with: .color(.black))
-                        }
-                    }
+                // a real heat map: every place adds a soft glow, the glows add up where places are close together,
+                // and the total is coloured from pale yellow through orange to deep red
+                let pts = dots.map { (CGPoint(x: origin.x + $0.point.x * s, y: origin.y + $0.point.y * s), 1 + 0.7 * log(Double($0.count))) }
+                if let img = HeatImage.make(points: pts, size: size, sigma: 21 * heatScale) {
+                    ctx.draw(ctx.resolve(Image(decorative: img, scale: 1).interpolation(.high)), in: CGRect(origin: .zero, size: size))
                 }
                 var taken: [CGRect] = []
                 for d in dots.sorted(by: { $0.count > $1.count }) {
@@ -491,5 +483,56 @@ struct WorldMapFull: View {
                 .frame(width: 42, height: 42).background(Circle().fill(Palette.card))
                 .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
         }
+    }
+}
+
+
+/// Builds the heat layer as a small picture (about one cell per 3 points) that is drawn smoothly over the map.
+enum HeatImage {
+    // alpha-premultiplied colour stops: density (0...1) -> color
+    private static let stops: [(Double, (Double, Double, Double, Double))] = [
+        (0.00, (255, 226, 140, 0.0)), (0.10, (255, 214, 110, 0.18)), (0.25, (250, 180, 80, 0.50)), (0.45, (240, 120, 52, 0.68)),
+        (0.70, (210, 52, 72, 0.82)), (1.00, (140, 14, 58, 0.92)),
+    ]
+    private static func color(_ t: Double) -> (UInt8, UInt8, UInt8, UInt8) {
+        var lo = stops[0], hi = stops[stops.count - 1]
+        for i in 1..<stops.count where t <= stops[i].0 { lo = stops[i - 1]; hi = stops[i]; break }
+        let k = hi.0 == lo.0 ? 0 : max(0, min(1, (t - lo.0) / (hi.0 - lo.0)))
+        func mix(_ a: Double, _ b: Double) -> Double { a + (b - a) * k }
+        let a = mix(lo.1.3, hi.1.3)
+        return (UInt8(max(0, min(255, mix(lo.1.0, hi.1.0) * a))), UInt8(max(0, min(255, mix(lo.1.1, hi.1.1) * a))),
+                UInt8(max(0, min(255, mix(lo.1.2, hi.1.2) * a))), UInt8(max(0, min(255, a * 255))))
+    }
+    private static let lut: [(UInt8, UInt8, UInt8, UInt8)] = (0...255).map { color(Double($0) / 255) }
+
+    static func make(points: [(CGPoint, Double)], size: CGSize, sigma: CGFloat) -> CGImage? {
+        let cell: CGFloat = 3
+        let w = max(8, Int(size.width / cell)), h = max(8, Int(size.height / cell))
+        var field = [Double](repeating: 0, count: w * h)
+        let sg = Double(sigma / cell), reach = Int((sg * 3).rounded(.up))
+        for (p, weight) in points {
+            let cx = Double(p.x / cell), cy = Double(p.y / cell)
+            let x0 = max(0, Int(cx) - reach), x1 = min(w - 1, Int(cx) + reach), y0 = max(0, Int(cy) - reach), y1 = min(h - 1, Int(cy) + reach)
+            if x0 > x1 || y0 > y1 { continue }
+            for y in y0...y1 {
+                let dy = Double(y) + 0.5 - cy
+                for x in x0...x1 {
+                    let dx = Double(x) + 0.5 - cx
+                    field[y * w + x] += weight * exp(-(dx * dx + dy * dy) / (2 * sg * sg))
+                }
+            }
+        }
+        var px = [UInt8](repeating: 0, count: w * h * 4)
+        for i in 0..<(w * h) {
+            let v = field[i]
+            if v < 0.01 { continue }
+            let t = 1 - exp(-1.5 * v)
+            let c = lut[min(255, Int(t * 255))]
+            px[i * 4] = c.0; px[i * 4 + 1] = c.1; px[i * 4 + 2] = c.2; px[i * 4 + 3] = c.3
+        }
+        guard let provider = CGDataProvider(data: Data(px) as CFData) else { return nil }
+        return CGImage(width: w, height: h, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: w * 4, space: CGColorSpaceCreateDeviceRGB(),
+                       bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue), provider: provider, decode: nil,
+                       shouldInterpolate: true, intent: .defaultIntent)
     }
 }
