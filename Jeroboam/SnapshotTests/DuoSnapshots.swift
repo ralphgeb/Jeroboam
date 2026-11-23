@@ -308,6 +308,7 @@ final class DuoSnapshots: XCTestCase {
 
     /// The wine pages in the Journal: the glance tiles and the region map.
     func testWineGlance() {
+        testSearchRules()
         var w = WineIdentity.empty
         w.name = "Barolo Pira"; w.producer = "Roagna"; w.region = "Barolo, Piedmont"; w.country = "Italy"; w.vintage = "2012"
         w.grapes = ["Nebbiolo"]; w.funFact = "Pira is a historic vineyard in Castiglione Falletto."; w.drinkWindow = "2024–2040"
