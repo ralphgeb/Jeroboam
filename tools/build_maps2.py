@@ -674,6 +674,35 @@ def build_france():
 
 
 # ================================================================= ITALY
+def add_pdo_children(pr, areas, cc, tol, min_area=0.04, skip=(), max_n=60):
+    """Official denominations of a country that the hand-built map lacks: added as level 1 under the big region they sit in."""
+    idx = _pdo_index()
+    skipn = {pkey(x) for x in skip}
+    seen, cand = set(), []
+    for lst in idx.values():
+        for pid, nm, g in lst:
+            if pid in seen or not pid.startswith(f"PDO-{cc}-"): continue
+            seen.add(pid); cand.append((pid, nm, g))
+    areas[:] = [a for a in areas if a]
+    have = {pkey(a["name"]) for a in areas}
+    existing = [(a["id"], _GEOMS[(id(pr), a["id"])][0], a["lv"], a["c"]) for a in areas if (id(pr), a["id"]) in _GEOMS]
+    top = [e for e in existing if e[2] == 0]
+    added = 0
+    for pid, nm, pg in sorted(cand, key=lambda c: -c[2].area):
+        if added >= max_n: break
+        disp = nm.split(" / ")[0].strip()
+        if pg.area < min_area or pkey(disp) in skipn or pkey(disp) in have: continue
+        if any(pkey(part.strip()) in have for part in nm.split("/")): continue
+        if any(g2.intersection(pg).area / max(1e-12, g2.union(pg).area) > 0.8 for _, g2, _, _ in existing if True): continue
+        par = max(top, key=lambda e: e[1].intersection(pg).area, default=None)
+        if not par or par[1].intersection(pg).area / pg.area < 0.5: continue
+        rid = re.sub(r"[^a-z0-9]+", "-", norm(disp).replace(" ", "-")).strip("-")
+        if any(a["id"] == rid for a in areas): rid += "-" + cc.lower()
+        rec = area_record(pr, rid, disp, 1, par[3], pg, tol, parent=par[0], min_area=1, soft=True, pdo=False)
+        if rec:
+            areas.append(rec); existing.append((rid, pg, 1, par[3])); have.add(pkey(disp)); added += 1
+            print(f"   + {cc}: {disp} (in {par[0]})")
+
 def build_italy():
     print("Italy…")
     ita_regions = [shape(f["geometry"]) for f in admin1 if f["properties"]["adm0_a3"] == "ITA"]
@@ -709,6 +738,14 @@ def build_italy():
                     vid = slug(n) if slug(n) != parent else slug(n) + "-village"
                     areas.append(area_record(pr, vid, n + (" (village)" if vid != slug(n) else ""), 2, cidx(ps["color"]), g, tol,
                                              parent=parent, min_area=1))
+    add_pdo_children(pr, areas, "IT", tol, min_area=0.05, max_n=70, skip=[
+        "Vin Santo del Chianti Classico", "Primitivo di Manduria Dolce Naturale", "Verdicchio di Matelica Riserva", "Valtellina rosso", "Nebbiolo d'Alba",
+        "Dolcetto d'Alba", "Dolcetto d'Acqui", "Grignolino del Monferrato Casalese", "Grignolino d'Asti", "Cortese dell'Alto Monferrato",
+        "Oltrepò Pavese metodo classico", "Colli Orientali del Friuli Picolit", "Montepulciano d'Abruzzo Colline Teramane", "Colli Asolani - Prosecco",
+        "Val d'Arno di Sopra", "Grance Senesi", "Monteregio di Massa Marittima", "Esino", "Gravina", "Squinzano", "Moscato di Trani", "Delia Nivolelli",
+        "Erice", "Menfi", "Colli di Faenza", "Colli d'Imola", "Colli di Scandiano e di Canossa", "Colli Romagna centrale", "Modena", "Reggiano",
+        "Collina Torinese", "Rosso Orvietano", "Spoleto", "Colli Martani", "Lessini Durello", "Casteller", "Valdadige", "Alba", "Val d'Arbia",
+        "Lambrusco Salamino di Santa Croce", "Lambrusco Grasparossa di Castelvetro", "Cerasuolo di Vittoria"])
     cities = cities_of(pr, [("Rome", 41.9, 12.5, 0), ("Milan", 45.46, 9.19, 0), ("Turin", 45.07, 7.69), ("Florence", 43.77, 11.25, 0),
         ("Venice", 45.44, 12.33, 0), ("Naples", 40.85, 14.27, 0), ("Verona", 45.44, 10.99), ("Palermo", 38.12, 13.36),
         ("Bologna", 44.49, 11.34), ("Bari", 41.12, 16.87)])
