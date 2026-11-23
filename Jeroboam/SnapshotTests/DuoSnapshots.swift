@@ -361,4 +361,13 @@ final class DuoSnapshots: XCTestCase {
         snap("profile3", settle: 3.0) { ProfileView() }
         if let r = ContentStore.shared.region("spain") { snap("spain-page3", settle: 3.0) { NavigationStack { RegionDetailView(region: r) } } }
     }
+
+    /// The cellar page, the journal with its new cards, the scan history.
+    func testCellarPass() {
+        let j = JournalStore.sample
+        snap("cellar4", settle: 3.0) { NavigationStack { CellarView() }.environment(j) }
+        snap("journal4", settle: 3.0) { JournalHome().environment(j) }
+        snap("history4", settle: 3.0) { NavigationStack { ScanHistoryView() }.environment(j) }
+        snap("heat4", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(j) }
+    }
 }
