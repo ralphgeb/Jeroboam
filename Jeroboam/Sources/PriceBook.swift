@@ -12,6 +12,7 @@ final class PriceBook {
         let shops: Int
         let link: String
         let tokens: Set<String>
+        let color: Int8      // 0 unknown, 1 red, 2 white, 3 rosé
     }
     private var rows: [Row] = []
     private var index: [String: [Int32]] = [:]
@@ -30,6 +31,34 @@ final class PriceBook {
         }
         if cur.count >= 3 && !skip.contains(cur) && !(cur.count == 4 && Int(cur) != nil) { out.insert(cur) }
         return out
+    }
+
+    private static let whiteWords: Set<String> = ["white", "blanc", "bianco", "blanco", "weiss", "weisswein", "branco", "chardonnay", "riesling", "chenin", "viognier", "albarino", "gruner", "veltliner", "vermentino", "muscadet", "semillon", "gewurztraminer", "grigio", "gris", "verdejo", "fiano", "greco", "soave", "chablis", "sancerre", "pouilly", "muscat", "moscato", "trebbiano", "garganega", "cortese", "arneis", "godello", "assyrtiko", "marsanne", "roussanne", "sauternes", "meursault", "montrachet", "sauvignon"]
+    private static let redWords: Set<String> = ["red", "rouge", "rosso", "tinto", "rot", "rotwein", "noir", "nero", "cabernet", "merlot", "syrah", "shiraz", "malbec", "nebbiolo", "sangiovese", "tempranillo", "zinfandel", "barolo", "barbaresco", "chianti", "brunello", "pomerol", "pauillac", "margaux", "medoc", "montepulciano", "primitivo", "mourvedre", "carmenere", "pinotage", "tannat", "aglianico", "amarone", "valpolicella", "rioja", "ribera", "priorat", "pinot noir"]
+
+    /// red / white / rosé from the words of a name (0 when it cannot tell, or both show up).
+    static func color(of text: String) -> Int8 {
+        let t = text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
+        var words = Set<String>()
+        var cur = ""
+        for ch in t { if ch.isLetter { cur.append(ch) } else { if !cur.isEmpty { words.insert(cur) }; cur = "" } }
+        if !cur.isEmpty { words.insert(cur) }
+        if t.contains("blanc de") || t.contains("blanc de blancs") { return 2 }
+        if t.contains("pinot noir") { words.insert("noir") }
+        let ro = !words.isDisjoint(with: Set(["rose", "rosato", "rosado", "rosat"]))
+        let wh = !words.isDisjoint(with: whiteWords), rd = !words.isDisjoint(with: redWords.subtracting(["pinot noir"]))
+        if ro && !wh && !rd { return 3 }
+        if wh && !rd && !ro { return 2 }
+        if rd && !wh && !ro { return 1 }
+        return 0
+    }
+    /// The color the scanned wine is meant to be: the identified style first, then the words in its name.
+    static func color(of w: WineIdentity) -> Int8 {
+        let st = w.style.lowercased()
+        if st.contains("ros") { return 3 }
+        if st.contains("white") { return 2 }
+        if st.contains("red") { return 1 }
+        return color(of: w.producer + " " + w.name)
     }
 
     /// Throws the loaded list away so the next lookup reads the newly downloaded file.
@@ -54,7 +83,7 @@ final class PriceBook {
             let toks = Self.tokens(f[0] + " " + f[1])
             guard !toks.isEmpty else { continue }
             let i = Int32(rows.count)
-            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks))
+            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : ""))))
             for t in toks { index[t, default: []].append(i) }
         }
     }
@@ -65,6 +94,7 @@ final class PriceBook {
     func price(for w: WineIdentity) -> PriceInfo? {
         loadIfNeeded()
         let q = Self.tokens(w.producer + " " + w.name)
+        let wineColor = Self.color(of: w)
         guard !q.isEmpty, !rows.isEmpty else { return nil }
         let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(3)
         guard !rare.isEmpty else { return nil }
@@ -76,6 +106,8 @@ final class PriceBook {
                 let matched = q.intersection(r.tokens).count
                 let coverage = Double(matched) / Double(q.count)
                 guard coverage >= 0.75, matched >= min(2, q.count) else { continue }
+                // a white and a red of the same name are different wines: never take the other color's price
+                if wineColor != 0, r.color != 0, r.color != wineColor { continue }
                 cands.append((coverage * 10 - Double(r.tokens.count - matched) * 0.15, r))
             }
         }

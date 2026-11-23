@@ -165,6 +165,19 @@ final class JournalStore {
         if let p = e.photo, !cellar.contains(where: { $0.photo == p }) { try? FileManager.default.removeItem(at: Self.photoDir.appendingPathComponent(p)) }
     }
 
+    /// Once: bottles priced from the shop list before it told red from white are priced again.
+    func repriceShopBottlesOnce() async {
+        let flag = "jero.cellarColorFix"
+        guard persist, !UserDefaults.standard.bool(forKey: flag) else { return }
+        WineDB.shared.dropShopPricesOnce()
+        for b in cellar {
+            guard let src = b.price?.source, src.hasPrefix("Cheapest of") || src.hasPrefix("Shop price") || src.hasPrefix("Average of") else { continue }
+            let (p, _) = await WineRecognizer.averagePrice(for: b.wine)
+            if let i = cellar.firstIndex(where: { $0.id == b.id }) { cellar[i].price = p }
+        }
+        UserDefaults.standard.set(true, forKey: flag)
+    }
+
     func upsert(_ b: CellarBottle) {
         if let i = cellar.firstIndex(where: { $0.id == b.id }) { cellar[i] = b } else { cellar.insert(b, at: 0) }
     }

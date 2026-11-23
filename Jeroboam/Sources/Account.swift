@@ -108,15 +108,22 @@ final class CloudSync {
         if let img = UserProfile.photo(), let small = Self.thumbnail(img) { kv.set(small, forKey: "avatar") }
         if let j = journal, j.persist {
             let entries = j.entries.map { e -> JournalEntry in var c = e; c.photo = nil; return c }
-            // each bottle keeps a tiny picture (a few KB) so the cellar looks the same on every phone
-            let cellar = j.cellar.map { b -> CellarBottle in
-                var c = b
-                if let img = JournalStore.image(b.photo) { c.thumb = Self.bottleThumb(img) }
-                c.photo = nil
-                return c
+            // each bottle keeps a small picture (three times the old size: 288 x 360); with a big cellar the pictures step
+            // down in size until everything fits the 1 MB iCloud key-value limit
+            var cellar = j.cellar
+            var data: Data? = nil
+            for (w, h, q) in [(288, 360, 0.6), (192, 240, 0.58), (144, 180, 0.55), (96, 120, 0.55)] as [(CGFloat, CGFloat, CGFloat)] {
+                cellar = j.cellar.map { b -> CellarBottle in
+                    var c = b
+                    if let img = JournalStore.image(b.photo) { c.thumb = Self.bottleThumb(img, w: w, h: h, quality: q) }
+                    c.photo = nil
+                    return c
+                }
+                data = try? JSONEncoder().encode(cellar)
+                if let d = data, d.count < 600_000 { break }
             }
             if let d = try? JSONEncoder().encode(entries), d.count < 400_000 { kv.set(d, forKey: "journal") }
-            if let d = try? JSONEncoder().encode(cellar), d.count < 900_000 { kv.set(d, forKey: "cellar") }
+            if let d = data, d.count < 600_000 { kv.set(d, forKey: "cellar") }
         }
         kv.set(Array(Self.deleted), forKey: "deleted")
         kv.synchronize()
@@ -176,8 +183,7 @@ final class CloudSync {
     }
 
     /// A small portrait picture of a bottle for the cellar (about 4–8 KB).
-    static func bottleThumb(_ image: UIImage) -> Data? {
-        let w: CGFloat = 96, h: CGFloat = 120
+    static func bottleThumb(_ image: UIImage, w: CGFloat = 288, h: CGFloat = 360, quality: CGFloat = 0.6) -> Data? {
         let size = CGSize(width: w, height: h)
         let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
         let s = max(w / image.size.width, h / image.size.height)
@@ -185,12 +191,13 @@ final class CloudSync {
         let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in
             image.draw(in: CGRect(x: (w - drawn.width) / 2, y: (h - drawn.height) / 2, width: drawn.width, height: drawn.height))
         }
-        return img.jpegData(compressionQuality: 0.55)
+        return img.jpegData(compressionQuality: quality)
     }
 
     static func thumbnail(_ image: UIImage) -> Data? {
-        let side: CGFloat = 200
-        let img = UIGraphicsImageRenderer(size: CGSize(width: side, height: side)).image { _ in
+        let side: CGFloat = 600
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
+        let img = UIGraphicsImageRenderer(size: CGSize(width: side, height: side), format: fmt).image { _ in
             image.draw(in: CGRect(x: 0, y: 0, width: side, height: side))
         }
         return img.jpegData(compressionQuality: 0.7)

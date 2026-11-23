@@ -46,6 +46,21 @@ final class WineDB {
         lock.lock(); defer { lock.unlock() }
         return store.signatures[sig].flatMap { store.wines[$0] }
     }
+    /// Prices found by the shop list before it told red from white are looked up again (once).
+    func dropShopPricesOnce() {
+        let flag = "jero.shopPricesColorFix"
+        guard !UserDefaults.standard.bool(forKey: flag) else { return }
+        UserDefaults.standard.set(true, forKey: flag)
+        lock.lock()
+        for (k, e) in store.wines {
+            if let src = e.price?.source, src.hasPrefix("Cheapest of") || src.hasPrefix("Shop price") || src.hasPrefix("Average of") {
+                var c = e; c.price = nil; store.wines[k] = c
+            }
+        }
+        let snapshot = store
+        lock.unlock()
+        if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
+    }
     func allEntries() -> [Entry] {
         lock.lock(); defer { lock.unlock() }
         return Array(store.wines.values)

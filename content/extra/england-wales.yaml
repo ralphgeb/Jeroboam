@@ -1,5 +1,6 @@
 map: england-wales
 title: England & Wales
+atlas: true
 iso: [GBR]
 focus: [GBR]
 bbox: [49.8, -6.0, 53.4, 1.9]

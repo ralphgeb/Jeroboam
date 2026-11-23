@@ -57,6 +57,7 @@ struct JeroboamApp: App {
             .task { await Plus.shared.listen() }
             .task { await Currency.refresh() }
             .task { await PriceUpdater.refresh() }
+            .task { await journal.repriceShopBottlesOnce() }
             .task { await PriceCloud.seedOnce() }
             .onAppear {
                 QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }

@@ -23,9 +23,12 @@ enum PriceCloud {
         return r
     }
 
+    /// The wine's key plus its color, so a white and a red of the same name never share a price.
+    private static func cloudKey(_ w: WineIdentity) -> String { WineDB.key(w) + "|" + w.style.lowercased() }
+
     /// A price someone has already found for this wine.
     static func price(for w: WineIdentity) async -> PriceInfo? {
-        guard let req = request("price", query: [URLQueryItem(name: "key", value: WineDB.key(w))]) else { return nil }
+        guard let req = request("price", query: [URLQueryItem(name: "key", value: cloudKey(w))]) else { return nil }
         guard let (data, resp) = try? await URLSession.shared.data(for: req), (resp as? HTTPURLResponse)?.statusCode == 200,
               let o = try? JSONSerialization.jsonObject(with: data) as? [String: Any], let usd = (o["usd"] as? NSNumber)?.doubleValue, usd > 0 else { return nil }
         let low = (o["low"] as? NSNumber)?.doubleValue ?? usd * 0.85, high = (o["high"] as? NSNumber)?.doubleValue ?? usd * 1.2
@@ -35,7 +38,7 @@ enum PriceCloud {
     /// Adds (or improves) the shared entry. Fire and forget.
     static func share(_ w: WineIdentity, price p: PriceInfo) {
         guard p.currency == "USD" || p.currency.isEmpty, p.average > 0 else { return }
-        let body: [String: Any] = ["key": WineDB.key(w), "name": w.name, "producer": w.producer, "vintage": w.vintage,
+        let body: [String: Any] = ["key": cloudKey(w), "name": w.name, "producer": w.producer, "vintage": w.vintage,
                                    "usd": p.average, "low": p.low, "high": p.high, "source": p.source]
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("price", method: "POST", body: data) else { return }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
@@ -43,7 +46,7 @@ enum PriceCloud {
 
     /// Once per phone: every price this phone already knows goes into the shared list (sent slowly, a few at a time).
     static func seedOnce() async {
-        guard isOn, !UserDefaults.standard.bool(forKey: "priceCloudSeeded") else { return }
+        guard isOn, !UserDefaults.standard.bool(forKey: "priceCloudSeeded"), UserDefaults.standard.bool(forKey: "jero.cellarColorFix") else { return }
         let items = WineDB.shared.allEntries().compactMap { e -> (WineIdentity, PriceInfo)? in
             guard let p = e.price, p.source != "Estimate", p.currency == "USD" || p.currency.isEmpty else { return nil }
             return (e.identity, p)
