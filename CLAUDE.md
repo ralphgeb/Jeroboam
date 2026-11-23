@@ -140,3 +140,12 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - **Do not use the Duo simulator for screenshots** (`duo.yml` is kept only for experiments): `simctl launch` hangs, the inside display stays black until unfolded by hand (no programmatic unfold), and runs take 50+ minutes. Duo simulator needs Xcode 27.1+.
 - Wide layout: `Adaptive.swift` (`isWide` = window width >= 640 pt): picture left / text right in `LearnCard`, map left + list right in `MapExplorer`, adaptive grids. Landscape is allowed in project.yml.
 - CI runner label `xcode-27` = macOS 27 + Xcode 27.x (used by build-ios.yml, preview.yml).
+
+## Added in builds 53+ (search, prices, Oregon)
+- Search: `Search.swift` (fold/matches/rank, `SearchBar`, `AtlasSearchResults`). RootView decides the rail layout from a keyboard-independent size (`stableSize`); the keyboard used to flip the layout and pop pages.
+- Great wines: country chips start with **All**, which turns on by itself when you search (results from every country).
+- Only France is free in the Atlas (`Plus.freeCountries`). All five mock exams are open.
+- Prices: shop list (`PriceBook`, per-750 ml, vintage first, cheapest link) -> shared Cloudflare list (`PriceCloud`, secrets PRICE_DB_URL / PRICE_DB_KEY; backend/cloudflare) -> Great wines -> estimate. Whatever is found is shared; `PriceCloud.seedOnce()` sends a phone's known prices once. `PriceUpdater` downloads a newer `prices.tsv` from the repo (see content/prices/LIVE_PRICES.md).
+- Map explorer "More details" button (France etc.) toggles commune lines + names.
+- Journal wine page: `WineGlance` (4 compact tiles + 2:1 region map), then `WineInfoCard` holds grapes, drink window, fun fact. Heat map = blurred + alpha-threshold blobs in 3 bands.
+- Atlas extras with `atlas: true`: georgia, moldova, great-lakes (Midwest), oregon (Oregon & Washington, ~38 AVAs).
