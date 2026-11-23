@@ -934,7 +934,7 @@ def build_gb(only=None):
             seen_pid, cand = set(), []
             for lst in idx.values():
                 for pid, nm, g in lst:
-                    if pid in seen_pid or not pid.startswith(f"PDO-{cc}-"): continue
+                    if pid in seen_pid or not pid.startswith(pa.get("prefix", f"PDO-{cc}-")): continue
                     seen_pid.add(pid); cand.append((pid, nm, g))
             used, usedgeom = set(), []
             pgeom = {pid: pg for pid, nm, pg in cand}

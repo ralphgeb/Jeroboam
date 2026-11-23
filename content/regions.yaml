@@ -1142,3 +1142,293 @@
   grapes: []
   local: [Arinto, Bical]
   summary: A small inland Vinho Verde-like region south of the Douro, with high-acid whites and reds.
+- id: adelaide-hills
+  name: Adelaide Hills
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [adelaide-hills]
+  level: 3
+  climate: Cool, up to 700 m altitude.
+  grapes: [sauvignon-blanc, chardonnay, pinot-noir]
+  summary: 'Cool, high vineyards above Adelaide: crisp Sauvignon Blanc, elegant Chardonnay and Pinot Noir and sparkling base wines.'
+- id: lenswood
+  name: Lenswood
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [lenswood]
+  level: 3
+  grapes: [pinot-noir, chardonnay]
+  summary: A cooler sub-region of the Adelaide Hills known for Pinot Noir and Chardonnay.
+- id: piccadilly-valley
+  name: Piccadilly Valley
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [piccadilly-valley]
+  level: 3
+  grapes: [chardonnay, pinot-noir]
+  summary: A sub-region of the Adelaide Hills with cool, high vineyards for Chardonnay and Pinot Noir.
+- id: eden-valley
+  name: Eden Valley
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [eden-valley]
+  level: 3
+  climate: Cooler than the Barossa floor, 400 to 600 m.
+  grapes: [riesling, syrah]
+  summary: High hills east of the Barossa, famous for steely, long-lived Riesling and old-vine Shiraz.
+- id: high-eden
+  name: High Eden
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [high-eden]
+  level: 3
+  grapes: [riesling]
+  summary: The highest, coolest part of Eden Valley, a sub-region for Riesling.
+- id: wrattonbully
+  name: Wrattonbully
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [wrattonbully]
+  level: 3
+  grapes: [cabernet-sauvignon, merlot]
+  summary: 'Part of the Limestone Coast: red terra rossa soils over limestone give fruit-rich Cabernet and Merlot.'
+- id: padthaway
+  name: Padthaway
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [padthaway]
+  level: 3
+  grapes: [syrah, chardonnay]
+  summary: 'A Limestone Coast region of flat plains: sturdy Shiraz and Chardonnay.'
+- id: mount-benson
+  name: Mount Benson
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [mount-benson]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: A cool coastal Limestone Coast area growing Shiraz and Cabernet.
+- id: robe
+  name: Robe
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [robe]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: A tiny, cool coastal area near Mount Benson on the Limestone Coast.
+- id: mount-gambier
+  name: Mount Gambier
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [mount-gambier]
+  level: 3
+  grapes: [pinot-noir, chardonnay]
+  summary: The southernmost Limestone Coast region, cool and maritime, with Pinot Noir and Chardonnay.
+- id: langhorne-creek
+  name: Langhorne Creek
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [langhorne-creek]
+  level: 3
+  grapes: [cabernet-sauvignon, syrah]
+  summary: A flat plain next to Lake Alexandrina whose cool afternoon breezes ripen Cabernet and Shiraz.
+- id: currency-creek
+  name: Currency Creek
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [currency-creek]
+  level: 3
+  grapes: [cabernet-sauvignon, syrah]
+  summary: A small region next to Langhorne Creek, cooled by the lake and the sea.
+- id: southern-fleurieu
+  name: Southern Fleurieu
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [southern-fleurieu]
+  level: 3
+  grapes: [syrah, chardonnay]
+  summary: A hilly peninsula south of McLaren Vale with maritime cool-climate vineyards.
+- id: kangaroo-island
+  name: Kangaroo Island
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [kangaroo-island]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: Australia's third-largest island, with a small wine industry on its sunny plains.
+- id: adelaide-plains
+  name: Adelaide Plains
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [adelaide-plains]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: A warm, flat region north of Adelaide, making fruit-driven reds and whites.
+- id: southern-flinders-ranges
+  name: Southern Flinders Ranges
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [southern-flinders-ranges]
+  level: 3
+  grapes: [syrah, riesling]
+  summary: A dry, hilly inland region of South Australia.
+- id: beechworth
+  name: Beechworth
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [beechworth]
+  level: 3
+  grapes: [chardonnay, syrah]
+  summary: A cool, high region in north-east Victoria making fine Chardonnay and Shiraz.
+- id: king-valley
+  name: King Valley
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [king-valley]
+  level: 3
+  grapes: [sangiovese, pinot-grigio, chardonnay]
+  summary: An Italian-influenced Victorian valley known for Prosecco and Sangiovese plus Pinot Grigio and Chardonnay.
+- id: alpine-valleys
+  name: Alpine Valleys
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [alpine-valleys]
+  level: 3
+  grapes: [chardonnay, pinot-noir]
+  summary: A high-altitude Victorian region at the foot of the Victorian Alps.
+- id: upper-goulburn
+  name: Upper Goulburn
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [upper-goulburn]
+  level: 3
+  grapes: [chardonnay, pinot-noir]
+  summary: A cool upland district of central Victoria, near Yea and Alexandra.
+- id: strathbogie-ranges
+  name: Strathbogie Ranges
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [strathbogie-ranges]
+  level: 3
+  grapes: [riesling, pinot-noir]
+  summary: A cool, high region in Victoria known for Riesling and Pinot Noir.
+- id: glenrowan
+  name: Glenrowan
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [glenrowan]
+  level: 3
+  grapes: [syrah]
+  summary: A warm north-east Victorian region famous for sturdy Shiraz and fortified wines.
+- id: bendigo
+  name: Bendigo
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [bendigo]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: A central Victorian goldfields region with strong, structured Shiraz and Cabernet.
+- id: pyrenees
+  name: Pyrenees
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [pyrenees]
+  level: 3
+  grapes: [syrah, cabernet-sauvignon]
+  summary: Gentle hills in Victoria known for Shiraz and Cabernet with eucalyptus notes.
+- id: macedon-ranges
+  name: Macedon Ranges
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [macedon-ranges]
+  level: 3
+  grapes: [pinot-noir, chardonnay]
+  summary: One of Victoria's coolest regions, famous for sparkling wine and Pinot Noir.
+- id: sunbury
+  name: Sunbury
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [sunbury]
+  level: 3
+  grapes: [syrah, chardonnay]
+  summary: A cool region just north of Melbourne, known for Shiraz and Chardonnay.
+- id: nagambie-lakes
+  name: Nagambie Lakes
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [nagambie-lakes]
+  level: 3
+  grapes: [marsanne, syrah]
+  summary: A central Victorian region cooled by lakes, with Marsanne and Shiraz.
+- id: hilltops
+  name: Hilltops
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [hilltops]
+  level: 3
+  grapes: [cabernet-sauvignon, syrah]
+  summary: A New South Wales region known for Cabernet and Shiraz on volcanic soils.
+- id: tumbarumba
+  name: Tumbarumba
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [tumbarumba]
+  level: 3
+  grapes: [chardonnay, pinot-noir]
+  summary: A very high, cool NSW region (up to 800 m) known for Chardonnay and Pinot Noir.
+- id: perricoota
+  name: Perricoota
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [perricoota]
+  level: 3
+  grapes: [syrah, chardonnay]
+  summary: A warm inland NSW region near the Murray River.
+- id: south-burnett
+  name: South Burnett
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [south-burnett]
+  level: 3
+  grapes: [syrah, chardonnay]
+  summary: A warm inland Queensland region.
+- id: peel
+  name: Peel
+  country: Australia
+  kind: region
+  map: australia
+  highlight: [peel]
+  level: 3
+  grapes: [chardonnay, syrah]
+  summary: A flat, warm coastal region south of Perth in Western Australia.
