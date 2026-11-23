@@ -82,7 +82,6 @@ struct PracticeView: View {
     // MARK: mock exams
 
     private var exams: some View {
-        let unlocked = max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1)
         let info: [(String, String, String, CGFloat)] = [
             ("Foundations", "Piccolo", "How wine is made, tasting and the great grapes", 0.5),
             ("Essentials", "Bottle", "The wine world, food, serving, scores and history", 0.62),
@@ -94,7 +93,7 @@ struct PracticeView: View {
             SectionTitle(text: "Mock exams")
             VStack(spacing: 0) {
                 ForEach(1...5, id: \.self) { lv in
-                    let open = lv <= unlocked
+                    let open = true   // every mock exam is open from the start: they are for testing yourself, not a reward
                     let i = info[lv - 1]
                     Button { if open { session = QuizGenerator.exam(level: lv) } } label: {
                         HStack(spacing: 14) {
@@ -130,7 +129,7 @@ struct PracticeView: View {
                     }
                     .buttonStyle(RowPressStyle())
                     .disabled(!open)
-                    if lv < 3 { Hairline().padding(.leading, 80) }
+                    if lv < 5 { Hairline().padding(.leading, 80) }
                 }
             }
             .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
