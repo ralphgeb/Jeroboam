@@ -84,7 +84,7 @@ def build_map(spec, avas):
     print(f"{mid}…")
     bbox = tuple(spec["bbox"])
     pr = B.Proj(bbox, spec.get("W", 2800))
-    tol = 1.0
+    tol = 0.55
     land, focus, lk, rv = B.base_layers(pr, bbox, spec["focus"], tol=tol)
     built = {}
     regions = spec["regions"]

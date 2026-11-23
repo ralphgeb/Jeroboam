@@ -710,7 +710,7 @@ def build_italy():
     ita_regions = [shape(f["geometry"]) for f in admin1 if f["properties"]["adm0_a3"] == "ITA"]
     bbox = (36.5, 6.5, 47.2, 18.7)
     pr = Proj(bbox, 6000)   # fine enough for the Barolo and Chianti villages
-    tol = 1.0
+    tol = 0.6
     land, focus, lk, rv = base_layers(pr, bbox, ["ITA"], tol=tol)
     areas = []
     for z in WD.ITALY:
@@ -759,7 +759,7 @@ def build_italy():
 
     def detail(mid, title, specs, bbox, cities, labels, reg, water=()):
         pr = Proj(bbox, 3000)
-        tol = 0.9
+        tol = 0.55
         land, focus, lk, rv = base_layers(pr, bbox, ["ITA"], tol=tol)
         lk = lk + water_polys(pr, water, None, tol, geoms=[gg for _, gg in it_comuni(reg)])
         r = resolve(specs, it_pool, {})
@@ -802,7 +802,7 @@ def build_usa():
 
     def ava_map(mid, title, tops, bbox, W, cities, labels, child_levels=1):
         pr = Proj(bbox, W)
-        tol = 1.0
+        tol = 0.55
         land, focus, lk, rv = base_layers(pr, bbox, ["USA"], tol=tol)
         areas, ids = [], set()
         for i, (name, aid, col) in enumerate(tops):
@@ -871,7 +871,7 @@ def build_gb(only=None):
         if only and mid not in only: continue
         spec = legacy[mid]
         isos = cfg["iso"] if isinstance(cfg["iso"], list) else [cfg["iso"]]
-        W, tol = 3000, 1.0
+        W, tol = 3000, 0.5
         pr = Proj(spec["bbox"], W)
         land, focus, lk, rv = base_layers(pr, spec["bbox"], spec["focus"], tol=tol)
         if mid == "spain":   # the Canary Islands are not on this map: they stretched the country's frame in the Atlas thumbnails
@@ -1035,7 +1035,7 @@ def build_lebanon():
     L = GB.LEBANON
     print("Lebanon…")
     pr = Proj(L["bbox"], 2400, pad=0.04)
-    tol = 0.8
+    tol = 0.5
     land, focus, lk, rv = base_layers(pr, L["bbox"], L["focus"], tol=tol)
     units = gb_units("LBN", "ADM2")
     areas = []
