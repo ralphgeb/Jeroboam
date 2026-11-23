@@ -1007,7 +1007,7 @@ struct ZoomableWineMap: View {
         // open wide: the wine areas plus a generous ring of the surrounding country and neighbours
         var c = g.contentBounds
         let f = g.focus.boundingRect
-        if !f.isEmpty && f.width * f.height < c.width * c.height * 6 { c = c.union(f) }
+        if !f.isEmpty && f.width * f.height < c.width * c.height * 3 { c = c.union(f) }
         var target: CGRect? = c.insetBy(dx: -c.width * 0.03, dy: -c.height * 0.03)
         // a focused area is selected (callout), but the map still opens on the whole region
         if focus != nil { target = c.insetBy(dx: -c.width * 0.2, dy: -c.height * 0.2) }

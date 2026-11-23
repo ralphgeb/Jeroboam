@@ -380,7 +380,7 @@ struct WorldTriedMap: View {
                 // a real heat map: every place adds a soft glow, the glows add up where places are close together,
                 // and the total is coloured from pale yellow through orange to deep red
                 let pts = dots.map { (CGPoint(x: origin.x + $0.point.x * s, y: origin.y + $0.point.y * s), 1 + 0.7 * log(Double(max(1, $0.count)))) }
-                if let img = HeatImage.make(points: pts, size: size, sigma: 21 * heatScale) {
+                if let img = HeatImage.make(points: pts, size: size, sigma: 12 * heatScale) {
                     ctx.draw(ctx.resolve(Image(decorative: img, scale: 1).interpolation(.high)), in: CGRect(origin: .zero, size: size))
                 }
                 var taken: [CGRect] = []
@@ -491,8 +491,8 @@ struct WorldMapFull: View {
 enum HeatImage {
     // alpha-premultiplied colour stops: density (0...1) -> color
     private static let stops: [(Double, (Double, Double, Double, Double))] = [
-        (0.00, (255, 226, 140, 0.0)), (0.10, (255, 214, 110, 0.18)), (0.25, (250, 180, 80, 0.50)), (0.45, (240, 120, 52, 0.68)),
-        (0.70, (210, 52, 72, 0.82)), (1.00, (140, 14, 58, 0.92)),
+        (0.00, (255, 226, 140, 0.0)), (0.10, (255, 214, 110, 0.14)), (0.28, (250, 180, 80, 0.42)), (0.50, (240, 120, 52, 0.60)),
+        (0.75, (210, 52, 72, 0.74)), (1.00, (150, 16, 60, 0.85)),
     ]
     private static func color(_ t: Double) -> (UInt8, UInt8, UInt8, UInt8) {
         var lo = stops[0], hi = stops[stops.count - 1]
@@ -526,7 +526,7 @@ enum HeatImage {
         for i in 0..<(w * h) {
             let v = field[i]
             if !v.isFinite || v < 0.01 { continue }
-            let t = 1 - exp(-1.5 * v)
+            let t = 1 - exp(-1.05 * v)
             let c = lut[min(255, Int(t * 255))]
             px[i * 4] = c.0; px[i * 4 + 1] = c.1; px[i * 4 + 2] = c.2; px[i * 4 + 3] = c.3
         }
