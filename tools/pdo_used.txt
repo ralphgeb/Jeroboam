@@ -1,85 +1,438 @@
-bordeaux	PDO-FR-A0821	Bordeaux
-haut-medoc	PDO-FR-A0710	Haut-Médoc
-medoc	PDO-FR-A0730	Médoc
-pessac-leognan	PDO-FR-A0162	Pessac-Léognan
-sauternes	PDO-FR-A0819	Sauternes
-graves	PDO-FR-A1012	Graves
-saint-emilion	PDO-FR-A0988	Saint-Emilion
-pomerol	PDO-FR-A0273	Pomerol
-lalande	PDO-FR-A0171	Lalande-de-Pomerol
-fronsac	PDO-FR-A1103	Fronsac
-bourg	PDO-FR-A0828	Bourg / Côtes de Bourg / Bourgeais
-blaye	PDO-FR-A0712	Blaye
-entre-deux-mers	PDO-FR-A0406	Entre-deux-Mers
-saint-estephe	PDO-FR-A0178	Saint-Estèphe
-pauillac	PDO-FR-A0713	Pauillac
-margaux	PDO-FR-A0329	Margaux
-moulis	PDO-FR-A0731	Moulis / Moulis-en-Médoc
-chablis	PDO-FR-A0736	Chablis
-cote-de-beaune	PDO-FR-A0592	Côte de Beaune
-pouilly-fuisse	PDO-FR-A0653	Pouilly-Fuissé
-moulin-a-vent	PDO-FR-A0933	Moulin-à-Vent
-fleurie	PDO-FR-A0930	Fleurie
-morgon	PDO-FR-A1024	Morgon
-brouilly	PDO-FR-A0935	Brouilly
-julienas	PDO-FR-A1025	Juliénas
-saint-amour	PDO-FR-A1028	Saint-Amour
-chiroubles	PDO-FR-A0911	Chiroubles
-regnie	PDO-FR-A0912	Régnié
-marsannay	PDO-FR-A0175	Marsannay
-fixin	PDO-FR-A0642	Fixin
-gevrey-chambertin	PDO-FR-A0168	Gevrey-Chambertin
-morey-saint-denis	PDO-FR-A0913	Morey-Saint-Denis
-chambolle-musigny	PDO-FR-A1016	Chambolle-Musigny
-vougeot	PDO-FR-A0176	Vougeot
-vosne-romanee	PDO-FR-A0504	Vosne-Romanée
-nuits-saint-georges	PDO-FR-A0579	Nuits-Saint-Georges
-ladoix	PDO-FR-A0590	Ladoix
-aloxe-corton	PDO-FR-A0932	Aloxe-Corton
-pernand-vergelesses	PDO-FR-A0643	Pernand-Vergelesses
-savigny	PDO-FR-A0660	Savigny-lès-Beaune
-chorey	PDO-FR-A0659	Chorey-lès-Beaune
-beaune	PDO-FR-A1022	Beaune
-pommard	PDO-FR-A0193	Pommard
-volnay	PDO-FR-A0198	Volnay
-monthelie	PDO-FR-A0654	Monthélie
-auxey-duresses	PDO-FR-A0647	Auxey-Duresses
-saint-romain	PDO-FR-A0167	Saint-Romain
-meursault	PDO-FR-A1017	Meursault
-puligny-montrachet	PDO-FR-A0308	Puligny-Montrachet
-chassagne-montrachet	PDO-FR-A1021	Chassagne-Montrachet
-saint-aubin	PDO-FR-A0822	Saint-Aubin
-santenay	PDO-FR-A0589	Santenay
-maranges	PDO-FR-A0718	Maranges
-bouzeron	PDO-FR-A0576	Bouzeron
-rully	PDO-FR-A0937	Rully
-mercurey	PDO-FR-A0404	Mercurey
-givry	PDO-FR-A0578	Givry
-montagny	PDO-FR-A0403	Montagny
-cote-rotie	PDO-FR-A0199	Côte Rôtie
-condrieu	PDO-FR-A0685	Condrieu
-saint-joseph	PDO-FR-A0200	Saint-Joseph
-hermitage	PDO-FR-A1002	Hermitage / Ermitage / L'Hermitage / L'Ermitage
-crozes-hermitage	PDO-FR-A0389	Crozes-Hermitage / Crozes-Ermitage
-cornas	PDO-FR-A0697	Cornas
-chateauneuf-du-pape	PDO-FR-A0144	Châteauneuf-du-Pape
-gigondas	PDO-FR-A0143	Gigondas
-vacqueyras	PDO-FR-A0151	Vacqueyras
-tavel	PDO-FR-A0328	Tavel
-rasteau	PDO-FR-A0720	Rasteau
-beaumes	PDO-FR-A0724	Beaumes de Venise
-muscadet	PDO-FR-A0497	Muscadet
-anjou	PDO-FR-A0820	Anjou
-saumur	PDO-FR-A0260	Saumur
-touraine	PDO-FR-A0501	Touraine
-sancerre	PDO-FR-A0194	Sancerre
-pouilly-fume	PDO-FR-A0824	Pouilly-Fumé / Blanc Fumé de Pouilly
-savennieres	PDO-FR-A0158	Savennières
-chinon	PDO-FR-A0395	Chinon
-bourgueil	PDO-FR-A0729	Bourgueil
-vouvray	PDO-FR-A0146	Vouvray
-champagne	PDO-FR-A1359	Champagne
-beaujolais	PDO-FR-A0934	Beaujolais
-alsace	PDO-FR-A1101	Alsace / Vin d'Alsace
-savoie	PDO-FR-A0681	Vin de Savoie / Savoie
-languedoc	PDO-FR-A0922	Languedoc
+friuli	PDO-IT-02176	Friuli / Friuli Venezia Giulia / Furlanija / Furlanija Julijska krajina
+abruzzo	PDO-IT-A0880	Abruzzo
+barolo	PDO-IT-A1389	Barolo
+barbaresco	PDO-IT-A1399	Barbaresco
+roero	PDO-IT-A1261	Roero
+dogliani	PDO-IT-A1330	Dogliani
+gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
+moscato-dasti	PDO-IT-A1396	Asti
+barbera-dasti	PDO-IT-A1398	Barbera d'Asti
+diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
+verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
+chianti-classico	PDO-IT-A1235	Chianti Classico
+montalcino	PDO-IT-A1199	Brunello di Montalcino
+montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
+bolgheri	PDO-IT-A1348	Bolgheri
+suvereto	PDO-IT-A1266	Suvereto
+val-di-cornia	PDO-IT-A1498	Val di Cornia
+montescudaio	PDO-IT-A1437	Montescudaio
+bibbona	PDO-IT-A1491	Terratico di Bibbona
+elba	PDO-IT-A1519	Elba
+carmignano	PDO-IT-A1220	Carmignano
+san-gimignano	PDO-IT-A1464	San Gimignano
+montecarlo	PDO-IT-A1421	Montecarlo
+colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
+candia	PDO-IT-A1377	Candia dei Colli Apuani
+cortona	PDO-IT-A1518	Cortona
+val-d-orcia	PDO-IT-A1442	Orcia
+montecucco	PDO-IT-A1433	Montecucco
+maremma	PDO-IT-A1260	Morellino di Scansano
+maremma-toscana	PDO-IT-A1413	Maremma toscana
+chianti	PDO-IT-A1228	Chianti
+barolo	PDO-IT-A1389	Barolo
+barbaresco	PDO-IT-A1399	Barbaresco
+roero	PDO-IT-A1261	Roero
+dogliani	PDO-IT-A1330	Dogliani
+gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
+moscato-dasti	PDO-IT-A1396	Asti
+barbera-dasti	PDO-IT-A1398	Barbera d'Asti
+diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
+verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
+chianti-classico	PDO-IT-A1235	Chianti Classico
+montalcino	PDO-IT-A1199	Brunello di Montalcino
+montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
+bolgheri	PDO-IT-A1348	Bolgheri
+suvereto	PDO-IT-A1266	Suvereto
+val-di-cornia	PDO-IT-A1498	Val di Cornia
+montescudaio	PDO-IT-A1437	Montescudaio
+bibbona	PDO-IT-A1491	Terratico di Bibbona
+elba	PDO-IT-A1519	Elba
+carmignano	PDO-IT-A1220	Carmignano
+san-gimignano	PDO-IT-A1464	San Gimignano
+montecarlo	PDO-IT-A1421	Montecarlo
+colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
+candia	PDO-IT-A1377	Candia dei Colli Apuani
+cortona	PDO-IT-A1518	Cortona
+val-d-orcia	PDO-IT-A1442	Orcia
+montecucco	PDO-IT-A1433	Montecucco
+maremma	PDO-IT-A1260	Morellino di Scansano
+maremma-toscana	PDO-IT-A1413	Maremma toscana
+chianti	PDO-IT-A1228	Chianti
+vinho-verde	PDO-PT-A1545	Vinho Verde
+douro	PDO-PT-A1539	Douro
+dao	PDO-PT-A1534	Dão
+bairrada	PDO-PT-A1537	Bairrada
+tejo	PDO-PT-A1544	DoTejo
+setubal	PDO-PT-A1457	Setúbal
+alentejo	PDO-PT-A1542	Alentejo
+colares	PDO-PT-A1461	Colares
+carcavelos	PDO-PT-A1462	Carcavelos
+bucelas	PDO-PT-A1463	Bucelas
+arruda	PDO-PT-A1471	Arruda
+alenquer	PDO-PT-A1468	Alenquer
+torres-vedras	PDO-PT-A1465	Torres Vedras
+obidos	PDO-PT-A1469	Óbidos
+encostas-daire	PDO-PT-A1470	Encostas d’Aire
+palmela	PDO-PT-A1460	Palmela
+lagos	PDO-PT-A1454	Lagos
+portimao	PDO-PT-A1452	Portimão
+lagoa	PDO-PT-A1450	Lagoa
+tavira	PDO-PT-A1449	Tavira
+tras-os-montes	PDO-PT-A1466	Trás-os-Montes
+tavora-varosa	PDO-PT-A1541	Távora-Varosa
+beira-interior	PDO-PT-A1546	Beira Interior
+vinho-verde	PDO-PT-A1545	Vinho Verde
+douro	PDO-PT-A1539	Douro
+dao	PDO-PT-A1534	Dão
+bairrada	PDO-PT-A1537	Bairrada
+tejo	PDO-PT-A1544	DoTejo
+setubal	PDO-PT-A1457	Setúbal
+alentejo	PDO-PT-A1542	Alentejo
+lafoes	PDO-PT-A1455	Lafões
+tras-os-montes	PDO-PT-A1466	Trás-os-Montes
+tavora-varosa	PDO-PT-A1541	Távora-Varosa
+beira-interior	PDO-PT-A1546	Beira Interior
+colares	PDO-PT-A1461	Colares
+carcavelos	PDO-PT-A1462	Carcavelos
+bucelas	PDO-PT-A1463	Bucelas
+arruda	PDO-PT-A1471	Arruda
+alenquer	PDO-PT-A1468	Alenquer
+torres-vedras	PDO-PT-A1465	Torres Vedras
+obidos	PDO-PT-A1469	Óbidos
+encostas-daire	PDO-PT-A1470	Encostas d’Aire
+palmela	PDO-PT-A1460	Palmela
+lagos	PDO-PT-A1454	Lagos
+portimao	PDO-PT-A1452	Portimão
+lagoa	PDO-PT-A1450	Lagoa
+tavira	PDO-PT-A1449	Tavira
+rias-baixas	PDO-ES-A1119	Rías Baixas
+bierzo	PDO-ES-A0615	Bierzo
+rioja	PDO-ES-A0117	Rioja
+navarra	PDO-ES-A0127	Navarra
+ribera-del-duero	PDO-ES-A0626	Ribera del Duero
+rueda	PDO-ES-A0889	Rueda
+toro	PDO-ES-A0886	Toro
+priorat	PDO-ES-A1560	Priorat / Priorato
+penedes	PDO-ES-A1551	Penedès
+la-mancha	PDO-ES-A0045	La Mancha
+jumilla	PDO-ES-A0109	Jumilla
+jerez	PDO-ES-A1483	Jerez-Xérès-Sherry / Jerez / Xérès / Sherry
+ribeiro	PDO-ES-A1123	Ribeiro
+carinena	PDO-ES-A0043	Cariñena
+campo-de-borja	PDO-ES-A0180	Campo de Borja
+calatayud	PDO-ES-A0247	Calatayud
+somontano	PDO-ES-A0534	Somontano
+montsant	PDO-ES-A1550	Montsant
+terra-alta	PDO-ES-A1556	Terra Alta
+emporda	PDO-ES-A1548	Empordà
+costers-del-segre	PDO-ES-A1523	Costers del Segre
+cigales	PDO-ES-A0622	Cigales
+tierra-de-leon	PDO-ES-A0882	León
+arlanza	PDO-ES-A0613	Arlanza
+vinos-de-madrid	PDO-ES-A1525	Vinos de Madrid
+valdepenas	PDO-ES-A0051	Valdepeñas
+manchuela	PDO-ES-A0046	Manchuela
+utiel-requena	PDO-ES-A0874	Utiel-Requena
+alicante-do	PDO-ES-A1526	Alicante
+yecla	PDO-ES-A0606	Yecla
+bullas	PDO-ES-A0536	Bullas
+ribera-del-guadiana	PDO-ES-A1295	Ribera del Guadiana
+montilla-moriles	PDO-ES-A1479	Montilla-Moriles
+malaga-do	PDO-ES-A1481	Málaga
+condado-de-huelva	PDO-ES-A1485	Condado de Huelva
+binissalem	PDO-ES-A1056	Binissalem
+es-navarra	PDO-ES-A0127	Navarra
+es-valencia	PDO-ES-A0872	Valencia
+es-navarra	PDO-ES-A0127	Navarra
+es-valencia	PDO-ES-A0872	Valencia
+rias-baixas	PDO-ES-A1119	Rías Baixas
+bierzo	PDO-ES-A0615	Bierzo
+rioja	PDO-ES-A0117	Rioja
+navarra	PDO-ES-A0127	Navarra
+ribera-del-duero	PDO-ES-A0626	Ribera del Duero
+rueda	PDO-ES-A0889	Rueda
+toro	PDO-ES-A0886	Toro
+priorat	PDO-ES-A1560	Priorat / Priorato
+penedes	PDO-ES-A1551	Penedès
+la-mancha	PDO-ES-A0045	La Mancha
+jumilla	PDO-ES-A0109	Jumilla
+jerez	PDO-ES-A1483	Jerez-Xérès-Sherry / Jerez / Xérès / Sherry
+ribeiro	PDO-ES-A1123	Ribeiro
+carinena	PDO-ES-A0043	Cariñena
+campo-de-borja	PDO-ES-A0180	Campo de Borja
+calatayud	PDO-ES-A0247	Calatayud
+somontano	PDO-ES-A0534	Somontano
+montsant	PDO-ES-A1550	Montsant
+terra-alta	PDO-ES-A1556	Terra Alta
+emporda	PDO-ES-A1548	Empordà
+costers-del-segre	PDO-ES-A1523	Costers del Segre
+cigales	PDO-ES-A0622	Cigales
+tierra-de-leon	PDO-ES-A0882	León
+arlanza	PDO-ES-A0613	Arlanza
+vinos-de-madrid	PDO-ES-A1525	Vinos de Madrid
+valdepenas	PDO-ES-A0051	Valdepeñas
+manchuela	PDO-ES-A0046	Manchuela
+utiel-requena	PDO-ES-A0874	Utiel-Requena
+alicante-do	PDO-ES-A1526	Alicante
+yecla	PDO-ES-A0606	Yecla
+bullas	PDO-ES-A0536	Bullas
+ribera-del-guadiana	PDO-ES-A1295	Ribera del Guadiana
+montilla-moriles	PDO-ES-A1479	Montilla-Moriles
+malaga-do	PDO-ES-A1481	Málaga
+condado-de-huelva	PDO-ES-A1485	Condado de Huelva
+binissalem	PDO-ES-A1056	Binissalem
+granada	PDO-ES-A1475	Granada
+mentrida	PDO-ES-A0047	Méntrida
+ribeira-sacra	PDO-ES-A1128	Ribeira Sacra
+cangas	PDO-ES-A0119	Cangas
+ucles	PDO-ES-A0050	Uclés
+bizkaiko-txakolina	PDO-ES-A0746	Bizkaiko Txakolina / Chacolí de Bizkaia / Txakolí de Bizkaia
+getariako-txakolina	PDO-ES-A0741	Getariako Txakolina / Chacolí de Getaria / Txakolí de Getaria
+almansa	PDO-ES-A0044	Almansa
+tarragona	PDO-ES-A1555	Tarragona
+tierra-del-vino-de-zamora	PDO-ES-A0634	Tierra del Vino de Zamora
+pla-i-llevant	PDO-ES-A1038	Pla i Llevant
+arribes	PDO-ES-A0614	Arribes
+valles-de-benavente	PDO-ES-A0646	Valles de Benavente
+cebreros	PDO-ES-02348	Cebreros
+pla-de-bages	PDO-ES-A1557	Pla de Bages
+mondejar	PDO-ES-A0048	Mondéjar
+monterrei	PDO-ES-A1114	Monterrei
+vallegarcia	PDO-ES-02085	Vallegarcía
+sierra-de-salamanca	PDO-ES-A0631	Sierra de Salamanca
+conca-de-barbera	PDO-ES-A1422	Conca de Barberà
+valtiendas	PDO-ES-A0747	Valtiendas
+lebrija	PDO-ES-A1478	Lebrija
+alella	PDO-ES-A1423	Alella
+arabako-txakolina	PDO-ES-A0732	Arabako Txakolina / Txakolí de Álava / Chacolí de Álava
+el-vicario	PDO-ES-N1634	El Vicario
+campo-de-la-guardia	PDO-ES-A0055	Campo de La Guardia
+los-balagueses	PDO-ES-A0941	Los Balagueses
+chozas-carrascal	PDO-ES-N1637	Chozas Carrascal
+finca-elez	PDO-ES-A0053	Finca Élez
+guijoso	PDO-ES-A0058	Guijoso
+casa-del-blanco	PDO-ES-A0060	Casa del Blanco
+ribera-del-jucar	PDO-ES-A0049	Ribera del Júcar
+los-cerrillos	PDO-ES-02228	Los Cerrillos
+calzadilla	PDO-ES-A0056	Calzadilla
+pago-florentino	PDO-ES-A0057	Pago Florentino
+el-terrerazo	PDO-ES-A0940	El Terrerazo
+vera-de-estenas	PDO-ES-N1665	Vera de Estenas
+jaraba	PDO-ES-01895	La Jaraba
+at-niederosterreich	PDO-AT-A0221	Niederösterreich
+at-wien	PDO-AT-A0235	Wien
+at-burgenland	PDO-AT-A0207	Burgenland
+steiermark	PDO-AT-A0225	Steiermark
+wachau	PDO-AT-A0205	Wachau
+kremstal	PDO-AT-A0208	Kremstal
+kamptal	PDO-AT-A0209	Kamptal
+wagram	PDO-AT-A0233	Wagram
+weinviertel	PDO-AT-A0206	Weinviertel
+carnuntum	PDO-AT-A0217	Carnuntum
+thermenregion	PDO-AT-A0229	Thermenregion
+neusiedlersee	PDO-AT-A0219	Neusiedlersee
+leithaberg	PDO-AT-A0216	Leithaberg
+mittelburgenland	PDO-AT-A0214	Mittelburgenland
+traisental	PDO-AT-A0210	Traisental
+eisenberg	PDO-AT-A0215	Eisenberg
+sudsteiermark	PDO-AT-A0228	Südsteiermark
+weststeiermark	PDO-AT-A0234	Weststeiermark
+tokaj	PDO-HU-A1254	Tokaj / Tokaji
+eger	PDO-HU-A1328	Eger / Egri
+somlo	PDO-HU-A1376	Somlói / Somló
+balaton	PDO-HU-A1507	Balaton / Balatoni
+kunsag	PDO-HU-A1332	Kunság / Kunsági
+szekszard	PDO-HU-A1349	Szekszárd / Szekszárdi
+villany	PDO-HU-A1381	Villány / Villányi
+sopron	PDO-HU-A1504	Sopron / Soproni
+matra	PDO-HU-A1368	Mátra / Mátrai
+etyek-buda	PDO-HU-A1350	Etyek-Buda / Etyek-Budai
+hu-tokaj	PDO-HU-A1254	Tokaj / Tokaji
+hu-balaton	PDO-HU-A1507	Balaton / Balatoni
+hu-pannon	PDO-HU-A1380	Pannon
+hu-duna	PDO-HU-A1345	Duna / Dunai
+hu-tokaj	PDO-HU-A1254	Tokaj / Tokaji
+hu-balaton	PDO-HU-A1507	Balaton / Balatoni
+hu-pannon	PDO-HU-A1380	Pannon
+hu-duna	PDO-HU-A1345	Duna / Dunai
+tokaj	PDO-HU-A1254	Tokaj / Tokaji
+eger	PDO-HU-A1328	Eger / Egri
+somlo	PDO-HU-A1376	Somlói / Somló
+balaton	PDO-HU-A1507	Balaton / Balatoni
+kunsag	PDO-HU-A1332	Kunság / Kunsági
+szekszard	PDO-HU-A1349	Szekszárd / Szekszárdi
+villany	PDO-HU-A1381	Villány / Villányi
+sopron	PDO-HU-A1504	Sopron / Soproni
+matra	PDO-HU-A1368	Mátra / Mátrai
+etyek-buda	PDO-HU-A1350	Etyek-Buda / Etyek-Budai
+balatonboglar	PDO-HU-A1378	Balatonboglár / Balatonboglári
+zala	PDO-HU-A1502	Zala / Zalai
+pecs	PDO-HU-A1385	Pécs
+bukk	PDO-HU-A1500	Bükk / Bükki
+neszmely	PDO-HU-A1335	Neszmély / Neszmélyi
+pannonhalma	PDO-HU-A1338	Pannonhalma / Pannonhalmi
+balaton-felvidek	PDO-HU-A1509	Balaton-felvidék / Balaton-felvidéki
+balatonfured-csopak	PDO-HU-A1516	Balatonfüred-Csopak / Balatonfüred-Csopaki
+badacsony	PDO-HU-A1506	Badacsony / Badacsonyi
+mor	PDO-HU-A1333	Mór / Móri
+naoussa	PDO-GR-A1610	Νάουσα
+amyndeo	PDO-GR-A1395	Αμύνταιο
+patras	PDO-GR-A1239	Πάτρα
+nemea	PDO-GR-A1573	Νεμέα
+mantinia	PDO-GR-A1554	Μαντινεία
+santorini	PDO-GR-A1065	Σαντορίνη
+crete	PDO-GR-A1340	Αρχάνες
+rapsani	PDO-GR-A0116	Ραψάνη
+goumenissa	PDO-GR-A1251	Γουμένισσα
+paros	PDO-GR-A1570	Πάρος
+samos	PDO-GR-A1564	Σάμος
+limnos	PDO-GR-A1614	Λήμνος
+zitsa	PDO-GR-A1532	Ζίτσα
+ahr	PDO-DE-A0867	Ahr
+mittelrhein	PDO-DE-A1269	Mittelrhein
+mosel	PDO-DE-A1270	Mosel
+nahe	PDO-DE-A1271	Nahe
+rheingau	PDO-DE-A1273	Rheingau
+rheinhessen	PDO-DE-A1274	Rheinhessen
+pfalz	PDO-DE-A1272	Pfalz
+franken	PDO-DE-A1267	Franken
+wurttemberg	PDO-DE-A1276	Württemberg
+baden	PDO-DE-A1264	Baden
+saale-unstrut	PDO-DE-A1275	Saale-Unstrut
+sachsen	PDO-DE-A1277	Sachsen
+hessische-bergstrasse	PDO-DE-A1268	Hessische Bergstraße
+ar-salta	Argentina:Salta	Salta
+ar-tucuman	Argentina:Tucumán	Tucumán
+ar-catamarca	Argentina:Catamarca	Catamarca
+ar-la-rioja	Argentina:La Rioja	La Rioja
+ar-san-juan	Argentina:San Juan	San Juan
+ar-mendoza	Argentina:Mendoza	Mendoza
+ar-patagonia	Argentina:Patagonia	Patagonia
+salta	Argentina:Salta	Salta
+san-juan	Argentina:San Juan	San Juan
+mendoza	Argentina:Mendoza	Mendoza
+patagonia	Argentina:Patagonia	Patagonia
+margaret-river	Australia:Margaret River	Margaret River
+great-southern	Australia:Great Southern	Great Southern
+swan-valley	Australia:Swan Valley	Swan Valley
+clare	Australia:Clare Valley	Clare Valley
+barossa	Australia:Barossa Valley	Barossa Valley
+mclaren-vale	Australia:McLaren Vale	McLaren Vale
+coonawarra	Australia:Coonawarra	Coonawarra
+riverland	Australia:Riverland	Riverland
+yarra-valley	Australia:Yarra Valley	Yarra Valley
+rutherglen	Australia:Rutherglen	Rutherglen
+riverina	Australia:Riverina	Riverina
+hunter-valley	Australia:Hunter Valley	Hunter Valley
+mudgee	Australia:Mudgee	Mudgee
+orange	Australia:Orange	Orange
+canberra-district	Australia:Canberra District	Canberra District
+geelong	Australia:Geelong	Geelong
+mornington	Australia:Mornington Peninsula	Mornington Peninsula
+pemberton	Australia:Pemberton	Pemberton
+granite-belt	Australia:Granite Belt	Granite Belt
+heathcote	Australia:Heathcote	Heathcote
+grampians	Australia:Grampians	Grampians
+au-wa	Australia:Western Australia	Western Australia
+au-sa	Australia:South Australia	South Australia
+au-vic	Australia:Victoria	Victoria
+au-nsw	Australia:New South Wales	New South Wales
+au-qld	Australia:Queensland	Queensland
+au-wa	Australia:Western Australia	Western Australia
+au-sa	Australia:South Australia	South Australia
+au-vic	Australia:Victoria	Victoria
+au-nsw	Australia:New South Wales	New South Wales
+au-qld	Australia:Queensland	Queensland
+margaret-river	Australia:Margaret River	Margaret River
+great-southern	Australia:Great Southern	Great Southern
+swan-valley	Australia:Swan Valley	Swan Valley
+clare	Australia:Clare Valley	Clare Valley
+barossa	Australia:Barossa Valley	Barossa Valley
+mclaren-vale	Australia:McLaren Vale	McLaren Vale
+coonawarra	Australia:Coonawarra	Coonawarra
+riverland	Australia:Riverland	Riverland
+yarra-valley	Australia:Yarra Valley	Yarra Valley
+rutherglen	Australia:Rutherglen	Rutherglen
+riverina	Australia:Riverina	Riverina
+hunter-valley	Australia:Hunter Valley	Hunter Valley
+mudgee	Australia:Mudgee	Mudgee
+orange	Australia:Orange	Orange
+canberra-district	Australia:Canberra District	Canberra District
+geelong	Australia:Geelong	Geelong
+mornington	Australia:Mornington Peninsula	Mornington Peninsula
+pemberton	Australia:Pemberton	Pemberton
+granite-belt	Australia:Granite Belt	Granite Belt
+heathcote	Australia:Heathcote	Heathcote
+grampians	Australia:Grampians	Grampians
+northern-slopes	Australia:Northern Slopes	Northern Slopes
+west-australian-south-east-coastal	Australia:West Australian South East Coastal	West Australian South East Coastal
+gippsland	Australia:Gippsland	Gippsland
+northern-rivers	Australia:Northern Rivers	Northern Rivers
+central-ranges	Australia:Central Ranges	Central Ranges
+central-western-australia	Australia:Central Western Australia	Central Western Australia
+south-west-australia	Australia:South West Australia	South West Australia
+south-coast	Australia:South Coast	South Coast
+the-peninsulas	Australia:The Peninsulas	The Peninsulas
+greater-perth	Australia:Greater Perth	Greater Perth
+henty	Australia:Henty	Henty
+gundagai	Australia:Gundagai	Gundagai
+upper-hunter-valley	Australia:Upper Hunter Valley	Upper Hunter Valley
+peel	Australia:Peel	Peel
+south-burnett	Australia:South Burnett	South Burnett
+bendigo	Australia:Bendigo	Bendigo
+upper-goulburn	Australia:Upper Goulburn	Upper Goulburn
+southern-flinders-ranges	Australia:Southern Flinders Ranges	Southern Flinders Ranges
+kangaroo-island	Australia:Kangaroo Island	Kangaroo Island
+alpine-valleys	Australia:Alpine Valleys	Alpine Valleys
+hilltops	Australia:Hilltops	Hilltops
+tumbarumba	Australia:Tumbarumba	Tumbarumba
+macedon-ranges	Australia:Macedon Ranges	Macedon Ranges
+pyrenees	Australia:Pyrenees	Pyrenees
+mount-gambier	Australia:Mount Gambier	Mount Gambier
+king-valley	Australia:King Valley	King Valley
+strathbogie-ranges	Australia:Strathbogie Ranges	Strathbogie Ranges
+adelaide-hills	Australia:Adelaide Hills	Adelaide Hills
+southern-fleurieu	Australia:Southern Fleurieu	Southern Fleurieu
+glenrowan	Australia:Glenrowan	Glenrowan
+sunbury	Australia:Sunbury	Sunbury
+robe	Australia:Robe	Robe
+adelaide-plains	Australia:Adelaide Plains	Adelaide Plains
+wrattonbully	Australia:Wrattonbully	Wrattonbully
+perricoota	Australia:Perricoota	Perricoota
+eden-valley	Australia:Eden Valley	Eden Valley
+currency-creek	Australia:Currency Creek	Currency Creek
+beechworth	Australia:Beechworth	Beechworth
+padthaway	Australia:Padthaway	Padthaway
+mount-benson	Australia:Mount Benson	Mount Benson
+langhorne-creek	Australia:Langhorne Creek	Langhorne Creek
+nagambie-lakes	Australia:Nagambie Lakes	Nagambie Lakes
+new-england-australia	Australia:New England Australia	New England Australia
+blackwood-valley	Australia:Blackwood Valley	Blackwood Valley
+geographe	Australia:Geographe	Geographe
+swan-district	Australia:Swan District	Swan District
+perth-hills	Australia:Perth Hills	Perth Hills
+southern-highlands	Australia:Southern Highlands	Southern Highlands
+manjimup	Australia:Manjimup	Manjimup
+shoalhaven-coast	Australia:Shoalhaven Coast	Shoalhaven Coast
+albany	Australia:Albany	Albany
+hastings-river	Australia:Hastings River	Hastings River
+cowra	Australia:Cowra	Cowra
+frankland-river	Australia:Frankland River	Frankland River
+mount-barker	Australia:Mount Barker	Mount Barker
+denmark	Australia:Denmark	Denmark
+great-western	Australia:Great Western	Great Western
+porongurup	Australia:Porongurup	Porongurup
+broke-fordwich	Australia:Broke Fordwich	Broke Fordwich
+pokolbin	Australia:Pokolbin	Pokolbin
+high-eden	Australia:High Eden	High Eden
+piccadilly-valley	Australia:Piccadilly Valley	Piccadilly Valley
+lenswood	Australia:Lenswood	Lenswood
+clare	Australia:Clare Valley	Clare Valley
+barossa	Australia:Barossa Valley	Barossa Valley
+eden-valley	Australia:Eden Valley	Eden Valley
+adelaide-hills	Australia:Adelaide Hills	Adelaide Hills
+mclaren-vale	Australia:McLaren Vale	McLaren Vale
+langhorne-creek	Australia:Langhorne Creek	Langhorne Creek
+riverland	Australia:Riverland	Riverland
+padthaway	Australia:Padthaway	Padthaway
+coonawarra	Australia:Coonawarra	Coonawarra
