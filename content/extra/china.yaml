@@ -1,81 +1,623 @@
 map: china
 title: China
-iso: [CHN]
-focus: [CHN]
-bbox: [25.0, 98.0, 45.0, 126.0]
+iso:
+- CHN
+focus:
+- CHN
+bbox:
+- 25.0
+- 98.0
+- 45.0
+- 126.0
 W: 3200
 cities:
-  - [Beijing, 39.90, 116.40, 0]
-  - [Yinchuan, 38.49, 106.23, 0]
-  - [Yantai, 37.46, 121.45]
-  - [Urumqi, 43.83, 87.62]
-  - [Shangri-La, 27.83, 99.70]
-  - [Taiyuan, 37.87, 112.55]
+- - Beijing
+  - 39.9
+  - 116.4
+  - 0
+- - Yinchuan
+  - 38.49
+  - 106.23
+  - 0
+- - Yantai
+  - 37.46
+  - 121.45
+- - Urumqi
+  - 43.83
+  - 87.62
+- - Shangri-La
+  - 27.83
+  - 99.7
+- - Taiyuan
+  - 37.87
+  - 112.55
+- - Weihai
+  - 37.5
+  - 122.12
+- - Hami
+  - 42.83
+  - 93.5
+- - Wuwei
+  - 37.93
+  - 102.64
+- - Kunming
+  - 25.04
+  - 102.7
+- - Yili (Ghulja)
+  - 43.9
+  - 81.3
+- - Shenyang
+  - 41.8
+  - 123.43
+- - Tonghua
+  - 41.73
+  - 125.94
+- - Qingdao
+  - 36.07
+  - 120.38
+- - Dali
+  - 25.6
+  - 100.27
 labels:
-  - [Yellow Sea, 36.0, 123.5, sea]
-  - [Bohai Sea, 38.5, 119.5, sea]
-  - [MONGOLIA, 44.5, 106.0, area]
+- - Yellow Sea
+  - 36.0
+  - 123.5
+  - sea
+- - Bohai Sea
+  - 38.5
+  - 119.5
+  - sea
+- - MONGOLIA
+  - 44.5
+  - 106.0
+  - area
 country:
   name: China
-  summary: "Now among the world's top ten wine producers and the second-largest vineyard area in the world (mostly table grapes). Ningxia in the north-west is the quality leader, with Cabernet Gernischt, Marselan and Cabernet Sauvignon grown in winter-buried vines."
-  grapes: [cabernet-sauvignon, merlot, chardonnay, syrah, pinot-noir, riesling, cabernet-franc]
-  local: [Cabernet Gernischt, Marselan, Longyan, Beichun, Vidal Blanc, Muscat Hamburg, Shuijing]
-  climate: "Mostly continental, with huge winter cold: vines must be buried every winter in Ningxia and Xinjiang."
-  styles: "Rich Cabernet blends in Ningxia, fresh whites in Shandong, ice wine in the north-east and fortified wines in Shanxi."
-  classification: "The main wine regions are Ningxia, Shandong, Hebei, Xinjiang, Yunnan, Shanxi and Gansu, plus Liaoning and Jilin for ice wine."
-  history: "Grape wine was drunk in Xinjiang from at least the Han dynasty. Zhang Bishi founded the first big modern winery, Changyu, in Yantai in 1892."
+  summary: Now among the world's top ten wine producers and the second-largest vineyard area in the world (mostly table grapes). Ningxia in the north-west is the quality leader, with Cabernet Gernischt, Marselan and Cabernet Sauvignon grown in winter-buried
+    vines.
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - chardonnay
+  - syrah
+  - pinot-noir
+  - riesling
+  - cabernet-franc
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  - Longyan
+  - Beichun
+  - Vidal Blanc
+  - Muscat Hamburg
+  - Shuijing
+  climate: 'Mostly continental, with huge winter cold: vines must be buried every winter in Ningxia and Xinjiang.'
+  styles: Rich Cabernet blends in Ningxia, fresh whites in Shandong, ice wine in the north-east and fortified wines in Shanxi.
+  classification: The main wine regions are Ningxia, Shandong, Hebei, Xinjiang, Yunnan, Shanxi and Gansu, plus Liaoning and Jilin for ice wine.
+  history: Grape wine was drunk in Xinjiang from at least the Han dynasty. Zhang Bishi founded the first big modern winery, Changyu, in Yantai in 1892.
   facts:
-    - "In 2011 Chateau Helan Mountain's Ningxia Cabernet beat Bordeaux in an international competition in Decanter."
-    - "Vineyards in Ningxia are buried under 30–50 cm of soil each winter to survive temperatures of -25°C."
+  - In 2011 Chateau Helan Mountain's Ningxia Cabernet beat Bordeaux in an international competition in Decanter.
+  - Vineyards in Ningxia are buried under 30–50 cm of soil each winter to survive temperatures of -25°C.
 regions:
-  - id: ningxia
-    name: Ningxia
-    units: {adm: CHN/ADM1, names: [Ningxia Ningxia Hui Autonomous Region]}
-    grapes: [cabernet-sauvignon, merlot, cabernet-franc, chardonnay]
-    local: [Cabernet Gernischt, Marselan]
-    summary: "China's most celebrated region: the foot of the Helan Mountain near Yinchuan, with gravel, sunny days and cold nights, producing elegant Cabernet blends."
-    climate: "Dry continental, with 3,000 hours of sunshine."
-    soil: "Alluvial gravel and sandy soils."
-  - id: helan-mountain-east
-    name: Helan Mountain East
-    parent: ningxia
-    poly: [[39.0,105.7],[39.0,106.2],[37.7,106.2],[37.7,105.7]]
-    clip: {adm: CHN/ADM1, names: [Ningxia Ningxia Hui Autonomous Region]}
-    grapes: [cabernet-sauvignon, merlot, cabernet-franc]
-    local: [Cabernet Gernischt, Marselan]
-    summary: "The strip of vineyards on the alluvial fans east of the Helan mountains, the best area of Ningxia, with more than 100 wineries."
-  - id: shandong
-    name: Shandong
-    units: {adm: CHN/ADM1, names: [Shandong Province]}
-    grapes: [cabernet-sauvignon, merlot, chardonnay, riesling]
-    local: [Cabernet Gernischt, Marselan]
-    summary: "The Yantai–Penglai peninsula on the Yellow Sea: the oldest modern wine area, with a mild maritime climate and the home of Changyu."
-  - id: hebei
-    name: Hebei & Beijing
-    units: {adm: CHN/ADM1, names: [Hebei Province, Beijing Municipality, Tianjin Municipality]}
-    grapes: [cabernet-sauvignon, merlot, chardonnay, syrah]
-    local: [Longyan, Cabernet Gernischt, Marselan]
-    summary: "Huailai and Changli, within reach of Beijing: sunny, dry vineyards on the Guanting basin and the coast."
-  - id: xinjiang
-    name: Xinjiang
-    units: {adm: CHN/ADM1, names: [Xinjiang Uyghur Autonomous Region]}
-    grapes: [cabernet-sauvignon, merlot, syrah, chardonnay, riesling]
-    local: [Muscat Hamburg, Beichun]
-    summary: "A huge, dry and sunny north-west, with grapes grown for centuries around Turpan; modern wineries near Manas and Yili."
-  - id: yunnan
-    name: Yunnan
-    units: {adm: CHN/ADM1, names: [Yunnan Province]}
-    grapes: [cabernet-sauvignon, merlot, syrah, chardonnay]
-    local: [Cabernet Sauvignon, Rose Honey]
-    summary: "High Tibetan-edge vineyards near Shangri-La and Deqin at 2,000 to 2,600 m, tended in terraces by local villagers."
-  - id: shanxi-gansu
-    name: Shanxi & Gansu
-    units: {adm: CHN/ADM1, names: [Shanxi Province, Gansu Province, Shaanxi Province, Inner Mongolia Autonomous Region]}
-    grapes: [cabernet-sauvignon, merlot, chardonnay, pinot-noir]
-    summary: "The dry north-central plateau with the Taiyuan basin and the Hexi corridor (Wuwei): high, dry vineyards with a long summer."
-  - id: northeast-ice-wine
-    name: North-East (ice wine)
-    units: {adm: CHN/ADM1, names: [Liaoning Province, Jilin Province, Heilongjiang Province]}
-    grapes: [riesling]
-    local: [Vidal Blanc, Shuangfeng, Zuoshan]
-    summary: "Cold northern provinces making ice wine from frozen Vidal and native mountain grapes."
+- id: ningxia
+  name: Ningxia
+  units:
+    adm: CHN/ADM1
+    names:
+    - Ningxia Ningxia Hui Autonomous Region
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  summary: 'China''s most celebrated region: the foot of the Helan Mountain near Yinchuan, with gravel, sunny days and cold nights, producing elegant Cabernet blends.'
+  climate: Dry continental, with 3,000 hours of sunshine.
+  soil: Alluvial gravel and sandy soils.
+- id: helan-mountain-east
+  name: Helan Mountain East
+  parent: ningxia
+  poly:
+  - - 39.0
+    - 105.7
+  - - 39.0
+    - 106.2
+  - - 37.7
+    - 106.2
+  - - 37.7
+    - 105.7
+  clip:
+    adm: CHN/ADM1
+    names:
+    - Ningxia Ningxia Hui Autonomous Region
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  summary: The strip of vineyards on the alluvial fans east of the Helan mountains, the best area of Ningxia, with more than 100 wineries.
+- id: shandong
+  name: Shandong
+  units:
+    adm: CHN/ADM1
+    names:
+    - Shandong Province
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - chardonnay
+  - riesling
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  summary: 'The Yantai–Penglai peninsula on the Yellow Sea: the oldest modern wine area, with a mild maritime climate and the home of Changyu.'
+- id: hebei
+  name: Hebei & Beijing
+  units:
+    adm: CHN/ADM1
+    names:
+    - Hebei Province
+    - Beijing Municipality
+    - Tianjin Municipality
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - chardonnay
+  - syrah
+  local:
+  - Longyan
+  - Cabernet Gernischt
+  - Marselan
+  summary: 'Huailai and Changli, within reach of Beijing: sunny, dry vineyards on the Guanting basin and the coast.'
+- id: xinjiang
+  name: Xinjiang
+  units:
+    adm: CHN/ADM1
+    names:
+    - Xinjiang Uyghur Autonomous Region
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - chardonnay
+  - riesling
+  local:
+  - Muscat Hamburg
+  - Beichun
+  summary: A huge, dry and sunny north-west, with grapes grown for centuries around Turpan; modern wineries near Manas and Yili.
+- id: yunnan
+  name: Yunnan
+  units:
+    adm: CHN/ADM1
+    names:
+    - Yunnan Province
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - chardonnay
+  local:
+  - Cabernet Sauvignon
+  - Rose Honey
+  summary: High Tibetan-edge vineyards near Shangri-La and Deqin at 2,000 to 2,600 m, tended in terraces by local villagers.
+- id: shanxi-gansu
+  name: Shanxi & Gansu
+  units:
+    adm: CHN/ADM1
+    names:
+    - Shanxi Province
+    - Gansu Province
+    - Shaanxi Province
+    - Inner Mongolia Autonomous Region
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - chardonnay
+  - pinot-noir
+  summary: 'The dry north-central plateau with the Taiyuan basin and the Hexi corridor (Wuwei): high, dry vineyards with a long summer.'
+- id: northeast-ice-wine
+  name: North-East (ice wine)
+  units:
+    adm: CHN/ADM1
+    names:
+    - Liaoning Province
+    - Jilin Province
+    - Heilongjiang Province
+  grapes:
+  - riesling
+  local:
+  - Vidal Blanc
+  - Shuangfeng
+  - Zuoshan
+  summary: Cold northern provinces making ice wine from frozen Vidal and native mountain grapes.
+- id: yinchuan-yongning
+  name: Yongning (Yinchuan)
+  parent: ningxia
+  circle:
+    c:
+    - 38.25
+    - 106.15
+    r: 16
+  clip: ningxia
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: 'The core of Ningxia''s Helan Mountain East: gravelly fans just south-west of Yinchuan, home to many of the best-known estates.'
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  climate: Very dry, 3,000 sunshine hours; vines are buried under soil in winter.
+- id: shizuishan
+  name: Shizuishan
+  parent: ningxia
+  circle:
+    c:
+    - 39.0
+    - 106.35
+    r: 14
+  clip: ningxia
+  grapes: &id001
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  summary: The northern end of the Helan Mountain East belt, on sandy, stony soils.
+  local:
+  - Cabernet Gernischt
+- id: qingtongxia
+  name: Qingtongxia
+  parent: ningxia
+  circle:
+    c:
+    - 37.85
+    - 106.05
+    r: 14
+  clip: ningxia
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: A warm, sunny area on the Yellow River with sandy soils, known for ripe reds and Chardonnay.
+  local:
+  - Marselan
+- id: hongsibu
+  name: Hongsibu
+  parent: ningxia
+  circle:
+    c:
+    - 37.45
+    - 106.35
+    r: 18
+  clip: ningxia
+  grapes: *id001
+  summary: A hot, dry, high-altitude area with sandy desert soils at the southern end of Ningxia's wine belt.
+  local:
+  - Marselan
+- id: penglai
+  name: Penglai
+  parent: shandong
+  circle:
+    c:
+    - 37.8
+    - 120.75
+    r: 16
+  clip: shandong
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: A coastal peninsula tip on the Bohai and Yellow Seas, with sandy and gravelly vineyards, a cluster of top estates and the 'Penglai Wine Coast'.
+  local:
+  - Cabernet Gernischt
+  - Marselan
+  climate: Maritime, with warm autumns and summer monsoon rain.
+- id: yantai
+  name: Yantai
+  parent: shandong
+  circle:
+    c:
+    - 37.45
+    - 121.3
+    r: 20
+  clip: shandong
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  - riesling
+  summary: China's oldest modern wine city, where Changyu was founded in 1892.
+  local:
+  - Cabernet Gernischt
+- id: longkou-zhaoyuan
+  name: Longkou & Zhaoyuan
+  parent: shandong
+  circle:
+    c:
+    - 37.6
+    - 120.45
+    r: 18
+  clip: shandong
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: The western Yantai district, with the hills of the Jiaodong peninsula and sandy loams.
+- id: weihai
+  name: Weihai
+  parent: shandong
+  circle:
+    c:
+    - 37.2
+    - 122.0
+    r: 16
+  clip: shandong
+  grapes:
+  - chardonnay
+  - riesling
+  summary: The easternmost tip of the peninsula, cool and sea-washed, growing white wine grapes.
+- id: qingdao-laixi
+  name: Laixi (Qingdao)
+  parent: shandong
+  circle:
+    c:
+    - 36.85
+    - 120.6
+    r: 14
+  clip: shandong
+  grapes:
+  - chardonnay
+  - riesling
+  summary: A small area near Qingdao with Chardonnay and Riesling for sparkling and still wines.
+- id: huailai
+  name: Huailai
+  parent: hebei
+  circle:
+    c:
+    - 40.4
+    - 115.5
+    r: 18
+  clip: hebei
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: 'The Guanting basin north-west of Beijing: high, dry, sunny vineyards on sandy soils, with Chateau Changyu-Rongchen and others.'
+  local:
+  - Longyan
+  - Cabernet Gernischt
+  climate: Dry, with big day-night swings at 500 m.
+- id: changli
+  name: Changli
+  parent: hebei
+  circle:
+    c:
+    - 39.7
+    - 119.2
+    r: 14
+  clip: hebei
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: A coastal area at the foot of the Yanshan mountains near the Bohai Sea, producing Cabernet and Chardonnay.
+- id: yanqing
+  name: Yanqing (Beijing)
+  parent: hebei
+  circle:
+    c:
+    - 40.45
+    - 115.95
+    r: 10
+  clip: hebei
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  - syrah
+  summary: Beijing's own wine district, on the north-west side of the capital.
+- id: turpan
+  name: Turpan
+  parent: xinjiang
+  circle:
+    c:
+    - 42.95
+    - 89.2
+    r: 20
+  clip: xinjiang
+  grapes:
+  - muscat
+  summary: The oasis below sea level where grapes have been grown for over 2,000 years, mostly for raisins and table fruit.
+  local:
+  - Muscat Hamburg
+  - Seedless White
+  climate: Among the hottest, driest places in China.
+- id: manas
+  name: Manas & Shihezi
+  parent: xinjiang
+  circle:
+    c:
+    - 44.3
+    - 86.1
+    r: 22
+  clip: xinjiang
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: 'The north side of the Tianshan mountains: a cooler, quality-focused area with dry, sunny vineyards.'
+  climate: Continental; vines are buried in winter.
+- id: yili-valley
+  name: Yili Valley
+  parent: xinjiang
+  circle:
+    c:
+    - 43.9
+    - 81.4
+    r: 22
+  clip: xinjiang
+  grapes:
+  - riesling
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  summary: A green valley near Kazakhstan with higher rainfall and cool nights, planted with Riesling and Cabernet.
+- id: hami
+  name: Hami
+  parent: xinjiang
+  circle:
+    c:
+    - 42.8
+    - 93.5
+    r: 16
+  clip: xinjiang
+  grapes:
+  - chardonnay
+  - merlot
+  summary: An eastern Xinjiang oasis town known for sweet melons and increasingly for wine grapes.
+- id: shangri-la
+  name: Shangri-La
+  parent: yunnan
+  circle:
+    c:
+    - 27.85
+    - 99.7
+    r: 18
+  clip: yunnan
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  summary: 'Terraced Tibetan villages in the Mekong and Yangtze river gorges at 2,200 to 2,600 m: Cabernet Sauvignon and the local ''Rose Honey'' grape.'
+  local:
+  - Rose Honey
+  - Cabernet Sauvignon
+  climate: High and dry in winter; very strong UV.
+- id: mile
+  name: Mile
+  parent: yunnan
+  circle:
+    c:
+    - 24.4
+    - 103.4
+    r: 16
+  clip: yunnan
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  summary: A warm, sunny area in south-central Yunnan, source of the first Yunnan table wines.
+- id: binchuan
+  name: Binchuan
+  parent: yunnan
+  circle:
+    c:
+    - 25.85
+    - 100.6
+    r: 14
+  clip: yunnan
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  summary: A sunny basin near Dali with a long season.
+- id: taiyuan
+  name: Taiyuan Basin
+  parent: shanxi-gansu
+  circle:
+    c:
+    - 37.6
+    - 112.35
+    r: 20
+  clip: shanxi-gansu
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - chardonnay
+  summary: Qingxu and the Fen river basin in Shanxi, a place of stony, high-altitude vineyards (Grace Vineyard).
+  local:
+  - Cabernet Gernischt
+- id: wuwei
+  name: Wuwei (Hexi Corridor)
+  parent: shanxi-gansu
+  circle:
+    c:
+    - 37.9
+    - 102.65
+    r: 22
+  clip: shanxi-gansu
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - cabernet-franc
+  - pinot-noir
+  summary: A desert corridor along the old Silk Road, with irrigated vineyards between the Qilian mountains and the Gobi.
+  climate: Hot and dry with huge temperature swings.
+- id: jiuquan
+  name: Jiuquan
+  parent: shanxi-gansu
+  circle:
+    c:
+    - 39.7
+    - 98.5
+    r: 20
+  clip: shanxi-gansu
+  grapes: *id001
+  summary: A remote Silk Road oasis with desert vineyards.
+- id: tonghua
+  name: Tonghua
+  parent: northeast-ice-wine
+  circle:
+    c:
+    - 41.7
+    - 125.9
+    r: 22
+  clip: northeast-ice-wine
+  grapes:
+  - riesling
+  summary: 'Jilin''s ice wine heartland: Vidal and local mountain grapes frozen on the vine at -8 C.'
+  local:
+  - Vidal Blanc
+  - Shuangyou
+  - Zuoshan
+  climate: Very cold winters, short summers.
+- id: huanren
+  name: Huanren
+  parent: northeast-ice-wine
+  circle:
+    c:
+    - 41.3
+    - 125.35
+    r: 16
+  clip: northeast-ice-wine
+  grapes:
+  - riesling
+  summary: Liaoning's best ice wine area, on the Yalu river side, producing ice wines from Vidal.
+  local:
+  - Vidal Blanc
+- id: jian
+  name: Ji'an
+  parent: northeast-ice-wine
+  circle:
+    c:
+    - 41.1
+    - 126.2
+    r: 14
+  clip: northeast-ice-wine
+  grapes:
+  - riesling
+  summary: A border town on the Yalu river in Jilin, one of the three Jilin ice wine areas.
+  local:
+  - Vidal Blanc
+  - Shuangyou
