@@ -10,7 +10,7 @@
 - `sources/europe_wine_shops.csv` — Hedonism, The Good Wine Shop, Highbury Vintners, Secret Bottle Shop,
   Shrine to the Vine (UK), Le Petit Ballon (FR), Tannico (IT).
 - `sources/more_wine_shops.csv` — Primal Wine, Mysa, Domestique, Wine Therapy, Helen's Wines, Keg n Bottle (US),
-  Camperdown Cellars (AU), Zyn (Canada). AUD/CAD/NZD at ECB rates (1 EUR = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD).
+  Camperdown Cellars (AU), Zyn (Canada), Tanners (UK), Drops (Germany). AUD/CAD/NZD at ECB rates (1 EUR = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD).
 
 Matching across shops is by name words + vintage + size, so a few matches may be wrong. Supermarket wines
 mostly have no vintage. Rebuild: `python3 tools/prices/merge_prices.py content/prices/wine_prices.csv`.
