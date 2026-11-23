@@ -107,11 +107,46 @@ struct OnboardingView: View {
 
     private var levelStep: some View {
         VStack(alignment: .leading, spacing: 0) {
+          ScrollView {
+           VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Choose your level").font(.serif(30)).foregroundStyle(Palette.ink)
-                Text("Pick where you are. You can always change it later.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                Text("Find your level").font(.serif(30)).foregroundStyle(Palette.ink)
+                Text("Take the quiz and we'll place you, or pick a level yourself below.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.top, 30)
+            // the quiz comes first: a big, inviting card at the top
+            Button { Haptics.tap(); quiz = true } label: {
+                ZStack(alignment: .topTrailing) {
+                    Image(systemName: "wineglass.fill").font(.system(size: 96)).foregroundStyle(.white.opacity(0.13)).rotationEffect(.degrees(14)).offset(x: 14, y: -6)
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "sparkles")
+                            Text("TAKE A QUIZ TO KNOW YOUR LEVEL").font(.system(size: 11.5, weight: .bold)).kerning(0.8)
+                        }
+                        .foregroundStyle(.white.opacity(0.9))
+                        Text("Think you know wine?").font(.system(size: 22, weight: .bold)).foregroundStyle(.white)
+                        Text("10 quick questions, 3 minutes, a fun fact with every answer. Most people are surprised.")
+                            .font(.system(size: 14)).foregroundStyle(.white.opacity(0.88)).fixedSize(horizontal: false, vertical: true)
+                        HStack(spacing: 6) {
+                            Text("Start the quiz").font(.system(size: 14.5, weight: .semibold))
+                            Image(systemName: "arrow.right").font(.system(size: 12, weight: .bold))
+                        }
+                        .foregroundStyle(Palette.wine).padding(.horizontal, 16).frame(height: 38)
+                        .background(Capsule().fill(.white)).padding(.top, 4)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(18)
+                .background(
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(LinearGradient(colors: [Palette.wine, Palette.wine.mix(with: .black, 0.35)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .shadow(color: Palette.wine.opacity(0.25), radius: 14, y: 6)
+            }
+            .buttonStyle(PressableStyle())
+            .padding(.top, 20)
+            Text("OR CHOOSE YOURSELF").font(.system(size: 11.5, weight: .bold)).kerning(1).foregroundStyle(Palette.inkFaint).padding(.top, 22)
             VStack(spacing: 10) {
                 levelOption(1, "New to wine", "How wine is made, tasting and the great grapes.")
                 levelOption(2, "I drink it, I'd like to understand it", "The wine world, food pairing, serving and scores.")
@@ -119,7 +154,7 @@ struct OnboardingView: View {
                 levelOption(4, "Keen and studying", "Sparkling, sweet, viticulture, winemaking, Bordeaux and Burgundy.")
                 levelOption(5, "Ready for the great regions", "Every classic region in depth, from the Rhône to the New World.")
             }
-            .padding(.top, 22)
+            .padding(.top, 10)
             HStack(alignment: .top, spacing: 10) {
                 Image(systemName: "gift.fill").font(.system(size: 15)).foregroundStyle(Palette.wine)
                 Text("**Level \(level) will be unlocked for you.** Whichever level you choose is yours to use.")
@@ -128,14 +163,9 @@ struct OnboardingView: View {
             .padding(14).frame(maxWidth: .infinity, alignment: .leading)
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.wineSoft))
             .padding(.top, 14)
-            Spacer()
-            Button { quiz = true } label: {
-                HStack(spacing: 8) {
-                    Image(systemName: "sparkles")
-                    Text("Not sure? Take a 10-question quiz")
-                }
-            }
-            .buttonStyle(SecondaryButtonStyle(color: Palette.wine))
+           }
+          }
+          .scrollIndicators(.hidden)
             Button("Continue with Level \(level)") { step = 2 }
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.top, 8).padding(.bottom, 16)

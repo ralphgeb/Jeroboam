@@ -156,8 +156,8 @@ struct PlacementQuizView: View {
                 Circle().fill(Palette.wineSoft).frame(width: 150, height: 150)
                 Image(systemName: "wineglass").font(.system(size: 60, weight: .light)).foregroundStyle(Palette.wine)
             }
-            Text("Find your level").font(.serif(34)).foregroundStyle(Palette.ink).padding(.top, 30)
-            Text("Ten questions from around the world, about three minutes. They start easy and finish very hard, so we can place you on one of five levels.")
+            Text("Think you know wine?").font(.serif(34)).foregroundStyle(Palette.ink).padding(.top, 30)
+            Text("Ten questions from around the world, about three minutes. They start easy and finish very hard, and each answer comes with a fun fact. We'll place you on one of five levels.")
                 .font(.system(size: 16)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).lineSpacing(3)
                 .padding(.horizontal, 30).padding(.top, 10)
             HStack(spacing: 10) {
@@ -240,8 +240,8 @@ struct PlacementQuizView: View {
         )
     }
 
-    // two questions per level: 30 points in all. Guessing the easy ones puts you on Level 1 or 2; Level 5 needs most of the hard ones too.
-    private var placed: Int { points >= 23 ? 5 : (points >= 17 ? 4 : (points >= 11 ? 3 : (points >= 5 ? 2 : 1))) }
+    // two questions per level: 30 points in all. Strict on purpose: most people start at Level 1 or 2, and Level 5 needs nearly all of the hard ones too.
+    private var placed: Int { points >= 26 ? 5 : (points >= 20 ? 4 : (points >= 14 ? 3 : (points >= 8 ? 2 : 1))) }
 
     private var result: some View {
         let n = placed
