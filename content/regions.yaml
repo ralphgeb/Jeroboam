@@ -530,3 +530,479 @@
 - {id: baalbek, name: Baalbek, country: Lebanon, kind: region, map: lebanon, highlight: [baalbek], level: 3, grapes: [cinsault, carignan], summary: "The northern Bekaa, near the Roman Temple of Bacchus. Drier and higher, with old bush vines and a growing number of new estates."}
 - {id: mount-lebanon, name: Mount Lebanon, country: Lebanon, kind: region, map: lebanon, highlight: [mount-lebanon], level: 3, grapes: [obaideh, merwah, cinsault], summary: "Terraced mountain vineyards above Beirut and Byblos, south to the green hills of Jezzine; Château Musar's winery is in Ghazir. Fresh whites and lighter reds."}
 - {id: batroun, name: Batroun, country: Lebanon, kind: region, map: lebanon, highlight: [batroun], level: 3, grapes: [syrah, cabernet-sauvignon], summary: "Coastal hills in the north with a cluster of small family wineries; sea breezes and limestone soils."}
+- id: valdeorras
+  name: Valdeorras
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [valdeorras]
+  level: 3
+  climate: Cool-continental with Atlantic influence; steep slate slopes.
+  grapes: []
+  local: [Godello, Mencía, Treixadura]
+  summary: 'Galicia''s inland river valley on the Sil, and the home of Godello: crisp, mineral whites from slate hills.'
+- id: ribeiro
+  name: Ribeiro
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [ribeiro]
+  level: 3
+  climate: Atlantic with warmer, drier summers than Rías Baixas.
+  grapes: [albarino]
+  local: [Treixadura, Godello, Loureira]
+  summary: 'Galicia''s oldest wine area: floral, fresh whites from Treixadura and friends in the Miño valley.'
+- id: ribeira-sacra
+  name: Ribeira Sacra
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [ribeira-sacra]
+  level: 3
+  climate: Cool Atlantic climate softened in the sheltered canyons.
+  grapes: [mencia]
+  local: [Godello, Albarello, Brancellao]
+  summary: Vineyards on extreme river terraces above the Miño and Sil canyons, farmed by hand. Light, perfumed Mencía reds.
+- id: monterrei
+  name: Monterrei
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [monterrei]
+  level: 3
+  grapes: [mencia]
+  local: [Godello, Treixadura]
+  summary: 'A warm, sheltered valley in southern Galicia near the Portuguese border: Godello whites and Mencía reds.'
+- id: cangas
+  name: Cangas
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [cangas]
+  level: 3
+  grapes: []
+  local: [Albarín Blanco, Carrasquín, Verdejo Negro]
+  summary: A tiny, remote area in the mountains of Asturias where old Albarín and Carrasquín vines grow on steep slopes.
+- id: bizkaiko-txakolina
+  name: Bizkaiko Txakolina
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [bizkaiko-txakolina]
+  level: 3
+  climate: Wet and mild Atlantic, with sea breezes.
+  grapes: []
+  local: [Hondarribi Zuri, Hondarribi Beltza]
+  summary: 'The Basque coast''s Biscay txakoli: very dry, high-acid, lightly sparkling whites, poured from a height.'
+- id: getariako-txakolina
+  name: Getariako Txakolina
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [getariako-txakolina]
+  level: 3
+  grapes: []
+  local: [Hondarribi Zuri, Hondarribi Beltza]
+  summary: Spain's best-known txakoli, from vines on steep slopes above the sea near Getaria. Crisp, saline whites.
+- id: arabako-txakolina
+  name: Arabako Txakolina
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [arabako-txakolina]
+  level: 3
+  grapes: []
+  local: [Hondarribi Zuri]
+  summary: Txakoli from Álava, the inland, slightly warmer of the three Basque txakoli zones.
+- id: carinena
+  name: Cariñena
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [carinena]
+  level: 3
+  climate: Dry continental with hot summers and cold nights.
+  grapes: [grenache, tempranillo, carignan]
+  local: [Mazuelo]
+  summary: One of Aragón's oldest DOs, famed for Garnacha and Mazuela (the grape named after the town that gave Carignan its name).
+- id: campo-de-borja
+  name: Campo de Borja
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [campo-de-borja]
+  level: 3
+  climate: Dry, windy (the cierzo) and continental.
+  grapes: [grenache, tempranillo]
+  summary: 'The ''Empire of Garnacha'' in Aragón: rich, fruity, spicy old-vine Grenache.'
+- id: calatayud
+  name: Calatayud
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [calatayud]
+  level: 3
+  climate: Hot days and cool nights; 500 to 1,000 m altitude.
+  grapes: [grenache, tempranillo, macabeo]
+  summary: High-altitude old-vine Garnacha in Aragón, some of the oldest and cheapest great vines in Spain.
+- id: somontano
+  name: Somontano
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [somontano]
+  level: 3
+  grapes: [tempranillo, cabernet-sauvignon, chardonnay, gewurztraminer]
+  local: [Moristel, Parraleta]
+  summary: '''Under the mountain'': a Pyrenean foothills DO that experiments with international varieties alongside Moristel and Parraleta.'
+- id: montsant
+  name: Montsant
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [montsant]
+  level: 3
+  grapes: [grenache, carignan]
+  summary: 'A horseshoe around Priorat: more affordable Garnacha and Cariñena with its own mineral edge.'
+- id: terra-alta
+  name: Terra Alta
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [terra-alta]
+  level: 3
+  grapes: [grenache]
+  local: [Garnacha Blanca]
+  summary: 'The home of Garnacha Blanca in Catalonia: fresh, textured whites and sturdy reds at altitude.'
+- id: emporda
+  name: Empordà
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [emporda]
+  level: 3
+  climate: Windy Tramontana and Mediterranean warmth.
+  grapes: [grenache, carignan]
+  local: [Samsó]
+  summary: 'Catalonia''s northeast corner by the French border: windswept Garnacha and Cariñena and sweet ''Garnatxa''.'
+- id: costers-del-segre
+  name: Costers del Segre
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [costers-del-segre]
+  level: 3
+  grapes: [tempranillo, cabernet-sauvignon, chardonnay]
+  local: [Trepat]
+  summary: A DO in four scattered sub-zones in western Catalonia, including the 'Raimat' estate, with international and local varieties.
+- id: conca-de-barbera
+  name: Conca de Barberà
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [conca-de-barbera]
+  level: 3
+  grapes: [macabeo]
+  local: [Trepat, Parellada, Xarel·lo]
+  summary: The cool Catalan basin where Trepat grows, source of much of the base wine for Cava.
+- id: tarragona
+  name: Tarragona
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [tarragona]
+  level: 3
+  grapes: [grenache, carignan, macabeo]
+  summary: 'A Mediterranean DO around the Roman city: fruity reds and whites, and the sweet wine tradition of Tarragona.'
+- id: pla-de-bages
+  name: Pla de Bages
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [pla-de-bages]
+  level: 3
+  grapes: [macabeo, chardonnay]
+  local: [Picapoll]
+  summary: A small Catalan DO near Manresa, an hour from Barcelona, with Picapoll as its white speciality.
+- id: alella
+  name: Alella
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [alella]
+  level: 3
+  grapes: [grenache]
+  local: [Pansa Blanca]
+  summary: Barcelona's own wine area, on granite 'sauló' sand slopes between the city and the sea; known for Pansa Blanca whites.
+- id: cigales
+  name: Cigales
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [cigales]
+  level: 3
+  climate: Continental with big temperature swings.
+  grapes: [tempranillo, grenache]
+  summary: A Castilian DO known for deeply coloured, fruity rosados from Tempranillo and Garnacha.
+- id: tierra-de-leon
+  name: Tierra de León
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [tierra-de-leon]
+  level: 3
+  grapes: []
+  local: [Prieto Picudo, Albarín Blanco, Mencía]
+  summary: A small DO in León with the local Prieto Picudo (reds, rosés) and Albarín Blanco.
+- id: arlanza
+  name: Arlanza
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [arlanza]
+  level: 3
+  grapes: [tempranillo]
+  local: [Garnacha]
+  summary: 'A young, high DO on the Arlanza river in Burgos: structured Tempranillo reds and rosados.'
+- id: tierra-del-vino-de-zamora
+  name: Tierra del Vino de Zamora
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [tierra-del-vino-de-zamora]
+  level: 3
+  grapes: [tempranillo]
+  summary: A small area around Zamora with some of Spain's oldest Tempranillo vines.
+- id: valles-de-benavente
+  name: Valles de Benavente
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [valles-de-benavente]
+  level: 3
+  grapes: []
+  local: [Prieto Picudo, Malvasía]
+  summary: A tiny DO in Zamora known for Prieto Picudo and Malvasía.
+- id: arribes
+  name: Arribes
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [arribes]
+  level: 3
+  grapes: []
+  local: [Juan García, Bruñal, Rufete]
+  summary: 'Granite-terraced vineyards on the Douro gorge border with Portugal: Juan García and Bruñal, rare native reds.'
+- id: sierra-de-salamanca
+  name: Sierra de Salamanca
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [sierra-de-salamanca]
+  level: 3
+  grapes: [grenache]
+  local: [Rufete]
+  summary: High, rocky vineyards in the Sierra de Francia with Rufete and Garnacha.
+- id: cebreros
+  name: Cebreros
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [cebreros]
+  level: 3
+  climate: High, cool, continental with granite soils.
+  grapes: [grenache]
+  summary: 'A small Gredos mountain DO in Ávila: old Garnacha vines on granite at 700 to 1,000 m, a fashionable source of fresh reds.'
+- id: mentrida
+  name: Méntrida
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [mentrida]
+  level: 3
+  grapes: [grenache, syrah]
+  summary: A DO south-west of Madrid with Garnacha vines on granite and slate, now seeing a quality revival.
+- id: vinos-de-madrid
+  name: Vinos de Madrid
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [vinos-de-madrid]
+  level: 3
+  grapes: [grenache, tempranillo]
+  summary: 'Three subzones around Madrid: San Martín de Valdeiglesias (Garnacha), Navalcarnero and Arganda.'
+- id: mondejar
+  name: Mondéjar
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [mondejar]
+  level: 3
+  grapes: [tempranillo]
+  summary: A small Castilla-La Mancha area east of Madrid on the Tagus river, growing Cencibel (Tempranillo).
+- id: ucles
+  name: Uclés
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [ucles]
+  level: 3
+  grapes: [tempranillo, syrah]
+  summary: A high-altitude DO in Cuenca for Tempranillo, Garnacha and Syrah.
+- id: valdepenas
+  name: Valdepeñas
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [valdepenas]
+  level: 3
+  grapes: [tempranillo]
+  local: [Airén]
+  summary: A DO inside La Mancha, once famous for light 'clarete' blends of Airén and Cencibel; now known for good-value Tempranillo.
+- id: manchuela
+  name: Manchuela
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [manchuela]
+  level: 3
+  grapes: [tempranillo]
+  local: [Bobal, Garnacha Tintorera]
+  summary: High plateau east of La Mancha with Bobal and Garnacha Tintorera, producing darker, serious reds.
+- id: almansa
+  name: Almansa
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [almansa]
+  level: 3
+  grapes: [mourvedre]
+  local: [Garnacha Tintorera]
+  summary: 'A high-altitude DO between Albacete and Valencia: dark Garnacha Tintorera and Monastrell.'
+- id: ribera-del-jucar
+  name: Ribera del Júcar
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [ribera-del-jucar]
+  level: 3
+  grapes: [tempranillo]
+  local: [Bobal]
+  summary: A Cuenca DO along the Júcar river, producing Tempranillo and Bobal.
+- id: utiel-requena
+  name: Utiel-Requena
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [utiel-requena]
+  level: 3
+  climate: Continental at 600 to 900 m.
+  grapes: []
+  local: [Bobal, Tempranillo]
+  summary: 'Valencia''s inland plateau, the home of Bobal: dark, juicy reds and rosés and Cava.'
+- id: alicante-do
+  name: Alicante
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [alicante-do]
+  level: 3
+  grapes: [mourvedre, muscat]
+  local: [Giró]
+  summary: A warm DO on the Costa Blanca making Monastrell reds and Moscatel, plus the old sweet Fondillón.
+- id: yecla
+  name: Yecla
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [yecla]
+  level: 3
+  grapes: [mourvedre]
+  summary: A high-altitude Monastrell DO in Murcia with limestone soils and dry, sunny weather.
+- id: bullas
+  name: Bullas
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [bullas]
+  level: 3
+  grapes: [mourvedre, tempranillo]
+  summary: A small DO in Murcia with Monastrell vines at 400 to 800 m, with pure fruit and structure.
+- id: ribera-del-guadiana
+  name: Ribera del Guadiana
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [ribera-del-guadiana]
+  level: 3
+  grapes: [tempranillo]
+  local: [Cayetana Blanca, Pardina]
+  summary: 'Extremadura''s DO: hot, dry vineyards making Tempranillo reds and Cayetana and Pardina whites.'
+- id: montilla-moriles
+  name: Montilla-Moriles
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [montilla-moriles]
+  level: 3
+  climate: Very hot continental (summer up to 45 C).
+  grapes: [pedro-ximenez]
+  summary: 'Córdoba''s sherry-style region: fino-like wines and rich Pedro Ximénez without fortification, from a very hot, chalky area.'
+- id: malaga-do
+  name: Málaga
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [malaga-do]
+  level: 3
+  climate: Mediterranean, with mountain-cooled vineyards.
+  grapes: [muscat, pedro-ximenez]
+  summary: Sweet wines of Málaga from Moscatel and Pedro Ximénez, plus a fresh range of dry whites and reds from nearby hills.
+- id: granada
+  name: Granada
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [granada]
+  level: 3
+  grapes: [tempranillo, syrah]
+  summary: A wide Andalusian DO of vineyards at 1,000 to 1,500 m in the Sierra Nevada foothills, with Tempranillo and Syrah.
+- id: condado-de-huelva
+  name: Condado de Huelva
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [condado-de-huelva]
+  level: 3
+  grapes: [palomino]
+  local: [Zalema]
+  summary: A south-west Andalusian DO near Doñana making fortified wines and young Zalema whites.
+- id: lebrija
+  name: Lebrija
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [lebrija]
+  level: 3
+  grapes: [muscat]
+  summary: A small Cádiz-province DO known for its Moscatel and sweet white wines near Jerez.
+- id: binissalem
+  name: Binissalem
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [binissalem]
+  level: 3
+  grapes: []
+  local: [Manto Negro, Callet]
+  summary: Mallorca's historic wine area, with Manto Negro reds on red clay and limestone.
+- id: pla-i-llevant
+  name: Pla i Llevant
+  country: Spain
+  kind: region
+  map: spain
+  highlight: [pla-i-llevant]
+  level: 3
+  grapes: []
+  local: [Callet, Manto Negro]
+  summary: A DO in central and eastern Mallorca with Callet and Manto Negro, and international varieties.

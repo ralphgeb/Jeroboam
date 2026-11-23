@@ -14,18 +14,32 @@ struct RegionListView: View {
                              subtitle: "Pick a country to see its wine regions on the map.")
                 SearchBar(text: $query, prompt: "Search regions, appellations, grapes")
                 if query.trimmingCharacters(in: .whitespaces).isEmpty {
-                    VStack(alignment: .leading, spacing: 10) {
-                        SectionTitle(text: "Countries", detail: "\(countries.count)")
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
-                            ForEach(countries) { c in
-                                if Plus.shared.active || Plus.freeCountries.contains(c.country) {
-                                    DetailLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
-                                } else {
-                                    // locked countries open the Jero Plus sheet straight away
-                                    Button { PaywallPresenter.shared.show("France is free. \(c.name) and every other country come with Jero Plus.") } label: {
-                                        countryCard(c).overlay(alignment: .topTrailing) { LockDot(size: 26).padding(10) }
+                    VStack(alignment: .leading, spacing: 22) {
+                        // Old World first (France, Italy, Spain, then the rest); then the New World (the US, Australia, New Zealand, then the rest)
+                        let oldOrder = ["france", "italy", "spain", "portugal", "germany", "austria", "hungary", "greece", "england-wales", "georgia", "moldova", "lebanon"]
+                        let newOrder = ["usa", "oregon", "great-lakes", "australia", "new-zealand", "chile", "argentina", "south-africa"]
+                        let rank: (Region) -> Int = { c in
+                            if let i = oldOrder.firstIndex(of: c.id) { return i }
+                            if let i = newOrder.firstIndex(of: c.id) { return i }
+                            return 100
+                        }
+                        let oldWorld = countries.filter { oldOrder.contains($0.id) }.sorted { rank($0) < rank($1) }
+                        let newWorld = countries.filter { !oldOrder.contains($0.id) }.sorted { rank($0) < rank($1) }
+                        ForEach([("Old World", oldWorld), ("New World", newWorld)], id: \.0) { title, list in
+                            VStack(alignment: .leading, spacing: 10) {
+                                SectionTitle(text: title, detail: "\(list.count)")
+                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+                                    ForEach(list) { c in
+                                        if Plus.shared.active || Plus.freeCountries.contains(c.country) {
+                                            DetailLink(value: c) { countryCard(c) }.buttonStyle(PressableStyle())
+                                        } else {
+                                            // locked countries open the Jero Plus sheet straight away
+                                            Button { PaywallPresenter.shared.show("France is free. \(c.name) and every other country come with Jero Plus.") } label: {
+                                                countryCard(c).overlay(alignment: .topTrailing) { LockDot(size: 26).padding(10) }
+                                            }
+                                            .buttonStyle(PressableStyle())
+                                        }
                                     }
-                                    .buttonStyle(PressableStyle())
                                 }
                             }
                         }

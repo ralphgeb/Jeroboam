@@ -17,11 +17,19 @@ struct ExtraAtlasView: View {
                                  subtitle: "Places that are not in the course, mapped with their regions and appellations. The Journal uses them too.")
                     SearchBar(text: $query, prompt: "Search these places")
                     if query.trimmingCharacters(in: .whitespaces).isEmpty {
-                        VStack(alignment: .leading, spacing: 10) {
-                            SectionTitle(text: "Countries and states", detail: "\(countries.count)")
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
-                                ForEach(countries) { c in
-                                    NavigationLink(value: c) { ExtraCountryCard(country: c) }.buttonStyle(PressableStyle())
+                        VStack(alignment: .leading, spacing: 22) {
+                            let oldIDs = ["switzerland", "croatia", "slovenia", "romania", "bulgaria", "armenia", "turkey", "cyprus"]
+                            let usFirst = ["new-york", "mid-atlantic", "texas-southwest", "mountain-west"]
+                            let oldWorld = countries.filter { oldIDs.contains($0.id) }.sorted { (oldIDs.firstIndex(of: $0.id) ?? 99) < (oldIDs.firstIndex(of: $1.id) ?? 99) }
+                            let newWorld = countries.filter { !oldIDs.contains($0.id) }.sorted { (usFirst.firstIndex(of: $0.id) ?? 50) < (usFirst.firstIndex(of: $1.id) ?? 50) }
+                            ForEach([("Old World", oldWorld), ("New World", newWorld)], id: \.0) { title, list in
+                                VStack(alignment: .leading, spacing: 10) {
+                                    SectionTitle(text: title, detail: "\(list.count)")
+                                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
+                                        ForEach(list) { c in
+                                            NavigationLink(value: c) { ExtraCountryCard(country: c) }.buttonStyle(PressableStyle())
+                                        }
+                                    }
                                 }
                             }
                             Text("Map sources: geoBoundaries (CC BY 4.0), UC Davis AVA project, Natural Earth, © OpenStreetMap contributors (ODbL). Appellation areas follow the official administrative units or AVA boundaries that contain them, so edges are approximate.")

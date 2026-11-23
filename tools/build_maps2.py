@@ -10,7 +10,7 @@ Sources (download first, see CLAUDE.md):
 
 Areas carry a level: 0 = region, 1 = appellation/district, 2 = cru/village. The app shows deeper levels as you zoom.
 """
-import json, math, os, sys, unicodedata
+import json, math, os, re, sys, unicodedata
 from shapely.geometry import shape, Polygon, MultiPolygon, Point, box, LineString, MultiLineString
 from shapely.ops import unary_union, transform
 from shapely.prepared import prep
@@ -405,7 +405,7 @@ PDO_ALIAS = {  # our area id -> official PDO name(s) when the names differ
     "patras": ["Πάτρα"], "crete": ["Αρχάνες", "Πεζά", "Δαφνές", "Σητεία"], "goumenissa": ["Γουμένισσα"], "rapsani": ["Ραψάνη"],
     "margaret-river": ["Margaret River"], "hunter-valley": ["Hunter"], "barossa": ["Barossa Valley"], "clare": ["Clare Valley"],
     "mclaren-vale": ["McLaren Vale"], "eden-valley": ["Eden Valley"], "yarra-valley": ["Yarra Valley"], "great-southern": ["Great Southern"],
-    "samos": ["Σάμος"], "paros": ["Πάρος"], "rhodes": ["Ρόδος"], "limnos": ["Λήμνος"], "zitsa": ["Ζίτσα"], "barbera-dasti": ["Barbera d'Asti"], "moscato-dasti": ["Asti"],
+    "tierra-de-leon": ["León"], "tejo": ["DoTejo"], "lisboa": ["Lisboa"], "samos": ["Σάμος"], "paros": ["Πάρος"], "rhodes": ["Ρόδος"], "limnos": ["Λήμνος"], "zitsa": ["Ζίτσα"], "barbera-dasti": ["Barbera d'Asti"], "moscato-dasti": ["Asti"],
 }
 def _pdo_index():
     global _PDO
@@ -912,6 +912,7 @@ def build_gb(only=None):
         for rid, g in geoms.items():
             children.append((rid, names.get(rid, rid), g, None))
         for rid, b in H.get("extra", {}).items():
+            if rid in H.get("drop_extra", []): continue
             children.append((rid, b["name"], blob_geom(b), None))
         for rid, (n, gs) in H.get("units1", {}).items():
             g = units_union(gs)
@@ -922,6 +923,44 @@ def build_gb(only=None):
             if g is not None: subs.append((rid, n, g, par))
         for rid, (n, par, b) in H.get("extra1", {}).items():
             subs.append((rid, n, blob_geom(b), par))
+
+        # ---- every other official denomination of the country (PDO boundaries): level 1, or level 2 when inside one we have
+        pa = H.get("pdo_auto")
+        if pa:
+            cc = pa["cc"]
+            skipn = {pkey(x) for x in pa.get("skip", [])}
+            minarea = pa.get("min", 0.004)
+            idx = _pdo_index()
+            seen_pid, cand = set(), []
+            for lst in idx.values():
+                for pid, nm, g in lst:
+                    if pid in seen_pid or not pid.startswith(f"PDO-{cc}-"): continue
+                    seen_pid.add(pid); cand.append((pid, nm, g))
+            used, usedgeom = set(), []
+            pgeom = {pid: pg for pid, nm, pg in cand}
+            for rid, n, g, _ in children + [(a, b, c, None) for a, b, c, d in subs] + [(a, b, c, None) for a, b, c in groups + lv0_extra]:
+                n0 = len(USED_PDO)
+                pdo_geom(rid, n, g)
+                if len(USED_PDO) > n0:
+                    pid = USED_PDO[-1][1]; used.add(pid); usedgeom.append(pgeom.get(pid))
+            usedgeom = [u for u in usedgeom if u is not None]
+            existing = {rid: g for rid, n, g, _ in children}
+            ids_taken = {rid for rid, *_ in children} | {x[0] for x in subs} | {gid for gid, *_ in groups}
+            for pid, nm, pg in sorted(cand, key=lambda c: -c[2].area):
+                disp = nm.split(" / ")[0].strip()
+                if pid in used or pkey(disp) in skipn or pkey(nm) in skipn or pg.area < minarea: continue
+                # the source repeats some boundaries under a second name (Manzanilla = Jerez): never draw the same shape twice
+                if any(g2.intersection(pg).area / max(1e-12, g2.union(pg).area) > 0.9 for g2 in list(existing.values()) + usedgeom): continue
+                rid = pa.get("ids", {}).get(disp) or re.sub(r"[^a-z0-9]+", "-", norm(disp).replace(" ", "-")).strip("-")
+                if rid in ids_taken: rid += "-" + cc.lower()
+                ids_taken.add(rid)
+                inside = [(e, g2) for e, g2 in existing.items() if g2.area > pg.area and g2.intersection(pg).area / max(1e-12, pg.area) > 0.8]
+                if inside:
+                    par = min(inside, key=lambda x: x[1].area)[0]
+                    subs.append((rid, disp, pg, par))
+                else:
+                    children.append((rid, disp, pg, None)); existing[rid] = pg
+                print(f"   + {mid}: {disp} ({'in ' + par if inside else 'new'})")
 
         areas = []
         col = {}

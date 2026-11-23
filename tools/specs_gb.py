@@ -218,7 +218,9 @@ def B(name, lat, lon, r, adm=None, minus=()):
     return {"name": name, "c": (lat, lon), "r": r, "adm": adm, "minus": list(minus)}
 
 HIERARCHY = {
-    "spain": {"snap": "ADM3", "groups": {
+    "spain": {"snap": "ADM3", "drop_extra": ["txakoli"], "pdo_auto": {"cc": "ES", "min": 0.01, "skip": ["Cava", "Cataluña", "Valdeorras", "Valencia", "Cataluña / Catalunya", "Islas Canarias", "Gran Canaria",
+              "El Hierro", "La Gomera", "La Palma", "Lanzarote", "Abona", "Valle de Güímar", "Valle de la Orotava", "Tacoronte-Acentejo",
+              "Ycoden-Daute-Isora"]}, "groups": {
         "es-galicia": ("Galicia", G("ADM1", ["Galicia"])),
         "es-pais-vasco": ("País Vasco", G("ADM1", ["País Vasco/Euskadi"])),
         "es-la-rioja": ("La Rioja", G("ADM1", ["La Rioja"])),
@@ -248,7 +250,7 @@ HIERARCHY = {
         "montilla-moriles": B("Montilla-Moriles", 37.58, -4.65, 15), "malaga-do": B("Málaga", 36.80, -4.60, 25),
         "condado-de-huelva": B("Condado de Huelva", 37.30, -6.55, 15), "binissalem": B("Binissalem", 39.68, 2.84, 8),
     }},
-    "portugal": {"snap": "ADM3", "level0": True, "extra0": {
+    "portugal": {"snap": "ADM3", "pdo_auto": {"cc": "PT", "min": 0.004, "skip": ["Madeira", "Pico", "Graciosa", "Biscoitos", "Açores", "Madeirense"]}, "level0": True, "extra0": {
         "tras-os-montes": ("Trás-os-Montes", G("ADM2", ["Chaves", "Valpacos", "Mirandela", "Macedo de Cavaleiros", "Braganca",
                                                         "Vinhais", "Mogadouro", "Miranda do Douro", "Vimioso", "Alfandega da Fe"])),
         "tavora-varosa": ("Távora-Varosa", G("ADM2", ["Tarouca", "Moimenta da Beira", "Sernancelhe", "Penedono"])),
@@ -366,7 +368,7 @@ HIERARCHY = {
     "germany": {"snap": "ADM3", "extra0": {
         "hessische-bergstrasse": ("Hessische Bergstraße", B("Hessische Bergstraße", 49.70, 8.63, 9)),
     }},
-    "hungary": {"snap": "ADM3", "groups": {
+    "hungary": {"snap": "ADM3", "pdo_auto": {"cc": "HU", "min": 0.003, "skip": ["Duna", "Pannon", "Nagy-Somló", "Káli", "Csopak", "Tihany", "Izsáki Arany Sárfehér", "Debrői Hárslevelű", "Monor", "Soltvadkerti", "Csongrád", "Hajós-Baja", "Tolna"]}, "groups": {
         "hu-tokaj": ("Tokaj", G("ADM1", ["Borsod-Abaúj-Zemplén"])),
         "hu-upper-hungary": ("Upper Hungary", G("ADM1", ["Heves"])),
         "hu-balaton": ("Balaton", G("ADM1", ["Veszprém", "Zala", "Somogy"])),
