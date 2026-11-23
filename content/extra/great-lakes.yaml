@@ -1,5 +1,6 @@
 map: great-lakes
 title: Great Lakes & Midwest
+atlas: true
 iso: [USA]
 focus: [USA]
 states: [USA]

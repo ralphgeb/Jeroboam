@@ -1,0 +1,519 @@
+map: oregon
+title: Oregon & Washington
+atlas: true
+iso:
+- USA
+focus:
+- USA
+states:
+- USA
+bbox:
+- 41.9
+- -124.9
+- 48.9
+- -116.3
+W: 3200
+cities:
+- - Portland
+  - 45.52
+  - -122.68
+  - 0
+- - Seattle
+  - 47.61
+  - -122.33
+  - 0
+- - Salem
+  - 44.94
+  - -123.03
+- - Eugene
+  - 44.05
+  - -123.09
+- - Medford
+  - 42.33
+  - -122.87
+- - Walla Walla
+  - 46.07
+  - -118.34
+- - Yakima
+  - 46.6
+  - -120.51
+- - Hood River
+  - 45.71
+  - -121.52
+- - Boise
+  - 43.62
+  - -116.2
+- - Spokane
+  - 47.66
+  - -117.43
+- - Bend
+  - 44.06
+  - -121.31
+- - Roseburg
+  - 43.22
+  - -123.34
+labels:
+- - OREGON
+  - 44.0
+  - -120.5
+  - area
+- - WASHINGTON
+  - 47.2
+  - -120.4
+  - area
+- - Pacific Ocean
+  - 45.0
+  - -124.6
+  - sea
+- - IDAHO
+  - 44.8
+  - -116.7
+  - area
+country:
+  name: Oregon & Washington
+  summary: 'The Pacific Northwest: Oregon''s cool, green Willamette Valley is the New World''s Pinot Noir capital, while Washington''s desert vineyards make bold Cabernet, Merlot, Syrah and Riesling.'
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - pinot-grigio
+  - riesling
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - tempranillo
+  local: []
+  climate: West of the Cascade Mountains the climate is cool and rainy; east of them it is a hot, dry desert irrigated by the Columbia and Snake rivers.
+  styles: Burgundian Pinot Noir and Chardonnay from Oregon; ripe, structured Bordeaux and Rhône reds and aromatic Riesling from Washington.
+  classification: American Viticultural Areas (AVAs) such as Willamette Valley (with nine sub-AVAs), Southern Oregon, Columbia Gorge, Columbia Valley, Yakima Valley and Walla Walla Valley.
+  facts:
+  - Oregon and Washington together grow about 5% of US wine; Washington is second to California.
+  - Walla Walla Valley is one of the few AVAs that straddle two states.
+  - The Missoula Floods 15,000 years ago spread rich soil across the Willamette and Columbia valleys.
+regions:
+- id: willamette-valley
+  name: Willamette Valley
+  ava:
+  - Willamette Valley
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - pinot-grigio
+  - riesling
+  - pinot-blanc
+  summary: 'Oregon''s heart and the home of New World Pinot Noir: about 150 miles of valley south of Portland, sheltered from the Pacific by the Coast Range. Nine sub-AVAs sit inside it.'
+  soil: 'Three main soils: ancient volcanic Jory (Dundee Hills), marine sediment (Yamhill-Carlton, Eola-Amity) and wind-blown loess (Chehalem, Ribbon Ridge).'
+  climate: Cool, wet winters and dry, mild summers with long autumns. Ripening is slow, so wines keep their freshness.
+  styles: Elegant, red-fruited Pinot Noir, crisp Pinot Gris and cool-climate Chardonnay; also traditional-method sparkling wine.
+  facts:
+  - Willamette is pronounced 'wil-AM-it', rhyming with 'dammit'.
+  - Oregon's rule for a varietal label is 90% (75% for Cabernet), stricter than most of the US.
+  - The valley sits near the 45th parallel, the same latitude as Bordeaux and Piedmont.
+  history: David Lett of Eyrie Vineyards planted the first Pinot Noir here in 1965. His 1975 South Block Pinot placed in the top ten at a 1979 Paris tasting and put Oregon on the world map.
+- id: dundee-hills
+  name: Dundee Hills
+  ava:
+  - Dundee Hills
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - pinot-grigio
+  summary: 'The first and most famous sub-AVA: a ring of low hills of red, iron-rich volcanic Jory soil, home to Eyrie, Domaine Drouhin and Archery Summit.'
+  parent: willamette-valley
+  soil: 'Red Jory soil: deep volcanic basalt clay, rich in iron.'
+  styles: Silky, perfumed Pinot Noir with red cherry and spice.
+- id: eola-amity-hills
+  name: Eola-Amity Hills
+  ava:
+  - Eola-Amity Hills
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - riesling
+  summary: 'Hills west of Salem cooled by the Van Duzer Corridor''s ocean winds: Pinot Noir with energy, structure and dark fruit.'
+  parent: willamette-valley
+  soil: Marine sediment and volcanic basalt.
+  climate: Cooled by afternoon winds from the Van Duzer Gap in the Coast Range.
+- id: ribbon-ridge
+  name: Ribbon Ridge
+  ava:
+  - Ribbon Ridge
+  grapes:
+  - pinot-noir
+  - chardonnay
+  summary: The smallest AVA in Oregon (about 3,350 acres), a ridge inside Chehalem Mountains with a single marine-sediment soil, Willakenzie.
+  parent: willamette-valley
+  soil: 'Willakenzie: uplifted marine sedimentary soil.'
+  styles: Concentrated, dark-fruited Pinot Noir.
+- id: yamhill-carlton
+  name: Yamhill-Carlton
+  ava:
+  - Yamhill-Carlton
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - pinot-grigio
+  summary: A horseshoe of foothills on the west side of the valley, with old marine sandstone soils and Pinot Noir of spice and supple tannins.
+  parent: willamette-valley
+  soil: Sandy, marine sedimentary soils drained by the Coast Range.
+- id: mcminnville
+  name: McMinnville
+  ava:
+  - McMinnville
+  grapes:
+  - pinot-noir
+  - chardonnay
+  summary: The foothills near the town of McMinnville, higher and cooler, on marine sediment and basalt soils.
+  parent: willamette-valley
+  climate: Higher elevation (200 to 1,000 ft) and cool winds from the coast.
+- id: chehalem-mountains
+  name: Chehalem Mountains
+  ava:
+  - Chehalem Mountains
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - pinot-grigio
+  summary: A 20-mile ridge near Portland with three different soils (volcanic, marine and loess), so its Pinot Noir ranges from lithe to powerful.
+  parent: willamette-valley
+  soil: Volcanic, marine sediment and loess.
+- id: van-duzer-corridor
+  name: Van Duzer Corridor
+  ava:
+  - Van Duzer Corridor
+  grapes:
+  - pinot-noir
+  - pinot-grigio
+  - chardonnay
+  summary: Named after the gap in the Coast Range that lets the Pacific's cool afternoon breeze into the valley. Thick-skinned, intense Pinot Noir.
+  parent: willamette-valley
+  climate: Ocean winds cool the vineyards by up to 15 F in the afternoon.
+- id: laurelwood-district
+  name: Laurelwood District
+  ava:
+  - Laurelwood District
+  grapes:
+  - pinot-noir
+  - chardonnay
+  summary: The newest north-valley AVA, on the slopes of Chehalem Mountains with deep wind-blown Laurelwood loess soil.
+  parent: willamette-valley
+  soil: Laurelwood loess over basalt.
+- id: tualatin-hills
+  name: Tualatin Hills
+  ava:
+  - Tualatin Hills
+  grapes:
+  - pinot-noir
+  - pinot-grigio
+  - chardonnay
+  summary: 'The hills just west of Portland: wind-blown Laurelwood soils and some of the state''s oldest vineyards.'
+  parent: willamette-valley
+- id: lower-long-tom
+  name: Lower Long Tom
+  ava:
+  - Lower Long Tom
+  grapes:
+  - pinot-noir
+  - pinot-grigio
+  summary: A small, young AVA in the southern part of the valley, in the Coast Range foothills.
+  parent: willamette-valley
+- id: mount-pisgah-polk
+  name: Mount Pisgah, Polk County
+  ava:
+  - Mount Pisgah, Polk County, Oregon
+  grapes:
+  - pinot-noir
+  - chardonnay
+  summary: A cool, south-facing area west of Salem in the Polk County hills.
+  parent: willamette-valley
+- id: southern-oregon-avas
+  name: Southern Oregon
+  ava:
+  - Southern Oregon
+  grapes:
+  - syrah
+  - tempranillo
+  - cabernet-sauvignon
+  - pinot-noir
+  - chardonnay
+  - viognier
+  - merlot
+  summary: 'A warm, sun-drenched collection of valleys between the Coast Range and the Cascades, much more varied than the Willamette: Syrah, Tempranillo and Cabernet grow next to Pinot Noir.'
+  climate: Warm, dry and sunny, with elevation and river valleys cooling the nights.
+  styles: Rich Syrah and Bordeaux blends, Tempranillo, Viognier and Pinot Noir from the cooler sites.
+- id: umpqua-valley
+  name: Umpqua Valley
+  ava:
+  - Umpqua Valley
+  grapes:
+  - pinot-noir
+  - tempranillo
+  - albarino
+  - chardonnay
+  - riesling
+  - syrah
+  summary: Oregon's oldest modern wine region, where Richard Sommer planted the state's first Pinot Noir at HillCrest in 1961. A cool-to-warm transition zone with the widest range of grapes in Oregon.
+  parent: southern-oregon-avas
+  soil: Over 150 soil types in one valley, from marine sediment to volcanic.
+- id: red-hill-douglas
+  name: Red Hill Douglas County
+  ava:
+  - Red Hill Douglas County, Oregon
+  grapes:
+  - pinot-noir
+  - tempranillo
+  summary: A tiny AVA of red volcanic soil near Oakland, inside the Umpqua Valley.
+  parent: umpqua-valley
+- id: elkton-oregon
+  name: Elkton Oregon
+  ava:
+  - Elkton Oregon
+  grapes:
+  - pinot-noir
+  - riesling
+  - gewurztraminer
+  summary: The Umpqua's cool western corner, 20 miles from the Pacific, on the Umpqua River.
+  parent: umpqua-valley
+  climate: 'Marine influence: the coolest part of Umpqua.'
+- id: rogue-valley
+  name: Rogue Valley
+  ava:
+  - Rogue Valley
+  grapes:
+  - syrah
+  - cabernet-sauvignon
+  - tempranillo
+  - merlot
+  - viognier
+  - pinot-noir
+  summary: 'A warmer, drier valley on the California border: Syrah, Cabernet and Tempranillo thrive, with Pinot Noir and Viognier on cooler sites.'
+  parent: southern-oregon-avas
+  climate: Hot summers; elevation ranges from 1,000 to 2,000 ft.
+- id: applegate-valley
+  name: Applegate Valley
+  ava:
+  - Applegate Valley
+  grapes:
+  - syrah
+  - tempranillo
+  - viognier
+  - grenache
+  - tannat
+  summary: A scenic valley within the Rogue Valley with granite soils and cooler nights; varied reds and whites in a small-production setting.
+  parent: rogue-valley
+  soil: Granite and decomposed rock.
+- id: columbia-gorge
+  name: Columbia Gorge
+  ava:
+  - Columbia Gorge
+  grapes:
+  - pinot-noir
+  - chardonnay
+  - zinfandel
+  - syrah
+  - riesling
+  - gewurztraminer
+  summary: A dramatic river gorge between Oregon and Washington where the climate flips from wet forest in the west to dry desert in the east, all in 40 miles.
+  climate: Annual rainfall drops from 40 inches in the west to under 10 inches in the east; constant winds.
+- id: columbia-valley-ava
+  name: Columbia Valley
+  ava:
+  - Columbia Valley
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - riesling
+  - chardonnay
+  - cabernet-franc
+  summary: Washington's giant AVA (about a third of the state, 11 million acres) covering almost all of its wine grapes. Desert-dry, irrigated by the Columbia and Snake rivers, with cool nights and long
+    sunshine.
+  soil: Wind-blown loess, ancient flood sediment from the Missoula Floods, and basalt.
+  climate: Very dry (6 to 8 inches of rain), hot summers, cold winters; irrigated.
+  styles: Bold Cabernet, Merlot and Syrah, plus crisp Riesling and Chardonnay.
+  facts:
+  - Washington is the second largest wine producer in the US.
+  - Most Washington vines are grown on their own roots, as sandy desert soils and cold winters limit phylloxera.
+  history: Chateau Ste. Michelle was founded in 1967; the AVA was recognized in 1984.
+- id: yakima-valley
+  name: Yakima Valley
+  ava:
+  - Yakima Valley
+  grapes:
+  - riesling
+  - chardonnay
+  - merlot
+  - syrah
+  - cabernet-sauvignon
+  summary: Washington's first AVA (1983) and the heart of its wine country, with the Yakima River running through sun-baked hills. Home to many of the state's oldest vineyards.
+  parent: columbia-valley-ava
+- id: red-mountain
+  name: Red Mountain
+  ava:
+  - Red Mountain
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  summary: Washington's smallest and hottest AVA, a south-facing slope producing some of the state's most powerful Cabernet Sauvignon.
+  parent: yakima-valley
+  soil: Sandy, gravelly, low-fertility soils, with a lot of calcium carbonate.
+  climate: 'Hot and dry: the warmest AVA in the state.'
+- id: rattlesnake-hills
+  name: Rattlesnake Hills
+  ava:
+  - Rattlesnake Hills
+  grapes:
+  - syrah
+  - merlot
+  - cabernet-sauvignon
+  summary: A band of hills north of the Yakima Valley with higher altitude and long hang-time for Syrah, Merlot and Cabernet.
+  parent: yakima-valley
+- id: snipes-mountain
+  name: Snipes Mountain
+  ava:
+  - Snipes Mountain
+  grapes:
+  - syrah
+  - cabernet-sauvignon
+  - malbec
+  summary: A small ridge with some of Washington's oldest vines (planted in 1917) and unusual soils of sandy loam.
+  parent: yakima-valley
+- id: candy-mountain
+  name: Candy Mountain
+  ava:
+  - Candy Mountain
+  grapes:
+  - cabernet-sauvignon
+  - syrah
+  summary: A small, warm basalt hill beside Red Mountain, planted in the 2000s.
+  parent: yakima-valley
+- id: horse-heaven-hills
+  name: Horse Heaven Hills
+  ava:
+  - Horse Heaven Hills
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - chardonnay
+  - riesling
+  summary: 'A long south-facing slope above the Columbia River: wind, sun and sandy loess give ripe, concentrated reds. Home to some of Washington''s biggest vineyards.'
+  parent: columbia-valley-ava
+- id: wahluke-slope
+  name: Wahluke Slope
+  ava:
+  - Wahluke Slope
+  grapes:
+  - syrah
+  - merlot
+  - cabernet-sauvignon
+  summary: A hot, dry, south-facing slope along the Columbia, a major source of Syrah, Merlot and Cabernet.
+  parent: columbia-valley-ava
+- id: walla-walla-valley
+  name: Walla Walla Valley
+  ava:
+  - Walla Walla Valley
+  grapes:
+  - cabernet-sauvignon
+  - merlot
+  - syrah
+  - cabernet-franc
+  summary: A famous Bordeaux-style region straddling the Oregon-Washington border, with some wines named after one state but made from vines in both.
+  parent: columbia-valley-ava
+  climate: Slightly cooler and wetter than the Yakima Valley, with a longer ripening season.
+  styles: Structured Cabernet, Merlot and Syrah.
+- id: rocks-district
+  name: The Rocks District of Milton-Freewater
+  ava:
+  - The Rocks District of Milton-Freewater
+  grapes:
+  - syrah
+  - cabernet-sauvignon
+  - merlot
+  summary: An ancient riverbed covered in cobblestones, in Oregon's portion of Walla Walla, giving powerful, savoury Syrah unlike anywhere else.
+  parent: walla-walla-valley
+  soil: 'Basalt cobblestones left by the Walla Walla River: like Châteauneuf-du-Pape''s galets.'
+- id: ancient-lakes
+  name: Ancient Lakes of Columbia Valley
+  ava:
+  - Ancient Lakes of Columbia Valley
+  grapes:
+  - riesling
+  - chardonnay
+  summary: A cool, high-latitude part of the Columbia Valley around the Quincy Basin, known for crisp Riesling and Chardonnay.
+  parent: columbia-valley-ava
+- id: royal-slope
+  name: Royal Slope
+  ava:
+  - Royal Slope
+  grapes:
+  - riesling
+  - syrah
+  summary: A warm slope in the north of the Columbia Valley, between the Saddle Mountains and the Frenchman Hills.
+  parent: columbia-valley-ava
+- id: white-bluffs
+  name: White Bluffs
+  ava:
+  - White Bluffs
+  grapes:
+  - syrah
+  - cabernet-sauvignon
+  summary: A tiny new AVA on the Columbia River near the Hanford Reach, with sandy loess soils.
+  parent: columbia-valley-ava
+- id: goose-gap
+  name: Goose Gap
+  ava:
+  - Goose Gap
+  grapes:
+  - cabernet-sauvignon
+  - syrah
+  summary: A small, warm AVA west of Red Mountain.
+  parent: columbia-valley-ava
+- id: the-burn
+  name: The Burn of Columbia Valley
+  ava:
+  - The Burn of Columbia Valley
+  grapes:
+  - cabernet-sauvignon
+  - syrah
+  summary: A newer AVA on the Columbia River's Oregon side near Hermiston, known for warm days and windy, sandy soils.
+  parent: columbia-valley-ava
+- id: lake-chelan
+  name: Lake Chelan
+  ava:
+  - Lake Chelan
+  grapes:
+  - riesling
+  - pinot-noir
+  - syrah
+  summary: A cool lake-side AVA in north-central Washington, one of the northernmost wine areas on the west coast.
+  parent: columbia-valley-ava
+- id: rocky-reach
+  name: Rocky Reach
+  ava:
+  - Rocky Reach
+  grapes:
+  - riesling
+  - chardonnay
+  - syrah
+  summary: A narrow AVA along the Columbia River north of Wenatchee.
+  parent: columbia-valley-ava
+- id: naches-heights
+  name: Naches Heights
+  ava:
+  - Naches Heights
+  grapes:
+  - syrah
+  - riesling
+  - chardonnay
+  summary: A small AVA in the Yakima foothills on a flat plateau of wind-blown loess, outside the Columbia Valley.
+- id: puget-sound
+  name: Puget Sound
+  ava:
+  - Puget Sound
+  grapes:
+  - pinot-grigio
+  - chardonnay
+  - riesling
+  summary: 'The cool, wet western Washington around Seattle: lean white wines from Madeleine Angevine, Siegerrebe and Pinot Gris.'
+  climate: Marine, mild and rainy, similar to northern Germany.

@@ -377,13 +377,19 @@ struct WorldTriedMap: View {
                 // heat: soft glows that add up where bottles are close together, then a crisp dot at the exact place
                 let heatScale = min(1 + (zoom - 1) * 0.25, 2.6)
                 let hot = Color(hex: "#C21A4C"), warm = Color(hex: "#EA6A2E"), glow = Color(hex: "#F5B13D")
-                for d in dots {
-                    let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
-                    let rad = (15 + 8 * sqrt(CGFloat(d.count))) * heatScale
-                    let grad = Gradient(stops: [.init(color: hot.opacity(0.78), location: 0), .init(color: warm.opacity(0.42), location: 0.42),
-                                                .init(color: glow.opacity(0.14), location: 0.75), .init(color: glow.opacity(0), location: 1)])
-                    ctx.fill(Path(ellipseIn: CGRect(x: p.x - rad, y: p.y - rad, width: 2 * rad, height: 2 * rad)),
-                             with: .radialGradient(grad, center: p, startRadius: 0, endRadius: rad))
+                // blobs: bottles close together melt into one shape (blur, then a hard cut-off), in three nested bands
+                let bands: [(mul: CGFloat, blur: CGFloat, cut: Double, color: Color)] = [
+                    (1.0, 14, 0.30, glow.opacity(0.30)), (0.72, 11, 0.40, warm.opacity(0.50)), (0.42, 8, 0.50, hot.opacity(0.80))]
+                for band in bands {
+                    ctx.drawLayer { l in
+                        l.addFilter(.alphaThreshold(min: band.cut, color: band.color))
+                        l.addFilter(.blur(radius: band.blur * min(heatScale, 1.6)))
+                        for d in dots {
+                            let p = CGPoint(x: origin.x + d.point.x * s, y: origin.y + d.point.y * s)
+                            let rad = (13 + 7 * sqrt(CGFloat(d.count))) * heatScale * band.mul
+                            l.fill(Path(ellipseIn: CGRect(x: p.x - rad, y: p.y - rad, width: 2 * rad, height: 2 * rad)), with: .color(.black))
+                        }
+                    }
                 }
                 var taken: [CGRect] = []
                 for d in dots.sorted(by: { $0.count > $1.count }) {

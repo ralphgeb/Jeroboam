@@ -366,6 +366,7 @@ struct GreatWinesScreen: View {
 
     /// Second-row choices: the areas of a country, or (for one-area countries) its regions.
     private func subChoices(_ wines: [GreatWine]) -> [String] {
+        if country == "All" { return [] }
         let areas = Self.countries.first { $0.name == country }?.areas ?? []
         if areas.count > 1 { return areas }
         var count: [String: Int] = [:]
@@ -376,7 +377,7 @@ struct GreatWinesScreen: View {
         return list.count >= 2 ? list : []
     }
 
-    private func inCountry(_ w: GreatWine) -> Bool { (Self.countries.first { $0.name == country }?.areas ?? []).contains(w.area) }
+    private func inCountry(_ w: GreatWine) -> Bool { country == "All" || (Self.countries.first { $0.name == country }?.areas ?? []).contains(w.area) }
     private func inSub(_ w: GreatWine) -> Bool {
         guard let s = sub else { return true }
         return w.area == s || w.zone.components(separatedBy: " · ").last == s
@@ -385,16 +386,16 @@ struct GreatWinesScreen: View {
     var body: some View {
         let wines = ContentStore.shared.library.great ?? []
         let q = applied.trimmingCharacters(in: .whitespaces)
-        let shown = q.isEmpty ? wines.filter { inCountry($0) && inSub($0) }
-            : wines.filter { Search.matches(q, $0.name, $0.producer, $0.zone, $0.area) }
+        let shown = wines.filter { inCountry($0) && inSub($0) && (q.isEmpty || Search.matches(q, $0.name, $0.producer, $0.zone, $0.area)) }
         let subs = subChoices(wines)
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 ScreenHeader(eyebrow: "Atlas", title: "Great wines to try",
                              subtitle: "\(wines.count.formatted()) wines, country by country: what they are, why people love them, what they cost and how critics score them.")
                 SearchBar(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)") { runSearch() }
-                chipRow(Self.countries.map(\.name), selected: country, bold: true) { c in
-                    withAnimation(.smooth(duration: 0.3)) { country = c; sub = nil; applied = ""; query = "" }
+                // "All" turns on by itself when you search, so results come from every country; a country chip narrows them
+                chipRow(["All"] + Self.countries.map(\.name), selected: country, bold: true) { c in
+                    withAnimation(.smooth(duration: 0.3)) { country = c; sub = nil }
                 }
                 if !subs.isEmpty {
                     chipRow(["All"] + subs, selected: sub ?? "All", bold: false) { c in
@@ -402,7 +403,7 @@ struct GreatWinesScreen: View {
                     }
                 }
                 HStack {
-                    SectionTitle(text: q.isEmpty ? (sub ?? country) : "Results for \u{201C}\(q)\u{201D}")
+                    SectionTitle(text: q.isEmpty ? (sub ?? (country == "All" ? "All countries" : country)) : "Results for \u{201C}\(q)\u{201D}" + (country == "All" ? "" : " in \(sub ?? country)"))
                     Spacer()
                     Text("\(shown.count) wines").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
@@ -449,14 +450,14 @@ struct GreatWinesScreen: View {
     private func runSearch() {
         let q = query.trimmingCharacters(in: .whitespaces)
         guard !q.isEmpty else { applied = ""; return }
-        if Plus.shared.active { applied = q; return }
+        if Plus.shared.active { applied = q; country = "All"; sub = nil; return }
         if searchesUsed >= Self.freeSearches {
             applied = ""
             PaywallPresenter.shared.show("You've used your 5 free searches this month. Jero Plus makes searching unlimited.")
             return
         }
         UserDefaults.standard.set(searchesUsed + 1, forKey: Self.searchKey)
-        applied = q
+        applied = q; country = "All"; sub = nil
     }
 
     private func chipRow(_ items: [String], selected: String, bold: Bool, _ pick: @escaping (String) -> Void) -> some View {

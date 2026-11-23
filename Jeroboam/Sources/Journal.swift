@@ -534,12 +534,21 @@ struct WineInfoCard: View {
                 if !w.grapes.isEmpty { grapeChips(w.grapes, percent: w.grapePercent) }
                 info("wineglass", w.style.capitalized)
                 if let d = w.drinkWindow, !d.isEmpty { DrinkWindowChart(window: d, vintage: w.vintage) }
-                if !w.funFact.isEmpty {
-                    Text(w.funFact).font(.system(size: 14).italic()).foregroundStyle(Palette.inkSoft).padding(.top, 2)
-                }
                 if !w.found {
                     Text("Best guess, so double-check the name.").font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.pink)
                 }
+            }
+            if !w.funFact.isEmpty {
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "sparkles").font(.system(size: 14)).foregroundStyle(Palette.wine).padding(.top, 2)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Did you know").font(.system(size: 12.5, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                        Text(w.funFact).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(2)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.cardAlt))
             }
         }
         .padding(16)
