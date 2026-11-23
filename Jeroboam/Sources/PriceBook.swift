@@ -32,11 +32,19 @@ final class PriceBook {
         return out
     }
 
+    /// Throws the loaded list away so the next lookup reads the newly downloaded file.
+    func reload() {
+        lock.lock(); defer { lock.unlock() }
+        rows = []; index = [:]; loaded = false
+    }
+
     private func loadIfNeeded() {
         lock.lock(); defer { lock.unlock() }
         guard !loaded else { return }
         loaded = true
-        guard let url = Bundle.main.url(forResource: "prices", withExtension: "tsv", subdirectory: "Prices")
+        // the list downloaded by PriceUpdater (newer than the one in the app) wins; the bundled one is the offline fallback
+        guard let url = PriceUpdater.downloaded
+                ?? Bundle.main.url(forResource: "prices", withExtension: "tsv", subdirectory: "Prices")
                 ?? Bundle.main.url(forResource: "prices", withExtension: "tsv"),
               let text = try? String(contentsOf: url, encoding: .utf8) else { return }
         rows.reserveCapacity(75_000)

@@ -1225,6 +1225,20 @@ struct MapExplorer: View {
                         .padding(3)
                         .background(Capsule().fill(Palette.cardAlt))
                         .padding(.top, 8)
+                        // the smaller places inside the appellations (communes and their names), where they fit
+                        if !(g?.insets.isEmpty ?? true) {
+                            Button { withAnimation(.easeInOut(duration: 0.2)) { placeNames.toggle() }; Haptics.tap() } label: {
+                                HStack(spacing: 6) {
+                                    Image(systemName: placeNames ? "checkmark.circle.fill" : "circle").font(.system(size: 13, weight: .semibold))
+                                    Text("More details").font(.system(size: 13, weight: .semibold))
+                                }
+                                .foregroundStyle(placeNames ? Palette.onWine : Palette.ink)
+                                .frame(maxWidth: .infinity).padding(.vertical, 8)
+                                .background(Capsule().fill(placeNames ? Palette.wine : Palette.cardAlt))
+                            }
+                            .padding(.top, 6)
+                            .accessibilityLabel(placeNames ? "Hide more details" : "Show more details")
+                        }
                     }
                 }
                 .padding(.horizontal, 16).padding(.vertical, 12)
@@ -1236,17 +1250,6 @@ struct MapExplorer: View {
                     Spacer().frame(height: 6)
                     circleButton("plus") { zoomCommand += 1 }
                     circleButton("minus") { zoomCommand -= 1 }
-                    // the smaller places inside the appellations (communes), written where they fit
-                    if !(g?.insets.isEmpty ?? true) {
-                        Spacer().frame(height: 6)
-                        Button { withAnimation(.easeInOut(duration: 0.2)) { placeNames.toggle() }; Haptics.tap() } label: {
-                            Image(systemName: "textformat").font(.system(size: 15, weight: .bold))
-                                .foregroundStyle(placeNames ? Palette.onWine : Palette.ink)
-                                .frame(width: 42, height: 42)
-                                .background(Circle().fill(placeNames ? Palette.wine : Palette.focusLand.opacity(0.94)))
-                        }
-                        .accessibilityLabel(placeNames ? "Hide place names" : "Show place names")
-                    }
                 }
             }
             .padding(.horizontal, 16)

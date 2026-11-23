@@ -56,6 +56,7 @@ struct JeroboamApp: App {
             .task { await Plus.shared.refresh() }
             .task { await Plus.shared.listen() }
             .task { await Currency.refresh() }
+            .task { await PriceUpdater.refresh() }
             .onAppear {
                 QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
                 Achievement.journal = journal
@@ -126,12 +127,20 @@ struct RootView: View {
         .padding(.top, 30)
     }
 
+    @State private var stableSize: CGSize = .zero
+    private func railDecision(_ live: CGSize) -> Bool {
+        let s = stableSize == .zero ? live : stableSize
+        return s.height / max(s.width, 1) < 1.7 || s.width >= 640
+    }
+
     var body: some View {
         Group {
             if progress.data.onboarded {
                 GeometryReader { g in
-                    // the Duo's screens are nearly as wide as they are tall: the tabs stand up in a column on the right
-                    let rail = g.size.height / max(g.size.width, 1) < 1.7 || g.size.width >= 640
+                    // the Duo's screens are nearly as wide as they are tall: the tabs stand up in a column on the right.
+                    // Decided from the window size measured WITHOUT the keyboard: the keyboard shrinks this reader, which used to
+                    // flip the layout and rebuild every page (search fields lost the page the moment they were tapped).
+                    let rail = railDecision(g.size)
                     if rail {
                         HStack(spacing: 0) {
                             railPages
@@ -174,6 +183,11 @@ struct RootView: View {
                         tabs
                     }
                 }
+                .background(
+                    GeometryReader { m in Color.clear.onAppear { stableSize = m.size }.onChange(of: m.size) { _, n in stableSize = n } }
+                        .ignoresSafeArea()
+                        .ignoresSafeArea(.keyboard)
+                )
                 .transition(.opacity)
             } else {
                 OnboardingView()
