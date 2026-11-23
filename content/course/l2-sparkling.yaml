@@ -30,7 +30,7 @@ lessons:
   - title: Champagne
     cards:
       - learn: The original
-        visual: "map:champagne"
+        visual: "map:france"
         body: |
           A cold, northerly region with **chalk** soils. Three main grapes:
 
@@ -53,7 +53,7 @@ lessons:
       - match: "Match the Champagne district to its main grape"
         pairs: [[Côte des Blancs, Chardonnay], [Montagne de Reims, Pinot Noir], [Vallée de la Marne, Meunier]]
         explain: "Each district is known for the grape that best suits its soils and frost risk: Montagne de Reims for Pinot Noir, the Côte des Blancs for Chardonnay, and the Vallée de la Marne for Meunier, which ripens earlier and resists spring frost."
-        visual: "map:champagne"
+        visual: "map:france"
   - title: Prosecco, Cava & more
     cards:
       - learn: The tank method

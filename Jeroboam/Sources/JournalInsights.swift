@@ -323,7 +323,22 @@ struct WorldTriedMap: View {
     @State private var pan: CGSize = .zero
     @State private var lastPan: CGSize = .zero
     @State private var fittedFor = ""
+    @State private var pinching = false
     private let g = MapGeometry.get("world")
+
+    /// Zooms so that the point of the map under `anchor` (a point in the view) stays under it: pinching or double-tapping
+    /// anywhere zooms there, not into the middle. Works from the zoom and pan at the start of the gesture.
+    private func zoomTo(_ target: CGFloat, anchor: CGPoint, size: CGSize) {
+        let mw = CGFloat(g?.map.w ?? 4800), mh = CGFloat(g?.map.h ?? 1755)
+        let base = size.width / mw
+        let s0 = base * lastZoom
+        let origin0 = CGPoint(x: (size.width - mw * s0) / 2 + lastPan.width, y: (size.height - mh * s0) / 2 + lastPan.height)
+        let m = CGPoint(x: (anchor.x - origin0.x) / s0, y: (anchor.y - origin0.y) / s0)
+        let z = min(40, max(1, target))
+        let s1 = base * z
+        zoom = z
+        pan = CGSize(width: anchor.x - m.x * s1 - (size.width - mw * s1) / 2, height: anchor.y - m.y * s1 - (size.height - mh * s1) / 2)
+    }
 
     /// Opens zoomed in on the places that have wine, instead of on the whole world.
     private func fit(_ size: CGSize) {
@@ -396,10 +411,11 @@ struct WorldTriedMap: View {
             .contentShape(Rectangle())
             .allowsHitTesting(interactive)
             .onChange(of: zoomCommand) { old, new in
+                lastZoom = zoom; lastPan = pan
                 withAnimation(.easeOut(duration: 0.2)) {
-                    zoom = min(40, max(1, zoom * (new > old ? 1.8 : 1 / 1.8))); lastZoom = zoom
-                    if zoom == 1 { pan = .zero; lastPan = .zero }
+                    zoomTo(zoom * (new > old ? 1.8 : 1 / 1.8), anchor: CGPoint(x: size.width / 2, y: size.height / 2), size: size)
                 }
+                lastZoom = zoom; lastPan = pan
             }
             .gesture(
                 SpatialTapGesture().onEnded { v in
@@ -408,10 +424,22 @@ struct WorldTriedMap: View {
                     if let h = hit, hypot(origin.x + h.point.x * s - v.location.x, origin.y + h.point.y * s - v.location.y) < 26 { onOpen(h.id) }
                 }
             )
-            .gesture(DragGesture(minimumDistance: 6).onChanged { pan = CGSize(width: lastPan.width + $0.translation.width, height: lastPan.height + $0.translation.height) }
-                .onEnded { _ in lastPan = pan })
-            .simultaneousGesture(MagnifyGesture().onChanged { zoom = min(40, max(1, lastZoom * $0.magnification)) }.onEnded { _ in lastZoom = zoom })
-            .onTapGesture(count: 2) { withAnimation(.easeOut(duration: 0.25)) { zoom = 1; lastZoom = 1; pan = .zero; lastPan = .zero } }
+            .gesture(DragGesture(minimumDistance: 6)
+                .onChanged { guard !pinching else { return }; pan = CGSize(width: lastPan.width + $0.translation.width, height: lastPan.height + $0.translation.height) }
+                .onEnded { _ in if !pinching { lastPan = pan } })
+            .simultaneousGesture(
+                MagnifyGesture()
+                    .onChanged { v in
+                        pinching = true
+                        zoomTo(lastZoom * v.magnification, anchor: CGPoint(x: v.startAnchor.x * size.width, y: v.startAnchor.y * size.height), size: size)
+                    }
+                    .onEnded { _ in lastZoom = zoom; lastPan = pan; pinching = false }
+            )
+            .onTapGesture(count: 2) { loc in
+                lastZoom = zoom; lastPan = pan
+                withAnimation(.easeOut(duration: 0.25)) { zoomTo(zoom * 2.2, anchor: loc, size: size) }
+                lastZoom = zoom; lastPan = pan
+            }
         }
         .frame(height: height)
         .clipShape(RoundedRectangle(cornerRadius: height == nil ? 0 : Metrics.radius, style: .continuous))

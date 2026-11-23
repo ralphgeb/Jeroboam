@@ -15,7 +15,7 @@ lessons:
       - choice: "Vouvray is made from which grape?"
         options: [Chenin Blanc, Sauvignon Blanc, Chardonnay, Melon de Bourgogne]
         a: Chenin Blanc
-        visual: "map:loire:vouvray"
+        visual: "map:france:vouvray"
         explain: "Vouvray, near Tours, makes Chenin Blanc from dry (sec) to sweet (moelleux), plus sparkling. Chenin's high acidity keeps even sweet versions fresh, and they can age for decades, with notes of quince, honey and wet wool."
       - choice: "Which country has the most Chenin Blanc vineyards?"
         options: [South Africa, France, Argentina, Germany]
@@ -47,7 +47,7 @@ lessons:
       - choice: "Condrieu, in the Northern Rhône, is made from…"
         options: [Viognier, Syrah, Riesling, Marsanne]
         a: Viognier
-        visual: "map:rhone:condrieu"
+        visual: "map:france:condrieu"
         explain: "Condrieu is Viognier's spiritual home in the Northern Rhône: apricot, peach and blossom with a rich, silky texture and low acidity. The steep granite terraces are tiny, so the wine is rare and expensive."
       - tf: "Gewürztraminer typically has high acidity."
         truth: false

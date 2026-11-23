@@ -7,7 +7,7 @@ struct ExtraAtlasView: View {
     @State private var query = ""
 
     private var all: [Region] { ContentStore.shared.extraRegions }
-    private var countries: [Region] { all.filter { $0.kind == "country" } }
+    private var countries: [Region] { all.filter { $0.kind == "country" && $0.atlas != true } }
 
     var body: some View {
         NavigationStack {
@@ -15,7 +15,8 @@ struct ExtraAtlasView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     ScreenHeader(eyebrow: "Beyond the atlas", title: "More wine maps",
                                  subtitle: "Places that are not in the course, mapped with their regions and appellations. The Journal uses them too.")
-                    if query.isEmpty {
+                    SearchBar(text: $query, prompt: "Search these places")
+                    if query.trimmingCharacters(in: .whitespaces).isEmpty {
                         VStack(alignment: .leading, spacing: 10) {
                             SectionTitle(text: "Countries and states", detail: "\(countries.count)")
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
@@ -27,23 +28,12 @@ struct ExtraAtlasView: View {
                                 .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).padding(.top, 10)
                         }
                     } else {
-                        let hits = all.filter { $0.name.localizedCaseInsensitiveContains(query) || $0.country.localizedCaseInsensitiveContains(query) }
-                        GroupCard {
-                            ForEach(Array(hits.prefix(60).enumerated()), id: \.element.id) { i, r in
-                                NavigationLink(value: r) {
-                                    IconRow(title: r.name, detail: r.kind == "country" ? "Country" : r.country, last: i == min(hits.count, 60) - 1) {
-                                        Image(systemName: r.kind == "country" ? "globe.europe.africa" : "mappin").font(.system(size: 15)).foregroundStyle(Palette.wine)
-                                    }
-                                }
-                                .buttonStyle(RowPressStyle())
-                            }
-                        }
+                        AtlasSearchResults(query: query, onlyExtras: true)
                     }
                 }
-                .padding(.horizontal, Metrics.margin).padding(.top, 54).padding(.bottom, 24)
+            .padding(.horizontal, Metrics.margin).padding(.top, 54).padding(.bottom, 24)
             }
             .background(Palette.paper.ignoresSafeArea())
-            .searchable(text: $query, prompt: "Search these places")
             .toolbar(.hidden, for: .navigationBar)
             .overlay(alignment: .topTrailing) {
                 Button { dismiss() } label: {

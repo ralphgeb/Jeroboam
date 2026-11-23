@@ -1,17 +1,19 @@
 import SwiftUI
 
 struct RegionListView: View {
-    @State private var query = ""
+    @State private var query: String
     @State private var explore: MapRef? = nil
+    init(query: String = "") { _query = State(initialValue: query) }
 
     var body: some View {
         let lib = ContentStore.shared.library
-        let countries = lib.regions.filter { $0.kind == "country" }
+        let countries = lib.regions.filter { $0.kind == "country" } + ContentStore.shared.extraRegions.filter { $0.kind == "country" && $0.atlas == true }
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 ScreenHeader(eyebrow: "Atlas", title: "Regions & maps",
                              subtitle: "Pick a country to see its wine regions on the map.")
-                if query.isEmpty {
+                SearchBar(text: $query, prompt: "Search regions, appellations, grapes")
+                if query.trimmingCharacters(in: .whitespaces).isEmpty {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Countries", detail: "\(countries.count)")
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
@@ -31,23 +33,12 @@ struct RegionListView: View {
                             .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).padding(.top, 10)
                     }
                 } else {
-                    let hits = lib.regions.filter { $0.name.localizedCaseInsensitiveContains(query) || $0.country.localizedCaseInsensitiveContains(query) }
-                    GroupCard {
-                        ForEach(Array(hits.prefix(60).enumerated()), id: \.element.id) { i, r in
-                            NavigationLink(value: r) {
-                                IconRow(title: r.name, detail: r.kind == "country" ? "Country" : r.country, last: i == min(hits.count, 60) - 1) {
-                                    Image(systemName: r.kind == "country" ? "globe.europe.africa" : "mappin").font(.system(size: 15)).foregroundStyle(Palette.wine)
-                                }
-                            }
-                            .buttonStyle(RowPressStyle())
-                        }
-                    }
+                    AtlasSearchResults(query: query)
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.bottom, 24)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .searchable(text: $query, prompt: "Search regions")
         .pageChrome()
         .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
         .detailPane(first: countries.first.map { AnyHashable($0) })

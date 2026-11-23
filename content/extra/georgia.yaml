@@ -1,4 +1,5 @@
 map: georgia
+atlas: true
 title: Georgia
 iso: [GEO]
 focus: [GEO]
@@ -25,8 +26,8 @@ country:
   local: [Saperavi, Rkatsiteli, Mtsvane, Kisi, Khikhvi, Tsolikouri, Tsitska, Krakhuna, Chinuri, Goruli Mtsvane, Aladasturi, Otskhanuri Sapere, Tavkveri]
   climate: "Subtropical in the west (Black Sea), continental in the east, with the Greater Caucasus shielding the vineyards from the north."
   styles: "Two traditions side by side: European-style fresh whites and reds, and the ancient method where grapes ferment with their skins in buried clay qvevri, giving amber (orange) wines, tannic and savory."
-  classification: "Protected designations of origin (PDO, 'appellations') such as Tsinandali, Mukuzani, Kindzmarauli and Khvanchkara; about 25 in total."
   history: "Archaeologists found 8,000-year-old wine residue in clay jars in southern Georgia, the oldest known evidence of winemaking. Vines are woven into Georgian culture, and the traditional qvevri method is on UNESCO's intangible heritage list."
+  classification: "Georgia has about 25 protected designations of origin (PDO, 'appellations'), nearly all in the east: Tsinandali, Mukuzani, Kindzmarauli, Khvanchkara, Tvishi, Sviri, Ojaleshi and more. Zones drawn here follow the municipality of each appellation and a ring around the named villages, so edges are approximate."
   facts:
     - "Saperavi is a rare red grape with red flesh as well as red skin, so its wines are inky and long-lived."
     - "Qvevri are egg-shaped clay jars buried to the neck, used for fermenting, ageing and storing the wine."
@@ -124,3 +125,99 @@ regions:
     grapes: []
     local: [Tavkveri, Mtsvane]
     summary: "A high, cool plateau in the south-west, mostly mountain pasture, with a small revived wine tradition."
+  - id: tsinandali
+    name: Tsinandali
+    parent: telavi
+    circle: {c: [41.917, 45.567], r: 5.5}
+    clip: telavi
+    grapes: []
+    local: [Rkatsiteli, Mtsvane]
+    summary: "The first Georgian appellation (1919): a dry, fresh white blend of Rkatsiteli and Mtsvane, grown near Prince Chavchavadze's estate. Drawn as an approximate zone around the village."
+  - id: napareuli
+    name: Napareuli
+    parent: telavi
+    circle: {c: [41.945, 45.385], r: 5.5}
+    clip: telavi
+    grapes: []
+    local: [Saperavi, Rkatsiteli]
+    summary: "A village appellation on the right bank of the Alazani river, known for sturdy Saperavi and full-bodied Rkatsiteli. Approximate zone."
+  - id: mukuzani
+    name: Mukuzani
+    parent: gurjaani
+    circle: {c: [41.885, 45.620], r: 5.0}
+    clip: gurjaani
+    grapes: []
+    local: [Saperavi]
+    summary: "The classic dry red of Kakheti: 100% Saperavi from south-facing slopes, aged in oak, with dark fruit, spice and ageing potential. Approximate zone."
+  - id: vazisubani
+    name: Vazisubani
+    parent: gurjaani
+    circle: {c: [41.800, 45.690], r: 5.0}
+    clip: gurjaani
+    grapes: []
+    local: [Rkatsiteli, Mtsvane, Kisi]
+    summary: "A white-wine appellation of Gurjaani, with Rkatsiteli, Mtsvane and Kisi on sandy and clay soils. Approximate zone."
+  - id: akhasheni
+    name: Akhasheni
+    parent: gurjaani
+    circle: {c: [41.775, 45.805], r: 4.5}
+    clip: gurjaani
+    grapes: []
+    local: [Saperavi]
+    summary: "A semi-sweet red made from Saperavi, stopped before it is fully fermented, with ripe cherry and spice. Approximate zone."
+  - id: kindzmarauli
+    name: Kindzmarauli
+    parent: kvareli
+    circle: {c: [41.915, 45.845], r: 5.0}
+    clip: kvareli
+    grapes: []
+    local: [Saperavi]
+    summary: "The best-known semi-sweet red in Georgia, made from Saperavi grown on steep south-facing slopes: velvety, with dark cherry and pomegranate. Approximate zone."
+  - id: kardenakhi
+    name: Kardenakhi
+    parent: kvareli
+    circle: {c: [41.950, 45.760], r: 4.0}
+    clip: kvareli
+    grapes: []
+    local: [Rkatsiteli, Saperavi, Kisi]
+    summary: "A fortified-style dessert wine area of Kvareli; the name also means a strong, rich white. Approximate zone."
+  - id: sviri
+    name: Sviri
+    parent: imereti
+    circle: {c: [42.150, 43.000], r: 7.0}
+    clip: imereti
+    grapes: []
+    local: [Tsolikouri, Tsitska, Krakhuna]
+    summary: "A white appellation near Zestafoni and Terjola, using Tsolikouri and Tsitska. Approximate zone."
+  - id: khvanchkara
+    name: Khvanchkara
+    parent: racha-lechkhumi
+    circle: {c: [42.470, 43.100], r: 8.0}
+    clip: racha-lechkhumi
+    grapes: []
+    local: [Alexandrouli, Mujuretuli]
+    summary: "Georgia's most famous semi-sweet red, from steep terraces by Ambrolauri: Alexandrouli and Mujuretuli, with raspberry, spice and a gentle sweetness. Said to be Stalin's favourite wine."
+  - id: tvishi
+    name: Tvishi
+    parent: racha-lechkhumi
+    circle: {c: [42.620, 42.870], r: 6.0}
+    clip: racha-lechkhumi
+    grapes: []
+    local: [Tsolikouri, Tsitska]
+    summary: "A rare, naturally sweet white from Tsolikouri grown in Lechkhumi. Approximate zone."
+  - id: ojaleshi
+    name: Ojaleshi
+    parent: samegrelo
+    circle: {c: [42.550, 42.000], r: 9.0}
+    clip: samegrelo
+    grapes: []
+    local: [Ojaleshi]
+    summary: "A light, fruity red from the Ojaleshi grape (Samegrelo): red berries and spice, with fresh acidity. Approximate zone."
+  - id: atenuri
+    name: Atenuri
+    parent: kartli
+    circle: {c: [41.970, 43.930], r: 7.0}
+    clip: kartli
+    grapes: []
+    local: [Chinuri, Goruli Mtsvane]
+    summary: "A white and sparkling-wine zone in the Atenuri gorge near Gori, with the Chinuri grape for traditional-method sparkling wine. Approximate zone."

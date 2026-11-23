@@ -50,7 +50,7 @@ lessons:
       - choice: "Sancerre is a wine from which grape?"
         options: [Sauvignon Blanc, Chardonnay, Riesling, Chenin Blanc]
         a: Sauvignon Blanc
-        visual: "map:loire:sancerre"
+        visual: "map:france:sancerre"
         explain: "Like most French wines, Sancerre is named after its place, not its grape. White Sancerre is 100% Sauvignon Blanc."
       - tf: "Marlborough Sauvignon Blanc is famous for its intense passion fruit and herbaceous aromas."
         truth: true

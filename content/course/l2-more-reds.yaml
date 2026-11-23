@@ -97,7 +97,7 @@ lessons:
       - tf: "Chinon in the Loire Valley is made mainly from Cabernet Franc."
         truth: true
         explain: "Chinon in the Loire Valley is made mainly from Cabernet Franc: fragrant red fruit and violets, with a leafy, pencil-shaving edge. It is lighter than Cabernet Sauvignon and is best slightly chilled in summer."
-        visual: "map:loire:chinon"
+        visual: "map:france:chinon"
       - blank: "Cabernet Franc is a parent of Cabernet ___."
         answers: [Sauvignon]
         options: [Franc, Noir, Gris]

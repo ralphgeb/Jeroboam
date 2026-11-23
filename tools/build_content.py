@@ -538,6 +538,7 @@ for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
         for k in ("climate", "styles", "classification", "history", "facts", "local"):
             if r.get(k): e[k] = r[k]
         if sub: e["sub"] = sub
+        if spec.get("atlas"): e["atlas"] = True      # shown in the main Atlas, not only under "Maps beyond the atlas"
         return e
     extra_regions.append(entry({"id": mid, "name": c["name"], **c}, "country", top))
     if c.get("soil"): extra_soils[mid] = c["soil"]

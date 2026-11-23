@@ -1,4 +1,5 @@
 map: moldova
+atlas: true
 title: Moldova
 iso: [MDA]
 focus: [MDA]
@@ -22,6 +23,7 @@ country:
   climate: "Temperate continental, mild and sunny, with long summers and hard winters."
   styles: "Simple fruity whites, sparkling wine made in underground cellars, and richer reds from Fetească Neagră and Rară Neagră."
   classification: "Three PGI regions (Valul lui Traian, Ștefan Vodă, Codru) plus Divin (brandy) and PDO regions such as Codru, Ștefan Vodă and Valul lui Traian."
+  history: "Wine has been made on the land between the Carpathians and the Dniester for over 3,000 years. In the 1800s Moldovan wine reached the tsars' tables, and under the Soviet Union Moldova supplied wine to the whole union. Since 2005 Russia's wine bans pushed producers to the EU and new markets."
   facts:
     - "The Mileștii Mici cellar holds the biggest wine collection in the world (almost 2 million bottles) in tunnels 85 m below ground."
     - "Wine has long been Moldova's top export, with the former Soviet Union as its main market."
@@ -50,3 +52,43 @@ regions:
     grapes: [riesling, pinot-grigio, pinot-noir]
     local: [Fetească Albă, Fetească Regală]
     summary: "A cooler, hillier part of the country, with fewer vineyards."
+  - id: cricova
+    name: Cricova
+    parent: codru
+    circle: {c: [47.135, 28.865], r: 6.0}
+    clip: codru
+    grapes: [chardonnay, pinot-noir]
+    local: [Fetească Albă]
+    summary: "A wine town just north of Chișinău with 120 km of limestone tunnels (the old quarries) used as a cellar for sparkling wines and a famous underground tasting road. Approximate zone."
+  - id: milestii-mici
+    name: Mileștii Mici
+    parent: codru
+    circle: {c: [46.870, 28.830], r: 5.0}
+    clip: codru
+    grapes: [cabernet-sauvignon, merlot]
+    local: [Fetească Neagră, Rară Neagră]
+    summary: "The 'Golden Collection' cellar: 200 km of tunnels in limestone, the biggest wine collection in the world (almost 2 million bottles). Approximate zone."
+  - id: purcari
+    name: Purcari
+    parent: stefan-voda
+    circle: {c: [46.510, 29.960], r: 7.0}
+    clip: stefan-voda
+    grapes: [cabernet-sauvignon, merlot]
+    local: [Rară Neagră, Fetească Neagră, Saperavi]
+    summary: "Moldova's most prized red area, near the Dniester river: a favourite of 19th-century tsars. Famous for a Bordeaux-style blend, and for Negru de Purcari. Approximate zone."
+  - id: ceadir-lunga
+    name: Ceadîr-Lunga (Gagauzia)
+    parent: valul-lui-traian
+    circle: {c: [46.050, 28.830], r: 9.0}
+    clip: valul-lui-traian
+    grapes: [cabernet-sauvignon, merlot, chardonnay]
+    local: [Fetească Neagră]
+    summary: "The Gagauz autonomous area in the south, with hot, dry summers that ripen full-bodied reds. Approximate zone."
+  - id: romanesti
+    name: Romănești
+    parent: codru
+    circle: {c: [47.050, 28.220], r: 6.0}
+    clip: codru
+    grapes: [chardonnay, sauvignon-blanc]
+    local: [Fetească Albă, Fetească Regală]
+    summary: "A traditional vineyard village west of Chișinău in the heart of Codru, known for fresh white wines. Approximate zone."

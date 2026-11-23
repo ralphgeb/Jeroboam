@@ -535,7 +535,9 @@ def fine_inset(pr, pf, bbox, water, estuary, specs, res, tol, K):
     allnames = set()
     for s in specs:
         if s["id"] in res: allnames.update(res[s["id"]][1])
-    lines, names = [], []   # no commune lines or names: the appellations themselves carry the labels
+    named = [(n, gg) for d in _depts for n, gg in fr_communes(d) if n in allnames]
+    lines, _ = commune_layer(pf, named, tol)   # the commune lines stay as fine line work under the appellations (no names)
+    names = []
     la0, lo0, la1, lo1 = bbox
     x0, y0 = pr.xy(lo0, la1); x1, y1 = pr.xy(lo1, la0)
     return {"k": K, "box": [round(x0), round(y0), round(x1), round(y1)], "land": land, "focus": focus, "lakes": lk,
@@ -596,7 +598,10 @@ def build_france():
     K = 4
     FINE = {"bordeaux": dict(bbox=(44.40, -1.35, 45.62, 0.35), water=[("Garonne", 0.14, 0.55), ("Dordogne", 0.14, 0.55)],
                              estuary=(-0.95, 44.98, -0.5, 45.62)),
-            "burgundy": dict(bbox=(45.95, 3.45, 48.0, 5.45), water=[("Saône", 0.12, 0.16)], estuary=None)}
+            "burgundy": dict(bbox=(45.95, 3.45, 48.0, 5.45), water=[("Saône", 0.12, 0.16)], estuary=None),
+            "rhone": dict(bbox=(43.75, 4.15, 45.65, 5.5), water=[("Rhône", 0.18, 0.22)], estuary=None),
+            "loire": dict(bbox=(46.75, -2.2, 47.85, 3.2), water=[("Loire", 0.12, 0.3)], estuary=None),
+            "champagne": dict(bbox=(47.85, 3.2, 49.45, 4.95), water=[("Marne", 0.08, 0.1)], estuary=None)}
     prs = {g: FineProj(pr, K, f["bbox"]) for g, f in FINE.items()}
     tolf = 0.9
     def P(g): return (prs[g], tolf) if g in prs else (pr, tol)
@@ -666,17 +671,6 @@ def build_france():
         write(mid, doc(mid, title, pr, land, focus, lk, rv, areas, cities_of(pr, cities), labels_of(pr, labels),
                        admin_borders(pr, bbox, deps, tol * 1.5), communes=lay))
 
-    detail("rhone", "Rhône Valley", "rhone", (43.75, 4.15, 45.65, 5.5), 3000, water=[("Rhône", 0.18, 0.22)],
-           cities=[("Lyon", 45.76, 4.84, 0), ("Vienne", 45.52, 4.87), ("Valence", 44.93, 4.89), ("Montélimar", 44.56, 4.75),
-                   ("Orange", 44.14, 4.81), ("Avignon", 43.95, 4.81, 0)],
-           labels=[("Rhône", 44.75, 4.62, "river")])
-    detail("loire", "Loire Valley", "loire", (46.75, -2.2, 47.85, 3.2), 3600, water=[("Loire", 0.12, 0.3)],
-           cities=[("Nantes", 47.22, -1.55, 0), ("Angers", 47.47, -0.55), ("Saumur", 47.26, -0.08), ("Tours", 47.39, 0.69, 0),
-                   ("Blois", 47.59, 1.33), ("Orléans", 47.90, 1.90), ("Sancerre", 47.33, 2.84)],
-           labels=[("Loire", 47.47, 1.95, "river"), ("Atlantic", 47.0, -2.1, "sea")])
-    detail("champagne", "Champagne", "champagne", (47.85, 3.2, 49.45, 4.95), 3000, water=[("Marne", 0.08, 0.1)],
-           cities=[("Reims", 49.26, 4.03, 0), ("Épernay", 49.04, 3.96), ("Troyes", 48.30, 4.08, 0), ("Château-Thierry", 49.05, 3.40)],
-           labels=[("Marne", 49.0, 4.45, "river"), ("Seine", 48.45, 4.0, "river")])
 
 # ================================================================= ITALY
 def build_italy():

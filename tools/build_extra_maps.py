@@ -17,7 +17,9 @@ import os, sys, glob, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yaml
 import build_maps2 as B
-from shapely.geometry import shape, Polygon
+import math
+from shapely.geometry import shape, Polygon, Point
+from shapely import affinity
 from shapely.ops import unary_union
 from shapely.prepared import prep
 
@@ -59,6 +61,10 @@ def geom_of(rid, r, spec, built, avas):
         if g is None: print(f"   ! {spec['map']}/{rid}: no units inside the sketch")
     elif "poly" in r:
         g = poly_ll(r["poly"])
+    elif "circle" in r:           # a village or small zone: centre [lat, lon] and radius in km
+        la, lo = r["circle"]["c"]
+        g = Point(lo, la).buffer(B.km2deg(r["circle"]["r"]), 32)
+        g = affinity.scale(g, xfact=1 / max(0.2, math.cos(math.radians(la))), yfact=1, origin=(lo, la))
     else:
         print(f"   ! {spec['map']}/{rid}: no geometry"); return None
     if g is None or g.is_empty: return None
@@ -82,22 +88,27 @@ def build_map(spec, avas):
     land, focus, lk, rv = B.base_layers(pr, bbox, spec["focus"], tol=tol)
     built = {}
     regions = spec["regions"]
+    byid = {r["id"]: r for r in regions}
+    def depth(r):
+        d = 0
+        while r.get("parent") and r["parent"] in byid:
+            r = byid[r["parent"]]; d += 1
+        return d
     # parents first so children can be clipped to them
-    order = sorted(regions, key=lambda r: 1 if r.get("parent") else 0)
-    for r in order:
+    for r in sorted(regions, key=depth):
         g = geom_of(r["id"], r, spec, built, avas)
         if g is not None: built[r["id"]] = g
     areas, col = [], {}
-    tops = [r for r in regions if not r.get("parent") and r["id"] in built]
-    for i, r in enumerate(tops):
+    def top(r):
+        while r.get("parent") and r["parent"] in byid: r = byid[r["parent"]]
+        return r["id"]
+    for i, r in enumerate([r for r in regions if not r.get("parent")]):
         col[r["id"]] = B.cidx(None, i + spec.get("color_shift", 0))
-        areas.append(B.area_record(pr, r["id"], r["name"], 0, col[r["id"]], built[r["id"]], tol, min_area=1,
-                                   soft=r.get("soft", "units" in r), grapes=r.get("grape_line"), pdo=False))
-    for r in regions:
-        if r.get("parent") and r["id"] in built:
-            p = r["parent"]
-            areas.append(B.area_record(pr, r["id"], r["name"], 1, col.get(p, 0), built[r["id"]], tol, parent=p, min_area=1,
-                                       soft=r.get("soft", "units" in r), grapes=r.get("grape_line"), pdo=False))
+    for r in sorted(regions, key=depth):
+        if r["id"] not in built: continue
+        d = depth(r)
+        areas.append(B.area_record(pr, r["id"], r["name"], d, col.get(top(r), 0), built[r["id"]], tol, parent=r.get("parent"),
+                                   min_area=1, soft=r.get("soft", "units" in r or "circle" in r), grapes=r.get("grape_line"), pdo=False))
     areas = [a for a in areas if a]
     areas.sort(key=lambda a: a["lv"])
     # internal borders: provinces / states

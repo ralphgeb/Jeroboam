@@ -5,7 +5,7 @@ lessons:
   - title: Northern vs Southern Rhône
     cards:
       - learn: Two different worlds
-        visual: "map:rhone"
+        visual: "map:france"
         body: |
           - **Northern Rhône**: moderate continental climate, steep **granite** terraces, **Syrah** alone (sometimes with a little white grape co-fermented). Côte-Rôtie, Hermitage, Cornas, Saint-Joseph, Crozes-Hermitage, plus Viognier in Condrieu.
           - **Southern Rhône**: Mediterranean heat, the **Mistral** wind, **Grenache**-led blends. Châteauneuf-du-Pape, Gigondas, Vacqueyras, Côtes du Rhône, Tavel rosé.
@@ -16,19 +16,19 @@ lessons:
       - choice: "Which Northern Rhône appellation may include Viognier co-fermented with Syrah?"
         options: [Côte-Rôtie, Cornas, Châteauneuf-du-Pape, Tavel]
         a: Côte-Rôtie
-        visual: "map:rhone:cote-rotie"
+        visual: "map:france:cote-rotie"
         explain: "Côte-Rôtie may include up to 20% Viognier co-fermented with Syrah, adding perfume and stabilizing color, though most producers use far less. The effect is a floral lift to the Syrah's dark fruit."
       - tf: "Châteauneuf-du-Pape's galets roulés are large stones that store and radiate heat."
         truth: true
         explain: "Châteauneuf-du-Pape's galets roulés, rounded quartzite pebbles, cover many vineyards. They store heat by day and release it at night, helping Grenache ripen."
-        visual: "map:rhone:chateauneuf-du-pape"
+        visual: "map:france:chateauneuf-du-pape"
       - match: "Match the appellation to its style"
         pairs: [[Hermitage, Syrah], [Condrieu, Viognier], [Tavel, Rosé], [Gigondas, Grenache blend]]
         explain: "North for single varietals, south for blends and rosé: Hermitage and Côte-Rôtie are Syrah, Condrieu is Viognier, Châteauneuf is a blend, and Tavel is rosé. Place tells you the style."
   - title: The Loire in depth
     cards:
       - learn: Four sections
-        visual: "map:loire"
+        visual: "map:france"
         body: |
           - **Pays Nantais**: Muscadet (Melon de Bourgogne), maritime.
           - **Anjou-Saumur**: Chenin (dry Savennières, sweet Coteaux du Layon), Cabernet Franc, sparkling Saumur.
@@ -45,7 +45,7 @@ lessons:
       - tf: "Sancerre and Pouilly-Fumé face each other across the Loire."
         truth: true
         explain: "Sancerre is on the west bank and Pouilly-sur-Loire on the east, facing each other across the river. Both are Sauvignon Blanc, but Sancerre is on limestone and flint (silex) soils and tends to be crisper."
-        visual: "map:loire:sancerre,pouilly-fume"
+        visual: "map:france:sancerre,pouilly-fume"
       - blank: "Pouilly-___ is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay."
         answers: [Fumé]
         options: [Fuissé, Blanc, Gris]
@@ -75,7 +75,7 @@ lessons:
   - title: Champagne in depth
     cards:
       - learn: Assemblage and house style
-        visual: "map:champagne"
+        visual: "map:france"
         body: |
           Champagne is about **blending** (assemblage): grapes, villages and **reserve wines** from older vintages create a consistent non-vintage house style.
 

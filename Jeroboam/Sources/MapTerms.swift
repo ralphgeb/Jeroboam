@@ -60,7 +60,7 @@ struct MapTerms {
         case "lebanon":
             return MapTerms(level: ["Regions", "Winery areas"], hint: ["The wine regions", "Winery areas inside the regions"])
         default:
-            return MapTerms(level: ["Regions", "Appellations"], hint: ["The wine regions", "Appellations and districts inside the regions"], places: "Places")
+            return MapTerms(level: ["Regions", "Areas", "Appellations"], hint: ["The wine regions", "Districts and areas inside the regions", "Appellations and village zones"], places: "Places")
         }
     }
 

@@ -108,7 +108,7 @@
   name: Rhône Valley
   country: France
   kind: region
-  map: rhone
+  map: france
   level: 1
   climate: "North: moderate continental, steep granite slopes. South: Mediterranean, hot and dry, swept by the cold Mistral wind."
   grapes: [syrah, grenache, mourvedre, viognier, marsanne, cinsault]
@@ -117,44 +117,44 @@
   classification: "Côtes du Rhône → Côtes du Rhône Villages → named villages → crus such as Gigondas and Châteauneuf-du-Pape."
   facts: ["Châteauneuf-du-Pape allows 13 grape varieties.", "Côte-Rôtie means 'roasted slope', after its steep sun-baked terraces."]
   sub: [cote-rotie, condrieu, saint-joseph, hermitage, crozes-hermitage, cornas, chateauneuf-du-pape, gigondas, vacqueyras, tavel, cotes-du-rhone]
-- {id: cote-rotie, name: Côte-Rôtie, country: France, kind: subregion, map: rhone, highlight: [cote-rotie], level: 2, grapes: [syrah, viognier], summary: "Perfumed, elegant Syrah from very steep terraces; up to 20% Viognier may be co-fermented for aroma and color."}
-- {id: condrieu, name: Condrieu, country: France, kind: subregion, map: rhone, highlight: [condrieu], level: 2, grapes: [viognier], summary: "Viognier's spiritual home: heady apricot, peach and blossom, full-bodied and silky."}
-- {id: saint-joseph, name: Saint-Joseph, country: France, kind: subregion, map: rhone, highlight: [saint-joseph], level: 3, grapes: [syrah, marsanne], summary: "A long strip on the west bank: fresh, peppery Syrah and some white Marsanne-Roussanne."}
-- {id: hermitage, name: Hermitage, country: France, kind: subregion, map: rhone, highlight: [hermitage], level: 2, grapes: [syrah, marsanne], summary: "A single granite hill above Tain: powerful, long-lived Syrah and rich white Marsanne. One of France's greatest wines."}
-- {id: crozes-hermitage, name: Crozes-Hermitage, country: France, kind: subregion, map: rhone, highlight: [crozes-hermitage], level: 2, grapes: [syrah, marsanne], summary: "The largest Northern Rhône appellation, around Hermitage: fruity, peppery, approachable Syrah."}
-- {id: cornas, name: Cornas, country: France, kind: subregion, map: rhone, highlight: [cornas], level: 3, grapes: [syrah], summary: "100% Syrah from a warm granite amphitheater: dark, tannic and wild."}
-- {id: chateauneuf-du-pape, name: Châteauneuf-du-Pape, country: France, kind: subregion, map: rhone, highlight: [chateauneuf-du-pape], level: 2, climate: "Hot, dry and windy; famous large round stones (galets roulés) store the day's heat.", grapes: [grenache, syrah, mourvedre, marsanne], summary: "The Southern Rhône's flagship: rich, warm, Grenache-led blends with red fruit, herbs (garrigue) and spice."}
-- {id: gigondas, name: Gigondas, country: France, kind: subregion, map: rhone, highlight: [gigondas], level: 3, grapes: [grenache, syrah, mourvedre], summary: "Grenache-based reds beneath the jagged Dentelles de Montmirail: robust and spicy."}
-- {id: vacqueyras, name: Vacqueyras, country: France, kind: subregion, map: rhone, highlight: [vacqueyras], level: 3, grapes: [grenache, syrah], summary: "Gigondas' neighbor: generous, value Grenache blends."}
-- {id: tavel, name: Tavel & Lirac, country: France, kind: subregion, map: rhone, highlight: [tavel], level: 2, grapes: [grenache, cinsault], summary: "Tavel is France's only all-rosé appellation: deeper, fuller, food-friendly rosé. Lirac makes all three colors."}
-- {id: cotes-du-rhone, name: Côtes du Rhône, country: France, kind: subregion, map: rhone, highlight: [southern-rhone], level: 1, grapes: [grenache, syrah, mourvedre], summary: "The big regional appellation, mostly in the south: juicy, spicy red blends with great value."}
+- {id: cote-rotie, name: Côte-Rôtie, country: France, kind: subregion, map: france, highlight: [cote-rotie], level: 2, grapes: [syrah, viognier], summary: "Perfumed, elegant Syrah from very steep terraces; up to 20% Viognier may be co-fermented for aroma and color."}
+- {id: condrieu, name: Condrieu, country: France, kind: subregion, map: france, highlight: [condrieu], level: 2, grapes: [viognier], summary: "Viognier's spiritual home: heady apricot, peach and blossom, full-bodied and silky."}
+- {id: saint-joseph, name: Saint-Joseph, country: France, kind: subregion, map: france, highlight: [saint-joseph], level: 3, grapes: [syrah, marsanne], summary: "A long strip on the west bank: fresh, peppery Syrah and some white Marsanne-Roussanne."}
+- {id: hermitage, name: Hermitage, country: France, kind: subregion, map: france, highlight: [hermitage], level: 2, grapes: [syrah, marsanne], summary: "A single granite hill above Tain: powerful, long-lived Syrah and rich white Marsanne. One of France's greatest wines."}
+- {id: crozes-hermitage, name: Crozes-Hermitage, country: France, kind: subregion, map: france, highlight: [crozes-hermitage], level: 2, grapes: [syrah, marsanne], summary: "The largest Northern Rhône appellation, around Hermitage: fruity, peppery, approachable Syrah."}
+- {id: cornas, name: Cornas, country: France, kind: subregion, map: france, highlight: [cornas], level: 3, grapes: [syrah], summary: "100% Syrah from a warm granite amphitheater: dark, tannic and wild."}
+- {id: chateauneuf-du-pape, name: Châteauneuf-du-Pape, country: France, kind: subregion, map: france, highlight: [chateauneuf-du-pape], level: 2, climate: "Hot, dry and windy; famous large round stones (galets roulés) store the day's heat.", grapes: [grenache, syrah, mourvedre, marsanne], summary: "The Southern Rhône's flagship: rich, warm, Grenache-led blends with red fruit, herbs (garrigue) and spice."}
+- {id: gigondas, name: Gigondas, country: France, kind: subregion, map: france, highlight: [gigondas], level: 3, grapes: [grenache, syrah, mourvedre], summary: "Grenache-based reds beneath the jagged Dentelles de Montmirail: robust and spicy."}
+- {id: vacqueyras, name: Vacqueyras, country: France, kind: subregion, map: france, highlight: [vacqueyras], level: 3, grapes: [grenache, syrah], summary: "Gigondas' neighbor: generous, value Grenache blends."}
+- {id: tavel, name: Tavel & Lirac, country: France, kind: subregion, map: france, highlight: [tavel], level: 2, grapes: [grenache, cinsault], summary: "Tavel is France's only all-rosé appellation: deeper, fuller, food-friendly rosé. Lirac makes all three colors."}
+- {id: cotes-du-rhone, name: Côtes du Rhône, country: France, kind: subregion, map: france, highlight: [southern-rhone], level: 1, grapes: [grenache, syrah, mourvedre], summary: "The big regional appellation, mostly in the south: juicy, spicy red blends with great value."}
 - id: loire
   name: Loire Valley
   country: France
   kind: region
-  map: loire
+  map: france
   level: 1
   climate: "Cool: maritime near the Atlantic, becoming continental inland."
   grapes: [sauvignon-blanc, chenin-blanc, cabernet-franc, melon, gamay, pinot-noir]
   summary: "France's longest river and a paradise of fresh, high-acid wines: Muscadet, Chenin Blanc, Cabernet Franc and Sauvignon Blanc."
   styles: "Every style: crisp whites, sweet botrytized Chenin (Coteaux du Layon), light reds, rosé (Rosé d'Anjou) and sparkling (Crémant de Loire, Saumur)."
   sub: [muscadet, anjou, savennieres, saumur, chinon, bourgueil, vouvray, montlouis, touraine, sancerre, pouilly-fume]
-- {id: muscadet, name: Muscadet, country: France, kind: subregion, map: loire, highlight: [muscadet], level: 2, grapes: [melon], summary: "Near the Atlantic, around Nantes: light, crisp, briny whites, often aged sur lie. The perfect oyster wine."}
-- {id: anjou, name: Anjou, country: France, kind: subregion, map: loire, highlight: [anjou], level: 3, grapes: [chenin-blanc, cabernet-franc], summary: "Dry and sweet Chenin Blanc (Coteaux du Layon, Quarts de Chaume, Bonnezeaux), reds and the famous off-dry Rosé d'Anjou."}
-- {id: savennieres, name: Savennières, country: France, kind: subregion, map: loire, highlight: [savennieres], level: 3, grapes: [chenin-blanc], summary: "Intense, mineral, long-lived dry Chenin Blanc from steep schist slopes."}
-- {id: saumur, name: Saumur, country: France, kind: subregion, map: loire, highlight: [saumur], level: 3, grapes: [cabernet-franc, chenin-blanc], summary: "Tuffeau limestone country: Saumur-Champigny reds, dry Chenin and lots of traditional-method sparkling wine."}
-- {id: chinon, name: Chinon, country: France, kind: subregion, map: loire, highlight: [chinon], level: 2, grapes: [cabernet-franc], summary: "Fragrant Cabernet Franc with raspberry, violet and pencil-shaving notes."}
-- {id: bourgueil, name: Bourgueil, country: France, kind: subregion, map: loire, highlight: [bourgueil], level: 3, grapes: [cabernet-franc], summary: "North-bank Cabernet Franc, slightly firmer than Chinon."}
-- {id: vouvray, name: Vouvray, country: France, kind: subregion, map: loire, highlight: [vouvray], level: 2, grapes: [chenin-blanc], summary: "Chenin Blanc in every style: sec, demi-sec, moelleux and sparkling, from tuffeau limestone near Tours."}
-- {id: montlouis, name: Montlouis-sur-Loire, country: France, kind: subregion, map: loire, highlight: [montlouis], level: 3, grapes: [chenin-blanc], summary: "Vouvray's neighbor across the river: lively Chenin, still and sparkling."}
-- {id: touraine, name: Touraine, country: France, kind: subregion, map: loire, highlight: [touraine], level: 3, grapes: [sauvignon-blanc, gamay, cabernet-franc], summary: "A large area around Tours making fresh, good-value Sauvignon Blanc, light reds and sparkling wines."}
-- {id: sancerre, name: Sancerre, country: France, kind: subregion, map: loire, highlight: [sancerre], level: 1, climate: "Cool continental; chalk, flint (silex) and limestone soils.", grapes: [sauvignon-blanc, pinot-noir], summary: "The classic Sauvignon Blanc: citrus, gooseberry and flinty minerality, with high acidity. Also light Pinot Noir reds and rosés."}
-- {id: pouilly-fume, name: Pouilly-Fumé, country: France, kind: subregion, map: loire, highlight: [pouilly-fume], level: 2, grapes: [sauvignon-blanc], summary: "Across the river from Sancerre: Sauvignon Blanc with a smoky, flinty edge (fumé means smoked)."}
+- {id: muscadet, name: Muscadet, country: France, kind: subregion, map: france, highlight: [muscadet], level: 2, grapes: [melon], summary: "Near the Atlantic, around Nantes: light, crisp, briny whites, often aged sur lie. The perfect oyster wine."}
+- {id: anjou, name: Anjou, country: France, kind: subregion, map: france, highlight: [anjou], level: 3, grapes: [chenin-blanc, cabernet-franc], summary: "Dry and sweet Chenin Blanc (Coteaux du Layon, Quarts de Chaume, Bonnezeaux), reds and the famous off-dry Rosé d'Anjou."}
+- {id: savennieres, name: Savennières, country: France, kind: subregion, map: france, highlight: [savennieres], level: 3, grapes: [chenin-blanc], summary: "Intense, mineral, long-lived dry Chenin Blanc from steep schist slopes."}
+- {id: saumur, name: Saumur, country: France, kind: subregion, map: france, highlight: [saumur], level: 3, grapes: [cabernet-franc, chenin-blanc], summary: "Tuffeau limestone country: Saumur-Champigny reds, dry Chenin and lots of traditional-method sparkling wine."}
+- {id: chinon, name: Chinon, country: France, kind: subregion, map: france, highlight: [chinon], level: 2, grapes: [cabernet-franc], summary: "Fragrant Cabernet Franc with raspberry, violet and pencil-shaving notes."}
+- {id: bourgueil, name: Bourgueil, country: France, kind: subregion, map: france, highlight: [bourgueil], level: 3, grapes: [cabernet-franc], summary: "North-bank Cabernet Franc, slightly firmer than Chinon."}
+- {id: vouvray, name: Vouvray, country: France, kind: subregion, map: france, highlight: [vouvray], level: 2, grapes: [chenin-blanc], summary: "Chenin Blanc in every style: sec, demi-sec, moelleux and sparkling, from tuffeau limestone near Tours."}
+- {id: montlouis, name: Montlouis-sur-Loire, country: France, kind: subregion, map: france, highlight: [montlouis], level: 3, grapes: [chenin-blanc], summary: "Vouvray's neighbor across the river: lively Chenin, still and sparkling."}
+- {id: touraine, name: Touraine, country: France, kind: subregion, map: france, highlight: [touraine], level: 3, grapes: [sauvignon-blanc, gamay, cabernet-franc], summary: "A large area around Tours making fresh, good-value Sauvignon Blanc, light reds and sparkling wines."}
+- {id: sancerre, name: Sancerre, country: France, kind: subregion, map: france, highlight: [sancerre], level: 1, climate: "Cool continental; chalk, flint (silex) and limestone soils.", grapes: [sauvignon-blanc, pinot-noir], summary: "The classic Sauvignon Blanc: citrus, gooseberry and flinty minerality, with high acidity. Also light Pinot Noir reds and rosés."}
+- {id: pouilly-fume, name: Pouilly-Fumé, country: France, kind: subregion, map: france, highlight: [pouilly-fume], level: 2, grapes: [sauvignon-blanc], summary: "Across the river from Sancerre: Sauvignon Blanc with a smoky, flinty edge (fumé means smoked)."}
 - id: champagne
   name: Champagne
   country: France
   kind: region
-  map: champagne
+  map: france
   level: 1
   climate: "Cool continental at the northern limit of grape growing; chalk subsoil stores water and reflects light."
   grapes: [chardonnay, pinot-noir, meunier]
@@ -163,11 +163,11 @@
   classification: "Villages are rated: 17 Grand Cru and 42 Premier Cru villages."
   facts: ["Non-vintage Champagne must spend at least 15 months in bottle, 12 of them on lees; vintage at least 3 years.", "Most Champagne is a blend of many villages and years, assembled by large houses."]
   sub: [montagne-de-reims, vallee-de-la-marne, cote-des-blancs, cote-de-sezanne, cote-des-bar]
-- {id: montagne-de-reims, name: Montagne de Reims, country: France, kind: subregion, map: champagne, highlight: [montagne-de-reims], level: 3, grapes: [pinot-noir, chardonnay], summary: "A forested plateau between Reims and Épernay; Pinot Noir gives body and structure. Grand cru villages include Ambonnay, Bouzy and Verzenay."}
-- {id: vallee-de-la-marne, name: Vallée de la Marne, country: France, kind: subregion, map: champagne, highlight: [vallee-de-la-marne], level: 3, grapes: [meunier, pinot-noir], summary: "Valley slopes where frost-resistant Meunier dominates, giving fruity, approachable wines."}
-- {id: cote-des-blancs, name: Côte des Blancs, country: France, kind: subregion, map: champagne, highlight: [cote-des-blancs], level: 3, grapes: [chardonnay], summary: "East-facing chalk slopes south of Épernay devoted to Chardonnay: the source of elegant Blanc de Blancs (Cramant, Avize, Le Mesnil-sur-Oger)."}
-- {id: cote-de-sezanne, name: Côte de Sézanne, country: France, kind: subregion, map: champagne, highlight: [cote-de-sezanne], level: 3, grapes: [chardonnay], summary: "A southern extension of the Côte des Blancs, with riper, rounder Chardonnay."}
-- {id: cote-des-bar, name: Côte des Bar, country: France, kind: subregion, map: champagne, highlight: [cote-des-bar], level: 3, grapes: [pinot-noir], summary: "Far to the south, nearer Chablis than Reims: Kimmeridgian soils and fruity Pinot Noir."}
+- {id: montagne-de-reims, name: Montagne de Reims, country: France, kind: subregion, map: france, highlight: [montagne-de-reims], level: 3, grapes: [pinot-noir, chardonnay], summary: "A forested plateau between Reims and Épernay; Pinot Noir gives body and structure. Grand cru villages include Ambonnay, Bouzy and Verzenay."}
+- {id: vallee-de-la-marne, name: Vallée de la Marne, country: France, kind: subregion, map: france, highlight: [vallee-de-la-marne], level: 3, grapes: [meunier, pinot-noir], summary: "Valley slopes where frost-resistant Meunier dominates, giving fruity, approachable wines."}
+- {id: cote-des-blancs, name: Côte des Blancs, country: France, kind: subregion, map: france, highlight: [cote-des-blancs], level: 3, grapes: [chardonnay], summary: "East-facing chalk slopes south of Épernay devoted to Chardonnay: the source of elegant Blanc de Blancs (Cramant, Avize, Le Mesnil-sur-Oger)."}
+- {id: cote-de-sezanne, name: Côte de Sézanne, country: France, kind: subregion, map: france, highlight: [cote-de-sezanne], level: 3, grapes: [chardonnay], summary: "A southern extension of the Côte des Blancs, with riper, rounder Chardonnay."}
+- {id: cote-des-bar, name: Côte des Bar, country: France, kind: subregion, map: france, highlight: [cote-des-bar], level: 3, grapes: [pinot-noir], summary: "Far to the south, nearer Chablis than Reims: Kimmeridgian soils and fruity Pinot Noir."}
 - {id: alsace, name: Alsace, country: France, kind: region, map: france, highlight: [alsace], level: 2, climate: "One of France's driest regions: the Vosges mountains block rain from the west, giving long, sunny, dry autumns.", grapes: [riesling, gewurztraminer, pinot-grigio, muscat, pinot-blanc, pinot-noir], summary: "German-influenced but French: aromatic, mostly dry varietal whites labeled by grape, in tall flute bottles.", styles: "Dry whites, late-harvest Vendanges Tardives and botrytized Sélection de Grains Nobles; Crémant d'Alsace.", classification: "Alsace AOC, Alsace Grand Cru (51 vineyards) and Crémant d'Alsace."}
 - {id: provence, name: Provence, country: France, kind: region, map: france, highlight: [provence], level: 2, climate: "Warm, sunny Mediterranean with the Mistral wind.", grapes: [grenache, cinsault, mourvedre, syrah, vermentino], summary: "Rosé capital of the world: pale, dry, delicate pink wines. Bandol makes powerful Mourvèdre reds."}
 - {id: languedoc, name: Languedoc-Roussillon, country: France, kind: region, map: france, highlight: [languedoc], level: 2, climate: "Hot, dry Mediterranean.", grapes: [grenache, syrah, carignan, mourvedre, cinsault, muscat], summary: "France's largest vineyard area, from value varietal IGP Pays d'Oc wines to characterful blends from Minervois, Corbières and Faugères, and sweet Vins Doux Naturels in Roussillon."}

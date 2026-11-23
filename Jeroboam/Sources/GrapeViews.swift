@@ -8,12 +8,13 @@ struct GrapeListView: View {
         let all = ContentStore.shared.library.grapes.sorted { $0.name < $1.name }
         let grapes = all.filter { g in
             (filter == 0 || (filter == 1 && g.berry == .black) || (filter == 2 && g.berry != .black))
-            && (query.isEmpty || g.name.localizedCaseInsensitiveContains(query) || (g.aka ?? []).contains { $0.localizedCaseInsensitiveContains(query) })
+            && Search.matches(query, g.name, (g.aka ?? []).joined(separator: " "))
         }
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 ScreenHeader(eyebrow: "Ampelography", title: "Grapes",
                              subtitle: "The variety is the single biggest influence on how a wine smells and tastes. Start with the classics, then explore.")
+                SearchBar(text: $query, prompt: "Search grapes")
                 Picker("Filter", selection: $filter) {
                     Text("All").tag(0)
                     Text("Black").tag(1)
@@ -30,7 +31,6 @@ struct GrapeListView: View {
             .padding(.horizontal, Metrics.margin).padding(.vertical, 16)
         }
         .background(Palette.paper.ignoresSafeArea())
-        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .automatic), prompt: "Search grapes")
         .pageChrome()
         .toolbar { QuotaToolbar(section: "grapes") }
         .detailPane(first: grapes.first.map { AnyHashable($0) })

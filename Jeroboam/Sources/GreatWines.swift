@@ -386,12 +386,13 @@ struct GreatWinesScreen: View {
         let wines = ContentStore.shared.library.great ?? []
         let q = applied.trimmingCharacters(in: .whitespaces)
         let shown = q.isEmpty ? wines.filter { inCountry($0) && inSub($0) }
-            : wines.filter { $0.name.localizedCaseInsensitiveContains(q) || $0.producer.localizedCaseInsensitiveContains(q) || $0.zone.localizedCaseInsensitiveContains(q) }
+            : wines.filter { Search.matches(q, $0.name, $0.producer, $0.zone, $0.area) }
         let subs = subChoices(wines)
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 ScreenHeader(eyebrow: "Atlas", title: "Great wines to try",
                              subtitle: "\(wines.count.formatted()) wines, country by country: what they are, why people love them, what they cost and how critics score them.")
+                SearchBar(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)") { runSearch() }
                 chipRow(Self.countries.map(\.name), selected: country, bold: true) { c in
                     withAnimation(.smooth(duration: 0.3)) { country = c; sub = nil; applied = ""; query = "" }
                 }
@@ -430,8 +431,6 @@ struct GreatWinesScreen: View {
         .background(Palette.paper.ignoresSafeArea())
         .pageChrome()
         .toolbar { QuotaToolbar(section: "great") }
-        .searchable(text: $query, prompt: Plus.shared.active ? "Search wines or producers" : "Search (\(max(0, Self.freeSearches - searchesUsed)) free this month)")
-        .onSubmit(of: .search) { runSearch() }
         .onChange(of: query) { _, v in if v.isEmpty { applied = "" } }
         .detailPane(first: ordered(shown).first.map { AnyHashable($0) })
     }

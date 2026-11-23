@@ -57,7 +57,7 @@
   icon: globe
   cards:
     - learn: Champagne's grapes and villages
-      visual: "map:champagne"
+      visual: "map:france"
       body: |
         Three main grapes: **Chardonnay** (finesse, citrus, the Côte des Blancs), **Pinot Noir** (body, red fruit, the Montagne de Reims) and **Meunier** (fruity, early-drinking, the Vallée de la Marne).
 

@@ -275,4 +275,16 @@ final class DuoSnapshots: XCTestCase {
         snap("scan-loading") { ScrollView { ScanSkeleton().padding(20) } }
         snap("journal-heat", settle: 3.0) { ScrollView { JournalInsights().padding(20) } }
     }
+
+    /// Atlas search, Georgia in the main atlas, and the France map with its commune lines.
+    func testSearchAndGeorgia() {
+        snap("atlas-search-pauillac", settle: 3.0) { NavigationStack { RegionListView(query: "pauillac") } }
+        snap("atlas-search-geo", settle: 3.0) { NavigationStack { RegionListView(query: "georgia") } }
+        snap("atlas-list", settle: 3.0) { NavigationStack { RegionListView() } }
+        snap("georgia-explorer", settle: 4.0) { MapExplorer(mapID: "georgia") }
+        snap("georgia-kakheti", settle: 4.0) { MapExplorer(mapID: "georgia", highlight: ["tsinandali"]) }
+        snap("fr-lines-medoc", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["haut-medoc"]) }
+        snap("fr-lines-rhone", settle: 4.0) { MapExplorer(mapID: "france", highlight: ["chateauneuf-du-pape"]) }
+        XCTAssertNotNil(ContentStore.shared.region("tsinandali"))
+    }
 }

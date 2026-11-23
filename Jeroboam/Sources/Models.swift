@@ -133,6 +133,8 @@ struct Region: Decodable, Identifiable, Hashable {
     var history: String? = nil
     /// Local grape names that have no page of their own (maps beyond the atlas).
     var local: [String]? = nil
+    /// Part of the main Atlas (Georgia, Moldova) although it is written outside the course.
+    var atlas: Bool? = nil
     let sub: [String]?
     let level: Int
 

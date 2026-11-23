@@ -696,12 +696,14 @@ struct GlossaryScreen: View {
     @State private var query = ""
     var body: some View {
         let terms = ContentStore.shared.library.glossary
-            .filter { query.isEmpty || $0.term.localizedCaseInsensitiveContains(query) || $0.def.localizedCaseInsensitiveContains(query) }
+            .filter { Search.matches(query, $0.term, $0.def) }
             .sorted { $0.term.localizedCaseInsensitiveCompare($1.term) == .orderedAscending }
         let letters = terms.reduce(into: [String]()) { acc, t in
             let l = String(t.term.folding(options: .diacriticInsensitive, locale: nil).prefix(1)).uppercased()
             if !acc.contains(l) { acc.append(l) }
         }
+        VStack(spacing: 0) {
+        SearchBar(text: $query, prompt: "Search terms").padding(.horizontal, 16).padding(.vertical, 10)
         List {
             ForEach(letters, id: \.self) { letter in
                 Section {
@@ -719,10 +721,10 @@ struct GlossaryScreen: View {
             }
         }
         .scrollContentBackground(.hidden)
+        }
         .background(Palette.paper.ignoresSafeArea())
         .halfPage()
         .navigationTitle("Glossary")
-        .searchable(text: $query, prompt: "Search terms")
     }
 }
 

@@ -415,6 +415,10 @@ struct MapRenderer {
             if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) && g.insets.isEmpty {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
             }
+            // the commune lines of the wine regions: fine line work over the appellations, from a modest zoom on
+            if !thumb && rel >= 2.2 {
+                for i in g.insets { regions.stroke(i.communes, with: .color(Palette.focusLand.opacity(0.7)), lineWidth: hair * 0.6) }
+            }
             layer.fill(g.lakes, with: .color(Palette.sea))
             for i in g.insets where !thumb {
                 layer.fill(i.lakes, with: .color(Palette.sea))

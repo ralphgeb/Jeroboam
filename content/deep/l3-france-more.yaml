@@ -67,19 +67,19 @@
   icon: hourglass
   cards:
     - learn: The Rhône and the popes
-      visual: "map:rhone"
+      visual: "map:france"
       body: |
         The **northern Rhône**'s terraces at **Hermitage** and **Côte-Rôtie** were planted under the Romans; in the 1700s–1800s Hermitage was so prized that Bordeaux merchants added it to their best wines ("hermitagé").
 
         In the south, the **popes** moved to **Avignon** in **1309**. Pope John XXII built a summer castle nearby: **Châteauneuf-du-Pape**, "the pope's new castle". In the 1920s its growers, led by **Baron Le Roy**, wrote the rules that became the model for France's **AOC** system (1935).
     - learn: The Loire, garden of kings
-      visual: "map:loire"
+      visual: "map:france"
       body: |
         The Loire was the playground of French kings, whose **châteaux** line the river. Its wines traveled easily by boat to Paris and to the Dutch, who loved the sweet Chenin Blanc of **Anjou** and **Vouvray**.
 
         **Sancerre** was mostly a red-wine and goat-cheese village until phylloxera; it was replanted with **Sauvignon Blanc**, which became world-famous only in the 1960s–70s through Paris bistros.
     - learn: Champagne's inventors
-      visual: "map:champagne"
+      visual: "map:france"
       body: |
         Kings of France were crowned at **Reims** cathedral, and the region's still wines were served at court. Cold winters stopped fermentation, which restarted in spring: early Champagne was fizzy by **accident**. The monk **Dom Pérignon** (1638–1715) worked to make better, clearer wine, but he did not invent the bubbles.
 
