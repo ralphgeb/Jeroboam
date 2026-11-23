@@ -46,7 +46,7 @@ enum PriceCloud {
 
     /// Once per phone: every price this phone already knows goes into the shared list (sent slowly, a few at a time).
     static func seedOnce() async {
-        guard isOn, !UserDefaults.standard.bool(forKey: "priceCloudSeeded"), UserDefaults.standard.bool(forKey: "jero.cellarColorFix") else { return }
+        guard isOn, !UserDefaults.standard.bool(forKey: "priceCloudSeeded"), UserDefaults.standard.bool(forKey: "jero.cellarColorFix2") else { return }
         let items = WineDB.shared.allEntries().compactMap { e -> (WineIdentity, PriceInfo)? in
             guard let p = e.price, p.source != "Estimate", p.currency == "USD" || p.currency.isEmpty else { return nil }
             return (e.identity, p)

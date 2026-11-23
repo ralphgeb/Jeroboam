@@ -33,24 +33,35 @@ final class PriceBook {
         return out
     }
 
-    private static let whiteWords: Set<String> = ["white", "blanc", "bianco", "blanco", "weiss", "weisswein", "branco", "chardonnay", "riesling", "chenin", "viognier", "albarino", "gruner", "veltliner", "vermentino", "muscadet", "semillon", "gewurztraminer", "grigio", "gris", "verdejo", "fiano", "greco", "soave", "chablis", "sancerre", "pouilly", "muscat", "moscato", "trebbiano", "garganega", "cortese", "arneis", "godello", "assyrtiko", "marsanne", "roussanne", "sauternes", "meursault", "montrachet", "sauvignon"]
-    private static let redWords: Set<String> = ["red", "rouge", "rosso", "tinto", "rot", "rotwein", "noir", "nero", "cabernet", "merlot", "syrah", "shiraz", "malbec", "nebbiolo", "sangiovese", "tempranillo", "zinfandel", "barolo", "barbaresco", "chianti", "brunello", "pomerol", "pauillac", "margaux", "medoc", "montepulciano", "primitivo", "mourvedre", "carmenere", "pinotage", "tannat", "aglianico", "amarone", "valpolicella", "rioja", "ribera", "priorat", "pinot noir"]
+    // Words that name the color outright beat words that only suggest it (a "Rioja Reserva Blanco" is white even though Rioja is red country).
+    private static let whiteSure: Set<String> = ["white", "blanc", "bianco", "blanco", "branco", "weiss", "weisswein", "blancs"]
+    private static let redSure: Set<String> = ["red", "rouge", "rosso", "tinto", "rot", "rotwein", "tinta", "nero", "noir"]
+    private static let roseSure: Set<String> = ["rose", "rosato", "rosado", "rosat"]
+    private static let whiteHint: Set<String> = ["chardonnay", "riesling", "chenin", "viognier", "albarino", "gruner", "veltliner", "vermentino", "muscadet", "semillon", "gewurztraminer", "grigio", "gris", "verdejo", "fiano", "greco", "soave", "chablis", "sancerre", "muscat", "moscato", "trebbiano", "garganega", "cortese", "arneis", "godello", "assyrtiko", "marsanne", "roussanne", "sauternes", "meursault", "montrachet", "sauvignon"]
+    private static let redHint: Set<String> = ["cabernet", "merlot", "syrah", "shiraz", "malbec", "nebbiolo", "sangiovese", "tempranillo", "zinfandel", "barolo", "barbaresco", "chianti", "brunello", "pomerol", "pauillac", "margaux", "medoc", "montepulciano", "primitivo", "mourvedre", "carmenere", "pinotage", "tannat", "aglianico", "amarone", "valpolicella", "priorat"]
 
-    /// red / white / rosé from the words of a name (0 when it cannot tell, or both show up).
+    /// Quality-tier words: a different tier is a different wine.
+    private static let topTierWords: Set<String> = ["gran", "grand", "grande", "premier", "superiore", "crianza", "joven", "selezione"]
+    private static let tierWords: Set<String> = topTierWords.union(["reserva", "riserva", "reserve", "cru"])
+
+    /// red (1) / white (2) / rosé (3) from the words of a name; 0 when it cannot tell.
     static func color(of text: String) -> Int8 {
         let t = text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
         var words = Set<String>()
         var cur = ""
         for ch in t { if ch.isLetter { cur.append(ch) } else { if !cur.isEmpty { words.insert(cur) }; cur = "" } }
         if !cur.isEmpty { words.insert(cur) }
-        if t.contains("blanc de") || t.contains("blanc de blancs") { return 2 }
-        if t.contains("pinot noir") { words.insert("noir") }
-        let ro = !words.isDisjoint(with: Set(["rose", "rosato", "rosado", "rosat"]))
-        let wh = !words.isDisjoint(with: whiteWords), rd = !words.isDisjoint(with: redWords.subtracting(["pinot noir"]))
-        if ro && !wh && !rd { return 3 }
-        if wh && !rd && !ro { return 2 }
-        if rd && !wh && !ro { return 1 }
-        return 0
+        if t.contains("blanc de") { return 2 }
+        func pick(_ w: Set<String>, _ r: Set<String>, _ ro: Set<String>) -> Int8 {
+            let hw = !words.isDisjoint(with: w), hr = !words.isDisjoint(with: r), hro = !words.isDisjoint(with: ro)
+            if hro && !hw && !hr { return 3 }
+            if hw && !hr && !hro { return 2 }
+            if hr && !hw && !hro { return 1 }
+            return 0
+        }
+        let sure = pick(whiteSure, redSure, roseSure)
+        if sure != 0 { return sure }
+        return pick(whiteHint, redHint, [])
     }
     /// The color the scanned wine is meant to be: the identified style first, then the words in its name.
     static func color(of w: WineIdentity) -> Int8 {
@@ -106,6 +117,9 @@ final class PriceBook {
                 let matched = q.intersection(r.tokens).count
                 let coverage = Double(matched) / Double(q.count)
                 guard coverage >= 0.75, matched >= min(2, q.count) else { continue }
+                // a Reserva and a Gran Reserva (or a Grand Cru and a plain village wine) are different wines, whatever the price
+                let qTier = q.intersection(Self.tierWords), rTier = r.tokens.intersection(Self.tierWords)
+                if qTier.isEmpty ? !rTier.isDisjoint(with: Self.topTierWords) : qTier != rTier { continue }
                 // a white and a red of the same name are different wines: never take the other color's price
                 if wineColor != 0, r.color != 0, r.color != wineColor { continue }
                 cands.append((coverage * 10 - Double(r.tokens.count - matched) * 0.15, r))

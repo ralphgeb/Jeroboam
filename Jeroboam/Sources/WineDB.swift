@@ -48,7 +48,7 @@ final class WineDB {
     }
     /// Prices found by the shop list before it told red from white are looked up again (once).
     func dropShopPricesOnce() {
-        let flag = "jero.shopPricesColorFix"
+        let flag = "jero.shopPricesColorFix2"
         guard !UserDefaults.standard.bool(forKey: flag) else { return }
         UserDefaults.standard.set(true, forKey: flag)
         lock.lock()

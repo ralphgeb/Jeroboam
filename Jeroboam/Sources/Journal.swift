@@ -167,7 +167,7 @@ final class JournalStore {
 
     /// Once: bottles priced from the shop list before it told red from white are priced again.
     func repriceShopBottlesOnce() async {
-        let flag = "jero.cellarColorFix"
+        let flag = "jero.cellarColorFix2"
         guard persist, !UserDefaults.standard.bool(forKey: flag) else { return }
         WineDB.shared.dropShopPricesOnce()
         for b in cellar {
@@ -640,7 +640,7 @@ struct PriceCard: View {
             .components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }.joined(separator: "+")
         let v = w.vintage.trimmingCharacters(in: .whitespaces)
         guard let url = URL(string: "https://www.wine-searcher.com/find/" + slug + (v.count == 4 ? "/" + v : "")) else { return nil }
-        return (url, "Find the cheapest price")
+        return (url, "Compare prices on Wine-Searcher")
     }
 
     var body: some View {
