@@ -149,3 +149,10 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - Map explorer "More details" button (France etc.) toggles commune lines + names.
 - Journal wine page: `WineGlance` (4 compact tiles + 2:1 region map), then `WineInfoCard` holds grapes, drink window, fun fact. Heat map = blurred + alpha-threshold blobs in 3 bands.
 - Atlas extras with `atlas: true`: georgia, moldova, great-lakes (Midwest), oregon (Oregon & Washington, ~38 AVAs).
+
+## Added in builds 62+ (cellar, history, anonymous wine DB)
+- Journal: first 6 cellar bottles + "Open your cellar" -> `CellarView.swift` (valuation, average bottle, filters/sort, `paidUSD` per bottle, gain/loss). `ScanHistory.swift` lists every scan from `WineDB` (`noteScan`, `history()`), kept even when a bottle/tasting is deleted. `Flags.swift` + countries card in `JournalInsights`; heat map = `HeatImage` density bitmap (sigma 6.5).
+- Mock exams: 4 versions per level (`QuizGenerator.exam(level:version:)`, `ExamShuffleRNG`), 20 fixed lesson questions each + 10 generated. Practice shows a version picker.
+- Anonymous wine DB: Cloudflare table `wines` (backend/cloudflare/schema.sql + worker.js `/wine`); app: `PriceCloud.shareWine/wine(sig:)`, called from `WineDB.noteScan` and `WineRecognizer.identify(image:)` (cloud hit = free scan). Privacy page updated; App Store "App Privacy" answers must say anonymous usage data.
+- Widget look: App Group NOT registered (build 60 failed on it); widgets follow the phone's appearance. Needs `group.com.ralphgeb.jero` registered in the developer portal before an in-app picker can come back.
+- Snapshot workflow now makes `build/` so test.log is published to the `snapshots` branch.
