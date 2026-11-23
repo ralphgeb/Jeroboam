@@ -1142,16 +1142,6 @@
   grapes: []
   local: [Arinto, Bical]
   summary: A small inland Vinho Verde-like region south of the Douro, with high-acid whites and reds.
-- id: adelaide-hills
-  name: Adelaide Hills
-  country: Australia
-  kind: region
-  map: australia
-  highlight: [adelaide-hills]
-  level: 3
-  climate: Cool, up to 700 m altitude.
-  grapes: [sauvignon-blanc, chardonnay, pinot-noir]
-  summary: 'Cool, high vineyards above Adelaide: crisp Sauvignon Blanc, elegant Chardonnay and Pinot Noir and sparkling base wines.'
 - id: lenswood
   name: Lenswood
   country: Australia
@@ -1170,16 +1160,6 @@
   level: 3
   grapes: [chardonnay, pinot-noir]
   summary: A sub-region of the Adelaide Hills with cool, high vineyards for Chardonnay and Pinot Noir.
-- id: eden-valley
-  name: Eden Valley
-  country: Australia
-  kind: region
-  map: australia
-  highlight: [eden-valley]
-  level: 3
-  climate: Cooler than the Barossa floor, 400 to 600 m.
-  grapes: [riesling, syrah]
-  summary: High hills east of the Barossa, famous for steely, long-lived Riesling and old-vine Shiraz.
 - id: high-eden
   name: High Eden
   country: Australia
@@ -1198,15 +1178,6 @@
   level: 3
   grapes: [cabernet-sauvignon, merlot]
   summary: 'Part of the Limestone Coast: red terra rossa soils over limestone give fruit-rich Cabernet and Merlot.'
-- id: padthaway
-  name: Padthaway
-  country: Australia
-  kind: region
-  map: australia
-  highlight: [padthaway]
-  level: 3
-  grapes: [syrah, chardonnay]
-  summary: 'A Limestone Coast region of flat plains: sturdy Shiraz and Chardonnay.'
 - id: mount-benson
   name: Mount Benson
   country: Australia
@@ -1234,15 +1205,6 @@
   level: 3
   grapes: [pinot-noir, chardonnay]
   summary: The southernmost Limestone Coast region, cool and maritime, with Pinot Noir and Chardonnay.
-- id: langhorne-creek
-  name: Langhorne Creek
-  country: Australia
-  kind: region
-  map: australia
-  highlight: [langhorne-creek]
-  level: 3
-  grapes: [cabernet-sauvignon, syrah]
-  summary: A flat plain next to Lake Alexandrina whose cool afternoon breezes ripen Cabernet and Shiraz.
 - id: currency-creek
   name: Currency Creek
   country: Australia
