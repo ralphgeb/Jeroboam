@@ -31,7 +31,7 @@ struct ProgressData: Codable {
     var reminderHour = 19
     var morningFacts: Bool? = nil        // nil = on with reminders
     var factHour: Int? = nil
-    var appearance = 0                    // 0 auto, 1 light, 2 dark
+    var appearance = 1                    // 0 auto, 1 light, 2 dark (the app starts in light mode)
     var practiceSessions = 0
     var perfectLessons = 0
     var viewedGrapes: [String] = []
@@ -54,6 +54,12 @@ final class GameProgress {
             data = d
         } else {
             data = ProgressData()
+        }
+        // the app always starts in light mode: phones still on the old default (Automatic) are moved to Light once;
+        // after that the choice in Settings is respected
+        if !UserDefaults.standard.bool(forKey: "jero.lightStart") {
+            UserDefaults.standard.set(true, forKey: "jero.lightStart")
+            if data.appearance == 0 { data.appearance = 1 }
         }
         refreshStreakState()
     }
