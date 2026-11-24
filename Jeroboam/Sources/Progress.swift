@@ -27,6 +27,7 @@ struct ProgressData: Codable {
     var answered = 0
     var correct = 0
     var achievements: [String] = []
+    var achievementDates: [String: Date]? = nil     // when each badge was earned (badges earned before this existed have none)
     var reminders = false
     var reminderHour = 19
     var morningFacts: Bool? = nil        // nil = on with reminders
@@ -241,7 +242,15 @@ final class GameProgress {
         var new: [Achievement] = []
         for a in Achievement.all where !data.achievements.contains(a.id) && a.test(self) {
             data.achievements.append(a.id)
+            var d = data.achievementDates ?? [:]
+            d[a.id] = Date()
+            data.achievementDates = d
             new.append(a)
+        }
+        if !new.isEmpty, data.onboarded {
+            let dates = data.achievementDates ?? [:]
+            let list = new
+            Task { @MainActor in BadgeCelebration.shared.announce(list, dates: dates) }
         }
         return new
     }

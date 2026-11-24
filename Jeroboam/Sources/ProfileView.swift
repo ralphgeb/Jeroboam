@@ -18,6 +18,7 @@ struct ProfileView: View {
     @State private var showExtraAtlas = false
     @State private var settingsOpen = false
     @State private var showCredits = false
+    @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
 
     var body: some View {
@@ -33,12 +34,12 @@ struct ProfileView: View {
                 if width >= AdaptiveLayout.twoPaneThreshold {
                     // Duo sideways: you and your progress on the left, the settings on the right
                     HStack(spacing: 0) {
-                        ScrollView { VStack(alignment: .leading, spacing: 30) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
-                            .scrollIndicators(.hidden).frame(width: width / 2)
+                        ScrollView { VStack(alignment: .leading, spacing: 30) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                            .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                         Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
-                        ScrollView { VStack(alignment: .leading, spacing: 30) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8) }
-                            .scrollIndicators(.hidden).frame(width: width / 2 - 0.5)
+                        ScrollView { VStack(alignment: .leading, spacing: 30) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                            .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2 - 0.5)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     }
                 } else {
@@ -49,12 +50,26 @@ struct ProfileView: View {
                         }
                         .padding(.horizontal, Metrics.margin)
                         .readable(720)
+                        .containerRelativeFrame(.horizontal)
+                        .clipped()
                     }
-                    .scrollIndicators(.hidden)
+                    .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal)
                     .environment(\.windowWidth, width).environment(\.isWide, false)
                 }
             }
+            .padding(.top, coverClose != nil ? 30 : 0)
             .background(Palette.paper.ignoresSafeArea())
+            .overlay(alignment: .topTrailing) {
+                if let close = coverClose {
+                    Button { close() } label: {
+                        Image(systemName: "xmark").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
+                            .frame(width: 34, height: 34).background(Circle().fill(Palette.card))
+                            .overlay(Circle().strokeBorder(Palette.line.opacity(0.8), lineWidth: 0.5))
+                    }
+                    .accessibilityLabel("Close")
+                    .padding(.top, 32).padding(.trailing, Metrics.margin)
+                }
+            }
             .toolbar(.hidden, for: .navigationBar)
             .onAppear { progress.checkAchievements() }
             .statusBarBackdrop()
@@ -108,28 +123,34 @@ struct ProfileView: View {
 
                     WeekStrip()
 
-                    // Achievements
+    }
+
+    @ViewBuilder private func rightColumn() -> some View {
+                    // Achievements: on the Duo sideways the badges fill the right-hand side
                     VStack(alignment: .leading, spacing: 14) {
-                        SectionTitle(text: "Achievements")
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12, alignment: .top), count: 3), alignment: .center, spacing: 18) {
+                        SectionTitle(text: "Achievements", detail: "\(progress.data.achievements.count)/\(Achievement.all.count)")
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12, alignment: .top)], alignment: .center, spacing: 18) {
                             ForEach(Achievement.all) { a in
                                 let got = progress.data.achievements.contains(a.id)
-                                VStack(spacing: 6) {
-                                    AchievementBadge(achievement: a, unlocked: got, size: 78)
-                                        .frame(width: 78, height: 78)
-                                    Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
-                                        .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
-                                    Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
-                                        .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
+                                Button {
+                                    if got { BadgeCelebration.shared.play(a, date: progress.data.achievementDates?[a.id]) }
+                                } label: {
+                                    VStack(spacing: 6) {
+                                        AchievementBadge(achievement: a, unlocked: got, size: 78)
+                                            .frame(width: 78, height: 78)
+                                        Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
+                                            .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
+                                        Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
+                                            .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .top)
+                                    .contentShape(Rectangle())
                                 }
-                                .frame(maxWidth: .infinity, alignment: .top)
+                                .buttonStyle(.plain)
                             }
                         }
                     }
 
-    }
-
-    @ViewBuilder private func rightColumn() -> some View {
                     PlusStatusCard()
 
                     // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.
@@ -155,7 +176,7 @@ struct ProfileView: View {
                             DuoPreviewPicker().padding(.vertical, 12)
                             Hairline()
                             Button {
-                                dismiss()
+                                if let c = coverClose { c() } else { dismiss() }
                                 Task { try? await Task.sleep(for: .milliseconds(500)); progress.data.onboarded = false }
                             } label: { testRow("Replay the welcome", "arrow.counterclockwise") }
                             Hairline()
@@ -166,6 +187,37 @@ struct ProfileView: View {
                             Hairline()
                             Button { Notifications.shared.sendTestFact() } label: { testRow("Send a fun fact now", "bell.badge") }
                             Hairline()
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Badge animations").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                                Text("Tap the play button to see one. Tap the circle to make it the one the app uses.")
+                                    .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
+                            ForEach(BadgeStyle.allCases) { st in
+                                HStack(spacing: 12) {
+                                    Button { BadgeStyle.active = st; limitTick += 1 } label: {
+                                        Image(systemName: BadgeStyle.active == st ? "largecircle.fill.circle" : "circle")
+                                            .font(.system(size: 20)).foregroundStyle(Palette.wine)
+                                    }
+                                    .buttonStyle(.plain).accessibilityLabel("Use " + st.title)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(st.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
+                                        Text(st.blurb).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer(minLength: 6)
+                                    Button {
+                                        let a = Achievement.all.first { $0.id == "streak-7" } ?? Achievement.all[0]
+                                        BadgeCelebration.shared.play(a, date: Date(), style: st)
+                                    } label: {
+                                        Image(systemName: "play.fill").font(.system(size: 13, weight: .bold)).foregroundStyle(Palette.onWine)
+                                            .frame(width: 38, height: 32).background(Capsule().fill(Palette.wine))
+                                    }
+                                    .buttonStyle(.plain).accessibilityLabel("Play " + st.title)
+                                }
+                                .padding(.vertical, 8)
+                                Hairline()
+                            }
+                            .id(limitTick)
                             Button { DailyBudget.testLimit.toggle(); limitTick += 1 } label: {
                                 testRow(DailyBudget.testLimit ? "Limit reached (tap to switch off)" : "Pretend today's limit is reached", "hand.raised")
                             }

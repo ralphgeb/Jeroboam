@@ -37,7 +37,7 @@ struct AvatarButton: View {
     private var button: some View {
         Button { showProfile = true } label: { Avatar(size: size, version: version, name: name) }
             .accessibilityLabel("Profile and settings")
-            .sheet(isPresented: $showProfile) { ProfileView() }
+            .modifier(ProfilePresenter(show: $showProfile))
             .onAppear {
                 #if DEBUG
                 if DebugScreens.screen == "profile" && !AvatarButton.debugShown {
@@ -50,6 +50,16 @@ struct AvatarButton: View {
     #if DEBUG
     static var debugShown = false
     #endif
+}
+
+/// The profile opens as a sheet on a phone, and as a full page in the Duo's page area (with the tab column still in view).
+private struct ProfilePresenter: ViewModifier {
+    @Binding var show: Bool
+    @Environment(\.hasRail) private var hasRail
+    func body(content: Content) -> some View {
+        if hasRail { content.railCover(isPresented: $show) { ProfileView() } }
+        else { content.sheet(isPresented: $show) { ProfileView() } }
+    }
 }
 
 struct Avatar: View {

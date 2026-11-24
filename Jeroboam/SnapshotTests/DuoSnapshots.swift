@@ -223,6 +223,28 @@ final class DuoSnapshots: XCTestCase {
     func testLearnHome() { snap("learn") { LearnView() } }
     func testRoot() { snap("root") { RootView() } }
 
+    /// Each badge announcement, a moment in and when it has settled (phone size).
+    func testBadgeStyles() {
+        guard let a = Achievement.all.first(where: { $0.id == "streak-7" }) else { return XCTFail("no badge") }
+        let size = CGSize(width: 393, height: 852)
+        for style in BadgeStyle.allCases {
+            for (label, wait) in [("mid", 1.2), ("end", 3.9)] {
+                let root = BadgeAnnouncePage(achievement: a, date: Date(), style: style, onDone: {}).preferredColorScheme(.light)
+                let host = UIHostingController(rootView: root)
+                let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+                window.rootViewController = host
+                window.makeKeyAndVisible()
+                host.view.frame = window.bounds
+                host.view.layoutIfNeeded()
+                spin(wait)
+                let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+                let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true) }
+                if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("badge-\(style.rawValue)-\(label).png")) }
+                window.isHidden = true
+            }
+        }
+    }
+
     /// The real app (RootView alone, nothing drawn around it). On the outer screen a 64 pt column on the right stands in for the
     /// strip iOS keeps for the camera and clock; the opened screen has none.
     func testRootFaithful() {
