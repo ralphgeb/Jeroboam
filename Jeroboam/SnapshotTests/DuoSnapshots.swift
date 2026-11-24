@@ -222,6 +222,32 @@ final class DuoSnapshots: XCTestCase {
 
     func testLearnHome() { snap("learn") { LearnView() } }
     func testRoot() { snap("root") { RootView() } }
+
+    /// The real app (RootView alone, nothing drawn around it). On the outer screen a 64 pt column on the right stands in for the
+    /// strip iOS keeps for the camera and clock; the opened screen has none.
+    func testRootFaithful() {
+        let progress = GameProgress()
+        progress.data.onboarded = true
+        let journal = JournalStore.sample
+        for (label, size) in Self.screens {
+            let root = AdaptiveRoot { RootView() }
+                .environment(progress).environment(journal).background(Palette.paper).ignoresSafeArea()
+            let host = ColumnController(rootView: AnyView(root))
+            host.column = label == "outside" ? 64 : 0
+            let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+            window.rootViewController = host
+            window.makeKeyAndVisible()
+            host.view.frame = window.bounds
+            host.view.layoutIfNeeded()
+            spin(2.5)
+            let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+            let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in
+                host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true)
+            }
+            if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("rootfaithful-\(label).png")) }
+            window.isHidden = true
+        }
+    }
     func testAtlas() { snap("atlas") { LibraryView() } }
     func testJournal() { snap("journal") { JournalView() } }
     func testPractice() { snap("practice") { PracticeView() } }
@@ -395,5 +421,16 @@ final class DuoSnapshots: XCTestCase {
             if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("\(name).png")) }
             window.isHidden = true
         }
+    }
+}
+
+/// A hosting controller with no safe area of its own, plus a column on the right of the given width.
+final class ColumnController<C: View>: UIHostingController<C> {
+    var column: CGFloat = 0
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        let a = additionalSafeAreaInsets, s = view.safeAreaInsets
+        let want = UIEdgeInsets(top: -(s.top - a.top), left: -(s.left - a.left), bottom: -(s.bottom - a.bottom), right: -(s.right - a.right) + column)
+        if a != want { additionalSafeAreaInsets = want }
     }
 }
