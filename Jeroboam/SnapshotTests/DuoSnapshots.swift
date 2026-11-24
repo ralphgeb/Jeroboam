@@ -370,4 +370,30 @@ final class DuoSnapshots: XCTestCase {
         snap("history4", settle: 3.0) { NavigationStack { ScanHistoryView() }.environment(j) }
         snap("heat4", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(j) }
     }
+
+    /// The real RootView with the Duo's status column (camera, clock, battery) as a right-hand safe-area inset: the tabs must
+    /// stand inside that column, under the camera, and the page gets the rest. Also without the column (the tabs keep their own).
+    func testRailColumn() {
+        let progress = GameProgress()
+        progress.data.onboarded = true
+        let journal = JournalStore.sample
+        let cases: [(String, CGSize, CGFloat)] = [
+            ("col-outside", CGSize(width: 466, height: 678), 66), ("col-landscape", CGSize(width: 951, height: 669), 66),
+            ("col-none-outside", CGSize(width: 466, height: 678), 0), ("col-none-portrait", CGSize(width: 669, height: 951), 0),
+        ]
+        for (name, size, inset) in cases {
+            let host = UIHostingController(rootView: AnyView(RootView().environment(progress).environment(journal).background(Palette.paper)))
+            host.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: inset)
+            let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+            window.rootViewController = host
+            window.makeKeyAndVisible()
+            host.view.frame = window.bounds
+            host.view.layoutIfNeeded()
+            spin(3.0)
+            let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+            let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true) }
+            if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("\(name).png")) }
+            window.isHidden = true
+        }
+    }
 }

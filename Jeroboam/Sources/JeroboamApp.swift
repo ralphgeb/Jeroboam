@@ -144,36 +144,44 @@ struct RootView: View {
                     // flip the layout and rebuild every page (search fields lost the page the moment they were tapped).
                     let rail = railDecision(g.size)
                     if rail {
+                        // Where iOS keeps a column for itself on the right (the Duo's camera, clock and battery), the tabs stand inside that
+                        // column under the camera, as in Scout: nothing extra is reserved for them. Without such a column (the opened Duo
+                        // upright, or any plain window) the page leaves its own slim column for them.
+                        let inset = g.safeAreaInsets.trailing
+                        let inColumn = inset > 40
+                        let reserve: CGFloat = inColumn ? 0 : AdaptiveLayout.railWidth
                         HStack(spacing: 0) {
                             railPages
-                                .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
+                                .environment(\.windowWidth, g.size.width - reserve)
                                 .frame(maxWidth: .infinity)
                                 // covers (the full map) fill the page area in front of the page, the tab column stays
                                 .overlay {
                                     if let c = covers.content {
                                         c.background(Palette.paper.ignoresSafeArea()).ignoresSafeArea()
-                                            .environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth)
+                                            .environment(\.windowWidth, g.size.width - reserve)
                                             .transition(.move(edge: .bottom))
                                     }
                                 }
                                 .animation(.easeInOut(duration: 0.25), value: covers.content == nil)
-                                .overlay { if let pw = covers.paywall { pw.environment(\.windowWidth, g.size.width - AdaptiveLayout.railWidth).transition(.opacity) } }
-                                .onAppear { covers.railActive = true; covers.pageWidth = g.size.width - AdaptiveLayout.railWidth }
+                                .overlay { if let pw = covers.paywall { pw.environment(\.windowWidth, g.size.width - reserve).transition(.opacity) } }
+                                .onAppear { covers.railActive = true; covers.pageWidth = g.size.width - reserve }
                                 .onDisappear { covers.railActive = false }
-                                .onChange(of: g.size.width) { _, w in covers.pageWidth = w - AdaptiveLayout.railWidth }
-                            Color.clear.frame(width: AdaptiveLayout.railWidth)
+                                .onChange(of: g.size.width) { _, w in covers.pageWidth = w - reserve }
+                            if !inColumn { Color.clear.frame(width: AdaptiveLayout.railWidth) }
                         }
                         .environment(\.hasRail, true)
                         .environment(\.coverHost, covers)
                         .overlay(alignment: .bottomTrailing) {
-                            DuoRail(selection: tabBinding).frame(width: AdaptiveLayout.railWidth)
+                            DuoRail(selection: tabBinding, column: inColumn ? inset : AdaptiveLayout.railWidth)
+                                .frame(width: inColumn ? inset : AdaptiveLayout.railWidth)
+                                .offset(x: inColumn ? inset : 0)
                         }
                         // one profile button, always in the same place: the top right of the left half (the Duo's camera and
                         // battery sit in the right-hand strip, so it stays out of there)
                         .overlay(alignment: .topLeading) {
                             // only on the first two tabs, and not once the big title has scrolled up into the small bar
                             if covers.content == nil, tab <= 1, HeaderState.shared.collapsed[tab == 0 ? "Learn" : "Practice"] != true {
-                            let page = g.size.width - AdaptiveLayout.railWidth
+                            let page = g.size.width - reserve
                             let edge = page >= AdaptiveLayout.twoPaneThreshold ? page / 2 : page
                             AvatarButton(size: 32, ignoreRail: true)
                                 .padding(.top, 32)
@@ -244,6 +252,9 @@ struct RootView: View {
 /// The four tabs standing up in a slim column on the right (the iPhone Duo), in reach of the thumb.
 struct DuoRail: View {
     @Binding var selection: Int
+    /// The width of the column the rail stands in (78 normally; the Duo's status column when the tabs sit under the camera).
+    var column: CGFloat = AdaptiveLayout.railWidth
+    private var w: CGFloat { min(62, max(48, column - 14)) }
     private let items: [(String, String, String)] = [
         ("Learn", "book", "book.fill"), ("Practice", "target", "target"),
         ("Atlas", "globe.europe.africa", "globe.europe.africa.fill"), ("Journal", "camera.aperture", "camera.aperture"),
@@ -256,12 +267,12 @@ struct DuoRail: View {
                     VStack(spacing: 3) {
                         Image(systemName: on ? item.2 : item.1)
                             .font(.system(size: 19, weight: .semibold))
-                            .frame(width: 46, height: 46)
+                            .frame(width: w * 0.74, height: w * 0.74)
                             .background(on ? Palette.wine : .clear, in: Circle())
                             .foregroundStyle(on ? Palette.onWine : Palette.ink)
                         Text(item.0).font(.system(size: 10, weight: .semibold)).foregroundStyle(on ? Palette.wine : Palette.inkSoft)
                     }
-                    .frame(width: 62, height: 70)
+                    .frame(width: w, height: 70)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
