@@ -1,0 +1,61 @@
+name: Appetize build (simulator .app in a zip)
+
+# Builds the app for the iOS Simulator (no signing, and NO secrets: the AI key and price keys are left out on purpose, because the
+# file goes to a third-party site), zips Jero.app and attaches it to the run as the artifact "Jero-simulator".
+# Download it from the run page, unzip once, and upload the inner Jero-simulator.zip to Appetize.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulator:
+    runs-on: xcode-27
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: Jeroboam
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select the newest released Xcode
+        run: |
+          best=$(ls -d /Applications/Xcode_*.app 2>/dev/null | grep -viE "beta|rc|preview" | sort -V | tail -1)
+          if [ -n "$best" ]; then sudo xcode-select -s "$best/Contents/Developer"; fi
+          xcodebuild -version
+
+      - name: Generate Xcode project (XcodeGen)
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build a Release simulator app (both Mac chip types, so Appetize can run it)
+        run: |
+          mkdir -p build
+          set -o pipefail
+          build() {
+            xcodebuild build -project Jeroboam.xcodeproj -scheme Jeroboam -configuration Release \
+              -sdk iphonesimulator -destination "generic/platform=iOS Simulator" \
+              -derivedDataPath build/dd CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+              ARCHS="$1" ONLY_ACTIVE_ARCH=NO 2>&1 | tee build/build.log | grep -E "error:|BUILD" || true
+            grep -q "BUILD SUCCEEDED" build/build.log
+          }
+          build "arm64 x86_64" || { echo "universal failed, trying arm64 only"; build "arm64"; }
+
+      - name: Zip Jero.app
+        run: |
+          APP=$(find build/dd/Build/Products -name "Jeroboam.app" -maxdepth 3 | head -1)
+          echo "app: $APP"
+          rm -rf pkg && mkdir pkg
+          cp -R "$APP" pkg/Jero.app
+          lipo -archs pkg/Jero.app/Jeroboam || true
+          (cd pkg && zip -qry ../Jero-simulator.zip Jero.app)
+          ls -la Jero-simulator.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Jero-simulator
+          path: Jeroboam/Jero-simulator.zip
+          retention-days: 14
+          compression-level: 0
