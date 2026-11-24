@@ -1011,7 +1011,7 @@ struct ScanFlow: View {
         if working {
             ScanSkeleton()
         } else {
-            if let e = error { Text(e).font(.system(size: 13.5)).foregroundStyle(Palette.wrong) }
+            if let e = error { ErrorNote(message: e) }
             if identified { WineInfoCard(wine: wine) }
             else {
                 TextField("Wine name", text: $wine.name)
@@ -1234,13 +1234,13 @@ struct TastingFlow: View {
                         .font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
                 }
                 PriceCard(price: entry.price, loading: pricing, wine: entry.wine)
-                if let e = error { Text(e).font(.system(size: 13.5)).foregroundStyle(Palette.wrong) }
+                if let e = error { ErrorNote(message: e) }
                 Button("Start blind tasting") { go(.look) }
                     .buttonStyle(PrimaryButtonStyle(enabled: entry.identified))
                     .disabled(!entry.identified)
             } else {
                 if entry.identified { WineInfoCard(wine: entry.wine) }
-                if let e = error { Text(e).font(.system(size: 13.5)).foregroundStyle(Palette.wrong) }
+                if let e = error { ErrorNote(message: e) }
                 TextField("Wine name", text: $entry.wine.name)
                     .font(.system(size: 17, weight: .semibold))
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))

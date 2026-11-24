@@ -243,6 +243,19 @@ final class DuoSnapshots: XCTestCase {
                 window.isHidden = true
             }
         }
+        // the daily limit card
+        let card = LimitReachedCard().padding(20).frame(width: size.width, height: size.height, alignment: .top).padding(.top, 80).background(Palette.paper)
+        let host = UIHostingController(rootView: card)
+        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
+        window.rootViewController = host
+        window.makeKeyAndVisible()
+        host.view.frame = window.bounds
+        host.view.layoutIfNeeded()
+        spin(2.0)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 2
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: true) }
+        if let png = img.pngData() { try? png.write(to: outDir.appendingPathComponent("limit-card.png")) }
+        window.isHidden = true
     }
 
     /// The real app (RootView alone, nothing drawn around it). On the outer screen a 64 pt column on the right stands in for the
