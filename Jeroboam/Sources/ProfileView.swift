@@ -17,6 +17,7 @@ struct ProfileView: View {
     @State private var currencyCode = Currency.code
     @State private var showExtraAtlas = false
     @State private var settingsOpen = false
+    @State private var showCredits = false
     @State private var widgetTheme = WidgetSettings.theme
 
     var body: some View {
@@ -59,6 +60,7 @@ struct ProfileView: View {
             .statusBarBackdrop()
             .plusSheetHost()
             .sheet(isPresented: $showExtraAtlas) { ExtraAtlasView() }
+            .sheet(isPresented: $showCredits) { CreditsView() }
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -257,6 +259,16 @@ struct ProfileView: View {
                         }
                         .tint(Palette.wine)
                     }
+                    Hairline()
+                    Button { showCredits = true } label: {
+                        HStack {
+                            Text("Map and photo credits").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                        }
+                        .padding(.vertical, 14).contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
                     Hairline()
                     Button(role: .destructive) { confirmReset = true } label: {
                         Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
