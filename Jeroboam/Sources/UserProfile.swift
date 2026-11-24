@@ -199,8 +199,10 @@ struct CollapsingPage<Content: View>: View {
     @Environment(\.isWide) private var isWide
 
     var body: some View {
+        ScrollViewReader { proxy in
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
+                Color.clear.frame(height: 0).id("pageTop")
                 ScreenHeader(eyebrow: eyebrow, title: title, subtitle: subtitle)
                     .onGeometryChange(for: CGFloat.self) { $0.frame(in: .named("collapsingPage")).minY } action: { y in
                         let p = min(1, max(0, (-12 - y) / 50))
@@ -213,6 +215,11 @@ struct CollapsingPage<Content: View>: View {
         .coordinateSpace(name: "collapsingPage")
         .scrollIndicators(.hidden)
         .safeAreaInset(edge: .top, spacing: 0) { bar }
+        .onReceive(NotificationCenter.default.publisher(for: .tabScrollTop)) { n in
+            guard (n.object as? String) == title else { return }
+            withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo("pageTop", anchor: .top) }
+        }
+        }
     }
 
     private var bar: some View {

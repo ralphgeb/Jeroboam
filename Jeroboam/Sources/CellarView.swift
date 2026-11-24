@@ -106,13 +106,13 @@ struct CellarView: View {
                 } else if asList {
                     GroupCard {
                         ForEach(Array(list.enumerated()), id: \.element.id) { i, b in
-                            Button { opened = b } label: { row(b, last: i == list.count - 1) }.buttonStyle(RowPressStyle())
+                            DetailLink(value: b) { row(b, last: i == list.count - 1) }.buttonStyle(RowPressStyle())
                         }
                     }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12, alignment: .top)], alignment: .center, spacing: 12) {
                         ForEach(list) { b in
-                            Button { opened = b } label: { tile(b) }.buttonStyle(PressableStyle())
+                            DetailLink(value: b) { tile(b) }.buttonStyle(PressableStyle())
                         }
                     }
                 }
@@ -124,7 +124,13 @@ struct CellarView: View {
         .background(Palette.paper.ignoresSafeArea())
         .pageChrome()
         .animation(.smooth(duration: 0.25), value: color)
-        .navigationDestination(item: $opened) { CellarDetailView(bottleID: $0.id) }
+        // pull down: check the shop list and wine database now, and update every bottle that changed
+        .refreshable {
+            await PriceUpdater.refresh(force: true)
+            await journal.refreshFromShopList()
+        }
+        // Duo sideways: the list on the left, the first (or tapped) bottle on the right
+        .detailPane(first: list.first.map { AnyHashable($0) })
     }
 
     // total value, average price, bottle count
@@ -135,18 +141,16 @@ struct CellarView: View {
         let bottlesPriced = priced.reduce(0) { $0 + $1.quantity }
         let avg = bottlesPriced == 0 ? 0 : priced.reduce(0.0) { $0 + ($1.price?.average ?? 0) * Double($1.quantity) } / Double(bottlesPriced)
         let cur = journal.cellarCurrency
-        let paidBottles = list.filter { $0.paidUSD != nil }
-        let paid = paidBottles.reduce(0.0) { $0 + ($1.paidTotal ?? 0) }
-        let worthOfPaid = paidBottles.reduce(0.0) { $0 + $1.value }
-        let diff = worthOfPaid - paid
         return VStack(spacing: 10) {
-            HStack(spacing: 10) {
-                statTile(money(value, cur), filtersOn ? "value of these" : "valuation today", .value, highlight: true)
-                statTile(avg > 0 ? money(avg, cur) : "–", "average bottle\n\(n) \(n == 1 ? "bottle" : "bottles")", .average)
-                if !paidBottles.isEmpty {
-                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain on\nwhat you paid" : "loss on\nwhat you paid", .gain)
+            // the value takes two thirds of the row, the average bottle the last third
+            GeometryReader { g in
+                HStack(spacing: 10) {
+                    statTile(money(value, cur), filtersOn ? "value of these" : "valuation today", .value, highlight: true)
+                        .frame(width: max(0, (g.size.width - 10) * 2 / 3))
+                    statTile(avg > 0 ? money(avg, cur) : "–", "per bottle · \(n)", .average)
                 }
             }
+            .frame(height: 64)
             if let s = openStat {
                 CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.unfold)
             }
@@ -186,9 +190,9 @@ struct CellarView: View {
                     Image(systemName: "chart.bar.xaxis").font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(highlight ? Palette.onWine.opacity(0.7) : Palette.inkFaint)
                 }
-                Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(2, reservesSpace: true)
+                Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(1)
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(12)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading).padding(12)
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(highlight ? Palette.wine : Palette.card))
             .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(on ? Palette.wine : .clear, lineWidth: 1.5))
         }

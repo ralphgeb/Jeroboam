@@ -32,13 +32,13 @@ struct ProfileView: View {
         NavigationStack {
             Group {
                 if width >= AdaptiveLayout.twoPaneThreshold {
-                    // Duo sideways: you and your progress on the left, the settings on the right
+                    // Duo sideways: the badges on the left, you, your settings and progress on the right
                     HStack(spacing: 0) {
-                        ScrollView { VStack(alignment: .leading, spacing: 24) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                        ScrollView { VStack(alignment: .leading, spacing: 24) { achievements() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
                             .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                         Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
-                        ScrollView { VStack(alignment: .leading, spacing: 24) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                        ScrollView { VStack(alignment: .leading, spacing: 24) { leftColumn(); rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
                             .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2 - 0.5)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     }
@@ -46,6 +46,7 @@ struct ProfileView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 24) {
                             leftColumn()
+                            achievements()
                             rightColumn()
                         }
                         .padding(.horizontal, Metrics.margin)
@@ -128,8 +129,7 @@ struct ProfileView: View {
 
     }
 
-    @ViewBuilder private func rightColumn() -> some View {
-                    // Achievements: on the Duo sideways the badges fill the right-hand side
+    @ViewBuilder private func achievements() -> some View {
                     VStack(alignment: .leading, spacing: 14) {
                         SectionTitle(text: "Achievements", detail: "\(progress.data.achievements.count)/\(Achievement.all.count)")
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12, alignment: .top)], alignment: .center, spacing: 18) {
@@ -154,6 +154,9 @@ struct ProfileView: View {
                         }
                     }
 
+    }
+
+    @ViewBuilder private func rightColumn() -> some View {
                     PlusStatusCard()
 
                     // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.

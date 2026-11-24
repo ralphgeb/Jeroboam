@@ -475,6 +475,8 @@ struct StudyGuideHeader: View {
 
 extension Notification.Name {
     static let learnTabReselected = Notification.Name("jero.learnTabReselected")
+    /// Pressing the tab you are on, on its first page: back to the top (object = the page title).
+    static let tabScrollTop = Notification.Name("jero.tabScrollTop")
 }
 
 /// At the top of the locked levels for free users.

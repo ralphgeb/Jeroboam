@@ -974,24 +974,35 @@ struct ScanFlow: View {
     @State private var paidUSD: Double? = nil
 
     var body: some View {
-        VStack(spacing: 0) {
-            FlowHeader(progress: started ? (added ? 1 : 0.6) : 0.15) { dismiss() }
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    if !started {
-                        CaptureStep(eyebrow: "Scan a wine", title: "Snap the label",
-                                    subtitle: "Fill the frame with the front label. You'll get the details and the average price.",
-                                    image: $image, onPicking: { withAnimation { started = true }; working = WineRecognizer.isAvailable }) { typed in
-                            wine.name = typed
-                            begin()
+        GeometryReader { g in
+            let wide = g.size.width >= AdaptiveLayout.twoPaneThreshold
+            VStack(spacing: 0) {
+                FlowHeader(progress: started ? (added ? 1 : 0.6) : 0.15) { dismiss() }
+                if wide {
+                    // Duo sideways: the label on the left, everything about the wine on the right
+                    HStack(spacing: 0) {
+                        FlowPhotoPane(image: image, blur: false).frame(width: g.size.width / 2)
+                        Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5)
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 18) {
+                                if !started { capture } else { details }
+                            }
+                            .padding(.horizontal, Metrics.margin).padding(.top, 10).padding(.bottom, 40)
                         }
-                    } else {
-                        result
+                        .scrollIndicators(.hidden)
+                        .frame(width: g.size.width / 2 - 0.5)
+                        .environment(\.windowWidth, g.size.width / 2).environment(\.isWide, false)
                     }
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 18) {
+                            if !started { capture } else { result }
+                        }
+                        .padding(.horizontal, Metrics.margin).padding(.top, 10).padding(.bottom, 40)
+                    }
+                    .scrollIndicators(.hidden)
                 }
-                .padding(.horizontal, Metrics.margin).padding(.top, 10).padding(.bottom, 40)
             }
-            .scrollIndicators(.hidden)
         }
         .background(Palette.paper.ignoresSafeArea())
         .onChange(of: image) { _, img in if img != nil { begin() } }
@@ -1003,11 +1014,24 @@ struct ScanFlow: View {
         Task { await identify() }
     }
 
+    private var capture: some View {
+        CaptureStep(eyebrow: "Scan a wine", title: "Snap the label",
+                    subtitle: "Fill the frame with the front label. You'll get the details and the average price.",
+                    image: $image, onPicking: { withAnimation { started = true }; working = WineRecognizer.isAvailable }) { typed in
+            wine.name = typed
+            begin()
+        }
+    }
+
     @ViewBuilder private var result: some View {
         if let img = image {
             Image(uiImage: img).resizable().scaledToFill().frame(height: 200).frame(maxWidth: .infinity).clipped()
                 .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
         }
+        details
+    }
+
+    @ViewBuilder private var details: some View {
         if working {
             ScanSkeleton()
         } else {
@@ -1088,6 +1112,8 @@ struct ScanFlow: View {
         journal.addOrMerge(b)
         Haptics.success()
         withAnimation { added = true }
+        // added: the scan is finished, back to the journal
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { dismiss() }
     }
 }
 
@@ -1128,8 +1154,38 @@ struct TastingFlow: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            FlowHeader(progress: Double(steps.firstIndex(of: step) ?? 0) / Double(max(1, steps.count - 1))) { dismiss() }
+        GeometryReader { g in
+            let wide = g.size.width >= AdaptiveLayout.twoPaneThreshold
+            if wide {
+                // Duo sideways: the bottle on the left (hidden while tasting blind), the steps on the right
+                HStack(spacing: 0) {
+                    VStack(spacing: 0) {
+                        FlowHeader(progress: Double(steps.firstIndex(of: step) ?? 0) / Double(max(1, steps.count - 1))) { dismiss() }
+                        FlowPhotoPane(image: photo, blur: blind && step != .done)
+                    }
+                    .frame(width: g.size.width / 2)
+                    Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5)
+                    stepScroll
+                        .overlay(alignment: .bottom) { footer }
+                        .frame(width: g.size.width / 2 - 0.5)
+                        .environment(\.windowWidth, g.size.width / 2).environment(\.isWide, false)
+                }
+            } else {
+                VStack(spacing: 0) {
+                    FlowHeader(progress: Double(steps.firstIndex(of: step) ?? 0) / Double(max(1, steps.count - 1))) { dismiss() }
+                    stepScroll
+                }
+                .overlay(alignment: .bottom) { footer }
+            }
+        }
+        .background(Palette.paper.ignoresSafeArea())
+        .animation(.easeInOut(duration: 0.3), value: step)
+        .onChange(of: photo) { _, img in if img != nil { go(.identify) } }
+        .sheet(isPresented: $ratingGuide, onDismiss: { seenRatingGuide = true }) { RatingGuideSheet() }
+        .onAppear(perform: prepare)
+    }
+
+    private var stepScroll: some View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
                     switch step {
@@ -1150,13 +1206,9 @@ struct TastingFlow: View {
                 .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity))
             }
             .scrollIndicators(.hidden)
-        }
-        .background(Palette.paper.ignoresSafeArea())
-        .overlay(alignment: .bottom) { footer }
-        .animation(.easeInOut(duration: 0.3), value: step)
-        .onChange(of: photo) { _, img in if img != nil { go(.identify) } }
-        .sheet(isPresented: $ratingGuide, onDismiss: { seenRatingGuide = true }) { RatingGuideSheet() }
-        .onAppear {
+    }
+
+    private func prepare() {
             // the first blind tasting starts with how to score a wine
             if blind && !seenRatingGuide { DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { ratingGuide = true } }
             guard !prepared else { return }
@@ -1169,7 +1221,6 @@ struct TastingFlow: View {
                 photo = image
                 step = .look
             }
-        }
     }
 
     private func go(_ s: Step) { withAnimation { step = s } }
@@ -2058,5 +2109,28 @@ struct DrinkWindowChart: View {
                 Text(window).font(.system(size: 14)).foregroundStyle(Palette.ink)
             }
         }
+    }
+}
+
+/// The left half of a scan or tasting on the Duo sideways: the label photo (blurred while tasting blind), or a quiet placeholder.
+struct FlowPhotoPane: View {
+    let image: UIImage?
+    var blur: Bool
+    var body: some View {
+        ZStack {
+            if let img = image {
+                Color.clear.overlay { Image(uiImage: img).resizable().scaledToFill() }.clipped()
+                    .blur(radius: blur ? 18 : 0)
+                    .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+            } else {
+                RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.wineSoft)
+                VStack(spacing: 12) {
+                    SplashMark().frame(width: 64, height: 64)
+                    Text("Your label shows here").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                }
+            }
+        }
+        .padding(Metrics.margin)
+        .animation(.easeInOut(duration: 0.3), value: blur)
     }
 }
