@@ -11,7 +11,7 @@ import csv, json, os, re, sys, glob, unicodedata, statistics as S, collections a
 import yaml
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 P = os.path.join(ROOT, 'content/prices/')
-def fold(s): return unicodedata.normalize('NFKD', s or '').encode('ascii', 'ignore').decode().lower()
+def fold(s): return re.sub(r'[-\u2010-\u2015]', ' ', unicodedata.normalize('NFKD', s or '').encode('ascii', 'ignore').decode().lower())
 
 # ---------- places ----------
 regs = yaml.safe_load(open(os.path.join(ROOT, 'content/regions.yaml')))
@@ -164,6 +164,23 @@ def color_of(blob, grapes):
         if 'green' in b or 'white' in b or 'gold' in b or 'yellow' in b: return 'White'
     return ''
 
+GRAPE_INFO = {g['name']: g for g in gr}
+MONO = [(r'barolo|barbaresco|langhe nebbiolo|nebbiolo d.alba|gattinara|ghemme|valtellina|roero', None, 'Nebbiolo'), (r'brunello|rosso di montalcino|chianti|vino nobile|morellino', None, 'Sangiovese'),
+        (r'chablis|meursault|puligny|chassagne|montrachet|corton-charlemagne|pouilly-fuisse|saint-veran|macon', None, 'Chardonnay'),
+        (r'sancerre|pouilly-fume|menetou|quincy|reuilly|marlborough', 'White', 'Sauvignon Blanc'), (r'vouvray|savennieres|montlouis|coteaux du layon|jasnieres', None, 'Chenin Blanc'),
+        (r'muscadet', None, 'Melon de Bourgogne'), (r'morgon|fleurie|moulin-a-vent|brouilly|chiroubles|julienas|chenas|regnie|saint-amour|beaujolais', 'Red', 'Gamay'),
+        (r'cote-rotie|hermitage|cornas|saint-joseph|crozes', 'Red', 'Syrah'), (r'condrieu|chateau-grillet', None, 'Viognier'), (r'rioja|ribera del duero|toro', 'Red', 'Tempranillo'),
+        (r'rias baixas', None, 'Albariño'), (r'mosel|rheingau|nahe|wachau|clare valley|eden valley', 'White', 'Riesling'), (r'amarone|valpolicella|ripasso|bardolino', None, 'Corvina'),
+        (r'soave', None, 'Garganega'), (r'prosecco|conegliano|valdobbiadene', None, 'Glera'), (r'gavi', None, 'Cortese'), (r'taurasi|aglianico', None, 'Aglianico'),
+        (r'cahors', None, 'Malbec'), (r'madiran', None, 'Tannat'), (r'tokaj', None, 'Furmint'), (r'santorini', None, 'Assyrtiko'), (r'naoussa|amyndeo', None, 'Xinomavro'), (r'nemea', None, 'Agiorgitiko'),
+        (r'burgundy|bourgogne|cote de nuits|cote de beaune|gevrey|vosne|chambolle|nuits-saint-georges|pommard|volnay|morey|vougeot|echezeaux|chambertin|musigny|richebourg|romanee|beaune|savigny|santenay|marsannay|fixin|monthelie|aloxe|ladoix|pernand|mercurey|givry|rully|willamette|central otago|martinborough|sonoma coast|russian river|carneros|santa rita', 'Red', 'Pinot Noir'),
+        (r'burgundy|bourgogne|cote de beaune|saint-aubin|rully|montagny|mercurey|willamette|sonoma coast|russian river|carneros', 'White', 'Chardonnay')]
+def mono_grape(place, color):
+    p = fold(place)
+    if not p: return ''
+    for rx, col, g in MONO:
+        if re.search(rx, p) and (col is None or col == color): return g
+    return ''
 def place_from(text):
     for m in PLACE_RX.finditer(fold(text)):
         return PLACES[m.group(1)]
@@ -210,7 +227,7 @@ def analyse(name, d):
     tcol = None
     for t in tags + ([d['type']] if d else []):
         for c, rx in COLORS:
-            if re.search(r'^(?:type[_:| ]*)?' + rx + r'(?:[ _]wine)?$', t.strip(), re.I) or re.search(r'(?:^|[-_ ])(' + c + r')(?:[-_ ]|$)', t, re.I): tcol = c; break
+            if re.search(r'^(?:type[_:| ]*)?' + rx + r'(?:[ _]wine)?$', t.strip(), re.I) or (re.search(r'(?:^|[-_ ])(' + c + r')(?:[-_ ]|$)', t, re.I) and (c != 'Orange' or re.search(r'wine|type', t, re.I))): tcol = c; break
         if tcol: break
     out['color'] = tcol or color_of(name + ' ' + ' '.join(tags), gs) or color_of(text[:300], gs)
     ft = fold(text)
@@ -255,7 +272,7 @@ def main():
                     elif 80 <= v <= 100: d.setdefault(name, (v, ''))
                 if d: PAGE[p['url']] = d
         print('product pages with scores', len(PAGE))
-    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','aromas','notes','avg_score','scores','score_links','details_link']
+    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','aromas','aromas_source','notes','avg_score','scores','score_links','details_link']
     w = csv.DictWriter(open(P + 'wine_details.csv', 'w', newline=''), fieldnames=cols)
     w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
@@ -297,7 +314,7 @@ def main():
         if arl: bits.append('Aromas: ' + ', '.join(a.lower() for a in arl) + '.')
         if avg: bits.append(f'Critics: {avg}/100 on average from {len(hundred)} score' + ('s' if len(hundred) > 1 else '') + '.')
         detail = next((u for u in urls if u in DET and len(DET[u]['text']) > 80), (urls[0] if urls else r.get('cheapest_link', '')))
-        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
+        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
                     'region': region, 'appellation': app, 'grapes': ', '.join(grapes), 'aromas': ', '.join(arl), 'notes': ' '.join(bits), 'avg_score': avg,
                     'details_link': detail})
     def wkey(row):
@@ -310,7 +327,43 @@ def main():
             for key, v in row['_crit'].items(): cur[0].setdefault(key, v)
             for u in row['_links']:
                 if u not in cur[1]: cur[1].append(u)
+    # same wine, other vintages/sizes: share facts that do not depend on the vintage
+    same = {}
     for row in ROWS:
+        k = wkey(dict(row, vintage=''))[0]
+        cur = same.setdefault(k, {})
+        for f in ('country', 'region', 'appellation', 'grapes', 'color', 'aromas'):
+            if row[f] and f not in cur: cur[f] = row[f]
+    for row in ROWS:
+        row['aromas_source'] = 'shop description' if row['aromas'] else ''
+        cur = same.get(wkey(dict(row, vintage=''))[0], {})
+        for f in ('country', 'region', 'appellation', 'grapes', 'color'):
+            if not row[f] and cur.get(f): row[f] = cur[f]
+        if not row['aromas'] and cur.get('aromas'): row['aromas'] = cur['aromas']; row['aromas_source'] = 'shop description (other vintage)'
+        if not row['grapes']:
+            g = mono_grape(row['appellation'] or row['region'], row['color'])
+            if g: row['grapes'] = g
+        gl = [g.strip() for g in row['grapes'].split(',') if g.strip()]
+        if not row['color'] and gl: row['color'] = color_of('', gl)
+        if not row['aromas'] and gl and gl[0] in GRAPE_INFO:
+            row['aromas'] = ', '.join(GRAPE_INFO[gl[0]]['aromas'][:6]); row['aromas_source'] = f'typical for {gl[0]}'
+        if gl and gl[0] in GRAPE_INFO and not any(x in row['_style'] for x in ('full-bodied', 'medium-bodied', 'light-bodied')):
+            gi = GRAPE_INFO[gl[0]]; lv = {1: 'light', 2: 'medium-', 3: 'medium', 4: 'medium+', 5: 'full'}
+            extra = []
+            if gi.get('body'): extra.append({1: 'light-bodied', 2: 'light-bodied', 3: 'medium-bodied', 4: 'full-bodied', 5: 'full-bodied'}.get(gi['body'], ''))
+            if gi.get('acidity', 0) >= 4: extra.append('high acidity')
+            if gi.get('tannin', 0) >= 4: extra.append('firm tannins')
+            row['_style'] += [f'{x} (typical)' for x in extra if x]
+        kind = (row['color'] + ' wine') if row['color'] and row['color'] not in ('Sparkling', 'Fortified') else (row['color'].lower() + ' wine' if row['color'] else 'Wine')
+        kind = kind[0].upper() + kind[1:]
+        where = ', '.join(x for x in [row['appellation'] or row['region'], row['country']] if x)
+        b = [kind + (f' from {where}' if where else '') + '.']
+        if row['grapes']: b.append('Grapes: ' + row['grapes'] + '.')
+        if row['_style']: b.append('Style: ' + ', '.join(row['_style'][:6]) + '.')
+        if row['aromas']: b.append(('Aromas: ' if row['aromas_source'].startswith('shop') else 'Typical aromas: ') + row['aromas'].lower() + '.')
+        row['_bits'] = b
+    for row in ROWS:
+        row.pop('_style', None)
         if row['vintage'] and wkey(row) in share:
             crit, links = share[wkey(row)]
             for key, v in crit.items(): row['_crit'].setdefault(key, v)

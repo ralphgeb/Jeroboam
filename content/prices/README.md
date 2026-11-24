@@ -25,6 +25,9 @@ Same rows as `wine_prices.csv` (wine + vintage + size) with: colour, country, re
 notes, avg_score, scores, score_links, details_link.
 - Places come from the shops' own tags first, then from `content/regions.yaml` (+ a list of common appellations in the
   script) matched in the wine's name, then in the shop description.
+- Facts that don't change with the vintage (place, grapes, colour, aromas) are shared between vintages and sizes of the same wine;
+  single-grape appellations give the grape (Barolo -> Nebbiolo, Sancerre -> Sauvignon Blanc …).
+- `aromas_source`: `shop description`, `shop description (other vintage)` or `typical for <grape>` (from content/grapes.yaml when no description names any).
 - Aromas use the app's aroma wheel words (`content/aromas.yaml`) found in the shop descriptions.
 - `notes` is a short summary generated from these facts (shop and critic texts are copyrighted, so they are not copied);
   `details_link` opens a shop page with the full description.
