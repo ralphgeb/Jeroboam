@@ -109,6 +109,12 @@ if os.path.exists(_ov):
                           'min_price_gbp': f"{eur*RATES['GBP']:.2f}", 'in_stock': 'yes', 'cheapest_link': m['url'],
                           'prices': shop + ' ; ' + r['prices'], 'links': f"{m['shop']}: {m['url']} ; " + r['links']})
                 r['shops_count'] = int(r['shops_count']) + 1; hit += 1
+        if not hit and m.get('wine'):   # not sold by any listed shop: add it
+            out.append({'wine': m['wine'], 'producer': m.get('producer', ''), 'vintage': m['vintage'], 'size_ml': int(m['size_ml']),
+                'avg_price_gbp': f"{eur*RATES['GBP']:.2f}", 'avg_price_eur': f'{eur:.2f}', 'avg_price_usd': f"{eur*RATES['USD']:.2f}",
+                'min_price_gbp': f"{eur*RATES['GBP']:.2f}", 'max_price_gbp': f"{eur*RATES['GBP']:.2f}", 'shops_count': 1, 'in_stock': 'yes',
+                'sold_in': 'UK wine shop', 'prices': f"{m['shop']} ({m['location']}): {float(m['price']):.2f} {m['currency']}",
+                'cheapest_link': m['url'], 'links': f"{m['shop']}: {m['url']}"}); hit = 'added'
         print('override', m['match'], m['vintage'], '->', hit, 'row(s)')
 out.sort(key=lambda r:(re.sub(r'^[^a-z0-9]+','',unicodedata.normalize('NFKD',r['wine']).encode('ascii','ignore').decode().lower()),r['vintage'],r['size_ml']))
 cols=list(out[0].keys())
