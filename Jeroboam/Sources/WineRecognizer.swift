@@ -23,11 +23,15 @@ struct WineIdentity: Codable, Hashable {
     var drinkWindow: String? = nil
     /// Typical blend, in percent, in the same order as `grapes` (nil when unknown).
     var grapePercent: [Int]? = nil
+    /// From the wine database when it is certainly this bottle: the critics' average score and the page that quotes it.
+    var dbScore: Int? = nil
+    var dbScoreLink: String? = nil
+    var fromDatabase: Bool? = nil
 
     enum CodingKeys: String, CodingKey {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
         case tastingNotes = "tasting_notes", priceLow = "price_low", priceHigh = "price_high", funFact = "fun_fact"
-        case drinkWindow = "drink_window", grapePercent = "grape_percent"
+        case drinkWindow = "drink_window", grapePercent = "grape_percent", dbScore = "db_score", dbScoreLink = "db_score_link", fromDatabase = "from_database"
     }
 
     static let empty = WineIdentity(found: false, name: "", producer: "", region: "", country: "", grapes: [], vintage: "",
@@ -110,6 +114,7 @@ enum WineRecognizer {
         }
         var r = try await identifyFresh(image: image)
         r.identity = tidy(r.identity)
+        r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
         WineDB.shared.save(r.identity, signature: sig)
         PriceCloud.shareWine(r.identity, sig: sig)
         return r
@@ -152,6 +157,7 @@ enum WineRecognizer {
         guard let key = apiKey else { throw RecognizerError.noKey }
         var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
         r.identity = tidy(r.identity)
+        r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
         WineDB.shared.save(r.identity)
         return r
     }

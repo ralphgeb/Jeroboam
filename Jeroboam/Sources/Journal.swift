@@ -64,6 +64,7 @@ struct CellarBottle: Codable, Identifiable, Hashable {
 
     /// A rough guess at the critic score: from the Great wines list when this bottle is on it, otherwise from the price.
     var roughRating: Int? {
+        if let s = wine.dbScore { return s }
         let name = (wine.name + " " + wine.producer).lowercased()
         if !name.trimmingCharacters(in: .whitespaces).isEmpty,
            let g = ContentStore.shared.library.great?.first(where: {
@@ -997,7 +998,7 @@ struct ScanFlow: View {
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
             }
             PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
-            if identified { ScoreLinkCard(wine: wine) }
+            if identified { ScoreLinkCard(wine: wine, score: wine.dbScore, link: wine.dbScoreLink) }
             if identified { PaidField(paidUSD: $paidUSD) }
 
             VStack(spacing: 12) {
@@ -1682,7 +1683,7 @@ struct EntryDetailView: View {
                     if e.identified { WineGlance(wine: e.wine, price: e.price, points: e.points) }
                     if e.identified { WineInfoCard(wine: e.wine) }
                     if let p = e.price { PriceCard(price: p, wine: e.wine) }
-                    if e.identified { ScoreLinkCard(wine: e.wine) }
+                    if e.identified { ScoreLinkCard(wine: e.wine, score: e.wine.dbScore, link: e.wine.dbScoreLink) }
                     if let c = e.colorID.flatMap({ ContentStore.shared.color($0) }) {
                         HStack(spacing: 12) {
                             Rectangle().fill(Color(hex: c.hex)).frame(width: 36, height: 36)
@@ -1787,7 +1788,7 @@ struct CellarDetailView: View {
                     .padding(.horizontal, 14).padding(.vertical, 8)
                     .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
                     WineInfoCard(wine: b.wine)
-                    ScoreLinkCard(wine: b.wine, score: b.roughRating)
+                    ScoreLinkCard(wine: b.wine, score: b.wine.dbScore, link: b.wine.dbScoreLink)
                     Button { tasting = true } label: { Label("Taste this bottle", systemImage: "wineglass") }
                         .buttonStyle(PrimaryButtonStyle())
                     Button(role: .destructive) { confirmDelete = true } label: {

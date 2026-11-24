@@ -13,7 +13,11 @@ final class PriceBook {
         let link: String
         let tokens: Set<String>
         let color: Int8      // 0 unknown, 1 red, 2 white, 3 rosé
+        let detail: Detail?
     }
+    /// What the wine database knows about a bottle besides its price (only in the downloaded list).
+    struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String? }
+    struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String? }
     private var rows: [Row] = []
     private var index: [String: [Int32]] = [:]
     private let lock = NSLock()
@@ -72,6 +76,53 @@ final class PriceBook {
         return color(of: w.producer + " " + w.name)
     }
 
+    /// Strictest possible match: the same producer and name words (nothing missing, at most three extra), the same vintage, the same
+    /// quality tier and a colour that does not disagree. Returns what the database knows, or nil when it is not certainly this bottle.
+    func details(for w: WineIdentity) -> WineDetails? {
+        loadIfNeeded()
+        let q = Self.tokens(w.producer + " " + w.name)
+        guard q.count >= 2, !rows.isEmpty else { return nil }
+        let want = Int(w.vintage.trimmingCharacters(in: .whitespaces))
+        let wineColor = Self.color(of: w)
+        let qTier = q.intersection(Self.tierWords)
+        let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(2)
+        guard rare.count >= 1 else { return nil }
+        var seen = Set<Int32>()
+        var best: [(extra: Int, row: Row)] = []
+        for (_, posting) in rare where posting.count < 12_000 {
+            for i in posting where seen.insert(i).inserted {
+                let r = rows[Int(i)]
+                guard let d = r.detail, q.isSubset(of: r.tokens), r.tokens.count - q.count <= 3 else { continue }
+                guard Int(r.vintage) == want, r.tokens.intersection(Self.tierWords) == qTier else { continue }
+                let dc: Int8 = d.colour == "r" ? 1 : (d.colour == "w" ? 2 : (d.colour == "p" ? 3 : 0))
+                if wineColor != 0, dc != 0, dc != wineColor { continue }
+                best.append((r.tokens.count - q.count, r))
+            }
+        }
+        guard let top = best.min(by: { $0.extra != $1.extra ? $0.extra < $1.extra : ($0.row.detail?.score != nil && $1.row.detail?.score == nil) })?.row.detail else { return nil }
+        // every near-equal candidate must agree on the country, or it is not certainly this bottle
+        let near = best.filter { $0.extra == (best.map(\.extra).min() ?? 0) }.compactMap { $0.row.detail }
+        if near.contains(where: { !$0.country.isEmpty && !top.country.isEmpty && $0.country != top.country }) { return nil }
+        let scored = near.first { $0.score != nil }
+        return WineDetails(colour: top.colour, country: top.country, region: top.region, appellation: top.appellation, grapes: top.grapes,
+                           aromas: top.aromas, score: scored?.score ?? top.score, scoreLink: scored?.scoreLink ?? top.scoreLink)
+    }
+
+    /// Puts what the database knows over what the model guessed, when (and only when) it is certainly this bottle.
+    func overlay(_ w: WineIdentity) -> WineIdentity {
+        guard let d = details(for: w) else { return w }
+        var o = w
+        if !d.country.isEmpty { o.country = d.country }
+        let place = [d.appellation, d.region].filter { !$0.isEmpty }
+        if !place.isEmpty { o.region = place.count == 2 && !place[0].localizedCaseInsensitiveContains(place[1]) ? place.joined(separator: ", ") : place[0] }
+        if !d.grapes.isEmpty { o.grapes = d.grapes; o.grapePercent = nil }
+        if !d.aromas.isEmpty { o.tastingNotes = Array(d.aromas.prefix(6)) }
+        switch d.colour { case "r": o.style = "red"; case "w": o.style = "white"; case "p": o.style = "rose"; case "s": o.style = "sparkling"
+                          case "o": o.style = "orange"; case "f": o.style = "fortified"; case "d": o.style = "sweet"; default: break }
+        o.dbScore = d.score; o.dbScoreLink = d.scoreLink; o.confidence = "high"; o.fromDatabase = true
+        return o
+    }
+
     /// Throws the loaded list away so the next lookup reads the newly downloaded file.
     func reload() {
         lock.lock(); defer { lock.unlock() }
@@ -94,7 +145,13 @@ final class PriceBook {
             let toks = Self.tokens(f[0] + " " + f[1])
             guard !toks.isEmpty else { continue }
             let i = Int32(rows.count)
-            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : ""))))
+            var detail: Detail? = nil
+            if f.count >= 17, !(f[9].isEmpty && f[10].isEmpty && f[11].isEmpty && f[13].isEmpty) {
+                detail = Detail(colour: f[9], country: f[10], region: f[11], appellation: f[12],
+                                grapes: f[13].split(separator: ";").map(String.init), aromas: f[14].split(separator: ";").map(String.init),
+                                score: Int(f[15]), scoreLink: f[16].isEmpty ? nil : f[16])
+            }
+            rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : "")), detail: detail))
             for t in toks { index[t, default: []].append(i) }
         }
     }

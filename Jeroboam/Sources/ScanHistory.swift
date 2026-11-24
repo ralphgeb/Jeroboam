@@ -89,7 +89,7 @@ private struct HistoryDetail: View {
                     WineGlance(wine: entry.identity, price: entry.price)
                     WineInfoCard(wine: entry.identity)
                     if let p = entry.price { PriceCard(price: p, wine: entry.identity) }
-                    ScoreLinkCard(wine: entry.identity)
+                    ScoreLinkCard(wine: entry.identity, score: entry.identity.dbScore, link: entry.identity.dbScoreLink)
                     Button {
                         var b = CellarBottle(); b.wine = entry.identity; b.price = entry.price
                         if let d = entry.thumb, let img = UIImage(data: d) { b.photo = journal.savePhoto(img, id: b.id) }

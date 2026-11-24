@@ -1,6 +1,6 @@
 import Foundation
 
-/// Keeps the shop price list live: the app checks a web address (JeroPriceListURL, by default the price file in the public
+/// Keeps the shop price list and wine details live: the app checks a web address (JeroPriceListURL, by default the price file in the public
 /// repository) and downloads it when it changed (ETag), so updating the file updates every phone without a new build.
 /// Quiet when offline. The bundled list is the fallback.
 enum PriceUpdater {
@@ -15,10 +15,10 @@ enum PriceUpdater {
     }
     private static var source: URL? {
         let v = (Bundle.main.object(forInfoDictionaryKey: "JeroPriceListURL") as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let s = v.isEmpty || v.hasPrefix("$(") ? "https://raw.githubusercontent.com/ralphgeb/Jeroboam/main/Jeroboam/Resources/Prices/prices.tsv" : v
+        let s = v.isEmpty || v.hasPrefix("$(") ? "https://raw.githubusercontent.com/ralphgeb/Jeroboam/main/content/prices/app_wines.tsv.z" : v
         return URL(string: s)
     }
-    private static let etagKey = "priceListETag"
+    private static let etagKey = "wineListETag"
 
     /// At most once every 6 hours.
     static func refresh() async {
@@ -31,10 +31,10 @@ enum PriceUpdater {
         guard let (tmp, resp) = try? await URLSession.shared.download(for: req), let http = resp as? HTTPURLResponse else { return }
         d.set(Date(), forKey: "priceListChecked")
         guard http.statusCode == 200 else { return }
-        // a list that is clearly broken must never replace a good one
-        guard let size = (try? FileManager.default.attributesOfItem(atPath: tmp.path)[.size] as? Int), size > 1_000_000 else { return }
-        try? FileManager.default.removeItem(at: dest)
-        guard (try? FileManager.default.moveItem(at: tmp, to: dest)) != nil else { return }
+        // the list comes compressed (raw deflate): prices, and what the wine database knows about each bottle
+        guard let packed = try? Data(contentsOf: tmp), packed.count > 1_000_000,
+              let text = try? (packed as NSData).decompressed(using: .zlib) as Data, text.count > 5_000_000 else { return }   // a broken list never replaces a good one
+        guard (try? text.write(to: dest, options: .atomic)) != nil else { return }
         if let tag = http.value(forHTTPHeaderField: "Etag") ?? http.value(forHTTPHeaderField: "ETag") { d.set(tag, forKey: etagKey) }
         PriceBook.shared.reload()
     }
