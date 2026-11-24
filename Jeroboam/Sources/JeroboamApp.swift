@@ -75,6 +75,13 @@ struct RootView: View {
 
     private var tabBinding: Binding<Int> {
         Binding(get: { tab }, set: { new in
+            // In the Duo's tab column, pressing the tab you are on is a back button: first the full-screen map (or the offer) closes,
+            // then each press goes back one page, until you are on the tab's main page.
+            if new == tab && CoverHost.shared.railActive {
+                if CoverHost.shared.paywall != nil { CoverHost.shared.paywall = nil; PaywallPresenter.shared.target = nil; return }
+                if CoverHost.shared.content != nil { CoverHost.shared.closeTop(); return }
+                if let nav = NavRegistry.shared.nav(for: new), nav.viewControllers.count > 1 { nav.popViewController(animated: true); return }
+            }
             if new == tab && new == 0 { NotificationCenter.default.post(name: .learnTabReselected, object: nil) }
             // a full-screen map or the offer is closed by pressing a tab
             CoverHost.shared.content = nil; CoverHost.shared.owner = nil

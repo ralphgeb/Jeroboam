@@ -63,6 +63,7 @@ struct LearnView: View {
                 .scrollIndicators(.hidden)
                 .background(Palette.paper.ignoresSafeArea())
                 .toolbar(.hidden, for: .navigationBar)
+                .background(NavCapture(tab: 0))
                 .onChange(of: levelNumber) { _, _ in proxy.scrollTo("top", anchor: .top) }
                 // Tapping Learn again: back to the top of the level you are working on.
                 .onReceive(NotificationCenter.default.publisher(for: .learnTabReselected)) { _ in

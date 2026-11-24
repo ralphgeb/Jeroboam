@@ -25,6 +25,7 @@ struct PracticeView: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .background(NavCapture(tab: 1))
         }
         .sessionPane($session, idle: {
             AnyView(PaneIdle(eyebrow: "Practice", title: "Today's 10 questions",

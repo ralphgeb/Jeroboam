@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// True when the window is wide enough for a two-pane layout: a foldable iPhone opened flat, or any iPhone turned sideways.
 /// Pictures and maps go on the left, the writing on the right; narrow windows keep the single iPhone column.
@@ -83,6 +84,35 @@ extension EnvironmentValues {
     /// Set by RootView: true while the Duo layout (tabs in a column) is on, and how wide the page area is.
     var railActive = false
     var pageWidth: CGFloat = 0
+    /// How to close the cover that is showing (set by whoever presented it).
+    var close: (() -> Void)? = nil
+    func closeTop() {
+        let c = close
+        close = nil; content = nil; owner = nil
+        c?()
+    }
+}
+
+/// Each tab's navigation stack, so pressing a tab you are already on can go back one page (like a back button).
+final class NavRegistry {
+    static let shared = NavRegistry()
+    private struct Weak { weak var vc: UIViewController? }
+    private var stacks: [Int: Weak] = [:]
+    func set(_ tab: Int, _ vc: UIViewController) { stacks[tab] = Weak(vc: vc) }
+    func nav(for tab: Int) -> UINavigationController? { stacks[tab]?.vc?.navigationController }
+}
+
+/// Put in a tab's root page (as a background): remembers which navigation controller the tab lives in.
+struct NavCapture: UIViewControllerRepresentable {
+    let tab: Int
+    final class Capture: UIViewController {
+        var tab = 0
+        override func didMove(toParent parent: UIViewController?) { super.didMove(toParent: parent); NavRegistry.shared.set(tab, self) }
+        override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated); NavRegistry.shared.set(tab, self) }
+        override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated); NavRegistry.shared.set(tab, self) }
+    }
+    func makeUIViewController(context: Context) -> Capture { let c = Capture(); c.tab = tab; c.view.isUserInteractionEnabled = false; return c }
+    func updateUIViewController(_ vc: Capture, context: Context) { vc.tab = tab }
 }
 private struct CoverHostKey: EnvironmentKey { static let defaultValue: CoverHost? = nil }
 extension EnvironmentValues {
@@ -105,9 +135,10 @@ private struct RailCover<Item: Identifiable, Cover: View>: ViewModifier {
                 .onChange(of: item?.id as AnyHashable?, initial: true) { _, id in
                     if let it = item, id != nil {
                         host.owner = token
+                        host.close = { item = nil }
                         host.content = AnyView(cover(it).environment(\.coverClose, { item = nil }))
                     } else if host.owner == AnyHashable(token) {
-                        host.content = nil; host.owner = nil
+                        host.content = nil; host.owner = nil; host.close = nil
                     }
                 }
         } else {

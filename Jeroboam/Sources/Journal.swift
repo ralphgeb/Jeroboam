@@ -351,6 +351,7 @@ struct JournalHome: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .background(NavCapture(tab: 3))
             .detailPane(first: section == 0 ? journal.cellar.first.map { AnyHashable($0) } : journal.entries.first.map { AnyHashable($0) })
             .navigationDestination(for: JournalEntry.self) { e in EntryDetailView(entryID: e.id) }
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }

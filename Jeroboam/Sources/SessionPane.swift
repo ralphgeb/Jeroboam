@@ -33,8 +33,10 @@ private struct SessionPaneModifier: ViewModifier {
                 Group {
                     if let s = session {
                         LessonPlayer(session: s, onClose: { session = nil }).id(s.id)
+                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     } else if let u = guide {
                         GuidebookView(unit: u).id(u.id)
+                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                             .environment(\.coverClose, { guide = nil })
                     } else {
                         idle()
