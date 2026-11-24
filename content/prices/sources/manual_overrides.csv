@@ -1,3 +1,3 @@
 match,vintage,size_ml,shop,location,price,currency,url,note,wine,producer
 bosconia,2012,750,The Wine Rack NI,Northern Ireland UK,40.00,GBP,https://thewinerackni.co.uk/products/vina-bosconia-reserva-rioja-2012,Set by the owner: price and cheapest link,R. López de Heredia Viña Bosconia Reserva,R. López de Heredia
-ixsir.*\bel\b|\bel\b.*ixsir,2020,750,Simply Wines Direct,UK,50.00,GBP,https://www.simplywinesdirect.uk/?product=ixsir-el-ixsir-red,Set by the owner: about £50; app had it under-priced,Ixsir EL Ixsir Red,Ixsir
+ixsir.*\bel\b|\bel\b.*ixsir,2020,750,Simply Wines Direct,UK,50.00,GBP,https://www.simplywinesdirect.uk/?product=ixsir-el-ixsir-red,Set by the owner: about £50; app had it under-priced,El Ixsir Red,Ixsir
