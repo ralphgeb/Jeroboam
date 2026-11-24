@@ -97,6 +97,19 @@ for xs in G.values():
       'prices':' ; '.join(f"{o['shop']} ({o['location']}): {o['price']:.2f} {o['cur']}" for o in sorted(use,key=lambda o:o['eur'])),
       'cheapest_link':min(use,key=lambda o:o['eur'])['url'],
       'links':' ; '.join(f"{o['shop']}: {o['url']}" for o in sorted(use,key=lambda o:o['eur']))})
+# owner's manual overrides (content/prices/sources/manual_overrides.csv): the price becomes the given one and its link the cheapest
+_ov = D + 'sources/manual_overrides.csv'
+if os.path.exists(_ov):
+    for m in csv.DictReader(open(_ov)):
+        eur = float(m['price']) / RATES[m['currency']]; hit = 0
+        for r in out:
+            if re.search(m['match'], unicodedata.normalize('NFKD', r['wine']).encode('ascii', 'ignore').decode(), re.I) and r['vintage'] == m['vintage'] and str(r['size_ml']) == m['size_ml']:
+                shop = f"{m['shop']} ({m['location']}): {float(m['price']):.2f} {m['currency']}"
+                r.update({'avg_price_gbp': f"{eur*RATES['GBP']:.2f}", 'avg_price_eur': f'{eur:.2f}', 'avg_price_usd': f"{eur*RATES['USD']:.2f}",
+                          'min_price_gbp': f"{eur*RATES['GBP']:.2f}", 'in_stock': 'yes', 'cheapest_link': m['url'],
+                          'prices': shop + ' ; ' + r['prices'], 'links': f"{m['shop']}: {m['url']} ; " + r['links']})
+                r['shops_count'] = int(r['shops_count']) + 1; hit += 1
+        print('override', m['match'], m['vintage'], '->', hit, 'row(s)')
 out.sort(key=lambda r:(re.sub(r'^[^a-z0-9]+','',unicodedata.normalize('NFKD',r['wine']).encode('ascii','ignore').decode().lower()),r['vintage'],r['size_ml']))
 cols=list(out[0].keys())
 w=csv.DictWriter(open(sys.argv[1],'w',newline=''),fieldnames=cols); w.writeheader(); w.writerows(out)
