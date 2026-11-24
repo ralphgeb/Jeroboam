@@ -364,7 +364,10 @@ def main():
             if g: row['grapes'] = g
         gl = [g.strip() for g in row['grapes'].split(',') if g.strip()]
         rule = mono_grape(row['appellation'] or row['region'], row['color'])
-        if row['grape_blend'] and rule and row['color'] != 'Sparkling' and not row['grape_blend'].startswith(rule):
+        def is_red(g): b = BERRY.get(g, '').lower(); return 'black' in b or 'red' in b or 'dark' in b
+        bl = [x.rsplit(' ', 1)[0] for x in row['grape_blend'].split(', ') if x]
+        mixed = row['color'] == 'White' and any(is_red(g) for g in bl) or row['color'] == 'Red' and bl and not any(is_red(g) for g in bl)
+        if row['grape_blend'] and (mixed or rule and row['color'] != 'Sparkling' and not row['grape_blend'].startswith(rule)):
             row['grape_blend'] = ''; row['blend_source'] = ''   # the description was about another wine
         if not row['grape_blend']:
             g = rule
