@@ -32,7 +32,7 @@ struct LimitReachedCard: View {
             ZStack {
                 Circle().stroke(Palette.wine.opacity(0.12), lineWidth: 9)
                 Circle().trim(from: 0, to: ring)
-                    .stroke(AngularGradient(colors: [Palette.pink, Palette.wine, Palette.bordeaux], center: .center),
+                    .stroke(AngularGradient(colors: [Palette.bordeaux, Palette.pink, Palette.bordeaux], center: .center),
                             style: StrokeStyle(lineWidth: 9, lineCap: .round))
                     .rotationEffect(.degrees(-90))
                 Circle().fill(Palette.wineSoft).padding(16)
@@ -50,7 +50,7 @@ struct LimitReachedCard: View {
             }
 
             HStack(spacing: 10) {
-                tile("checkmark.seal.fill", "Wines Jero knows", "Still free")
+                tile("checkmark.seal.fill", "Known wines", "Still free")
                 tile("clock.fill", "New wines", resetText)
             }
         }
