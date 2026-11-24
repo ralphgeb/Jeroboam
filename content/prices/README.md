@@ -17,3 +17,16 @@
 Matching across shops is by name words + vintage + size, so a few matches may be wrong. Supermarket wines
 mostly have no vintage. Rebuild: `python3 tools/prices/merge_prices.py content/prices/wine_prices.csv`.
 Personal use only.
+
+## Wine details (`wine_details.csv`)
+Same rows as `wine_prices.csv` (wine + vintage + size) with: colour, country, region, appellation, grapes, aromas,
+notes, avg_score, scores, score_links, details_link.
+- Places come from the shops' own tags first, then from `content/regions.yaml` (+ a list of common appellations in the
+  script) matched in the wine's name, then in the shop description.
+- Aromas use the app's aroma wheel words (`content/aromas.yaml`) found in the shop descriptions.
+- `notes` is a short summary generated from these facts (shop and critic texts are copyrighted, so they are not copied);
+  `details_link` opens a shop page with the full description.
+- Scores are critics' scores quoted on the shop pages (Wine Advocate, Wine Spectator, James Suckling, Vinous, Jeb Dunnuck,
+  Burghound, Decanter, Wine Enthusiast, Jancis Robinson /20 …). `avg_score` averages the 100-point scores;
+  `score_links` are the shop pages that quote them (the critics' own sites need a subscription).
+Rebuild: `python3 tools/prices/enrich_details.py <folder of shop catalogue JSONL>`.
