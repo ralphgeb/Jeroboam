@@ -24,6 +24,7 @@ import os
 D=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','content','prices')+'/'
 offers=[]
 def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url):
+    name=re.sub(r'\s*\|\s*',' ',name).strip()
     if BAD.search(name): return
     y=YEAR.search(name); vint=vint or (y.group(1) if y else ('NV' if NV.search(name) else ''))
     v=ml(name,size or '')
@@ -37,8 +38,8 @@ for x in csv.DictReader(open(D+'sources/uk_supermarkets.csv')):
     add('UK supermarket',x['supermarket'],'UK',n,x['brand'],x['vintage'],x['size'] or '75cl',x['price_gbp'],'GBP','yes',x['trolley_url'])
 for x in csv.DictReader(open(D+'sources/us_wine_shops.csv')):
     add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price_usd'],'USD',x['in_stock'],x['url'])
-for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv'))):
-    add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
+for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops_2.csv'))):
+    add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop','Zealand':'New Zealand wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
 print('offers',len(offers))
 # group: exact key+vintage+size first (merges same-shop duplicates), then fuzzy across shops
 parent=list(range(len(offers))); shops=[{o['shop']} for o in offers]
