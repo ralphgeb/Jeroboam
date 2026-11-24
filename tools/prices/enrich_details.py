@@ -212,12 +212,40 @@ def main():
             except Exception: continue
             DET[p['url']] = p
     print('shop products with details', len(DET))
+    PAGE = {}   # url -> {critic: (score, scale)} read from product pages (optional 2nd argument: folder of JSONL)
+    NORM = {'antonio galloni': 'Vinous', 'vinous media': 'Vinous', 'vinous': 'Vinous', 'robert parker': 'Wine Advocate', "robert parker's wine advocate": 'Wine Advocate',
+            'the wine advocate': 'Wine Advocate', 'wine advocate': 'Wine Advocate', 'parker': 'Wine Advocate', 'jancis robinson': 'Jancis Robinson', 'jancisrobinson.com': 'Jancis Robinson',
+            'allen meadows': 'Burghound', 'burghound': 'Burghound', 'stephen tanzer': 'Vinous', 'international wine cellars': 'Vinous', "kerin o'keefe": "Kerin O'Keefe", 'james suckling': 'James Suckling', 'wine spectator': 'Wine Spectator',
+            'jeb dunnuck': 'Jeb Dunnuck', 'decanter': 'Decanter', 'wine enthusiast': 'Wine Enthusiast', 'neal martin': 'Neal Martin', 'jane anson': 'Jane Anson',
+            'the wine independent': 'Wine Independent', 'lisa perrotti-brown': 'Lisa Perrotti-Brown', 'william kelley': 'William Kelley', 'tim atkin': 'Tim Atkin',
+            'jasper morris': 'Jasper Morris', 'falstaff': 'Falstaff', 'james halliday': 'James Halliday', 'wine & spirits': 'Wine & Spirits'}
+    if len(sys.argv) > 2:
+        for f in glob.glob(os.path.join(sys.argv[2], '*.jsonl')):
+            for line in open(f):
+                try: p = json.loads(line)
+                except Exception: continue
+                d = {}
+                for crit, val in p.get('scores') or []:
+                    m = re.match(r'([\d.]+)(?:\s*-\s*([\d.]+))?(/20)?', str(val))
+                    if not m: continue
+                    v = float(m.group(1)); hi = float(m.group(2)) if m.group(2) else None
+                    v = (v + hi) / 2 if hi and hi > v else v
+                    name = NORM.get(fold(crit).strip(), crit.strip())
+                    if m.group(3) or (name == 'Jancis Robinson' and v <= 20): d.setdefault(name, (v, '/20'))
+                    elif 80 <= v <= 100: d.setdefault(name, (v, ''))
+                if d: PAGE[p['url']] = d
+        print('product pages with scores', len(PAGE))
     cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','aromas','notes','avg_score','scores','score_links','details_link']
     w = csv.DictWriter(open(P + 'wine_details.csv', 'w', newline=''), fieldnames=cols)
-    w.writeheader(); stats = C.Counter()
+    w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
         urls = [u.split(': ', 1)[1] for u in r['links'].split(' ; ') if ': ' in u]
         facts = [(u, analyse(r['wine'], DET.get(u))) for u in urls if u in DET] or [(None, analyse(r['wine'], None))]
+        for u in urls:
+            if u in PAGE:
+                hitf = next((f for uu, f in facts if uu == u), None)
+                if hitf is None: hitf = analyse(r['wine'], DET.get(u)); facts.append((u, hitf))
+                for k, v in PAGE[u].items(): hitf['scores'].setdefault(k, v)
         def vote(k):
             c = C.Counter(f[k] for _, f in facts if f.get(k))
             return c.most_common(1)[0][0] if c else ''
@@ -249,12 +277,37 @@ def main():
         if arl: bits.append('Aromas: ' + ', '.join(a.lower() for a in arl) + '.')
         if avg: bits.append(f'Critics: {avg}/100 on average from {len(hundred)} score' + ('s' if len(hundred) > 1 else '') + '.')
         detail = next((u for u in urls if u in DET and len(DET[u]['text']) > 80), (urls[0] if urls else r.get('cheapest_link', '')))
-        w.writerow({'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
+        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
                     'region': region, 'appellation': app, 'grapes': ', '.join(grapes), 'aromas': ', '.join(arl), 'notes': ' '.join(bits), 'avg_score': avg,
-                    'scores': ' ; '.join(f'{n}: {s:g}{sc}' for n, sc, s in sorted(sc_list, key=lambda x: -x[2])), 'score_links': ' ; '.join(links), 'details_link': detail})
+                    'details_link': detail})
+    def wkey(row):
+        n = re.sub(r'\b(magnum|double magnum|jeroboam|imperial|half bottle|\d+(?:\.\d+)?\s*(?:ml|cl|l|ltr|litre))\b', ' ', fold(row['wine']))
+        return (' '.join(sorted(set(re.findall(r'[a-z0-9]+', n)))), row['vintage'])
+    share = {}
+    for row in ROWS:
+        if row['_crit'] and row['vintage']:
+            k = wkey(row); cur = share.setdefault(k, ({}, []))
+            for key, v in row['_crit'].items(): cur[0].setdefault(key, v)
+            for u in row['_links']:
+                if u not in cur[1]: cur[1].append(u)
+    for row in ROWS:
+        if row['vintage'] and wkey(row) in share:
+            crit, links = share[wkey(row)]
+            for key, v in crit.items(): row['_crit'].setdefault(key, v)
+            for u in links:
+                if u not in row['_links']: row['_links'].append(u)
+        crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits')
+        hundred = [v for (n, sc), v in crit.items() if not sc]
+        row['avg_score'] = f'{S.mean(hundred):.1f}' if hundred else ''
+        bits = [b for b in bits if not b.startswith('Critics:')]
+        if hundred: bits.append(f"Critics: {row['avg_score']}/100 on average from {len(hundred)} score" + ('s' if len(hundred) > 1 else '') + '.')
+        row['notes'] = ' '.join(bits)
+        row['scores'] = ' ; '.join(f'{n}: {v:g}{sc}' for (n, sc), v in sorted(crit.items(), key=lambda x: -x[1]))
+        row['score_links'] = ' ; '.join(links)
+        w.writerow(row)
         stats['rows'] += 1
-        for k, v in [('country', country), ('region', region), ('appellation', app), ('color', color), ('grapes', grapes), ('aromas', arl), ('score', avg)]:
-            if v: stats[k] += 1
+        for k in ('country', 'region', 'appellation', 'color', 'grapes', 'aromas', 'avg_score'):
+            if row[k]: stats[k] += 1
     print(dict(stats))
 if __name__ == '__main__':
     main()
