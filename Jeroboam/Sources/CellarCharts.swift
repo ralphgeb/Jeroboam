@@ -2,7 +2,7 @@ import SwiftUI
 import Charts
 
 /// Which cellar figure is open.
-enum CellarStat: String, Hashable { case value, average, bottles, paid, gain }
+enum CellarStat: String, Hashable { case value, average, gain }
 
 /// The graphs that open under a cellar figure. One panel per figure; everything below is pushed down.
 struct CellarChartPanel: View {
@@ -31,7 +31,7 @@ struct CellarChartPanel: View {
 
     private var byColor: [Slice] {
         var d: [String: Double] = [:]
-        for b in bottles { d[family(b.wine.style), default: 0] += stat == .bottles ? Double(b.quantity) : b.value }
+        for b in bottles { d[family(b.wine.style), default: 0] += stat == .average ? Double(b.quantity) : b.value }
         return d.filter { $0.value > 0 }.sorted { $0.value > $1.value }
             .map { Slice(id: $0.key, label: familyName($0.key), value: $0.value, color: styleColor($0.key)) }
     }
@@ -39,7 +39,7 @@ struct CellarChartPanel: View {
         var d: [String: Double] = [:]
         for b in bottles {
             let c = b.wine.country.trimmingCharacters(in: .whitespaces)
-            d[c.isEmpty ? "Unknown" : c, default: 0] += stat == .bottles ? Double(b.quantity) : b.value
+            d[c.isEmpty ? "Unknown" : c, default: 0] += stat == .average ? Double(b.quantity) : b.value
         }
         return Array(d.sorted { $0.value > $1.value }.prefix(6)).map { Slice(id: $0.key, label: $0.key, value: $0.value, color: Palette.wine) }
     }
@@ -51,11 +51,6 @@ struct CellarChartPanel: View {
                 return p >= lo && p < hi
             }.reduce(0) { $0 + $1.quantity })
         }
-    }
-    private var byVintage: [(String, Int)] {
-        var d: [String: Int] = [:]
-        for b in bottles { d[b.vintageText, default: 0] += b.quantity }
-        return d.sorted { $0.key < $1.key }.map { ($0.key, $0.value) }
     }
     private var topValue: [CellarBottle] { Array(bottles.filter { $0.value > 0 }.sorted { $0.value > $1.value }.prefix(6)) }
     private var paidVsValue: [Pair] {
@@ -76,11 +71,14 @@ struct CellarChartPanel: View {
             case .value:
                 title("Where the value sits", "By colour, and the countries worth the most")
                 donut(byColor)
-                bars(byCountry, money: true)
+                barList(byCountry, money: true, heading: "Value by country")
                 title("Most valuable bottles", nil)
                 topList
             case .average:
-                title("How your bottles are priced", "Bottles in each price band (\(currencySymbol))")
+                title("Your bottles", "What they cost, and where they are from")
+                donut(byColor)
+                barList(byCountry, money: false, heading: "Bottles by country")
+                title("How they are priced", "Bottles in each price band (\(currencySymbol))")
                 Chart(bands, id: \.0) { band in
                     BarMark(x: .value("Band", band.0), y: .value("Bottles", band.1))
                         .foregroundStyle(Palette.wine.gradient).cornerRadius(5)
@@ -91,21 +89,8 @@ struct CellarChartPanel: View {
                     Text("Average bottle: \(money(avg, currency))").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
                 title("Priciest bottles", nil)
-                Chart(topValue) { b in
-                    BarMark(x: .value("Price", b.price?.average ?? 0), y: .value("Wine", short(b.title)))
-                        .foregroundStyle(Palette.wine.opacity(0.85)).cornerRadius(4)
-                }
-                .chartXAxis(.hidden).frame(height: CGFloat(max(1, topValue.count)) * 30 + 10)
-            case .bottles:
-                title("What is in your cellar", "Bottles by colour, country and year")
-                donut(byColor)
-                bars(byCountry, money: false)
-                Chart(byVintage, id: \.0) { v in
-                    BarMark(x: .value("Vintage", v.0), y: .value("Bottles", v.1)).foregroundStyle(Palette.brass.gradient).cornerRadius(3)
-                }
-                .chartYAxis(.hidden).frame(height: 120)
-                Text("Bottles by vintage").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
-            case .paid:
+                topList
+            case .gain:
                 title("What you paid and what it is worth", "Your biggest bottles, side by side")
                 if paidVsValue.isEmpty { empty("Add the price you paid on a bottle's page to see this.") }
                 else {
@@ -116,7 +101,6 @@ struct CellarChartPanel: View {
                     .chartForegroundStyleScale(["Paid": Palette.inkFaint, "Worth now": Palette.wine])
                     .chartXAxis(.hidden).frame(height: CGFloat(paidVsValue.count / 2) * 46 + 30)
                 }
-            case .gain:
                 title("Gain and loss", "Worth now minus what you paid")
                 if gains.isEmpty { empty("Add the price you paid on a bottle's page to see this.") }
                 else {
@@ -173,17 +157,25 @@ struct CellarChartPanel: View {
         }
     }
 
-    private func bars(_ slices: [Slice], money m: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(m ? "Value by country" : "Bottles by country").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
-            Chart(slices) { s in
-                BarMark(x: .value("Amount", s.value), y: .value("Country", s.label))
-                    .foregroundStyle(Palette.wine.opacity(0.85)).cornerRadius(4)
-                    .annotation(position: .trailing) {
-                        Text(m ? money(s.value, currency) : "\(Int(s.value))").font(.system(size: 11).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+    /// Each row: the name and its number on one line, a bar under them. Plain views, so nothing is ever cut to "…".
+    private func barList(_ slices: [Slice], money m: Bool, heading: String) -> some View {
+        let top = max(1, slices.map(\.value).max() ?? 1)
+        return VStack(alignment: .leading, spacing: 8) {
+            Text(heading).font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+            ForEach(slices) { s in
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack {
+                        Text(s.label).font(.system(size: 13.5)).foregroundStyle(Palette.ink).lineLimit(1)
+                        Spacer(minLength: 8)
+                        Text(m ? money(s.value, currency) : "\(Int(s.value))").font(.system(size: 13.5, weight: .semibold).monospacedDigit())
+                            .foregroundStyle(Palette.ink).fixedSize()
                     }
+                    GeometryReader { g in
+                        Capsule().fill(Palette.wine.opacity(0.85)).frame(width: max(6, g.size.width * CGFloat(s.value / top)))
+                    }
+                    .frame(height: 6)
+                }
             }
-            .chartXAxis(.hidden).chartXScale(range: .plotDimension(padding: 0)).frame(height: CGFloat(max(1, slices.count)) * 30 + 6)
         }
     }
 
@@ -200,4 +192,15 @@ struct CellarChartPanel: View {
             }
         }
     }
+}
+
+/// A panel that opens downward from the tile above it: it unfolds from its top edge while everything below slides down.
+struct ExpandFold: ViewModifier {
+    var p: CGFloat
+    func body(content: Content) -> some View {
+        content.scaleEffect(x: 1, y: max(0.001, p), anchor: .top).opacity(Double(p))
+    }
+}
+extension AnyTransition {
+    static var unfold: AnyTransition { .modifier(active: ExpandFold(p: 0), identity: ExpandFold(p: 1)) }
 }

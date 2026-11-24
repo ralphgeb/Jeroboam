@@ -119,15 +119,13 @@ struct BadgeAnnouncePage: View {
             ZStack {
                 silhouette
                 badge().opacity(color)
+                // when the turning stops, a light sweeps over the finished badge
+                shineBand.mask(badge()).opacity(color)
             }
             .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.45)
         case .flip:
             badge()
-                .overlay {
-                    LinearGradient(colors: [.clear, Color.white.opacity(0.9), .clear], startPoint: .leading, endPoint: .trailing)
-                        .frame(width: size * 0.45).rotationEffect(.degrees(20)).offset(x: shine * size)
-                        .mask(badge())
-                }
+                .overlay { shineBand.mask(badge()) }
                 .scaleEffect(scale)
                 .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.5)
         case .pour:
@@ -154,6 +152,12 @@ struct BadgeAnnouncePage: View {
                 badge().scaleEffect(scale).offset(y: drop)
             }
         }
+    }
+
+    /// A soft diagonal band of light; `shine` moves it from the left of the badge (-1.2) to the right (1.2).
+    private var shineBand: some View {
+        LinearGradient(colors: [.clear, Color.white.opacity(0.95), .clear], startPoint: .leading, endPoint: .trailing)
+            .frame(width: size * 0.45, height: size * 1.4).rotationEffect(.degrees(20)).offset(x: shine * size)
     }
 
     private var rays: some View {
@@ -195,7 +199,16 @@ struct BadgeAnnouncePage: View {
             withAnimation(.easeInOut(duration: 3.0)) { angle = 1080 }
             withAnimation(.easeIn(duration: 2.4).delay(0.5)) { color = 1 }
             after(0.4) { withAnimation(.easeOut(duration: 0.6)) { showText = true } }
-            after(3.1) { reveal() }
+            after(3.1) {
+                reveal()
+                // the shimmer: two soft passes of light once the badge has stopped
+                withAnimation(.easeInOut(duration: 0.9)) { shine = 1.2 }
+                after(1.1) {
+                    var t = Transaction(); t.disablesAnimations = true
+                    withTransaction(t) { shine = -1.2 }
+                    withAnimation(.easeInOut(duration: 0.9)) { shine = 1.2 }
+                }
+            }
         case .flip:
             withAnimation(.spring(response: 0.9, dampingFraction: 0.65)) { angle = 0; scale = 1 }
             withAnimation(.easeInOut(duration: 1.1).delay(0.8)) { shine = 1.2 }

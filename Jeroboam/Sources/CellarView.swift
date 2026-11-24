@@ -20,7 +20,7 @@ struct CellarView: View {
     @State private var priceBand = 0            // 0 any, 1 under $25, 2 $25–50, 3 $50–100, 4 $100+
     @State private var minRating = 0            // 0 any, 80, 85, 90
     @State private var vintage = ""             // "" any
-    @AppStorage("jero.cellarAsList") private var asList = false
+    @AppStorage("jero.cellarCompact") private var asList = true      // the compact list is the first view
     @State private var openStat: CellarStat? = nil
     @State private var opened: CellarBottle? = nil
 
@@ -93,16 +93,13 @@ struct CellarView: View {
                 HStack {
                     Text("\(list.count) \(list.count == 1 ? "wine" : "wines")\(filtersOn ? " match" : "")").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                     Spacer()
-                    Picker("Layout", selection: $asList) {
-                        Image(systemName: "square.grid.2x2").tag(false)
-                        Image(systemName: "list.bullet").tag(true)
-                    }
-                    .pickerStyle(.segmented).frame(width: 96)
+                    layoutToggle
                     if filtersOn {
                         Button("Clear filters") { withAnimation(.smooth(duration: 0.25)) { color = ""; priceBand = 0; minRating = 0; vintage = "" } }
                             .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
                     }
                 }
+                Color.clear.frame(height: 2)
                 if list.isEmpty {
                     Text("No bottles match these filters.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                         .frame(maxWidth: .infinity).padding(.vertical, 40)
@@ -141,30 +138,44 @@ struct CellarView: View {
         let paidBottles = list.filter { $0.paidUSD != nil }
         let paid = paidBottles.reduce(0.0) { $0 + ($1.paidTotal ?? 0) }
         let worthOfPaid = paidBottles.reduce(0.0) { $0 + $1.value }
+        let diff = worthOfPaid - paid
         return VStack(spacing: 10) {
             HStack(spacing: 10) {
                 statTile(money(value, cur), filtersOn ? "value of these" : "valuation today", .value, highlight: true)
-                statTile(avg > 0 ? money(avg, cur) : "–", "average bottle", .average)
-                statTile("\(n)", n == 1 ? "bottle" : "bottles", .bottles)
-            }
-            if let s = openStat, [.value, .average, .bottles].contains(s) {
-                CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.opacity.combined(with: .move(edge: .top)))
-            }
-            if !paidBottles.isEmpty {
-                let diff = worthOfPaid - paid
-                let nPaid = paidBottles.reduce(0) { $0 + $1.quantity }
-                HStack(spacing: 10) {
-                    statTile(money(paid / Double(max(1, nPaid)), "USD"), "you paid per bottle", .paid)
-                    statTile(money(paid, "USD"), "total paid (\(nPaid) \(nPaid == 1 ? "bottle" : "bottles"))", .paid)
-                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain" : "loss", .gain)
+                statTile(avg > 0 ? money(avg, cur) : "–", "average bottle\n\(n) \(n == 1 ? "bottle" : "bottles")", .average)
+                if !paidBottles.isEmpty {
+                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain on\nwhat you paid" : "loss on\nwhat you paid", .gain)
                 }
-                if let s = openStat, [.paid, .gain].contains(s) {
-                    CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.opacity.combined(with: .move(edge: .top)))
-                }
+            }
+            if let s = openStat {
+                CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.unfold)
             }
         }
-        .animation(.smooth(duration: 0.3), value: openStat)
+        .animation(.smooth(duration: 0.35), value: openStat)
     }
+    /// Two big buttons (list first). Big enough to press, and nothing under them reacts to a press that lands on them.
+    private var layoutToggle: some View {
+        HStack(spacing: 0) {
+            toggleButton("list.bullet", compact: true)
+            toggleButton("square.grid.2x2", compact: false)
+        }
+        .padding(3).background(Capsule().fill(Palette.cardAlt))
+        .padding(.bottom, 6)
+        .zIndex(2)
+    }
+    private func toggleButton(_ icon: String, compact: Bool) -> some View {
+        let on = asList == compact
+        return Button { Haptics.tap(); withAnimation(.smooth(duration: 0.2)) { asList = compact } } label: {
+            Image(systemName: icon).font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(on ? Palette.onWine : Palette.ink)
+                .frame(width: 46, height: 34)
+                .background(Capsule().fill(on ? Palette.wine : Color.clear))
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(compact ? "Compact list" : "Cards")
+    }
+
     private func statTile(_ v: String, _ label: String, _ stat: CellarStat, highlight: Bool = false) -> some View {
         let on = openStat == stat
         return Button { Haptics.tap(); openStat = on ? nil : stat } label: {
@@ -175,7 +186,7 @@ struct CellarView: View {
                     Image(systemName: "chart.bar.xaxis").font(.system(size: 10, weight: .semibold))
                         .foregroundStyle(highlight ? Palette.onWine.opacity(0.7) : Palette.inkFaint)
                 }
-                Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(1)
+                Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(2, reservesSpace: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading).padding(12)
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(highlight ? Palette.wine : Palette.card))

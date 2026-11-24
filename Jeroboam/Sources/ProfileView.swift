@@ -34,17 +34,17 @@ struct ProfileView: View {
                 if width >= AdaptiveLayout.twoPaneThreshold {
                     // Duo sideways: you and your progress on the left, the settings on the right
                     HStack(spacing: 0) {
-                        ScrollView { VStack(alignment: .leading, spacing: 30) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                        ScrollView { VStack(alignment: .leading, spacing: 24) { leftColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
                             .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                         Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
-                        ScrollView { VStack(alignment: .leading, spacing: 30) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
+                        ScrollView { VStack(alignment: .leading, spacing: 24) { rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
                             .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2 - 0.5)
                             .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     }
                 } else {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 30) {
+                        VStack(alignment: .leading, spacing: 24) {
                             leftColumn()
                             rightColumn()
                         }
@@ -85,8 +85,11 @@ struct ProfileView: View {
     }
 
     @ViewBuilder private func leftColumn() -> some View {
-                    AboutYouSection().padding(.top, 16)
-                    settingsCard()
+                    VStack(alignment: .leading, spacing: 12) {
+                        AboutYouSection()
+                        settingsCard()
+                    }
+                    .padding(.top, 16)
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                       HStack(spacing: 16) {
