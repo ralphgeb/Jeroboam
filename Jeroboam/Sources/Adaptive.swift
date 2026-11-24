@@ -106,13 +106,13 @@ final class NavRegistry {
 struct NavCapture: UIViewControllerRepresentable {
     let tab: Int
     final class Capture: UIViewController {
-        var tab = 0
-        override func didMove(toParent parent: UIViewController?) { super.didMove(toParent: parent); NavRegistry.shared.set(tab, self) }
-        override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated); NavRegistry.shared.set(tab, self) }
-        override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated); NavRegistry.shared.set(tab, self) }
+        var tabIndex = 0
+        override func didMove(toParent parent: UIViewController?) { super.didMove(toParent: parent); NavRegistry.shared.set(tabIndex, self) }
+        override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated); NavRegistry.shared.set(tabIndex, self) }
+        override func viewDidAppear(_ animated: Bool) { super.viewDidAppear(animated); NavRegistry.shared.set(tabIndex, self) }
     }
-    func makeUIViewController(context: Context) -> Capture { let c = Capture(); c.tab = tab; c.view.isUserInteractionEnabled = false; return c }
-    func updateUIViewController(_ vc: Capture, context: Context) { vc.tab = tab }
+    func makeUIViewController(context: Context) -> Capture { let c = Capture(); c.tabIndex = tab; c.view.isUserInteractionEnabled = false; return c }
+    func updateUIViewController(_ vc: Capture, context: Context) { vc.tabIndex = tab }
 }
 private struct CoverHostKey: EnvironmentKey { static let defaultValue: CoverHost? = nil }
 extension EnvironmentValues {
