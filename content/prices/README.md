@@ -1,6 +1,6 @@
 # Wine prices (checked 2026-11-22)
 
-- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 195k wines). Duplicates are merged and,
+- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 199k wines). Duplicates are merged and,
   when a wine is sold by several shops, the price is the average of one price per shop (in-stock prices preferred,
   outliers more than 2.5x off the median dropped). Prices in GBP, EUR and USD (ECB rates of 2026-11-20:
   1 EUR = 0.83735 GBP = 1.0990 USD). `prices` lists every shop price used (cheapest first);
@@ -13,7 +13,8 @@
   Camperdown Cellars (AU), Zyn (Canada), Tanners (UK), Drops (Germany).
 - `sources/more_wine_shops_2.csv` — CaskCartel (US, ~48k wines), Wine Chateau (NJ), Chambers Street Wines, Crush (NY),
   Last Bottle (US), Great Wines Direct (UK), Black Market (New Zealand). Hedonism is now its full catalogue (fetched per collection).
-  Niche specialists: BGWM (London; Greek, Lebanese, Georgian…), Sotheby's Wine (NY), Field & Fawcett (York). AUD/CAD/NZD at ECB rates (1 EUR = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD).
+  Niche specialists: BGWM (London; Greek, Lebanese, Georgian…), Sotheby's Wine (NY), Field & Fawcett (York). English wine: Chapel Down, Grape Britannia, Lyme Bay, Ridgeview.
+  Ireland: The Corkscrew, Wine Online. Switzerland: Schenk (CHF at ECB rate 1 EUR = 0.9223 CHF). AUD/CAD/NZD at ECB rates (1 EUR = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD).
 
 Matching across shops is by name words + vintage + size, so a few matches may be wrong. Supermarket wines
 mostly have no vintage. Rebuild: `python3 tools/prices/merge_prices.py content/prices/wine_prices.csv`.

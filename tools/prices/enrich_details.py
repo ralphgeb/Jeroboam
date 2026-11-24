@@ -57,6 +57,23 @@ EXTRA = {  # appellation: (region, country)
  'New Zealand': {'Canterbury': "Waipara", 'Wairarapa': "Wairarapa"}, 'South Africa': {'Walker Bay': "Hemel-en-Aarde"},
  'Georgia': {'Kakheti': "Kakheti,Kindzmarauli,Mukuzani,Tsinandali"}, 'Austria': {'Burgenland': "Burgenland"}, 'Germany': {'Mosel': "Saar,Ruwer"},
  'Hungary': {'Tokaj': "Tokaji,Aszu"}, 'Lebanon': {'Bekaa Valley': "Bekaa"},
+ 'Switzerland': {'Valais': "Valais,Wallis,Fendant,Sion,Fully,Chamoson,Salgesch,Visperterminen", 'Vaud': "Vaud,Lavaux,Dezaley,Calamin,Epesses,Chablais,Yvorne,Aigle,La Cote,Mont-sur-Rolle,Fechy,Chardonne,Villette,Saint-Saphorin",
+                 'Neuchatel': "Neuchatel,Oeil de Perdrix", 'Geneva': "Geneve,Geneva", 'Ticino': "Ticino,Merlot del Ticino", 'Graubunden': "Graubunden,Bundner Herrschaft,Malans,Flasch,Jenins,Maienfeld"},
+ 'China': {'Ningxia': "Ningxia,Helan Mountain,Helan Shan", 'Yunnan': "Yunnan,Shangri-La,Ao Yun", 'Shandong': "Shandong,Penglai,Yantai", 'Xinjiang': "Xinjiang", 'Hebei': "Huailai"},
+ 'Japan': {'Yamanashi': "Yamanashi,Koshu Valley", 'Nagano': "Nagano", 'Hokkaido': "Hokkaido,Yoichi"},
+ 'Canada': {'British Columbia': "Okanagan,Similkameen,Naramata,Golden Mile Bench,British Columbia", 'Ontario': "Niagara,Niagara Peninsula,Prince Edward County,Beamsville Bench,Twenty Mile Bench,Lake Erie North Shore,Ontario", 'Nova Scotia': "Nova Scotia,Annapolis Valley,Tidal Bay", 'Quebec': "Quebec"},
+ 'Uruguay': {'Canelones': "Canelones", 'Maldonado': "Maldonado,Garzon", 'Montevideo': "Montevideo"},
+ 'Mexico': {'Baja California': "Valle de Guadalupe,Baja California,Ensenada", 'Coahuila': "Parras,Coahuila", 'Queretaro': "Queretaro"},
+ 'Brazil': {'Serra Gaucha': "Serra Gaucha,Vale dos Vinhedos,Campanha Gaucha", 'Santa Catarina': "Santa Catarina"},
+ 'Croatia': {'Istria': "Istria,Istra", 'Dalmatia': "Dalmatia,Peljesac,Dingac,Postup,Hvar,Korcula", 'Slavonia': "Slavonia,Kutjevo"},
+ 'Slovenia': {'Primorska': "Brda,Goriska Brda,Vipava,Kras,Primorska", 'Podravje': "Stajerska,Styria Slovenia,Podravje,Ptuj"},
+ 'Romania': {'Dealu Mare': "Dealu Mare", 'Dragasani': "Dragasani", 'Moldova region': "Cotnari", 'Dobrogea': "Dobrogea,Murfatlar"},
+ 'Bulgaria': {'Thracian Valley': "Thracian Valley,Thracian Lowlands", 'Struma Valley': "Melnik,Struma Valley"},
+ 'Moldova': {'Codru': "Codru", 'Stefan Voda': "Stefan Voda,Purcari", 'Valul lui Traian': "Valul lui Traian"},
+ 'Cyprus': {'Commandaria': "Commandaria"}, 'Armenia': {'Vayots Dzor': "Vayots Dzor,Areni"},
+ 'Israel': {'Galilee': "Galilee,Upper Galilee", 'Golan Heights': "Golan Heights,Golan", 'Judean Hills': "Judean Hills"},
+ 'Turkey': {'Anatolia': "Anatolia,Cappadocia", 'Thrace': "Turkish Thrace"},
+ 'England': {'England': "English Sparkling,English Wine"}, 'Wales': {'Wales': "Welsh Wine"},
 }
 for country, regd in EXTRA.items():
     for region, names in regd.items():
@@ -151,8 +168,10 @@ def place_from(text):
     for m in PLACE_RX.finditer(fold(text)):
         return PLACES[m.group(1)]
     return None
+SHOP_COUNTRY = {'www.chapeldown.com': 'England', 'lymebaywinery.co.uk': 'England', 'www.ridgeview.co.uk': 'England', 'www.grapebritannia.co.uk': 'England'}
 def analyse(name, d):
     """Facts from one shop product (d may be None: name only)."""
+    host = re.sub(r'^https?://([^/]+)/.*$', r'\1', d['url']) if d and d.get('url') else ''
     tags = d['tags'] if d else []
     text = d['text'] if d else ''
     out = {}
@@ -163,6 +182,7 @@ def analyse(name, d):
                 if fold(part.strip()) in COUNTRIES: tc = COUNTRIES[fold(part.strip())]; break
             if tc: break
     if tc: out['country'] = COUNTRIES.get(fold(tc), tc.title() if tc.islower() else tc)
+    if host in SHOP_COUNTRY and 'country' not in out: out['country'] = SHOP_COUNTRY[host]
     treg = tag_value(tags, 'region')
     tapp = tag_value(tags, 'appellation|subregion|sub[- ]region')
     hit = place_from(name) or (place_from(' '.join([tapp or '', treg or ''] + tags)) if tags else None) or place_from(text[:400])
