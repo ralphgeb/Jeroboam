@@ -1,6 +1,6 @@
 # Wine prices (checked 2026-11-22)
 
-- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 199k wines). Duplicates are merged and,
+- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 164k wines). Duplicates are merged and,
   when a wine is sold by several shops, the price is the average of one price per shop (in-stock prices preferred,
   outliers more than 2.5x off the median dropped). Prices in GBP, EUR and USD (ECB rates of 2026-11-20:
   1 EUR = 0.83735 GBP = 1.0990 USD). `prices` lists every shop price used (cheapest first);
@@ -11,7 +11,7 @@
   Shrine to the Vine (UK), Le Petit Ballon (FR), Tannico (IT).
 - `sources/more_wine_shops.csv` — Primal Wine, Mysa, Domestique, Wine Therapy, Helen's Wines, Keg n Bottle (US),
   Camperdown Cellars (AU), Zyn (Canada), Tanners (UK), Drops (Germany).
-- `sources/more_wine_shops_2.csv` — CaskCartel (US, ~48k wines), Wine Chateau (NJ), Chambers Street Wines, Crush (NY),
+- `sources/more_wine_shops_2.csv` — Wine Chateau (NJ), Chambers Street Wines, Crush (NY),
   Last Bottle (US), Great Wines Direct (UK), Black Market (New Zealand). Hedonism is now its full catalogue (fetched per collection).
   Niche specialists: BGWM (London; Greek, Lebanese, Georgian…), Sotheby's Wine (NY), Field & Fawcett (York). English wine: Chapel Down, Grape Britannia, Lyme Bay, Ridgeview.
   Ireland: The Corkscrew, Wine Online. Switzerland: Schenk (CHF at ECB rate 1 EUR = 0.9223 CHF). AUD/CAD/NZD at ECB rates (1 EUR = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD).
@@ -37,3 +37,8 @@ notes, avg_score, scores, score_links, details_link.
   Burghound, Decanter, Wine Enthusiast, Jancis Robinson /20 …). `avg_score` averages the 100-point scores;
   `score_links` are the shop pages that quote them (the critics' own sites need a subscription).
 Rebuild: `python3 tools/prices/enrich_details.py <folder of shop catalogue JSONL>`.
+
+CaskCartel was removed (Nov 2026): it resells other shops' wines (Hedonism, Wine Online Delivery, Best of Wines …) at large markups.
+Wines it shared with other shops keep those shops' prices; wines only it sold were dropped. Manual fixes live in `sources/manual_overrides.csv`.
+Exception: 634 producers that no other shop sells (about 1,180 wines) are kept from CaskCartel in `sources/reseller_only.csv`;
+their rows say `price_note = high reseller price` in wine_prices.csv and the shop is shown as "CaskCartel (high reseller price)".

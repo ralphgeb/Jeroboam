@@ -38,7 +38,7 @@ for x in csv.DictReader(open(D+'sources/uk_supermarkets.csv')):
     add('UK supermarket',x['supermarket'],'UK',n,x['brand'],x['vintage'],x['size'] or '75cl',x['price_gbp'],'GBP','yes',x['trolley_url'])
 for x in csv.DictReader(open(D+'sources/us_wine_shops.csv')):
     add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price_usd'],'USD',x['in_stock'],x['url'])
-for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops_2.csv'))):
+for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops_2.csv')))+(list(csv.DictReader(open(D+'sources/reseller_only.csv'))) if os.path.exists(D+'sources/reseller_only.csv') else []):
     add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop','Zealand':'New Zealand wine shop','Ireland':'Ireland wine shop','Switzerland':'Switzerland wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
 print('offers',len(offers))
 # group: exact key+vintage+size first (merges same-shop duplicates), then fuzzy across shops
@@ -96,6 +96,7 @@ for xs in G.values():
       'sold_in':' / '.join(sorted({o['region'] for o in xs})),
       'prices':' ; '.join(f"{o['shop']} ({o['location']}): {o['price']:.2f} {o['cur']}" for o in sorted(use,key=lambda o:o['eur'])),
       'cheapest_link':min(use,key=lambda o:o['eur'])['url'],
+      'price_note':'high reseller price' if all('high reseller price' in o['shop'] for o in use) else '',
       'links':' ; '.join(f"{o['shop']}: {o['url']}" for o in sorted(use,key=lambda o:o['eur']))})
 # owner's manual overrides (content/prices/sources/manual_overrides.csv): the price becomes the given one and its link the cheapest
 _ov = D + 'sources/manual_overrides.csv'
@@ -109,6 +110,12 @@ if os.path.exists(_ov):
                           'min_price_gbp': f"{eur*RATES['GBP']:.2f}", 'in_stock': 'yes', 'cheapest_link': m['url'],
                           'prices': shop + ' ; ' + r['prices'], 'links': f"{m['shop']}: {m['url']} ; " + r['links']})
                 r['shops_count'] = int(r['shops_count']) + 1; hit += 1
+        if not hit and m.get('wine'):   # not sold by any listed shop: add it
+            out.append({'wine': m['wine'], 'producer': m.get('producer', ''), 'vintage': m['vintage'], 'size_ml': int(m['size_ml']),
+                'avg_price_gbp': f"{eur*RATES['GBP']:.2f}", 'avg_price_eur': f'{eur:.2f}', 'avg_price_usd': f"{eur*RATES['USD']:.2f}",
+                'min_price_gbp': f"{eur*RATES['GBP']:.2f}", 'max_price_gbp': f"{eur*RATES['GBP']:.2f}", 'shops_count': 1, 'in_stock': 'yes',
+                'sold_in': 'UK wine shop', 'prices': f"{m['shop']} ({m['location']}): {float(m['price']):.2f} {m['currency']}",
+                'cheapest_link': m['url'], 'links': f"{m['shop']}: {m['url']}"}); hit = 'added'
         print('override', m['match'], m['vintage'], '->', hit, 'row(s)')
 out.sort(key=lambda r:(re.sub(r'^[^a-z0-9]+','',unicodedata.normalize('NFKD',r['wine']).encode('ascii','ignore').decode().lower()),r['vintage'],r['size_ml']))
 cols=list(out[0].keys())
