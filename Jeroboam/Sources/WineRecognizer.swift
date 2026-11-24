@@ -154,7 +154,7 @@ enum WineRecognizer {
     private static func vetted(_ w: WineIdentity, sig: String?) async -> RecognitionResult {
         var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
         guard w.found, !w.name.isEmpty, w.fromDatabase != true, w.checked != true else { return r }
-        if DailyBudget.reached || apiKey == nil { r.identity = hideUnchecked(w); return r }
+        if DailyBudget.reached || apiKey == nil { return r }
         let (v, cost) = await verifyOnline(w)
         r.identity = v; r.extraUSD = cost
         WineDB.shared.save(v, signature: sig)
@@ -172,7 +172,7 @@ enum WineRecognizer {
     /// If nothing can be confirmed, the grapes and notes are left empty rather than guessed.
     static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double) {
         guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0) }
-        guard let key = apiKey else { return (hideUnchecked(w), 0) }
+        guard let key = apiKey else { return (w, 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let prompt = """
         Use web search to check this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").
@@ -182,8 +182,8 @@ enum WineRecognizer {
         Set confirmed to false and grapes to [] if the pages do not clearly state the grapes of this wine. Use "" or [] for anything the pages do not state.
         """
         let body: [String: Any] = [
-            "model": model, "max_tokens": 1500,
-            "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 2]],
+            "model": model, "max_tokens": 600,
+            "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]],
             "messages": [["role": "user", "content": prompt]]
         ]
         do {
@@ -195,14 +195,15 @@ enum WineRecognizer {
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200,
-                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (hideUnchecked(w), 0) }
+                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (w, 0) }
             let usage = json["usage"] as? [String: Any] ?? [:]
             let searches = ((usage["server_tool_use"] as? [String: Any])?["web_search_requests"] as? Int) ?? 0
             let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000
                 + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000 + Double(searches) * searchUSD
             DailyBudget.add(cost)
             let text = (json["content"] as? [[String: Any]] ?? []).filter { ($0["type"] as? String) == "text" }.compactMap { $0["text"] as? String }.joined()
-            var v = hideUnchecked(w)
+            // searched once: whatever the pages do not confirm stays as Claude's best guess
+            var v = w
             v.checked = true
             guard let o = text.lastIndex(of: "{"), let c = text.lastIndex(of: "}"), o < c,
                   let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any],
@@ -222,7 +223,7 @@ enum WineRecognizer {
             return (v, cost)
         } catch {
             // no connection: show nothing unchecked, and try again next time (not marked as checked)
-            return (hideUnchecked(w), 0)
+            return (w, 0)
         }
     }
 
