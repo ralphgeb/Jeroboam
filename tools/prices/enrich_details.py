@@ -181,6 +181,19 @@ def mono_grape(place, color):
     for rx, col, g in MONO:
         if re.search(rx, p) and (col is None or col == color): return g
     return ''
+GR = r'(' + '|'.join(sorted(map(re.escape, GRAPES), key=len, reverse=True)) + r')'
+BL_A = re.compile(r'(\d{1,3}(?:[.,]\d)?)\s*%\s*(?:of\s+)?' + GR + r'\b')
+BL_B = re.compile(r'\b' + GR + r'\s*[:(]?\s*(\d{1,3}(?:[.,]\d)?)\s*%')
+def blend_in(t):
+    """[(grape, percent)] from text such as '60% Merlot, 40% Cabernet Franc' or 'Merlot 80%'. Empty if it doesn't add up."""
+    for rx, gi, pi in ((BL_A, 2, 1), (BL_B, 1, 2)):
+        found = []
+        for m in rx.finditer(t):
+            g = GRAPES[m.group(gi)]; v = float(m.group(pi).replace(',', '.'))
+            if 0 < v <= 100 and g not in [x[0] for x in found]: found.append((g, v))
+        tot = sum(v for _, v in found)
+        if found and (90 <= tot <= 101 or (len(found) == 1 and found[0][1] == 100)): return sorted(found, key=lambda x: -x[1])
+    return []
 def place_from(text):
     for m in PLACE_RX.finditer(fold(text)):
         return PLACES[m.group(1)]
@@ -224,6 +237,7 @@ def analyse(name, d):
             if g not in gs: gs.append(g)
             if len(gs) >= 3: break
     out['grapes'] = gs[:4]
+    out['blend'] = blend_in(fold(text + ' ' + name))
     tcol = None
     for t in tags + ([d['type']] if d else []):
         for c, rx in COLORS:
@@ -272,7 +286,7 @@ def main():
                     elif 80 <= v <= 100: d.setdefault(name, (v, ''))
                 if d: PAGE[p['url']] = d
         print('product pages with scores', len(PAGE))
-    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','aromas','aromas_source','notes','avg_score','scores','score_links','details_link']
+    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','grape_blend','blend_source','aromas','aromas_source','notes','avg_score','scores','score_links','details_link']
     w = csv.DictWriter(open(P + 'wine_details.csv', 'w', newline=''), fieldnames=cols)
     w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
@@ -296,6 +310,7 @@ def main():
             for s in f['style']:
                 if s not in style: style.append(s)
         arl = [a for a, _ in aromas.most_common(6)]
+        blend = next((f['blend'] for _, f in facts if f.get('blend')), [])
         crit = C.defaultdict(list); links = []
         for u, f in facts:
             for n, (s, sc) in f['scores'].items():
@@ -316,7 +331,7 @@ def main():
         detail = next((u for u in urls if u in DET and len(DET[u]['text']) > 80), (urls[0] if urls else r.get('cheapest_link', '')))
         ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
                     'region': region, 'appellation': app, 'grapes': ', '.join(grapes), 'aromas': ', '.join(arl), 'notes': ' '.join(bits), 'avg_score': avg,
-                    'details_link': detail})
+                    'details_link': detail, 'grape_blend': ', '.join(f'{g} {v:g}%' for g, v in blend), 'blend_source': 'shop description' if blend else ''})
     def wkey(row):
         n = re.sub(r'\b(magnum|double magnum|jeroboam|imperial|half bottle|\d+(?:\.\d+)?\s*(?:ml|cl|l|ltr|litre))\b', ' ', fold(row['wine']))
         return (' '.join(sorted(set(re.findall(r'[a-z0-9]+', n)))), row['vintage'])
@@ -334,8 +349,12 @@ def main():
         cur = same.setdefault(k, {})
         for f in ('country', 'region', 'appellation', 'grapes', 'color', 'aromas'):
             if row[f] and f not in cur: cur[f] = row[f]
+    blends = {}
+    for row in ROWS:
+        if row['grape_blend']: blends.setdefault(wkey(row), row['grape_blend'])
     for row in ROWS:
         row['aromas_source'] = 'shop description' if row['aromas'] else ''
+        if not row['grape_blend'] and blends.get(wkey(row)): row['grape_blend'] = blends[wkey(row)]; row['blend_source'] = 'shop description (other size)'
         cur = same.get(wkey(dict(row, vintage=''))[0], {})
         for f in ('country', 'region', 'appellation', 'grapes', 'color'):
             if not row[f] and cur.get(f): row[f] = cur[f]
@@ -344,6 +363,12 @@ def main():
             g = mono_grape(row['appellation'] or row['region'], row['color'])
             if g: row['grapes'] = g
         gl = [g.strip() for g in row['grapes'].split(',') if g.strip()]
+        rule = mono_grape(row['appellation'] or row['region'], row['color'])
+        if row['grape_blend'] and rule and row['color'] != 'Sparkling' and not row['grape_blend'].startswith(rule):
+            row['grape_blend'] = ''; row['blend_source'] = ''   # the description was about another wine
+        if not row['grape_blend']:
+            g = rule
+            if g and (not gl or gl == [g]): row['grape_blend'] = f'{g} 100%'; row['blend_source'] = 'appellation rule'
         if not row['color'] and gl: row['color'] = color_of('', gl)
         if not row['aromas'] and gl and gl[0] in GRAPE_INFO:
             row['aromas'] = ', '.join(GRAPE_INFO[gl[0]]['aromas'][:6]); row['aromas_source'] = f'typical for {gl[0]}'
@@ -358,7 +383,8 @@ def main():
         kind = kind[0].upper() + kind[1:]
         where = ', '.join(x for x in [row['appellation'] or row['region'], row['country']] if x)
         b = [kind + (f' from {where}' if where else '') + '.']
-        if row['grapes']: b.append('Grapes: ' + row['grapes'] + '.')
+        if row['grape_blend']: b.append('Grapes: ' + row['grape_blend'] + '.')
+        elif row['grapes']: b.append('Grapes: ' + row['grapes'] + '.')
         if row['_style']: b.append('Style: ' + ', '.join(row['_style'][:6]) + '.')
         if row['aromas']: b.append(('Aromas: ' if row['aromas_source'].startswith('shop') else 'Typical aromas: ') + row['aromas'].lower() + '.')
         row['_bits'] = b

@@ -27,6 +27,8 @@ notes, avg_score, scores, score_links, details_link.
   script) matched in the wine's name, then in the shop description.
 - Facts that don't change with the vintage (place, grapes, colour, aromas) are shared between vintages and sizes of the same wine;
   single-grape appellations give the grape (Barolo -> Nebbiolo, Sancerre -> Sauvignon Blanc …).
+- `grape_blend` (e.g. `Merlot 60%, Cabernet Franc 35%, Cabernet Sauvignon 5%`) is read from shop descriptions; `blend_source` says
+  `shop description`, `shop description (other size)` or `appellation rule` (100% for single-grape appellations such as Barolo or Chablis).
 - `aromas_source`: `shop description`, `shop description (other vintage)` or `typical for <grape>` (from content/grapes.yaml when no description names any).
 - Aromas use the app's aroma wheel words (`content/aromas.yaml`) found in the shop descriptions.
 - `notes` is a short summary generated from these facts (shop and critic texts are copyrighted, so they are not copied);
