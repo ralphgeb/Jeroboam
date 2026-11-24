@@ -8,7 +8,8 @@ struct CellarView: View {
     @Environment(\.dismiss) private var dismiss
 
     private enum Sort: String, CaseIterable, Identifiable {
-        case recent = "Recently added", priceHigh = "Price, high to low", priceLow = "Price, low to high", rating = "Rating",
+        case recent = "Recently added", priceHigh = "Value, high to low", priceLow = "Value, low to high",
+             paidHigh = "Price paid, high to low", paidLow = "Price paid, low to high", rating = "Rating",
              vintageNew = "Vintage, newest", vintageOld = "Vintage, oldest", name = "Name"
         var id: String { rawValue }
     }
@@ -51,6 +52,8 @@ struct CellarView: View {
         case .recent: list.sort { $0.added > $1.added }
         case .priceHigh: list.sort { (usd($0) ?? -1) > (usd($1) ?? -1) }
         case .priceLow: list.sort { (usd($0) ?? .infinity) < (usd($1) ?? .infinity) }
+        case .paidHigh: list.sort { ($0.paidUSD ?? -1) > ($1.paidUSD ?? -1) }
+        case .paidLow: list.sort { ($0.paidUSD ?? .infinity) < ($1.paidUSD ?? .infinity) }
         case .rating: list.sort { ($0.roughRating ?? 0) > ($1.roughRating ?? 0) }
         case .vintageNew: list.sort { $0.vintageText > $1.vintageText }
         case .vintageOld: list.sort { $0.vintageText < $1.vintageText }
@@ -59,6 +62,8 @@ struct CellarView: View {
         return list
     }
 
+    /// What you paid is shown next to the value only while the cellar is sorted by it.
+    private var showPaid: Bool { sort == .paidHigh || sort == .paidLow }
     private var filtersOn: Bool { !color.isEmpty || priceBand > 0 || minRating > 0 || !vintage.isEmpty }
 
     var body: some View {
@@ -233,6 +238,7 @@ struct CellarView: View {
                 Text([b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 HStack {
                     Text(b.price.map { $0.averageText } ?? "–").font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                    if showPaid { Text(b.paidUSD.map { "paid " + money($0, "USD") } ?? "paid –").font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft).lineLimit(1) }
                     Spacer()
                     if let r = b.roughRating { Text("\(r)").font(.system(size: 11.5, weight: .bold).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
                 }
@@ -259,7 +265,7 @@ struct CellarView: View {
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 2) {
                 Text(b.price.map { $0.averageText } ?? "–").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                if let p = b.paidUSD { Text("paid " + money(p, "USD")).font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
+                if showPaid { Text(b.paidUSD.map { "paid " + money($0, "USD") } ?? "paid –").font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
                 Text("× \(b.quantity)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft)
             }
         }

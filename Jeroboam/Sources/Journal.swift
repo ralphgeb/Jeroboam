@@ -807,6 +807,75 @@ struct PricePaidField: View {
     }
 }
 
+/// A link to the critics' scores for this wine, like the price card's link: the page that quotes them when one is known,
+/// else a Wine-Searcher search by the wine's name and vintage.
+struct ScoreLinkCard: View {
+    let wine: WineIdentity
+    var score: Int? = nil
+    var link: String? = nil
+    private var url: URL? {
+        if let l = link, let u = URL(string: l.hasPrefix("http") ? l : "https://" + l) { return u }
+        let slug = wine.name.folding(options: .diacriticInsensitive, locale: .current).lowercased()
+            .components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }.joined(separator: "+")
+        guard !slug.isEmpty else { return nil }
+        let v = wine.vintage.trimmingCharacters(in: .whitespaces)
+        return URL(string: "https://www.wine-searcher.com/find/" + slug + (v.count == 4 ? "/" + v : ""))
+    }
+    var body: some View {
+        if let url {
+            HStack(alignment: .center, spacing: 14) {
+                Image(systemName: "star.leadinghalf.filled").font(.system(size: 17)).foregroundStyle(Palette.wine)
+                    .frame(width: 40, height: 40).background(Circle().fill(Palette.wineSoft))
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .firstTextBaseline, spacing: 6) {
+                        Text(score.map { "\($0) pts" } ?? "Critic scores").font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                        if score != nil { Text("critics' average").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft) }
+                    }
+                    Link(destination: url) {
+                        Label(link == nil ? "See the scores on Wine-Searcher" : "See where these scores come from", systemImage: "arrow.up.right.square")
+                            .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
+                    }
+                    .foregroundStyle(Palette.wine).padding(.top, 2)
+                }
+                Spacer()
+            }
+            .padding(14)
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        }
+    }
+}
+
+/// Fixes a wrongly read wine: its name, producer, vintage and region. The corrected wine replaces the wrong one in this phone's
+/// own wine list and is shared (anonymously) so the next scan of this label starts from the right name.
+struct EditWineSheet: View {
+    @State var wine: WineIdentity
+    var onSave: (WineIdentity) -> Void
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("As printed on the label") {
+                    TextField("Wine name (for example Delicado)", text: $wine.name)
+                    TextField("Producer (for example Ximénez-Spínola)", text: $wine.producer)
+                    TextField("Vintage (or NV)", text: $wine.vintage).keyboardType(.numbersAndPunctuation)
+                }
+                Section("Where it is from") {
+                    TextField("Region or appellation", text: $wine.region)
+                    TextField("Country", text: $wine.country)
+                }
+            }
+            .navigationTitle("Correct the wine").navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) { Button("Cancel") { dismiss() } }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") { var w = wine; w.found = true; onSave(w); dismiss() }.fontWeight(.semibold).disabled(wine.name.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            }
+        }
+    }
+}
+
 /// What you paid for a bottle: editable any time, and the cellar compares it with today's value.
 struct PaidField: View {
     @Binding var paidUSD: Double?
@@ -815,18 +884,18 @@ struct PaidField: View {
     @FocusState private var focused: Bool
     var body: some View {
         HStack(spacing: 10) {
-            Image(systemName: "creditcard").font(.system(size: 15)).foregroundStyle(Palette.wine)
-            TextField("What you paid per bottle (optional)", text: $text).keyboardType(.decimalPad).focused($focused)
-            Text(Currency.code).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+            Image(systemName: "creditcard").font(.system(size: 14)).foregroundStyle(Palette.wine)
+            TextField("Price you paid, per bottle", text: $text).font(.system(size: 14.5)).keyboardType(.decimalPad).focused($focused)
+            Text(Currency.code).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
             if focused {
                 Button("Save") { focused = false; Haptics.success(); withAnimation { saved = true } }
-                    .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.onWine)
-                    .padding(.horizontal, 12).padding(.vertical, 6).background(Capsule().fill(Palette.wine))
+                    .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.onWine)
+                    .padding(.horizontal, 11).padding(.vertical, 5).background(Capsule().fill(Palette.wine))
             } else if saved || paidUSD != nil {
-                Label("Saved", systemImage: "checkmark.circle.fill").font(.system(size: 12.5, weight: .semibold)).foregroundStyle(Palette.correct).labelStyle(.titleAndIcon)
+                Label("Saved", systemImage: "checkmark.circle.fill").font(.system(size: 11.5, weight: .semibold)).foregroundStyle(Palette.correct).labelStyle(.titleAndIcon)
             }
         }
-        .padding(14)
+        .padding(.horizontal, 14).padding(.vertical, 11)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
         .toolbar { ToolbarItemGroup(placement: .keyboard) { Spacer(); Button("Save") { focused = false; Haptics.success(); withAnimation { saved = true } }.fontWeight(.semibold) } }
@@ -928,6 +997,7 @@ struct ScanFlow: View {
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
             }
             PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
+            if identified { ScoreLinkCard(wine: wine) }
             if identified { PaidField(paidUSD: $paidUSD) }
 
             VStack(spacing: 12) {
@@ -1612,6 +1682,7 @@ struct EntryDetailView: View {
                     if e.identified { WineGlance(wine: e.wine, price: e.price, points: e.points) }
                     if e.identified { WineInfoCard(wine: e.wine) }
                     if let p = e.price { PriceCard(price: p, wine: e.wine) }
+                    if e.identified { ScoreLinkCard(wine: e.wine) }
                     if let c = e.colorID.flatMap({ ContentStore.shared.color($0) }) {
                         HStack(spacing: 12) {
                             Rectangle().fill(Color(hex: c.hex)).frame(width: 36, height: 36)
@@ -1676,6 +1747,7 @@ struct CellarDetailView: View {
     @State private var confirmDelete = false
     @State private var pricing = false
     @State private var tasting = false
+    @State private var editing = false
 
     var body: some View {
         if let b = journal.cellar.first(where: { $0.id == bottleID }) {
@@ -1687,6 +1759,10 @@ struct CellarDetailView: View {
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
                                  subtitle: [b.wine.producer, "Added " + b.added.formatted(date: .abbreviated, time: .omitted)].filter { !$0.isEmpty }.joined(separator: " · "))
+                    Button { editing = true } label: {
+                        Label("Not the right wine? Correct its name", systemImage: "pencil").font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Palette.wine).padding(.top, -8)
                     WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity, wine: b.wine) { Task { await refresh(b) } }
                     PaidField(paidUSD: Binding(get: { b.paidUSD }, set: { v in var c = b; c.setPaid(v); journal.upsert(c) }))
@@ -1711,6 +1787,7 @@ struct CellarDetailView: View {
                     .padding(.horizontal, 14).padding(.vertical, 8)
                     .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
                     WineInfoCard(wine: b.wine)
+                    ScoreLinkCard(wine: b.wine, score: b.roughRating)
                     Button { tasting = true } label: { Label("Taste this bottle", systemImage: "wineglass") }
                         .buttonStyle(PrimaryButtonStyle())
                     Button(role: .destructive) { confirmDelete = true } label: {
@@ -1728,6 +1805,13 @@ struct CellarDetailView: View {
             .task { if let p = b.price, p.source.hasPrefix("Average of"), !pricing { await refresh(b) } }
             .fullScreenCover(isPresented: $tasting) {
                 TastingFlow(blind: false, wine: b.wine, image: JournalStore.image(b.photo), price: b.price)
+            }
+            .sheet(isPresented: $editing) {
+                EditWineSheet(wine: b.wine) { fixed in
+                    var c = b; c.wine = fixed; journal.upsert(c)
+                    WineDB.shared.correct(from: b.wine, to: fixed, image: JournalStore.image(b.photo))
+                    Task { await refresh(c) }
+                }
             }
             .confirmationDialog("Remove this wine from your cellar?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Remove", role: .destructive) { journal.delete(b); dismiss() }

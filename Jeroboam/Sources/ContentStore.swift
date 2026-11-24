@@ -103,11 +103,18 @@ final class ContentStore {
         var best: (Region, Int)? = nil
         if !text.trimmingCharacters(in: .whitespaces).isEmpty {
             for r in library.regions + extraRegions where r.kind != "country" {
-                let n = norm(r.name)
-                guard n.count >= 3 else { continue }
-                if t.contains(" " + n + " ") || (n.count >= 5 && t.contains(n)) {
-                    let score = n.count + (r.kind == "subregion" ? 4 : 0)
-                    if best == nil || score > best!.1 { best = (r, score) }
+                // "Jerez (Sherry)" is found by "Jerez-Xérès-Sherry": the name, the name without its brackets and the bracketed word each count
+                var names = [norm(r.name)]
+                if r.name.contains("(") {
+                    names.append(norm(r.name.components(separatedBy: "(")[0]).trimmingCharacters(in: .whitespaces))
+                    if let inner = r.name.components(separatedBy: "(").last?.replacingOccurrences(of: ")", with: "") { names.append(norm(inner).trimmingCharacters(in: .whitespaces)) }
+                }
+                for n in names {
+                    guard n.count >= 3 else { continue }
+                    if t.contains(" " + n + " ") || (n.count >= 5 && t.contains(n)) {
+                        let score = n.count + (r.kind == "subregion" ? 4 : 0)
+                        if best == nil || score > best!.1 { best = (r, score) }
+                    }
                 }
             }
         }

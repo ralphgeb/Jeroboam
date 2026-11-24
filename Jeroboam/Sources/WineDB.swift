@@ -90,6 +90,24 @@ final class WineDB {
         if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
     }
 
+    /// The owner corrected a wine that was read wrongly: the wrong entry (and the label signatures pointing at it) goes, the right one stays.
+    func correct(from old: WineIdentity, to new: WineIdentity, image: UIImage?) {
+        lock.lock()
+        let ok = Self.key(old), nk = Self.key(new)
+        let was = store.wines[ok]
+        if ok != nk { store.wines[ok] = nil }
+        var e = store.wines[nk] ?? Entry(identity: new, price: was?.price)
+        e.identity = new
+        e.lastSeen = Date(); e.scans = (was?.scans ?? 1)
+        e.thumb = e.thumb ?? was?.thumb
+        store.wines[nk] = e
+        for (sig, k) in store.signatures where k == ok { store.signatures[sig] = nk }
+        let snapshot = store
+        lock.unlock()
+        if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
+        PriceCloud.shareWine(new)
+    }
+
     /// Everything ever scanned, newest first.
     func history() -> [Entry] {
         allEntries().filter { !$0.identity.name.isEmpty && ($0.lastSeen != nil || $0.scans != nil) }

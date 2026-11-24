@@ -1009,7 +1009,7 @@ def build_gb(only=None):
         col = {}
         if groups:
             for i, (gid, gname, g) in enumerate(groups):
-                col[gid] = cidx(None, i)
+                col[gid] = cidx(H.get("colors", {}).get(gid), i)
                 areas.append(area_record(pr, gid, gname, 0, col[gid], g, tol, min_area=1, soft=True))
             allg = unary_union([gr[2] for gr in groups]).buffer(km2deg(2))
             for rid, n, g, _ in children:

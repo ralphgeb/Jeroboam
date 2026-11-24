@@ -218,7 +218,7 @@ def B(name, lat, lon, r, adm=None, minus=()):
     return {"name": name, "c": (lat, lon), "r": r, "adm": adm, "minus": list(minus)}
 
 HIERARCHY = {
-    "spain": {"snap": "ADM3", "drop_extra": ["txakoli"], "pdo_auto": {"cc": "ES", "min": 0.01, "skip": ["Cava", "Cataluña", "Valdeorras", "Valencia", "Cataluña / Catalunya", "Islas Canarias", "Gran Canaria",
+    "spain": {"snap": "ADM3", "drop_extra": ["txakoli"], "colors": {"es-andalucia": "green", "es-castilla-leon": "blue"}, "pdo_auto": {"cc": "ES", "min": 0.01, "skip": ["Cava", "Cataluña", "Valdeorras", "Valencia", "Cataluña / Catalunya", "Islas Canarias", "Gran Canaria",
               "El Hierro", "La Gomera", "La Palma", "Lanzarote", "Abona", "Valle de Güímar", "Valle de la Orotava", "Tacoronte-Acentejo",
               "Ycoden-Daute-Isora"]}, "groups": {
         "es-galicia": ("Galicia", G("ADM1", ["Galicia"])),
