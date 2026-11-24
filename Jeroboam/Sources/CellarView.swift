@@ -252,25 +252,23 @@ struct CellarView: View {
     }
 
     private func row(_ b: CellarBottle, last: Bool) -> some View {
-        HStack(spacing: 12) {
-            Thumb(photo: b.photo, style: b.wine.style).frame(width: 46, height: 58)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text([b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
-                HStack(spacing: 8) {
-                    Text("Vintage \(b.vintageText)").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine)
-                    if let r = b.roughRating { Text("\(r) pts").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft) }
-                }
+        // compact: the same two-line row as the Journal tab (small picture, title, one detail line, value on the right)
+        HStack(spacing: 10) {
+            Thumb(photo: b.photo, style: b.wine.style).frame(width: 34, height: 44).clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+            VStack(alignment: .leading, spacing: 1) {
+                Text(b.title).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text([b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
+                    .font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
-            Spacer(minLength: 8)
-            VStack(alignment: .trailing, spacing: 2) {
+            Spacer(minLength: 6)
+            VStack(alignment: .trailing, spacing: 1) {
                 Text(b.price.map { $0.averageText } ?? "–").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                if showPaid { Text(b.paidUSD.map { "paid " + money($0, "USD") } ?? "paid –").font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
-                Text("× \(b.quantity)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                Text(showPaid ? (b.paidUSD.map { "paid " + money($0, "USD") + " · ×\(b.quantity)" } ?? "paid – · ×\(b.quantity)") : "× \(b.quantity)")
+                    .font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
         }
-        .padding(.horizontal, 14).padding(.vertical, 10)
-        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 72) } }
+        .padding(.horizontal, 12).padding(.vertical, 7)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 56) } }
         .contentShape(Rectangle())
     }
 }

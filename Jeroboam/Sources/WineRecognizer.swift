@@ -27,11 +27,14 @@ struct WineIdentity: Codable, Hashable {
     var dbScore: Int? = nil
     var dbScoreLink: String? = nil
     var fromDatabase: Bool? = nil
+    /// True once the grapes, region and notes were checked on the web (or came from the wine database).
+    var checked: Bool? = nil
 
     enum CodingKeys: String, CodingKey {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
         case tastingNotes = "tasting_notes", priceLow = "price_low", priceHigh = "price_high", funFact = "fun_fact"
         case drinkWindow = "drink_window", grapePercent = "grape_percent", dbScore = "db_score", dbScoreLink = "db_score_link", fromDatabase = "from_database"
+        case checked
     }
 
     static let empty = WineIdentity(found: false, name: "", producer: "", region: "", country: "", grapes: [], vintage: "",
@@ -44,14 +47,36 @@ struct RecognitionResult {
     var usedImage: Bool
     var inputTokens: Int
     var outputTokens: Int
+    /// The web check of a new wine (search fee plus tokens).
+    var extraUSD: Double = 0
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
-    var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 }
+    var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
+}
+
+/// Every phone gets a small daily allowance for wines the databases don't know yet (those need a web check, which costs money).
+/// Wines already in the phone's or the shared database are free and never count.
+enum DailyBudget {
+    static let limitUSD = 0.10
+    private static let testKey = "jero.testLimit"
+    /// TestFlight switch (Settings) to see what happens when the limit is reached.
+    static var testLimit: Bool {
+        get { UserDefaults.standard.bool(forKey: testKey) }
+        set { UserDefaults.standard.set(newValue, forKey: testKey) }
+    }
+    private static var key: String {
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"; f.locale = Locale(identifier: "en_US_POSIX")
+        return "jero.spend." + f.string(from: Date())
+    }
+    static var spent: Double { UserDefaults.standard.double(forKey: key) }
+    static func add(_ c: Double) { if c > 0 { UserDefaults.standard.set(spent + c, forKey: key) } }
+    static var reached: Bool { testLimit || spent >= limitUSD }
 }
 
 enum RecognizerError: LocalizedError {
-    case noKey, network(String), refused, badResponse
+    case noKey, network(String), refused, badResponse, limit
     var errorDescription: String? {
         switch self {
+        case .limit: return "You've reached today's limit for new wines. Wines Jero already knows still work. New ones open again tomorrow."
         case .noKey: return "Wine recognition isn't set up in this build."
         case .network(let m): return m
         case .refused: return "The wine couldn't be identified."
@@ -105,19 +130,100 @@ enum WineRecognizer {
     static func identify(image: UIImage) async throws -> RecognitionResult {
         let sig = WineDB.signature(await readText(image))
         if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
-            return RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
+            return await vetted(hit.identity, sig: sig)
         }
         // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
         if let sig, let w = await PriceCloud.wine(sig: sig) {
             WineDB.shared.save(w, signature: sig)
-            return RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+            return await vetted(w, sig: sig)
         }
+        if DailyBudget.reached { throw RecognizerError.limit }
         var r = try await identifyFresh(image: image)
+        DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+        let (w, cost) = await verifyOnline(r.identity)
+        r.identity = w; r.extraUSD = cost
         WineDB.shared.save(r.identity, signature: sig)
         PriceCloud.shareWine(r.identity, sig: sig)
         return r
+    }
+
+    /// A wine we already hold: when nothing has checked its grapes yet, check them now (if today's allowance lasts).
+    /// Without a check the grapes and notes stay hidden: a guess is never shown as a fact.
+    private static func vetted(_ w: WineIdentity, sig: String?) async -> RecognitionResult {
+        var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+        guard w.found, !w.name.isEmpty, w.fromDatabase != true, w.checked != true else { return r }
+        if DailyBudget.reached || apiKey == nil { r.identity = hideUnchecked(w); return r }
+        let (v, cost) = await verifyOnline(w)
+        r.identity = v; r.extraUSD = cost
+        WineDB.shared.save(v, signature: sig)
+        PriceCloud.shareWine(v, sig: sig)
+        return r
+    }
+
+    private static func hideUnchecked(_ w: WineIdentity) -> WineIdentity {
+        var w = w
+        w.grapes = []; w.grapePercent = nil; w.tastingNotes = []
+        return w
+    }
+
+    /// Checks a wine the database doesn't know on the web (producer pages, shops, critics) and keeps only what the pages say.
+    /// If nothing can be confirmed, the grapes and notes are left empty rather than guessed.
+    static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double) {
+        guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0) }
+        guard let key = apiKey else { return (hideUnchecked(w), 0) }
+        let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
+        let prompt = """
+        Use web search to check this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").
+        Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.
+        Reply with only one JSON object and nothing else:
+        {"confirmed": true or false, "region": "", "country": "", "grapes": ["..."], "grape_percent": [100], "style": "red|white|rose|sparkling|fortified|sweet|orange", "tasting_notes": ["..."], "palate": "one sentence"}
+        Set confirmed to false and grapes to [] if the pages do not clearly state the grapes of this wine. Use "" or [] for anything the pages do not state.
+        """
+        let body: [String: Any] = [
+            "model": model, "max_tokens": 1500,
+            "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 2]],
+            "messages": [["role": "user", "content": prompt]]
+        ]
+        do {
+            var req = URLRequest(url: endpoint)
+            req.httpMethod = "POST"; req.timeoutInterval = 60
+            req.setValue("application/json", forHTTPHeaderField: "content-type")
+            req.setValue(key, forHTTPHeaderField: "x-api-key")
+            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            req.httpBody = try JSONSerialization.data(withJSONObject: body)
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard (resp as? HTTPURLResponse)?.statusCode == 200,
+                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (hideUnchecked(w), 0) }
+            let usage = json["usage"] as? [String: Any] ?? [:]
+            let searches = ((usage["server_tool_use"] as? [String: Any])?["web_search_requests"] as? Int) ?? 0
+            let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000
+                + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000 + Double(searches) * searchUSD
+            DailyBudget.add(cost)
+            let text = (json["content"] as? [[String: Any]] ?? []).filter { ($0["type"] as? String) == "text" }.compactMap { $0["text"] as? String }.joined()
+            var v = hideUnchecked(w)
+            v.checked = true
+            guard let o = text.lastIndex(of: "{"), let c = text.lastIndex(of: "}"), o < c,
+                  let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any],
+                  (obj["confirmed"] as? Bool) == true else { return (v, cost) }
+            let grapes = (obj["grapes"] as? [String] ?? []).map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+            guard !grapes.isEmpty else { return (v, cost) }
+            v.grapes = grapes
+            let pct = (obj["grape_percent"] as? [NSNumber])?.map { $0.intValue } ?? []
+            if pct.count == grapes.count, (95...105).contains(pct.reduce(0, +)) { v.grapePercent = pct }
+            else if grapes.count == 1 { v.grapePercent = [100] }
+            if let s = obj["region"] as? String, !s.isEmpty { v.region = s }
+            if let s = obj["country"] as? String, !s.isEmpty { v.country = s }
+            if let s = obj["style"] as? String, ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"].contains(s) { v.style = s }
+            let notes = (obj["tasting_notes"] as? [String] ?? []).filter { !$0.isEmpty }
+            if !notes.isEmpty { v.tastingNotes = notes }
+            if let s = obj["palate"] as? String, !s.isEmpty { v.palate = s }
+            return (v, cost)
+        } catch {
+            // no connection: show nothing unchecked, and try again next time (not marked as checked)
+            return (hideUnchecked(w), 0)
+        }
     }
 
     /// "Château Batailley 2021" with vintage 2021 would show the year twice: keep it out of the name.
@@ -155,9 +261,13 @@ enum WineRecognizer {
 
     static func identify(text: String) async throws -> RecognitionResult {
         guard let key = apiKey else { throw RecognizerError.noKey }
+        if DailyBudget.reached { throw RecognizerError.limit }
         var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
+        DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+        let (w, cost) = await verifyOnline(r.identity)
+        r.identity = w; r.extraUSD = cost
         WineDB.shared.save(r.identity)
         return r
     }
@@ -309,7 +419,7 @@ extension WineRecognizer {
 
     /// One short question, no tools: about $0.0002.
     private static func quickEstimate(for w: WineIdentity) async -> (PriceInfo?, Double) {
-        guard let key = apiKey, !w.name.isEmpty else { return (nil, 0) }
+        guard let key = apiKey, !w.name.isEmpty, !DailyBudget.reached else { return (nil, 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let body: [String: Any] = [
             "model": model, "max_tokens": 120,
@@ -326,6 +436,7 @@ extension WineRecognizer {
             guard (resp as? HTTPURLResponse)?.statusCode == 200, let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (nil, 0) }
             let usage = json["usage"] as? [String: Any] ?? [:]
             let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000 + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000
+            DailyBudget.add(cost)
             let text = (json["content"] as? [[String: Any]] ?? []).compactMap { $0["text"] as? String }.joined()
             guard let o = text.firstIndex(of: "{"), let c = text.lastIndex(of: "}"), o < c,
                   let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any] else { return (nil, cost) }

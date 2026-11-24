@@ -4,6 +4,7 @@ struct ProfileView: View {
     @Environment(GameProgress.self) private var progress
     @Environment(JournalStore.self) private var journal
     @State private var confirmReset = false
+    @State private var limitTick = 0
     @Environment(\.dismiss) private var dismiss
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
@@ -222,6 +223,11 @@ struct ProfileView: View {
                             Button { AtlasQuota.reset() } label: { testRow("Reset the free atlas cards", "rectangle.stack") }
                             Hairline()
                             Button { Notifications.shared.sendTestFact() } label: { testRow("Send a fun fact now", "bell.badge") }
+                            Hairline()
+                            Button { DailyBudget.testLimit.toggle(); limitTick += 1 } label: {
+                                testRow(DailyBudget.testLimit ? "Limit reached (tap to switch off)" : "Pretend today's limit is reached", "hand.raised")
+                            }
+                            .id(limitTick)
                         }
                     }
 
