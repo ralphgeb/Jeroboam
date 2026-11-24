@@ -162,30 +162,49 @@ enum WineRecognizer {
         return r
     }
 
-    private static func hideUnchecked(_ w: WineIdentity) -> WineIdentity {
-        var w = w
-        w.grapes = []; w.grapePercent = nil; w.tastingNotes = []
-        return w
-    }
-
-    /// Checks a wine the database doesn't know on the web (producer pages, shops, critics) and keeps only what the pages say.
-    /// If nothing can be confirmed, the grapes and notes are left empty rather than guessed.
+    /// Checks a wine the database doesn't know. First the cheap way: read the shop page we already know and a few
+    /// search-result pages ourselves (free), and let Claude read only that text (a fraction of a cent, no tools).
+    /// Only when those pages don't settle the grapes is one paid web search used. Whatever stays unconfirmed is Claude's guess.
     static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double) {
         guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0) }
         guard let key = apiKey else { return (w, 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
-        let prompt = """
-        Use web search to check this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").
-        Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.
+        let place = w.region.isEmpty ? "" : " (" + w.region + ")"
+        let format = """
         Reply with only one JSON object and nothing else:
         {"confirmed": true or false, "region": "", "country": "", "grapes": ["..."], "grape_percent": [100], "style": "red|white|rose|sparkling|fortified|sweet|orange", "tasting_notes": ["..."], "palate": "one sentence"}
-        Set confirmed to false and grapes to [] if the pages do not clearly state the grapes of this wine. Use "" or [] for anything the pages do not state.
+        Set confirmed to false and grapes to [] if it does not clearly state the grapes of this wine. Use "" or [] for anything not stated.
         """
-        let body: [String: Any] = [
-            "model": model, "max_tokens": 600,
-            "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]],
-            "messages": [["role": "user", "content": prompt]]
-        ]
+        var total = 0.0
+        var v = w
+        v.checked = true
+        // 1. free pages, read by Claude without tools
+        let shopURL = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w)?.url }.value ?? WineDB.shared.entry(for: w)?.price?.url
+        let pages = await WebFacts.pages(for: wine + " " + w.region, shopURL: shopURL)
+        if !pages.isEmpty {
+            let prompt = "Wine: \(wine)\(place).\nBelow is text from web pages. Report only what these pages say about this exact wine; never fill gaps from memory.\n\n\(pages)\n\n" + format
+            if let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: nil, maxTokens: 500) {
+                total += cost
+                if apply(obj, to: &v) { return (v, total) }
+            }
+        }
+        // 2. one paid search, only if today's allowance allows it
+        if DailyBudget.reached { return (v, total) }
+        let prompt = "Use web search to check this wine: \(wine)\(place). Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + format
+        let tools: [[String: Any]] = [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]]
+        guard let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: tools, maxTokens: 600) else {
+            // no connection: not marked as checked, so it is tried again next time
+            return (w, total)
+        }
+        total += cost
+        _ = apply(obj, to: &v)
+        return (v, total)
+    }
+
+    /// One Claude call that must answer with a JSON object. Returns the object and what the call cost (also counted against today's allowance).
+    private static func askJSON(key: String, prompt: String, tools: [[String: Any]]?, maxTokens: Int) async -> ([String: Any], Double)? {
+        var body: [String: Any] = ["model": model, "max_tokens": maxTokens, "messages": [["role": "user", "content": prompt]]]
+        if let tools { body["tools"] = tools }
         do {
             var req = URLRequest(url: endpoint)
             req.httpMethod = "POST"; req.timeoutInterval = 60
@@ -195,36 +214,36 @@ enum WineRecognizer {
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200,
-                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (w, 0) }
+                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return nil }
             let usage = json["usage"] as? [String: Any] ?? [:]
             let searches = ((usage["server_tool_use"] as? [String: Any])?["web_search_requests"] as? Int) ?? 0
             let cost = Double(usage["input_tokens"] as? Int ?? 0) * 0.10 / 1_000_000
                 + Double(usage["output_tokens"] as? Int ?? 0) * 0.50 / 1_000_000 + Double(searches) * searchUSD
             DailyBudget.add(cost)
             let text = (json["content"] as? [[String: Any]] ?? []).filter { ($0["type"] as? String) == "text" }.compactMap { $0["text"] as? String }.joined()
-            // searched once: whatever the pages do not confirm stays as Claude's best guess
-            var v = w
-            v.checked = true
             guard let o = text.lastIndex(of: "{"), let c = text.lastIndex(of: "}"), o < c,
-                  let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any],
-                  (obj["confirmed"] as? Bool) == true else { return (v, cost) }
-            let grapes = (obj["grapes"] as? [String] ?? []).map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
-            guard !grapes.isEmpty else { return (v, cost) }
-            v.grapes = grapes
-            let pct = (obj["grape_percent"] as? [NSNumber])?.map { $0.intValue } ?? []
-            if pct.count == grapes.count, (95...105).contains(pct.reduce(0, +)) { v.grapePercent = pct }
-            else if grapes.count == 1 { v.grapePercent = [100] }
-            if let s = obj["region"] as? String, !s.isEmpty { v.region = s }
-            if let s = obj["country"] as? String, !s.isEmpty { v.country = s }
-            if let s = obj["style"] as? String, ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"].contains(s) { v.style = s }
-            let notes = (obj["tasting_notes"] as? [String] ?? []).filter { !$0.isEmpty }
-            if !notes.isEmpty { v.tastingNotes = notes }
-            if let s = obj["palate"] as? String, !s.isEmpty { v.palate = s }
-            return (v, cost)
-        } catch {
-            // no connection: show nothing unchecked, and try again next time (not marked as checked)
-            return (w, 0)
-        }
+                  let obj = try? JSONSerialization.jsonObject(with: Data(text[o...c].utf8)) as? [String: Any] else { return ([:], cost) }
+            return (obj, cost)
+        } catch { return nil }
+    }
+
+    /// Takes the confirmed facts into the wine. False when the pages did not clearly state the grapes.
+    private static func apply(_ obj: [String: Any], to v: inout WineIdentity) -> Bool {
+        guard (obj["confirmed"] as? Bool) == true else { return false }
+        let grapes = (obj["grapes"] as? [String] ?? []).map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+        guard !grapes.isEmpty else { return false }
+        v.grapes = grapes
+        let pct = (obj["grape_percent"] as? [NSNumber])?.map { $0.intValue } ?? []
+        if pct.count == grapes.count, (95...105).contains(pct.reduce(0, +)) { v.grapePercent = pct }
+        else if grapes.count == 1 { v.grapePercent = [100] }
+        else { v.grapePercent = nil }
+        if let s = obj["region"] as? String, !s.isEmpty { v.region = s }
+        if let s = obj["country"] as? String, !s.isEmpty { v.country = s }
+        if let s = obj["style"] as? String, ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"].contains(s) { v.style = s }
+        let notes = (obj["tasting_notes"] as? [String] ?? []).filter { !$0.isEmpty }
+        if !notes.isEmpty { v.tastingNotes = notes }
+        if let s = obj["palate"] as? String, !s.isEmpty { v.palate = s }
+        return true
     }
 
     /// "Château Batailley 2021" with vintage 2021 would show the year twice: keep it out of the name.
