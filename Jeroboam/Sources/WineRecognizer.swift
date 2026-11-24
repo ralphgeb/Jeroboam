@@ -49,6 +49,8 @@ struct RecognitionResult {
     var outputTokens: Int
     /// The web check of a new wine (search fee plus tokens).
     var extraUSD: Double = 0
+    /// True when today's allowance was used up before this new wine could be checked online: its grapes and notes are left out.
+    var limited = false
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
     var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
 }
@@ -69,14 +71,17 @@ enum DailyBudget {
     }
     static var spent: Double { UserDefaults.standard.double(forKey: key) }
     static func add(_ c: Double) { if c > 0 { UserDefaults.standard.set(spent + c, forKey: key) } }
+    /// The allowance for checking new wines on the web is used up (the TestFlight switch pretends it is).
     static var reached: Bool { testLimit || spent >= limitUSD }
+    /// A safety stop far above the allowance: recognising wines is cheap, but not unlimited.
+    static var hardStop: Bool { spent >= limitUSD * 5 }
 }
 
 enum RecognizerError: LocalizedError {
     case noKey, network(String), refused, badResponse, limit
     var errorDescription: String? {
         switch self {
-        case .limit: return "You've reached today's limit for new wines. Wines Jero already knows still work. New ones open again tomorrow."
+        case .limit: return "You've reached today's limit for checking new wines. Wines Jero already knows still work. Their details open again tomorrow."
         case .noKey: return "Wine recognition isn't set up in this build."
         case .network(let m): return m
         case .refused: return "The wine couldn't be identified."
@@ -137,15 +142,15 @@ enum WineRecognizer {
             WineDB.shared.save(w, signature: sig)
             return await vetted(w, sig: sig)
         }
-        if DailyBudget.reached { throw RecognizerError.limit }
+        if DailyBudget.hardStop { throw RecognizerError.limit }
         var r = try await identifyFresh(image: image)
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
-        let (w, cost) = await verifyOnline(r.identity)
-        r.identity = w; r.extraUSD = cost
+        let (w, cost, limited) = await verifyOnline(r.identity)
+        r.identity = w; r.extraUSD = cost; r.limited = limited
         WineDB.shared.save(r.identity, signature: sig)
-        PriceCloud.shareWine(r.identity, sig: sig)
+        if !limited { PriceCloud.shareWine(r.identity, sig: sig) }   // an unchecked wine is not shared
         return r
     }
 
@@ -154,20 +159,25 @@ enum WineRecognizer {
     private static func vetted(_ w: WineIdentity, sig: String?) async -> RecognitionResult {
         var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
         guard w.found, !w.name.isEmpty, w.fromDatabase != true, w.checked != true else { return r }
-        if DailyBudget.reached || apiKey == nil { return r }
-        let (v, cost) = await verifyOnline(w)
-        r.identity = v; r.extraUSD = cost
-        WineDB.shared.save(v, signature: sig)
-        PriceCloud.shareWine(v, sig: sig)
+        if apiKey == nil { r.identity = hideUnchecked(w); return r }
+        let (v, cost, limited) = await verifyOnline(w)
+        r.identity = v; r.extraUSD = cost; r.limited = limited
+        if !limited { WineDB.shared.save(v, signature: sig); PriceCloud.shareWine(v, sig: sig) }
         return r
+    }
+
+    private static func hideUnchecked(_ w: WineIdentity) -> WineIdentity {
+        var w = w
+        w.grapes = []; w.grapePercent = nil; w.tastingNotes = []
+        return w
     }
 
     /// Checks a wine the database doesn't know. First the cheap way: read the shop page we already know and a few
     /// search-result pages ourselves (free), and let Claude read only that text (a fraction of a cent, no tools).
     /// Only when those pages don't settle the grapes is one paid web search used. Whatever stays unconfirmed is Claude's guess.
-    static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double) {
-        guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0) }
-        guard let key = apiKey else { return (w, 0) }
+    static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double, Bool) {
+        guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0, false) }
+        guard let key = apiKey else { return (w, 0, false) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let place = w.region.isEmpty ? "" : " (" + w.region + ")"
         let format = """
@@ -177,7 +187,6 @@ enum WineRecognizer {
         """
         var total = 0.0
         var v = w
-        v.checked = true
         // 1. free pages, read by Claude without tools
         let shopURL = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w)?.url }.value ?? WineDB.shared.entry(for: w)?.price?.url
         let pages = await WebFacts.pages(for: wine + " " + w.region, shopURL: shopURL)
@@ -185,20 +194,22 @@ enum WineRecognizer {
             let prompt = "Wine: \(wine)\(place).\nBelow is text from web pages. Report only what these pages say about this exact wine; never fill gaps from memory.\n\n\(pages)\n\n" + format
             if let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: nil, maxTokens: 500) {
                 total += cost
-                if apply(obj, to: &v) { return (v, total) }
+                if apply(obj, to: &v) { v.checked = true; return (v, total, false) }
             }
         }
         // 2. one paid search, only if today's allowance allows it
-        if DailyBudget.reached { return (v, total) }
+        // the paid search is what the daily allowance protects: without it nothing about this wine has been checked, so its grapes and notes stay hidden
+        if DailyBudget.reached { return (hideUnchecked(w), total, true) }
         let prompt = "Use web search to check this wine: \(wine)\(place). Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + format
         let tools: [[String: Any]] = [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]]
         guard let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: tools, maxTokens: 600) else {
             // no connection: not marked as checked, so it is tried again next time
-            return (w, total)
+            return (w, total, false)
         }
         total += cost
+        v.checked = true
         _ = apply(obj, to: &v)
-        return (v, total)
+        return (v, total, false)
     }
 
     /// One Claude call that must answer with a JSON object. Returns the object and what the call cost (also counted against today's allowance).
@@ -281,13 +292,13 @@ enum WineRecognizer {
 
     static func identify(text: String) async throws -> RecognitionResult {
         guard let key = apiKey else { throw RecognizerError.noKey }
-        if DailyBudget.reached { throw RecognizerError.limit }
+        if DailyBudget.hardStop { throw RecognizerError.limit }
         var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
-        let (w, cost) = await verifyOnline(r.identity)
-        r.identity = w; r.extraUSD = cost
+        let (w, cost, limited) = await verifyOnline(r.identity)
+        r.identity = w; r.extraUSD = cost; r.limited = limited
         WineDB.shared.save(r.identity)
         return r
     }

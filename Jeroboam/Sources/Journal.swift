@@ -1062,6 +1062,7 @@ struct ScanFlow: View {
             if w.name.isEmpty { w.name = wine.name }
             wine = w
             identified = true
+            if r.limited { self.error = RecognizerError.limit.errorDescription }
             journal.noteCost(r.costUSD)
             WineDB.shared.noteScan(w, image: image)
         } catch { self.error = error.localizedDescription }
@@ -1260,6 +1261,7 @@ struct TastingFlow: View {
                 if w.name.isEmpty { w.name = entry.wine.name }
                 entry.wine = w
                 entry.identified = true
+                if r.limited { self.error = RecognizerError.limit.errorDescription }
                 journal.noteCost(r.costUSD)
                 WineDB.shared.noteScan(w, image: photo)
             } catch { self.error = error.localizedDescription }

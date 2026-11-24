@@ -44,7 +44,7 @@ struct LimitReachedCard: View {
 
             VStack(spacing: 6) {
                 Text("That's today's limit").font(.system(size: 21, weight: .bold)).foregroundStyle(Palette.ink)
-                Text("You have used up today's new wines. They open again tomorrow.")
+                Text("New wines can't be checked online any more today, so their grapes and notes stay hidden until tomorrow.")
                     .font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }

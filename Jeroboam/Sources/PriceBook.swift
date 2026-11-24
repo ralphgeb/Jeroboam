@@ -37,6 +37,19 @@ final class PriceBook {
         return out
     }
 
+    /// A wine whose name is only short words ("EL", "Z") leaves nothing but the producer to match on, so any wine of the house would win
+    /// (El Ixsir was priced as Ixsir Altitudes). For such names the shop page's address must contain the short word.
+    static func shortNameWords(_ w: WineIdentity) -> [String] {
+        guard tokens(w.name).subtracting(tokens(w.producer)).isEmpty else { return [] }
+        let folded = w.name.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
+        return folded.split { !$0.isLetter }.map(String.init).filter { $0.count <= 2 }
+    }
+    private static func linkHas(_ row: Row, _ words: [String]) -> Bool {
+        if words.isEmpty { return true }
+        let have = Set(row.link.lowercased().split { !$0.isLetter }.map(String.init))
+        return words.allSatisfy { have.contains($0) }
+    }
+
     // Words that name the color outright beat words that only suggest it (a "Rioja Reserva Blanco" is white even though Rioja is red country).
     private static let whiteSure: Set<String> = ["white", "blanc", "bianco", "blanco", "branco", "weiss", "weisswein", "blancs"]
     private static let redSure: Set<String> = ["red", "rouge", "rosso", "tinto", "rot", "rotwein", "tinta", "nero", "noir"]
@@ -87,25 +100,33 @@ final class PriceBook {
         let qTier = q.intersection(Self.tierWords)
         let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(2)
         guard rare.count >= 1 else { return nil }
+        let short = Self.shortNameWords(w)
         var seen = Set<Int32>()
-        var best: [(extra: Int, row: Row)] = []
+        var best: [(extra: Int, row: Row, same: Bool)] = []
         for (_, posting) in rare where posting.count < 12_000 {
             for i in posting where seen.insert(i).inserted {
                 let r = rows[Int(i)]
-                guard let d = r.detail, q.isSubset(of: r.tokens), r.tokens.count - q.count <= 3 else { continue }
-                guard Int(r.vintage) == want, r.tokens.intersection(Self.tierWords) == qTier else { continue }
+                guard let d = r.detail, q.isSubset(of: r.tokens), r.tokens.count - q.count <= 3, Self.linkHas(r, short) else { continue }
+                // the same wine of another vintage still tells grapes, place and aromas (the list shares them between vintages); its score is not used
+                guard r.tokens.intersection(Self.tierWords) == qTier else { continue }
                 let dc: Int8 = d.colour == "r" ? 1 : (d.colour == "w" ? 2 : (d.colour == "p" ? 3 : 0))
                 if wineColor != 0, dc != 0, dc != wineColor { continue }
-                best.append((r.tokens.count - q.count, r))
+                best.append((r.tokens.count - q.count, r, Int(r.vintage) == want))
             }
         }
-        guard let top = best.min(by: { $0.extra != $1.extra ? $0.extra < $1.extra : ($0.row.detail?.score != nil && $1.row.detail?.score == nil) })?.row.detail else { return nil }
+        // the same vintage first, then the cleanest name match
+        guard let pick = best.min(by: { a, b in
+            if a.same != b.same { return a.same }
+            if a.extra != b.extra { return a.extra < b.extra }
+            return a.row.detail?.score != nil && b.row.detail?.score == nil
+        }), let top = pick.row.detail else { return nil }
         // every near-equal candidate must agree on the country, or it is not certainly this bottle
-        let near = best.filter { $0.extra == (best.map(\.extra).min() ?? 0) }.compactMap { $0.row.detail }
+        let near = best.filter { $0.same == pick.same && $0.extra == pick.extra }.compactMap { $0.row.detail }
         if near.contains(where: { !$0.country.isEmpty && !top.country.isEmpty && $0.country != top.country }) { return nil }
-        let scored = near.first { $0.score != nil }
+        let scored = pick.same ? near.first { $0.score != nil } : nil
         return WineDetails(colour: top.colour, country: top.country, region: top.region, appellation: top.appellation, grapes: top.grapes,
-                           aromas: top.aromas, score: scored?.score ?? top.score, scoreLink: scored?.scoreLink ?? top.scoreLink, percents: top.percents)
+                           aromas: top.aromas, score: pick.same ? (scored?.score ?? top.score) : nil, scoreLink: pick.same ? (scored?.scoreLink ?? top.scoreLink) : nil,
+                           percents: top.percents)
     }
 
     /// Puts what the database knows over what the model guessed, when (and only when) it is certainly this bottle.
@@ -167,6 +188,7 @@ final class PriceBook {
         guard !q.isEmpty, !rows.isEmpty else { return nil }
         let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(3)
         guard !rare.isEmpty else { return nil }
+        let short = Self.shortNameWords(w)
         var seen = Set<Int32>()
         var cands: [(score: Double, row: Row)] = []
         for (_, posting) in rare where posting.count < 12_000 {
@@ -174,7 +196,7 @@ final class PriceBook {
                 let r = rows[Int(i)]
                 let matched = q.intersection(r.tokens).count
                 let coverage = Double(matched) / Double(q.count)
-                guard coverage >= 0.75, matched >= min(2, q.count) else { continue }
+                guard coverage >= 0.75, matched >= min(2, q.count), Self.linkHas(r, short) else { continue }
                 // a Reserva and a Gran Reserva (or a Grand Cru and a plain village wine) are different wines, whatever the price
                 let qTier = q.intersection(Self.tierWords), rTier = r.tokens.intersection(Self.tierWords)
                 if qTier.isEmpty ? !rTier.isDisjoint(with: Self.topTierWords) : qTier != rTier { continue }
