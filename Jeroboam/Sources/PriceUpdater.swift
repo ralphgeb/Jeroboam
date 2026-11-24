@@ -23,13 +23,13 @@ enum PriceUpdater {
     /// At most once every 6 hours.
     static func refresh() async {
         let d = UserDefaults.standard
-        if let last = d.object(forKey: "priceListChecked") as? Date, Date().timeIntervalSince(last) < 6 * 3600 { return }
+        if let last = d.object(forKey: "wineListChecked") as? Date, Date().timeIntervalSince(last) < 6 * 3600 { return }
         guard let src = source, let dest = fileURL else { return }
         var req = URLRequest(url: src)
         req.timeoutInterval = 60
         if downloaded != nil, let tag = d.string(forKey: etagKey) { req.setValue(tag, forHTTPHeaderField: "If-None-Match") }
         guard let (tmp, resp) = try? await URLSession.shared.download(for: req), let http = resp as? HTTPURLResponse else { return }
-        d.set(Date(), forKey: "priceListChecked")
+        d.set(Date(), forKey: "wineListChecked")
         guard http.statusCode == 200 else { return }
         // the list comes compressed (raw deflate): prices, and what the wine database knows about each bottle
         guard let packed = try? Data(contentsOf: tmp), packed.count > 1_000_000,
