@@ -40,3 +40,5 @@ Rebuild: `python3 tools/prices/enrich_details.py <folder of shop catalogue JSONL
 
 CaskCartel was removed (Nov 2026): it resells other shops' wines (Hedonism, Wine Online Delivery, Best of Wines …) at large markups.
 Wines it shared with other shops keep those shops' prices; wines only it sold were dropped. Manual fixes live in `sources/manual_overrides.csv`.
+Exception: 634 producers that no other shop sells (about 1,180 wines) are kept from CaskCartel in `sources/reseller_only.csv`;
+their rows say `price_note = high reseller price` in wine_prices.csv and the shop is shown as "CaskCartel (high reseller price)".
