@@ -156,3 +156,11 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - Anonymous wine DB: Cloudflare table `wines` (backend/cloudflare/schema.sql + worker.js `/wine`); app: `PriceCloud.shareWine/wine(sig:)`, called from `WineDB.noteScan` and `WineRecognizer.identify(image:)` (cloud hit = free scan). Privacy page updated; App Store "App Privacy" answers must say anonymous usage data.
 - Widget look: App Group NOT registered (build 60 failed on it); widgets follow the phone's appearance. Needs `group.com.ralphgeb.jero` registered in the developer portal before an in-app picker can come back.
 - Snapshot workflow now makes `build/` so test.log is published to the `snapshots` branch.
+
+## Added in builds 69+ (web check, budget, cellar graphs, settings)
+- New wines (not fully in the wine DB, `fromDatabase != true`, not `checked`): `WineRecognizer.verifyOnline` = free pages first (`WebFacts.swift`: known shop link + DuckDuckGo html results, cut to grape/taste sentences) read by Haiku with no tools; only if grapes stay unconfirmed, ONE paid web search (~1.2 c). Unconfirmed fields stay Claude's guess (`checked = true`). Result shared to the cloud wines table.
+- `DailyBudget` ($0.10/day/phone, UserDefaults `jero.spend.<date>`): only new-wine work counts; DB/cloud/local hits are free. Reached -> `RecognizerError.limit`. TestFlight Settings switch `jero.testLimit` pretends it is reached.
+- App Group `group.com.ralphgeb.jero` is registered and in both entitlements; Settings > Widgets picker (Automatic/Light/Dark) writes `widgetTheme` (`WidgetSettings`), widget reads `SharedTheme`.
+- Settings is one card under "About you" (`settingsCard()` in ProfileView); More maps, Foldable preview and lookup cost line live in the TestFlight section (TestFlight-only); footer shows "Jero(TM)".
+- Cellar: stat tiles open graphs (`CellarCharts.swift`, Swift Charts); list/tiles open a bottle via `navigationDestination(item:)`; `Thumb` crops with `Color.clear.overlay`.
+- Wine DB: `tools/prices/build_app_wines.py` now writes 18 columns (col 17 = grape percents); `JournalStore.refreshFromShopList()` re-prices shop-priced bottles and re-applies DB details when the list is updated.

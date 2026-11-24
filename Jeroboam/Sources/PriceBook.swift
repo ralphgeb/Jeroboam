@@ -16,8 +16,8 @@ final class PriceBook {
         let detail: Detail?
     }
     /// What the wine database knows about a bottle besides its price (only in the downloaded list).
-    struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String? }
-    struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String? }
+    struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int] }
+    struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int] }
     private var rows: [Row] = []
     private var index: [String: [Int32]] = [:]
     private let lock = NSLock()
@@ -105,7 +105,7 @@ final class PriceBook {
         if near.contains(where: { !$0.country.isEmpty && !top.country.isEmpty && $0.country != top.country }) { return nil }
         let scored = near.first { $0.score != nil }
         return WineDetails(colour: top.colour, country: top.country, region: top.region, appellation: top.appellation, grapes: top.grapes,
-                           aromas: top.aromas, score: scored?.score ?? top.score, scoreLink: scored?.scoreLink ?? top.scoreLink)
+                           aromas: top.aromas, score: scored?.score ?? top.score, scoreLink: scored?.scoreLink ?? top.scoreLink, percents: top.percents)
     }
 
     /// Puts what the database knows over what the model guessed, when (and only when) it is certainly this bottle.
@@ -115,7 +115,7 @@ final class PriceBook {
         if !d.country.isEmpty { o.country = d.country }
         let place = [d.appellation, d.region].filter { !$0.isEmpty }
         if !place.isEmpty { o.region = place.count == 2 && !place[0].localizedCaseInsensitiveContains(place[1]) ? place.joined(separator: ", ") : place[0] }
-        if !d.grapes.isEmpty { o.grapes = d.grapes; o.grapePercent = nil }
+        if !d.grapes.isEmpty { o.grapes = d.grapes; o.grapePercent = d.percents.count == d.grapes.count ? d.percents : nil }
         if !d.aromas.isEmpty { o.tastingNotes = Array(d.aromas.prefix(6)) }
         switch d.colour { case "r": o.style = "red"; case "w": o.style = "white"; case "p": o.style = "rose"; case "s": o.style = "sparkling"
                           case "o": o.style = "orange"; case "f": o.style = "fortified"; case "d": o.style = "sweet"; default: break }
@@ -138,7 +138,7 @@ final class PriceBook {
                 ?? Bundle.main.url(forResource: "prices", withExtension: "tsv", subdirectory: "Prices")
                 ?? Bundle.main.url(forResource: "prices", withExtension: "tsv"),
               let text = try? String(contentsOf: url, encoding: .utf8) else { return }
-        rows.reserveCapacity(75_000)
+        rows.reserveCapacity(200_000)
         for line in text.split(separator: "\n", omittingEmptySubsequences: true) {
             let f = line.split(separator: "\t", omittingEmptySubsequences: false).map(String.init)
             guard f.count >= 8, let usd = Double(f[4]), usd > 0 else { continue }
@@ -149,7 +149,8 @@ final class PriceBook {
             if f.count >= 17, !(f[9].isEmpty && f[10].isEmpty && f[11].isEmpty && f[13].isEmpty) {
                 detail = Detail(colour: f[9], country: f[10], region: f[11], appellation: f[12],
                                 grapes: f[13].split(separator: ";").map(String.init), aromas: f[14].split(separator: ";").map(String.init),
-                                score: Int(f[15]), scoreLink: f[16].isEmpty ? nil : f[16])
+                                score: Int(f[15]), scoreLink: f[16].isEmpty ? nil : f[16],
+                                percents: f.count > 17 ? f[17].split(separator: ";").compactMap { Int($0) } : [])
             }
             rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : "")), detail: detail))
             for t in toks { index[t, default: []].append(i) }

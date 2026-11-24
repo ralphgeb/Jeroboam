@@ -56,7 +56,7 @@ struct JeroboamApp: App {
             .task { await Plus.shared.refresh() }
             .task { await Plus.shared.listen() }
             .task { await Currency.refresh() }
-            .task { await PriceUpdater.refresh() }
+            .task { await PriceUpdater.refresh(); await journal.refreshFromShopList() }
             .task { await journal.repriceShopBottlesOnce() }
             .task { await PriceCloud.seedOnce() }
             .onAppear {

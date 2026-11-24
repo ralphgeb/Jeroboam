@@ -190,6 +190,25 @@ final class JournalStore {
         UserDefaults.standard.set(true, forKey: flag)
     }
 
+    /// Bottles follow the shop list and the wine database: when they are updated (checked every few hours), prices, grapes, aromas
+    /// and scores of bottles the database knows for certain change too. Prices you typed yourself and estimates stay as they are.
+    func refreshFromShopList() async {
+        guard persist else { return }
+        for b in cellar {
+            let wine = b.wine
+            let (fresh, upgraded) = await Task.detached(priority: .utility) { () -> (PriceInfo?, WineIdentity) in
+                (PriceBook.shared.price(for: wine), PriceBook.shared.overlay(wine))
+            }.value
+            guard let i = cellar.firstIndex(where: { $0.id == b.id }) else { continue }
+            if upgraded.fromDatabase == true, upgraded != wine { cellar[i].wine = upgraded; WineDB.shared.save(upgraded) }
+            if let src = b.price?.source, src.hasPrefix("Cheapest of") || src.hasPrefix("Shop price"),
+               let p = fresh, let old = b.price, abs(p.average - old.average) > 0.5 || p.url != old.url {
+                cellar[i].price = p
+                WineDB.shared.save(upgraded.fromDatabase == true ? upgraded : wine, price: p)
+            }
+        }
+    }
+
     func upsert(_ b: CellarBottle) {
         if let i = cellar.firstIndex(where: { $0.id == b.id }) { cellar[i] = b } else { cellar.insert(b, at: 0) }
     }
@@ -484,7 +503,8 @@ struct Thumb: View {
     var body: some View {
         Group {
             if let img = JournalStore.image(photo) {
-                Image(uiImage: img).resizable().scaledToFill()
+                // the picture is laid over an empty box, so a tall photo is cut to the box instead of making it taller
+                Color.clear.overlay { Image(uiImage: img).resizable().scaledToFill() }.clipped()
             } else {
                 ZStack {
                     styleColor(style).opacity(0.14)

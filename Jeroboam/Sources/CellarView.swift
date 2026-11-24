@@ -21,6 +21,8 @@ struct CellarView: View {
     @State private var minRating = 0            // 0 any, 80, 85, 90
     @State private var vintage = ""             // "" any
     @AppStorage("jero.cellarAsList") private var asList = false
+    @State private var openStat: CellarStat? = nil
+    @State private var opened: CellarBottle? = nil
 
     private func family(_ s: String) -> String {
         let t = s.lowercased()
@@ -107,13 +109,13 @@ struct CellarView: View {
                 } else if asList {
                     GroupCard {
                         ForEach(Array(list.enumerated()), id: \.element.id) { i, b in
-                            DetailLink(value: b) { row(b, last: i == list.count - 1) }.buttonStyle(RowPressStyle())
+                            Button { opened = b } label: { row(b, last: i == list.count - 1) }.buttonStyle(RowPressStyle())
                         }
                     }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12, alignment: .top)], alignment: .center, spacing: 12) {
                         ForEach(list) { b in
-                            DetailLink(value: b) { tile(b) }.buttonStyle(PressableStyle())
+                            Button { opened = b } label: { tile(b) }.buttonStyle(PressableStyle())
                         }
                     }
                 }
@@ -125,6 +127,7 @@ struct CellarView: View {
         .background(Palette.paper.ignoresSafeArea())
         .pageChrome()
         .animation(.smooth(duration: 0.25), value: color)
+        .navigationDestination(item: $opened) { CellarDetailView(bottleID: $0.id) }
     }
 
     // total value, average price, bottle count
@@ -140,28 +143,45 @@ struct CellarView: View {
         let worthOfPaid = paidBottles.reduce(0.0) { $0 + $1.value }
         return VStack(spacing: 10) {
             HStack(spacing: 10) {
-                statTile(money(value, cur), filtersOn ? "value of these" : "valuation today", highlight: true)
-                statTile(avg > 0 ? money(avg, cur) : "–", "average bottle")
-                statTile("\(n)", n == 1 ? "bottle" : "bottles")
+                statTile(money(value, cur), filtersOn ? "value of these" : "valuation today", .value, highlight: true)
+                statTile(avg > 0 ? money(avg, cur) : "–", "average bottle", .average)
+                statTile("\(n)", n == 1 ? "bottle" : "bottles", .bottles)
+            }
+            if let s = openStat, [.value, .average, .bottles].contains(s) {
+                CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.opacity.combined(with: .move(edge: .top)))
             }
             if !paidBottles.isEmpty {
                 let diff = worthOfPaid - paid
                 let nPaid = paidBottles.reduce(0) { $0 + $1.quantity }
                 HStack(spacing: 10) {
-                    statTile(money(paid / Double(max(1, nPaid)), "USD"), "you paid per bottle")
-                    statTile(money(paid, "USD"), "total paid (\(nPaid) \(nPaid == 1 ? "bottle" : "bottles"))")
-                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain" : "loss")
+                    statTile(money(paid / Double(max(1, nPaid)), "USD"), "you paid per bottle", .paid)
+                    statTile(money(paid, "USD"), "total paid (\(nPaid) \(nPaid == 1 ? "bottle" : "bottles"))", .paid)
+                    statTile((diff >= 0 ? "+" : "−") + money(abs(diff), cur), diff >= 0 ? "gain" : "loss", .gain)
+                }
+                if let s = openStat, [.paid, .gain].contains(s) {
+                    CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
         }
+        .animation(.smooth(duration: 0.3), value: openStat)
     }
-    private func statTile(_ v: String, _ label: String, highlight: Bool = false) -> some View {
-        VStack(alignment: .leading, spacing: 3) {
-            Text(v).font(.system(size: 20, weight: .bold).monospacedDigit()).foregroundStyle(highlight ? Palette.onWine : Palette.ink).lineLimit(1).minimumScaleFactor(0.6)
-            Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(1)
+    private func statTile(_ v: String, _ label: String, _ stat: CellarStat, highlight: Bool = false) -> some View {
+        let on = openStat == stat
+        return Button { Haptics.tap(); openStat = on ? nil : stat } label: {
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 4) {
+                    Text(v).font(.system(size: 20, weight: .bold).monospacedDigit()).foregroundStyle(highlight ? Palette.onWine : Palette.ink).lineLimit(1).minimumScaleFactor(0.6)
+                    Spacer(minLength: 0)
+                    Image(systemName: "chart.bar.xaxis").font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(highlight ? Palette.onWine.opacity(0.7) : Palette.inkFaint)
+                }
+                Text(label).font(.system(size: 11.5)).foregroundStyle(highlight ? Palette.onWine.opacity(0.8) : Palette.inkSoft).lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading).padding(12)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(highlight ? Palette.wine : Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(on ? Palette.wine : .clear, lineWidth: 1.5))
         }
-        .frame(maxWidth: .infinity, alignment: .leading).padding(12)
-        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(highlight ? Palette.wine : Palette.card))
+        .buttonStyle(.plain)
     }
 
     private var chips: some View {

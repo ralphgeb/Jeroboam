@@ -8,9 +8,16 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     private var journalLookups: Int { journal.lookups }
     private var journalSpent: Double { journal.spentUSD }
+    private var lookupLine: String {
+        let today = String(format: "%.3f", DailyBudget.spent), cap = String(format: "%.2f", DailyBudget.limitUSD)
+        let total = String(format: "%.3f", journalSpent)
+        return (journalLookups > 0 ? "Wine lookups: \(journalLookups) · ≈ $\(total) in AI cost" : "No wine lookups yet") + " · today $\(today) of $\(cap)"
+    }
 
     @State private var currencyCode = Currency.code
     @State private var showExtraAtlas = false
+    @State private var settingsOpen = false
+    @State private var widgetTheme = WidgetSettings.theme
 
     var body: some View {
         // measured here, not taken from the page: this screen opens in a sheet, whose width is its own
@@ -62,6 +69,7 @@ struct ProfileView: View {
 
     @ViewBuilder private func leftColumn() -> some View {
                     AboutYouSection().padding(.top, 16)
+                    settingsCard()
                     // Rank
                     VStack(alignment: .leading, spacing: 10) {
                       HStack(spacing: 16) {
@@ -120,98 +128,30 @@ struct ProfileView: View {
     }
 
     @ViewBuilder private func rightColumn() -> some View {
-        let p = Bindable(progress)
                     PlusStatusCard()
-
-                    // Settings
-                    VStack(alignment: .leading, spacing: 0) {
-                        SectionTitle(text: "Settings").padding(.bottom, 10)
-                        settingRow("Daily goal") {
-                            Picker("Daily goal", selection: p.data.dailyGoal) {
-                                Text("Casual · 10 XP").tag(10)
-                                Text("Regular · 20 XP").tag(20)
-                                Text("Serious · 30 XP").tag(30)
-                                Text("Intense · 50 XP").tag(50)
-                            }
-                            .tint(Palette.wine)
-                        }
-                        Hairline()
-                        settingRow("Notifications") {
-                            Toggle("", isOn: Binding(get: { progress.data.reminders }, set: { progress.setReminders($0) }))
-                                .labelsHidden().tint(Palette.wine)
-                        }
-                        if progress.data.reminders {
-                            Hairline()
-                            settingRow("Morning fun fact") {
-                                Toggle("", isOn: Binding(get: { progress.data.morningFacts ?? true }, set: {
-                                    progress.data.morningFacts = $0; progress.scheduleReminder()
-                                }))
-                                .labelsHidden().tint(Palette.wine)
-                            }
-                            Hairline()
-                            settingRow("Evening practice at") {
-                                Picker("Time", selection: Binding(get: { progress.data.reminderHour }, set: {
-                                    progress.data.reminderHour = $0
-                                    progress.setReminders(true)
-                                })) {
-                                    ForEach([8, 12, 17, 18, 19, 20, 21], id: \.self) { h in Text(hourString(h)).tag(h) }
-                                }
-                                .tint(Palette.wine)
-                            }
-                        }
-                        Hairline()
-                        settingRow("Appearance") {
-                            Picker("Appearance", selection: p.data.appearance) {
-                                Text("Automatic").tag(0)
-                                Text("Light").tag(1)
-                                Text("Dark").tag(2)
-                            }
-                            .tint(Palette.wine)
-                        }
-                        Hairline()
-                        settingRow("Currency") {
-                            Picker("Currency", selection: Binding(get: { currencyCode }, set: { currencyCode = $0; Currency.code = $0 })) {
-                                ForEach(Currency.choices, id: \.self) { c in Text("\(c) · \(Locale.current.localizedString(forCurrencyCode: c) ?? c)").tag(c) }
-                            }
-                            .tint(Palette.wine)
-                        }
-                        Hairline()
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text("Widgets").font(.system(size: 16)).foregroundStyle(Palette.ink)
-                            Text("Jero widgets follow your phone's light or dark setting.")
-                                .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
-                        Hairline()
-                        Button(role: .destructive) { confirmReset = true } label: {
-                            Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
-                                .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14)
-                        }
-                    }
-
-                    // maps for places that are not in the atlas
-                    VStack(alignment: .leading, spacing: 0) {
-                        SectionTitle(text: "More maps").padding(.bottom, 10)
-                        Button { showExtraAtlas = true } label: {
-                            HStack(spacing: 12) {
-                                Image(systemName: "map").font(.system(size: 16)).foregroundStyle(Palette.wine).frame(width: 24)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Maps beyond the atlas").font(.system(size: 16)).foregroundStyle(Palette.ink)
-                                    Text("Wine places that are not in the course").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
-                            }
-                            .padding(.vertical, 12).contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                    }
 
                     // Only in TestFlight installs (sandbox receipt); hidden in App Store downloads.
                     if Distribution.isTestFlight {
-                        DuoPreviewPicker()
                         VStack(alignment: .leading, spacing: 0) {
                             SectionTitle(text: "TestFlight").padding(.bottom, 10)
+                            Text(lookupLine)
+                                .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).padding(.bottom, 8)
+                            Button { showExtraAtlas = true } label: {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "map").font(.system(size: 15)).foregroundStyle(Palette.wine).frame(width: 22)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("More maps").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                                        Text("Wine places that are not in the course").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                                }
+                                .padding(.vertical, 12).contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            Hairline()
+                            DuoPreviewPicker().padding(.vertical, 12)
+                            Hairline()
                             Button {
                                 dismiss()
                                 Task { try? await Task.sleep(for: .milliseconds(500)); progress.data.onboarded = false }
@@ -233,15 +173,99 @@ struct ProfileView: View {
 
                     VStack(spacing: 6) {
                         Wordmark(size: 18)
-                        if journalLookups > 0 {
-                            Text("Wine lookups: \(journalLookups) · ≈ $\(String(format: "%.3f", journalSpent)) in AI cost")
-                                .font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
-                        }
+                        Text("Jero™").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                         Text("Course structure inspired by the WSET levels. Not affiliated with or endorsed by WSET.")
                             .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 10).padding(.bottom, 30)
+    }
+
+    /// All the settings in one card that opens like "About you", right under it.
+    @ViewBuilder private func settingsCard() -> some View {
+        let p = Bindable(progress)
+        GroupCard {
+            Button { withAnimation(.easeInOut(duration: 0.2)) { settingsOpen.toggle() } } label: {
+                HStack {
+                    Image(systemName: "gearshape").foregroundStyle(Palette.wine)
+                    Text("Settings").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Spacer()
+                    Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Palette.inkSoft).rotationEffect(.degrees(settingsOpen ? 90 : 0))
+                }
+                .padding(.horizontal, 14).padding(.vertical, 14).contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            if settingsOpen {
+                Hairline()
+                VStack(alignment: .leading, spacing: 0) {
+                    settingRow("Daily goal") {
+                        Picker("Daily goal", selection: p.data.dailyGoal) {
+                            Text("Casual · 10 XP").tag(10)
+                            Text("Regular · 20 XP").tag(20)
+                            Text("Serious · 30 XP").tag(30)
+                            Text("Intense · 50 XP").tag(50)
+                        }
+                        .tint(Palette.wine)
+                    }
+                    Hairline()
+                    settingRow("Notifications") {
+                        Toggle("", isOn: Binding(get: { progress.data.reminders }, set: { progress.setReminders($0) }))
+                            .labelsHidden().tint(Palette.wine)
+                    }
+                    if progress.data.reminders {
+                        Hairline()
+                        settingRow("Morning fun fact") {
+                            Toggle("", isOn: Binding(get: { progress.data.morningFacts ?? true }, set: {
+                                progress.data.morningFacts = $0; progress.scheduleReminder()
+                            }))
+                            .labelsHidden().tint(Palette.wine)
+                        }
+                        Hairline()
+                        settingRow("Evening practice at") {
+                            Picker("Time", selection: Binding(get: { progress.data.reminderHour }, set: {
+                                progress.data.reminderHour = $0
+                                progress.setReminders(true)
+                            })) {
+                                ForEach([8, 12, 17, 18, 19, 20, 21], id: \.self) { h in Text(hourString(h)).tag(h) }
+                            }
+                            .tint(Palette.wine)
+                        }
+                    }
+                    Hairline()
+                    settingRow("Appearance") {
+                        Picker("Appearance", selection: p.data.appearance) {
+                            Text("Automatic").tag(0)
+                            Text("Light").tag(1)
+                            Text("Dark").tag(2)
+                        }
+                        .tint(Palette.wine)
+                    }
+                    Hairline()
+                    settingRow("Widgets") {
+                        Picker("Widgets", selection: Binding(get: { widgetTheme }, set: { widgetTheme = $0; WidgetSettings.theme = $0 })) {
+                            Text("Automatic").tag(0)
+                            Text("Light").tag(1)
+                            Text("Dark").tag(2)
+                        }
+                        .tint(Palette.wine)
+                    }
+                    Hairline()
+                    settingRow("Currency") {
+                        Picker("Currency", selection: Binding(get: { currencyCode }, set: { currencyCode = $0; Currency.code = $0 })) {
+                            ForEach(Currency.choices, id: \.self) { c in Text("\(c) · \(Locale.current.localizedString(forCurrencyCode: c) ?? c)").tag(c) }
+                        }
+                        .tint(Palette.wine)
+                    }
+                    Hairline()
+                    Button(role: .destructive) { confirmReset = true } label: {
+                        Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
+                            .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14)
+                    }
+                }
+                .padding(.horizontal, 14)
+            }
+        }
     }
 
     private func hourString(_ h: Int) -> String {
