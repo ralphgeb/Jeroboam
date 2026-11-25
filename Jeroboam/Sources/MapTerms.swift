@@ -40,12 +40,12 @@ struct MapTerms {
             return MapTerms(level: ["Regions", "Denominations (DOC)", "Sub-regions"],
                             hint: ["Norte, Centro, Lisboa & Tejo, Alentejo, Algarve", "The DOC wine regions", "Sub-regions and smaller DOCs inside them"])
         case "germany":
-            return MapTerms(level: ["Regions (Anbaugebiete)", "Districts (Bereiche)", "Villages"],
-                            hint: ["The 13 wine regions (Anbaugebiete)", "Districts (Bereiche) inside the regions", "Famous wine villages"])
+            return MapTerms(level: ["Regions (Anbaugebiete)"], hint: ["The 13 wine regions (Anbaugebiete)"])
         case "austria":
-            return MapTerms(level: ["Regions", "Districts (DAC)", "Villages"], hint: ["The wine regions", "Districts, many of them DAC", "Famous wine villages"])
+            return MapTerms(level: ["Regions", "Districts (DAC)"], hint: ["The wine regions", "Districts, many of them DAC"])
         case "hungary":
-            return MapTerms(level: ["Regions", "Districts"], hint: ["The wine regions", "Wine districts inside the regions"])
+            return MapTerms(level: ["Regions", "Districts", "Appellations"],
+                            hint: ["The six wine regions", "The 22 wine districts", "Smaller appellations inside the districts"])
         case "greece":
             return MapTerms(level: ["Regions", "Zones (PDO)", "Appellations (PDO)"], hint: ["The regions", "Zones (PDO) inside them", "Appellations inside the zones"])
         case "california", "napa-sonoma", "pacific-northwest":
@@ -56,21 +56,20 @@ struct MapTerms {
         case "australia":
             return MapTerms(level: ["States", "Regions (GI)"], hint: ["The wine states", "Wine regions (Geographical Indications)"])
         case "new-zealand":
-            return MapTerms(level: ["Regions (GI)", "Sub-regions (GI)", "Districts"],
-                            hint: ["The wine regions (Geographical Indications)", "Smaller GIs and sub-regions inside them", "Districts and sub-zones"],
+            return MapTerms(level: ["Regions (GI)", "Sub-regions (GI)", "Smaller GIs"],
+                            hint: ["The wine regions (Geographical Indications)", "Smaller GIs inside them", "GIs inside those (Waipara Valley)"],
                             places: "Towns")
         case "south-africa":
             return MapTerms(level: ["Regions", "Districts", "Wards"],
-                            hint: ["Wine of Origin regions", "Districts inside the regions", "Wards: the smallest Wine of Origin units"],
+                            hint: ["Wine of Origin regions", "Districts inside the regions", "Wards (Constantia, Durbanville)"],
                             places: "Towns")
         case "chile":
             return MapTerms(level: ["Regions", "Valleys", "Zones & areas"],
                             hint: ["The six wine regions (DO)", "Sub-regions: the valleys", "Zones and areas (comunas) inside the valleys"],
                             places: "Comunas")
         case "argentina":
-            return MapTerms(level: ["Provinces", "Regions (IG)", "Districts (IG)"],
-                            hint: ["The wine provinces", "Regions and departments (IG/DOC)", "Districts and parajes (IG)"],
-                            places: "Districts")
+            return MapTerms(level: ["Provinces", "Regions (IG)"], hint: ["The wine provinces", "Regions and departments (IG/DOC)"],
+                            places: "Departments")
         case "lebanon":
             return MapTerms(level: ["Regions", "Winery areas"], hint: ["The wine regions", "Winery areas inside the regions"])
         default:

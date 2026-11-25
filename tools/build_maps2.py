@@ -1254,7 +1254,8 @@ def build_south(cfg, extra_units=None):
         extra["communes"], extra["villages"] = lines, names
     # real vineyards (OpenStreetMap): small dark parcels drawn over the areas when zoomed in
     if cc:
-        vs = [v for v in vines_ll if v.intersects(allg)]
+        # the vineyard texture is off: OpenStreetMap's coverage is too uneven to look right everywhere ("vines_layer" turns it on)
+        vs = [v for v in vines_ll if v.intersects(allg)] if cfg.get("vines_layer") else []
         if vs:
             u = unary_union([v.buffer(km2deg(0.03)) for v in vs]).buffer(-km2deg(0.02))
             enc = enc_polys(pr.geom(u).intersection(view), tol * 0.5, 0.4)

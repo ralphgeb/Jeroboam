@@ -88,62 +88,52 @@ regions:
   - id: niagara-river
     name: Niagara River
     parent: niagara-on-the-lake
-    circle: {c: [43.2, -79.06], r: 3}
-    clip: niagara-on-the-lake
+    point: [43.2, -79.06]
     summary: "Along the Niagara river, whose moving water keeps frost away: one of the warmest spots of the peninsula."
   - id: niagara-lakeshore
     name: Niagara Lakeshore
     parent: niagara-on-the-lake
-    circle: {c: [43.245, -79.13], r: 3}
-    clip: niagara-on-the-lake
+    point: [43.245, -79.13]
     summary: "The Lake Ontario shore of Niagara-on-the-Lake, moderated by the lake in spring and autumn."
   - id: four-mile-creek
     name: Four Mile Creek
     parent: niagara-on-the-lake
-    circle: {c: [43.2, -79.17], r: 4}
-    clip: niagara-on-the-lake
+    point: [43.2, -79.17]
     summary: "The flat, warm centre of Niagara-on-the-Lake, with heavy clay and long growing seasons for reds."
   - id: st-davids-bench
     name: St. David's Bench
     parent: niagara-on-the-lake
-    circle: {c: [43.155, -79.11], r: 2.5}
-    clip: niagara-on-the-lake
+    point: [43.155, -79.11]
     summary: "A terrace below the escarpment, warm and well drained, known for Cabernet Franc and Merlot."
   - id: beamsville-bench
     name: Beamsville Bench
     parent: niagara-escarpment-benches
-    circle: {c: [43.155, -79.48], r: 3.2}
-    clip: niagara-escarpment-benches
+    point: [43.155, -79.48]
     summary: "Limestone-rich slopes below the escarpment at Beamsville: Riesling, Chardonnay and Pinot Noir."
   - id: twenty-mile-bench
     name: Twenty Mile Bench
     parent: niagara-escarpment-benches
-    circle: {c: [43.14, -79.37], r: 3}
-    clip: niagara-escarpment-benches
+    point: [43.14, -79.37]
     summary: "Slopes around Twenty Mile Creek in Lincoln, with deep clay over limestone; some of Ontario's best Riesling and Chardonnay."
   - id: short-hills-bench
     name: Short Hills Bench
     parent: niagara-escarpment-benches
-    circle: {c: [43.1, -79.29], r: 3}
-    clip: niagara-escarpment-benches
+    point: [43.1, -79.29]
     summary: "The eastern bench in Pelham, a gentle south-facing slope with a mix of soils."
   - id: lincoln-lakeshore
     name: Lincoln Lakeshore
     parent: niagara-peninsula
-    circle: {c: [43.185, -79.44], r: 3.5}
-    clip: niagara-peninsula
+    point: [43.185, -79.44]
     summary: "The lake plain between the shore and the benches, where Lake Ontario's breezes keep the vines healthy."
   - id: creek-shores
     name: Creek Shores
     parent: niagara-peninsula
-    circle: {c: [43.17, -79.3], r: 3.5}
-    clip: niagara-peninsula
+    point: [43.17, -79.3]
     summary: "Lowlands cut by creeks running into Lake Ontario, between Jordan and St. Catharines."
   - id: vinemount-ridge
     name: Vinemount Ridge
     parent: niagara-peninsula
-    circle: {c: [43.115, -79.52], r: 3}
-    clip: niagara-peninsula
+    point: [43.115, -79.52]
     summary: "The ridge on top of the escarpment, cooler and windier: crisp Riesling and the source of much icewine."
   - id: pelee-island
     name: Pelee Island

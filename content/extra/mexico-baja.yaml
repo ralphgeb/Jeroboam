@@ -29,38 +29,28 @@ country:
 regions:
   - id: valle-de-guadalupe
     name: Valle de Guadalupe
-    circle: {c: [32.08, -116.58], r: 9}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [32.08, -116.58]
     grapes: [cabernet-sauvignon, merlot, tempranillo, nebbiolo, grenache, syrah, sauvignon-blanc]
     summary: "The flagship valley, with a Mediterranean climate and granite and alluvial soils, 20 km from the Pacific. Home of the best-known wineries and restaurants."
     soil: "Granite, sandy alluvium and clay."
   - id: valle-de-ojos-negros
     name: Valle de Ojos Negros
-    circle: {c: [31.90, -116.24], r: 8}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [31.90, -116.24]
     grapes: [chardonnay, cabernet-sauvignon, merlot]
     summary: "A higher, cooler basin north-east of Ensenada, with cold nights and big temperature swings."
   - id: valle-de-santo-tomas
     name: Valle de Santo Tomás
-    circle: {c: [31.56, -116.42], r: 7}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [31.56, -116.42]
     grapes: [cabernet-sauvignon, nebbiolo, zinfandel, grenache]
     summary: "The site of Baja's first mission vineyards (1791), home to historic wineries."
   - id: valle-de-san-vicente
     name: Valle de San Vicente
-    circle: {c: [31.32, -116.25], r: 8}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [31.32, -116.25]
     grapes: [cabernet-sauvignon, merlot, syrah]
     summary: "A small, southern valley with a cooler climate from the coast, and a growing set of boutique wineries."
   - id: tecate-valley
     name: Tecate
-    circle: {c: [32.55, -116.60], r: 10}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [32.55, -116.60]
     grapes: [cabernet-sauvignon, merlot, tempranillo]
     summary: "On the US border, a dry, warm area of vineyards and small wineries."
   - id: baja-california
@@ -71,13 +61,11 @@ regions:
     summary: "The rest of the northern peninsula, including the cities of Tijuana and Ensenada."
   - id: san-antonio-de-las-minas
     name: San Antonio de las Minas
-    circle: {c: [31.98, -116.65], r: 5}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [31.98, -116.65]
     grapes: [cabernet-sauvignon, tempranillo]
     summary: "The cooler valley between Ensenada and Guadalupe, a gateway to the Ruta del Vino with granite soils and sea breezes."
   - id: valle-de-la-grulla
     name: Valle de la Grulla (Ejido Uruapan)
-    circle: {c: [31.68, -116.48], r: 6}
-    clip: {adm: MEX/ADM1, names: [Baja California]}
+    point: [31.68, -116.48]
     grapes: [cabernet-sauvignon, grenache]
     summary: "A small valley south of Ensenada around Ejido Uruapan, with old Mission and Grenache vines."

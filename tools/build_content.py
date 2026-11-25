@@ -533,8 +533,10 @@ for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
     def entry(r, kind, sub=None):
         for gid in r.get("grapes", []) or []:
             if gid not in gset: err(f"extra {r['id']} -> unknown grape {gid}")
+        # a place drawn as a dot (no official boundary) highlights the area it belongs to
+        hl = [] if kind == "country" else ([r["parent"]] if "point" in r and r.get("parent") else ([] if "point" in r else [r["id"]]))
         e = {"id": r["id"], "name": r["name"], "country": c["name"], "kind": kind, "map": mid,
-             "highlight": [] if kind == "country" else [r["id"]], "grapes": r.get("grapes") or [], "summary": r["summary"], "level": 3}
+             "highlight": hl, "grapes": r.get("grapes") or [], "summary": r["summary"], "level": 3}
         for k in ("climate", "styles", "classification", "history", "facts", "local"):
             if r.get(k): e[k] = r[k]
         if sub: e["sub"] = sub
@@ -545,7 +547,7 @@ for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
     for r in spec["regions"]:
         if r["id"] in _taken: err(f"extra region id {r['id']} is already used")
         _taken.add(r["id"])
-        if r["id"] not in maps[mid]: err(f"extra region {r['id']} is not on map {mid} (geometry missing?)")
+        if r["id"] not in maps[mid] and "point" not in r: err(f"extra region {r['id']} is not on map {mid} (geometry missing?)")
         kids = [k["id"] for k in spec["regions"] if k.get("parent") == r["id"]]
         extra_regions.append(entry(r, "subregion" if r.get("parent") else "region", kids or None))
         if r.get("soil"): extra_soils[r["id"]] = r["soil"]

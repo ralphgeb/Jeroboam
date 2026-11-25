@@ -40,9 +40,7 @@ regions:
   - id: vale-dos-vinhedos
     name: Vale dos Vinhedos
     parent: serra-gaucha
-    circle: {c: [-29.165, -51.575], r: 5.5}
-    clip: serra-gaucha
-    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
+    point: [-29.165, -51.575]
     grapes: [merlot, cabernet-sauvignon, chardonnay]
     summary: "The 'Valley of the Vineyards': Brazil's best-known wine landscape and its first official appellation (2002), with Merlot and sparkling wine."
   - id: pinto-bandeira
@@ -106,5 +104,5 @@ regions:
     summary: "Indication of Provenance for Moscato: aromatic, gently sparkling wines from the Muscat family, Brazil's national style."
   - id: vale-do-uva-goethe
     name: Vales da Uva Goethe
-    circle: {c: [-28.48, -49.32], r: 18}
+    point: [-28.48, -49.32]
     summary: "A small Indication of Provenance near the Santa Catarina coast for the old hybrid Goethe grape, grown here since Italian settlers arrived in the 19th century."

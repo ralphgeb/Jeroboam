@@ -69,8 +69,7 @@ regions:
   - id: katsunuma
     name: Katsunuma (Kōshū)
     parent: yamanashi
-    circle: {c: [35.665, 138.73], r: 5}
-    clip: yamanashi
+    point: [35.665, 138.73]
     grapes: []
     local: [Koshu, Muscat Bailey A]
     summary: "The cradle of Japanese wine, in the east of the Kofu basin: dozens of small wineries and Koshu vines trained on overhead pergolas."

@@ -64,6 +64,8 @@ def geom_of(rid, r, spec, built, avas):
         if g is None: print(f"   ! {spec['map']}/{rid}: no units inside the sketch")
     elif "poly" in r:
         g = poly_ll(r["poly"])
+    elif "point" in r:            # a place without an official boundary: a named dot, not an area
+        return None
     elif "circle" in r:           # a village or small zone: centre [lat, lon] and radius in km
         la, lo = r["circle"]["c"]
         # `village`: the centre is the village itself when the place list (OpenStreetMap, southern-data) has it nearby
@@ -77,7 +79,7 @@ def geom_of(rid, r, spec, built, avas):
         g = Point(lo, la).buffer(B.km2deg(r["circle"]["r"]), 32)
         g = affinity.scale(g, xfact=1 / max(0.2, math.cos(math.radians(la))), yfact=1, origin=(lo, la))
     else:
-        if not r.get("pdo_name"): print(f"   ! {spec['map']}/{rid}: no geometry")
+        if not r.get("pdo_name") and "point" not in r: print(f"   ! {spec['map']}/{rid}: no geometry")
         return None
     if g is None or g.is_empty: return None
     c = r.get("clip")
@@ -257,14 +259,24 @@ def build_map(spec, avas):
     cities = B.cities_of(pr, [(c[0], c[1], c[2], c[3] if len(c) > 3 else 1) for c in spec.get("cities", [])])
     labels = B.labels_of(pr, [tuple(l) for l in spec.get("labels", [])])
     extra = None
+    pts = []
+    for r in regions:
+        if "point" not in r: continue
+        la, lo = r["point"]
+        if r.get("village") and spec.get("vines"):
+            want = B.norm(r["village"])
+            near = [p for p in B._south_json(f"osm_places_{spec['vines']}.json", [])
+                    if want in (B.norm(p["n"]), B.norm(p.get("local", ""))) and abs(p["ll"][0] - la) < 0.3 and abs(p["ll"][1] - lo) < 0.4]
+            if near:
+                la, lo = min(near, key=lambda p: (p["ll"][0] - la) ** 2 + (p["ll"][1] - lo) ** 2)["ll"]
+        x, y = pr.xy(lo, la)
+        pts.append({"n": r["name"], "x": round(x), "y": round(y)})
+    if pts: extra = {"pois": pts}
     if spec.get("vines"):
-        extra = {}
+        extra = extra or {}
         allg = unary_union(list(built.values())).buffer(B.km2deg(3))
         view = B.box(-20, -20, pr.W + 20, pr.H + 20)
-        vs = [v for v in vines if v.intersects(allg)]
-        if vs:
-            u = unary_union([v.buffer(B.km2deg(0.03)) for v in vs]).buffer(-B.km2deg(0.02))
-            extra["vines"] = B.enc_polys(pr.geom(u).intersection(view), tol * 0.5, 0.4)
+        vs = []
         ws, seen = [], set()
         for w in B.south_points(f"osm_wineries_{spec['vines']}.json", allg):
             k = B.norm(w["n"])
@@ -272,7 +284,7 @@ def build_map(spec, avas):
             seen.add(k)
             x, y = pr.xy(w["ll"][1], w["ll"][0])
             ws.append({"n": w["n"], "x": round(x), "y": round(y)})
-        if ws: extra["pois"] = ws[:300]
+        if ws: extra["pois"] = pts + ws[:300]
         vill = []
         for p in B.south_points(f"osm_places_{spec['vines']}.json", allg):
             if p["p"] in ("town", "village"):
