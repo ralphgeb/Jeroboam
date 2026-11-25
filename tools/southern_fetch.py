@@ -122,7 +122,7 @@ def osm_vineyards():
         for b in boxes:
             for (a, bb, c, d) in tiles(*b):
                 q = (f'[out:json][timeout:800];(way["landuse"="vineyard"]({a},{bb},{c},{d});'
-                     f'relation["landuse"="vineyard"]({a},{bb},{c},{d}););out tags geom;')
+                     f'relation["landuse"="vineyard"]({a},{bb},{c},{d}););out geom;')
                 try: r = overpass(q)
                 except Exception as e: log("  vineyard tile failed", cc, (a, bb, c, d), e); continue
                 n0 = len(polys)
@@ -159,7 +159,7 @@ def osm_admin_ar():
     out = {"rel": [], "places": []}
     for name in ["Mendoza", "San Juan", "Salta", "Catamarca", "La Rioja", "Neuquén", "Río Negro", "Tucumán"]:
         q = (f'[out:json][timeout:800];area["boundary"="administrative"]["admin_level"="4"]["name"="{name}"]->.p;'
-             f'(relation["boundary"="administrative"]["admin_level"~"^(5|6|7|8|9|10)$"](area.p););out tags geom;')
+             f'(relation["boundary"="administrative"]["admin_level"~"^(5|6|7|8|9|10)$"](area.p););out geom;')
         try:
             r = overpass(q)
             for el in r["elements"]:
