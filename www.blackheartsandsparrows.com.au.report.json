@@ -1,0 +1,13 @@
+{
+ "name": "Blackhearts & Sparrows",
+ "base": "https://www.blackheartsandsparrows.com.au",
+ "status": "candidate",
+ "declared_currency": "AUD",
+ "products": 0,
+ "pages": 0,
+ "via_collections": false,
+ "error": "no products.json",
+ "storefront_currency": null,
+ "storefront_rate": null,
+ "seconds": 2
+}
