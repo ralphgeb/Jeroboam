@@ -1,0 +1,13 @@
+{
+ "name": "The Living Vine",
+ "base": "https://www.thelivingvine.ca",
+ "status": "new",
+ "declared_currency": "CAD",
+ "products": 220,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "CAD",
+ "storefront_rate": "1.0",
+ "seconds": 1
+}
