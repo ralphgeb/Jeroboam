@@ -7,6 +7,9 @@ on:
         description: "Minimum new producers to harvest (0 = scan all 58 shops)"
         required: false
         default: "2500"
+  push:
+    paths:
+      - ".github/workflows/harvest_shopify_wines_all_in_one.yml"
 
 permissions:
   contents: write
@@ -26,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: pip install pandas requests urllib3
 
-      - name: Run Deep Shopify Wine Harvester (non-destructive)
+      - name: Write harvester script
         run: |
           cat << 'EOF' > /tmp/shopify_wine_harvester.py
           #!/usr/bin/env python3
@@ -56,7 +59,6 @@ jobs:
           from requests.adapters import HTTPAdapter
           from urllib3.util.retry import Retry
 
-          # Hard-blocked inflated drop-shippers for NEW harvesting (existing data is untouched)
           BLOCKED_DOMAINS = {
               "caskcartel.com",
               "reservebar.com",
@@ -65,7 +67,6 @@ jobs:
               "shopwinedirect.com",
           }
 
-          # 58 Verified Shopify Independent, Fine-Wine & Niche-Region Merchants
           MERCHANTS = [
               # --- UK & London Specialists (30) ---
               {"name": "Newcomer Wines", "base": "https://www.newcomerwines.com", "currency": "GBP", "sold_in": "UK wine shop"},
@@ -491,11 +492,16 @@ jobs:
           if __name__ == "__main__":
               main()
           EOF
+
+      - name: Run Deep Shopify Wine Harvester (non-destructive)
+        env:
+          TARGET_PRODUCERS: ${{ github.event.inputs.target_producers || '2500' }}
+        run: |
           python /tmp/shopify_wine_harvester.py \
             --existing-details content/prices/wine_details.csv \
             --out-details content/prices/wine_details_shopify_new.csv \
             --out-prices content/prices/wine_prices_shopify_new.csv \
-            --target-producers "${{ github.event.inputs.target_producers || '2500' }}"
+            --target-producers "$TARGET_PRODUCERS"
 
       - name: Commit new companion CSVs (leaving existing CSVs untouched)
         run: |
