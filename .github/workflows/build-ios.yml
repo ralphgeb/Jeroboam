@@ -218,7 +218,7 @@ jobs:
         if: ${{ vars.CLOUDKIT_READY == 'true' }}
         run: |
           python3 - <<'PY'
-          p = "Jeroboam/project.yml"
+          p = "project.yml"   # the job runs inside Jeroboam/
           s = open(p).read()
           s = s.replace("        com.apple.security.application-groups: [group.com.ralphgeb.jero]\n    info:\n      path: Sources/Info.plist",
                         "        com.apple.security.application-groups: [group.com.ralphgeb.jero]\n"

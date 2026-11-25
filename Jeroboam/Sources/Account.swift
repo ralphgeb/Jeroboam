@@ -98,6 +98,14 @@ final class CloudSync {
 
     func syncNow() { kv.synchronize(); pull(); pushAll() }
 
+    /// Settings > Sync now: everything, including the CloudKit journal, and returns when it is done.
+    @MainActor
+    func syncNowAndWait() async {
+        syncNow()
+        if JournalCloud.configured { await JournalCloud.shared.syncAndWait() }
+        Account.shared.markSynced()
+    }
+
     func pushProgress(_ raw: Data) { schedulePush() }
     func journalChanged() { schedulePush() }
 
@@ -297,6 +305,14 @@ final class JournalCloud {
         }
     }
 
+    /// One full pass now (Sync now in Settings waits for it).
+    func syncAndWait() async {
+        guard Self.configured, Account.shared.syncEnabled, !running else { return }
+        running = true
+        await run()
+        running = false
+    }
+
     private func run() async {
         guard let j = journal, j.persist else { return }
         do {
@@ -413,10 +429,7 @@ final class JournalCloud {
             if sentNow[rid] == fp { return }
             let rec = CKRecord(recordType: type, recordID: CKRecord.ID(recordName: rid, zoneID: zoneID))
             rec["payload"] = data
-            if let p = photo {
-                let url = JournalStore.photoDir.appendingPathComponent(p)
-                if FileManager.default.fileExists(atPath: url.path) { rec["photo"] = CKAsset(fileURL: url) }
-            }
+            if let p = photo, let url = Self.uploadCopy(of: p) { rec["photo"] = CKAsset(fileURL: url) }
             records.append(rec)
             prints[rid] = fp
         }
@@ -448,6 +461,34 @@ final class JournalCloud {
         deletedSent = deletedAfter
     }
 
+    /// The photo file to send: the phone's own copy when it is 1 MB or less (most are 300–700 KB at 1,600 px), else a
+    /// re-compressed copy in the caches folder stepped down until it fits. iCloud keeps a sharp picture without the bulk.
+    private static func uploadCopy(of name: String) -> URL? {
+        let url = JournalStore.photoDir.appendingPathComponent(name)
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: url.path) else { return nil }
+        let size = (try? fm.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
+        if size <= 1_000_000 { return url }
+        guard let img = UIImage(contentsOfFile: url.path) else { return url }
+        let dir = fm.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("icloud-upload", isDirectory: true)
+        try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        let out = dir.appendingPathComponent(name)
+        var image = img
+        let maxSide: CGFloat = 1600
+        if max(img.size.width, img.size.height) > maxSide {
+            let s = maxSide / max(img.size.width, img.size.height)
+            let sz = CGSize(width: img.size.width * s, height: img.size.height * s)
+            image = UIGraphicsImageRenderer(size: sz).image { _ in img.draw(in: CGRect(origin: .zero, size: sz)) }
+        }
+        for q in [0.75, 0.65, 0.55, 0.45] as [CGFloat] {
+            if let d = image.jpegData(compressionQuality: q), d.count <= 1_000_000 || q == 0.45 {
+                try? d.write(to: out, options: .atomic)
+                return out
+            }
+        }
+        return url
+    }
+
     /// Erase all my data: the whole zone goes; on the next sync it is created again, empty.
     func eraseAll() async {
         _ = try? await db.modifyRecordZones(saving: [], deleting: [zoneID])
@@ -466,6 +507,7 @@ struct AccountCard: View {
     @Environment(JournalStore.self) private var journal
     @State private var confirmErase = false
     @State private var erasing = false
+    @State private var syncing = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -482,10 +524,30 @@ struct AccountCard: View {
             }
             HStack(spacing: 10) {
                 if account.syncEnabled {
-                    Button { CloudSync.shared.syncNow() } label: {
-                        Label("Sync now", systemImage: "arrow.triangle.2.circlepath").font(.system(size: 13.5, weight: .semibold))
-                            .padding(.horizontal, 12).padding(.vertical, 9).background(Capsule().fill(Palette.wineSoft)).foregroundStyle(Palette.wine)
+                    Button {
+                        guard !syncing else { return }
+                        Haptics.tap()
+                        syncing = true
+                        Task {
+                            let start = Date()
+                            await CloudSync.shared.syncNowAndWait()
+                            // long enough to see the arrows turn, even when there was nothing to send
+                            let left = 1.0 - Date().timeIntervalSince(start)
+                            if left > 0 { try? await Task.sleep(for: .seconds(left)) }
+                            syncing = false
+                            Haptics.success()
+                        }
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .rotationEffect(.degrees(syncing ? 360 : 0))
+                                .animation(syncing ? .linear(duration: 0.9).repeatForever(autoreverses: false) : .easeOut(duration: 0.2), value: syncing)
+                            Text(syncing ? "Syncing…" : "Sync now")
+                        }
+                        .font(.system(size: 13.5, weight: .semibold))
+                        .padding(.horizontal, 12).padding(.vertical, 9).background(Capsule().fill(Palette.wineSoft)).foregroundStyle(Palette.wine)
                     }
+                    .accessibilityLabel(syncing ? "Syncing" : "Sync now")
                 }
                 Button(role: .destructive) { confirmErase = true } label: {
                     Text(erasing ? "Erasing…" : "Erase all my data").font(.jero(size: 13.5, weight: .semibold))
@@ -511,7 +573,10 @@ struct AccountCard: View {
         if !account.syncEnabled { return "Off. Your progress and journal stay on this iPhone only." }
         if !account.iCloudAvailable { return "Sign in to iCloud in the Settings app to keep your progress safe." }
         if account.restoring { return "Restoring your progress…" }
-        if let d = account.lastSync { return "Your progress, tastings and cellar follow your iCloud account · " + d.formatted(date: .abbreviated, time: .shortened) }
+        if let d = account.lastSync {
+            if Date().timeIntervalSince(d) < 60 { return "Synced just now. Your progress, tastings and cellar follow your iCloud account." }
+            return "Your progress, tastings and cellar follow your iCloud account · " + d.formatted(date: .abbreviated, time: .shortened)
+        }
         return "Your progress, tastings and cellar follow your iCloud account."
     }
 }

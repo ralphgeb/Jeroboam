@@ -1749,8 +1749,7 @@ struct EntryDetailView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     if let img = JournalStore.image(e.photo) {
-                        Image(uiImage: img).resizable().scaledToFill().frame(height: 260).frame(maxWidth: .infinity).clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+                        TappablePhoto(image: img)   // a tap shows the whole picture
                     }
                     HStack(alignment: .top) {
                         ScreenHeader(eyebrow: (e.isBlind ? "Blind · " : "") + e.date.formatted(date: .abbreviated, time: .omitted), title: e.title,
@@ -1849,8 +1848,7 @@ struct CellarDetailView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     if let img = JournalStore.image(b.photo) {
-                        Image(uiImage: img).resizable().scaledToFill().frame(height: 260).frame(maxWidth: .infinity).clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
+                        TappablePhoto(image: img)   // a tap shows the whole picture
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,
                                  subtitle: [b.wine.producer, "Added " + b.added.formatted(date: .abbreviated, time: .omitted)].filter { !$0.isEmpty }.joined(separator: " · "))
