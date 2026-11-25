@@ -266,7 +266,7 @@ def main():
             DET[p['url']] = {'url': p['url'], 'title': p.get('title', ''), 'type': p.get('type', ''), 'vendor': p.get('vendor', ''), 'tags': p.get('tags') or [], 'text': p.get('text', '')}
     print('shop products with details', len(DET))
     # facts kept from the previous build for shops that are not re-harvested (supermarkets, English wineries): sources/legacy_details.csv
-    LEG = {}
+    LEG, SCO = {}, {}
     lp = P + 'sources/legacy_details.csv'
     if os.path.exists(lp):
         for r in csv.DictReader(open(lp, encoding='utf-8')):
@@ -275,11 +275,14 @@ def main():
                 m = re.match(r'(.+?): ([\d.]+)(/20)?$', part.strip())
                 if m: sc[m.group(1)] = (float(m.group(2)), m.group(3) or '')
             bl = [(m.group(1), float(m.group(2))) for m in re.finditer(r'([^,%]+?)\s+([\d.]+)%', r['grape_blend'] or '')]
+            if r.get('scores_only') == 'yes':
+                if sc: SCO[r['url']] = sc
+                continue
             LEG[r['url']] = {'country': r['country'], 'region': r['region'], 'appellation': r['appellation'], 'color': r['color'],
                              'grapes': [g.strip() for g in r['grapes'].split(',') if g.strip()],
                              'aromas': [a.strip() for a in r['aromas'].split(',') if a.strip()] if r['aromas_source'].startswith('shop') else [],
                              'style': [], 'scores': sc, 'blend': [(g.strip(), v) for g, v in bl] if r['blend_source'].startswith('shop') else []}
-        print('legacy facts', len(LEG))
+        print('legacy facts', len(LEG), 'pages with kept scores', len(SCO))
     PAGE = {}   # url -> {critic: (score, scale)} read from product pages (optional 2nd argument: folder of JSONL)
     NORM = {'antonio galloni': 'Vinous', 'vinous media': 'Vinous', 'vinous': 'Vinous', 'robert parker': 'Wine Advocate', "robert parker's wine advocate": 'Wine Advocate',
             'the wine advocate': 'Wine Advocate', 'wine advocate': 'Wine Advocate', 'parker': 'Wine Advocate', 'jancis robinson': 'Jancis Robinson', 'jancisrobinson.com': 'Jancis Robinson',
@@ -309,6 +312,11 @@ def main():
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
         urls = [u.split(': ', 1)[1] for u in r['links'].split(' ; ') if ': ' in u]
         facts = [(u, analyse(r['wine'], DET.get(u))) for u in urls if u in DET] + [(u, dict(LEG[u])) for u in urls if u in LEG and u not in DET]
+        for u, f in facts:          # critics' scores kept from the previous build
+            for k, v in SCO.get(u, {}).items(): f['scores'].setdefault(k, v)
+        for u in urls:
+            if u in SCO and not any(uu == u for uu, _ in facts):
+                facts.append((u, {'scores': dict(SCO[u]), 'grapes': [], 'aromas': [], 'style': [], 'blend': []}))
         if not facts: facts = [(None, analyse(r['wine'], None))]
         elif not any(u in DET for u, _ in facts): facts.append((None, analyse(r['wine'], None)))
         for u in urls:

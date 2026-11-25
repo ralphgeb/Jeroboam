@@ -47,6 +47,8 @@ def name_prefix(title):
             if 1 <= i <= 4:
                 pre = ' '.join(words[:i]).strip(" ,-'")
                 f = fold(pre).strip()
+                if NOT_PRODUCER.match(f) and i < len(words) and not STOPPER.match(fold(words[i])):   # 'Château' + 'Margaux'
+                    pre = ' '.join(words[:i + 1]).strip(" ,-'"); f = fold(pre).strip()
                 if pre[:1].isupper() and len(f) >= 3 and not NOT_PRODUCER.match(f) and not ED.PLACE_RX.fullmatch(f) and f not in ED.COUNTRIES:
                     return pre
             return ''
@@ -99,7 +101,7 @@ def main():
     all_shop_names = {fold(s['name']).strip() for s in shops.values()}
 
     def vendor_ok(host, vendor):
-        if not vendor or NOT_PRODUCER.match(fold(vendor).strip()):
+        if not vendor or NOT_PRODUCER.match(fold(vendor).strip()) or place_or_grape(vendor):
             return False
         vt = set(toks(vendor)) - SHOP_WORDS
         if fold(vendor).strip() in all_shop_names or (vt and vt <= shop_toks[host]):
@@ -120,7 +122,7 @@ def main():
             dictionary[fold(v).strip()] += vstat[(h, v)][0]
     def seg_ok(seg):
         f = fold(seg).strip()
-        return bool(f) and not place_or_grape(seg) and not NOT_PRODUCER.match(f) and not STYLE_WORDS.search(f) \
+        return bool(f) and not place_or_grape(seg) and not NOT_PRODUCER.match(f) and not STYLE_WORDS.search(f) and not re.search(r"['\"\u2018\u2019\u201c\u201d]\s*\w+.*['\"\u2018\u2019\u201c\u201d]", seg) \
             and not ED.GRAPE_RX.search(f) and not ED.PLACE_RX.match(f) and len(f.split()) <= 5 and not re.search(r"\d", f)
     for p in prods:
         for t in p['tags']:
