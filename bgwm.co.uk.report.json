@@ -1,0 +1,13 @@
+{
+ "name": "BGWM",
+ "base": "https://bgwm.co.uk",
+ "status": "existing",
+ "declared_currency": "GBP",
+ "products": 5527,
+ "pages": 23,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 24
+}
