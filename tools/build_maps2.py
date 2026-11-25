@@ -1021,7 +1021,7 @@ def build_gb(only=None):
                 col[gid] = cidx(H.get("colors", {}).get(gid), i)
                 areas.append(area_record(pr, gid, gname, 0, col[gid], g, tol, min_area=1, soft=True))
             allg = unary_union([gr[2] for gr in groups]).buffer(km2deg(2))
-            for rid, n, g, _ in children:
+            for rid, n, g, _ in children + [(a, b, c, None) for a, b, c in lv0_extra]:
                 g = g.intersection(allg)
                 if g.is_empty: continue
                 best = max(groups, key=lambda gr: gr[2].intersection(g).area if gr[2].intersects(g) else 0)

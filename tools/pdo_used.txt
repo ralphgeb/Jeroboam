@@ -300,3 +300,4 @@ lenswood	Australia:Lenswood	Lenswood
 rhodes	PDO-GR-A1612	Ρόδος
 candia	PDO-GR-A1615	Χάνδακας - Candia
 malvasia-candia	PDO-GR-A1617	Malvasia Χάνδακας-Candia
+pt-alentejo	PDO-PT-A1542	Alentejo

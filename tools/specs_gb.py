@@ -250,7 +250,13 @@ HIERARCHY = {
         "montilla-moriles": B("Montilla-Moriles", 37.58, -4.65, 15), "malaga-do": B("Málaga", 36.80, -4.60, 25),
         "condado-de-huelva": B("Condado de Huelva", 37.30, -6.55, 15), "binissalem": B("Binissalem", 39.68, 2.84, 8),
     }},
-    "portugal": {"snap": "ADM3", "pdo_auto": {"cc": "PT", "min": 0.004, "skip": ["Madeira", "Pico", "Graciosa", "Biscoitos", "Açores", "Madeirense"]}, "level0": True, "extra0": {
+    "portugal": {"snap": "ADM3", "pdo_auto": {"cc": "PT", "min": 0.004, "skip": ["Madeira", "Pico", "Graciosa", "Biscoitos", "Açores", "Madeirense"]}, "groups": {
+        "pt-norte": ("Norte", G("ADM1", ["VIANA DO CASTELO", "BRAGA", "PORTO", "VILA REAL", "BRAGANÇA"])),
+        "pt-centro": ("Centro", G("ADM1", ["AVEIRO", "VISEU", "GUARDA", "COIMBRA", "CASTELO BRANCO", "LEIRIA"])),
+        "pt-lisboa-tejo": ("Lisboa & Tejo", G("ADM1", ["LISBOA", "SANTARÉM", "SETÚBAL"])),
+        "pt-alentejo": ("Alentejo", G("ADM1", ["PORTALEGRE", "ÉVORA", "BEJA"])),
+        "pt-algarve": ("Algarve", G("ADM1", ["FARO"])),
+    }, "colors": {"pt-norte": "claret", "pt-centro": "teal", "pt-lisboa-tejo": "orange", "pt-alentejo": "gold", "pt-algarve": "blue"}, "extra0": {
         "tras-os-montes": ("Trás-os-Montes", G("ADM2", ["Chaves", "Valpacos", "Mirandela", "Macedo de Cavaleiros", "Braganca",
                                                         "Vinhais", "Mogadouro", "Miranda do Douro", "Vimioso", "Alfandega da Fe"])),
         "tavora-varosa": ("Távora-Varosa", G("ADM2", ["Tarouca", "Moimenta da Beira", "Sernancelhe", "Penedono"])),

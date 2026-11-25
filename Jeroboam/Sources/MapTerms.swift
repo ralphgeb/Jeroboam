@@ -37,7 +37,8 @@ struct MapTerms {
             return MapTerms(level: ["Regions", "Denominations (DO/DOCa)", "Pagos & sub-zones"],
                             hint: ["The autonomous regions", "Denominations (DO/DOCa) inside them", "Vinos de Pago and sub-zones inside the DOs"])
         case "portugal":
-            return MapTerms(level: ["Regions", "Denominations (DOC)"], hint: ["The wine regions", "Denominations (DOC) and sub-regions"])
+            return MapTerms(level: ["Regions", "Denominations (DOC)", "Sub-regions"],
+                            hint: ["Norte, Centro, Lisboa & Tejo, Alentejo, Algarve", "The DOC wine regions", "Sub-regions and smaller DOCs inside them"])
         case "germany":
             return MapTerms(level: ["Regions (Anbaugebiete)", "Districts (Bereiche)", "Villages"],
                             hint: ["The 13 wine regions (Anbaugebiete)", "Districts (Bereiche) inside the regions", "Famous wine villages"])
