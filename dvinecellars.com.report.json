@@ -1,0 +1,13 @@
+{
+ "name": "D Vine Cellars",
+ "base": "https://dvinecellars.com",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 885,
+ "pages": 4,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 5
+}
