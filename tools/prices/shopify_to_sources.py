@@ -186,6 +186,17 @@ def main():
         return '', 'unknown'
 
     # ---- 4. offers: one per bottle size, per-bottle price
+    import statistics as ST
+    med = {}
+    for p in prods:
+        try: med.setdefault(p['host'], []).append(float(p['variants'][0]['price'] or 0))
+        except (ValueError, IndexError): pass
+    med = {h: ST.median([x for x in v if x > 0] or [1]) for h, v in med.items()}
+
+    def bogus(host, price):
+        # Le Petit Ballon puts spreadsheet dates (45580 = 15 Oct 2024) in the price of sold-out wines
+        if 40000 <= price <= 50000 and price == int(price) and med[host] < 60: return True
+        return price > 500 * med[host]
     out, stats = [], C.defaultdict(C.Counter)
     for p in prods:
         h = p['host']; s = shops[h]; rep = report.get(h, {})
@@ -209,6 +220,8 @@ def main():
                 continue
             if price <= 0:
                 continue
+            if bogus(h, price):
+                stats[h]['bogus price'] += 1; continue
             ml = size_ml(vt, p['title']) or 750
             pk = pack_count(vt) if vt else 1
             if pk == 1 and not (vt and re.search(r'(?i)\b(single|bottle|btl|each|1\s*x)\b', vt)):

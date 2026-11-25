@@ -22,7 +22,7 @@ NONWINE = re.compile(r"""\b(
   pisco|liquore|lik[oö]r|amaro|amari|aperitivo|bitters?|vermouth|vermut|absinthe|ouzo|raki|arak|schnapps|sake|nihonshu|shochu|soju|umeshu|baijiu|
   beer|biere|birra|cerveza|ipa|lager|pilsner?|stout|kolsch|seltzer|hard\s+seltzer|cider|cidre|sidra|kombucha|
   non[- ]?alcoholic|alcohol[- ]?free|alcoholfree|de[- ]?alcoholi[sz]ed|alcohol[- ]removed|zero[- ]alcohol|0[.,]0\s*%|0\s*%\s*(?:alc\w*|abv)|traubensaft|grape\s+juice|analcolic\w*|alkoholfrei|sans\s+alcool|
-  soda|tonic(?:\s+water)?|sirop|syrup|cordial|sparkling\s+tea|tea\s+company|tea(?!\s+tree)|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
+  soda|tonic(?:\s+water)?|sirop|syrup|cordial|spritz|press[eé]|cycling\s+bottle|water\s+bottle|vertical|flutes?|soup|cakes?|booster|washing\s+up|multivitamins?|vits|gravy|stock\s+pot|(?:orange|lemon|lime|fruit|soft)\s+drinks?|flavou?r(?:ed)?\s+(?:sparkling|water|drink)|lemon\s*&\s*lime|sparkling\s+tea|tea\s+company|tea(?!\s+tree)|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
   crackers?|crisps|salami|truffles?\s+(?:oil|salt)|honey\s+jar|chutney|cookbook|magazine|poster|
   candle|soap|t[- ]?shirt|hoodie|sweatshirt|baseball\s+cap|tote\s+bag|apron|socks|sneakers?|earrings?|necklace|bracelet|handbag|wallet|
   corkscrew|opener|stoppers?|decanter|carafe|glass(?:es|ware)?|tumbler|ice\s+bucket|cooler|chiller|aerator|pourer|wine\s+rack|cellar\s+book|

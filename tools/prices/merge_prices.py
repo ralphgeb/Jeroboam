@@ -53,6 +53,7 @@ def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=Fals
     try: price=float(price)
     except ValueError: return
     if price<=0: return
+    if price/RATES[cur]*750/v<4: dropped['too cheap for wine']+=1; return   # not a bottle of wine (or not a bottle price)
     offers.append(dict(region=region,shop=shop,location=loc,name=name,producer=producer,vintage=vint,size=v,price=price,cur=cur,
         eur=price/RATES[cur],instock=instock,url=url,key=k,reseller=reseller))
 host=lambda u: urlparse(u).netloc
