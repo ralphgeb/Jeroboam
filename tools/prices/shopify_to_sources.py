@@ -40,7 +40,7 @@ def main():
     src = sys.argv[1]
     cfg = json.load(open(os.path.join(HERE, 'shops.json')))
     shops = {urlparse(s['base']).netloc: s for s in cfg['shops'] if not any(b in s['base'] for b in cfg['blocked'])}
-    report = json.load(open(os.path.join(src, 'report.json')))
+    report = {os.path.basename(f)[:-12]: json.load(open(f)) for f in glob.glob(os.path.join(src, '*.report.json'))}
     checked = (open(os.path.join(src, 'HARVESTED_AT')).read().strip()[:10] if os.path.exists(os.path.join(src, 'HARVESTED_AT')) else '')
 
     # ---- 1. read everything, decide what is wine

@@ -1,8 +1,9 @@
 name: Harvest wine shops (Shopify catalogues)
 
-# Downloads every shop in tools/prices/shops.json on a runner (the dev container cannot reach the shops)
-# and pushes the raw catalogues to the `shop-data` branch. Turning them into the price list happens locally:
-#   tools/prices/shopify_to_sources.py -> merge_prices.py -> enrich_details.py -> build_app_wines.py / build_app_prices.py
+# Downloads every shop in tools/prices/shops.json on runners (the dev container cannot reach the shops), one job per shop,
+# and pushes each shop's raw catalogue to the `shop-data` branch as soon as it is done (<host>.jsonl.gz + <host>.report.json).
+# Turning them into the price list happens locally:
+#   shopify_to_sources.py -> legacy_details.py -> merge_prices.py -> enrich_details.py -> build_app_wines.py / build_app_prices.py
 on:
   workflow_dispatch:
     inputs:
@@ -22,34 +23,63 @@ permissions:
 
 concurrency:
   group: harvest-shops
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  harvest:
+  list:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    outputs:
+      hosts: ${{ steps.l.outputs.hosts }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: |
+          if [ -n "${{ github.event.inputs.only }}" ]; then
+            python3 -c "import json,sys;print('hosts='+json.dumps(sys.argv[1].split(',')))" "${{ github.event.inputs.only }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "hosts=$(python3 tools/prices/harvest_shopify.py --list)" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Make sure the shop-data branch exists
+        run: |
+          if ! git ls-remote --exit-code origin refs/heads/shop-data; then
+            mkdir /tmp/sd && cd /tmp/sd && git init -q -b shop-data
+            git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+            echo "Raw Shopify catalogues of the wine shops in tools/prices/shops.json (harvest_shops.yml)." > README.md
+            git add README.md && git commit -qm "shop-data" && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data
+          fi
+
+  shop:
+    needs: list
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        host: ${{ fromJson(needs.list.outputs.hosts) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install requests
-      - name: Previous data (for --only runs)
-        if: ${{ github.event.inputs.only != '' && github.event.inputs.only != null }}
+      - name: Harvest ${{ matrix.host }}
+        run: python3 tools/prices/harvest_shopify.py --out out --only "${{ matrix.host }}" --workers 1 --budget 9000
+      - name: Push to shop-data
         run: |
-          mkdir -p /tmp/prev shop-data
-          git fetch --depth=1 origin shop-data && git --work-tree=/tmp/prev checkout FETCH_HEAD -- . || true
-          cp -r /tmp/prev/. shop-data/ || true
-          rm -rf shop-data/.git
-      - name: Harvest
-        run: python3 tools/prices/harvest_shopify.py --out shop-data --only "${{ github.event.inputs.only }}"
-      - name: Push to shop-data branch
-        run: |
-          cd shop-data
-          git init -q -b shop-data
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          date -u +%Y-%m-%dT%H:%MZ > HARVESTED_AT
-          git add -A
-          git commit -qm "Shop catalogues $(cat HARVESTED_AT)"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data
+          set -e
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          mkdir /tmp/sd && cd /tmp/sd && git init -q -b shop-data
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            git fetch -q --depth 1 "$URL" shop-data && git reset -q --hard FETCH_HEAD
+            cp "$GITHUB_WORKSPACE"/out/* .
+            date -u +%Y-%m-%dT%H:%MZ > HARVESTED_AT
+            git add -A
+            git diff --cached --quiet && exit 0
+            git commit -qm "${{ matrix.host }}"
+            git push -q "$URL" HEAD:shop-data && exit 0
+            sleep $((RANDOM % 20 + 5))
+          done
+          exit 1

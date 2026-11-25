@@ -4,7 +4,7 @@
 Runs on a GitHub runner (.github/workflows/harvest_shops.yml): this project's dev container cannot reach the shops.
 Writes, per shop, <out>/<host>.jsonl.gz with one product per line:
   {url, id, handle, title, vendor, type, tags[], text, published_at, variants: [{title, price, compare_at, available, grams, sku}]}
-and <out>/report.json (per shop: products, pages, capped, currency seen on the storefront, errors).
+and <out>/<host>.report.json (per shop: products, pages, capped, currency seen on the storefront, errors).
 Nothing is filtered here; tools/prices/shopify_to_sources.py decides what is wine and what each bottle costs.
 
 Run: python3 tools/prices/harvest_shopify.py --out shop-data [--only host,host] [--workers 8]
@@ -105,7 +105,7 @@ def storefront_currency(session, base):
     return None, None
 
 
-def harvest(shop, out, delay, max_pages):
+def harvest(shop, out, delay, max_pages, budget=9000):
     base = shop["base"].rstrip("/")
     host = urlparse(base).netloc
     s = requests.Session()
@@ -137,6 +137,8 @@ def harvest(shop, out, delay, max_pages):
                 time.sleep(delay)
             log(f"   {host}: capped at {len(prods)}, walking {len(handles)} collections")
             for h in handles:
+                if time.time() - t0 > budget:   # keep what we have rather than run out of job time
+                    rep['stopped_early'] = True; break
                 for page in paged(s, f"{base}/collections/{h}/products.json?limit=250&page={{page}}", delay, max_pages):
                     for p in page:
                         prods.setdefault(p["id"], p)
@@ -158,22 +160,22 @@ def main():
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--delay", type=float, default=0.6)
     ap.add_argument("--max-pages", type=int, default=400)
+    ap.add_argument("--budget", type=int, default=9000, help="seconds per shop before the collection walk stops")
+    ap.add_argument("--list", action="store_true", help="print the shop hosts as a JSON list (for the workflow matrix)")
     a = ap.parse_args()
     cfg = json.load(open(os.path.join(ROOT, "tools/prices/shops.json")))
     blocked = cfg["blocked"]
     shops = [s for s in cfg["shops"] if not any(b in s["base"] for b in blocked)]
+    if a.list:
+        print(json.dumps([urlparse(s['base']).netloc for s in shops])); return
     if a.only:
         want = a.only.split(",")
-        shops = [s for s in shops if any(w in s["base"] for w in want)]
+        shops = [s for s in shops if urlparse(s['base']).netloc in want or any(w in s['base'] for w in want)]
     os.makedirs(a.out, exist_ok=True)
     with ThreadPoolExecutor(a.workers) as ex:
-        reps = dict(ex.map(lambda s: harvest(s, a.out, a.delay, a.max_pages), shops))
-    old = {}
-    rp = os.path.join(a.out, "report.json")
-    if a.only and os.path.exists(rp):
-        old = json.load(open(rp))
-    old.update(reps)
-    json.dump(old, open(rp, "w"), indent=1, ensure_ascii=False)
+        reps = dict(ex.map(lambda s: harvest(s, a.out, a.delay, a.max_pages, a.budget), shops))
+    for host, rep in reps.items():   # one report per shop, so parallel jobs never touch the same file
+        json.dump(rep, open(os.path.join(a.out, host + ".report.json"), "w"), indent=1, ensure_ascii=False)
     print("total products", sum(r["products"] for r in reps.values()), "from", sum(1 for r in reps.values() if r["products"]), "shops")
 
 
