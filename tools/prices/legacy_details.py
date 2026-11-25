@@ -3,14 +3,15 @@
 re-harvested from Shopify (UK supermarkets, English wineries, shops the last harvest could not reach), keyed by product URL:
 content/prices/sources/legacy_details.csv. enrich_details.py uses it when it has no shop description for a URL.
 Run BEFORE merge_prices.py / enrich_details.py overwrite the old files:
-    python3 tools/prices/legacy_details.py content/prices/sources/shopify_shops.csv [folder with the previous csv files]
+    python3 tools/prices/legacy_details.py content/prices/sources/shopify_shops.csv.gz [folder with the previous csv files]
 Shops that are re-harvested keep only their old critics' scores (scores_only = yes)."""
 import csv, os, sys
 from urllib.parse import urlparse
 csv.field_size_limit(10**9)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 P = os.path.join(ROOT, 'content/prices/')
-harvested = {urlparse(r['url']).netloc for r in csv.DictReader(open(sys.argv[1], encoding='utf-8'))}
+import gzip
+harvested = {urlparse(r['url']).netloc for r in csv.DictReader((gzip.open if sys.argv[1].endswith('.gz') else open)(sys.argv[1], 'rt', encoding='utf-8'))}
 OLD = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else P   # folder with the previous wine_prices.csv + wine_details.csv
 dets = {(r['wine'], r['producer'], r['vintage'], r['size_ml']): r for r in csv.DictReader(open(OLD + 'wine_details.csv', encoding='utf-8'))}
 cols = ['url', 'color', 'country', 'region', 'appellation', 'grapes', 'grape_blend', 'blend_source', 'aromas', 'aromas_source', 'scores', 'scores_only']

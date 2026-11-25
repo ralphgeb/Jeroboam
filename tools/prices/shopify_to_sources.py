@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Raw Shopify catalogues (shop-data branch, made by harvest_shopify.py) -> content/prices/sources/shopify_shops.csv
+"""Raw Shopify catalogues (shop-data branch, made by harvest_shopify.py) -> content/prices/sources/shopify_shops.csv.gz
 
 One row per wine offer (product x bottle size) with a per-bottle price. Drops what is not wine, resolves the real producer
 (shop 'vendor' fields often hold the importer, a consignor code or the shop's own name) and puts the producer in the wine
@@ -36,6 +36,7 @@ def place_or_grape(seg):
     return bool(f) and (ED.GRAPE_RX.fullmatch(f) or ED.PLACE_RX.fullmatch(f) or ED.COUNTRIES.get(f)) is not None
 
 
+PARTICLES = {"de", "du", "des", "la", "le", "les", "di", "del", "della", "dei", "da", "do", "dos", "das", "d", "l", "von", "van", "der", "y", "et", "e"}
 STOPPER = re.compile(r"^(?:(?:19|20)\d\d\b|nv\b|\d|['\"\u2018\u201c(])")
 
 
@@ -45,11 +46,18 @@ def name_prefix(title):
         rest = fold(' '.join(words[i:i + 4]))
         if STOPPER.match(rest) or ED.PLACE_RX.match(rest) or ED.GRAPE_RX.match(rest) or STYLE_WORDS.match(rest) or rest.startswith(('cabernet', 'pinot', 'sauvignon')):
             if 1 <= i <= 4:
-                pre = ' '.join(words[:i]).strip(" ,-'")
-                f = fold(pre).strip()
-                if NOT_PRODUCER.match(f) and i < len(words) and not STOPPER.match(fold(words[i])):   # 'Château' + 'Margaux'
-                    pre = ' '.join(words[:i + 1]).strip(" ,-'"); f = fold(pre).strip()
-                if pre[:1].isupper() and len(f) >= 3 and not NOT_PRODUCER.match(f) and not ED.PLACE_RX.fullmatch(f) and f not in ED.COUNTRIES:
+                k = i
+                while k > 0 and fold(words[k - 1]).strip(" ,'") in PARTICLES:   # 'Domaine de' + 'la Romanée-Conti'
+                    k -= 1
+                pre = ' '.join(words[:k]).strip(" ,-'"); f = fold(pre).strip()
+                if k and NOT_PRODUCER.match(f):    # only 'Château' / 'Domaine': take the name after it
+                    j = k
+                    while j < len(words) and fold(words[j]).strip(" ,'") in PARTICLES:
+                        j += 1
+                    if j >= len(words) or STOPPER.match(fold(words[j])):
+                        return ''
+                    pre = ' '.join(words[:j + 1]).strip(" ,-'"); f = fold(pre).strip()
+                if k and pre[:1].isupper() and len(f) >= 3 and not NOT_PRODUCER.match(f) and not ED.PLACE_RX.fullmatch(f) and f not in ED.COUNTRIES:
                     return pre
             return ''
     return ''
@@ -249,7 +257,7 @@ def main():
 
     out.sort(key=lambda r: (r['shop'], fold(r['wine_name']), r['vintage'], r['size']))
     cols = list(out[0].keys())
-    with open(os.path.join(ROOT, 'content/prices/sources/shopify_shops.csv'), 'w', newline='', encoding='utf-8') as f:
+    with gzip.open(os.path.join(ROOT, 'content/prices/sources/shopify_shops.csv.gz'), 'wt', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(out)
 
     # ---- 5. report

@@ -1,8 +1,7 @@
 # Merge the price lists in content/prices/sources into content/prices/wine_prices.csv:
 # one row per wine + vintage + bottle size, duplicates merged, prices averaged across shops.
-# Sources: shopify_shops.csv (every Shopify shop, rebuilt by shopify_to_sources.py from the shop-data branch) and the
-# older per-source CSVs for shops that are not on Shopify (UK supermarkets via trolley.co.uk, English wineries) or that
-# the last harvest could not reach. CaskCartel (an overpriced reseller) is a last resort: its offers in sources/reseller_only.csv
+# Sources: shopify_shops.csv.gz (every Shopify shop, rebuilt by shopify_to_sources.py from the shop-data branch),
+# uk_supermarkets.csv (trolley.co.uk) and other_shops.csv (English wineries that are not on Shopify). CaskCartel (an overpriced reseller) is a last resort: its offers in sources/reseller_only.csv
 # are kept only for a wine + vintage + size that no other shop sells; such rows say price_note = 'high reseller price'.
 # Run: python3 tools/prices/merge_prices.py content/prices/wine_prices.csv
 import csv,re,sys,unicodedata,collections,statistics,datetime,os
@@ -57,10 +56,11 @@ def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=Fals
     offers.append(dict(region=region,shop=shop,location=loc,name=name,producer=producer,vintage=vint,size=v,price=price,cur=cur,
         eur=price/RATES[cur],instock=instock,url=url,key=k,reseller=reseller))
 host=lambda u: urlparse(u).netloc
-SH=D+'sources/shopify_shops.csv'
+SH=D+'sources/shopify_shops.csv.gz'
 harvested=set()
 if os.path.exists(SH):
-    rows=list(csv.DictReader(open(SH,encoding='utf-8')))
+    import gzip
+    rows=list(csv.DictReader(gzip.open(SH,'rt',encoding='utf-8')))
     harvested={host(x['url']) for x in rows}
     SHOP_NAMES|={wfold(x['shop']).strip() for x in rows}
     for x in rows:
@@ -70,9 +70,7 @@ SHOP_NAMES|={'tesco',"sainsbury's",'morrisons','asda','waitrose','aldi','iceland
 old=lambda u: host(u) not in harvested
 for x in csv.DictReader(open(D+'sources/uk_supermarkets.csv')):
     add('UK supermarket',x['supermarket'],'UK',x['wine_name'],x['brand'],x['vintage'],x['size'] or '75cl',x['price_gbp'],'GBP','yes',x['trolley_url'])
-for x in csv.DictReader(open(D+'sources/us_wine_shops.csv')):
-    if old(x['url']): add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price_usd'],'USD',x['in_stock'],x['url'])
-for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops_2.csv'))):
+for x in csv.DictReader(open(D+'sources/other_shops.csv')):   # shops that are not on Shopify (English wineries)
     if old(x['url']): add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop','Zealand':'New Zealand wine shop','Ireland':'Ireland wine shop','Switzerland':'Switzerland wine shop','wine)':'UK wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
 RS=D+'sources/reseller_only.csv'
 if os.path.exists(RS):

@@ -12,7 +12,7 @@
    `tools/prices/harvest_shopify.py` once per shop in `tools/prices/shops.json` and pushes each shop's raw catalogue to the
    `shop-data` branch (`<host>.jsonl.gz` = every product with its price options, tags and description text; `<host>.report.json`).
    A push to a `claude/**` branch only fills in shops missing from `shop-data`; run the workflow by hand (empty input) to refresh every shop.
-2. **Clean** (`tools/prices/shopify_to_sources.py <shop-data dir>` -> `sources/shopify_shops.csv`, report in `sources/shopify_report.md`),
+2. **Clean** (`tools/prices/shopify_to_sources.py <shop-data dir>` -> `sources/shopify_shops.csv.gz`, report in `sources/shopify_report.md`),
    rules in `tools/prices/wine_clean.py`:
    - *Not wine* is dropped: spirits, beer, cider, sake, alcohol-free drinks, food, glasses and accessories, gift cards, mixed cases and
      bundles, tastings and events, subscriptions, deposits. Wines in gift packaging ("in wooden gift box") stay.
@@ -21,13 +21,14 @@
      ("Private - DCMA26"), a Canadian agent number ("300146 - Mark Anthony …") or the shop's own name. The producer then comes from the
      shop's tags ("Wine Producer > Leonetti", "Brand: Contino"), the title ("Producer, Wine" / "Producer - Wine"), a dictionary of known
      producers found anywhere in the name ("Barolo Vignarionda **Luigi Pira** 2018"), or the words before the first place/grape/vintage.
-     `producer_source` in shopify_shops.csv says which. When the shop leaves the producer out of the name it is added
+     `producer_source` in shopify_shops.csv.gz says which. The dictionary also learns from the current `wine_prices.csv` (names that appear
+     in their own wine names), so a rebuild can improve a few producers. When the shop leaves the producer out of the name it is added
      ("Chardonnay 2024" -> "Carsten Saalwächter Chardonnay 2024").
    - Prices are per bottle: every price option of a product is read (bottle, magnum, case of 6 …); case prices are divided by the
      number of bottles, cases of unknown size are skipped. Prices below 4 EUR per 75 cl, spreadsheet dates in the price field
      (Le Petit Ballon puts e.g. 45580 on sold-out wines) and prices 500x a shop's median are dropped.
    - Each shop's currency is the one in shops.json (the storefront currency seen from the runner is only reported).
-3. **Keep old facts**: `tools/prices/legacy_details.py sources/shopify_shops.csv <folder with the previous csv files>` writes
+3. **Keep old facts**: `tools/prices/legacy_details.py sources/shopify_shops.csv.gz <folder with the previous csv files>` writes
    `sources/legacy_details.csv`: full facts for sources that are not re-harvested, and the critics' scores of every old product page
    (the earlier build also read scores from product pages).
 4. **Merge**: `python3 tools/prices/merge_prices.py content/prices/wine_prices.csv` (Shopify offers + the sources below).
@@ -36,7 +37,7 @@
    (Jeroboam/Resources/Prices/prices.tsv). Phones download them from `main` (see LIVE_PRICES.md).
 
 ## Sources
-- Shopify shops (`sources/shopify_shops.csv`, 68 shops): UK — Hedonism, Highbury Vintners, Shrine to the Vine, The Good Wine Shop,
+- Shopify shops (`sources/shopify_shops.csv.gz`, 68 shops): UK — Hedonism, Highbury Vintners, Shrine to the Vine, The Good Wine Shop,
   Secret Bottle Shop, BGWM, Field & Fawcett, Great Wines Direct, Tanners, Chapel Down, Newcomer Wines, Parched, D Vine Cellars, Hard to Find Wines,
   Wayward, Uncharted, Modal, Montys, Wine Boutique, Top Cuvée, The Winemakers Club, Twelve Green Bottles, Pandemonium, Ake & Humphris, Exton Park;
   US — Zachys, Flatiron (NY, SF), Leon & Son, Thatcher's, Verve, Vintage Berkeley, Chambers Street, Crush, Wine Chateau, Wine Therapy, Primal,
@@ -45,8 +46,9 @@
   NU Wines, OneDerWine, The Wine Buff; Canada — Zyn, The Living Vine; Australia — P&V, Camperdown, Aylesbury Estate; New Zealand — Black Market, Pask.
 - `sources/uk_supermarkets.csv` — Tesco, Sainsbury's, Waitrose, Morrisons, Asda, Aldi, Iceland (via trolley.co.uk; not Shopify, kept as is;
   rows need a sign of wine — grape, wine place or wine word — so flutes, soups and cakes are left out).
-- `sources/more_wine_shops*.csv`, `us_wine_shops.csv`, `europe_wine_shops.csv` — the older per-source lists; only their non-Shopify shops are
-  still used (Grape Britannia, Lyme Bay, Ridgeview), plus any shop the last harvest could not reach.
+- `sources/other_shops.csv` — shops that are not on Shopify: English wineries Grape Britannia, Lyme Bay, Ridgeview.
+  (The older per-source lists `us_wine_shops.csv`, `europe_wine_shops.csv`, `more_wine_shops*.csv` were removed in Nov 2026: every shop in
+  them is now re-harvested with full descriptions. They are in git history if ever needed.)
 - `sources/reseller_only.csv` — CaskCartel, a reseller that relists other shops' wines at large markups. **Last resort only**: a CaskCartel
   offer is kept only when no other shop sells that wine + vintage + size (rows say `price_note = high reseller price`, shown as
   "CaskCartel (high reseller price)"); as soon as any shop sells it, the CaskCartel price is dropped. CaskCartel is never harvested.
