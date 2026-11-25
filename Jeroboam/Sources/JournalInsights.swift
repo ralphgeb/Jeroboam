@@ -20,8 +20,23 @@ struct JournalInsights: View {
     @Environment(JournalStore.self) private var journal
     @State private var explore: MapRef? = nil
     @State private var showWorld = false
+    /// Worked out once, away from the main thread, and again only when the bottles or tastings change
+    /// (matching every wine's region against the atlas used to make the Journal tab hesitate when it opened).
+    @State private var snap: Snapshot? = nil
 
-    private var real: [InsightWine] {
+    private struct Snapshot { var real: [InsightWine]; var dots: [Dot] }
+
+    /// Changes whenever a bottle or tasting is added, removed or gets a different country, region or style.
+    private var signature: Int {
+        var h = Hasher()
+        for b in journal.cellar { h.combine(b.id); h.combine(b.wine.country); h.combine(b.wine.region); h.combine(b.wine.style); h.combine(b.price?.average) }
+        for e in journal.entries { h.combine(e.id); h.combine(e.wine.country); h.combine(e.wine.region); h.combine(e.rating) }
+        return h.finalize()
+    }
+
+    private var real: [InsightWine] { snap?.real ?? [] }
+
+    private static func makeReal(cellar: [CellarBottle], entries: [JournalEntry]) -> [InsightWine] {
         var out: [InsightWine] = []
         func family(_ s: String) -> String {
             let t = s.lowercased()
@@ -32,11 +47,11 @@ struct JournalInsights: View {
             return "red"
         }
         func bodyOf(_ w: WineIdentity) -> Int { matchGrape(w.grapes.first)?.body ?? 3 }
-        for b in journal.cellar where !b.wine.country.isEmpty {
+        for b in cellar where !b.wine.country.isEmpty {
             out.append(InsightWine(country: b.wine.country, region: b.wine.region, style: family(b.wine.style), grapes: b.wine.grapes,
                                    price: b.price?.average, body: bodyOf(b.wine), rating: b.roughRating, date: b.added))
         }
-        for e in journal.entries where !e.wine.country.isEmpty {
+        for e in entries where !e.wine.country.isEmpty {
             out.append(InsightWine(country: e.wine.country, region: e.wine.region, style: family(e.wine.style), grapes: e.wine.grapes,
                                    price: nil, body: e.body, rating: e.rating, date: e.date))
         }
@@ -47,6 +62,29 @@ struct JournalInsights: View {
     private var wines: [InsightWine] { useExample ? Self.example : real }
 
     var body: some View {
+        Group {
+            if snap != nil { content } else { placeholder }
+        }
+        .task(id: signature) {
+            let cellar = journal.cellar, entries = journal.entries
+            snap = await Task.detached(priority: .userInitiated) { () -> Snapshot in
+                let real = JournalInsights.makeReal(cellar: cellar, entries: entries)
+                let ws = real.count < 3 ? JournalInsights.example : real
+                return Snapshot(real: real, dots: JournalInsights.makeDots(ws))
+            }.value
+        }
+    }
+
+    /// For the moment the section takes to work out (it sits at the bottom of the page).
+    private var placeholder: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            SectionTitle(text: "Your wine world")
+            SkeletonBar(height: 190, radius: 16)
+            SkeletonBar(height: 120, radius: 16)
+        }
+    }
+
+    private var content: some View {
         VStack(alignment: .leading, spacing: 26) {
             HStack(alignment: .firstTextBaseline) {
                 SectionTitle(text: "Your wine world")
@@ -125,7 +163,9 @@ struct JournalInsights: View {
 
     /// One dot per place you have wine from, at the real centre of that place (the atlas and "beyond the atlas" maps know where
     /// every region is); a wine whose region is not known is not drawn rather than drawn in the wrong place.
-    private var dots: [Dot] {
+    private var dots: [Dot] { snap?.dots ?? [] }
+
+    private static func makeDots(_ wines: [InsightWine]) -> [Dot] {
         var by: [String: (Region, Int)] = [:]
         for w in wines {
             var found = ContentStore.shared.regionMatching(w.region, country: w.country)

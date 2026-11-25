@@ -161,7 +161,8 @@ struct JournalExtras: View {
                 Text("Tap to learn more").font(.jero(size: 12)).foregroundStyle(Palette.inkFaint)
             }
             ScrollView(.horizontal) {
-                HStack(spacing: 12) {
+                // lazy: only the cards on screen are built when the Journal tab opens
+                LazyHStack(spacing: 12) {
                     ForEach(picks) { w in
                         NavigationLink(value: w) { ClassicCard(wine: w) }.buttonStyle(PressableStyle())
                     }

@@ -395,6 +395,7 @@ final class JournalCloud {
         if newSize > oldSize {
             try? fm.removeItem(at: dest)
             try? fm.copyItem(at: src, to: dest)
+            JournalStore.forgetThumbnail(file)
         }
         return file
     }

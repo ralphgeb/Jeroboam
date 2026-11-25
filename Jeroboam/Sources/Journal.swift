@@ -167,6 +167,24 @@ final class JournalStore {
         return UIImage(contentsOfFile: photoDir.appendingPathComponent(n).path)
     }
 
+    /// A small copy of a photo for tiles and rows (at most 600 px), decoded once and kept in memory: lists no longer
+    /// decode every full-size label photo each time they appear.
+    private static let thumbs: NSCache<NSString, UIImage> = { let c = NSCache<NSString, UIImage>(); c.countLimit = 300; return c }()
+    static func thumbnail(_ name: String?) -> UIImage? {
+        guard let n = name else { return nil }
+        if let t = thumbs.object(forKey: n as NSString) { return t }
+        let url = photoDir.appendingPathComponent(n) as CFURL
+        guard let src = CGImageSourceCreateWithURL(url, nil) else { return nil }
+        let opts: [CFString: Any] = [kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true,
+                                     kCGImageSourceThumbnailMaxPixelSize: 600]
+        guard let cg = CGImageSourceCreateThumbnailAtIndex(src, 0, opts as CFDictionary) else { return image(n) }
+        let t = UIImage(cgImage: cg)
+        thumbs.setObject(t, forKey: n as NSString)
+        return t
+    }
+    /// A photo file was replaced (a bigger copy came from iCloud): its small copy is made again.
+    static func forgetThumbnail(_ name: String) { thumbs.removeObject(forKey: name as NSString) }
+
     func upsert(_ e: JournalEntry) {
         if let i = entries.firstIndex(where: { $0.id == e.id }) { entries[i] = e } else { entries.insert(e, at: 0) }
     }
@@ -503,9 +521,10 @@ struct Thumb: View {
     let style: String
     var body: some View {
         Group {
-            if let img = JournalStore.image(photo) {
-                // the picture is laid over an empty box, so a tall photo is cut to the box instead of making it taller
-                Color.clear.overlay { Image(uiImage: img).resizable().scaledToFill() }.clipped()
+            if let img = JournalStore.thumbnail(photo) {
+                // the picture is laid over an empty box, so a tall photo is cut to the box instead of making it taller;
+                // the overflowing part must not take touches either (it used to open the bottle below in the cellar grid)
+                Color.clear.overlay { Image(uiImage: img).resizable().scaledToFill().allowsHitTesting(false) }.clipped()
             } else {
                 ZStack {
                     styleColor(style).opacity(0.14)
@@ -514,6 +533,7 @@ struct Thumb: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }
 

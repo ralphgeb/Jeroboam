@@ -284,6 +284,8 @@ struct CellarView: View {
         .background(Palette.card)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line.opacity(0.6), lineWidth: 0.5))
+        // a touch counts for the tile it lands on, exactly within its rounded card
+        .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 
     private func row(_ b: CellarBottle, last: Bool) -> some View {
