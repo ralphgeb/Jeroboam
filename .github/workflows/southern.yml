@@ -1,0 +1,32 @@
+name: Southern map data
+# Source data for the Chile, Argentina, New Zealand and South Africa maps (IPONZ GI boundaries, OpenStreetMap vineyards,
+# wineries and districts, reference texts) -> the southern-data branch. See tools/southern_fetch.py.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/southern.yml", "tools/southern_fetch.py"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install geopandas pyogrio shapely pandas
+      - run: python tools/southern_fetch.py
+      - name: Publish to the southern-data branch
+        if: always()
+        run: |
+          cd out
+          git init -q
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -q -b southern-data
+          git add -A
+          git commit -qm "Southern map source data (IPONZ, OpenStreetMap ODbL, reference texts)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" southern-data
