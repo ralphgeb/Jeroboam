@@ -165,6 +165,9 @@ struct ProfileView: View {
                             SectionTitle(text: "TestFlight").padding(.bottom, 10)
                             Text(lookupLine)
                                 .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).padding(.bottom, 8)
+                            Text("iCloud photos: " + JournalCloud.status)
+                                .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).padding(.bottom, 8)
+                                .textSelection(.enabled).id(limitTick)
                             Button { showExtraAtlas = true } label: {
                                 HStack(spacing: 12) {
                                     Image(systemName: "map").font(.system(size: 15)).foregroundStyle(Palette.wine).frame(width: 22)

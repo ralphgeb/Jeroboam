@@ -268,6 +268,19 @@ final class JournalCloud {
     weak var journal: JournalStore?
     private var running = false
     private var again = false
+    /// What the last pass did, for the TestFlight section of Settings ("iCloud photos: …").
+    nonisolated static var status: String {
+        let d = UserDefaults.standard
+        guard configured else { return "not in this build" }
+        guard let t = d.string(forKey: "jero.ck.status") else { return "not synced yet" }
+        let when = (d.object(forKey: "jero.ck.statusAt") as? Date).map { " (" + $0.formatted(date: .omitted, time: .shortened) + ")" } ?? ""
+        return t + when
+    }
+    private func note(_ t: String) {
+        UserDefaults.standard.set(t, forKey: "jero.ck.status"); UserDefaults.standard.set(Date(), forKey: "jero.ck.statusAt")
+    }
+    private var refused: (count: Int, first: String?) = (0, nil)
+
     /// After a failed pass (offline, schema not deployed, iCloud full) automatic syncs wait a while; Sync now still tries.
     private var failedAt: Date?
     private lazy var container = CKContainer(identifier: Self.containerID)
@@ -325,7 +338,8 @@ final class JournalCloud {
     private func run() async {
         guard let j = journal, j.persist else { return }
         do {
-            guard try await container.accountStatus() == .available else { return }
+            guard try await container.accountStatus() == .available else { note("iCloud account not available"); return }
+            refused = (0, nil)
             if !zoneReady {
                 _ = try await db.modifyRecordZones(saving: [CKRecordZone(zoneID: zoneID)], deleting: [])
                 zoneReady = true
@@ -333,6 +347,7 @@ final class JournalCloud {
             try await pull(j)
             try await push(j)
             failedAt = nil
+            note(refused.count == 0 ? "OK" : "\(refused.count) refused: " + (refused.first ?? "?"))
             UserDefaults.standard.set(true, forKey: "jero.ck.ok")
             Account.shared.markSynced()
         } catch let e as CKError where e.code == .changeTokenExpired {
@@ -343,7 +358,15 @@ final class JournalCloud {
         } catch {
             // offline, iCloud full, throttled, record types not in production yet: try again in a while
             failedAt = Date()
+            note("failed: " + Self.describe(error))
         }
+    }
+
+    private static func describe(_ e: Error) -> String {
+        if let ck = e as? CKError {
+            return "CKError \(ck.code.rawValue) " + (ck.userInfo[NSLocalizedDescriptionKey] as? String ?? ck.localizedDescription)
+        }
+        return e.localizedDescription
     }
 
     private static func fingerprint(_ d: Data) -> String {
@@ -469,7 +492,10 @@ final class JournalCloud {
             let dels = Array(toDelete[min(start, toDelete.count)..<min(start + 50, toDelete.count)])
             let r = try await db.modifyRecords(saving: saves, deleting: dels, savePolicy: .allKeys, atomically: false)
             for (id, result) in r.saveResults {
-                if case .success = result { sentAfter[id.recordName] = prints[id.recordName] }
+                switch result {
+                case .success: sentAfter[id.recordName] = prints[id.recordName]
+                case .failure(let e): refused.count += 1; if refused.first == nil { refused.first = Self.describe(e) }
+                }
             }
             for (id, result) in r.deleteResults {
                 switch result {
