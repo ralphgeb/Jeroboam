@@ -156,6 +156,9 @@ struct AromaCategory: Decodable, Identifiable, Hashable {
     let icon: String
     let note: String?
     let items: [String]
+    /// Other names that belong to this family (from the wine list: "Cherry", "Citrus"…): used to find a descriptor's family,
+    /// never drawn on the wheel.
+    let also: [String]?
 }
 
 struct WineColor: Decodable, Identifiable, Hashable {

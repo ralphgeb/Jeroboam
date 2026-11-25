@@ -231,3 +231,9 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - CaskCartel only as a last resort: kept only for a wine + vintage + size no other shop sells (`price_note = high reseller price`).
 - Removed: the `*_shopify_new.csv` companion files and their workflow (wrong shops, importer producers, copied descriptions) and the old per-source
   CSVs (`us_wine_shops`, `europe_wine_shops`, `more_wine_shops*`; all re-harvested). Non-Shopify English wineries live in `sources/other_shops.csv`.
+
+## Aromas from the wine list
+- `wine_details.csv` uses 134 aroma words. Wheel families in content/aromas.yaml carry `also: [...]` (Cherry, Citrus, Plum, Graphite,
+  Iron, Olive, Tea, Anise, Sage, Rosemary, Pine, Bay leaf, Cinnamon, Ginger, Tar, Jasmine, Dried fruit, Beeswax, Blood orange):
+  matched by `ContentStore.aromaCategory` (family colour, blind-tasting aroma score), never drawn on the wheel.
+  FlavorIcons keywords: "iron" -> pebbles, "beeswax" -> honeycomb. Check new aroma words against both after a price-list rebuild.

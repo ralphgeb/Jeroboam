@@ -127,7 +127,7 @@ enum FlavorGlyph {
         ("tea", .leaf), ("leaf", .leaf), ("leaves", .fallenLeaves), ("forest", .fallenLeaves), ("tobacco", .tobacco), ("cigar", .tobacco),
         ("leather", .leather), ("saddle", .leather), ("earth", .earth), ("soil", .earth), ("humus", .earth), ("dust", .earth), ("mushroom", .mushroom),
         ("truffle", .truffle), ("game", .feather), ("gamey", .feather), ("bacon", .steak), ("meat", .steak), ("beef", .steak), ("blood", .steak), ("savory", .steak),
-        ("olive", .olive), ("flint", .flint), ("gunpowder", .flint), ("match", .flint), ("slate", .pebbles), ("stone", .pebbles), ("mineral", .pebbles),
+        ("olive", .olive), ("flint", .flint), ("gunpowder", .flint), ("match", .flint), ("slate", .pebbles), ("stone", .pebbles), ("mineral", .pebbles), ("iron", .pebbles),
         ("wet", .pebbles), ("chalk", .chalk), ("limestone", .chalk), ("salt", .saline), ("saline", .saline), ("sea", .saline), ("iodine", .saline), ("oyster", .saline),
         ("wool", .wool), ("petrol", .petrol), ("kerosene", .petrol), ("diesel", .petrol), ("gasoline", .petrol),
         ("clove", .clove), ("nutmeg", .nutmeg), ("cinnamon", .cinnamon), ("ginger", .cinnamon), ("spice", .cinnamon), ("saffron", .cinnamon), ("cardamom", .cinnamon),
@@ -137,7 +137,7 @@ enum FlavorGlyph {
         ("chocolate", .chocolate), ("cocoa", .chocolate), ("mocha", .coffeeCup), ("espresso", .coffeeBean), ("coffee", .coffeeCup),
         ("brioche", .brioche), ("biscuit", .biscuit), ("cracker", .biscuit), ("bread", .bread), ("yeast", .bread), ("dough", .dough), ("pastry", .croissant),
         ("croissant", .croissant), ("cheese", .cheese), ("butter", .butter), ("cream", .jug), ("yogurt", .tub), ("yoghurt", .tub), ("milk", .jug),
-        ("honey", .honeycomb), ("wax", .honeycomb), ("almond", .almond), ("marzipan", .almond), ("hazelnut", .hazelnut), ("walnut", .walnut), ("nut", .hazelnut), ("nutty", .hazelnut),
+        ("honey", .honeycomb), ("beeswax", .honeycomb), ("wax", .honeycomb), ("almond", .almond), ("marzipan", .almond), ("hazelnut", .hazelnut), ("walnut", .walnut), ("nut", .hazelnut), ("nutty", .hazelnut),
     ]
 
     /// Words that only describe how a smell is, not what it is: dropped before looking a descriptor up.

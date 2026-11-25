@@ -135,6 +135,7 @@ final class ContentStore {
     func aromaCategory(forItem item: String) -> AromaCategory? {
         let key = item.lowercased()
         for c in allAromaCategories() where c.items.contains(where: { $0.lowercased() == key }) { return c }
+        for c in allAromaCategories() where (c.also ?? []).contains(where: { $0.lowercased() == key }) { return c }
         return nil
     }
 
