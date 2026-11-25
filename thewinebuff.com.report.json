@@ -1,0 +1,13 @@
+{
+ "name": "The Wine Buff",
+ "base": "https://thewinebuff.com",
+ "status": "new",
+ "declared_currency": "EUR",
+ "products": 304,
+ "pages": 2,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "EUR",
+ "storefront_rate": "1.0",
+ "seconds": 3
+}
