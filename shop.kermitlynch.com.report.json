@@ -1,0 +1,13 @@
+{
+ "name": "Kermit Lynch",
+ "base": "https://shop.kermitlynch.com",
+ "status": "new",
+ "declared_currency": "USD",
+ "products": 0,
+ "pages": 0,
+ "via_collections": false,
+ "error": "no products.json",
+ "storefront_currency": null,
+ "storefront_rate": null,
+ "seconds": 0
+}
