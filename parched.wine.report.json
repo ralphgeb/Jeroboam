@@ -1,0 +1,13 @@
+{
+ "name": "Parched Wine",
+ "base": "https://parched.wine",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 2653,
+ "pages": 11,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 10
+}
