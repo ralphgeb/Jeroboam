@@ -603,7 +603,7 @@ struct JeroPrivacyView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                Text("Jero is a wine-learning app. Your progress, profile and journal are stored on your iPhone and, if you sign in with Apple, in your own iCloud.")
+                Text("Jero is a wine-learning app. Your progress, profile and journal are stored on your iPhone and, when iCloud sync is on, in your own iCloud.")
                 section("Wine scans", "When you scan a label, the label text (and, if needed, a small copy of the photo) is sent to Anthropic's Claude to identify the wine. Nothing else is sent, and Jero keeps no servers of its own.")
                 section("Jero Plus", "Subscriptions are bought and managed by Apple through the App Store. Jero only learns whether your subscription is active.")
                 section("No tracking", "No ads, no analytics and no selling of data.")
