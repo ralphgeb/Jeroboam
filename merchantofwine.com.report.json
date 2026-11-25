@@ -1,0 +1,13 @@
+{
+ "name": "Merchant of Wine",
+ "base": "https://merchantofwine.com",
+ "status": "new",
+ "declared_currency": "USD",
+ "products": 1404,
+ "pages": 6,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 9
+}
