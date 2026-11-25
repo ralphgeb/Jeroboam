@@ -1,0 +1,13 @@
+{
+ "name": "Pask Winery",
+ "base": "https://www.pask.co.nz",
+ "status": "new",
+ "declared_currency": "NZD",
+ "products": 32,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "NZD",
+ "storefront_rate": "1.0",
+ "seconds": 1
+}
