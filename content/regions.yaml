@@ -406,7 +406,7 @@
   country: Chile
   kind: country
   map: chile
-  highlight: [elqui-limari, aconcagua, casablanca, maipo, colchagua, maule, itata-bio-bio]
+  highlight: [elqui, limari, aconcagua, casablanca, maipo, colchagua, maule, itata, bio-bio]
   level: 2
   climate: "Mediterranean. The cold Humboldt Current cools the coast; the Andes send cold air down at night."
   grapes: [cabernet-sauvignon, carmenere, merlot, sauvignon-blanc, chardonnay, pinot-noir]
@@ -418,8 +418,8 @@
 - {id: casablanca, name: Casablanca Valley, country: Chile, kind: region, map: chile, highlight: [casablanca], level: 2, climate: "Cool, with morning fog from the Pacific.", grapes: [sauvignon-blanc, chardonnay, pinot-noir], summary: "Chile's original cool-climate region, between Santiago and the coast: crisp whites and Pinot Noir."}
 - {id: aconcagua, name: Aconcagua, country: Chile, kind: region, map: chile, highlight: [aconcagua], level: 3, grapes: [cabernet-sauvignon, syrah], summary: "Named after the Americas' highest peak: warm-valley reds and cool coastal whites."}
 - {id: maule, name: Maule, country: Chile, kind: region, map: chile, highlight: [maule], level: 3, grapes: [carignan, carmenere], summary: "Large southern region with old, dry-farmed bush vines of Carignan and País."}
-- {id: itata-bio-bio, name: Itata & Bío Bío, country: Chile, kind: region, map: chile, highlight: [itata-bio-bio], level: 3, grapes: [cinsault], summary: "Cool, rainy south: old-vine Cinsault and País, plus aromatic whites."}
-- {id: elqui-limari, name: Elqui & Limarí, country: Chile, kind: region, map: chile, highlight: [elqui-limari], level: 3, grapes: [chardonnay, syrah], summary: "Desert north: limestone-rich Limarí makes mineral Chardonnay."}
+- {id: itata-bio-bio, name: Itata & Bío Bío, country: Chile, kind: region, map: chile, highlight: [itata, bio-bio], level: 3, grapes: [cinsault], summary: "Cool, rainy south: old-vine Cinsault and País, plus aromatic whites."}
+- {id: elqui-limari, name: Elqui & Limarí, country: Chile, kind: region, map: chile, highlight: [elqui, limari], level: 3, grapes: [chardonnay, syrah], summary: "Desert north: limestone-rich Limarí makes mineral Chardonnay."}
 - id: argentina
   name: Argentina
   country: Argentina

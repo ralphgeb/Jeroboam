@@ -1,5 +1,6 @@
 map: japan
 title: Japan
+atlas: true
 iso: [JPN]
 focus: [JPN]
 bbox: [33.2, 129.5, 45.6, 146.0]
@@ -64,3 +65,88 @@ regions:
     grapes: [chardonnay, merlot]
     local: [Muscat Bailey A, Delaware]
     summary: "The hills around Tokyo and the central Alps, with boutique winemakers like those of Tochigi's Coco Farm."
+  # ---- wine districts inside the prefectures (municipalities; clipped to their prefecture)
+  - id: katsunuma
+    name: Katsunuma (Kōshū)
+    parent: yamanashi
+    circle: {c: [35.665, 138.73], r: 5}
+    clip: yamanashi
+    grapes: []
+    local: [Koshu, Muscat Bailey A]
+    summary: "The cradle of Japanese wine, in the east of the Kofu basin: dozens of small wineries and Koshu vines trained on overhead pergolas."
+  - id: yamanashi-city
+    name: Yamanashi City & Fuefuki
+    parent: yamanashi
+    units: {adm: JPN/ADM2, names: [Yamanashi, Fuefuki]}
+    clip: yamanashi
+    local: [Koshu, Muscat Bailey A]
+    summary: "The fruit-growing slopes north and south of Katsunuma, with Koshu, Muscat Bailey A and newer plantings of Merlot and Chardonnay."
+  - id: kofu-west
+    name: Nirasaki & Hokuto
+    parent: yamanashi
+    units: {adm: JPN/ADM2, names: [Nirasaki, Hokuto]}
+    clip: yamanashi
+    grapes: [chardonnay, merlot]
+    summary: "The higher, drier north-west of the basin below the Yatsugatake and the Southern Alps: Chardonnay, Merlot and sparkling wine."
+  - id: chikuma-river
+    name: Chikumagawa Wine Valley
+    parent: nagano
+    units: {adm: JPN/ADM2, names: [Ueda, Tomi, Komoro]}
+    clip: nagano
+    grapes: [merlot, chardonnay, pinot-noir]
+    summary: "Terraces along the Chikuma river in eastern Nagano, one of Japan's newest wine valleys, known for Merlot and Chardonnay."
+  - id: kikyogahara
+    name: Shiojiri & Matsumoto (Kikyogahara)
+    parent: nagano
+    units: {adm: JPN/ADM2, names: [Shiojiri, Matsumoto]}
+    clip: nagano
+    grapes: [merlot, chardonnay]
+    summary: "A high, sunny plateau with a long wine history; Kikyogahara Merlot made the region's name."
+  - id: yoichi
+    name: Yoichi & Niki
+    parent: hokkaido
+    units: {adm: JPN/ADM2, names: [Yoichi, Niki]}
+    clip: hokkaido
+    grapes: [pinot-noir]
+    local: [Kerner]
+    summary: "A cool corner of Hokkaido on the Sea of Japan: Pinot Noir, Kerner and other cool-climate grapes, and a fast-growing group of small wineries."
+  - id: sorachi
+    name: Sorachi
+    parent: hokkaido
+    units: {adm: JPN/ADM2, names: [Iwamizawa, Mikasa, Urausu, Naie]}
+    clip: hokkaido
+    grapes: [pinot-noir, chardonnay]
+    local: [Kerner]
+    summary: "Hills east of Sapporo with snowy winters and dry, warm summers: aromatic whites and Pinot Noir."
+  - id: furano
+    name: Furano & Tokachi
+    parent: hokkaido
+    units: {adm: JPN/ADM2, names: [Furano, Ikeda]}
+    clip: hokkaido
+    summary: "Inland Hokkaido: Furano's town winery and Ikeda in Tokachi, pioneers of cold-hardy grapes such as Seibel and Yama Sauvignon."
+  - id: yamagata
+    name: Yamagata
+    parent: yamagata-tohoku
+    units: {adm: JPN/ADM1, names: [Yamagata]}
+    grapes: [chardonnay, merlot]
+    local: [Delaware]
+    summary: "The Geographical Indication of Yamagata: basins ringed by mountains with hot summers, around Kaminoyama, Takahata and Tendo."
+  - id: kaminoyama
+    name: Kaminoyama, Takahata & Tendo
+    parent: yamagata
+    units: {adm: JPN/ADM2, names: [Kaminoyama, Takahata, Tendo]}
+    clip: yamagata
+    summary: "The Yamagata wine towns, with old Delaware vineyards and newer European varieties."
+  - id: osaka
+    name: Osaka
+    parent: kansai-chugoku
+    units: {adm: JPN/ADM1, names: [Osaka Prefecture]}
+    local: [Delaware]
+    summary: "The Geographical Indication of Osaka: once one of Japan's biggest grape areas, on the hills east of the city around Kashiwara."
+  - id: kashiwara
+    name: Kashiwara & Habikino
+    parent: osaka
+    units: {adm: JPN/ADM2, names: [Kashiwara, Habikino]}
+    clip: osaka
+    local: [Delaware]
+    summary: "Small family wineries on the Ikoma and Kongō foothills, best known for Delaware."

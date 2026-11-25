@@ -31,7 +31,8 @@ country:
 regions:
   - id: niagara-peninsula
     name: Niagara Peninsula
-    poly: [[43.30,-79.75],[43.30,-79.05],[43.05,-79.05],[43.05,-79.75]]
+    units: {adm: CAN/ADM3, names: [Niagara-on-the-Lake, Niagara Falls, St. Catharines, Lincoln, Grimsby, Pelham, Thorold, West Lincoln]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
     clip: {adm: CAN/ADM1, names: [Ontario]}
     grapes: [riesling, chardonnay, cabernet-franc, pinot-noir, gamay]
     local: [Vidal Blanc]
@@ -40,42 +41,112 @@ regions:
   - id: niagara-on-the-lake
     name: Niagara-on-the-Lake
     parent: niagara-peninsula
-    poly: [[43.28,-79.30],[43.28,-79.03],[43.12,-79.03],[43.12,-79.30]]
+    units: {adm: CAN/ADM3, names: [Niagara-on-the-Lake]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
     clip: {adm: CAN/ADM1, names: [Ontario]}
     grapes: [cabernet-franc, merlot, riesling, chardonnay]
     summary: "Flat, warm land near Lake Ontario; Niagara's biggest wineries and the world capital of ice wine."
   - id: niagara-escarpment-benches
-    name: Beamsville & Twenty Mile Benches
+    name: Niagara Escarpment
     parent: niagara-peninsula
-    poly: [[43.20,-79.75],[43.20,-79.35],[43.10,-79.35],[43.10,-79.75]]
+    units: {adm: CAN/ADM3, names: [Lincoln, Grimsby, Pelham]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
     clip: {adm: CAN/ADM1, names: [Ontario]}
     grapes: [riesling, chardonnay, pinot-noir, cabernet-franc]
     summary: "Terraces below the Escarpment where cool breezes slow ripening, ideal for Riesling, Chardonnay and Pinot Noir."
   - id: prince-edward-county
     name: Prince Edward County
-    poly: [[44.15,-77.50],[44.15,-76.75],[43.85,-76.75],[43.85,-77.50]]
+    units: {adm: CAN/ADM3, names: [Prince Edward County]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
     clip: {adm: CAN/ADM1, names: [Ontario]}
     grapes: [pinot-noir, chardonnay, gamay, riesling]
     summary: "An island-like peninsula in Lake Ontario with thin limestone soil. It makes some of Canada's most Burgundian Pinot Noir and Chardonnay."
     soil: "Limestone with very little topsoil."
   - id: lake-erie-north-shore
     name: Lake Erie North Shore
-    poly: [[42.30,-83.10],[42.30,-82.30],[41.95,-82.30],[41.95,-83.10]]
+    units: {adm: CAN/ADM3, names: [Kingsville, Leamington, Essex, Lakeshore, Amherstburg, LaSalle]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
     clip: {adm: CAN/ADM1, names: [Ontario]}
     grapes: [cabernet-franc, chardonnay, merlot, pinot-grigio]
     local: [Vidal Blanc]
     summary: "Ontario's warmest wine area, at the same latitude as northern California. It includes Pelee Island, Canada's most southerly vineyard."
   - id: annapolis-valley
     name: Annapolis Valley
-    poly: [[45.30,-65.30],[45.30,-64.30],[44.95,-64.30],[44.95,-65.30]]
+    within: {adm: CAN/ADM3, poly: [[45.30,-65.30],[45.30,-64.30],[44.95,-64.30],[44.95,-65.30]]}
     clip: {adm: CAN/ADM1, names: [Nova Scotia]}
     grapes: [chardonnay, pinot-noir]
     local: [L'Acadie Blanc, Baco Noir, Seyval Blanc]
     summary: "A sheltered valley in Nova Scotia, with the Bay of Fundy's huge tides. Canada's best sparkling wines from the cold-climate grape L'Acadie Blanc."
   - id: eastern-townships
     name: Eastern Townships
-    poly: [[45.45,-72.80],[45.45,-71.85],[45.00,-71.85],[45.00,-72.80]]
+    within: {adm: CAN/ADM3, poly: [[45.45,-72.80],[45.45,-71.85],[45.00,-71.85],[45.00,-72.80]]}
     clip: {adm: CAN/ADM1, names: [Quebec]}
     grapes: []
     local: [Vidal Blanc, Seyval Blanc, Frontenac]
     summary: "South-east Quebec near the Vermont border, where vines are buried or covered each winter and cold-hardy hybrids are made into whites, ice cider and fortified wine."
+  # ---- Niagara sub-appellations (VQA)
+  - id: niagara-river
+    name: Niagara River
+    parent: niagara-on-the-lake
+    circle: {c: [43.2, -79.06], r: 3}
+    clip: niagara-on-the-lake
+    summary: "Along the Niagara river, whose moving water keeps frost away: one of the warmest spots of the peninsula."
+  - id: niagara-lakeshore
+    name: Niagara Lakeshore
+    parent: niagara-on-the-lake
+    circle: {c: [43.245, -79.13], r: 3}
+    clip: niagara-on-the-lake
+    summary: "The Lake Ontario shore of Niagara-on-the-Lake, moderated by the lake in spring and autumn."
+  - id: four-mile-creek
+    name: Four Mile Creek
+    parent: niagara-on-the-lake
+    circle: {c: [43.2, -79.17], r: 4}
+    clip: niagara-on-the-lake
+    summary: "The flat, warm centre of Niagara-on-the-Lake, with heavy clay and long growing seasons for reds."
+  - id: st-davids-bench
+    name: St. David's Bench
+    parent: niagara-on-the-lake
+    circle: {c: [43.155, -79.11], r: 2.5}
+    clip: niagara-on-the-lake
+    summary: "A terrace below the escarpment, warm and well drained, known for Cabernet Franc and Merlot."
+  - id: beamsville-bench
+    name: Beamsville Bench
+    parent: niagara-escarpment-benches
+    circle: {c: [43.155, -79.48], r: 3.2}
+    clip: niagara-escarpment-benches
+    summary: "Limestone-rich slopes below the escarpment at Beamsville: Riesling, Chardonnay and Pinot Noir."
+  - id: twenty-mile-bench
+    name: Twenty Mile Bench
+    parent: niagara-escarpment-benches
+    circle: {c: [43.14, -79.37], r: 3}
+    clip: niagara-escarpment-benches
+    summary: "Slopes around Twenty Mile Creek in Lincoln, with deep clay over limestone; some of Ontario's best Riesling and Chardonnay."
+  - id: short-hills-bench
+    name: Short Hills Bench
+    parent: niagara-escarpment-benches
+    circle: {c: [43.1, -79.29], r: 3}
+    clip: niagara-escarpment-benches
+    summary: "The eastern bench in Pelham, a gentle south-facing slope with a mix of soils."
+  - id: lincoln-lakeshore
+    name: Lincoln Lakeshore
+    parent: niagara-peninsula
+    circle: {c: [43.185, -79.44], r: 3.5}
+    clip: niagara-peninsula
+    summary: "The lake plain between the shore and the benches, where Lake Ontario's breezes keep the vines healthy."
+  - id: creek-shores
+    name: Creek Shores
+    parent: niagara-peninsula
+    circle: {c: [43.17, -79.3], r: 3.5}
+    clip: niagara-peninsula
+    summary: "Lowlands cut by creeks running into Lake Ontario, between Jordan and St. Catharines."
+  - id: vinemount-ridge
+    name: Vinemount Ridge
+    parent: niagara-peninsula
+    circle: {c: [43.115, -79.52], r: 3}
+    clip: niagara-peninsula
+    summary: "The ridge on top of the escarpment, cooler and windier: crisp Riesling and the source of much icewine."
+  - id: pelee-island
+    name: Pelee Island
+    units: {adm: CAN/ADM3, names: [Pelee]}
+    clip: {adm: CAN/ADM1, names: [Ontario]}
+    summary: "Canada's southernmost wine region, an island in Lake Erie at the latitude of northern California, with the longest growing season in Ontario."

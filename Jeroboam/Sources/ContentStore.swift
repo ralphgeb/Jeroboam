@@ -82,7 +82,10 @@ final class ContentStore {
     func label(forRegion id: String) -> WineLabel? { library.labels?.first { $0.region == id } }
 
     /// Region entries that can be opened from a map region id (the map's own region ids match library ids).
-    func regionForMapArea(_ id: String) -> Region? { regionsByID[id] }
+    /// Falls back to a page whose map highlight lists the area (Elqui and Limarí both open "Elqui & Limarí").
+    func regionForMapArea(_ id: String) -> Region? {
+        regionsByID[id] ?? library.regions.first { $0.kind != "country" && ($0.highlight ?? []).contains(id) }
+    }
 
     /// Where a place is on the earth: its own centre when it is a mapped area, else the centre of the country's wine areas.
     func coordinate(of r: Region) -> (lat: Double, lon: Double)? {

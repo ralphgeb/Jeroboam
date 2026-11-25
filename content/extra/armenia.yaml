@@ -74,3 +74,60 @@ regions:
     grapes: []
     local: [Voskehat, Haghtanak]
     summary: "The high north-west plateau, too cold for most vines but with a few hardy plots."
+  # ---- wine districts (former raions)
+  - id: armavir
+    name: Armavir & Vagharshapat
+    parent: ararat-valley
+    units: {adm: ARM/ADM2, names: [Armavir, Vagharshapat, Baghramyan]}
+    clip: ararat-valley
+    local: [Voskehat, Kangun, Garan Dmak]
+    summary: "The western Ararat plain around Etchmiadzin: irrigated vineyards for brandy, fortified and dry wines."
+  - id: artashat
+    name: Ararat & Artashat
+    parent: ararat-valley
+    units: {adm: ARM/ADM2, names: [Ararat, Artashat, Masis]}
+    clip: ararat-valley
+    local: [Kangun, Voskehat, Areni]
+    summary: "The hot plain below Mount Ararat, the heart of Armenian brandy vineyards and of rich dessert wines."
+  - id: areni
+    name: Areni & Yeghegnadzor
+    parent: vayots-dzor
+    units: {adm: ARM/ADM2, names: [Yeghegnadzor]}
+    clip: vayots-dzor
+    local: [Areni, Voskehat]
+    summary: "Canyon vineyards at 1,100–1,700 m around Areni village, where the world's oldest known winery (6,100 years) was found in a cave."
+  - id: vayk
+    name: Vayk
+    parent: vayots-dzor
+    units: {adm: ARM/ADM2, names: [Vayk]}
+    clip: vayots-dzor
+    local: [Areni]
+    summary: "The higher, cooler east of Vayots Dzor along the Arpa river, with young high-altitude vineyards."
+  - id: ashtarak
+    name: Ashtarak
+    parent: aragatsotn
+    units: {adm: ARM/ADM2, names: [Ashtarak]}
+    clip: aragatsotn
+    local: [Voskehat, Khatun Kharji]
+    summary: "Volcanic tuff slopes on the Kasakh gorge below Mount Aragats, a source of fresh Voskehat whites."
+  - id: talin
+    name: Talin & Aragats
+    parent: aragatsotn
+    units: {adm: ARM/ADM2, names: [Talin, Aragats]}
+    clip: aragatsotn
+    local: [Voskehat, Areni]
+    summary: "High western Aragatsotn, with new vineyards planted above 1,300 m."
+  - id: ijevan
+    name: Ijevan & Noyemberyan
+    parent: tavush
+    units: {adm: ARM/ADM2, names: [Idjevan, Noyemberyan]}
+    clip: tavush
+    local: [Areni, Rkatsiteli]
+    summary: "The green north-east, with forested valleys and a long history of winemaking near the Georgian border."
+  - id: meghri
+    name: Meghri
+    parent: syunik
+    units: {adm: ARM/ADM2, names: [Meghri]}
+    clip: syunik
+    local: [Areni]
+    summary: "Armenia's warm south on the Araxes, with fruit orchards and old vines near the Iranian border."

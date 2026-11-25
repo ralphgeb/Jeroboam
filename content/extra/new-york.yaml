@@ -2,6 +2,8 @@ map: new-york
 title: New York & New England
 iso: [USA]
 focus: [USA]
+auto_nest: true
+ava_auto: {states: [NY, CT, MA, RI, VT, NH, ME, NJ]}
 states: [USA]
 bbox: [40.3, -81.6, 45.2, -69.8]
 W: 2800

@@ -1,6 +1,7 @@
 map: slovenia
 title: Slovenia
 iso: [SVN]
+pdo: {cc: SI}
 focus: [SVN]
 bbox: [45.3, 13.3, 46.95, 16.65]
 W: 2800
@@ -31,12 +32,14 @@ country:
 regions:
   - id: podravje
     name: Podravje
+    pdo_name: ["Štajerska Slovenija", "Prekmurje"]
     within: {adm: SVN/ADM2, poly: [[46.95,15.3],[46.95,16.65],[46.30,16.45],[46.20,15.7],[46.40,15.25]]}
     grapes: [riesling, sauvignon-blanc, chardonnay, pinot-grigio]
     local: [Šipon, Laški Rizling, Renski Rizling]
     summary: "The north-east: Slovenia's biggest region of gentle hills along the Drava and Mura rivers, famous for crisp, aromatic whites and sparkling wine."
   - id: stajerska
     name: Štajerska Slovenija
+    pdo_name: "Štajerska Slovenija"
     parent: podravje
     within: {adm: SVN/ADM2, poly: [[46.75,15.45],[46.75,16.1],[46.35,16.1],[46.30,15.5]]}
     grapes: [sauvignon-blanc, riesling, chardonnay, pinot-blanc]
@@ -44,6 +47,7 @@ regions:
     summary: "Styria on the Austrian border, with steep slopes of Šipon (Furmint) and Welschriesling, Slovenia's best white wine area."
   - id: prekmurje
     name: Prekmurje
+    pdo_name: "Prekmurje"
     parent: podravje
     within: {adm: SVN/ADM2, poly: [[46.95,16.0],[46.95,16.65],[46.45,16.55],[46.45,16.0]]}
     grapes: [riesling, chardonnay, pinot-grigio]
@@ -51,6 +55,7 @@ regions:
     summary: "The flat Pannonian plain in the far north-east, bordering Hungary and Austria."
   - id: posavje
     name: Posavje
+    pdo_name: ["Bizeljsko Sremič", "Dolenjska", "Bela krajina"]
     within: {adm: SVN/ADM2, poly: [[46.20,15.1],[46.20,15.75],[45.85,15.75],[45.45,15.45],[45.45,14.9],[45.95,14.8]]}
     grapes: [pinot-noir, merlot, chardonnay, sauvignon-blanc]
     local: [Cviček, Žametovka, Modra Frankinja]
@@ -58,12 +63,14 @@ regions:
     soil: "Clay and limestone."
   - id: primorska
     name: Primorska
+    pdo_name: ["Goriška Brda", "Vipavska dolina", "Kras", "Slovenska Istra"]
     within: {adm: SVN/ADM2, poly: [[46.35,13.4],[46.35,14.25],[46.00,14.35],[45.55,14.2],[45.40,13.5]]}
     grapes: [merlot, pinot-grigio, chardonnay, sauvignon-blanc, cabernet-sauvignon]
     local: [Rebula, Vitovska, Zelen, Pinela, Teran, Malvazija]
     summary: "The western coastal region, with Mediterranean and Alpine influence and the most distinctive white wines of Slovenia."
   - id: goriska-brda
     name: Goriška Brda
+    pdo_name: "Goriška Brda"
     parent: primorska
     within: {adm: SVN/ADM2, poly: [[46.10,13.40],[46.10,13.62],[45.92,13.62],[45.92,13.40]]}
     grapes: [merlot, pinot-grigio, chardonnay]
@@ -71,6 +78,7 @@ regions:
     summary: "Rolling hills known as the Tuscany of Slovenia. Sweet-spiced white blends and skin-contact orange wines made from Rebula."
   - id: vipavska-dolina
     name: Vipavska Dolina
+    pdo_name: "Vipavska dolina"
     parent: primorska
     within: {adm: SVN/ADM2, poly: [[45.93,13.82],[45.93,14.15],[45.78,14.15],[45.78,13.82]]}
     grapes: [merlot, sauvignon-blanc, chardonnay]
@@ -78,6 +86,7 @@ regions:
     summary: "A wind-swept valley (the Bora blows here) with local white grapes such as Zelen and Pinela."
   - id: kras
     name: Kras
+    pdo_name: "Kras"
     parent: primorska
     within: {adm: SVN/ADM2, poly: [[45.85,13.70],[45.85,14.00],[45.65,14.00],[45.65,13.70]]}
     grapes: []
@@ -85,6 +94,7 @@ regions:
     summary: "The rocky Karst plateau, with red 'terra rossa' soil that colours the Teran: a tangy, deep-purple red."
   - id: slovenska-istra
     name: Slovenian Istria
+    pdo_name: "Slovenska Istra"
     parent: primorska
     within: {adm: SVN/ADM2, poly: [[45.62,13.60],[45.62,13.95],[45.45,13.95],[45.45,13.60]]}
     grapes: [merlot, cabernet-sauvignon]

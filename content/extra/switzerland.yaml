@@ -72,7 +72,7 @@ regions:
   - id: lavaux
     name: Lavaux
     parent: vaud
-    poly: [[46.52,6.72],[46.52,6.90],[46.46,6.92],[46.44,6.72]]
+    units: {adm: CHE/ADM2, names: [Lavaux-Oron]}
     clip: {adm: CHE/ADM1, names: [Vaud]}
     grapes: []
     local: [Chasselas]
@@ -80,7 +80,7 @@ regions:
   - id: la-cote
     name: La Côte
     parent: vaud
-    poly: [[46.55,6.15],[46.55,6.55],[46.42,6.55],[46.38,6.15]]
+    units: {adm: CHE/ADM2, names: [Nyon, Morges]}
     clip: {adm: CHE/ADM1, names: [Vaud]}
     grapes: [pinot-noir, gamay]
     local: [Chasselas]
@@ -88,8 +88,89 @@ regions:
   - id: chablais
     name: Chablais
     parent: vaud
-    poly: [[46.40,6.88],[46.40,7.10],[46.25,7.10],[46.25,6.88]]
+    units: {adm: CHE/ADM2, names: [Aigle]}
     clip: {adm: CHE/ADM1, names: [Vaud]}
     grapes: []
     local: [Chasselas]
     summary: "The Rhône delta at the eastern end of Lake Geneva, with famous names such as Yvorne, Aigle and Bex."
+  # ---- wine districts
+  - id: bonvillars-orbe
+    name: Bonvillars, Côtes de l'Orbe & Vully
+    parent: vaud
+    units: {adm: CHE/ADM2, names: [Jura-North Vaudois, Broye-Vully]}
+    grapes: [pinot-noir]
+    local: [Chasselas]
+    summary: "The smaller Vaud appellations on Lake Neuchâtel and Lake Murten: Chasselas and Pinot Noir on the Jura foothills."
+  - id: sierre
+    name: Sierre & Salgesch
+    parent: valais
+    units: {adm: CHE/ADM2, names: [Sierre, Leuk]}
+    grapes: [pinot-noir]
+    local: [Cornalin, Humagne Rouge, Petite Arvine]
+    summary: "The sunny upper Rhône valley at the language border: Salgesch Pinot Noir, Cornalin and Humagne Rouge."
+  - id: sion
+    name: Sion & Hérens
+    parent: valais
+    units: {adm: CHE/ADM2, names: [Sion, Hérens]}
+    grapes: [syrah]
+    local: [Chasselas, Petite Arvine, Amigne]
+    summary: "Steep terraces held by dry-stone walls around the capital: Fendant (Chasselas), Petite Arvine and Syrah."
+  - id: conthey-vetroz
+    name: Conthey & Vétroz
+    parent: valais
+    units: {adm: CHE/ADM2, names: [Conthey]}
+    local: [Amigne, Petite Arvine, Chasselas]
+    summary: "The centre of the Valais vineyard, home of the rare Amigne de Vétroz."
+  - id: martigny
+    name: Martigny & Fully
+    parent: valais
+    units: {adm: CHE/ADM2, names: [Martigny, Entremont, Saint-Maurice]}
+    grapes: [gamay]
+    local: [Petite Arvine, Chasselas]
+    summary: "The bend of the Rhône, where Fully's granite slopes give Petite Arvine and Gamay."
+  - id: visp
+    name: Visp (Upper Valais)
+    parent: valais
+    units: {adm: CHE/ADM2, names: [Visp, Brig, Raron, West Raron]}
+    local: [Heida, Lafnetscha, Himbertscha]
+    summary: "German-speaking Upper Valais, with Visperterminen, one of Europe's highest vineyards (about 1,150 m), famous for Heida (Savagnin)."
+  - id: mendrisio
+    name: Sottoceneri (Mendrisio & Lugano)
+    parent: ticino
+    units: {adm: CHE/ADM2, names: [Mendrisio, Lugano]}
+    grapes: [merlot]
+    summary: "Southern Ticino below Monte Ceneri: Merlot on clay and limestone, often rich and oak-aged."
+  - id: bellinzona
+    name: Sopraceneri (Bellinzona & Locarno)
+    parent: ticino
+    units: {adm: CHE/ADM2, names: [Bellinzona, Locarno, Riviera]}
+    grapes: [merlot]
+    summary: "Northern Ticino: Merlot on granite and sandy soils, fresher and more mineral than the south."
+  - id: neuchatel-vineyards
+    name: Neuchâtel
+    parent: trois-lacs
+    units: {adm: CHE/ADM2, names: [Neuchâtel, Boudry]}
+    grapes: [pinot-noir, chardonnay]
+    local: [Chasselas]
+    summary: "The north shore of Lake Neuchâtel: Chasselas, Pinot Noir and the pale Œil-de-Perdrix rosé."
+  - id: lac-de-bienne
+    name: Lac de Bienne
+    parent: trois-lacs
+    units: {adm: CHE/ADM2, names: [Biel, La Neuveville, Nidau, Erlach]}
+    grapes: [pinot-noir]
+    local: [Chasselas]
+    summary: "Terraced villages on Lake Biel's north shore, such as Twann and Ligerz."
+  - id: schaffhausen
+    name: Schaffhausen & Zürich
+    parent: german-switzerland
+    units: {adm: CHE/ADM2, names: [Schaffhausen, Oberklettgau, Unterklettgau, Andelfingen, Winterthur, Meilen, Horgen]}
+    grapes: [pinot-noir]
+    local: [Müller-Thurgau, Räuschling]
+    summary: "Blauburgunder country north of Zürich and near the Rhine falls; Hallau is the biggest village."
+  - id: bundner-herrschaft
+    name: Bündner Herrschaft
+    parent: german-switzerland
+    units: {adm: CHE/ADM2, names: [Landquart]}
+    grapes: [pinot-noir]
+    local: [Completer]
+    summary: "The upper Rhine valley around Maienfeld and Malans, warmed by the Föhn wind: some of Switzerland's finest Pinot Noir."

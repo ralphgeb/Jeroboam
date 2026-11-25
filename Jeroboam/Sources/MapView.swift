@@ -56,6 +56,8 @@ struct WineMapV2: Decodable {
     let insets: [Inset]?
     /// Zoom (relative to the whole map) at which levels 1, 2, 3… appear.
     let lod: [Double]?
+    /// The real vineyard parcels (OpenStreetMap), drawn over the areas as you zoom in.
+    let vines: [[Int]]?
 }
 
 /// Pre-built vector paths for a map, in map units.
@@ -87,6 +89,8 @@ final class MapGeometry {
     let maxLevel: Int
     /// Light province tints behind the wine areas.
     let tints: [(Path, Int)]
+    /// Vineyard parcels.
+    let vines: Path
     struct InsetGeo { let box: CGRect; let land: Path; let focus: Path; let lakes: Path; let rivers: [(Path, CGFloat)]; let communes: Path; let villages: [(name: String, at: CGPoint, size: CGSize, area: CGFloat)] }
     let insets: [InsetGeo]
     /// Zoom thresholds (relative to the whole map) for levels 1, 2, 3.
@@ -189,8 +193,15 @@ final class MapGeometry {
                              centroid: CGPoint(x: CGFloat(a.cx) / k, y: CGFloat(a.cy) / k), label: lab, parent: a.parent,
                              grapes: a.g, area: total))
         }
-        areas = list
+        // painter's order: big regions at the back, the appellations inside them on top. By level first, and within a
+        // level the larger area first, so a DOC nested in another DOC of the same level is never hidden.
+        areas = list.enumerated().sorted { x, y in
+            if x.element.level != y.element.level { return x.element.level < y.element.level }
+            if abs(x.element.area - y.element.area) > 0.5 { return x.element.area > y.element.area }
+            return x.offset < y.offset
+        }.map(\.element)
         tints = (m.tints ?? []).map { (Self.poly($0.shapes), $0.c) }
+        vines = Self.poly(m.vines ?? [])
         hasChildren = Set(list.compactMap(\.parent))
         maxLevel = list.map(\.level).max() ?? 0
     }
@@ -414,6 +425,11 @@ struct MapRenderer {
                     regions.stroke(a.path, with: .color(Palette.ink.opacity(0.75)), lineWidth: hair * 1.5)
                 }
             }
+            // where the vines really grow: small dark parcels over the areas, fading in as you zoom
+            if !thumb && !g.vines.isEmpty && rel >= 1.3 {
+                let t = min(1, (rel - 1.3) / 0.9)
+                regions.fill(g.vines, with: .color((dark ? Color.black : Palette.ink).opacity((dark ? 0.42 : 0.26) * t)))
+            }
             let communeZoom = g.insets.isEmpty ? LOD.communes : (g.lod.count > 1 ? g.lod[1] * 1.3 : LOD.communes)
             if !thumb && (rel >= communeZoom || (forcedLevel ?? 0) >= 2) && g.insets.isEmpty {
                 regions.stroke(g.communes, with: .color(Palette.focusLand.opacity(0.75)), lineWidth: hair * 0.7)
@@ -452,8 +468,10 @@ struct MapRenderer {
                 ctx.fill(Path(CGRect(x: mr.maxX - f, y: 0, width: f, height: size.height)), with: .linearGradient(Gradient(colors: [sea.opacity(0), sea]), startPoint: CGPoint(x: mr.maxX - f, y: 0), endPoint: CGPoint(x: mr.maxX, y: 0)))
             }
         }
-        if !thumb, let pois = g.map.pois {
-            let r: CGFloat = rel >= 1.6 ? 3.2 : 2.4
+        // many wineries (Chile, South Africa…): the dots wait for a closer zoom, so the country view stays clean
+        let poiZoom: CGFloat = (g.map.pois?.count ?? 0) > 60 ? 2.6 : 0
+        if !thumb, rel >= poiZoom, let pois = g.map.pois {
+            let r: CGFloat = poiZoom > 0 ? 2.2 : (rel >= 1.6 ? 3.2 : 2.4)
             for p in pois {
                 let c = screen(CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)))
                 let dot = Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: 2 * r, height: 2 * r))
@@ -480,7 +498,7 @@ struct MapRenderer {
         }
         let ls = labelScale
 
-        if !thumb, rel >= 1.6, let pois = g.map.pois {
+        if !thumb, rel >= max(1.6, poiZoom * 1.6), let pois = g.map.pois {
             for p in pois {
                 let c = screen(CGPoint(x: CGFloat(p.x), y: CGFloat(p.y)))
                 _ = place(Text(p.n).font(.system(size: 9.5 * ls, weight: .semibold)).foregroundColor(Palette.ink.opacity(0.85)),
@@ -1303,8 +1321,10 @@ struct MapExplorer: View {
     }
 
     private func selectedCard(_ a: MapGeometry.Area, g: MapGeometry) -> some View {
-        let region = ContentStore.shared.region(a.id)
         let parent = a.parent.flatMap { p in g.areas.first { $0.id == p } }
+        // its own guide, else the guide of the place it belongs to (a zone or ward opens its valley or district)
+        let own = ContentStore.shared.regionForMapArea(a.id)
+        let region = own ?? parent.flatMap { ContentStore.shared.regionForMapArea($0.id) }
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top) {
                 RoundedRectangle(cornerRadius: 4).fill(Palette.mapColor(a.color)).frame(width: 6, height: 40)
@@ -1331,7 +1351,7 @@ struct MapExplorer: View {
                 Text(r.summary).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2).lineLimit(3)
                 Button { openRegion = r } label: {
                     HStack(spacing: 6) {
-                        Text("Open guide").font(.system(size: 15, weight: .semibold))
+                        Text(own != nil ? "Open guide" : "Open the \(r.name) guide").font(.system(size: 15, weight: .semibold))
                         Image(systemName: "arrow.right").font(.system(size: 13, weight: .bold))
                     }
                     .foregroundStyle(Palette.wine)

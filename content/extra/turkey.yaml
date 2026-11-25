@@ -59,3 +59,145 @@ regions:
     grapes: [syrah, cabernet-sauvignon]
     local: [Öküzgözü, Boğazkere]
     summary: "A hot coastal strip with a few vineyards at altitude in the Taurus mountains."
+  # ---- wine provinces (level 1) and districts (level 2)
+  - id: tekirdag
+    name: Tekirdağ
+    parent: thrace-marmara
+    units: {adm: TUR/ADM1, names: [Tekirdağ]}
+    grapes: [cabernet-sauvignon, merlot, syrah]
+    local: [Papazkarası, Adakarası]
+    summary: "Thrace's main wine province on the Sea of Marmara, with the Şarköy–Mürefte coast and big, modern estates."
+  - id: sarkoy
+    name: Şarköy & Mürefte
+    parent: tekirdag
+    units: {adm: TUR/ADM2, names: [Şarköy]}
+    clip: tekirdag
+    local: [Adakarası, Papazkarası]
+    summary: "Slopes above the Sea of Marmara around Mürefte, Turkey's oldest continuous wine coast; sea breezes and clay-limestone soils."
+  - id: kirklareli
+    name: Kırklareli
+    parent: thrace-marmara
+    units: {adm: TUR/ADM1, names: [Kırklareli]}
+    grapes: [merlot, cabernet-sauvignon]
+    local: [Papazkarası]
+    summary: "Northern Thrace near the Bulgarian border: cooler hills with Bordeaux varieties and Papazkarası."
+  - id: canakkale
+    name: Çanakkale
+    parent: thrace-marmara
+    units: {adm: TUR/ADM1, names: [Çanakkale]}
+    local: [Karalahna, Kuntra, Çavuş, Vasilaki]
+    summary: "The Dardanelles and the Troad: Gallipoli peninsula vineyards, the hills of Ezine and Bayramiç, and the island of Bozcaada."
+  - id: bozcaada
+    name: Bozcaada
+    parent: canakkale
+    units: {adm: TUR/ADM2, names: [Bozcaada]}
+    clip: canakkale
+    local: [Kuntra, Karalahna, Çavuş, Vasilaki]
+    summary: "The windswept island of Tenedos, a wine island since antiquity, with native Kuntra, Karalahna, Çavuş and Vasilaki."
+  - id: izmir
+    name: İzmir
+    parent: aegean
+    units: {adm: TUR/ADM1, names: [İzmir]}
+    grapes: [syrah, cabernet-sauvignon, sauvignon-blanc]
+    local: [Urla Karası, Bornova Misketi]
+    summary: "The Aegean coast around İzmir: Urla's revived ancient vineyards and the hills of Kemalpaşa and Menderes."
+  - id: urla
+    name: Urla
+    parent: izmir
+    units: {adm: TUR/ADM2, names: [Urla, Seferihisar]}
+    clip: izmir
+    local: [Urla Karası, Bornova Misketi]
+    summary: "A peninsula of small boutique wineries and a wine route, reviving Klazomenai's ancient vineyards and the native Urla Karası."
+  - id: manisa
+    name: Manisa
+    parent: aegean
+    units: {adm: TUR/ADM1, names: [Manisa]}
+    grapes: [syrah, merlot]
+    local: [Sultaniye]
+    summary: "Turkey's biggest grape province, mostly table grapes and sultanas, with wine estates around Alaşehir and Sarıgöl."
+  - id: alasehir
+    name: Alaşehir & Sarıgöl
+    parent: manisa
+    units: {adm: TUR/ADM2, names: [Alaşehir, Sarıgöl]}
+    clip: manisa
+    local: [Sultaniye]
+    summary: "The Gediz valley below Mount Bozdağ: sun-baked vineyards for reds and for Sultaniye."
+  - id: denizli
+    name: Denizli
+    parent: aegean
+    units: {adm: TUR/ADM1, names: [Denizli]}
+    grapes: [syrah, cabernet-sauvignon]
+    local: [Çalkarası]
+    summary: "Inland Aegean plateau at 800–1,000 m, a big source of grapes for Turkey's large producers."
+  - id: guney-cal
+    name: Güney & Çal
+    parent: denizli
+    units: {adm: TUR/ADM2, names: [Güney, Çal, Buldan]}
+    clip: denizli
+    local: [Çalkarası]
+    summary: "High, stony vineyards of the Çal plateau, home of the pale red Çalkarası."
+  - id: cappadocia
+    name: Cappadocia (Nevşehir)
+    parent: central-anatolia
+    units: {adm: TUR/ADM1, names: [Nevşehir]}
+    local: [Emir, Narince]
+    summary: "Volcanic tuff, fairy chimneys and bush vines at over 1,000 m: Emir whites and Kalecik Karası and Öküzgözü reds."
+  - id: urgup
+    name: Ürgüp & Avanos
+    parent: cappadocia
+    units: {adm: TUR/ADM2, names: [Ürgüp, Avanos, Nevşehir merkez]}
+    clip: cappadocia
+    local: [Emir, Narince, Kalecik Karası]
+    summary: "The heart of Cappadocian wine: ungrafted vines in volcanic ash, wine cellars cut into the rock."
+  - id: ankara
+    name: Ankara
+    parent: central-anatolia
+    units: {adm: TUR/ADM1, names: [Ankara]}
+    local: [Kalecik Karası]
+    summary: "The Kızılırmak valley north of the capital, home of Kalecik Karası."
+  - id: kalecik
+    name: Kalecik
+    parent: ankara
+    units: {adm: TUR/ADM2, names: [Kalecik]}
+    clip: ankara
+    local: [Kalecik Karası]
+    summary: "The town that gives its name to Kalecik Karası, a light, red-fruited native red saved from near extinction in the 1970s."
+  - id: tokat
+    name: Tokat
+    parent: central-anatolia
+    units: {adm: TUR/ADM1, names: [Tokat]}
+    local: [Narince]
+    summary: "The Yeşilırmak valley near the Black Sea mountains, home of the white Narince."
+  - id: tokat-valley
+    name: Erbaa & Niksar
+    parent: tokat
+    units: {adm: TUR/ADM2, names: [Erbaa, Niksar]}
+    clip: tokat
+    local: [Narince]
+    summary: "Valley floor vineyards of Narince, a fresh, ageworthy native white."
+  - id: elazig
+    name: Elazığ
+    parent: eastern-anatolia
+    units: {adm: TUR/ADM1, names: [Elazığ]}
+    local: [Öküzgözü]
+    summary: "On the Euphrates above the Keban dam, the home of Öküzgözü ('bull's eye'), a juicy, fruity native red."
+  - id: keban-agin
+    name: Keban & Ağın
+    parent: elazig
+    units: {adm: TUR/ADM2, names: [Keban, Ağın, Elazığ merkez]}
+    clip: elazig
+    local: [Öküzgözü]
+    summary: "High vineyards around the Keban reservoir, the classic source of Öküzgözü."
+  - id: diyarbakir
+    name: Diyarbakır
+    parent: eastern-anatolia
+    units: {adm: TUR/ADM1, names: [Diyarbakır]}
+    local: [Boğazkere]
+    summary: "The upper Tigris, a hot, dry plateau where the tannic Boğazkere grows; it is often blended with Öküzgözü."
+  - id: ergani
+    name: Ergani
+    parent: diyarbakir
+    units: {adm: TUR/ADM2, names: [Ergani]}
+    clip: diyarbakir
+    local: [Boğazkere]
+    summary: "The traditional Boğazkere vineyards north of Diyarbakır."

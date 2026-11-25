@@ -30,7 +30,8 @@ country:
 regions:
   - id: serra-gaucha
     name: Serra Gaúcha
-    poly: [[-28.60,-52.40],[-28.60,-50.90],[-29.60,-50.90],[-29.60,-52.40]]
+    units: {adm: BRA/ADM2, names: [Bento Gonçalves, Garibaldi, Monte Belo do Sul, Flores da Cunha, Nova Pádua, Farroupilha, Caxias do Sul, Pinto Bandeira, Cotiporã, Veranópolis, Vila Flores, Antônio Prado, Fagundes Varela, Santa Teresa, São Marcos, Nova Roma do Sul, Boa Vista do Sul, Carlos Barbosa, Nova Prata, Protásio Alves, Ipê]}
+    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     grapes: [merlot, cabernet-sauvignon, chardonnay, pinot-noir, riesling]
     local: [Moscato Giallo, Isabel, Bordô]
@@ -39,40 +40,71 @@ regions:
   - id: vale-dos-vinhedos
     name: Vale dos Vinhedos
     parent: serra-gaucha
-    poly: [[-29.10,-51.62],[-29.10,-51.42],[-29.27,-51.42],[-29.27,-51.62]]
+    circle: {c: [-29.165, -51.575], r: 5.5}
+    clip: serra-gaucha
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     grapes: [merlot, cabernet-sauvignon, chardonnay]
     summary: "The 'Valley of the Vineyards': Brazil's best-known wine landscape and its first official appellation (2002), with Merlot and sparkling wine."
   - id: pinto-bandeira
     name: Pinto Bandeira
     parent: serra-gaucha
-    poly: [[-29.00,-51.52],[-29.00,-51.32],[-29.15,-51.32],[-29.15,-51.52]]
+    units: {adm: BRA/ADM2, names: [Pinto Bandeira]}
+    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     grapes: [chardonnay, pinot-noir]
     summary: "A higher, cooler area above Bento Gonçalves that is the heart of Brazil's top traditional-method sparkling wine."
   - id: campos-de-cima-da-serra
     name: Campos de Cima da Serra
-    parent: serra-gaucha
-    poly: [[-28.20,-50.90],[-28.20,-49.90],[-28.90,-49.90],[-28.90,-50.90]]
+    units: {adm: BRA/ADM2, names: [Vacaria, Muitos Capões, Bom Jesus, Campestre da Serra, Monte Alegre dos Campos, Esmeralda, André da Rocha]}
+    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul, Santa Catarina]}
     grapes: [pinot-noir, chardonnay]
     summary: "A high, cool plateau at over 1,000 m on the border of Rio Grande do Sul and Santa Catarina."
   - id: campanha-gaucha
     name: Campanha Gaúcha
-    poly: [[-30.50,-55.80],[-30.50,-53.40],[-31.80,-53.40],[-31.80,-55.80]]
+    units: {adm: BRA/ADM2, names: ["Sant'Ana do Livramento", Dom Pedrito, Bagé, Candiota, Hulha Negra, Quaraí, Rosário do Sul, Uruguaiana, Alegrete, Itaqui, Barra do Quaraí, Lavras do Sul, Aceguá, Maçambará]}
+    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     grapes: [tannat, cabernet-sauvignon, merlot, sauvignon-blanc, syrah]
     summary: "The border area with Uruguay: low rolling pampas, sunny and dry, now producing about a third of the finer wines of Brazil."
     soil: "Sandy and granite."
   - id: serra-do-sudeste
     name: Serra do Sudeste
-    poly: [[-30.55,-53.40],[-30.55,-52.60],[-31.50,-52.60],[-31.50,-53.40]]
+    units: {adm: BRA/ADM2, names: [Encruzilhada do Sul, Pinheiro Machado, Piratini, Canguçu, Santana da Boa Vista, Caçapava do Sul]}
+    clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     clip: {adm: BRA/ADM1, names: [Rio Grande do Sul]}
     grapes: [cabernet-sauvignon, merlot, tannat, sauvignon-blanc]
     summary: "Granite hills at around 400 m in the south-east, a new, small area for elegant reds."
   - id: santa-catarina-highlands
     name: Santa Catarina Highlands
-    poly: [[-27.60,-50.80],[-27.60,-49.20],[-28.45,-49.20],[-28.45,-50.80]]
+    units: {adm: BRA/ADM2, names: [São Joaquim, Urubici, Bom Jardim da Serra, Urupema, Painel, Lages, Campo Belo do Sul, Água Doce, Videira, Tangará, Caçador, Fraiburgo, Campos Novos]}
+    clip: {adm: BRA/ADM1, names: [Santa Catarina]}
     clip: {adm: BRA/ADM1, names: [Santa Catarina]}
     grapes: [cabernet-sauvignon, merlot, pinot-noir, sauvignon-blanc, chardonnay]
     summary: "São Joaquim and Urubici: vineyards at 900 to 1,400 m, among the highest in Brazil, with winters cold enough for snow."
+  - id: altos-montes
+    name: Altos Montes
+    parent: serra-gaucha
+    units: {adm: BRA/ADM2, names: [Flores da Cunha, Nova Pádua]}
+    clip: serra-gaucha
+    grapes: [merlot, chardonnay]
+    summary: "An Indication of Provenance on the highest ground of the Serra (up to 885 m), in Flores da Cunha and Nova Pádua: fresh whites, sparkling wine and Merlot."
+  - id: monte-belo
+    name: Monte Belo
+    parent: serra-gaucha
+    units: {adm: BRA/ADM2, names: [Monte Belo do Sul]}
+    clip: serra-gaucha
+    minus: [vale-dos-vinhedos]
+    grapes: [merlot]
+    summary: "Indication of Provenance next to Vale dos Vinhedos: steep, small family vineyards and Merlot-based reds."
+  - id: farroupilha
+    name: Farroupilha
+    parent: serra-gaucha
+    units: {adm: BRA/ADM2, names: [Farroupilha]}
+    clip: serra-gaucha
+    grapes: [muscat]
+    summary: "Indication of Provenance for Moscato: aromatic, gently sparkling wines from the Muscat family, Brazil's national style."
+  - id: vale-do-uva-goethe
+    name: Vales da Uva Goethe
+    circle: {c: [-28.48, -49.32], r: 18}
+    summary: "A small Indication of Provenance near the Santa Catarina coast for the old hybrid Goethe grape, grown here since Italian settlers arrived in the 19th century."

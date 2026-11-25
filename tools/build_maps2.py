@@ -1031,6 +1031,199 @@ def build_gb(only=None):
         write(mid, doc(mid, spec["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, spec["labels"]),
                        admin_borders(pr, spec["bbox"], fb, tol * 1.5), extra=None if groups else {"tints": tints(pr, tadm, tol, areas)}))
 
+# ================================================================= southern hemisphere: three-level maps from official units
+import specs_south as SO
+SOUTH = os.path.join(GEO, "south")   # the southern-data branch (tools/southern_fetch.py), extracted
+
+def _south_json(name, default):
+    p = os.path.join(SOUTH, name)
+    return json.load(open(p)) if os.path.exists(p) else default
+
+def south_vines(cc, clip):
+    """Real vineyard parcels (OpenStreetMap landuse=vineyard) inside clip, lon/lat."""
+    out = []
+    for e in _south_json(f"osm_vineyards_{cc}.json", []):
+        try:
+            if "r" in e:
+                if len(e["r"]) < 4: continue
+                g = Polygon(e["r"]).buffer(0)
+            else:
+                outer = unary_union([Polygon(r).buffer(0) for r in e["rel"] if len(r) >= 4])
+                holes = unary_union([Polygon(r).buffer(0) for r in e.get("h", []) if len(r) >= 4]) if e.get("h") else None
+                g = outer.difference(holes) if holes is not None else outer
+            if not g.is_empty and g.intersects(clip): out.append(g)
+        except Exception:
+            continue
+    return out
+
+def south_points(name, clip):
+    pts = []
+    for e in _south_json(name, []):
+        la, lo = e["ll"]
+        if clip.contains(Point(lo, la)): pts.append(e)
+    return pts
+
+def blob_poly(c, r_km):
+    la, lo = c
+    return Point(lo, la).buffer(km2deg(r_km) / max(0.2, math.cos(math.radians(la))), 48).intersection(
+        Point(lo, la).buffer(km2deg(r_km) * 3, 48))  # roughly round on the ground
+
+def atlas_colors(items, geoms, fixed=None):
+    """items = [(id, level, parent)]. Touching areas of the same level never share a color (like a printed atlas); the first
+    child of a region starts from the region's color and its siblings move on round the palette."""
+    fixed = fixed or {}
+    col = {}
+    order = [0, 9, 4, 11, 6, 1, 8, 3, 12, 2, 7, 5, 10]
+    for lv in sorted({x[1] for x in items}):
+        same = [x for x in items if x[1] == lv and x[0] in geoms]
+        gb = {x[0]: geoms[x[0]].buffer(km2deg(1.5)) for x in same}
+        sib = {}
+        for aid, _, par in same:
+            if aid in fixed:
+                col[aid] = cidx(fixed[aid]); continue
+            taken = {col[b] for b, _, _ in same if b in col and b != aid and gb[aid].intersects(geoms[b])}
+            k = sib.get(par, 0)
+            start = order.index(col[par]) if par in col else len(col)
+            for j in range(13):
+                c = order[(start + k + j) % 13]
+                if c not in taken: break
+            col[aid] = c
+            sib[par] = k + j + 1
+    return col
+
+def build_south(cfg, extra_units=None):
+    mid, iso = cfg["map"], cfg["iso"]
+    print(f"{cfg['title']} (3 levels)…")
+    W, tol = cfg.get("W", 3000), 0.5
+    pr = Proj(cfg["bbox"], W)
+    focus_codes = cfg.get("focus", [iso])
+    land, focus, lk, rv = base_layers(pr, cfg["bbox"], focus_codes, tol=tol)
+    la0, lo0, la1, lo1 = pr.bbox
+    near = box(lo0 - 1, la0 - 1, lo1 + 1, la1 + 1)
+    base = [(n, g) for n, g in gb_units(iso, cfg["adm"]) if g.intersects(near)]
+    used_units = {}
+    def by_names(pool, names, aid, record=False):
+        got, miss = [], []
+        for n in names:
+            c = [(nm, g) for nm, g in pool if nm == n]
+            if not c: miss.append(n)
+            for nm, g in c:
+                got.append(g)
+                if record: used_units[nm] = g
+        if miss: print(f"   ! {mid}/{aid}: missing {miss}")
+        return unary_union(got) if got else None
+    def geom_of(a):
+        u = a["units"]
+        if u is None: return None
+        if isinstance(u, dict):
+            if extra_units:
+                g = extra_units(a)
+                if g is not None: return g
+            if "c" in u and u.get("free"):
+                return blob_poly(u["c"], u["r"])
+            if "c" in u:
+                zone = blob_poly(u["c"], u["r"])
+                pool = u.get("snap", base)
+                picked = [g for _, g in pool if zone.contains(g.representative_point())]
+                g = unary_union(picked).intersection(zone.buffer(km2deg(u["r"] * 0.35))) if picked else zone
+                if u.get("within"): g = g.intersection(u["within"])
+                return g
+            return None
+        if isinstance(u, tuple):
+            adm, names = u
+            return by_names([(n, g) for n, g in gb_units(iso, adm) if g.intersects(near)], names, a["id"])
+        return by_names(base, u, a["id"], record=True)
+    areas = cfg["areas"]
+    geoms = {}
+    for a in areas:
+        g = geom_of(a)
+        if g is not None and not g.is_empty: geoms[a["id"]] = g.buffer(0)
+    # wards placed as circles: neighbours share the ground between them (Voronoi cells), they never overlap
+    free = [a for a in areas if isinstance(a["units"], dict) and a["units"].get("free") and a["id"] in geoms]
+    if len(free) > 1:
+        from shapely.ops import voronoi_diagram
+        from shapely.geometry import MultiPoint
+        pts = MultiPoint([(a["units"]["c"][1], a["units"]["c"][0]) for a in free])
+        cells = list(voronoi_diagram(pts, envelope=near).geoms)
+        for a in free:
+            c = Point(a["units"]["c"][1], a["units"]["c"][0])
+            cell = next((x for x in cells if x.contains(c)), None)
+            if cell is not None: geoms[a["id"]] = geoms[a["id"]].intersection(cell)
+    for a in areas:   # nested districts cut out of their neighbours
+        for m in a.get("minus", []):
+            if a["id"] in geoms and m in geoms:
+                geoms[a["id"]] = geoms[a["id"]].difference(geoms[m].buffer(km2deg(0.3)))
+    # the real vineyard footprint: areas marked `vin` follow the vines (a ward drawn where its vineyards are)
+    cc = cfg.get("cc")
+    vines_ll = south_vines(cc, near) if cc else []
+    if vines_ll:
+        vin_u = unary_union([v.buffer(0) for v in vines_ll])
+        for a in areas:
+            u = a["units"]
+            if isinstance(u, dict) and u.get("vin") and a["id"] in geoms:
+                fp = vin_u.intersection(geoms[a["id"]].buffer(km2deg(1)))
+                if fp.area < geoms[a["id"]].area * 0.01: continue   # too few mapped vines: keep the circle
+                r = km2deg(u["vin"])
+                fp = fp.buffer(r, 12).buffer(-r * 0.6, 12)
+                geoms[a["id"]] = geoms[a["id"]].intersection(fp)
+    for _ in range(4):   # containers: the union of what is inside them (deepest first, so a region waits for its valleys)
+        for a in sorted(areas, key=lambda a: -a["lv"]):
+            if a["id"] in geoms: continue
+            kids = [b for b in areas if b["parent"] == a["id"]]
+            if any(b["id"] not in geoms and b["units"] is None for b in kids): continue
+            ch = [geoms[b["id"]] for b in kids if b["id"] in geoms]
+            if ch: geoms[a["id"]] = unary_union(ch).buffer(0)
+    for a in areas:   # a child never spills out of its parent
+        p = a["parent"]
+        if p in geoms and a["id"] in geoms and a.get("clip", True):
+            geoms[a["id"]] = geoms[a["id"]].intersection(geoms[p].buffer(km2deg(0.2)))
+    col = atlas_colors([(a["id"], a["lv"], a["parent"]) for a in areas], geoms, cfg.get("colors", {}))
+    recs = []
+    for a in sorted(areas, key=lambda a: a["lv"]):
+        g = geoms.get(a["id"])
+        if g is None: print(f"   ! {mid}/{a['id']}: no geometry"); continue
+        rec = area_record(pr, a["id"], a["name"], a["lv"], col[a["id"]], g, tol, parent=a["parent"], min_area=1,
+                          soft=a.get("soft", True), pdo=False)
+        if rec: recs.append(rec)
+    view = box(-20, -20, pr.W + 20, pr.H + 20)
+    allg = unary_union(list(geoms.values())).buffer(km2deg(3))
+    extra = {}
+    # admin units the wine areas are made of: hairlines + names when zoomed in
+    named = sorted(used_units.items())
+    if extra_units and hasattr(extra_units, "units"): named += extra_units.units
+    if named:
+        lines, names = commune_layer(pr, named, tol)
+        extra["communes"], extra["villages"] = lines, names
+    # real vineyards (OpenStreetMap): small dark parcels drawn over the areas when zoomed in
+    if cc:
+        vs = [v for v in vines_ll if v.intersects(allg)]
+        if vs:
+            u = unary_union([v.buffer(km2deg(0.03)) for v in vs]).buffer(-km2deg(0.02))
+            enc = enc_polys(pr.geom(u).intersection(view), tol * 0.5, 0.4)
+            extra["vines"] = enc
+            print(f"   vineyards: {len(vs)} parcels -> {len(enc)} shapes")
+        ws, seen = [], set()
+        for w in south_points(f"osm_wineries_{cc}.json", allg):
+            k = norm(w["n"])
+            if k in seen or len(w["n"]) > 40: continue
+            seen.add(k)
+            x, y = pr.xy(w["ll"][1], w["ll"][0])
+            ws.append({"n": w["n"], "x": round(x), "y": round(y)})
+        if ws:
+            extra["pois"] = ws[:cfg.get("max_pois", 400)]
+            print(f"   wineries: {len(ws)}")
+        vill = extra.get("villages", [])
+        for p in south_points(f"osm_places_{cc}.json", allg):
+            if p["p"] in ("town", "village"):
+                x, y = pr.xy(p["ll"][1], p["ll"][0])
+                vill.append({"n": p["n"], "x": round(x), "y": round(y)})
+        if vill: extra["villages"] = vill
+    cities = cities_of(pr, [(n, la, lo, 0 if i < 4 else 1) for i, (n, la, lo) in enumerate(cfg["cities"])])
+    fb = [g for _, g in gb_units(iso, "ADM1")]
+    extra["lod"] = cfg.get("lod", [1.7, 3.0])
+    write(mid, doc(mid, cfg["title"], pr, land, focus, lk, rv, recs, cities, labels_of(pr, cfg["labels"]),
+                   admin_borders(pr, cfg["bbox"], fb, tol * 1.5), extra=extra))
+
 def build_lebanon():
     L = GB.LEBANON
     print("Lebanon…")
@@ -1090,14 +1283,68 @@ def build_legacy(keep):
         write(spec["id"], doc(spec["id"], spec["title"], pr, land, focus, lk, rv, areas, cities, labels_of(pr, spec["labels"]),
                               admin_borders(pr, spec["bbox"], fb, tol * 1.5), extra=extra))
 
+SOUTH_UNITS = {}   # map id -> function(area spec) -> geometry for the special unit kinds (OSM districts, NZ GIs)
+
+class _ArUnits:
+    """Argentina: departments looked up inside their province (names repeat: San Martín, Rivadavia…), and district
+    polygons from OpenStreetMap (assembled from the boundary ways) when the district is mapped there."""
+    def __init__(self):
+        self.units, self._prov, self._osm = [], None, None
+    def prov(self, name):
+        if self._prov is None:
+            self._prov = {n: g for n, g in gb_units("ARG", "ADM1")}
+        return self._prov.get(name)
+    def osm(self):
+        if self._osm is None:
+            from shapely.ops import polygonize
+            self._osm = []
+            for r in _south_json("osm_admin_ar.json", {}).get("rel", []):
+                try:
+                    ls = [LineString(w) for w in r["ways"] if len(w) > 1]
+                    g = unary_union(list(polygonize(unary_union(ls)))).buffer(0)
+                    if not g.is_empty: self._osm.append((norm(r["n"]), r["lv"], g))
+                except Exception:
+                    pass
+            print(f"   OSM districts: {len(self._osm)}")
+        return self._osm
+    def __call__(self, a):
+        u = a["units"]
+        if "dep" in u:
+            pv = self.prov(u["prov"])
+            if pv is None: print(f"   ! argentina/{a['id']}: no province {u['prov']}"); return None
+            got, found = [], set()
+            for n, g in gb_units("ARG", "ADM2"):
+                # mostly inside the province (the two layers do not match exactly at the edges)
+                if n in u["dep"] and g.intersects(pv) and g.intersection(pv).area > 0.3 * g.area:
+                    got.append(g); found.add(n); self.units.append((n, g))
+            miss = set(u["dep"]) - found
+            if miss: print(f"   ! argentina/{a['id']}: missing {sorted(miss)}")
+            return unary_union(got) if got else None
+        if u.get("osm"):
+            c = Point(u["c"][1], u["c"][0])
+            cand = [(lv, g) for n, lv, g in self.osm() if n == norm(u["osm"]) and g.distance(c) < km2deg(u["r"])]
+            if cand:
+                g = min(cand, key=lambda x: x[1].area)[1]
+                if g.area < km2deg(60) ** 2:     # a district, not a whole department
+                    u["free"], u["vin"] = False, 0
+                    print(f"   {a['id']}: OSM district boundary")
+                    return g
+        return None
+SOUTH_UNITS["argentina"] = _ArUnits()
+
 if __name__ == "__main__":
     which = set(sys.argv[1:])
+    # the southern maps are built by build_south now; `gb` keeps the other admin-boundary countries
+    GB_ONLY = [m for m in GB.COUNTRIES if m not in ("chile", "argentina", "new-zealand", "south-africa")]
     if not which or "fr" in which: build_france()
     if not which or "it" in which: build_italy()
     if not which or "us" in which: build_usa()
     if not which or "legacy" in which: build_legacy({"world"})
-    if not which or "gb" in which: build_gb()
+    if not which or "gb" in which: build_gb(GB_ONLY)
     if not which or "lb" in which: build_lebanon()
+    for k in ("chile", "argentina", "new-zealand", "south-africa"):
+        cfg = getattr(SO, k.upper().replace("-", "_"), None)
+        if cfg and (not which or "south" in which or k in which): build_south(cfg, SOUTH_UNITS.get(k))
     if USED_PDO:
         print(f"official PDO boundaries used for {len(USED_PDO)} areas")
         with open(os.path.join(os.path.dirname(__file__), "pdo_used.txt"), "w") as f:

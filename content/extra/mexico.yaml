@@ -52,3 +52,60 @@ regions:
     units: {adm: MEX/ADM1, names: [Chihuahua, Durango, Nuevo Leon, San Luis Potosi, Sonora]}
     grapes: [cabernet-sauvignon, merlot, syrah]
     summary: "Scattered vineyards in the northern states, from the Chihuahuan desert to the Sierra Madre."
+  # ---- wine valleys (municipios)
+  - id: parras
+    name: Valle de Parras
+    parent: coahuila-parras
+    units: {adm: MEX/ADM2, names: [Parras]}
+    clip: coahuila-parras
+    grapes: [cabernet-sauvignon, chenin-blanc, syrah]
+    summary: "The oldest winery in the Americas (Casa Madero, 1597) in a desert oasis at 1,500 m, watered by springs from the Sierra."
+  - id: arteaga
+    name: Arteaga & General Cepeda
+    parent: coahuila-parras
+    units: {adm: MEX/ADM2, names: [Arteaga, General Cepeda]}
+    clip: coahuila-parras
+    grapes: [pinot-noir, cabernet-sauvignon]
+    summary: "High valleys east of Saltillo up to 2,100 m, with cool nights and some of Mexico's freshest wines."
+  - id: ezequiel-montes
+    name: Ezequiel Montes & Tequisquiapan
+    parent: queretaro
+    units: {adm: MEX/ADM2, names: [Ezequiel Montes, Tequisquiapan, Colón, Cadereyta de Montes]}
+    clip: queretaro
+    grapes: [chardonnay, sauvignon-blanc, tempranillo]
+    summary: "The Querétaro wine and cheese route at 1,900 m: sparkling wines (Freixenet's Mexican estate) and fresh whites."
+  - id: san-juan-del-rio
+    name: San Juan del Río
+    parent: queretaro
+    units: {adm: MEX/ADM2, names: [San Juan del Río]}
+    clip: queretaro
+    grapes: [merlot, malbec]
+    summary: "Southern Querétaro's plateau vineyards, part of the state's wine route."
+  - id: san-miguel
+    name: San Miguel de Allende & Dolores Hidalgo
+    parent: guanajuato
+    units: {adm: MEX/ADM2, names: [San Miguel de Allende, Dolores Hidalgo Cuna de la Independencia Nacional, Comonfort]}
+    clip: guanajuato
+    grapes: [syrah, malbec, sauvignon-blanc]
+    summary: "The colonial heart of Guanajuato, where Father Hidalgo planted vines in 1810; now a cluster of estates around San Miguel."
+  - id: ojocaliente
+    name: Ojocaliente & Luis Moya
+    parent: zacatecas-aguascalientes
+    units: {adm: MEX/ADM2, names: [Ojocaliente, Luis Moya]}
+    clip: zacatecas-aguascalientes
+    grapes: [cabernet-sauvignon, tempranillo]
+    summary: "High, dry plains of southern Zacatecas at about 2,000 m."
+  - id: aguascalientes-valley
+    name: Pabellón & Rincón de Romos
+    parent: zacatecas-aguascalientes
+    units: {adm: MEX/ADM2, names: [Pabellón de Arteaga, Rincón de Romos, Aguascalientes]}
+    clip: zacatecas-aguascalientes
+    grapes: [merlot, cabernet-sauvignon]
+    summary: "Aguascalientes, once a big brandy grape state, now replanting for wine."
+  - id: delicias
+    name: Delicias
+    parent: northern-highlands
+    units: {adm: MEX/ADM2, names: [Delicias, Saucillo]}
+    clip: northern-highlands
+    grapes: [cabernet-sauvignon, tempranillo]
+    summary: "Irrigated valley of central Chihuahua, a growing wine area on the high desert."

@@ -1,6 +1,7 @@
 map: croatia
 title: Croatia
 iso: [HRV]
+pdo: {cc: HR, names: {"Muškat momjanski": "Muškat Momjanski"}}
 focus: [HRV]
 bbox: [42.2, 13.3, 46.6, 19.6]
 W: 2800
@@ -29,8 +30,13 @@ country:
     - "Dingač on the Pelješac peninsula was the first protected wine region in Yugoslavia (1961)."
     - "Slavonian oak from Croatia's eastern forests is prized for barrels worldwide."
 regions:
+  - id: coastal-croatia
+    name: Coastal Croatia
+    pdo_name: "Primorska Hrvatska"
+    summary: "Primorska Hrvatska, the coastal wine region: Istria and Kvarner in the north, Dalmatia and its islands to the south."
   - id: slavonia-danube
     name: Slavonia & the Danube
+    pdo_name: ["Slavonija", "Hrvatsko Podunavlje"]
     units: {adm: HRV/ADM1, names: [Osijek-Baranja, Vukovar-Syrmia, Brod-Posavina, Požega-Slavonia, Virovitica-Podravina]}
     grapes: [chardonnay, riesling, merlot]
     local: [Graševina, Frankovka, Traminac]
@@ -43,6 +49,8 @@ regions:
     summary: "The cool hills around Zagreb and the Slovenian border: crisp whites and sparkling wines, especially from Plešivica and Međimurje."
   - id: istria-kvarner
     name: Istria & Kvarner
+    parent: coastal-croatia
+    pdo_name: ["Hrvatska Istra", "Hrvatsko primorje"]
     units: {adm: HRV/ADM1, names: [Istria, Primorje-Gorski Kotar, Lika-Senj]}
     grapes: [merlot, chardonnay, sauvignon-blanc]
     local: [Malvazija Istarska, Teran, Refošk, Žlahtina]
@@ -50,6 +58,8 @@ regions:
     soil: "Red clay (terra rossa) over limestone, and grey marl."
   - id: dalmatia
     name: Dalmatia
+    parent: coastal-croatia
+    pdo_name: ["Sjeverna Dalmacija", "Srednja i Južna Dalmacija", "Dalmatinska zagora"]
     units: {adm: HRV/ADM1, names: [Zadar County, Šibenik-Knin, Split-Dalmatia, Dubrovnik-Neretva]}
     grapes: [zinfandel, syrah, cabernet-sauvignon]
     local: [Plavac Mali, Babić, Pošip, Grk, Maraština, Vugava]
@@ -57,6 +67,7 @@ regions:
     climate: "Mediterranean, with hot summers and mild winters."
   - id: istria
     name: Istria
+    pdo_name: "Hrvatska Istra"
     parent: istria-kvarner
     units: {adm: HRV/ADM1, names: [Istria]}
     grapes: [merlot, chardonnay]
@@ -72,6 +83,7 @@ regions:
     summary: "A rocky peninsula with the famous Dingač and Postup slopes, where Plavac Mali on steep, sun-drenched terraces by the sea makes Croatia's most powerful reds."
   - id: central-dalmatia
     name: Central Dalmatia & islands
+    pdo_name: "Srednja i Južna Dalmacija"
     parent: dalmatia
     units: {adm: HRV/ADM1, names: [Split-Dalmatia]}
     grapes: []

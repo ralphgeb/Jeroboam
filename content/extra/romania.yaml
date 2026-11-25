@@ -1,6 +1,7 @@
 map: romania
 title: Romania
 iso: [ROU]
+pdo: {cc: RO}
 focus: [ROU]
 bbox: [43.5, 20.2, 48.3, 29.8]
 W: 2800

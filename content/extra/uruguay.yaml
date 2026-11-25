@@ -51,3 +51,60 @@ regions:
     units: {adm: URY/ADM1, names: [Rivera, Tacuarembó, Salto, Artigas, Paysandú, Río Negro, Cerro Largo, Treinta y Tres, Lavalleja, Durazno]}
     grapes: [tannat, merlot, cabernet-sauvignon]
     summary: "A warmer, inland area on the border with Brazil and Argentina, with sandstone and basalt soils."
+  # ---- wine districts (municipios)
+  - id: canelones-heart
+    name: Canelones heartland
+    parent: canelones
+    units: {adm: URY/ADM2, names: [Canelones, Progreso, Las Piedras, Los Cerrillos, Santa Lucía, Sauce, 18 de Mayo, Aguas Corrientes]}
+    clip: canelones
+    grapes: [tannat, merlot, sauvignon-blanc]
+    summary: "The country's vineyard: Progreso, Las Violetas, Juanicó and Los Cerrillos, gentle clay hills cooled by the Río de la Plata. Most of Uruguay's Tannat grows here."
+  - id: melilla
+    name: Montevideo (Melilla)
+    parent: canelones
+    units: {adm: URY/ADM2, names: [Municipality A, Municipality G]}
+    clip: canelones
+    grapes: [tannat]
+    summary: "The rural west of Montevideo, around Melilla and Colón, with family wineries founded by Basque, Italian and Spanish settlers."
+  - id: carmelo
+    name: Carmelo
+    parent: colonia
+    units: {adm: URY/ADM2, names: [Carmelo, Nueva Palmira, Ombúes de Lavalle]}
+    clip: colonia
+    grapes: [tannat, albarino]
+    summary: "Vineyards on the Río de la Plata and the Uruguay river, with alluvial soils and a mild, humid climate."
+  - id: nueva-helvecia
+    name: Nueva Helvecia & Colonia Valdense
+    parent: colonia
+    units: {adm: URY/ADM2, names: [Nueva Helvecia, Colonia Valdense, Rosario, Tarariras, Juan L. Lacaze]}
+    clip: colonia
+    grapes: [tannat]
+    summary: "Swiss and Waldensian colonies inland from Colonia del Sacramento, with small wineries in the rolling south of Colonia."
+  - id: garzon
+    name: Garzón
+    parent: maldonado-rocha
+    units: {adm: URY/ADM2, names: [Garzon]}
+    clip: maldonado-rocha
+    grapes: [albarino, tannat, pinot-noir]
+    summary: "Granite hills 18 km from the Atlantic, where Bodega Garzón planted Albariño and Tannat on hundreds of small hillside blocks."
+  - id: pan-de-azucar
+    name: Pan de Azúcar & the coast
+    parent: maldonado-rocha
+    units: {adm: URY/ADM2, names: [Pan de Azúcar, Piriápolis, Solís Grande, San Carlos]}
+    clip: maldonado-rocha
+    grapes: [sauvignon-blanc, albarino, tannat]
+    summary: "Atlantic-cooled slopes near Punta del Este: crisp whites and elegant Tannat from weathered granite and schist."
+  - id: rivera
+    name: Rivera
+    parent: north-uruguay
+    units: {adm: URY/ADM2, names: [Tranqueras, Minas de Corrales, Vichadero]}
+    clip: north-uruguay
+    grapes: [tannat, cabernet-sauvignon]
+    summary: "Deep red sandy soils on the Brazilian border (Cerro Chapeu): warm days, cool nights and supple reds."
+  - id: bella-union
+    name: Bella Unión & Salto
+    parent: north-uruguay
+    units: {adm: URY/ADM2, names: [Bella Unión, Belén, Villa Constitución]}
+    clip: north-uruguay
+    grapes: [tannat]
+    summary: "The warm far north-west on the Uruguay river, where Pascual Harriague planted the first Tannat in the 1870s near Salto."

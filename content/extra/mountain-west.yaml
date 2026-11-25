@@ -2,6 +2,8 @@ map: mountain-west
 title: Idaho & Colorado
 iso: [USA]
 focus: [USA]
+auto_nest: true
+ava_auto: {states: [CO, ID, UT, NV, WY, MT]}
 states: [USA]
 bbox: [36.8, -117.4, 46.2, -104.5]
 W: 3000

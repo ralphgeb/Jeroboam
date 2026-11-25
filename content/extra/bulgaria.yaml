@@ -1,6 +1,7 @@
 map: bulgaria
 title: Bulgaria
 iso: [BGR]
+pdo: {cc: BG}
 focus: [BGR]
 bbox: [41.2, 22.3, 44.3, 28.7]
 W: 2800
@@ -39,6 +40,7 @@ regions:
     summary: "The northern plain along the river Danube: Bulgaria's biggest area, with Gamza and Merlot in Vidin and Pleven."
   - id: black-sea
     name: Black Sea
+    pdo_name: "Черноморски район"
     units: {adm: BGR/ADM1, names: [Varna, Dobrich, Burgas, Shumen, Targovishte]}
     grapes: [chardonnay, pinot-grigio, riesling, sauvignon-blanc]
     local: [Dimiat, Misket, Ugni Blanc]
@@ -51,6 +53,7 @@ regions:
     summary: "The warm southern plain: Bulgaria's best-known red area, with Mavrud around Asenovgrad."
   - id: struma-valley
     name: Struma Valley
+    pdo_name: "Долината на Струма"
     units: {adm: BGR/ADM1, names: [Blagoevgrad, Kyustendil, Pernik, Sofia, Sofia City]}
     grapes: [cabernet-sauvignon, syrah, merlot]
     local: [Melnik, Shiroka Melnishka Loza, Melnik 55]

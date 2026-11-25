@@ -2,6 +2,8 @@ map: mid-atlantic
 title: Virginia & the Mid-Atlantic
 iso: [USA]
 focus: [USA]
+auto_nest: true
+ava_auto: {states: [VA, MD, PA, NJ, NC, WV, DE, TN]}
 states: [USA]
 bbox: [36.3, -82.4, 41.2, -73.8]
 W: 2800

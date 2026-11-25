@@ -2,6 +2,8 @@ map: texas-southwest
 title: Texas & the Southwest
 iso: [USA]
 focus: [USA]
+auto_nest: true
+ava_auto: {states: [TX, AZ, NM, OK]}
 states: [USA]
 bbox: [30.0, -112.2, 36.6, -94.0]
 W: 3000

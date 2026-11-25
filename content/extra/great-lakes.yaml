@@ -3,6 +3,8 @@ title: Great Lakes & Midwest
 atlas: true
 iso: [USA]
 focus: [USA]
+auto_nest: true
+ava_auto: {states: [MI, OH, IN, IL, WI, MN, IA, MO, KY]}
 states: [USA]
 bbox: [38.3, -92.5, 47.2, -82.0]
 W: 2800

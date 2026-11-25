@@ -50,13 +50,21 @@ struct MapTerms {
         case "australia", "south-australia":
             return MapTerms(level: ["States", "Regions (GI)"], hint: ["The wine states", "Wine regions (Geographical Indications)"])
         case "new-zealand":
-            return MapTerms(level: ["Regions", "Sub-regions"], hint: ["The wine regions", "Sub-regions inside them"])
+            return MapTerms(level: ["Regions (GI)", "Sub-regions (GI)", "Districts"],
+                            hint: ["The wine regions (Geographical Indications)", "Smaller GIs and sub-regions inside them", "Districts and sub-zones"],
+                            places: "Towns")
         case "south-africa":
-            return MapTerms(level: ["Regions", "Districts and wards"], hint: ["The wine regions", "Districts and wards inside them"])
+            return MapTerms(level: ["Regions", "Districts", "Wards"],
+                            hint: ["Wine of Origin regions", "Districts inside the regions", "Wards: the smallest Wine of Origin units"],
+                            places: "Towns")
         case "chile":
-            return MapTerms(level: ["Regions", "Valleys"], hint: ["The wine regions", "Valleys inside the regions"])
+            return MapTerms(level: ["Regions", "Valleys", "Zones & areas"],
+                            hint: ["The six wine regions (DO)", "Sub-regions: the valleys", "Zones and areas (comunas) inside the valleys"],
+                            places: "Comunas")
         case "argentina":
-            return MapTerms(level: ["Provinces", "Zones"], hint: ["The wine provinces", "Zones inside the provinces"])
+            return MapTerms(level: ["Provinces", "Regions (IG)", "Districts (IG)"],
+                            hint: ["The wine provinces", "Regions and departments (IG/DOC)", "Districts and parajes (IG)"],
+                            places: "Districts")
         case "lebanon":
             return MapTerms(level: ["Regions", "Winery areas"], hint: ["The wine regions", "Winery areas inside the regions"])
         default:
