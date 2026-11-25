@@ -2,8 +2,9 @@
 """Adds country, region, appellation, colour, grapes, aromas, short notes and critics' scores to every wine in
 content/prices/wine_prices.csv and writes content/prices/wine_details.csv (same wine/vintage/size keys).
 
-Input: a folder of JSONL files saved from the shops' catalogues ({url,title,type,vendor,tags,text}).
-Run:   python3 tools/prices/enrich_details.py <details_dir>
+Input: the shop-data folder (raw Shopify catalogues, *.jsonl.gz from harvest_shopify.py; plain *.jsonl {url,title,type,vendor,tags,text} also works)
+       + sources/legacy_details.csv (facts kept from the previous build for shops that are not re-harvested).
+Run:   python3 tools/prices/enrich_details.py <shop-data dir>
 Place names come from shop tags first, then content/regions.yaml (+ the list below) matched in the name, then in the
 description. Notes are generated from the facts found (not copied); `details_link` opens the shop page with the full text.
 Scores are read from shop pages that quote them; `score_links` lists those pages."""
@@ -257,12 +258,28 @@ def analyse(name, d):
 def main():
     ddir = sys.argv[1]
     DET = {}
-    for f in glob.glob(os.path.join(ddir, '*.jsonl')):
-        for line in open(f):
+    import gzip
+    for f in glob.glob(os.path.join(ddir, '*.jsonl')) + glob.glob(os.path.join(ddir, '*.jsonl.gz')):
+        for line in (gzip.open(f, 'rt', encoding='utf-8') if f.endswith('.gz') else open(f, encoding='utf-8')):
             try: p = json.loads(line)
             except Exception: continue
-            DET[p['url']] = p
+            DET[p['url']] = {'url': p['url'], 'title': p.get('title', ''), 'type': p.get('type', ''), 'vendor': p.get('vendor', ''), 'tags': p.get('tags') or [], 'text': p.get('text', '')}
     print('shop products with details', len(DET))
+    # facts kept from the previous build for shops that are not re-harvested (supermarkets, English wineries): sources/legacy_details.csv
+    LEG = {}
+    lp = P + 'sources/legacy_details.csv'
+    if os.path.exists(lp):
+        for r in csv.DictReader(open(lp, encoding='utf-8')):
+            sc = {}
+            for part in (r['scores'] or '').split(' ; '):
+                m = re.match(r'(.+?): ([\d.]+)(/20)?$', part.strip())
+                if m: sc[m.group(1)] = (float(m.group(2)), m.group(3) or '')
+            bl = [(m.group(1), float(m.group(2))) for m in re.finditer(r'([^,%]+?)\s+([\d.]+)%', r['grape_blend'] or '')]
+            LEG[r['url']] = {'country': r['country'], 'region': r['region'], 'appellation': r['appellation'], 'color': r['color'],
+                             'grapes': [g.strip() for g in r['grapes'].split(',') if g.strip()],
+                             'aromas': [a.strip() for a in r['aromas'].split(',') if a.strip()] if r['aromas_source'].startswith('shop') else [],
+                             'style': [], 'scores': sc, 'blend': [(g.strip(), v) for g, v in bl] if r['blend_source'].startswith('shop') else []}
+        print('legacy facts', len(LEG))
     PAGE = {}   # url -> {critic: (score, scale)} read from product pages (optional 2nd argument: folder of JSONL)
     NORM = {'antonio galloni': 'Vinous', 'vinous media': 'Vinous', 'vinous': 'Vinous', 'robert parker': 'Wine Advocate', "robert parker's wine advocate": 'Wine Advocate',
             'the wine advocate': 'Wine Advocate', 'wine advocate': 'Wine Advocate', 'parker': 'Wine Advocate', 'jancis robinson': 'Jancis Robinson', 'jancisrobinson.com': 'Jancis Robinson',
@@ -291,7 +308,9 @@ def main():
     w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
         urls = [u.split(': ', 1)[1] for u in r['links'].split(' ; ') if ': ' in u]
-        facts = [(u, analyse(r['wine'], DET.get(u))) for u in urls if u in DET] or [(None, analyse(r['wine'], None))]
+        facts = [(u, analyse(r['wine'], DET.get(u))) for u in urls if u in DET] + [(u, dict(LEG[u])) for u in urls if u in LEG and u not in DET]
+        if not facts: facts = [(None, analyse(r['wine'], None))]
+        elif not any(u in DET for u, _ in facts): facts.append((None, analyse(r['wine'], None)))
         for u in urls:
             if u in PAGE:
                 hitf = next((f for uu, f in facts if uu == u), None)
