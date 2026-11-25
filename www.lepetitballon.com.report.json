@@ -1,0 +1,13 @@
+{
+ "name": "Le Petit Ballon",
+ "base": "https://www.lepetitballon.com",
+ "status": "existing",
+ "declared_currency": "EUR",
+ "products": 5508,
+ "pages": 23,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "EUR",
+ "storefront_rate": "1.0",
+ "seconds": 23
+}
