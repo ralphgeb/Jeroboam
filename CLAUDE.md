@@ -222,3 +222,12 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - **Tests:** `SnapshotTests/LogicTests.swift` (merge, spaced review, streak freeze, blind score) runs with snapshots.yml.
 - Still to do: the Claude API behind the Cloudflare worker (key out of the binary), pre-rendered map thumbnails (maps step 2),
   string catalog for localization, splitting Journal.swift.
+
+## Wine price list (rebuilt Nov 2026, content/prices/README.md)
+- ~197k wines from 80 shops. Shopify shops are listed in `tools/prices/shops.json` and harvested on a runner (`harvest_shops.yml`, one job per shop)
+  into the `shop-data` branch; `shopify_to_sources.py` -> `legacy_details.py` -> `merge_prices.py` -> `enrich_details.py` -> `build_app_wines.py` / `build_app_prices.py`.
+- Cleaning rules in `tools/prices/wine_clean.py`: no non-wine (spirits, beer, food, sets, tastings, alcohol-free), no fake producers (importers,
+  consignor codes, agent numbers, shop names, "Chateau"), per-bottle prices from every price option. Blocked shops: In Vintage Tokyo, Nourished Communities, Good Earth Shop.
+- CaskCartel only as a last resort: kept only for a wine + vintage + size no other shop sells (`price_note = high reseller price`).
+- Removed: the `*_shopify_new.csv` companion files and their workflow (wrong shops, importer producers, copied descriptions) and the old per-source
+  CSVs (`us_wine_shops`, `europe_wine_shops`, `more_wine_shops*`; all re-harvested). Non-Shopify English wineries live in `sources/other_shops.csv`.
