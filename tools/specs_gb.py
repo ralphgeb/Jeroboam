@@ -343,7 +343,9 @@ HIERARCHY = {
     }},
     "australia": {"snap": "ADM2", "pdo_auto": {"cc": "AU", "prefix": "Australia:", "min": 0.003, "skip": ["Australia", "Victoria", "South Australia", "Queensland",
               "South Eastern", "Southern New South Wales", "Western Plains", "Big Rivers", "Central Victoria", "North East Victoria", "Western Victoria",
-              "Murray Darling", "Swan Hill", "Far North", "Fleurieu", "Mount Lofty Ranges", "Barossa", "Lower Muurray", "Limestone Coast", "Port Phillip", "Goulburn Valley"]}, "groups": {
+              "Murray Darling", "Swan Hill", "Far North", "Fleurieu", "Mount Lofty Ranges", "Barossa", "Lower Muurray", "Limestone Coast", "Port Phillip", "Goulburn Valley",
+              "South West Australia", "Greater Perth", "Central Ranges", "Northern Rivers", "Northern Slopes", "Hunter Valley", "South Coast",
+              "Eastern Plains, Inland and North of Western Australia", "Central Western Australia", "West Australian South East Coastal", "The Peninsulas"]}, "groups": {
         "au-wa": ("Western Australia", G("ADM1", ["Western Australia"])),
         "au-sa": ("South Australia", G("ADM1", ["South Australia"])),
         "au-vic": ("Victoria", G("ADM1", ["Victoria"])),

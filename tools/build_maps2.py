@@ -804,22 +804,27 @@ def build_usa():
         pr = Proj(bbox, W)
         tol = 0.55
         land, focus, lk, rv = base_layers(pr, bbox, ["USA"], tol=tol)
-        areas, ids = [], set()
+        items, geoms, ids, fixed = [], {}, set(), {}   # (id, name, level, parent)
+        def add_children(f, pid, lv):
+            # AVAs inside this AVA, and the AVAs inside those: Sonoma Coast > Russian River Valley > Green Valley
+            for cn in (f["properties"].get("contains") or "").split("|"):
+                cf = av.get(cn.strip())
+                if not cf: continue
+                cid = WD.AVA_IDS.get(cn.strip(), slug(cn))
+                if cid in ids: continue
+                ids.add(cid)
+                geoms[cid] = shape(cf["geometry"]).buffer(0)
+                items.append((cid, cn.strip(), lv, pid))
+                if lv < 2: add_children(cf, cid, lv + 1)
         for i, (name, aid, col) in enumerate(tops):
             f = av.get(name)
             if not f: print("   ! AVA missing", name); continue
-            areas.append(area_record(pr, aid, name, 0, cidx(col, i), shape(f["geometry"]).buffer(0), tol,
-                                     grapes=None, min_area=2))
-            ids.add(aid)
-            if child_levels and f["properties"].get("contains"):
-                for cn in f["properties"]["contains"].split("|"):
-                    cf = av.get(cn.strip())
-                    if not cf: continue
-                    cid = WD.AVA_IDS.get(cn.strip(), slug(cn))
-                    if cid in ids: continue
-                    ids.add(cid)
-                    areas.append(area_record(pr, cid, cn.strip(), 1, cidx(col, i), shape(cf["geometry"]).buffer(0), tol,
-                                             parent=aid, min_area=1))
+            ids.add(aid); geoms[aid] = shape(f["geometry"]).buffer(0)
+            items.append((aid, name, 0, None)); fixed[aid] = PALETTE[cidx(col, i)]
+            if child_levels: add_children(f, aid, 1)
+        colmap = atlas_colors([(a, lv, p) for a, n, lv, p in items], geoms, fixed)
+        areas = [area_record(pr, a, n, lv, colmap.get(a, 0), geoms[a], tol, parent=p, min_area=2 if lv == 0 else 1)
+                 for a, n, lv, p in items]
         areas = [a for a in areas if a]
         areas.sort(key=lambda a: (a["lv"], -sum(len(s) for s in a["shapes"])))
         write(mid, doc(mid, title, pr, land, focus, lk, rv, areas, cities_of(pr, cities), labels_of(pr, labels),
