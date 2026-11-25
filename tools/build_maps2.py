@@ -1025,8 +1025,11 @@ def build_gb(only=None):
             for i, (rid, n, g, _) in enumerate(children + [(a, b, c, None) for a, b, c in lv0_extra]):
                 col[rid] = cidx(None, i)
                 areas.append(area_record(pr, rid, n, 1 if small.get(rid) else 0, col[rid], g, tol, min_area=1, soft=True))
+        lvl = {a["id"]: a["lv"] for a in areas if a}
         for rid, n, g, par in subs:
-            areas.append(area_record(pr, rid, n, 1, col.get(par, 0), g, tol, parent=par, min_area=1, soft=True))
+            # one level below the place it sits in: a DO inside a region is level 1, a pago inside a DO level 2
+            areas.append(area_record(pr, rid, n, min(2, lvl.get(par, 0) + 1), col.get(par, 0), g, tol, parent=par, min_area=1, soft=True))
+            lvl[rid] = min(2, lvl.get(par, 0) + 1)
         areas = [a for a in areas if a]
         areas.sort(key=lambda a: a["lv"])
         fb = [g for iso in isos for _, g in gb_units(iso, "ADM1")]
@@ -1363,6 +1366,26 @@ class _ArUnits:
                     return g
         return None
 SOUTH_UNITS["argentina"] = _ArUnits()
+
+class _NzUnits:
+    """New Zealand: the registered GI boundary (IPONZ geodata on the southern-data branch), else admin districts."""
+    units = []
+    def __call__(self, a):
+        u = a["units"]
+        if "gi" not in u: return None
+        fp = os.path.join(SOUTH, "nz_gi", u["gi"] + ".geojson")
+        if os.path.exists(fp):
+            g = unary_union([shape(f["geometry"]).buffer(0) for f in json.load(open(fp))["features"] if f.get("geometry")]).buffer(0)
+            if not g.is_empty:
+                u["free"], u["vin"] = False, 0
+                print(f"   {a['id']}: official GI boundary")
+                return g
+        if u.get("fb"):
+            adm, names = u["fb"]
+            got = [g for n, g in gb_units("NZL", adm) if n in names]
+            if got: return unary_union(got)
+        return None   # a circle (free) when given, below
+SOUTH_UNITS["new-zealand"] = _NzUnits()
 
 if __name__ == "__main__":
     which = set(sys.argv[1:])

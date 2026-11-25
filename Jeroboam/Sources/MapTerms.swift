@@ -34,20 +34,25 @@ struct MapTerms {
         case "tuscany":
             return MapTerms(level: ["Denominations (DOC/DOCG)", "Communes"], hint: ["Denominations (DOC/DOCG) of Tuscany", "Communes inside the denominations"], places: "Communes")
         case "spain":
-            return MapTerms(level: ["Regions", "Denominations (DO/DOCa)"], hint: ["The autonomous regions", "Denominations (DO/DOCa) inside them"])
+            return MapTerms(level: ["Regions", "Denominations (DO/DOCa)", "Pagos & sub-zones"],
+                            hint: ["The autonomous regions", "Denominations (DO/DOCa) inside them", "Vinos de Pago and sub-zones inside the DOs"])
         case "portugal":
             return MapTerms(level: ["Regions", "Denominations (DOC)"], hint: ["The wine regions", "Denominations (DOC) and sub-regions"])
         case "germany":
-            return MapTerms(level: ["Regions (Anbaugebiete)", "Districts"], hint: ["The 13 wine regions (Anbaugebiete)", "Districts inside the regions"])
+            return MapTerms(level: ["Regions (Anbaugebiete)", "Districts (Bereiche)", "Villages"],
+                            hint: ["The 13 wine regions (Anbaugebiete)", "Districts (Bereiche) inside the regions", "Famous wine villages"])
         case "austria":
-            return MapTerms(level: ["Regions", "Districts (DAC)"], hint: ["The wine regions", "Districts, many of them DAC"])
+            return MapTerms(level: ["Regions", "Districts (DAC)", "Villages"], hint: ["The wine regions", "Districts, many of them DAC", "Famous wine villages"])
         case "hungary":
             return MapTerms(level: ["Regions", "Districts"], hint: ["The wine regions", "Wine districts inside the regions"])
         case "greece":
-            return MapTerms(level: ["Regions", "Zones (PDO/PGI)"], hint: ["The regions", "Zones (PDO/PGI) inside them"])
+            return MapTerms(level: ["Regions", "Zones (PDO)", "Appellations (PDO)"], hint: ["The regions", "Zones (PDO) inside them", "Appellations inside the zones"])
         case "california", "napa-sonoma", "pacific-northwest":
             return MapTerms(level: ["Regions", "AVAs"], hint: ["The big wine regions", "American Viticultural Areas (AVAs)"])
-        case "australia", "south-australia":
+        case "south-australia":
+            return MapTerms(level: ["Zones (GI)", "Regions (GI)", "Subregions (GI)"],
+                            hint: ["The wine zones (Geographical Indications)", "Wine regions inside the zones", "Subregions inside the regions"])
+        case "australia":
             return MapTerms(level: ["States", "Regions (GI)"], hint: ["The wine states", "Wine regions (Geographical Indications)"])
         case "new-zealand":
             return MapTerms(level: ["Regions (GI)", "Sub-regions (GI)", "Districts"],

@@ -164,3 +164,29 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - Settings is one card under "About you" (`settingsCard()` in ProfileView); More maps, Foldable preview and lookup cost line live in the TestFlight section (TestFlight-only); footer shows "Jero(TM)".
 - Cellar: stat tiles open graphs (`CellarCharts.swift`, Swift Charts); list/tiles open a bottle via `navigationDestination(item:)`; `Thumb` crops with `Color.clear.overlay`.
 - Wine DB: `tools/prices/build_app_wines.py` now writes 18 columns (col 17 = grape percents); `JournalStore.refreshFromShopList()` re-prices shop-priced bottles and re-applies DB details when the list is updated.
+
+## Maps, round 3 (three levels everywhere, official boundaries)
+- **Draw order:** `MapGeometry` sorts areas by level, then by size (largest first): regions always sit behind their appellations,
+  whatever the JSON order. Sub-areas without their own page open their parent's guide (`regionForMapArea` also matches `highlight`).
+- **`build_south` (build_maps2.py, specs in `tools/specs_south.py`)**: generic three-level builder used for Chile, Argentina,
+  New Zealand, South Africa, Germany, Austria and South Australia (`python3 tools/build_maps2.py chile` etc.). Area units:
+  name lists of the country's base admin level, `("ADM2", [...])`, `{"pdo": name, "cc": "DE"}` (EU PDO boundary),
+  `{"file": "Australia/..."}` (WineRegions GI), `{"cell": (lat, lon)}` (the parent shared out by Voronoi cells: German Bereiche),
+  `{"c", "r", "free": True, "vin": km}` (a circle shared with neighbouring circles, trimmed to the real vineyards), plus
+  Argentina departments-within-province / OSM districts and NZ IPONZ GIs (`SOUTH_UNITS`). Containers with no units are the union
+  of their children. `atlas_colors` gives touching areas of one level different colors (also used by the extras builder).
+- New map layers: `vines` (OSM landuse=vineyard parcels, drawn darker from 1.3x zoom), `pois` (OSM wineries; dots from 2.6x when
+  there are more than 60), `communes`/`villages` (the comunas/departments the areas are made of, and town names).
+- **Source data for these maps**: `tools/southern_fetch.py` + `.github/workflows/southern.yml` (runs on push of either file to a
+  claude/** branch, or by hand) -> `southern-data` branch: IPONZ GI geodata, OSM vineyards/wineries/places, Argentine districts,
+  reference texts (Chile Decree 464, Argentina IG list, SA Wine of Origin booklet). Extract into ~/geo/south.
+  Chile = Decree 464 comuna lists (regions > valleys > zones/areas). South Africa: Wine of Origin has no open GIS data;
+  districts snap to municipal wards, wards are circles trimmed to vineyards.
+- **Extras builder**: `pdo: {cc, names, skip}` adds every official EU PDO of the country, nested under the smallest area that
+  holds it (Romania, Bulgaria, Croatia, Slovenia, Cyprus; Bulgarian/Greek names transliterated); `pdo_name` makes a region take
+  its official boundary; `ava_auto: {states}` adds every AVA of the states; `auto_nest: true` nests AVAs inside AVAs; circles share
+  ground by Voronoi. Japan is in the main Atlas (`atlas: true`).
+- `build_gb` nested denominations (a pago inside a DO) are now one level deeper (Spain and Greece have level 2).
+  `pdo_used.txt` is merged across runs (building one map keeps the others' credits).
+- Sources: geoBoundaries (CC BY 4.0), EU PDO boundaries (Candiago et al. 2022, CC BY 4.0), UC Davis AVA project (CC0),
+  adynak/WineRegions (CC0), IPONZ (NZ Crown copyright, CC BY 4.0), OpenStreetMap (ODbL) — credits page should list OSM and IPONZ.

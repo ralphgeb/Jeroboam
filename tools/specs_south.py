@@ -408,3 +408,50 @@ SOUTH_AUSTRALIA = {
         A("piccadilly-valley", "Piccadilly Valley", 2, "adelaide-hills", F("Piccadilly_Valley")),
     ],
 }
+
+# ================================================================= NEW ZEALAND (official GIs from the IPONZ register)
+# {"gi": slug} = the registered boundary (southern-data/nz_gi/<slug>.geojson); "fb" = admin districts used until it is there.
+def G(slug, *fb, adm="ADM2", within=None):
+    return {"gi": slug, "fb": (adm, list(fb)), "within": within}
+def S2(lat, lon, km, vin=1.2):
+    return {"c": (lat, lon), "r": km, "free": True, "vin": vin}
+NEW_ZEALAND = {
+    "map": "new-zealand", "iso": "NZL", "adm": "ADM2", "cc": "nz", "bbox": None, "max_pois": 300,
+    "colors": {"marlborough": "claret", "central-otago": "violet", "hawkes-bay": "orange"},
+    "areas": [
+        # ---- level 0: the regional GIs
+        A("northland", "Northland", 0, None, G("northland", "Far North District", "Whangarei District", "Kaipara District")),
+        A("auckland", "Auckland", 0, None, G("auckland", adm="ADM1", *[]) | {"fb": ("ADM1", ["Auckland Region"])}),
+        A("gisborne", "Gisborne", 0, None, G("gisborne", "Gisborne District")),
+        A("hawkes-bay", "Hawke's Bay", 0, None, G("hawkes-bay", "Hastings District", "Napier City", "Central Hawke's Bay District")),
+        A("wairarapa", "Wairarapa", 0, None, G("wairarapa", "South Wairarapa District", "Carterton District", "Masterton District")),
+        A("nelson", "Nelson", 0, None, G("nelson", "Nelson City", "Tasman District")),
+        A("marlborough", "Marlborough", 0, None, G("marlborough", "Marlborough District")),
+        A("canterbury", "Canterbury", 0, None, G("canterbury", "Hurunui District", "Waimakariri District", "Christchurch City", "Selwyn District")),
+        A("waitaki", "Waitaki Valley North Otago", 0, None, G("waitaki-valley-north-otago", "Waitaki District")),
+        A("central-otago", "Central Otago", 0, None, G("central-otago", "Central Otago District", "Queenstown-Lakes District")),
+        # ---- level 1: GIs inside them, and the sub-regions
+        A("matakana", "Matakana", 1, "auckland", G("matakana") | {"fb": None, "c": (-36.36, 174.72), "r": 9, "free": True}),
+        A("kumeu", "Kumeu", 1, "auckland", G("kumeu") | {"fb": None, "c": (-36.77, 174.55), "r": 8, "free": True}),
+        A("waiheke", "Waiheke Island", 1, "auckland", G("waiheke-island", "Waiheke Local Board Area")),
+        A("central-hawkes-bay", "Central Hawke's Bay", 1, "hawkes-bay", G("central-hawkes-bay", "Central Hawke's Bay District")),
+        A("gimblett-gravels", "Gimblett Gravels", 1, "hawkes-bay", S2(-39.625, 176.75, 3.5, vin=0.6)),
+        A("bridge-pa", "Bridge Pa Triangle", 1, "hawkes-bay", S2(-39.66, 176.78, 4, vin=0.8)),
+        A("esk-valley", "Esk Valley", 1, "hawkes-bay", S2(-39.40, 176.84, 5)),
+        A("te-awanga", "Te Awanga", 1, "hawkes-bay", S2(-39.64, 176.98, 3.5)),
+        A("martinborough", "Martinborough", 1, "wairarapa", G("martinborough") | {"fb": None, "c": (-41.22, 175.46), "r": 7, "free": True}),
+        A("gladstone", "Gladstone", 1, "wairarapa", G("gladstone") | {"fb": None, "c": (-41.08, 175.65), "r": 8, "free": True}),
+        A("moutere", "Moutere Hills", 1, "nelson", S2(-41.25, 173.02, 9)), A("waimea", "Waimea Plains", 1, "nelson", S2(-41.33, 173.17, 6)),
+        A("wairau-valley", "Wairau Valley", 1, "marlborough", S2(-41.52, 173.80, 14, vin=1.5)),
+        A("southern-valleys", "Southern Valleys", 1, "marlborough", S2(-41.58, 173.72, 9, vin=1.2)),
+        A("awatere-valley", "Awatere Valley", 1, "marlborough", S2(-41.68, 174.05, 11, vin=1.5)),
+        A("waipara", "North Canterbury", 1, "canterbury", G("north-canterbury", "Hurunui District", "Waimakariri District")),
+        A("bannockburn", "Bannockburn", 1, "central-otago", S2(-45.08, 169.16, 4, vin=0.8)),
+        A("cromwell-basin", "Lowburn, Pisa & Bendigo", 1, "central-otago", S2(-44.93, 169.20, 10, vin=1.0)),
+        A("gibbston", "Gibbston", 1, "central-otago", S2(-45.02, 168.92, 5, vin=0.8)),
+        A("alexandra", "Alexandra", 1, "central-otago", S2(-45.25, 169.38, 8, vin=1.0)),
+        A("wanaka", "Wanaka", 1, "central-otago", S2(-44.70, 169.15, 6, vin=1.0)),
+        # ---- level 2
+        A("waipara-valley", "Waipara Valley", 2, "waipara", G("waipara-valley") | {"fb": None, "c": (-43.06, 172.75), "r": 10, "free": True}),
+    ],
+}
