@@ -1,0 +1,13 @@
+{
+ "name": "Vin Chicago",
+ "base": "https://www.vinchicago.com",
+ "status": "new",
+ "declared_currency": "USD",
+ "products": 2091,
+ "pages": 9,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 8
+}
