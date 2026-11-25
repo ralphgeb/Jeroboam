@@ -1,0 +1,13 @@
+{
+ "name": "Zyn",
+ "base": "https://zyn.ca",
+ "status": "existing",
+ "declared_currency": "CAD",
+ "products": 10914,
+ "pages": 44,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "CAD",
+ "storefront_rate": "1.0",
+ "seconds": 44
+}
