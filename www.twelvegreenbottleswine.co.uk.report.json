@@ -1,0 +1,13 @@
+{
+ "name": "Twelve Green Bottles",
+ "base": "https://www.twelvegreenbottleswine.co.uk",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 851,
+ "pages": 4,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 8
+}
