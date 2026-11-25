@@ -114,7 +114,8 @@ Jeroboam/Sources/        Swift app
 DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, wine, style, journalempty, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
 
 ## Release procedure
-Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run number; never claim an upload without evidence.
+Same as Ahead: push to `main`, run build-ios.yml; never claim an upload without evidence. The TestFlight build number is NOT the run
+number: Xcode's upload renumbers to the next free number (run 80 = build 65). `asc-status.yml` lists the latest builds and their state.
 
 ## Status
 - **Jero Plus** ($0.99/month, `com.ralphgeb.jero.plus.monthly`, `Plus.swift`, gates in `Gates.swift`): Levels 2–3 + their guidebooks,
@@ -239,6 +240,6 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
   FlavorIcons keywords: "iron" -> pebbles, "beeswax" -> honeycomb. Check new aroma words against both after a price-list rebuild.
 
 ## Builds 78–80 (Nov 2026)
-- Build 78: app round + maps cleanup + price list (196,898 wines). Build 80: first build with CloudKit (CLOUDKIT_READY=true,
+- Build 78: app round + maps cleanup + price list (196,898 wines). Run 80 (TestFlight build 65): first build with CloudKit (CLOUDKIT_READY=true,
   container iCloud.com.ralphgeb.jero registered), Sync now animation, full-screen label photo (`PhotoViewer.swift`, `TappablePhoto`),
   iCloud photo uploads capped at 1 MB (`JournalCloud.uploadCopy`). Run 79 failed only on the CloudKit step's path (fixed).
