@@ -156,7 +156,9 @@ final class JournalStore {
         let maxSide: CGFloat = 1600
         let s = min(1, maxSide / max(image.size.width, image.size.height))
         let size = CGSize(width: image.size.width * s, height: image.size.height * s)
-        let img = UIGraphicsImageRenderer(size: size).image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
+        // scale 1: 1,600 real pixels (the default renderer scale is the screen's, which made 4,800-pixel files)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
         guard let data = img.jpegData(compressionQuality: 0.8) else { return nil }
         try? data.write(to: Self.photoDir.appendingPathComponent(name))
         return name
@@ -173,17 +175,34 @@ final class JournalStore {
     static func thumbnail(_ name: String?) -> UIImage? {
         guard let n = name else { return nil }
         if let t = thumbs.object(forKey: n as NSString) { return t }
-        let url = photoDir.appendingPathComponent(n) as CFURL
-        guard let src = CGImageSourceCreateWithURL(url, nil) else { return nil }
-        let opts: [CFString: Any] = [kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true,
-                                     kCGImageSourceThumbnailMaxPixelSize: 600]
-        guard let cg = CGImageSourceCreateThumbnailAtIndex(src, 0, opts as CFDictionary) else { return image(n) }
-        let t = UIImage(cgImage: cg)
+        guard let t = downsampled(n, maxPixel: 600) else { return image(n) }
         thumbs.setObject(t, forKey: n as NSString)
         return t
     }
-    /// A photo file was replaced (a bigger copy came from iCloud): its small copy is made again.
-    static func forgetThumbnail(_ name: String) { thumbs.removeObject(forKey: name as NSString) }
+
+    /// The photo for a page header and the full-screen viewer (at most 2,400 px), decoded once: older versions saved
+    /// photos at 4,800 px, too big to decode each time a page is drawn.
+    private static let large: NSCache<NSString, UIImage> = { let c = NSCache<NSString, UIImage>(); c.countLimit = 6; return c }()
+    static func display(_ name: String?) -> UIImage? {
+        guard let n = name else { return nil }
+        if let t = large.object(forKey: n as NSString) { return t }
+        guard let t = downsampled(n, maxPixel: 2400) ?? image(n) else { return nil }
+        large.setObject(t, forKey: n as NSString)
+        return t
+    }
+
+    /// A smaller copy of a saved photo, read straight from the file (ImageIO: fast, little memory, any thread).
+    static func downsampled(_ name: String?, maxPixel: Int) -> UIImage? {
+        guard let n = name else { return nil }
+        let url = photoDir.appendingPathComponent(n) as CFURL
+        guard let src = CGImageSourceCreateWithURL(url, [kCGImageSourceShouldCache: false] as CFDictionary) else { return nil }
+        let opts: [CFString: Any] = [kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true,
+                                     kCGImageSourceShouldCacheImmediately: true, kCGImageSourceThumbnailMaxPixelSize: maxPixel]
+        guard let cg = CGImageSourceCreateThumbnailAtIndex(src, 0, opts as CFDictionary) else { return nil }
+        return UIImage(cgImage: cg)
+    }
+    /// A photo file was replaced (a bigger copy came from iCloud): its small copies are made again.
+    static func forgetThumbnail(_ name: String) { thumbs.removeObject(forKey: name as NSString); large.removeObject(forKey: name as NSString) }
 
     func upsert(_ e: JournalEntry) {
         if let i = entries.firstIndex(where: { $0.id == e.id }) { entries[i] = e } else { entries.insert(e, at: 0) }
@@ -1748,7 +1767,7 @@ struct EntryDetailView: View {
         if let e = journal.entries.first(where: { $0.id == entryID }) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if let img = JournalStore.image(e.photo) {
+                    if let img = JournalStore.display(e.photo) {
                         TappablePhoto(image: img)   // a tap shows the whole picture
                     }
                     HStack(alignment: .top) {
@@ -1847,7 +1866,7 @@ struct CellarDetailView: View {
         if let b = journal.cellar.first(where: { $0.id == bottleID }) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
-                    if let img = JournalStore.image(b.photo) {
+                    if let img = JournalStore.display(b.photo) {
                         TappablePhoto(image: img)   // a tap shows the whole picture
                     }
                     ScreenHeader(eyebrow: "In your cellar", title: b.title,

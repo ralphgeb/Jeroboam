@@ -144,20 +144,26 @@ final class CloudSync {
         if let j = journal, j.persist, !JournalCloud.working {
             // until CloudKit has synced once (or in builds without it) the journal also travels in the key-value store
             // (1 MB in all, bottles with small pictures), so nothing stops syncing while the switch-over happens
+            // the pictures are made off the main thread (decoding label photos there froze the app)
             let entries = j.entries.map { e -> JournalEntry in var c = e; c.photo = nil; return c }
-            var data: Data? = nil
-            for (w, h, q) in [(288, 360, 0.6), (192, 240, 0.58), (144, 180, 0.55), (96, 120, 0.55)] as [(CGFloat, CGFloat, CGFloat)] {
-                let cellar = j.cellar.map { b -> CellarBottle in
-                    var c = b
-                    if let img = JournalStore.image(b.photo) { c.thumb = Self.bottleThumb(img, w: w, h: h, quality: q) }
-                    c.photo = nil
-                    return c
+            let bottles = j.cellar
+            let kv = self.kv
+            Task.detached(priority: .utility) {
+                if let d = try? JSONEncoder().encode(entries), d.count < 400_000 { kv.set(d, forKey: "journal") }
+                // one small decode per photo, then smaller sizes until the list fits
+                let sources = Dictionary(bottles.compactMap { b in JournalStore.downsampled(b.photo, maxPixel: 720).map { (b.id, $0) } },
+                                         uniquingKeysWith: { a, _ in a })
+                for (w, h, q) in [(288, 360, 0.6), (192, 240, 0.58), (144, 180, 0.55), (96, 120, 0.55)] as [(CGFloat, CGFloat, CGFloat)] {
+                    let cellar = bottles.map { b -> CellarBottle in
+                        var c = b
+                        if let img = sources[b.id] { c.thumb = CloudSync.bottleThumb(img, w: w, h: h, quality: q) }
+                        c.photo = nil
+                        return c
+                    }
+                    if let d = try? JSONEncoder().encode(cellar), d.count < 600_000 { kv.set(d, forKey: "cellar"); break }
                 }
-                data = try? JSONEncoder().encode(cellar)
-                if let d = data, d.count < 600_000 { break }
+                kv.synchronize()
             }
-            if let d = try? JSONEncoder().encode(entries), d.count < 400_000 { kv.set(d, forKey: "journal") }
-            if let d = data, d.count < 600_000 { kv.set(d, forKey: "cellar") }
         }
         kv.set(Array(Self.deleted), forKey: "deleted")
         kv.synchronize()
@@ -262,6 +268,8 @@ final class JournalCloud {
     weak var journal: JournalStore?
     private var running = false
     private var again = false
+    /// After a failed pass (offline, schema not deployed, iCloud full) automatic syncs wait a while; Sync now still tries.
+    private var failedAt: Date?
     private lazy var container = CKContainer(identifier: Self.containerID)
     private var db: CKDatabase { container.privateCloudDatabase }
     private let zoneID = CKRecordZone.ID(zoneName: "Journal", ownerName: CKCurrentUserDefaultName)
@@ -297,6 +305,7 @@ final class JournalCloud {
     func sync() {
         guard Self.configured, Account.shared.syncEnabled else { return }
         if running { again = true; return }
+        if let f = failedAt, Date().timeIntervalSince(f) < 600 { return }
         running = true
         Task {
             await run()
@@ -323,6 +332,7 @@ final class JournalCloud {
             }
             try await pull(j)
             try await push(j)
+            failedAt = nil
             UserDefaults.standard.set(true, forKey: "jero.ck.ok")
             Account.shared.markSynced()
         } catch let e as CKError where e.code == .changeTokenExpired {
@@ -331,7 +341,8 @@ final class JournalCloud {
             // the zone went away (erased on another phone): start clean, everything goes up again next time
             zoneReady = false; token = nil; sent = [:]
         } catch {
-            // offline, iCloud full, throttled: the next change or launch tries again
+            // offline, iCloud full, throttled, record types not in production yet: try again in a while
+            failedAt = Date()
         }
     }
 
@@ -422,19 +433,30 @@ final class JournalCloud {
         var records: [CKRecord] = []
         var prints: [String: String] = [:]
         let sentNow = sent
+        // what changed since the last sync (cheap), then its photos made ready off the main thread
+        var changes: [(type: String, rid: String, data: Data, fp: String, photo: String?)] = []
         func add(type: String, id: UUID, data: Data?, photo: String?) {
             guard let data else { return }
             let rid = id.uuidString
             let fp = Self.fingerprint(data)
             if sentNow[rid] == fp { return }
-            let rec = CKRecord(recordType: type, recordID: CKRecord.ID(recordName: rid, zoneID: zoneID))
-            rec["payload"] = data
-            if let p = photo, let url = Self.uploadCopy(of: p) { rec["photo"] = CKAsset(fileURL: url) }
-            records.append(rec)
-            prints[rid] = fp
+            changes.append((type, rid, data, fp, photo))
         }
         for e in j.entries { add(type: "Tasting", id: e.id, data: payload(e), photo: e.photo) }
         for b in j.cellar { add(type: "Bottle", id: b.id, data: payload(b), photo: b.photo) }
+        let names = Set(changes.compactMap { $0.photo })
+        let files: [String: URL] = await Task.detached(priority: .utility) {
+            var out: [String: URL] = [:]
+            for n in names { if let u = JournalCloud.uploadCopy(of: n) { out[n] = u } }
+            return out
+        }.value
+        for c in changes {
+            let rec = CKRecord(recordType: c.type, recordID: CKRecord.ID(recordName: c.rid, zoneID: zoneID))
+            rec["payload"] = c.data
+            if let p = c.photo, let url = files[p] { rec["photo"] = CKAsset(fileURL: url) }
+            records.append(rec)
+            prints[c.rid] = c.fp
+        }
         let toDelete = CloudSync.deleted.subtracting(deletedSent).map { CKRecord.ID(recordName: $0, zoneID: zoneID) }
         guard !records.isEmpty || !toDelete.isEmpty else { return }
 
@@ -461,25 +483,21 @@ final class JournalCloud {
         deletedSent = deletedAfter
     }
 
-    /// The photo file to send: the phone's own copy when it is 1 MB or less (most are 300–700 KB at 1,600 px), else a
-    /// re-compressed copy in the caches folder stepped down until it fits. iCloud keeps a sharp picture without the bulk.
-    private static func uploadCopy(of name: String) -> URL? {
+    /// The photo file to send: the phone's own copy when it is 1 MB or less, else a smaller copy (1,600 px, stepped down
+    /// in quality until it fits) kept in the caches folder and reused while the photo is unchanged. Runs off the main thread.
+    nonisolated static func uploadCopy(of name: String) -> URL? {
         let url = JournalStore.photoDir.appendingPathComponent(name)
         let fm = FileManager.default
-        guard fm.fileExists(atPath: url.path) else { return nil }
-        let size = (try? fm.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
+        guard let attrs = try? fm.attributesOfItem(atPath: url.path) else { return nil }
+        let size = (attrs[.size] as? Int) ?? 0
         if size <= 1_000_000 { return url }
-        guard let img = UIImage(contentsOfFile: url.path) else { return url }
         let dir = fm.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("icloud-upload", isDirectory: true)
         try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
         let out = dir.appendingPathComponent(name)
-        var image = img
-        let maxSide: CGFloat = 1600
-        if max(img.size.width, img.size.height) > maxSide {
-            let s = maxSide / max(img.size.width, img.size.height)
-            let sz = CGSize(width: img.size.width * s, height: img.size.height * s)
-            image = UIGraphicsImageRenderer(size: sz).image { _ in img.draw(in: CGRect(origin: .zero, size: sz)) }
-        }
+        // already made from this version of the photo
+        if let made = (try? fm.attributesOfItem(atPath: out.path))?[.modificationDate] as? Date,
+           let changed = attrs[.modificationDate] as? Date, made >= changed { return out }
+        guard let image = JournalStore.downsampled(name, maxPixel: 1600) else { return url }
         for q in [0.75, 0.65, 0.55, 0.45] as [CGFloat] {
             if let d = image.jpegData(compressionQuality: q), d.count <= 1_000_000 || q == 0.45 {
                 try? d.write(to: out, options: .atomic)
