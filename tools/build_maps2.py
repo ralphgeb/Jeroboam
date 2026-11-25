@@ -1342,7 +1342,7 @@ class _ArUnits:
                 try:
                     ls = [LineString(w) for w in r["ways"] if len(w) > 1]
                     g = unary_union(list(polygonize(unary_union(ls)))).buffer(0)
-                    if not g.is_empty: self._osm.append((norm(r["n"]), r["lv"], g))
+                    if not g.is_empty: self._osm.append((norm(re.sub(r"^(Distrito|Departamento) ", "", r["n"])), r["lv"], g))
                 except Exception:
                     pass
             print(f"   OSM districts: {len(self._osm)}")
