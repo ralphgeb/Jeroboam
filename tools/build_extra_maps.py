@@ -66,6 +66,14 @@ def geom_of(rid, r, spec, built, avas):
         g = poly_ll(r["poly"])
     elif "circle" in r:           # a village or small zone: centre [lat, lon] and radius in km
         la, lo = r["circle"]["c"]
+        # `village`: the centre is the village itself when the place list (OpenStreetMap, southern-data) has it nearby
+        if r.get("village") and spec.get("vines"):
+            want = B.norm(r["village"])
+            near = [p for p in B._south_json(f"osm_places_{spec['vines']}.json", [])
+                    if want in (B.norm(p["n"]), B.norm(p.get("local", ""))) and abs(p["ll"][0] - la) < 0.3 and abs(p["ll"][1] - lo) < 0.4]
+            if near:
+                p = min(near, key=lambda p: (p["ll"][0] - la) ** 2 + (p["ll"][1] - lo) ** 2)
+                la, lo = p["ll"]; r["circle"]["c"] = [la, lo]
         g = Point(lo, la).buffer(B.km2deg(r["circle"]["r"]), 32)
         g = affinity.scale(g, xfact=1 / max(0.2, math.cos(math.radians(la))), yfact=1, origin=(lo, la))
     else:
@@ -187,6 +195,21 @@ def build_map(spec, avas):
     for r in sorted(regions, key=depth):
         g = geom_of(r["id"], r, spec, built, avas)
         if g is not None: built[r["id"]] = g
+    # real vineyards (OpenStreetMap): a circle keeps only the ground around its vines, like a printed atlas
+    vines = []
+    if spec.get("vines"):
+        la0, lo0, la1, lo1 = spec["bbox"]
+        from shapely.geometry import box as _b
+        vines = B.south_vines(spec["vines"], _b(lo0, la0, lo1, la1))
+        if vines:
+            vu = unary_union(vines)
+            for r in regions:
+                if "circle" in r and r["id"] in built:
+                    g = built[r["id"]]
+                    fp = vu.intersection(g.buffer(B.km2deg(1)))
+                    if fp.area > g.area * 0.01:
+                        k = B.km2deg(r.get("vin", 1.2))
+                        built[r["id"]] = g.intersection(fp.buffer(k, 12).buffer(-k * 0.6, 12))
     # places drawn as circles share the ground between them (Voronoi cells), so neighbours never overlap
     circ = [r for r in regions if "circle" in r and r["id"] in built]
     if len(circ) > 1:
@@ -233,8 +256,32 @@ def build_map(spec, avas):
         fb = [shape(f["geometry"]) for f in B.admin1 if f["properties"]["adm0_a3"] in spec["states"]]
     cities = B.cities_of(pr, [(c[0], c[1], c[2], c[3] if len(c) > 3 else 1) for c in spec.get("cities", [])])
     labels = B.labels_of(pr, [tuple(l) for l in spec.get("labels", [])])
+    extra = None
+    if spec.get("vines"):
+        extra = {}
+        allg = unary_union(list(built.values())).buffer(B.km2deg(3))
+        view = B.box(-20, -20, pr.W + 20, pr.H + 20)
+        vs = [v for v in vines if v.intersects(allg)]
+        if vs:
+            u = unary_union([v.buffer(B.km2deg(0.03)) for v in vs]).buffer(-B.km2deg(0.02))
+            extra["vines"] = B.enc_polys(pr.geom(u).intersection(view), tol * 0.5, 0.4)
+        ws, seen = [], set()
+        for w in B.south_points(f"osm_wineries_{spec['vines']}.json", allg):
+            k = B.norm(w["n"])
+            if k in seen or len(w["n"]) > 40: continue
+            seen.add(k)
+            x, y = pr.xy(w["ll"][1], w["ll"][0])
+            ws.append({"n": w["n"], "x": round(x), "y": round(y)})
+        if ws: extra["pois"] = ws[:300]
+        vill = []
+        for p in B.south_points(f"osm_places_{spec['vines']}.json", allg):
+            if p["p"] in ("town", "village"):
+                x, y = pr.xy(p["ll"][1], p["ll"][0])
+                vill.append({"n": p["n"], "x": round(x), "y": round(y)})
+        if vill: extra["villages"] = vill
+        print(f"   vineyards {len(vs)}, wineries {len(ws)}, villages {len(vill)}")
     B.write(mid, B.doc(mid, spec["title"], pr, land, focus, lk, rv, areas, cities, labels,
-                       B.admin_borders(pr, bbox, fb, tol * 1.5)))
+                       B.admin_borders(pr, bbox, fb, tol * 1.5), extra=extra))
 
 def main():
     only = set(sys.argv[1:])

@@ -2,6 +2,7 @@ map: georgia
 atlas: true
 title: Georgia
 iso: [GEO]
+vines: ge
 focus: [GEO]
 bbox: [41.0, 40.0, 43.6, 46.8]
 W: 2800
@@ -128,7 +129,8 @@ regions:
   - id: tsinandali
     name: Tsinandali
     parent: telavi
-    circle: {c: [41.917, 45.567], r: 5.5}
+    circle: {c: [41.893, 45.57], r: 4.5}
+    village: Tsinandali
     clip: telavi
     grapes: []
     local: [Rkatsiteli, Mtsvane]
@@ -136,7 +138,8 @@ regions:
   - id: napareuli
     name: Napareuli
     parent: telavi
-    circle: {c: [41.945, 45.385], r: 5.5}
+    circle: {c: [41.985, 45.385], r: 4.5}
+    village: Napareuli
     clip: telavi
     grapes: []
     local: [Saperavi, Rkatsiteli]
@@ -144,7 +147,8 @@ regions:
   - id: mukuzani
     name: Mukuzani
     parent: gurjaani
-    circle: {c: [41.885, 45.620], r: 5.0}
+    circle: {c: [41.733, 45.705], r: 4}
+    village: Mukuzani
     clip: gurjaani
     grapes: []
     local: [Saperavi]
@@ -152,7 +156,8 @@ regions:
   - id: vazisubani
     name: Vazisubani
     parent: gurjaani
-    circle: {c: [41.800, 45.690], r: 5.0}
+    circle: {c: [41.805, 45.672], r: 4}
+    village: Vazisubani
     clip: gurjaani
     grapes: []
     local: [Rkatsiteli, Mtsvane, Kisi]
@@ -160,7 +165,8 @@ regions:
   - id: akhasheni
     name: Akhasheni
     parent: gurjaani
-    circle: {c: [41.775, 45.805], r: 4.5}
+    circle: {c: [41.717, 45.762], r: 4}
+    village: Akhasheni
     clip: gurjaani
     grapes: []
     local: [Saperavi]
@@ -168,56 +174,179 @@ regions:
   - id: kindzmarauli
     name: Kindzmarauli
     parent: kvareli
-    circle: {c: [41.915, 45.845], r: 5.0}
+    circle: {c: [41.955, 45.795], r: 5}
+    village: Kvareli
     clip: kvareli
     grapes: []
     local: [Saperavi]
     summary: "The best-known semi-sweet red in Georgia, made from Saperavi grown on steep south-facing slopes: velvety, with dark cherry and pomegranate. Approximate zone."
   - id: kardenakhi
     name: Kardenakhi
-    parent: kvareli
-    circle: {c: [41.950, 45.760], r: 4.0}
-    clip: kvareli
+    parent: gurjaani
+    circle: {c: [41.678, 45.83], r: 3.5}
+    village: Kardenakhi
+    clip: gurjaani
     grapes: []
     local: [Rkatsiteli, Saperavi, Kisi]
     summary: "A fortified-style dessert wine area of Kvareli; the name also means a strong, rich white. Approximate zone."
   - id: sviri
     name: Sviri
-    parent: imereti
-    circle: {c: [42.150, 43.000], r: 7.0}
-    clip: imereti
+    parent: zestaponi
+    circle: {c: [42.13, 43.03], r: 5}
+    village: Sviri
+    clip: zestaponi
     grapes: []
     local: [Tsolikouri, Tsitska, Krakhuna]
     summary: "A white appellation near Zestafoni and Terjola, using Tsolikouri and Tsitska. Approximate zone."
   - id: khvanchkara
     name: Khvanchkara
-    parent: racha-lechkhumi
-    circle: {c: [42.470, 43.100], r: 8.0}
-    clip: racha-lechkhumi
+    parent: ambrolauri
+    circle: {c: [42.553, 43.047], r: 5}
+    village: Khvanchkara
+    clip: ambrolauri
     grapes: []
     local: [Alexandrouli, Mujuretuli]
     summary: "Georgia's most famous semi-sweet red, from steep terraces by Ambrolauri: Alexandrouli and Mujuretuli, with raspberry, spice and a gentle sweetness. Said to be Stalin's favourite wine."
   - id: tvishi
     name: Tvishi
-    parent: racha-lechkhumi
-    circle: {c: [42.620, 42.870], r: 6.0}
-    clip: racha-lechkhumi
+    parent: tsageri
+    circle: {c: [42.534, 42.789], r: 4}
+    village: Tvishi
+    clip: tsageri
     grapes: []
     local: [Tsolikouri, Tsitska]
     summary: "A rare, naturally sweet white from Tsolikouri grown in Lechkhumi. Approximate zone."
   - id: ojaleshi
     name: Ojaleshi
-    parent: samegrelo
-    circle: {c: [42.550, 42.000], r: 9.0}
-    clip: samegrelo
+    parent: martvili
+    circle: {c: [42.44, 42.38], r: 6}
+    village: Salkhino
+    clip: martvili
     grapes: []
     local: [Ojaleshi]
     summary: "A light, fruity red from the Ojaleshi grape (Samegrelo): red berries and spice, with fresh acidity. Approximate zone."
   - id: atenuri
     name: Atenuri
-    parent: kartli
-    circle: {c: [41.970, 43.930], r: 7.0}
-    clip: kartli
+    parent: gori
+    circle: {c: [41.928, 44.098], r: 5}
+    village: Ateni
+    clip: gori
     grapes: []
     local: [Chinuri, Goruli Mtsvane]
     summary: "A white and sparkling-wine zone in the Atenuri gorge near Gori, with the Chinuri grape for traditional-method sparkling wine. Approximate zone."
+  # ---- municipalities of the wine regions outside Kakheti (level 1)
+  - id: zestaponi
+    name: Zestaponi
+    parent: imereti
+    units: {adm: GEO/ADM2, names: [Zestaponi]}
+    clip: imereti
+    summary: "The heart of Imereti's vineyards, home of the Sviri appellation and of Tsitska and Tsolikouri whites."
+  - id: baghdati-vani
+    name: Baghdati, Vani & Terjola
+    parent: imereti
+    units: {adm: GEO/ADM2, names: [Baghdati, Vani, Terjola]}
+    clip: imereti
+    summary: "Imeretian hills where light, fresh whites are made in qvevri with very little skin contact."
+  - id: ambrolauri
+    name: Ambrolauri
+    parent: racha-lechkhumi
+    units: {adm: GEO/ADM2, names: [Ambrolauri]}
+    clip: racha-lechkhumi
+    summary: "Racha's wine valley on the Rioni, source of the naturally semi-sweet Khvanchkara."
+  - id: tsageri
+    name: Tsageri
+    parent: racha-lechkhumi
+    units: {adm: GEO/ADM2, names: [Tsageri]}
+    clip: racha-lechkhumi
+    summary: "Lechkhumi's steep slopes on the Tskhenistskali river: Tvishi, Usakhelouri and Okureshi."
+  - id: gori
+    name: Gori & Kaspi
+    parent: kartli
+    units: {adm: GEO/ADM2, names: [Gori, Kaspi]}
+    clip: kartli
+    summary: "Shida Kartli, the cool upland heart of Georgia: Ateni's sparkling and still whites from Chinuri and Goruli Mtsvane."
+  - id: bolnisi
+    name: Bolnisi
+    parent: kartli
+    units: {adm: GEO/ADM2, names: [Bolnisi]}
+    clip: kartli
+    summary: "Kvemo Kartli's appellation in the south, on volcanic soils, known for Rkatsiteli and Saperavi."
+  - id: martvili
+    name: Martvili
+    parent: samegrelo
+    units: {adm: GEO/ADM2, names: [Martvili, Tsalenjikha]}
+    clip: samegrelo
+    summary: "Samegrelo's foothills, where Ojaleshi is grown, often on trees, around Salkhino."
+  # ---- more protected appellations (level 2), each around its village
+  - id: teliani
+    name: Teliani
+    parent: telavi
+    circle: {c: [41.935, 45.47], r: 3.5}
+    village: Tsinandali
+    clip: telavi
+    local: [Cabernet Sauvignon]
+    summary: "A dry red appellation near Telavi, where Cabernet Sauvignon has been grown since the 19th century."
+  - id: gurjaani-pdo
+    name: Gurjaani
+    parent: gurjaani
+    circle: {c: [41.743, 45.801], r: 3.5}
+    village: Gurjaani
+    clip: gurjaani
+    local: [Rkatsiteli, Mtsvane]
+    summary: "A dry white appellation of Rkatsiteli and Mtsvane around the town of Gurjaani."
+  - id: kotekhi
+    name: Kotekhi
+    parent: gurjaani
+    circle: {c: [41.76, 45.64], r: 3}
+    village: Kotekhi
+    clip: gurjaani
+    local: [Saperavi]
+    summary: "A small appellation for dry rosé and red Saperavi on the slopes of the Gombori range."
+  - id: kvareli-pdo
+    name: Kvareli
+    parent: kvareli
+    circle: {c: [41.94, 45.76], r: 3.5}
+    village: Kvareli
+    clip: kvareli
+    local: [Saperavi]
+    summary: "Dry red Saperavi from the vineyards around Kvareli, on the cool northern side of the Alazani valley."
+  - id: manavi
+    name: Manavi
+    parent: sagarejo
+    circle: {c: [41.795, 45.355], r: 4}
+    village: Manavi
+    clip: sagarejo
+    local: [Mtsvane, Rkatsiteli]
+    summary: "A dry white appellation built on Kakhuri Mtsvane, around the village of Manavi in Sagarejo."
+  - id: khashmi
+    name: Khashmi Saperavi
+    parent: sagarejo
+    circle: {c: [41.73, 45.19], r: 4}
+    village: Khashmi
+    clip: sagarejo
+    local: [Saperavi]
+    summary: "Dry red Saperavi from Khashmi at the western edge of Kakheti."
+  - id: tibaani
+    name: Tibaani
+    parent: sighnaghi
+    circle: {c: [41.64, 45.95], r: 4}
+    village: Tibaani
+    clip: sighnaghi
+    local: [Rkatsiteli]
+    summary: "Amber (qvevri) Rkatsiteli from Tibaani near Sighnaghi, fermented and aged on the skins."
+  - id: usakhelouri
+    name: Usakhelouri
+    parent: tsageri
+    circle: {c: [42.66, 42.64], r: 3}
+    village: Zubi
+    clip: tsageri
+    local: [Usakhelouri]
+    summary: "One of Georgia's rarest and most expensive wines: naturally semi-sweet red from a few hectares of the Usakhelouri grape."
+  - id: okureshi
+    name: Okureshi
+    parent: tsageri
+    circle: {c: [42.63, 42.75], r: 3}
+    village: Okureshi
+    clip: tsageri
+    local: [Usakhelouri, Orbeluri Ojaleshi]
+    summary: "A tiny Lechkhumi appellation for semi-sweet reds from Usakhelouri and Orbeluri Ojaleshi."
