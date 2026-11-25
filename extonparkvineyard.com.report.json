@@ -1,0 +1,13 @@
+{
+ "name": "Exton Park",
+ "base": "https://extonparkvineyard.com",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 23,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 1
+}
