@@ -1,0 +1,13 @@
+{
+ "name": "Black Market",
+ "base": "https://www.blackmarket.co.nz",
+ "status": "existing",
+ "declared_currency": "NZD",
+ "products": 14536,
+ "pages": 59,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "NZD",
+ "storefront_rate": "1.0",
+ "seconds": 58
+}
