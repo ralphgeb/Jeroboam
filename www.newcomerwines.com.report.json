@@ -1,0 +1,13 @@
+{
+ "name": "Newcomer Wines",
+ "base": "https://www.newcomerwines.com",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 630,
+ "pages": 3,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 4
+}
