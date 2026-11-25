@@ -1,0 +1,13 @@
+{
+ "name": "Parcelle Wine",
+ "base": "https://parcellewine.com",
+ "status": "new",
+ "declared_currency": "USD",
+ "products": 10417,
+ "pages": 42,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 33
+}
