@@ -1,0 +1,13 @@
+{
+ "name": "Aylesbury Estate",
+ "base": "https://aylesburyestate.com.au",
+ "status": "new",
+ "declared_currency": "AUD",
+ "products": 13,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "AUD",
+ "storefront_rate": "1.0",
+ "seconds": 1
+}
