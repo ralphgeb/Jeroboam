@@ -2,14 +2,15 @@
 # one row per wine + vintage + bottle size, duplicates merged, prices averaged across shops.
 # Sources: shopify_shops.csv (every Shopify shop, rebuilt by shopify_to_sources.py from the shop-data branch) and the
 # older per-source CSVs for shops that are not on Shopify (UK supermarkets via trolley.co.uk, English wineries) or that
-# the last harvest could not reach. CaskCartel and other resellers are never used.
+# the last harvest could not reach. CaskCartel (an overpriced reseller) is a last resort: its offers in sources/reseller_only.csv
+# are kept only for a wine + vintage + size that no other shop sells; such rows say price_note = 'high reseller price'.
 # Run: python3 tools/prices/merge_prices.py content/prices/wine_prices.csv
 import csv,re,sys,unicodedata,collections,statistics,datetime,os
 from urllib.parse import urlparse
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from wine_clean import is_nonwine, pack_count, NOT_PRODUCER, names_in_title, fold as wfold
 RATES={'EUR':1.0,'GBP':0.83735,'USD':1.0990,'AUD':1.6487,'CAD':1.5723,'NZD':1.9968,'CHF':0.9223}  # ECB reference rates, 2026-11-20
-BLOCKED=('caskcartel','reservebar','wooden-cork','qualityliquorstore','shopwinedirect')
+BLOCKED=('reservebar','wooden-cork','qualityliquorstore','shopwinedirect')
 YEAR=re.compile(r'\b(19[0-9]\d|20[0-2]\d)\b'); NV=re.compile(r'\bNV\b|non[- ]vintage|sans mill',re.I)
 FMT={'half':375,'half bottle':375,'magnum':1500,'double magnum':3000,'jeroboam':3000,'rehoboam':4500,'methuselah':6000,'imperial':6000,'salmanazar':9000}
 def ml(name,size):
@@ -30,7 +31,7 @@ import csv,re,sys,collections as C,statistics as S,unicodedata
 D=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','content','prices')+'/'
 SHOP_NAMES=set()
 offers=[]; dropped=C.Counter()
-def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=False):
+def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=False,reseller=False):
     if any(b in url for b in BLOCKED): dropped['reseller']+=1; return
     name=re.sub(r'\s*\|\s*',' ',name).strip()
     if is_nonwine(name): dropped['not wine']+=1; return
@@ -47,7 +48,7 @@ def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=Fals
     except ValueError: return
     if price<=0: return
     offers.append(dict(region=region,shop=shop,location=loc,name=name,producer=producer,vintage=vint,size=v,price=price,cur=cur,
-        eur=price/RATES[cur],instock=instock,url=url,key=k))
+        eur=price/RATES[cur],instock=instock,url=url,key=k,reseller=reseller))
 host=lambda u: urlparse(u).netloc
 SH=D+'sources/shopify_shops.csv'
 harvested=set()
@@ -66,6 +67,10 @@ for x in csv.DictReader(open(D+'sources/us_wine_shops.csv')):
     if old(x['url']): add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price_usd'],'USD',x['in_stock'],x['url'])
 for x in list(csv.DictReader(open(D+'sources/europe_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops.csv')))+list(csv.DictReader(open(D+'sources/more_wine_shops_2.csv'))):
     if old(x['url']): add({'UK':'UK wine shop','US':'US wine shop','Australia':'Australia wine shop','Canada':'Canada wine shop','Zealand':'New Zealand wine shop','Ireland':'Ireland wine shop','Switzerland':'Switzerland wine shop','wine)':'UK wine shop'}.get(x['location'].split()[-1],'EU wine shop'),x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'])
+RS=D+'sources/reseller_only.csv'
+if os.path.exists(RS):
+    for x in csv.DictReader(open(RS)):
+        add('US wine shop',x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'],reseller=True)
 print('dropped',dict(dropped))
 print('offers',len(offers))
 # group: exact key+vintage+size first (merges same-shop duplicates), then fuzzy across shops
@@ -106,7 +111,13 @@ def clean(n):
     n=re.sub(r'\(\s*\)','',n)
     return re.sub(r'\s{2,}',' ',re.sub(r'[\s,\-–]+$','',n)).strip(' ,-')
 out=[]
+rs_dropped=rs_kept=0
 for xs in G.values():
+    shops_ok=[o for o in xs if not o['reseller']]
+    if shops_ok and len(shops_ok)<len(xs): rs_dropped+=1
+    elif not shops_ok: rs_kept+=1
+    reseller_only=not shops_ok
+    xs=shops_ok or xs   # the reseller only when nobody else sells this wine + vintage + size
     live=[o for o in xs if o['instock']=='yes'] or xs
     per={}
     for o in sorted(live,key=lambda o:o['eur']): per.setdefault(o['shop'],o)  # one price per shop (lowest)
@@ -123,7 +134,7 @@ for xs in G.values():
       'sold_in':' / '.join(sorted({o['region'] for o in xs})),
       'prices':' ; '.join(f"{o['shop']} ({o['location']}): {o['price']:.2f} {o['cur']}" for o in sorted(use,key=lambda o:o['eur'])),
       'cheapest_link':min(use,key=lambda o:o['eur'])['url'],
-      'price_note':'',
+      'price_note':'high reseller price' if reseller_only else '',
       'links':' ; '.join(f"{o['shop']}: {o['url']}" for o in sorted(use,key=lambda o:o['eur']))})
 # owner's manual overrides (content/prices/sources/manual_overrides.csv): the price becomes the given one and its link the cheapest
 _ov = D + 'sources/manual_overrides.csv'
@@ -147,4 +158,5 @@ if os.path.exists(_ov):
 out.sort(key=lambda r:(re.sub(r'^[^a-z0-9]+','',unicodedata.normalize('NFKD',r['wine']).encode('ascii','ignore').decode().lower()),r['vintage'],r['size_ml']))
 cols=list(out[0].keys())
 w=csv.DictWriter(open(sys.argv[1],'w',newline=''),fieldnames=cols); w.writeheader(); w.writerows(out)
+print('CaskCartel: kept',rs_kept,'wines only it sells; dropped from',rs_dropped,'wines other shops sell')
 print('wines',len(out),'multi-shop',C.Counter(min(r['shops_count'],5) for r in out),'in stock',sum(r['in_stock']=='yes' for r in out))

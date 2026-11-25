@@ -21,7 +21,7 @@ for r in csv.DictReader(open(P + 'wine_prices.csv', encoding='utf-8')):
         if ': ' not in part:
             continue
         u = part.split(': ', 1)[1].strip()
-        if urlparse(u).netloc in harvested or 'caskcartel' in u:
+        if urlparse(u).netloc in harvested:
             continue
         out.setdefault(u, {c: d.get(c, '') for c in cols if c != 'url'} | {'url': u})
 with open(P + 'sources/legacy_details.csv', 'w', newline='', encoding='utf-8') as f:
