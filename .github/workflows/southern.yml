@@ -7,6 +7,9 @@ on:
       fetch:
         description: "Steps (docs nz admin places osm)"
         default: "osm places"
+      cc:
+        description: "Countries (cl ar nz za ge hu); empty = all"
+        default: ""
   push:
     branches: ["claude/**"]
     paths: [".github/workflows/southern.yml", "tools/southern_fetch.py"]
@@ -24,7 +27,8 @@ jobs:
       - run: pip install geopandas pyogrio shapely pandas
       - run: python tools/southern_fetch.py
         env:
-          FETCH: ${{ inputs.fetch || 'admin' }}
+          FETCH: ${{ inputs.fetch || 'osm places' }}
+          CC: ${{ inputs.cc || 'ge hu' }}
       - name: Publish to the southern-data branch
         if: always()
         run: |

@@ -1213,6 +1213,24 @@ def build_south(cfg, extra_units=None):
             if any(b["id"] not in geoms and b["units"] is None for b in kids): continue
             ch = [geoms[b["id"]] for b in kids if b["id"] in geoms]
             if ch: geoms[a["id"]] = unary_union(ch).buffer(0)
+    # lakes are water, not vineyard (Lake Balaton, Lake Neuchâtel…): no area covers them, so a tap on the water opens nothing
+    lake_ll = unary_union([shape(f["geometry"]).buffer(0) for f in lakes if shape(f["geometry"]).intersects(near)])
+    if not lake_ll.is_empty:
+        for k in list(geoms):
+            g = geoms[k].difference(lake_ll)
+            if not g.is_empty: geoms[k] = g
+    if cfg.get("exclusive"):
+        # neighbouring areas of the same level never share ground (official boundaries built from scattered villages
+        # overlap a little): the smaller area keeps the overlap, so a tap always lands on one of them
+        for lv in (1, 2):
+            sib = sorted([a for a in areas if a["lv"] == lv and a["id"] in geoms], key=lambda a: geoms[a["id"]].area)
+            taken = None
+            for a in sib:
+                g = geoms[a["id"]]
+                if taken is not None:
+                    cut = g.difference(taken.buffer(km2deg(0.15)))
+                    if not cut.is_empty and cut.area > g.area * 0.2: geoms[a["id"]] = cut
+                taken = g if taken is None else unary_union([taken, g])
     for a in areas:   # a child never spills out of its parent
         p = a["parent"]
         if p in geoms and a["id"] in geoms and a.get("clip", True):
@@ -1395,7 +1413,7 @@ SOUTH_UNITS["new-zealand"] = _NzUnits()
 if __name__ == "__main__":
     which = set(sys.argv[1:])
     # the southern maps are built by build_south now; `gb` keeps the other admin-boundary countries
-    GB_ONLY = [m for m in GB.COUNTRIES if m not in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia")]
+    GB_ONLY = [m for m in GB.COUNTRIES if m not in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia", "hungary")]
     if not which or "fr" in which: build_france()
     if not which or "it" in which: build_italy()
     if not which or "us" in which: build_usa()
@@ -1403,7 +1421,7 @@ if __name__ == "__main__":
     if not which or "gb" in which: build_gb(GB_ONLY)
     elif which & set(GB_ONLY): build_gb(which & set(GB_ONLY))
     if not which or "lb" in which: build_lebanon()
-    for k in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia"):
+    for k in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia", "hungary"):
         cfg = getattr(SO, k.upper().replace("-", "_"), None)
         if cfg and cfg.get("bbox") is None:   # frame, cities and labels from the legacy spec
             lg = {m["id"]: m for m in LEGACY}[k]

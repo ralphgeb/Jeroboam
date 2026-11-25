@@ -114,10 +114,14 @@ BOXES = {  # s, w, n, e
     "ar": [(-37.6, -70.3, -30.3, -66.3), (-29.8, -69.0, -22.5, -64.8), (-42.5, -72.5, -37.5, -62.5), (-46.5, -72.5, -42.5, -66.0)],
     "nz": [(-46.8, 166.0, -34.3, 179.0)],
     "za": [(-34.9, 17.6, -28.3, 24.0)],
+    "ge": [(41.0, 41.4, 42.8, 46.8)],      # Georgia: Kakheti, Kartli, Imereti, Racha-Lechkhumi, Samegrelo
+    "hu": [(45.7, 16.1, 48.6, 22.9)],      # Hungary
 }
+ONLY = set((os.environ.get("CC") or "").split())   # e.g. CC="ge hu": just these countries
 def r5(c): return [round(c["lon"], 5), round(c["lat"], 5)]
 def osm_vineyards():
     for cc, boxes in BOXES.items():
+        if ONLY and cc not in ONLY: continue
         polys, wineries, seen = [], [], set()
         for b in boxes:
             for (a, bb, c, d) in tiles(*b):
@@ -144,7 +148,7 @@ def osm_vineyards():
                     for el in r["elements"]:
                         t = el.get("tags", {}); c0 = el.get("center") or el
                         if "lat" not in c0 or not t.get("name"): continue
-                        wineries.append({"n": t["name"], "ll": [round(c0["lat"], 5), round(c0["lon"], 5)],
+                        wineries.append({"n": t.get("name:en") or t["name"], "ll": [round(c0["lat"], 5), round(c0["lon"], 5)],
                                          "w": t.get("website", ""), "k": t.get("craft") or t.get("tourism")})
                 except Exception as e:
                     log("  winery tile failed", cc, e)
@@ -185,7 +189,9 @@ def osm_admin_ar():
 
 def osm_places():
     """Village and locality names inside the wine areas of Chile, New Zealand and South Africa (labels when zoomed in)."""
-    for cc, boxes in (("cl", [(-39.5, -73.8, -27.0, -69.8)]), ("nz", [(-46.8, 166.0, -34.3, 179.0)]), ("za", [(-34.9, 17.6, -31.0, 23.0)])):
+    for cc, boxes in (("cl", [(-39.5, -73.8, -27.0, -69.8)]), ("nz", [(-46.8, 166.0, -34.3, 179.0)]), ("za", [(-34.9, 17.6, -31.0, 23.0)]),
+                      ("ge", [(41.0, 41.4, 42.8, 46.8)]), ("hu", [(45.7, 16.1, 48.6, 22.9)])):
+        if ONLY and cc not in ONLY: continue
         out = []
         for b in boxes:
             for (a, bb, c, d) in tiles(*b, step=4.0):
@@ -194,7 +200,8 @@ def osm_places():
                     r = overpass(q)
                     for el in r["elements"]:
                         t = el.get("tags", {})
-                        if t.get("name"): out.append({"n": t["name"], "p": t["place"], "ll": [round(el["lat"], 5), round(el["lon"], 5)]})
+                        if t.get("name"): out.append({"n": t.get("name:en") or t["name"], "local": t["name"], "p": t["place"],
+                                                      "ll": [round(el["lat"], 5), round(el["lon"], 5)]})
                 except Exception as e:
                     log("places failed", cc, e)
         json.dump(out, open(f"{OUT}/osm_places_{cc}.json", "w"), separators=(",", ":"), ensure_ascii=False)

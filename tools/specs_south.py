@@ -463,3 +463,49 @@ NEW_ZEALAND = {
         A("waipara-valley", "Waipara Valley", 2, "waipara", G("waipara-valley") | {"fb": None, "c": (-43.06, 172.75), "r": 10, "free": True}),
     ],
 }
+
+# ================================================================= HUNGARY (official PDO boundaries, Candiago et al. 2022)
+# 6 wine regions > 22 districts > the smaller PDOs inside districts and the classic wine villages.
+def H(name): return {"pdo": name, "cc": "HU"}
+HUNGARY = {
+    "map": "hungary", "iso": "HUN", "adm": "ADM2", "bbox": None, "cc": "hu", "exclusive": True,
+    "colors": {"hu-tokaj": "gold", "hu-upper-hungary": "claret", "balaton": "teal", "hu-pannon": "violet", "hu-duna": "orange",
+               "hu-upper-pannon": "green"},
+    "areas": [
+        # ---- level 0: the wine regions (Balaton, Duna, Pannon have their own regional PDO)
+        A("hu-tokaj", "Tokaj", 0), A("hu-upper-hungary", "Upper Hungary", 0), A("hu-upper-pannon", "Upper Pannon", 0),
+        A("balaton", "Balaton", 0, None, H("Balaton")), A("hu-duna", "Duna", 0, None, H("Duna")), A("hu-pannon", "Pannon", 0, None, H("Pannon")),
+        # ---- level 1: the 22 wine districts
+        A("tokaj", "Tokaj", 1, "hu-tokaj", H("Tokaj")),
+        A("eger", "Eger", 1, "hu-upper-hungary", H("Eger")), A("matra", "Mátra", 1, "hu-upper-hungary", H("Mátra")),
+        A("bukk", "Bükk", 1, "hu-upper-hungary", H("Bükk")),
+        A("sopron", "Sopron", 1, "hu-upper-pannon", H("Sopron")), A("mor", "Mór", 1, "hu-upper-pannon", H("Mór")),
+        A("neszmely", "Neszmély", 1, "hu-upper-pannon", H("Neszmély")), A("pannonhalma", "Pannonhalma", 1, "hu-upper-pannon", H("Pannonhalma")),
+        A("etyek-buda", "Etyek-Buda", 1, "hu-upper-pannon", H("Etyek-Buda")),
+        A("badacsony", "Badacsony", 1, "balaton", H("Badacsony")), A("balaton-felvidek", "Balaton-felvidék", 1, "balaton", H("Balaton-felvidék")),
+        A("balatonfured-csopak", "Balatonfüred-Csopak", 1, "balaton", H("Balatonfüred-Csopak")),
+        A("balatonboglar", "Balatonboglár", 1, "balaton", H("Balatonboglár")), A("nagy-somlo", "Nagy-Somló", 1, "balaton", H("Nagy-Somló")),
+        A("zala", "Zala", 1, "balaton", H("Zala")),
+        A("kunsag", "Kunság", 1, "hu-duna", H("Kunság")), A("hajos-baja", "Hajós-Baja", 1, "hu-duna", H("Hajós-Baja")),
+        A("csongrad", "Csongrád", 1, "hu-duna", H("Csongrád")),
+        A("pecs", "Pécs", 1, "hu-pannon", H("Pécs")), A("szekszard", "Szekszárd", 1, "hu-pannon", H("Szekszárd")),
+        A("tolna", "Tolna", 1, "hu-pannon", H("Tolna")), A("villany", "Villány", 1, "hu-pannon", H("Villány")),
+        # ---- level 2: the smaller PDOs inside the districts
+        A("somlo", "Somló", 2, "nagy-somlo", H("Somlói")), A("tihany", "Tihany", 2, "balatonfured-csopak", H("Tihany")),
+        A("csopak", "Csopak", 2, "balatonfured-csopak", H("Csopak")), A("kali", "Káli", 2, "balaton-felvidek", H("Káli"), clip=False),
+        A("izsaki-arany-sarfeher", "Izsáki Arany Sárfehér", 2, "kunsag", H("Izsáki Arany Sárfehér")),
+        A("soltvadkert", "Soltvadkert", 2, "kunsag", H("Soltvadkerti")), A("monor", "Monor", 2, "kunsag", H("Monor")),
+        A("debroi-harslevelu", "Debrői Hárslevelű", 2, "eger", H("Debrői Hárslevelű")),
+        # ---- level 2: the classic wine villages (a circle around the village, inside its district)
+        A("mad", "Mád", 2, "tokaj", V(48.19, 21.28, 2.6)), A("tarcal", "Tarcal", 2, "tokaj", V(48.13, 21.345, 2.4)),
+        A("tokaj-village", "Tokaj", 2, "tokaj", V(48.12, 21.41, 2.2)), A("tallya", "Tállya", 2, "tokaj", V(48.235, 21.225, 2.4)),
+        A("mezozombor", "Mezőzombor", 2, "tokaj", V(48.15, 21.26, 2)), A("bodrogkeresztur", "Bodrogkeresztúr", 2, "tokaj", V(48.16, 21.36, 2)),
+        A("erdobenye", "Erdőbénye", 2, "tokaj", V(48.27, 21.36, 2.4)), A("olaszliszka", "Olaszliszka", 2, "tokaj", V(48.25, 21.43, 2.2)),
+        A("sarospatak", "Sárospatak", 2, "tokaj", V(48.32, 21.57, 2.6)), A("satoraljaujhely", "Sátoraljaújhely", 2, "tokaj", V(48.39, 21.65, 2.6)),
+        A("eger-town", "Eger", 2, "eger", V(47.90, 20.37, 2.6)), A("noszvaj", "Noszvaj", 2, "eger", V(47.93, 20.47, 2.2)),
+        A("villany-village", "Villány", 2, "villany", V(45.87, 18.45, 2.4)), A("palkonya", "Palkonya", 2, "villany", V(45.90, 18.39, 1.8)),
+        A("siklos", "Siklós", 2, "villany", V(45.85, 18.30, 2.4)), A("szekszard-town", "Szekszárd", 2, "szekszard", V(46.35, 18.70, 3)),
+        A("badacsonytomaj", "Badacsonytomaj", 2, "badacsony", V(46.80, 17.51, 2.2)), A("szigliget", "Szigliget", 2, "badacsony", V(46.80, 17.43, 2)),
+        A("fertorakos", "Fertőrákos", 2, "sopron", V(47.72, 16.65, 2.2)),
+    ],
+}
