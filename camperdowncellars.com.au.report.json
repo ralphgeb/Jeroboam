@@ -1,0 +1,13 @@
+{
+ "name": "Camperdown Cellars",
+ "base": "https://camperdowncellars.com.au",
+ "status": "existing",
+ "declared_currency": "AUD",
+ "products": 5254,
+ "pages": 22,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "AUD",
+ "storefront_rate": "1.0",
+ "seconds": 18
+}
