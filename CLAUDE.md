@@ -237,3 +237,8 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
   Iron, Olive, Tea, Anise, Sage, Rosemary, Pine, Bay leaf, Cinnamon, Ginger, Tar, Jasmine, Dried fruit, Beeswax, Blood orange):
   matched by `ContentStore.aromaCategory` (family colour, blind-tasting aroma score), never drawn on the wheel.
   FlavorIcons keywords: "iron" -> pebbles, "beeswax" -> honeycomb. Check new aroma words against both after a price-list rebuild.
+
+## Builds 78–80 (Nov 2026)
+- Build 78: app round + maps cleanup + price list (196,898 wines). Build 80: first build with CloudKit (CLOUDKIT_READY=true,
+  container iCloud.com.ralphgeb.jero registered), Sync now animation, full-screen label photo (`PhotoViewer.swift`, `TappablePhoto`),
+  iCloud photo uploads capped at 1 MB (`JournalCloud.uploadCopy`). Run 79 failed only on the CloudKit step's path (fixed).
