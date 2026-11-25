@@ -8,7 +8,8 @@
 import csv,re,sys,unicodedata,collections,statistics,datetime,os
 from urllib.parse import urlparse
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-from wine_clean import is_nonwine, pack_count, NOT_PRODUCER, names_in_title, fold as wfold
+from wine_clean import is_nonwine, pack_count, NOT_PRODUCER, names_in_title, fold as wfold, wine_signal, tidy_title
+import enrich_details as ED   # grape and place names, to recognise wines in sources without a product type
 RATES={'EUR':1.0,'GBP':0.83735,'USD':1.0990,'AUD':1.6487,'CAD':1.5723,'NZD':1.9968,'CHF':0.9223}  # ECB reference rates, 2026-11-20
 BLOCKED=('reservebar','wooden-cork','qualityliquorstore','shopwinedirect')
 YEAR=re.compile(r'\b(19[0-9]\d|20[0-2]\d)\b'); NV=re.compile(r'\bNV\b|non[- ]vintage|sans mill',re.I)
@@ -30,12 +31,17 @@ def key(name):
 import csv,re,sys,collections as C,statistics as S,unicodedata
 D=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','content','prices')+'/'
 SHOP_NAMES=set()
+PACK_TXT=re.compile(r'[,(\s-]*\b(?:case of \d+|\d+\s*[x\u00d7]\s*\d+(?:[.,]\d+)?\s*(?:ml|cl|l)|\d+\s*bottles?|pack of \d+|\d+[- ]pack)\b\)?',re.I)
 offers=[]; dropped=C.Counter()
 def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=False,reseller=False):
     if any(b in url for b in BLOCKED): dropped['reseller']+=1; return
     name=re.sub(r'\s*\|\s*',' ',name).strip()
     if is_nonwine(name): dropped['not wine']+=1; return
     if not cased and pack_count(name)!=1: dropped['case or pack']+=1; return
+    if not cased:   # old CSV sources (supermarkets, English wineries) have no product type: need a sign that this is wine
+        name=tidy_title(name)
+        if not wine_signal(name,'',(),ED.GRAPE_RX,ED.PLACE_RX): dropped['no wine signal']+=1; return
+    if cased: name=PACK_TXT.sub('',name).strip(' ,-')   # the price is already per bottle
     producer=(producer or '').strip()
     if producer and (NOT_PRODUCER.match(wfold(producer).strip()) or wfold(producer).strip() in SHOP_NAMES): producer=''
     if producer and not names_in_title(producer,name): name=f'{producer} {name}'
@@ -43,7 +49,7 @@ def add(region,shop,loc,name,producer,vint,size,price,cur,instock,url,cased=Fals
     v=ml(name,size or '')
     if v not in (187,200,250,375,500,620,750,1000,1500,2250,3000,4500,6000,9000,12000,15000,18000): dropped['odd size']+=1; return
     k=key(name)
-    if len(k.split())<2: dropped['name too short']+=1; return
+    if not k or (len(k.split())<2 and len(k)<4): dropped['name too short']+=1; return   # one distinctive word is enough (Sassicaia, Palmer)
     try: price=float(price)
     except ValueError: return
     if price<=0: return
@@ -104,6 +110,7 @@ for b_,items in buckets.items():
 G=C.defaultdict(list)
 for i in range(len(offers)): G[find(i)].append(offers[i])
 def clean(n):
+    n=re.sub(r'[,(\s-]*\b(?:case of \d+|\d+\s*[x\u00d7]\s*\d+(?:[.,]\d+)?\s*(?:ml|cl|l)|\d+\s*bottles?|pack of \d+|\d+[- ]pack)\b\)?','',n,flags=re.I)
     n=re.sub(r'\((?:[^)]*\b(?:ml|cl|l|available|NV|19\d\d|20\d\d)\b[^)]*)\)','',n,flags=re.I)
     n=re.sub(r'\b\d+(?:\.\d+)?\s*(ml|cl|ltr|l)\b','',n,flags=re.I)
     n=re.sub(r'(,\s*)?\b(19\d\d|20[0-2]\d|NV)\b','',n)

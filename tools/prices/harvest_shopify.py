@@ -162,12 +162,14 @@ def main():
     ap.add_argument("--max-pages", type=int, default=400)
     ap.add_argument("--budget", type=int, default=9000, help="seconds per shop before the collection walk stops")
     ap.add_argument("--list", action="store_true", help="print the shop hosts as a JSON list (for the workflow matrix)")
+    ap.add_argument("--skip", default="", help="with --list: hosts to leave out (comma separated)")
     a = ap.parse_args()
     cfg = json.load(open(os.path.join(ROOT, "tools/prices/shops.json")))
     blocked = cfg["blocked"]
     shops = [s for s in cfg["shops"] if not any(b in s["base"] for b in blocked)]
     if a.list:
-        print(json.dumps([urlparse(s['base']).netloc for s in shops])); return
+        skip = set(a.skip.split(","))
+        print(json.dumps([urlparse(s['base']).netloc for s in shops if urlparse(s['base']).netloc not in skip])); return
     if a.only:
         want = a.only.split(",")
         shops = [s for s in shops if urlparse(s['base']).netloc in want or any(w in s['base'] for w in want)]

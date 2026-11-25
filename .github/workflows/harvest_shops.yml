@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "Only these hosts (comma separated, empty = all shops)"
+        description: "Only these hosts (comma separated); empty = all shops; 'missing' = shops not yet on shop-data"
         required: false
         default: ""
   push:
@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: harvest-shops
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   list:
@@ -33,12 +33,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: l
+        # a push only fills in shops missing from shop-data; a manual run without input refreshes every shop
         run: |
-          if [ -n "${{ github.event.inputs.only }}" ]; then
-            python3 -c "import json,sys;print('hosts='+json.dumps(sys.argv[1].split(',')))" "${{ github.event.inputs.only }}" >> "$GITHUB_OUTPUT"
+          ONLY="${{ github.event.inputs.only }}"
+          [ "${{ github.event_name }}" = "push" ] && ONLY=missing
+          if [ "$ONLY" = "missing" ]; then
+            have=$(git ls-remote --exit-code origin refs/heads/shop-data >/dev/null && git fetch -q --depth 1 origin shop-data && git ls-tree --name-only FETCH_HEAD | sed -n 's/\.report\.json$//p' | paste -sd, -)
+            echo "hosts=$(python3 tools/prices/harvest_shopify.py --list --skip "$have")" >> "$GITHUB_OUTPUT"
+          elif [ -n "$ONLY" ]; then
+            python3 -c "import json,sys;print('hosts='+json.dumps(sys.argv[1].split(',')))" "$ONLY" >> "$GITHUB_OUTPUT"
           else
             echo "hosts=$(python3 tools/prices/harvest_shopify.py --list)" >> "$GITHUB_OUTPUT"
           fi
+          cat "$GITHUB_OUTPUT"
       - name: Make sure the shop-data branch exists
         run: |
           if ! git ls-remote --exit-code origin refs/heads/shop-data; then
@@ -50,6 +57,7 @@ jobs:
 
   shop:
     needs: list
+    if: ${{ needs.list.outputs.hosts != '[]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
     strategy:
@@ -67,19 +75,24 @@ jobs:
         run: python3 tools/prices/harvest_shopify.py --out out --only "${{ matrix.host }}" --workers 1 --budget 9000
       - name: Push to shop-data
         run: |
-          set -e
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          H="${{ matrix.host }}"
           mkdir /tmp/sd && cd /tmp/sd && git init -q -b shop-data
-          for i in 1 2 3 4 5 6 7 8 9 10; do
-            git fetch -q --depth 1 "$URL" shop-data && git reset -q --hard FETCH_HEAD
-            cp "$GITHUB_WORKSPACE"/out/* .
-            date -u +%Y-%m-%dT%H:%MZ > HARVESTED_AT
-            git add -A
-            git diff --cached --quiet && exit 0
-            git commit -qm "${{ matrix.host }}"
-            git push -q "$URL" HEAD:shop-data && exit 0
-            sleep $((RANDOM % 20 + 5))
+          for i in $(seq 1 15); do
+            if git fetch -q --depth 1 "$URL" shop-data && git reset -q --hard FETCH_HEAD; then
+              cp "$GITHUB_WORKSPACE"/out/* .
+              date -u +%Y-%m-%dT%H:%MZ > HARVESTED_AT
+              git add -A
+              git diff --cached --quiet || git commit -qm "$H"
+              git push -q "$URL" HEAD:shop-data || true
+            fi
+            # done only when the branch really has this shop's report
+            if git fetch -q --depth 1 "$URL" shop-data && git cat-file -e "FETCH_HEAD:$H.report.json" 2>/dev/null \
+               && [ "$(git show "FETCH_HEAD:$H.report.json" | sha1sum)" = "$(sha1sum < "$GITHUB_WORKSPACE/out/$H.report.json")" ]; then
+              echo "saved $H"; exit 0
+            fi
+            sleep $((RANDOM % 30 + 10))
           done
-          exit 1
+          echo "could not save $H"; exit 1

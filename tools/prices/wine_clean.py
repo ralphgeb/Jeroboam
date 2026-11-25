@@ -21,14 +21,14 @@ NONWINE = re.compile(r"""\b(
   whisk(?:e)?y|bourbon|scotch|rye\s+whiskey|gin|vodka|rum|rhum|tequila|mezcal|cognac|armagnac|calvados|brandy|grappa|eau[- ]de[- ]vie|
   pisco|liquore|lik[oö]r|amaro|amari|aperitivo|bitters?|vermouth|vermut|absinthe|ouzo|raki|arak|schnapps|sake|nihonshu|shochu|soju|umeshu|baijiu|
   beer|biere|birra|cerveza|ipa|lager|pilsner?|stout|kolsch|seltzer|hard\s+seltzer|cider|cidre|sidra|kombucha|
-  non[- ]?alcoholic|alcohol[- ]?free|alcoholfree|dealcoholi[sz]ed|0[.,]0\s*%|0\s*%\s*(?:alc|abv)|analcolic\w*|alkoholfrei|sans\s+alcool|
-  soda|tonic(?:\s+water)?|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
+  non[- ]?alcoholic|alcohol[- ]?free|alcoholfree|de[- ]?alcoholi[sz]ed|alcohol[- ]removed|zero[- ]alcohol|0[.,]0\s*%|0\s*%\s*(?:alc\w*|abv)|traubensaft|grape\s+juice|analcolic\w*|alkoholfrei|sans\s+alcool|
+  soda|tonic(?:\s+water)?|sirop|syrup|cordial|sparkling\s+tea|tea\s+company|tea(?!\s+tree)|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
   crackers?|crisps|salami|truffles?\s+(?:oil|salt)|honey\s+jar|chutney|cookbook|magazine|poster|
   candle|soap|t[- ]?shirt|hoodie|sweatshirt|baseball\s+cap|tote\s+bag|apron|socks|sneakers?|earrings?|necklace|bracelet|handbag|wallet|
   corkscrew|opener|stoppers?|decanter|carafe|glass(?:es|ware)?|tumbler|ice\s+bucket|cooler|chiller|aerator|pourer|wine\s+rack|cellar\s+book|
   ticket|tasting\s+(?:event|class|evening|night|pass|session|ticket)|masterclass|wine\s+class|workshop|supper\s+club|wine\s+tour|tasting\s+experience|
   wine\s+club|club\s+(?:membership|subscription)|membership|subscription|abonnement|bottle\s+deposit|deposit|shipping|delivery\s+charge|insurance|shipping\s+protection|donation|
-  mixed\s+(?:case|dozen|pack|box)|mixed|mystery|bundle|sampler|discovery\s+(?:box|case|pack)|tasting\s+(?:box|kit|set|case|pack)|selection\s+box|
+  mixed\s+(?:case|dozen|pack|box)|mixed|mystery|vin\s+surprise|(?:party|explorer|combo|tray|tasting|discovery|starter|value|vertical|sampler)\s+(?:pack|case|set)|case\s+offer|wine\s+box|set\s+of\s+\d+|tasting(?!\s+(?:room|notes?))|(?:three|four|five|six|twelve)[- ]bottle|kit(?![`'\u2019]s|\s*s\s+coty)|bundle|sampler|discovery\s+(?:box|case|pack)|tasting\s+(?:box|kit|set|case|pack)|selection\s+box|
   hamper|coffret|assortment|variety\s+pack|collection\s+box|advent\s+calendar|gift\s+pack
 )\b""", re.I | re.X)
 NONWINE_TYPE = re.compile(r"spirit|whisk|\bgin\b|\brum\b|vodka|tequila|mezcal|liqueur|beer|\bale\b|lager|cider|\bsake\b|food|snack|pantry|grocer|deli|"
@@ -47,8 +47,11 @@ LIQUEUR = re.compile(r"\bliqueurs?\b", re.I)
 LIQUEUR_WINE = re.compile(r"muscat|muscadelle|topaque|tokay|vin de liqueur|pineau|ratafia|floc", re.I)
 
 
+PACKAGING = re.compile(r"\b(?:in|with|w/|incl\.?|including|\+)\s+(?:an?\s+)?(?:\w+\s+){0,2}(?:gift\s*box|wooden\s+box|presentation\s+box|box|tube|coffret|case|astuccio|cassetta(?:\s+di\s+legno)?)\b|\bgift\s*boxed\b|\(\s*(?:gift\s*box|giftbox|owc|ocb|coffret|astuccio)\s*\)", re.I)
+
+
 def is_nonwine(title, ptype="", tags=()):
-    f = fold(title)
+    f = PACKAGING.sub(" ", fold(title))
     if NONWINE.search(f):
         return True
     if LIQUEUR.search(f) and not LIQUEUR_WINE.search(f):
@@ -113,7 +116,10 @@ def pack_count(*texts):
                 n = 12 if rx == r"\bdozen\b" else int(m.group(1))
                 if 2 <= n <= 24:
                     return n
-        if re.search(r"\b(case|carton|owc|ocb)\b", f) and not re.search(r"\b(single|bottle|btl)\b", f):
+        m = re.search(r"\b(two|three|four|five|six|nine|twelve)[- ](?:bottles?|btls?)\b", f)
+        if m:
+            return {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "nine": 9, "twelve": 12}[m.group(1)]
+        if re.search(r"\b(case|carton|owc|ocb|cassa|caisse|kiste)\b", f) and not re.search(r"\b(single|bottle|btl|each)\b", f):
             return -1   # a case of unknown size
     return 1
 
@@ -143,6 +149,8 @@ NOT_PRODUCER = re.compile(r"""^(
   trading|portfolio|wholesale|wine\s*group|beverages?|drinks|liquors?|ltd|limited|inc|llc|gmbh|pty|bv|s\.?a\.?s|sarl|plc|corp(?:oration)?|foods)\b.*
 )$""", re.I | re.X)
 GENERIC_LEAD = re.compile(r"^(the|le|la|les|il|lo|el|los|las|der|die|das)$")
+STYLE_WORDS = re.compile(r"\b(blanc|blanco|branco|bianco|rouge|rosso|rose|rosado|rosato|red|white|brut|nature|extra|sec|demi|riserva|reserva|crianza|"
+                         r"grand cru|premier cru|1er cru|cru|vineyard|vigna|vino|vin|wine|cuvee|reserve|selection|old vines|vieilles vignes|igt|igp|doc|docg|aoc|aop|vdf|vdp|nv|magnum)\b")
 STOP = set("the a an and et e y und de du des la le les di del della dei d l of wine wines vin vino vini red white rose rouge blanc rosso bianco tinto blanco "
            "domaine dom chateau ch clos bodega bodegas cantina tenuta azienda agricola weingut maison famille estate estates winery vineyards vineyard cellars "
            "cellar family wines co company vignerons nv brut".split())
@@ -153,17 +161,21 @@ def key_tokens(producer):
 
 
 def names_in_title(producer, title):
-    """Does the title already name this producer? (any distinctive word of the producer in the title)"""
+    """Does the title already name this producer? (any distinctive word of the producer in the title; 'WildEarth' = 'Wild Earth')"""
     kt = key_tokens(producer)
     if not kt:
         return fold(producer).strip() in fold(title)
     tt = set(toks(title))
-    return any(t in tt for t in kt)
+    if any(t in tt for t in kt):
+        return True
+    squash = "".join(toks(title))
+    return len("".join(kt)) >= 6 and "".join(kt) in squash
 
 
 def lead_segment(title):
     """'Producer, Wine 2020' / 'Producer - Wine' / 'PRODUCER Wine' -> 'Producer' (or '')."""
-    t = re.sub(r"^\s*(19|20)\d\d\s+", "", title.strip())
+    t = re.sub(r"^\s*(?:(?:19|20)\d\d|NV|N\.V\.)\s+", "", title.strip(), flags=re.I)
+    t = re.sub(r"^(?:champagne|maison|bodegas?)\s+(?=[A-Z])", "", t, flags=re.I) if re.match(r"(?i)champagne\s+\S+\s*,", t) or re.match(r"(?i)champagne\s+[A-Z]", t) else t
     m = re.match(r"^(.{2,60}?)\s*(?:,|\s[-–—|:]\s)\s*\S", t)
     if m:
         seg = m.group(1).strip(" '\"‘’“”")
@@ -175,5 +187,6 @@ def lead_segment(title):
 def tidy_title(title):
     t = re.sub(r"\s+", " ", (title or "").replace("\t", " ")).strip()
     t = re.sub(r"\s*\((?:one|limit|max)[^)]*per (?:order|customer)[^)]*\)", "", t, flags=re.I)
+    t = re.sub(r"\s*[\(\[](?:[^)\]]*\b(?:pre[- ]?sale|pre[- ]?order|presale|arriving|eta|allocation|in stock|back in stock|offer|sold out|limited stock|new arrival|special price)\b[^)\]]*)[\)\]]", "", t, flags=re.I)
     t = re.sub(r"\s*[-|]\s*(?:pre[- ]?order|sold out|last bottles?|new arrival|on sale|sale)\s*$", "", t, flags=re.I)
     return t.strip(" -|")

@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 from wine_clean import (fold, toks, is_nonwine, wine_signal, size_ml, pack_count, vintage_of, NOT_PRODUCER, names_in_title,
-                        lead_segment, key_tokens, tidy_title, SIZES)
+                        lead_segment, key_tokens, tidy_title, SIZES, STYLE_WORDS)
 import enrich_details as ED   # grape and place dictionaries (content/grapes.yaml, regions.yaml)
 
 RATES = {'EUR': 1.0, 'GBP': 0.83735, 'USD': 1.0990, 'AUD': 1.6487, 'CAD': 1.5723, 'NZD': 1.9968, 'CHF': 0.9223}
@@ -34,6 +34,23 @@ def region_label(loc):
 def place_or_grape(seg):
     f = fold(seg).strip()
     return bool(f) and (ED.GRAPE_RX.fullmatch(f) or ED.PLACE_RX.fullmatch(f) or ED.COUNTRIES.get(f)) is not None
+
+
+STOPPER = re.compile(r"^(?:(?:19|20)\d\d\b|nv\b|\d|['\"\u2018\u201c(])")
+
+
+def name_prefix(title):
+    words = re.sub(r"^\s*(?:(?:19|20)\d\d|NV)\s+", "", title).split()
+    for i, w in enumerate(words):
+        rest = fold(' '.join(words[i:i + 4]))
+        if STOPPER.match(rest) or ED.PLACE_RX.match(rest) or ED.GRAPE_RX.match(rest) or STYLE_WORDS.match(rest) or rest.startswith(('cabernet', 'pinot', 'sauvignon')):
+            if 1 <= i <= 4:
+                pre = ' '.join(words[:i]).strip(" ,-'")
+                f = fold(pre).strip()
+                if pre[:1].isupper() and len(f) >= 3 and not NOT_PRODUCER.match(f) and not ED.PLACE_RX.fullmatch(f) and f not in ED.COUNTRIES:
+                    return pre
+            return ''
+    return ''
 
 
 def main():
@@ -67,7 +84,7 @@ def main():
     for h, w in why.items():
         share = (w['products'] - w['not wine'] - w['no wine signal'] - w['empty']) / max(1, w['products'])
         st = shops[h].get('status')
-        keep_host[h] = share >= (0.5 if st == 'existing' else 0.6) and w['products'] >= 10
+        keep_host[h] = share >= (0.25 if st == 'existing' else 0.4) and w['products'] >= 10   # mixed shops keep their wines; non-wine businesses go
     prods = [p for p in prods if keep_host[p['host']]]
 
     # ---- 3. producers: is the shop's vendor field the producer?
@@ -95,34 +112,67 @@ def main():
         return n <= 25 and titles_lead < 0.35
 
     good_vendor = {k: vendor_ok(*k) for k in vstat}
+    canon = {}                                      # folded -> spelling as written (vendors first, then titles, then the old list)
+    spell = C.defaultdict(C.Counter)
     dictionary = C.Counter()
     for (h, v), ok in good_vendor.items():
         if ok:
             dictionary[fold(v).strip()] += vstat[(h, v)][0]
+    def seg_ok(seg):
+        f = fold(seg).strip()
+        return bool(f) and not place_or_grape(seg) and not NOT_PRODUCER.match(f) and not STYLE_WORDS.search(f) \
+            and not ED.GRAPE_RX.search(f) and not ED.PLACE_RX.match(f) and len(f.split()) <= 5 and not re.search(r"\d", f)
     for p in prods:
         seg = lead_segment(p['title'])
-        if seg and not place_or_grape(seg) and not NOT_PRODUCER.match(fold(seg).strip()):
+        if seg and seg_ok(seg):
             dictionary[fold(seg).strip()] += 1
-    canon = {}                                      # folded -> nicest spelling seen
+            spell[fold(seg).strip()][seg] += 1
+    # genuine producers of the previous list (their name is in their own wine names)
+    import csv as _csv
+    _csv.field_size_limit(10**9)
+    oldp = os.path.join(ROOT, 'content/prices/wine_prices.csv')
+    if os.path.exists(oldp):
+        seen = C.Counter()
+        for r in _csv.DictReader(open(oldp, encoding='utf-8')):
+            pr = r['producer'].strip()
+            if pr and not NOT_PRODUCER.match(fold(pr).strip()) and names_in_title(pr, r['wine']) and seg_ok(pr) or (pr and not STYLE_WORDS.search(fold(pr)) and fold(pr).strip() in fold(r['wine']) and not NOT_PRODUCER.match(fold(pr).strip())):
+                seen[fold(pr).strip()] += 1
+                spell[fold(pr).strip()][pr] += 1
+        for k, n in seen.items():
+            if n >= 2: dictionary[k] += n
     for (h, v), ok in good_vendor.items():
         if ok: canon.setdefault(fold(v).strip(), v)
-    by_first = C.defaultdict(list)
+    COMMON = set(ED.GRAPES) | set(ED.PLACES) | set(ED.COUNTRIES)
+    DICT, DICT_NAME = {}, {}
     for k, n in dictionary.items():
-        if n >= 2 and len(k) >= 4:
-            by_first[k.split()[0]].append(k)
-
+        kt = ' '.join(toks(k))
+        if n >= 2 and len(kt) >= 4 and kt not in COMMON and not STYLE_WORDS.fullmatch(kt):
+            if n > DICT.get(kt, 0): DICT[kt] = n; DICT_NAME[kt] = k
+    # nicest spelling for dictionary names: the most common original casing seen in titles/vendors
+    for (h, v), ok in good_vendor.items():
+        if ok: canon.setdefault(fold(v).strip(), v)
+    for k, c in spell.items():
+        # prefer a mixed-case spelling (not ALL CAPS) with accents
+        best = sorted(c.items(), key=lambda kv: (kv[0].isupper(), kv[0].islower(), -sum(ord(ch) > 127 for ch in kv[0]), -kv[1]))[0][0]
+        canon.setdefault(k, best)
     def producer_of(p):
         v = p['vendor']
         if good_vendor.get((p['host'], v)):
             return v, 'vendor'
         seg = lead_segment(p['title'])
-        if seg and not place_or_grape(seg) and not NOT_PRODUCER.match(fold(seg).strip()) and (dictionary[fold(seg).strip()] >= 2 or lead_rate[p['host']] / max(1, per_host[p['host']]) >= 0.5):
+        if seg and seg_ok(seg) and (dictionary[fold(seg).strip()] >= 2 or lead_rate[p['host']] / max(1, per_host[p['host']]) >= 0.5):
             return canon.get(fold(seg).strip(), seg), 'title'
-        ft = ' '.join(toks(p['title']))
-        for k in sorted(by_first.get(ft.split()[0] if ft else '', []), key=len, reverse=True):
-            kk = ' '.join(toks(k))
-            if ft == kk or ft.startswith(kk + ' '):
-                return canon.get(k, p['title'][:len(k)]), 'dictionary'
+        # a known producer anywhere in the name (Zachys: 'Barolo Vignarionda Luigi Pira 2018'): longest match wins
+        tt = toks(p['title'])
+        for n in range(min(6, len(tt)), 0, -1):
+            for i in range(len(tt) - n + 1):
+                k = ' '.join(tt[i:i + n])
+                if k in DICT and (n > 1 or DICT[k] >= 4 and len(k) >= 5) and not (i + n < len(tt) and tt[i + n] == 's'):
+                    return canon.get(DICT_NAME[k], DICT_NAME[k].title() if DICT_NAME[k].islower() else DICT_NAME[k]), 'dictionary'
+        # the words before the first place, grape, style word or vintage ('Sandalford Margaret River Shiraz 2020')
+        pre = name_prefix(p['title'])
+        if pre:
+            return pre, 'name'
         return '', 'unknown'
 
     # ---- 4. offers: one per bottle size, per-bottle price
@@ -153,8 +203,8 @@ def main():
                 continue
             ml = size_ml(vt, p['title']) or 750
             pk = pack_count(vt) if vt else 1
-            if pk == 1 and single:
-                pk = pack_count(p['title'])
+            if pk == 1 and not (vt and re.search(r'(?i)\b(single|bottle|btl|each|1\s*x)\b', vt)):
+                pk = pack_count(p['title'])   # 'Case of 6', 'Three Bottle OWC' in the product name
             if pk == -1:
                 stats[h]['case of unknown size'] += 1; continue
             per = price / pk
