@@ -29,35 +29,6 @@ montecucco	PDO-IT-A1433	Montecucco
 maremma	PDO-IT-A1260	Morellino di Scansano
 maremma-toscana	PDO-IT-A1413	Maremma toscana
 chianti	PDO-IT-A1228	Chianti
-barolo	PDO-IT-A1389	Barolo
-barbaresco	PDO-IT-A1399	Barbaresco
-roero	PDO-IT-A1261	Roero
-dogliani	PDO-IT-A1330	Dogliani
-gavi	PDO-IT-A1310	Gavi / Cortese di Gavi
-moscato-dasti	PDO-IT-A1396	Asti
-barbera-dasti	PDO-IT-A1398	Barbera d'Asti
-diano-d-alba	PDO-IT-A1324	Dolcetto di Diano d'Alba / Diano d'Alba
-verduno	PDO-IT-A1244	Verduno Pelaverga / Verduno
-chianti-classico	PDO-IT-A1235	Chianti Classico
-montalcino	PDO-IT-A1199	Brunello di Montalcino
-montepulciano	PDO-IT-A1308	Vino Nobile di Montepulciano
-bolgheri	PDO-IT-A1348	Bolgheri
-suvereto	PDO-IT-A1266	Suvereto
-val-di-cornia	PDO-IT-A1498	Val di Cornia
-montescudaio	PDO-IT-A1437	Montescudaio
-bibbona	PDO-IT-A1491	Terratico di Bibbona
-elba	PDO-IT-A1519	Elba
-carmignano	PDO-IT-A1220	Carmignano
-san-gimignano	PDO-IT-A1464	San Gimignano
-montecarlo	PDO-IT-A1421	Montecarlo
-colline-lucchesi	PDO-IT-A1387	Colline Lucchesi
-candia	PDO-IT-A1377	Candia dei Colli Apuani
-cortona	PDO-IT-A1518	Cortona
-val-d-orcia	PDO-IT-A1442	Orcia
-montecucco	PDO-IT-A1433	Montecucco
-maremma	PDO-IT-A1260	Morellino di Scansano
-maremma-toscana	PDO-IT-A1413	Maremma toscana
-chianti	PDO-IT-A1228	Chianti
 vinho-verde	PDO-PT-A1545	Vinho Verde
 douro	PDO-PT-A1539	Douro
 dao	PDO-PT-A1534	Dão
@@ -81,30 +52,7 @@ tavira	PDO-PT-A1449	Tavira
 tras-os-montes	PDO-PT-A1466	Trás-os-Montes
 tavora-varosa	PDO-PT-A1541	Távora-Varosa
 beira-interior	PDO-PT-A1546	Beira Interior
-vinho-verde	PDO-PT-A1545	Vinho Verde
-douro	PDO-PT-A1539	Douro
-dao	PDO-PT-A1534	Dão
-bairrada	PDO-PT-A1537	Bairrada
-tejo	PDO-PT-A1544	DoTejo
-setubal	PDO-PT-A1457	Setúbal
-alentejo	PDO-PT-A1542	Alentejo
 lafoes	PDO-PT-A1455	Lafões
-tras-os-montes	PDO-PT-A1466	Trás-os-Montes
-tavora-varosa	PDO-PT-A1541	Távora-Varosa
-beira-interior	PDO-PT-A1546	Beira Interior
-colares	PDO-PT-A1461	Colares
-carcavelos	PDO-PT-A1462	Carcavelos
-bucelas	PDO-PT-A1463	Bucelas
-arruda	PDO-PT-A1471	Arruda
-alenquer	PDO-PT-A1468	Alenquer
-torres-vedras	PDO-PT-A1465	Torres Vedras
-obidos	PDO-PT-A1469	Óbidos
-encostas-daire	PDO-PT-A1470	Encostas d’Aire
-palmela	PDO-PT-A1460	Palmela
-lagos	PDO-PT-A1454	Lagos
-portimao	PDO-PT-A1452	Portimão
-lagoa	PDO-PT-A1450	Lagoa
-tavira	PDO-PT-A1449	Tavira
 rias-baixas	PDO-ES-A1119	Rías Baixas
 bierzo	PDO-ES-A0615	Bierzo
 rioja	PDO-ES-A0117	Rioja
@@ -143,44 +91,6 @@ condado-de-huelva	PDO-ES-A1485	Condado de Huelva
 binissalem	PDO-ES-A1056	Binissalem
 es-navarra	PDO-ES-A0127	Navarra
 es-valencia	PDO-ES-A0872	Valencia
-es-navarra	PDO-ES-A0127	Navarra
-es-valencia	PDO-ES-A0872	Valencia
-rias-baixas	PDO-ES-A1119	Rías Baixas
-bierzo	PDO-ES-A0615	Bierzo
-rioja	PDO-ES-A0117	Rioja
-navarra	PDO-ES-A0127	Navarra
-ribera-del-duero	PDO-ES-A0626	Ribera del Duero
-rueda	PDO-ES-A0889	Rueda
-toro	PDO-ES-A0886	Toro
-priorat	PDO-ES-A1560	Priorat / Priorato
-penedes	PDO-ES-A1551	Penedès
-la-mancha	PDO-ES-A0045	La Mancha
-jumilla	PDO-ES-A0109	Jumilla
-jerez	PDO-ES-A1483	Jerez-Xérès-Sherry / Jerez / Xérès / Sherry
-ribeiro	PDO-ES-A1123	Ribeiro
-carinena	PDO-ES-A0043	Cariñena
-campo-de-borja	PDO-ES-A0180	Campo de Borja
-calatayud	PDO-ES-A0247	Calatayud
-somontano	PDO-ES-A0534	Somontano
-montsant	PDO-ES-A1550	Montsant
-terra-alta	PDO-ES-A1556	Terra Alta
-emporda	PDO-ES-A1548	Empordà
-costers-del-segre	PDO-ES-A1523	Costers del Segre
-cigales	PDO-ES-A0622	Cigales
-tierra-de-leon	PDO-ES-A0882	León
-arlanza	PDO-ES-A0613	Arlanza
-vinos-de-madrid	PDO-ES-A1525	Vinos de Madrid
-valdepenas	PDO-ES-A0051	Valdepeñas
-manchuela	PDO-ES-A0046	Manchuela
-utiel-requena	PDO-ES-A0874	Utiel-Requena
-alicante-do	PDO-ES-A1526	Alicante
-yecla	PDO-ES-A0606	Yecla
-bullas	PDO-ES-A0536	Bullas
-ribera-del-guadiana	PDO-ES-A1295	Ribera del Guadiana
-montilla-moriles	PDO-ES-A1479	Montilla-Moriles
-malaga-do	PDO-ES-A1481	Málaga
-condado-de-huelva	PDO-ES-A1485	Condado de Huelva
-binissalem	PDO-ES-A1056	Binissalem
 granada	PDO-ES-A1475	Granada
 mentrida	PDO-ES-A0047	Méntrida
 ribeira-sacra	PDO-ES-A1128	Ribeira Sacra
@@ -251,20 +161,6 @@ hu-tokaj	PDO-HU-A1254	Tokaj / Tokaji
 hu-balaton	PDO-HU-A1507	Balaton / Balatoni
 hu-pannon	PDO-HU-A1380	Pannon
 hu-duna	PDO-HU-A1345	Duna / Dunai
-hu-tokaj	PDO-HU-A1254	Tokaj / Tokaji
-hu-balaton	PDO-HU-A1507	Balaton / Balatoni
-hu-pannon	PDO-HU-A1380	Pannon
-hu-duna	PDO-HU-A1345	Duna / Dunai
-tokaj	PDO-HU-A1254	Tokaj / Tokaji
-eger	PDO-HU-A1328	Eger / Egri
-somlo	PDO-HU-A1376	Somlói / Somló
-balaton	PDO-HU-A1507	Balaton / Balatoni
-kunsag	PDO-HU-A1332	Kunság / Kunsági
-szekszard	PDO-HU-A1349	Szekszárd / Szekszárdi
-villany	PDO-HU-A1381	Villány / Villányi
-sopron	PDO-HU-A1504	Sopron / Soproni
-matra	PDO-HU-A1368	Mátra / Mátrai
-etyek-buda	PDO-HU-A1350	Etyek-Buda / Etyek-Budai
 balatonboglar	PDO-HU-A1378	Balatonboglár / Balatonboglári
 zala	PDO-HU-A1502	Zala / Zalai
 pecs	PDO-HU-A1385	Pécs
@@ -338,32 +234,6 @@ au-sa	Australia:South Australia	South Australia
 au-vic	Australia:Victoria	Victoria
 au-nsw	Australia:New South Wales	New South Wales
 au-qld	Australia:Queensland	Queensland
-au-wa	Australia:Western Australia	Western Australia
-au-sa	Australia:South Australia	South Australia
-au-vic	Australia:Victoria	Victoria
-au-nsw	Australia:New South Wales	New South Wales
-au-qld	Australia:Queensland	Queensland
-margaret-river	Australia:Margaret River	Margaret River
-great-southern	Australia:Great Southern	Great Southern
-swan-valley	Australia:Swan Valley	Swan Valley
-clare	Australia:Clare Valley	Clare Valley
-barossa	Australia:Barossa Valley	Barossa Valley
-mclaren-vale	Australia:McLaren Vale	McLaren Vale
-coonawarra	Australia:Coonawarra	Coonawarra
-riverland	Australia:Riverland	Riverland
-yarra-valley	Australia:Yarra Valley	Yarra Valley
-rutherglen	Australia:Rutherglen	Rutherglen
-riverina	Australia:Riverina	Riverina
-hunter-valley	Australia:Hunter Valley	Hunter Valley
-mudgee	Australia:Mudgee	Mudgee
-orange	Australia:Orange	Orange
-canberra-district	Australia:Canberra District	Canberra District
-geelong	Australia:Geelong	Geelong
-mornington	Australia:Mornington Peninsula	Mornington Peninsula
-pemberton	Australia:Pemberton	Pemberton
-granite-belt	Australia:Granite Belt	Granite Belt
-heathcote	Australia:Heathcote	Heathcote
-grampians	Australia:Grampians	Grampians
 northern-slopes	Australia:Northern Slopes	Northern Slopes
 west-australian-south-east-coastal	Australia:West Australian South East Coastal	West Australian South East Coastal
 gippsland	Australia:Gippsland	Gippsland
@@ -427,12 +297,6 @@ pokolbin	Australia:Pokolbin	Pokolbin
 high-eden	Australia:High Eden	High Eden
 piccadilly-valley	Australia:Piccadilly Valley	Piccadilly Valley
 lenswood	Australia:Lenswood	Lenswood
-clare	Australia:Clare Valley	Clare Valley
-barossa	Australia:Barossa Valley	Barossa Valley
-eden-valley	Australia:Eden Valley	Eden Valley
-adelaide-hills	Australia:Adelaide Hills	Adelaide Hills
-mclaren-vale	Australia:McLaren Vale	McLaren Vale
-langhorne-creek	Australia:Langhorne Creek	Langhorne Creek
-riverland	Australia:Riverland	Riverland
-padthaway	Australia:Padthaway	Padthaway
-coonawarra	Australia:Coonawarra	Coonawarra
+rhodes	PDO-GR-A1612	Ρόδος
+candia	PDO-GR-A1615	Χάνδακας - Candia
+malvasia-candia	PDO-GR-A1617	Malvasia Χάνδακας-Candia

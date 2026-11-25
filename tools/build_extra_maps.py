@@ -16,7 +16,10 @@ Run: python3 tools/build_extra_maps.py [map ...]     writes Jeroboam/Resources/M
 import os, sys, glob, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yaml
-import build_maps2 as B
+import sys as _sys
+B = _sys.modules.get('__main__') if getattr(_sys.modules.get('__main__'), 'build_gb', None) else None
+if B is None:
+    import build_maps2 as B
 import math
 from shapely.geometry import shape, Polygon, Point
 from shapely import affinity

@@ -991,6 +991,10 @@ def build_gb(only=None):
             ids_taken = {rid for rid, *_ in children} | {x[0] for x in subs} | {gid for gid, *_ in groups}
             for pid, nm, pg in sorted(cand, key=lambda c: -c[2].area):
                 disp = nm.split(" / ")[0].strip()
+                if pa.get("names", {}).get(disp): disp = pa["names"][disp]
+                elif pa.get("translit"):
+                    import build_extra_maps as _X
+                    disp = _X.translit(disp)
                 if pid in used or pkey(disp) in skipn or pkey(nm) in skipn or pg.area < minarea: continue
                 # the source repeats some boundaries under a second name (Manzanilla = Jerez): never draw the same shape twice
                 if any(g2.intersection(pg).area / max(1e-12, g2.union(pg).area) > 0.9 for g2 in list(existing.values()) + usedgeom): continue
@@ -1119,6 +1123,17 @@ def build_south(cfg, extra_units=None):
             if extra_units:
                 g = extra_units(a)
                 if g is not None: return g
+            if "pdo" in u:    # an official EU PDO boundary, by name
+                pre = f"PDO-{u.get('cc', cfg.get('pdo_cc', ''))}-"
+                gs = [g for pid, nm, g in _pdo_index().get(pkey(u["pdo"]), []) if pid.startswith(pre)]
+                if not gs: print(f"   ! {mid}/{a['id']}: no PDO {u['pdo']}")
+                return unary_union(gs).buffer(0) if gs else None
+            if "file" in u:   # an official boundary file (Australian GIs: github.com/adynak/WineRegions, CC0)
+                fp = os.path.join(GEO, "ext", "WineRegions", u["file"])
+                if not os.path.exists(fp): print(f"   ! {mid}/{a['id']}: no file {u['file']}"); return None
+                return unary_union([shape(f["geometry"]).buffer(0) for f in json.load(open(fp))["features"] if f.get("geometry")]).buffer(0)
+            if "cell" in u:   # filled in below: its share of the parent around this point
+                return None
             if "c" in u and u.get("free"):
                 return blob_poly(u["c"], u["r"])
             if "c" in u:
@@ -1138,6 +1153,23 @@ def build_south(cfg, extra_units=None):
     for a in areas:
         g = geom_of(a)
         if g is not None and not g.is_empty: geoms[a["id"]] = g.buffer(0)
+    # sub-regions given by a centre point: the parent is shared out between them (Voronoi cells inside the parent),
+    # so together they cover it exactly, like the Bereiche of a German Anbaugebiet
+    from shapely.ops import voronoi_diagram
+    from shapely.geometry import MultiPoint
+    for par in {a["parent"] for a in areas if isinstance(a["units"], dict) and "cell" in a["units"]}:
+        kids = [a for a in areas if a["parent"] == par and isinstance(a["units"], dict) and "cell" in a["units"]]
+        if par not in geoms: print(f"   ! {mid}: cells without parent {par}"); continue
+        pg = geoms[par]
+        if len(kids) == 1:
+            geoms[kids[0]["id"]] = pg; continue
+        cells = list(voronoi_diagram(MultiPoint([(k["units"]["cell"][1], k["units"]["cell"][0]) for k in kids]), envelope=pg.envelope.buffer(1)).geoms)
+        for k in kids:
+            c = Point(k["units"]["cell"][1], k["units"]["cell"][0])
+            cell = next((x for x in cells if x.contains(c)), None)
+            if cell is not None:
+                g = pg.intersection(cell)
+                if not g.is_empty: geoms[k["id"]] = g.buffer(0)
     # wards placed as circles: neighbours share the ground between them (Voronoi cells), they never overlap
     free = [a for a in areas if isinstance(a["units"], dict) and a["units"].get("free") and a["id"] in geoms]
     if len(free) > 1:
@@ -1335,17 +1367,29 @@ SOUTH_UNITS["argentina"] = _ArUnits()
 if __name__ == "__main__":
     which = set(sys.argv[1:])
     # the southern maps are built by build_south now; `gb` keeps the other admin-boundary countries
-    GB_ONLY = [m for m in GB.COUNTRIES if m not in ("chile", "argentina", "new-zealand", "south-africa")]
+    GB_ONLY = [m for m in GB.COUNTRIES if m not in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia")]
     if not which or "fr" in which: build_france()
     if not which or "it" in which: build_italy()
     if not which or "us" in which: build_usa()
     if not which or "legacy" in which: build_legacy({"world"})
     if not which or "gb" in which: build_gb(GB_ONLY)
+    elif which & set(GB_ONLY): build_gb(which & set(GB_ONLY))
     if not which or "lb" in which: build_lebanon()
-    for k in ("chile", "argentina", "new-zealand", "south-africa"):
+    for k in ("chile", "argentina", "new-zealand", "south-africa", "germany", "austria", "south-australia"):
         cfg = getattr(SO, k.upper().replace("-", "_"), None)
+        if cfg and cfg.get("bbox") is None:   # frame, cities and labels from the legacy spec
+            lg = {m["id"]: m for m in LEGACY}[k]
+            cfg.update(bbox=lg["bbox"], cities=lg["cities"], labels=lg["labels"], title=lg["title"])
         if cfg and (not which or "south" in which or k in which): build_south(cfg, SOUTH_UNITS.get(k))
     if USED_PDO:
         print(f"official PDO boundaries used for {len(USED_PDO)} areas")
-        with open(os.path.join(os.path.dirname(__file__), "pdo_used.txt"), "w") as f:
-            f.write("\n".join(f"{a}\t{p}\t{n}" for a, p, n in USED_PDO))
+        # merged with the list from earlier runs, so building one map keeps the credits of the others
+        fp = os.path.join(os.path.dirname(__file__), "pdo_used.txt")
+        old = {}
+        if os.path.exists(fp):
+            for ln in open(fp, encoding="utf-8"):
+                parts = ln.rstrip("\n").split("\t")
+                if len(parts) == 3: old[(parts[0], parts[1])] = parts
+        for a, p, n in USED_PDO: old[(a, p)] = [a, p, n]
+        with open(fp, "w") as f:
+            f.write("\n".join("\t".join(v) for v in old.values()))

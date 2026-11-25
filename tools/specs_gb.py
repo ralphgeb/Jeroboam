@@ -381,7 +381,15 @@ HIERARCHY = {
         "sopron": B("Sopron", 47.68, 16.60, 10), "matra": B("Mátra", 47.80, 19.95, 14),
         "etyek-buda": B("Etyek-Buda", 47.45, 18.75, 12),
     }},
-    "greece": {"snap": "ADM3", "groups": {
+    "greece": {"snap": "ADM3", "pdo_auto": {"cc": "GR", "min": 0.002, "translit": True, "names": {
+        "Σαντορίνη": "Santorini", "Νάουσα": "Naoussa", "Αμύνταιο": "Amyndeo", "Νεμέα": "Nemea", "Μαντινεία": "Mantinia", "Πάτρα": "Patras",
+        "Ραψάνη": "Rapsani", "Γουμένισσα": "Goumenissa", "Σάμος": "Samos", "Πάρος": "Paros", "Ρόδος": "Rhodes", "Λήμνος": "Limnos", "Ζίτσα": "Zitsa",
+        "Αρχάνες": "Archanes", "Πεζά": "Peza", "Δαφνές": "Dafnes", "Σητεία": "Sitia", "Μαυροδάφνη Πατρών": "Mavrodaphne of Patras",
+        "Μοσχάτο Πατρών": "Muscat of Patras", "Μοσχάτος Ρίου Πάτρας": "Muscat of Rio Patras", "Μοσχάτος Ρόδου": "Muscat of Rhodes",
+        "Μοσχάτος Λήμνου": "Muscat of Limnos", "Μοσχάτος Κεφαλληνίας": "Muscat of Cephalonia", "Ρομπόλα Κεφαλληνίας": "Robola of Cephalonia",
+        "Μαυροδάφνη Κεφαλληνίας": "Mavrodaphne of Cephalonia", "Μεσενικόλα": "Messenikola", "Πλαγιές Μελίτωνα": "Slopes of Meliton",
+        "Αγχίαλος": "Anchialos", "Μονεμβασία- Malvasia": "Monemvasia-Malvasia", "Malvasia Πάρος": "Malvasia of Paros",
+        "Malvasia Σητείας": "Malvasia of Sitia", "Malvasia Χάνδακας-Candia": "Malvasia Candia", "Χάνδακας - Candia": "Candia"}}, "groups": {
         "gr-macedonia": ("Macedonia & Thrace", G("ADM2", ["Kentrikis Makedonias", "Dytikis Makedonias", "Anatolikis Makedonias kai Thr*"])),
         "gr-epirus": ("Epirus", G("ADM2", ["Ipeiroy"])),
         "gr-thessaly": ("Thessaly", G("ADM2", ["Thessalias"])),

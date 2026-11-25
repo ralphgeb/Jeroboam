@@ -271,3 +271,140 @@ ARGENTINA = {
         A("san-patricio", "San Patricio del Chañar", 2, "neuquen", X(-38.62, -68.30, 10)),
     ],
 }
+
+# ================================================================= GERMANY
+# Level 0: the 13 Anbaugebiete (official PDO boundaries). Level 1: the Bereiche, each the share of its Anbaugebiet around
+# the Bereich's centre (together they cover it). Level 2: famous wine villages (a circle clipped to their Bereich).
+def P(name): return {"pdo": name, "cc": "DE"}
+def Q(lat, lon): return {"cell": (lat, lon)}
+def V(lat, lon, km=2.2): return {"c": (lat, lon), "r": km, "free": True}
+GERMANY = {
+    "map": "germany", "iso": "DEU", "adm": "ADM3", "title": "Germany", "W": 3000,
+    "bbox": (47.3, 5.8, 51.6, 13.9),
+    "cities": [("Frankfurt", 50.11, 8.68), ("Koblenz", 50.36, 7.59), ("Trier", 49.75, 6.64), ("Mainz", 50.0, 8.27), ("Stuttgart", 48.78, 9.18),
+               ("Würzburg", 49.79, 9.95), ("Munich", 48.14, 11.58), ("Freiburg", 47.99, 7.85), ("Dresden", 51.05, 13.74), ("Heidelberg", 49.40, 8.69),
+               ("Bernkastel-Kues", 49.92, 7.07), ("Rüdesheim", 49.98, 7.92), ("Bad Kreuznach", 49.84, 7.87), ("Neustadt", 49.35, 8.14),
+               ("Heilbronn", 49.14, 9.22), ("Naumburg", 51.15, 11.81), ("Meissen", 51.16, 13.47), ("Bingen", 49.97, 7.90), ("Cochem", 50.15, 7.17)],
+    "labels": [("Rhine", 49.0, 8.25, "river"), ("Mosel", 49.85, 6.75, "river"), ("Main", 49.95, 9.3, "river")],
+    "lod": [1.6, 3.2],
+    "areas": [
+        A("ahr", "Ahr", 0, None, P("Ahr")), A("mittelrhein", "Mittelrhein", 0, None, P("Mittelrhein")), A("mosel", "Mosel", 0, None, P("Mosel")),
+        A("nahe", "Nahe", 0, None, P("Nahe")), A("rheingau", "Rheingau", 0, None, P("Rheingau")), A("rheinhessen", "Rheinhessen", 0, None, P("Rheinhessen")),
+        A("pfalz", "Pfalz", 0, None, P("Pfalz")), A("hessische-bergstrasse", "Hessische Bergstraße", 0, None, P("Hessische Bergstraße")),
+        A("franken", "Franken", 0, None, P("Franken")), A("wurttemberg", "Württemberg", 0, None, P("Württemberg")), A("baden", "Baden", 0, None, P("Baden")),
+        A("saale-unstrut", "Saale-Unstrut", 0, None, P("Saale-Unstrut")), A("sachsen", "Sachsen", 0, None, P("Sachsen")),
+        # ---- Bereiche
+        A("walporzheim-ahrtal", "Walporzheim/Ahrtal", 1, "ahr", Q(50.53, 7.05)),
+        A("loreley", "Loreley", 1, "mittelrhein", Q(50.10, 7.72)), A("siebengebirge", "Siebengebirge", 1, "mittelrhein", Q(50.65, 7.22)),
+        A("burg-cochem", "Burg Cochem", 1, "mosel", Q(50.17, 7.25)), A("bernkastel", "Bernkastel", 1, "mosel", Q(49.92, 7.00)),
+        A("ruwertal", "Ruwertal", 1, "mosel", Q(49.76, 6.73)), A("saar", "Saar", 1, "mosel", Q(49.62, 6.57)),
+        A("obermosel", "Obermosel", 1, "mosel", Q(49.62, 6.43)), A("moseltor", "Moseltor", 1, "mosel", Q(49.47, 6.37)),
+        A("nahetal", "Nahetal", 1, "nahe", Q(49.82, 7.75)),
+        A("johannisberg", "Johannisberg", 1, "rheingau", Q(50.02, 8.05)),
+        A("bingen", "Bingen", 1, "rheinhessen", Q(49.90, 7.98)), A("nierstein", "Nierstein", 1, "rheinhessen", Q(49.88, 8.28)),
+        A("wonnegau", "Wonnegau", 1, "rheinhessen", Q(49.67, 8.22)),
+        A("mittelhaardt", "Mittelhaardt-Deutsche Weinstraße", 1, "pfalz", Q(49.45, 8.15)),
+        A("sudliche-weinstrasse", "Südliche Weinstraße", 1, "pfalz", Q(49.15, 8.05)),
+        A("starkenburg", "Starkenburg", 1, "hessische-bergstrasse", Q(49.70, 8.63)), A("umstadt", "Umstadt", 1, "hessische-bergstrasse", Q(49.87, 8.93)),
+        A("mainviereck", "Mainviereck", 1, "franken", Q(49.85, 9.20)), A("maindreieck", "Maindreieck", 1, "franken", Q(49.85, 10.05)),
+        A("steigerwald", "Steigerwald", 1, "franken", Q(49.70, 10.35)), A("schwanberger-land", "Schwanberger Land", 1, "franken", Q(49.62, 10.20)),
+        A("remstal-stuttgart", "Remstal-Stuttgart", 1, "wurttemberg", Q(48.80, 9.35)),
+        A("wurttembergisch-unterland", "Württembergisch Unterland", 1, "wurttemberg", Q(49.10, 9.20)),
+        A("kocher-jagst-tauber", "Kocher-Jagst-Tauber", 1, "wurttemberg", Q(49.35, 9.75)),
+        A("oberer-neckar", "Oberer Neckar", 1, "wurttemberg", Q(48.50, 9.05)),
+        A("wurttembergischer-bodensee", "Bodensee (Württemberg)", 1, "wurttemberg", Q(47.65, 9.55)),
+        A("tauberfranken", "Tauberfranken", 1, "baden", Q(49.62, 9.65)), A("badische-bergstrasse", "Badische Bergstraße", 1, "baden", Q(49.40, 8.67)),
+        A("kraichgau", "Kraichgau", 1, "baden", Q(49.15, 8.75)), A("ortenau", "Ortenau", 1, "baden", Q(48.50, 8.05)),
+        A("breisgau", "Breisgau", 1, "baden", Q(48.15, 7.90)), A("kaiserstuhl", "Kaiserstuhl", 1, "baden", Q(48.10, 7.67)),
+        A("tuniberg", "Tuniberg", 1, "baden", Q(48.00, 7.68)), A("markgraflerland", "Markgräflerland", 1, "baden", Q(47.78, 7.62)),
+        A("bodensee-baden", "Bodensee (Baden)", 1, "baden", Q(47.72, 9.05)),
+        A("schloss-neuenburg", "Schloss Neuenburg", 1, "saale-unstrut", Q(51.20, 11.75)), A("thuringen", "Thüringen", 1, "saale-unstrut", Q(51.05, 11.55)),
+        A("mansfelder-seen", "Mansfelder Seen", 1, "saale-unstrut", Q(51.50, 11.70)),
+        A("meissen", "Meißen", 1, "sachsen", Q(51.12, 13.55)), A("elstertal", "Elstertal", 1, "sachsen", Q(51.45, 12.80)),
+        # ---- famous villages
+        A("piesport", "Piesport", 2, "bernkastel", V(49.88, 6.92)), A("brauneberg", "Brauneberg", 2, "bernkastel", V(49.905, 6.98, 1.6)),
+        A("bernkastel-village", "Bernkastel", 2, "bernkastel", V(49.915, 7.07, 1.6)), A("graach", "Graach", 2, "bernkastel", V(49.935, 7.065, 1.2)),
+        A("wehlen", "Wehlen", 2, "bernkastel", V(49.945, 7.04, 1.3)), A("zeltingen", "Zeltingen", 2, "bernkastel", V(49.955, 7.015, 1.3)),
+        A("urzig-erden", "Ürzig & Erden", 2, "bernkastel", V(49.98, 7.005, 1.6)), A("trittenheim", "Trittenheim", 2, "bernkastel", V(49.825, 6.90, 1.8)),
+        A("wiltingen", "Wiltingen", 2, "saar", V(49.66, 6.59, 1.8)), A("ockfen", "Ockfen", 2, "saar", V(49.62, 6.58, 1.4)),
+        A("kasel", "Kasel", 2, "ruwertal", V(49.76, 6.73, 1.8)),
+        A("rudesheim", "Rüdesheim", 2, "johannisberg", V(49.985, 7.92, 1.8)), A("johannisberg-village", "Johannisberg", 2, "johannisberg", V(50.00, 7.98, 1.4)),
+        A("hattenheim", "Hattenheim & Erbach", 2, "johannisberg", V(50.02, 8.07, 1.8)), A("kiedrich", "Kiedrich", 2, "johannisberg", V(50.04, 8.08, 1.2)),
+        A("hochheim", "Hochheim", 2, "johannisberg", V(50.01, 8.35, 1.8)),
+        A("nierstein-village", "Nierstein", 2, "nierstein", V(49.87, 8.335, 1.8)), A("nackenheim", "Nackenheim", 2, "nierstein", V(49.915, 8.335, 1.3)),
+        A("westhofen", "Westhofen", 2, "wonnegau", V(49.70, 8.25, 1.8)),
+        A("forst", "Forst", 2, "mittelhaardt", V(49.42, 8.165, 1.2)), A("deidesheim", "Deidesheim", 2, "mittelhaardt", V(49.405, 8.18, 1.4)),
+        A("wachenheim", "Wachenheim", 2, "mittelhaardt", V(49.44, 8.18, 1.3)), A("bad-durkheim", "Bad Dürkheim & Ungstein", 2, "mittelhaardt", V(49.47, 8.17, 1.6)),
+        A("birkweiler", "Birkweiler & Siebeldingen", 2, "sudliche-weinstrasse", V(49.20, 8.04, 1.8)),
+        A("schlossbockelheim", "Schlossböckelheim & Niederhausen", 2, "nahetal", V(49.80, 7.75, 1.8)), A("monzingen", "Monzingen", 2, "nahetal", V(49.80, 7.59, 1.6)),
+        A("escherndorf", "Escherndorf & Volkach", 2, "maindreieck", V(49.865, 10.18, 1.8)), A("randersacker", "Randersacker", 2, "maindreieck", V(49.76, 9.98, 1.4)),
+        A("wurzburg-stein", "Würzburg", 2, "maindreieck", V(49.81, 9.93, 1.6)), A("iphofen", "Iphofen", 2, "schwanberger-land", V(49.70, 10.26, 1.8)),
+        A("burgstadt", "Bürgstadt", 2, "mainviereck", V(49.72, 9.27, 1.6)),
+        A("ihringen", "Ihringen & Achkarren", 2, "kaiserstuhl", V(48.04, 7.64, 1.8)), A("oberrotweil", "Oberrotweil", 2, "kaiserstuhl", V(48.09, 7.64, 1.6)),
+        A("durbach", "Durbach", 2, "ortenau", V(48.49, 8.03, 1.8)),
+        A("fellbach", "Fellbach & Untertürkheim", 2, "remstal-stuttgart", V(48.805, 9.27, 1.8)),
+        A("mayschoss", "Mayschoß & Dernau", 2, "walporzheim-ahrtal", V(50.52, 7.03, 1.8)),
+        A("bacharach", "Bacharach", 2, "loreley", V(50.06, 7.77, 1.6)), A("boppard", "Boppard Hamm", 2, "loreley", V(50.24, 7.62, 1.6)),
+        A("freyburg", "Freyburg", 2, "schloss-neuenburg", V(51.21, 11.77, 1.8)), A("radebeul", "Radebeul", 2, "meissen", V(51.11, 13.65, 1.8)),
+    ],
+}
+
+# ================================================================= AUSTRIA
+AUSTRIA = {
+    "map": "austria", "iso": "AUT", "adm": "ADM3", "title": "Austria", "W": 3000,
+    "bbox": None,   # filled from the legacy spec
+    "areas": [
+        A("at-niederosterreich", "Niederösterreich", 0, None, P("Niederösterreich") | {"cc": "AT"}), A("at-wien", "Wien", 0, None, {"pdo": "Wien", "cc": "AT"}),
+        A("at-burgenland", "Burgenland", 0, None, {"pdo": "Burgenland", "cc": "AT"}), A("steiermark", "Steiermark", 0, None, {"pdo": "Steiermark", "cc": "AT"}),
+        *[A(i, n, 1, p, {"pdo": q, "cc": "AT"}) for i, n, p, q in [
+            ("wachau", "Wachau", "at-niederosterreich", "Wachau"), ("kremstal", "Kremstal", "at-niederosterreich", "Kremstal"),
+            ("kamptal", "Kamptal", "at-niederosterreich", "Kamptal"), ("traisental", "Traisental", "at-niederosterreich", "Traisental"),
+            ("wagram", "Wagram", "at-niederosterreich", "Wagram"), ("weinviertel", "Weinviertel", "at-niederosterreich", "Weinviertel"),
+            ("carnuntum", "Carnuntum", "at-niederosterreich", "Carnuntum"), ("thermenregion", "Thermenregion", "at-niederosterreich", "Thermenregion"),
+            ("neusiedlersee", "Neusiedlersee", "at-burgenland", "Neusiedlersee"), ("leithaberg", "Leithaberg", "at-burgenland", "Leithaberg"),
+            ("mittelburgenland", "Mittelburgenland", "at-burgenland", "Mittelburgenland"), ("eisenberg", "Eisenberg", "at-burgenland", "Eisenberg"),
+            ("sudsteiermark", "Südsteiermark", "steiermark", "Südsteiermark"), ("vulkanland", "Vulkanland Steiermark", "steiermark", "Süd-Oststeiermark"),
+            ("weststeiermark", "Weststeiermark", "steiermark", "Weststeiermark")]],
+        A("rosalia", "Rosalia", 1, "at-burgenland", {"c": (47.73, 16.33), "r": 9, "free": True}),
+        A("wiener-gemischter-satz", "Wiener Gemischter Satz", 1, "at-wien", {"c": (48.25, 16.36), "r": 8, "free": True}),
+        # ---- famous wine villages
+        A("spitz", "Spitz", 2, "wachau", V(48.37, 15.41, 2.2)), A("weissenkirchen", "Weißenkirchen", 2, "wachau", V(48.40, 15.47, 2)),
+        A("durnstein", "Dürnstein & Loiben", 2, "wachau", V(48.395, 15.53, 2)),
+        A("krems-stein", "Krems & Stein", 2, "kremstal", V(48.41, 15.60, 2.4)), A("senftenberg", "Senftenberg", 2, "kremstal", V(48.44, 15.55, 2)),
+        A("langenlois", "Langenlois", 2, "kamptal", V(48.47, 15.68, 2.6)), A("zobing", "Zöbing & Heiligenstein", 2, "kamptal", V(48.49, 15.70, 1.8)),
+        A("feuersbrunn", "Feuersbrunn", 2, "wagram", V(48.43, 15.77, 2.2)), A("poysdorf", "Poysdorf", 2, "weinviertel", V(48.67, 16.63, 3)),
+        A("falkenstein", "Falkenstein", 2, "weinviertel", V(48.73, 16.58, 2.4)), A("retz", "Retz", 2, "weinviertel", V(48.76, 15.95, 3)),
+        A("gottlesbrunn", "Göttlesbrunn", 2, "carnuntum", V(48.06, 16.74, 2.4)),
+        A("gumpoldskirchen", "Gumpoldskirchen", 2, "thermenregion", V(48.04, 16.28, 2)), A("tattendorf", "Tattendorf & Bad Vöslau", 2, "thermenregion", V(47.96, 16.27, 2.4)),
+        A("gols", "Gols", 2, "neusiedlersee", V(47.90, 16.92, 2.6)), A("illmitz", "Illmitz & Seewinkel", 2, "neusiedlersee", V(47.76, 16.80, 3.5)),
+        A("rust", "Rust", 2, "leithaberg", V(47.80, 16.67, 2)), A("purbach", "Purbach & Donnerskirchen", 2, "leithaberg", V(47.91, 16.70, 2.4)),
+        A("deutschkreutz", "Deutschkreutz & Horitschon", 2, "mittelburgenland", V(47.58, 16.55, 3)),
+        A("gamlitz", "Gamlitz & Ehrenhausen", 2, "sudsteiermark", V(46.72, 15.55, 2.6)), A("leutschach", "Leutschach", 2, "sudsteiermark", V(46.67, 15.47, 2.6)),
+        A("kloch", "Klöch", 2, "vulkanland", V(46.76, 15.97, 2.4)), A("kapfenstein", "Kapfenstein & Riegersburg", 2, "vulkanland", V(46.90, 15.95, 3)),
+        A("deutschlandsberg", "Deutschlandsberg (Schilcher)", 2, "weststeiermark", V(46.81, 15.22, 3)),
+    ],
+}
+
+# ================================================================= SOUTH AUSTRALIA (official GIs: zones > regions > subregions)
+def F(name): return {"file": "Australia/South_Australia/" + name + ".geojson"}
+SOUTH_AUSTRALIA = {
+    "map": "south-australia", "iso": "AUS", "adm": "ADM2", "bbox": None,
+    "areas": [
+        A("sa-barossa-zone", "Barossa (zone)", 0, None, F("Barossa")), A("sa-mount-lofty", "Mount Lofty Ranges", 0, None, F("Mount_Lofty_Ranges")),
+        A("sa-fleurieu", "Fleurieu", 0, None, F("Fleurieu")), A("sa-limestone-coast", "Limestone Coast", 0, None, F("Limestone_Coast")),
+        A("sa-lower-murray", "Lower Murray", 0, None, F("Lower_Muurray")), A("sa-far-north", "Far North", 0, None, F("Far_North")),
+        A("sa-peninsulas", "The Peninsulas", 0, None, F("The_Peninsulas")),
+        A("barossa", "Barossa Valley", 1, "sa-barossa-zone", F("Barossa_Valley")), A("eden-valley", "Eden Valley", 1, "sa-barossa-zone", F("Eden_Valley")),
+        A("clare", "Clare Valley", 1, "sa-mount-lofty", F("Clare_Valley")), A("adelaide-hills", "Adelaide Hills", 1, "sa-mount-lofty", F("Adelaide_Hills")),
+        A("adelaide-plains", "Adelaide Plains", 1, "sa-mount-lofty", F("Adelaide_Plains")),
+        A("mclaren-vale", "McLaren Vale", 1, "sa-fleurieu", F("McLaren_Vale")), A("langhorne-creek", "Langhorne Creek", 1, "sa-fleurieu", F("Langhorne_Creek")),
+        A("currency-creek", "Currency Creek", 1, "sa-fleurieu", F("Currency_Creek")), A("southern-fleurieu", "Southern Fleurieu", 1, "sa-fleurieu", F("Southern_Fleurieu")),
+        A("kangaroo-island", "Kangaroo Island", 1, "sa-fleurieu", F("Kangaroo_Island")),
+        A("coonawarra", "Coonawarra", 1, "sa-limestone-coast", F("Coonawarra")), A("padthaway", "Padthaway", 1, "sa-limestone-coast", F("Padthaway")),
+        A("wrattonbully", "Wrattonbully", 1, "sa-limestone-coast", F("Wrattonbully")), A("mount-benson", "Mount Benson", 1, "sa-limestone-coast", F("Mount_Benson")),
+        A("robe", "Robe", 1, "sa-limestone-coast", F("Robe")), A("mount-gambier", "Mount Gambier", 1, "sa-limestone-coast", F("Mount_Gambier")),
+        A("riverland", "Riverland", 1, "sa-lower-murray", F("Riverland")), A("southern-flinders", "Southern Flinders Ranges", 1, "sa-far-north", F("Southern_Flinders_Ranges")),
+        A("high-eden", "High Eden", 2, "eden-valley", F("High_Eden")), A("lenswood", "Lenswood", 2, "adelaide-hills", F("Lenswood")),
+        A("piccadilly-valley", "Piccadilly Valley", 2, "adelaide-hills", F("Piccadilly_Valley")),
+    ],
+}
