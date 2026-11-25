@@ -1,0 +1,13 @@
+{
+ "name": "Great Wines Direct",
+ "base": "https://www.greatwinesdirect.co.uk",
+ "status": "existing",
+ "declared_currency": "GBP",
+ "products": 4084,
+ "pages": 17,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 21
+}
