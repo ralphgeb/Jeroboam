@@ -1,0 +1,13 @@
+{
+ "name": "Hard to Find Wines",
+ "base": "https://www.htfwines.co.uk",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 1375,
+ "pages": 6,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 7
+}
