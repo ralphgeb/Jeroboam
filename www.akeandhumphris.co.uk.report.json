@@ -1,0 +1,13 @@
+{
+ "name": "Ake & Humphris",
+ "base": "https://www.akeandhumphris.co.uk",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 658,
+ "pages": 3,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 4
+}
