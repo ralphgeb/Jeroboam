@@ -1,0 +1,13 @@
+{
+ "name": "Mysa Natural Wine",
+ "base": "https://mysa.wine",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 2015,
+ "pages": 9,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 10
+}
