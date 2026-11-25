@@ -1,0 +1,13 @@
+{
+ "name": "Schenk",
+ "base": "https://schenk-wine.ch",
+ "status": "existing",
+ "declared_currency": "CHF",
+ "products": 996,
+ "pages": 4,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "CHF",
+ "storefront_rate": "1.0",
+ "seconds": 5
+}
