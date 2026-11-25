@@ -144,7 +144,8 @@ def vintage_of(title, *more):
 # ---------------------------------------------------------------- producers
 NOT_PRODUCER = re.compile(r"""^(
   |\d+|0|n/?a|none|null|default|vendor|unknown|various|misc\w*|other|test|sample|wine|wines|vin|vins|vino|red|white|rose|sparkling|
-  chateau|ch|domaine|dom|clos|bodegas?|maison|tenuta|weingut|cantina|quinta|castello|casa|cave|caves|cellars?|estate|winery|vineyards?|famille|azienda(?:\ agricola)?|
+  (?:chateau|ch|domaine|dom|clos|bodegas?|maison|tenuta|weingut|cantina|quinta|castello|casa|cave|caves|cellars?|estate|winery|vineyards?|famille|azienda(?:\ agricola)?)
+    (?:\ (?:de|du|des|la|le|les|di|del|della|dei|da|do|dos|das|d|l|von|van|der|y|et|e))*|
   .*\bitems?\b.*|.*\bgcc\b.*|.*\bsku\b.*|.*\bcollection\b.*|en\ primeur|fine\ wine.*|rare\ wine.*|
   natural\ wine|spanish\ natural\ wine|naturwein\w*|naturweine|organic|biodynamic|gift|gifts|shop|store|online|private.*|\d{4,}\s*-.*|
   .*\[[a-z]{2,6}\]|.*\b(imports?|importers?|importing|selections?|distribut\w*|merchants?|wine\s*&\s*spirits|wines\s*and\s*spirits|spirits|
