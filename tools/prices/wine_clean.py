@@ -28,7 +28,7 @@ NONWINE = re.compile(r"""\b(
   corkscrew|opener|stoppers?|decanter|carafe|glass(?:es|ware)?|tumbler|ice\s+bucket|cooler|chiller|aerator|pourer|wine\s+rack|cellar\s+book|
   ticket|tasting\s+(?:event|class|evening|night|pass|session|ticket)|masterclass|wine\s+class|workshop|supper\s+club|wine\s+tour|tasting\s+experience|
   wine\s+club|club\s+(?:membership|subscription)|membership|subscription|abonnement|bottle\s+deposit|deposit|shipping|delivery\s+charge|insurance|shipping\s+protection|donation|
-  mixed\s+(?:case|dozen|pack|box)|mixed|mystery|vin\s+surprise|(?:party|explorer|combo|tray|tasting|discovery|starter|value|vertical|sampler)\s+(?:pack|case|set)|case\s+offer|wine\s+box|set\s+of\s+\d+|tasting(?!\s+(?:room|notes?))|(?:three|four|five|six|twelve)[- ]bottle|kit(?![`'\u2019]s|\s*s\s+coty)|bundle|sampler|discovery\s+(?:box|case|pack)|tasting\s+(?:box|kit|set|case|pack)|selection\s+box|
+  mixed\s+(?:case|dozen|pack|box)|mixed|mystery|vin\s+surprise|(?:party|explorer|combo|tray|tasting|discovery|starter|value|vertical|sampler)\s+(?:pack|case|set)|case\s+offer|wine\s+box|(?:trio|duo|quartet)\s*$|(?:trio|duo)\s+(?:gift|pack|set|box)|set\s+of\s+\d+|tasting(?!\s+(?:room|notes?))|(?:three|four|five|six|twelve)[- ]bottle|kit(?![`'\u2019]s|\s*s\s+coty)|bundle|sampler|discovery\s+(?:box|case|pack)|tasting\s+(?:box|kit|set|case|pack)|selection\s+box|
   hamper|coffret|assortment|variety\s+pack|collection\s+box|advent\s+calendar|gift\s+pack
 )\b""", re.I | re.X)
 NONWINE_TYPE = re.compile(r"spirit|whisk|\bgin\b|\brum\b|vodka|tequila|mezcal|liqueur|beer|\bale\b|lager|cider|\bsake\b|food|snack|pantry|grocer|deli|"

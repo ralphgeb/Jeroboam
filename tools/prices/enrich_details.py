@@ -146,9 +146,9 @@ def scores_in(text):
 # ---------- tags ----------
 def tag_value(tags, keys):
     for t in tags:
-        m = re.match(r'^\s*(' + keys + r')\s*[_:|]\s*(.+?)\s*$', t, re.I) or re.match(r'^\s*(.+?)_(' + keys + r')\s*$', t, re.I)
+        m = re.match(r'^\s*(?:wine\s+)?(' + keys + r')\s*[_:|>]\s*(.+?)\s*$', t, re.I) or re.match(r'^\s*(.+?)_(' + keys + r')\s*$', t, re.I)
         if m:
-            v = m.group(2) if m.re.pattern.startswith('^\\s*(' + keys) else m.group(1)
+            v = m.group(2) if m.re.pattern.startswith('^\\s*(?:wine') else m.group(1)
             if v and not re.search(r'undefined|other|n/a', v, re.I): return v.strip()
     return None
 COLORS = [('Sparkling', r'sparkling|champagne|cr[eé]mant|cava|prosecco|pet[- ]?nat|franciacorta|spumante|sekt|\bbrut\b|blanc de blancs|blanc de noirs|frizzante|lambrusco'),
@@ -215,7 +215,7 @@ def analyse(name, d):
     if tc: out['country'] = COUNTRIES.get(fold(tc), tc.title() if tc.islower() else tc)
     if host in SHOP_COUNTRY and 'country' not in out: out['country'] = SHOP_COUNTRY[host]
     treg = tag_value(tags, 'region')
-    tapp = tag_value(tags, 'appellation|subregion|sub[- ]region')
+    tapp = tag_value(tags, 'appellation|subregion|sub[- ]region|origin|aoc|doc|ava')
     hit = place_from(name) or (place_from(' '.join([tapp or '', treg or ''] + tags)) if tags else None) or place_from(text[:400])
     if hit:
         out['appellation'], out['region'], c = hit
@@ -225,7 +225,7 @@ def analyse(name, d):
     if tapp and 'appellation' not in out: out['appellation'] = tapp
     gs = []
     for t in tags:
-        m = re.match(r'^\s*(?:grape(?: variety)?|varietal|grapes?)\s*[_:|]\s*(.+)$', t, re.I) or re.match(r'^(.+)_grape$', t, re.I)
+        m = re.match(r'^\s*(?:grape(?: variety)?|varietal|variety|grapes?|cepage|rebsorte|vitigno)\s*[_:|>]\s*(.+)$', t, re.I) or re.match(r'^(.+)_grape$', t, re.I)
         if m:
             g = GRAPES.get(fold(m.group(1).strip()), m.group(1).strip().title())
             if g not in gs: gs.append(g)

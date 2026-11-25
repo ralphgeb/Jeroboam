@@ -84,7 +84,7 @@ def main():
     for h, w in why.items():
         share = (w['products'] - w['not wine'] - w['no wine signal'] - w['empty']) / max(1, w['products'])
         st = shops[h].get('status')
-        keep_host[h] = share >= (0.25 if st == 'existing' else 0.4) and w['products'] >= 10   # mixed shops keep their wines; non-wine businesses go
+        keep_host[h] = share >= 0.15 and w['products'] >= 10   # liquor stores keep their wines; non-wine businesses (bags, groceries) go
     prods = [p for p in prods if keep_host[p['host']]]
 
     # ---- 3. producers: is the shop's vendor field the producer?
@@ -123,6 +123,10 @@ def main():
         return bool(f) and not place_or_grape(seg) and not NOT_PRODUCER.match(f) and not STYLE_WORDS.search(f) \
             and not ED.GRAPE_RX.search(f) and not ED.PLACE_RX.match(f) and len(f.split()) <= 5 and not re.search(r"\d", f)
     for p in prods:
+        for t in p['tags']:
+            m = re.match(r'^\s*(?:wine\s+)?(?:producer|brand|winery|winemaker)\s*[:>_|]\s*(.+?)\s*$', t, re.I)
+            if m and not NOT_PRODUCER.match(fold(m.group(1)).strip()):
+                dictionary[fold(m.group(1)).strip()] += 2; spell[fold(m.group(1)).strip()][m.group(1)] += 1
         seg = lead_segment(p['title'])
         if seg and seg_ok(seg):
             dictionary[fold(seg).strip()] += 1
@@ -155,7 +159,13 @@ def main():
         # prefer a mixed-case spelling (not ALL CAPS) with accents
         best = sorted(c.items(), key=lambda kv: (kv[0].isupper(), kv[0].islower(), -sum(ord(ch) > 127 for ch in kv[0]), -kv[1]))[0][0]
         canon.setdefault(k, best)
+    TAGP = re.compile(r'^\s*(?:wine\s+)?(?:producer|brand|winery|maker|winemaker|domaine|estate|vigneron|grower|house)\s*[:>_|]\s*(.+?)\s*$', re.I)
+
     def producer_of(p):
+        for t in p['tags']:          # 'Wine Producer > Leonetti', 'Brand: Contino'
+            m = TAGP.match(t)
+            if m and not NOT_PRODUCER.match(fold(m.group(1)).strip()) and fold(m.group(1)).strip() not in all_shop_names:
+                return m.group(1), 'tag'
         v = p['vendor']
         if good_vendor.get((p['host'], v)):
             return v, 'vendor'
@@ -179,9 +189,7 @@ def main():
     out, stats = [], C.defaultdict(C.Counter)
     for p in prods:
         h = p['host']; s = shops[h]; rep = report.get(h, {})
-        cur = s['currency']
-        if rep.get('storefront_currency') and rep['storefront_currency'] != cur and rep.get('storefront_rate') in ('1.0', '1'):
-            cur = rep['storefront_currency']
+        cur = s['currency']   # the configured currency; the storefront's (seen from a US runner) is only reported
         if cur not in RATES:
             stats[h]['currency?'] += 1; continue
         prod, how = producer_of(p)
@@ -231,7 +239,7 @@ def main():
 
     # ---- 5. report
     L = [f'# Shopify harvest ({checked})', '', 'Per shop: products in the catalogue, what was dropped and why, wine offers kept, how the producer was found.', '',
-         '| shop | status | currency | products | not wine | no wine signal | kept offers | producer from vendor / title / dictionary / unknown | note |',
+         '| shop | status | currency | products | not wine | no wine signal | kept offers | producer from tag / vendor / title / dictionary / name / unknown | note |',
          '|---|---|---|---|---|---|---|---|---|']
     for h, s in sorted(shops.items(), key=lambda kv: kv[1]['name']):
         w = why.get(h, C.Counter()); st = stats.get(h, C.Counter()); rep = report.get(h, {})
@@ -239,7 +247,7 @@ def main():
         if rep.get('storefront_currency') and rep['storefront_currency'] != s['currency']:
             note += f" storefront shows {rep['storefront_currency']} (rate {rep.get('storefront_rate')})"
         L.append(f"| {s['name']} ({h}) | {s.get('status')} | {s['currency']} | {w['products']} | {w['not wine']} | {w['no wine signal']} | {st['offers']} | "
-                 f"{st['producer vendor']} / {st['producer title']} / {st['producer dictionary']} / {st['producer unknown']} | {note.strip()} |")
+                 f"{st['producer tag']} / {st['producer vendor']} / {st['producer title']} / {st['producer dictionary']} / {st['producer name']} / {st['producer unknown']} | {note.strip()} |")
     L += ['', f'Total offers: {len(out)} from {len({r["shop"] + r["location"] for r in out})} shops.']
     open(os.path.join(ROOT, 'content/prices/sources/shopify_report.md'), 'w').write('\n'.join(L) + '\n')
     print('\n'.join(L[-1:]))
