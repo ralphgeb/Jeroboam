@@ -1,0 +1,55 @@
+name: Harvest wine shops (Shopify catalogues)
+
+# Downloads every shop in tools/prices/shops.json on a runner (the dev container cannot reach the shops)
+# and pushes the raw catalogues to the `shop-data` branch. Turning them into the price list happens locally:
+#   tools/prices/shopify_to_sources.py -> merge_prices.py -> enrich_details.py -> build_app_wines.py / build_app_prices.py
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only these hosts (comma separated, empty = all shops)"
+        required: false
+        default: ""
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "tools/prices/shops.json"
+      - "tools/prices/harvest_shopify.py"
+      - ".github/workflows/harvest_shops.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: harvest-shops
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Previous data (for --only runs)
+        if: ${{ github.event.inputs.only != '' && github.event.inputs.only != null }}
+        run: |
+          mkdir -p /tmp/prev shop-data
+          git fetch --depth=1 origin shop-data && git --work-tree=/tmp/prev checkout FETCH_HEAD -- . || true
+          cp -r /tmp/prev/. shop-data/ || true
+          rm -rf shop-data/.git
+      - name: Harvest
+        run: python3 tools/prices/harvest_shopify.py --out shop-data --only "${{ github.event.inputs.only }}"
+      - name: Push to shop-data branch
+        run: |
+          cd shop-data
+          git init -q -b shop-data
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          date -u +%Y-%m-%dT%H:%MZ > HARVESTED_AT
+          git add -A
+          git commit -qm "Shop catalogues $(cat HARVESTED_AT)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data
