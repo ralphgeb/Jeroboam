@@ -1,0 +1,13 @@
+{
+ "name": "Top Cuvée",
+ "base": "https://www.topcuvee.com",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 124,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "GBP",
+ "storefront_rate": "1.0",
+ "seconds": 2
+}
