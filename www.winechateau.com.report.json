@@ -1,0 +1,14 @@
+{
+ "name": "Wine Chateau",
+ "base": "https://www.winechateau.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 50967,
+ "pages": 100,
+ "via_collections": true,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "stopped_early": true,
+ "seconds": 9068
+}
