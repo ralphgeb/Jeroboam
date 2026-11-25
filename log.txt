@@ -1,61 +1,56 @@
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-admin Mendoza 554
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-admin San Juan 950
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-admin Salta 216
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+tile ge (41.0, 41.4, 42.8, 43.4) vineyards 482
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-admin Catamarca 363
+tile ge (41.0, 43.4, 42.8, 45.4) vineyards 116
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-admin La Rioja 222
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-admin Neuquén 749
+tile ge (41.0, 45.4, 42.8, 46.8) vineyards 579
+ge vineyards 1177 wineries 40
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+tile hu (45.7, 16.1, 47.7, 18.1) vineyards 9552
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-admin failed Río Negro overpass failed
+tile hu (45.7, 18.1, 47.7, 20.1) vineyards 1949
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+tile hu (45.7, 20.1, 47.7, 22.1) vineyards 178
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+tile hu (45.7, 22.1, 47.7, 22.9) vineyards 237
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+tile hu (47.7, 16.1, 48.6, 18.1) vineyards 10608
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+tile hu (47.7, 18.1, 48.6, 20.1) vineyards 2332
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
   retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-admin Tucumán 160
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+tile hu (47.7, 20.1, 48.6, 22.1) vineyards 916
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
   retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
-admin ar relations 3214 places 15609
+tile hu (47.7, 22.1, 48.6, 22.9) vineyards 192
+hu vineyards 25964 wineries 840
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places ge 5916
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places hu 61282
