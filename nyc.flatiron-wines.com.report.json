@@ -1,0 +1,13 @@
+{
+ "name": "Flatiron Wines",
+ "base": "https://nyc.flatiron-wines.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 500,
+ "pages": 2,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": null,
+ "storefront_rate": null,
+ "seconds": 280
+}
