@@ -1,0 +1,427 @@
+name: Harvest New Shopify Wine Producers
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_producers:
+        description: "Minimum number of brand-new producers to harvest"
+        required: false
+        default: "1200"
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas requests
+
+      - name: Run Deep Shopify Wine Harvester (non-destructive)
+        run: |
+          cat << 'EOF' > /tmp/shopify_wine_harvester.py
+          #!/usr/bin/env python3
+          """
+          Jeroboam Shopify Wine Harvester (Non-Destructive)
+          -------------------------------------------------
+          Harvests 1,000+ NEW wine producers (excluding all producers already present in
+          content/prices/wine_details.csv) across 30+ reputable independent & niche
+          Shopify wine merchants worldwide.
+
+          - NEVER modifies wine_details.csv or wine_prices.csv (and keeps all existing rows including CaskCartel).
+          - Outputs two brand-new files in your exact 18-column and 16-column schemas:
+              1. content/prices/wine_details_shopify_new.csv
+              2. content/prices/wine_prices_shopify_new.csv
+          - Extracts maximum available Shopify metadata: vendor (producer), title, vintage,
+            bottle size (ml), price (GBP/EUR/USD), stock availability, tags, product_type,
+            HTML-stripped tasting notes, critic scores (WA/Vinous/Decanter/JS/JD/JR/TA),
+            grape varieties, color, country/region, and aroma descriptors.
+
+          Usage:
+              python shopify_wine_harvester.py --target-producers 1500
+          """
+
+          import argparse
+          import html
+          import re
+          import time
+          from datetime import date
+          from pathlib import Path
+          from typing import Dict, List, Optional, Tuple
+
+          import pandas as pd
+          import requests
+
+          # Hard-blocked inflated resellers for NEW harvesting (existing data is never touched)
+          BLOCKED_DOMAINS = {
+              "caskcartel.com",
+              "reservebar.com",
+              "wooden-cork.com",
+              "qualityliquorstore.com",
+              "shopwinedirect.com",
+          }
+
+          # 32 reputable independent, fine-wine, and niche-region Shopify merchants
+          MERCHANTS = [
+              # UK & London Specialists
+              {"name": "Newcomer Wines", "base": "https://www.newcomerwines.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Les Caves de Pyrene", "base": "https://www.lescaves.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Shrine to the Vine", "base": "https://www.shrinethevine.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Maltby & Greek", "base": "https://www.maltbyandgreek.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Taste of Georgia", "base": "https://www.tasteofgeorgia.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Croatian Fine Wines", "base": "https://www.croatianfinewines.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Modal Wines", "base": "https://www.modalwines.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Keeling Andrew & Co", "base": "https://www.keelingandrew.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Noble Rot", "base": "https://shop.noblerot.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Passione Vino", "base": "https://passionevino.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Dalling & Co", "base": "https://www.dallingandco.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Vagabond Wines", "base": "https://www.vagabondwines.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Bottle Apostle", "base": "https://www.bottleapostle.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Uncharted Wines", "base": "https://unchartedwines.com", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "Wayward Wines", "base": "https://www.waywardwines.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              {"name": "South African Wine Shop", "base": "https://www.capefinewines.co.uk", "currency": "GBP", "sold_in": "UK wine shop"},
+              # US Specialists (NY, CA, OR, National)
+              {"name": "Flatiron Wines", "base": "https://flatiron-wines.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Chambers Street Wines", "base": "https://www.chambersstwines.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Leon & Son", "base": "https://leonandsonwine.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Parcelle Wine", "base": "https://parcellewine.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Crush Wine & Spirits", "base": "https://www.crushwineco.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Vanderbilt Ave Wine Merchants", "base": "https://vanderbilt.wine", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Discovery Wines", "base": "https://discoverywines.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Thirst Wine Merchants", "base": "https://www.thirstwinemerchants.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Biondivino", "base": "https://www.biondivino.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Veritas Wine", "base": "https://www.veritaswines.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Kermit Lynch Shop", "base": "https://shop.kermitlynch.com", "currency": "USD", "sold_in": "US wine shop"},
+              {"name": "Vin Chicago", "base": "https://www.vinchicago.com", "currency": "USD", "sold_in": "US wine shop"},
+              # EU & Global Specialists
+              {"name": "8greenbottles", "base": "https://www.8greenbottles.nl", "currency": "EUR", "sold_in": "EU wine shop"},
+              {"name": "More Natural Wine", "base": "https://morenaturalwine.com", "currency": "EUR", "sold_in": "EU wine shop"},
+              {"name": "Raisin / Natural EU", "base": "https://www.vinsnaturels.fr", "currency": "EUR", "sold_in": "EU wine shop"},
+              {"name": "P&V Wine + Liquor", "base": "https://www.pnvmerchants.com", "currency": "AUD", "sold_in": "AU wine shop"},
+          ]
+
+          FX_TO_GBP = {"GBP": 1.0, "USD": 0.78, "EUR": 0.84, "AUD": 0.51}
+          FX_TO_EUR = {"GBP": 1.19, "USD": 0.93, "EUR": 1.0, "AUD": 0.61}
+          FX_TO_USD = {"GBP": 1.28, "USD": 1.0, "EUR": 1.08, "AUD": 0.65}
+
+          NON_WINE_KEYWORDS = re.compile(
+              r"\b(gift card|tote bag|corkscrew|decanter|glassware|book|poster|t-shirt|shirt|hoodie|merch|ticket|tasting pass|olive oil|cheese|chocolate|sake|whisky|whiskey|bourbon|gin|vodka|rum|tequila|mezcal|amaro|vermouth|cider|beer|ipa|lager|kombucha)\b",
+              re.I,
+          )
+
+          AROMA_LEXICON = [
+              "blackcurrant", "cassis", "blackberry", "blueberry", "raspberry", "strawberry",
+              "red cherry", "black cherry", "sour cherry", "cranberry", "pomegranate", "plum",
+              "fig", "prune", "green apple", "red apple", "baked apple", "pear", "quince",
+              "white peach", "peach", "apricot", "nectarine", "lemon", "lime", "grapefruit",
+              "blood orange", "orange peel", "yuzu", "tangerine", "pineapple", "mango",
+              "passionfruit", "lychee", "melon", "violet", "rose petal", "honeysuckle",
+              "orange blossom", "chamomile", "lavender", "peony", "elderflower", "hibiscus",
+              "black pepper", "white pepper", "cinnamon", "clove", "star anise", "licorice",
+              "ginger", "nutmeg", "saffron", "vanilla", "cocoa", "dark chocolate", "espresso",
+              "mocha", "tobacco", "cedar", "sandalwood", "smoke", "smoked meat", "bacon",
+              "leather", "truffle", "mushroom", "forest floor", "wet stone", "flint", "chalk",
+              "slate", "granite", "limestone", "volcanic ash", "sea spray", "saline", "oyster shell",
+              "brioche", "toast", "hazelnut", "almond", "walnut", "beeswax", "honey", "butter",
+              "thyme", "rosemary", "sage", "oregano", "mint", "eucalyptus", "bay leaf", "fennel",
+              "black olive", "tomato leaf", "garrigue", "petrol", "tar", "graphite", "iron",
+          ]
+
+          CRITIC_PATTERNS = [
+              ("Wine Advocate", re.compile(r"(?:wine advocate|robert parker|wa|rp)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Vinous", re.compile(r"(?:vinous|galloni|ag)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Decanter", re.compile(r"(?:decanter|dec)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Jeb Dunnuck", re.compile(r"(?:jeb dunnuck|jd)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("James Suckling", re.compile(r"(?:james suckling|js)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Wine Spectator", re.compile(r"(?:wine spectator|ws)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Burghound", re.compile(r"(?:burghound|bh)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+              ("Tim Atkin", re.compile(r"(?:tim atkin|ta)\s*[:\-]?\s*(9\d|100|8[5-9])\b", re.I)),
+          ]
+
+          COUNTRIES = [
+              "France", "Italy", "Spain", "Portugal", "Germany", "Austria", "United States",
+              "Argentina", "Chile", "Australia", "New Zealand", "South Africa", "Greece",
+              "Georgia", "Lebanon", "Hungary", "Croatia", "Slovenia", "Switzerland", "England",
+              "Japan", "Uruguay", "Canada", "Israel", "Armenia", "Romania", "Bulgaria", "Serbia",
+              "Turkey", "Morocco", "Mexico", "Brazil",
+          ]
+
+          GRAPES = [
+              "Pinot Noir", "Chardonnay", "Cabernet Sauvignon", "Merlot", "Syrah", "Shiraz",
+              "Nebbiolo", "Sangiovese", "Riesling", "Sauvignon Blanc", "Cabernet Franc",
+              "Grenache", "Garnacha", "Tempranillo", "Malbec", "Gamay", "Chenin Blanc",
+              "Pinot Grigio", "Pinot Gris", "Zinfandel", "Mourvèdre", "Viognier", "Gewurztraminer",
+              "Albariño", "Grüner Veltliner", "Assyrtiko", "Xinomavro", "Nerello Mascalese",
+              "Aglianico", "Mencía", "Blaufränkisch", "Furmint", "Cinsault", "Savagnin",
+              "Trousseau", "Poulsard", "Carignan", "Barbera", "Dolcetto", "Corvina", "Garganega",
+              "Vermentino", "Fiano", "Greco", "Rkatsiteli", "Saperavi", "Koshu", "Baga",
+              "Touriga Nacional", "Encruzado", "Listán Negro", "Palomino", "Godello", "Treixadura",
+              "Melon de Bourgogne", "Semillon", "Sémillon", "Marsanne", "Roussanne", "Picpoul",
+              "Petit Verdot", "Tannat", "Bonarda", "Torrontés", "Carmenere", "Pinotage",
+          ]
+
+
+          def norm(s: str) -> str:
+              return re.sub(r"[^a-z0-9]+", "", str(s or "").lower())
+
+
+          def clean_html(raw: str) -> str:
+              if not raw:
+                  return ""
+              text = re.sub(r"<[^>]+>", " ", raw)
+              text = html.unescape(text)
+              return re.sub(r"\s+", " ", text).strip()
+
+
+          def extract_vintage(text: str) -> str:
+              m = re.search(r"\b(19[5-9]\d|20[0-2]\d)\b", text or "")
+              return m.group(1) if m else "NV"
+
+
+          def extract_size_ml(text: str) -> int:
+              t = (text or "").lower()
+              if "1.5l" in t or "1500ml" in t or "magnum" in t:
+                  return 1500
+              if "375ml" in t or "half bottle" in t:
+                  return 375
+              if "500ml" in t:
+                  return 500
+              if "620ml" in t or "clavelin" in t:
+                  return 620
+              if "3l" in t or "3000ml" in t or "double magnum" in t:
+                  return 3000
+              if "1l" in t or "1000ml" in t:
+                  return 1000
+              return 750
+
+
+          def extract_color(text: str) -> str:
+              t = (text or "").lower()
+              if any(k in t for k in ["sparkling", "champagne", "crémant", "cremant", "cava", "prosecco", "pet-nat", "pét-nat", "franciacorta"]):
+                  return "Sparkling"
+              if any(k in t for k in ["orange wine", "amber wine", "skin contact", "skin-contact", "qvevri"]):
+                  return "Orange"
+              if any(k in t for k in ["rosé", "rose wine", "rosato", "rosado"]):
+                  return "Rosé"
+              if any(k in t for k in ["white wine", "blanc", "bianco", "blanco", "branco", "weiss", "riesling", "chardonnay", "sauvignon blanc", "chenin", "assyrtiko", "albariño", "grüner", "chablis", "sancerre", "meursault"]):
+                  return "White"
+              if any(k in t for k in ["red wine", "rouge", "rosso", "tinto", "rotwein", "pinot noir", "cabernet", "syrah", "nebbiolo", "sangiovese", "barolo", "bordeaux", "rioja", "malbec", "gamay", "grenache", "xinomavro", "blaufränkisch"]):
+                  return "Red"
+              return ""
+
+
+          def extract_aromas(text: str) -> str:
+              t = (text or "").lower()
+              found = [a.title() for a in AROMA_LEXICON if re.search(rf"\b{re.escape(a)}\b", t)]
+              return ", ".join(dict.fromkeys(found[:10]))
+
+
+          def extract_scores(text: str) -> Tuple[Optional[float], str]:
+              scores = []
+              nums = []
+              for critic, pat in CRITIC_PATTERNS:
+                  m = pat.search(text or "")
+                  if m:
+                      val = int(m.group(1))
+                      scores.append(f"{critic}: {val}")
+                      nums.append(val)
+              if not nums:
+                  return None, ""
+              return round(sum(nums) / len(nums), 1), " ; ".join(scores)
+
+
+          def extract_country(text: str) -> str:
+              t = (text or "").lower()
+              for c in COUNTRIES:
+                  if re.search(rf"\b{re.escape(c.lower())}\b", t):
+                      return c
+              if re.search(r"\b(usa|u\.s\.a|california|oregon|washington|napa|sonoma|willamette)\b", t):
+                  return "United States"
+              return ""
+
+
+          def extract_grapes(text: str) -> str:
+              t = (text or "").lower()
+              found = [g for g in GRAPES if re.search(rf"\b{re.escape(g.lower())}\b", t)]
+              return ", ".join(dict.fromkeys(found[:4]))
+
+
+          def main():
+              parser = argparse.ArgumentParser()
+              parser.add_argument("--existing-details", default="content/prices/wine_details.csv")
+              parser.add_argument("--out-details", default="content/prices/wine_details_shopify_new.csv")
+              parser.add_argument("--out-prices", default="content/prices/wine_prices_shopify_new.csv")
+              parser.add_argument("--target-producers", type=int, default=1200)
+              parser.add_argument("--max-pages", type=int, default=25)
+              parser.add_argument("--delay", type=float, default=1.2)
+              args = parser.parse_args()
+
+              existing_path = Path(args.existing_details)
+              if not existing_path.exists():
+                  existing_path = Path("wine_details.csv")
+
+              existing_df = pd.read_csv(existing_path, usecols=["producer"], low_memory=False)
+              existing_producers = {norm(p) for p in existing_df["producer"].dropna() if str(p).strip()}
+              print(f"Loaded {len(existing_producers):,} normalized existing producers to skip (read-only).")
+
+              new_producers = set()
+              details_rows: List[Dict] = []
+              prices_rows: List[Dict] = []
+              seen_keys = set()
+
+              session = requests.Session()
+              session.headers.update({"User-Agent": "JeroboamWineDB/2.0 (Catalog Research)"})
+
+              for m in MERCHANTS:
+                  if len(new_producers) >= args.target_producers:
+                      break
+                  if any(b in m["base"] for b in BLOCKED_DOMAINS):
+                      continue
+
+                  print(f"Scanning {m['name']} ({m['base']}) ... [New producers so far: {len(new_producers):,}]")
+                  for page in range(1, args.max_pages + 1):
+                      if len(new_producers) >= args.target_producers:
+                          break
+                      url = f"{m['base']}/products.json?limit=250&page={page}"
+                      try:
+                          r = session.get(url, timeout=15)
+                          if r.status_code != 200:
+                              break
+                          products = r.json().get("products", [])
+                          if not products:
+                              break
+                      except Exception as e:
+                          print(f"  Skipped {m['name']} page {page}: {e}")
+                          break
+
+                      for p in products:
+                          title = (p.get("title") or "").strip()
+                          ptype = (p.get("product_type") or "").strip()
+                          tags_list = p.get("tags") or []
+                          tags_str = ", ".join(tags_list) if isinstance(tags_list, list) else str(tags_list)
+                          body_text = clean_html(p.get("body_html") or "")
+
+                          combined_meta = f"{title} | {ptype} | {tags_str} | {body_text}"
+                          if NON_WINE_KEYWORDS.search(f"{title} {ptype}"):
+                              continue
+
+                          producer = (p.get("vendor") or "").strip()
+                          p_norm = norm(producer)
+                          # Skip empty vendors, store-name-as-vendor, or existing producers
+                          if not p_norm or p_norm in existing_producers or p_norm == norm(m["name"]):
+                              continue
+
+                          variants = p.get("variants") or []
+                          if not variants:
+                              continue
+                          v = variants[0]
+                          try:
+                              price_raw = float(v.get("price") or 0)
+                          except ValueError:
+                              continue
+                          if price_raw <= 0:
+                              continue
+
+                          vintage = extract_vintage(title)
+                          size_ml = extract_size_ml(f"{title} {v.get('title', '')}")
+                          dedupe_key = (norm(title), vintage, size_ml, m["name"])
+                          if dedupe_key in seen_keys:
+                              continue
+                          seen_keys.add(dedupe_key)
+
+                          cur = m["currency"]
+                          price_gbp = round(price_raw * FX_TO_GBP[cur], 2)
+                          price_eur = round(price_raw * FX_TO_EUR[cur], 2)
+                          price_usd = round(price_raw * FX_TO_USD[cur], 2)
+                          product_url = f"{m['base']}/products/{p.get('handle', '')}"
+                          in_stock = "yes" if v.get("available") else "no"
+
+                          color = extract_color(combined_meta)
+                          country = extract_country(combined_meta)
+                          grapes = extract_grapes(combined_meta)
+                          aromas = extract_aromas(body_text)
+                          aromas_source = "shopify description" if aromas else ""
+                          avg_score, scores_str = extract_scores(body_text)
+                          notes = body_text[:600] if body_text else (f"Tags: {tags_str}" if tags_str else "")
+
+                          new_producers.add(p_norm)
+
+                          details_rows.append({
+                              "wine": title,
+                              "producer": producer,
+                              "vintage": vintage,
+                              "size_ml": size_ml,
+                              "color": color,
+                              "country": country,
+                              "region": "",
+                              "appellation": "",
+                              "grapes": grapes,
+                              "grape_blend": "",
+                              "blend_source": "",
+                              "aromas": aromas,
+                              "aromas_source": aromas_source,
+                              "notes": notes,
+                              "avg_score": avg_score if avg_score is not None else "",
+                              "scores": scores_str,
+                              "score_links": product_url if scores_str else "",
+                              "details_link": product_url,
+                          })
+
+                          prices_rows.append({
+                              "wine": title,
+                              "producer": producer,
+                              "vintage": vintage,
+                              "size_ml": size_ml,
+                              "avg_price_gbp": price_gbp,
+                              "avg_price_eur": price_eur,
+                              "avg_price_usd": price_usd,
+                              "min_price_gbp": price_gbp,
+                              "max_price_gbp": price_gbp,
+                              "shops_count": 1,
+                              "in_stock": in_stock,
+                              "sold_in": m["sold_in"],
+                              "prices": f"{m['name']}: {price_raw:.2f} {cur}",
+                              "cheapest_link": product_url,
+                              "price_note": f"Shopify harvest {date.today().isoformat()}",
+                              "links": f"{m['name']}: {product_url}",
+                          })
+
+                      time.sleep(args.delay)
+
+              out_det = Path(args.out_details)
+              out_pri = Path(args.out_prices)
+              out_det.parent.mkdir(parents=True, exist_ok=True)
+
+              pd.DataFrame(details_rows).to_csv(out_det, index=False, encoding="utf-8-sig")
+              pd.DataFrame(prices_rows).to_csv(out_pri, index=False, encoding="utf-8-sig")
+
+              print(f"\nDONE! Harvested {len(details_rows):,} wines across {len(new_producers):,} BRAND-NEW producers.")
+              print(f"  -> {out_det}")
+              print(f"  -> {out_pri}")
+
+
+          if __name__ == "__main__":
+              main()
+          EOF
+          python /tmp/shopify_wine_harvester.py \
+            --existing-details content/prices/wine_details.csv \
+            --out-details content/prices/wine_details_shopify_new.csv \
+            --out-prices content/prices/wine_prices_shopify_new.csv \
+            --target-producers "${{ github.event.inputs.target_producers || '1200' }}"
+
+      - name: Commit new companion CSVs (leaving existing CSVs untouched)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/prices/wine_details_shopify_new.csv content/prices/wine_prices_shopify_new.csv
+          git diff --staged --quiet || git commit -m "Add harvested Shopify niche wine companion CSVs"
+          git push
