@@ -1,0 +1,13 @@
+{
+ "name": "The Corkscrew",
+ "base": "https://www.thecorkscrew.ie",
+ "status": "existing",
+ "declared_currency": "EUR",
+ "products": 1460,
+ "pages": 6,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "EUR",
+ "storefront_rate": "1.0",
+ "seconds": 7
+}
