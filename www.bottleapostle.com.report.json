@@ -1,0 +1,13 @@
+{
+ "name": "Bottle Apostle",
+ "base": "https://www.bottleapostle.com",
+ "status": "new",
+ "declared_currency": "GBP",
+ "products": 0,
+ "pages": 0,
+ "via_collections": false,
+ "error": "no products.json",
+ "storefront_currency": null,
+ "storefront_rate": null,
+ "seconds": 1
+}
