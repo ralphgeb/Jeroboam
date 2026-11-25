@@ -1,0 +1,13 @@
+{
+ "name": "Leon & Son",
+ "base": "https://leonandsonwine.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 10517,
+ "pages": 43,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 45
+}
