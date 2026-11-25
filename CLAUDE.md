@@ -164,3 +164,11 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
 - Settings is one card under "About you" (`settingsCard()` in ProfileView); More maps, Foldable preview and lookup cost line live in the TestFlight section (TestFlight-only); footer shows "Jero(TM)".
 - Cellar: stat tiles open graphs (`CellarCharts.swift`, Swift Charts); list/tiles open a bottle via `navigationDestination(item:)`; `Thumb` crops with `Color.clear.overlay`.
 - Wine DB: `tools/prices/build_app_wines.py` now writes 18 columns (col 17 = grape percents); `JournalStore.refreshFromShopList()` re-prices shop-priced bottles and re-applies DB details when the list is updated.
+
+## Wine price list (rebuilt Nov 2026, content/prices/README.md)
+- ~197k wines from 80 shops. Shopify shops are listed in `tools/prices/shops.json` and harvested on a runner (`harvest_shops.yml`, one job per shop)
+  into the `shop-data` branch; `shopify_to_sources.py` -> `legacy_details.py` -> `merge_prices.py` -> `enrich_details.py` -> `build_app_wines.py` / `build_app_prices.py`.
+- Cleaning rules in `tools/prices/wine_clean.py`: no non-wine (spirits, beer, food, sets, tastings, alcohol-free), no fake producers (importers,
+  consignor codes, agent numbers, shop names, "Chateau"), per-bottle prices from every price option. Blocked shops: In Vintage Tokyo, Nourished Communities, Good Earth Shop.
+- CaskCartel only as a last resort: kept only for a wine + vintage + size no other shop sells (`price_note = high reseller price`).
+- The old `*_shopify_new.csv` companion files and their workflow were removed (wrong shops, importer producers, copied descriptions).
