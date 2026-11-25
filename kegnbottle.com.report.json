@@ -1,0 +1,13 @@
+{
+ "name": "Keg n Bottle",
+ "base": "https://kegnbottle.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 10818,
+ "pages": 44,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 38
+}
