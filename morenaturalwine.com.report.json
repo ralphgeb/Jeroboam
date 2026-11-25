@@ -1,0 +1,13 @@
+{
+ "name": "More Natural Wine",
+ "base": "https://morenaturalwine.com",
+ "status": "new",
+ "declared_currency": "EUR",
+ "products": 4486,
+ "pages": 18,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "EUR",
+ "storefront_rate": "1.0",
+ "seconds": 17
+}
