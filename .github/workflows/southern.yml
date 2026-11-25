@@ -3,6 +3,10 @@ name: Southern map data
 # wineries and districts, reference texts) -> the southern-data branch. See tools/southern_fetch.py.
 on:
   workflow_dispatch:
+    inputs:
+      fetch:
+        description: "Steps (docs nz admin places osm)"
+        default: "osm places"
   push:
     branches: ["claude/**"]
     paths: [".github/workflows/southern.yml", "tools/southern_fetch.py"]
@@ -19,14 +23,20 @@ jobs:
           python-version: "3.12"
       - run: pip install geopandas pyogrio shapely pandas
       - run: python tools/southern_fetch.py
+        env:
+          FETCH: ${{ inputs.fetch || 'osm places' }}
       - name: Publish to the southern-data branch
         if: always()
         run: |
-          cd out
-          git init -q
+          # adds to what the branch already holds (earlier runs fetched other steps)
+          url="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git clone -q --depth 1 --branch southern-data "$url" pub; then :; else
+            mkdir pub && cd pub && git init -q && git checkout -q -b southern-data && cd ..
+          fi
+          cp -r out/. pub/
+          cd pub
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git checkout -q -b southern-data
           git add -A
-          git commit -qm "Southern map source data (IPONZ, OpenStreetMap ODbL, reference texts)"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" southern-data
+          git commit -qm "Southern map source data (IPONZ, OpenStreetMap ODbL, reference texts)" || echo "nothing new"
+          git push -q "$url" HEAD:southern-data

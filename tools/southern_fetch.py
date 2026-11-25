@@ -171,7 +171,7 @@ def osm_admin_ar():
         except Exception as e:
             log("admin failed", name, e)
         q = (f'[out:json][timeout:600];area["boundary"="administrative"]["admin_level"="4"]["name"="{name}"]->.p;'
-             f'node["place"~"^(town|village|hamlet|locality|suburb|neighbourhood|isolated_dwelling)$"](area.p);out tags;')
+             f'node["place"~"^(town|village|hamlet|locality|suburb|neighbourhood|isolated_dwelling)$"](area.p);out;')
         try:
             r = overpass(q)
             for el in r["elements"]:
@@ -189,7 +189,7 @@ def osm_places():
         out = []
         for b in boxes:
             for (a, bb, c, d) in tiles(*b, step=4.0):
-                q = (f'[out:json][timeout:600];node["place"~"^(town|village|hamlet|locality|suburb)$"]({a},{bb},{c},{d});out tags;')
+                q = (f'[out:json][timeout:600];node["place"~"^(town|village|hamlet|locality|suburb)$"]({a},{bb},{c},{d});out;')
                 try:
                     r = overpass(q)
                     for el in r["elements"]:
@@ -229,10 +229,10 @@ def docs():
             if data: open(f"{OUT}/docs/wiki_{lang}_{re.sub(r'[^A-Za-z0-9_]', '', p)}.txt", "wb").write(data)
 
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["docs", "nz", "admin", "places", "osm"]
+    which = sys.argv[1:] or (os.environ.get("FETCH") or "docs nz admin places osm").split()
     if "docs" in which: step(docs)
     if "nz" in which: step(nz_gis)
     if "admin" in which: step(osm_admin_ar)
-    if "places" in which: step(osm_places)
     if "osm" in which: step(osm_vineyards)
+    if "places" in which: step(osm_places)
     os.system(f"du -ah {OUT} | sort -h | tail -60")
