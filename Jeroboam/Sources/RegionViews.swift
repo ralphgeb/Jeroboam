@@ -72,8 +72,8 @@ struct RegionListView: View {
                 }
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text(c.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text("\(c.sub?.count ?? 0) regions").font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+                Text(c.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text("\(c.sub?.count ?? 0) regions").font(.jero(size: 12)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.horizontal, 12).padding(.vertical, 10)
         }
@@ -122,7 +122,7 @@ struct RegionDetailView: View {
                         // a village or cru on a big nested map has too many neighbours for a numbered list: the full map has it
                         let deep = (MapGeometry.get(m)?.areas.filter { hl.contains($0.id) }.map(\.level).max() ?? 0) >= 1 && !(MapGeometry.get(m)?.insets.isEmpty ?? true)
                         if pinIDs.isEmpty && !deep { MapLegend(mapID: m) { id in explore = MapRef(id: m, hl: [id]) } }
-                        if !deep { Text("Tap a number for its name, again to open").font(.system(size: 12)).foregroundStyle(Palette.inkFaint) }
+                        if !deep { Text("Tap a number for its name, again to open").font(.jero(size: 12)).foregroundStyle(Palette.inkFaint) }
                     }
                 }
 
@@ -143,7 +143,7 @@ struct RegionDetailView: View {
                                     NavigationLink(value: g) {
                                         VStack(spacing: 8) {
                                             GrapeBadge(grape: g, size: 52)
-                                            Text(g.name).font(.system(size: 13, weight: .medium)).foregroundStyle(Palette.ink)
+                                            Text(g.name).font(.jero(size: 13, weight: .medium)).foregroundStyle(Palette.ink)
                                                 .lineLimit(2).multilineTextAlignment(.center)
                                         }
                                         .frame(width: 96)
@@ -175,7 +175,7 @@ struct RegionDetailView: View {
                         ForEach(facts, id: \.self) { f in
                             HStack(alignment: .firstTextBaseline, spacing: 10) {
                                 Circle().fill(Palette.wine).frame(width: 4.5, height: 4.5).offset(y: -3)
-                                Text(rich(f)).font(.system(size: 15)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
+                                Text(rich(f)).font(.jero(size: 15)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                         }
@@ -192,12 +192,12 @@ struct RegionDetailView: View {
                             NavigationLink(value: s) {
                                 HStack(spacing: 12) {
                                     if let n = pinned.firstIndex(of: s.id), let m = r.map, let a = MapGeometry.get(m)?.areas.first(where: { $0.id == s.id }) {
-                                        Text("\(n + 1)").font(.system(size: 11, weight: .bold).monospacedDigit()).foregroundStyle(.white)
+                                        Text("\(n + 1)").font(.jero(size: 11, weight: .bold).monospacedDigit()).foregroundStyle(.white)
                                             .frame(width: 22, height: 22)
                                             .background(Circle().fill(Palette.mapColor(a.color).mix(with: .black, 0.28)))
                                     }
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(s.name).font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
+                                        Text(s.name).font(.jero(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
                                         Text(s.grapes.prefix(3).compactMap { ContentStore.shared.grape($0)?.name }.joined(separator: " · "))
                                             .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                                     }
@@ -237,8 +237,8 @@ struct RegionDetailView: View {
         HStack(alignment: .top, spacing: 14) {
             Image(systemName: icon).font(.system(size: 16)).foregroundStyle(Palette.wine).frame(width: 22)
             VStack(alignment: .leading, spacing: 4) {
-                Text(title).font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
-                Text(rich(text)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
+                Text(title).font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text(rich(text)).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -249,7 +249,7 @@ struct RegionDetailView: View {
     private func textBlock(_ title: String, _ text: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             SectionTitle(text: title)
-            Text(rich(text)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
+            Text(rich(text)).font(.jero(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }

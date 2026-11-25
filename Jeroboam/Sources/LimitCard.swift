@@ -7,13 +7,14 @@ struct ErrorNote: View {
         if message == RecognizerError.limit.errorDescription {
             LimitReachedCard()
         } else {
-            Text(message).font(.system(size: 13.5)).foregroundStyle(Palette.wrong)
+            Text(message).font(.jero(size: 13.5)).foregroundStyle(Palette.wrong)
         }
     }
 }
 
 /// "You've used today's new wines": an almost empty glass inside a filled ring, what still works, and when it opens again.
 struct LimitReachedCard: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var ring: CGFloat = 0
     @State private var glow = false
 
@@ -43,7 +44,7 @@ struct LimitReachedCard: View {
             .padding(.top, 6)
 
             VStack(spacing: 6) {
-                Text("That's today's limit").font(.system(size: 21, weight: .bold)).foregroundStyle(Palette.ink)
+                Text("That's today's limit").font(.jero(size: 21, weight: .bold)).foregroundStyle(Palette.ink)
                 Text("New wines can't be checked online any more today, so their grapes and notes stay hidden until tomorrow.")
                     .font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
@@ -63,7 +64,7 @@ struct LimitReachedCard: View {
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
         .onAppear {
             withAnimation(.easeOut(duration: 1.1)) { ring = 1 }
-            withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) { glow = true }
+            if !reduceMotion { withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) { glow = true } }
         }
     }
 
@@ -71,8 +72,8 @@ struct LimitReachedCard: View {
         HStack(spacing: 10) {
             Image(systemName: icon).font(.system(size: 17)).foregroundStyle(Palette.wine)
             VStack(alignment: .leading, spacing: 1) {
-                Text(title).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
-                Text(value).font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                Text(title).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(value).font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
             }
             Spacer(minLength: 0)
         }

@@ -59,11 +59,11 @@ struct CreditsView: View {
                             ForEach(Array(sources.enumerated()), id: \.element.id) { i, s in
                                 VStack(alignment: .leading, spacing: 4) {
                                     HStack(alignment: .firstTextBaseline) {
-                                        Text(s.name).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                                        Text(s.name).font(.jero(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
                                         Spacer(minLength: 8)
-                                        Text(s.license).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.wine)
+                                        Text(s.license).font(.jero(size: 12, weight: .medium)).foregroundStyle(Palette.wine)
                                     }
-                                    Text(s.used).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                                    Text(s.used).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
                                     if let u = s.url, let url = URL(string: u) {
                                         Link(u.replacingOccurrences(of: "https://", with: ""), destination: url)
                                             .font(.system(size: 12)).foregroundStyle(Palette.inkFaint).lineLimit(1)
@@ -84,7 +84,7 @@ struct CreditsView: View {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             ForEach(photoList, id: \.0) { id, c in
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(c.title.replacingOccurrences(of: "File:", with: "")).font(.system(size: 13)).foregroundStyle(Palette.ink).lineLimit(2)
+                                    Text(c.title.replacingOccurrences(of: "File:", with: "")).font(.jero(size: 13)).foregroundStyle(Palette.ink).lineLimit(2)
                                     Text([c.artist.isEmpty ? "Wikimedia Commons" : c.artist, c.license].joined(separator: " · "))
                                         .font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(2)
                                 }

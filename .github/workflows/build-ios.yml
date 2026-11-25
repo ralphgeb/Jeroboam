@@ -211,6 +211,25 @@ jobs:
           xcodebuild -version; swift --version
           echo "::notice::Using $(xcodebuild -version | head -1) / $(swift --version 2>&1 | head -1)"
 
+      # Full-size photo sync (CloudKit) needs the iCloud container iCloud.com.ralphgeb.jero, registered once by hand in the
+      # Apple Developer portal (Identifiers > iCloud Containers, then App ID com.ralphgeb.jero > iCloud > CloudKit + that
+      # container). Set the repository variable CLOUDKIT_READY to true afterwards; until then the app syncs as before.
+      - name: Add the CloudKit container (when CLOUDKIT_READY is set)
+        if: ${{ vars.CLOUDKIT_READY == 'true' }}
+        run: |
+          python3 - <<'PY'
+          p = "Jeroboam/project.yml"
+          s = open(p).read()
+          s = s.replace("        com.apple.security.application-groups: [group.com.ralphgeb.jero]\n    info:\n      path: Sources/Info.plist",
+                        "        com.apple.security.application-groups: [group.com.ralphgeb.jero]\n"
+                        "        com.apple.developer.icloud-services: [CloudKit]\n"
+                        "        com.apple.developer.icloud-container-identifiers: [iCloud.com.ralphgeb.jero]\n"
+                        "    info:\n      path: Sources/Info.plist", 1)
+          s = s.replace('JERO_CLOUDKIT: ""', 'JERO_CLOUDKIT: "1"', 1)
+          assert "icloud-services" in s and 'JERO_CLOUDKIT: "1"' in s, "project.yml did not change as expected"
+          open(p, "w").write(s)
+          print("CloudKit entitlements added")
+          PY
       - name: Generate Xcode project (XcodeGen)
         run: |
           brew install xcodegen

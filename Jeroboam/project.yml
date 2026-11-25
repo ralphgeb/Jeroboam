@@ -38,7 +38,6 @@ targets:
     entitlements:
       path: Sources/Jeroboam.entitlements
       properties:
-        com.apple.developer.applesignin: [Default]
         com.apple.developer.ubiquity-kvstore-identifier: $(TeamIdentifierPrefix)$(CFBundleIdentifier)
         com.apple.security.application-groups: [group.com.ralphgeb.jero]
     info:
@@ -60,6 +59,7 @@ targets:
         JeroAPIKey: $(JERO_API_KEY)
         JeroPriceURL: $(JERO_PRICE_URL)
         JeroPriceKey: $(JERO_PRICE_KEY)
+        JeroCloudKit: $(JERO_CLOUDKIT)   # "1" when the build carries the iCloud container (full-size photo sync, see Account.swift)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ralphgeb.jero
@@ -69,6 +69,7 @@ targets:
         JERO_API_KEY: ""        # injected by CI from the ANTHROPIC_API_KEY secret (testing only)
         JERO_PRICE_URL: ""      # the shared price list (backend/cloudflare), from the PRICE_DB_URL secret
         JERO_PRICE_KEY: ""      # and its key, from PRICE_DB_KEY
+        JERO_CLOUDKIT: ""       # set to 1 by build-ios.yml (with the CloudKit entitlements) when the repo variable CLOUDKIT_READY is true
 
   JeroWidget:
     type: app-extension
@@ -81,8 +82,11 @@ targets:
       - path: JeroWidget
         excludes:
           - Resources/Bottles
+          - PrivacyInfo.xcprivacy
       - path: JeroWidget/Resources/Bottles
         type: folder
+        buildPhase: resources
+      - path: JeroWidget/PrivacyInfo.xcprivacy
         buildPhase: resources
       - Sources/BrandShapes.swift
     info:

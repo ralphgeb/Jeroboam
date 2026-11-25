@@ -41,14 +41,14 @@ struct WineGlance: View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 6) {
                 Image(systemName: icon).font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.wine)
-                Text(label).font(.system(size: 11.5, weight: .semibold)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(label).font(.jero(size: 11.5, weight: .semibold)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text(value).font(.system(size: small ? 17 : 22, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                Text(value).font(.jero(size: small ? 17 : 22, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
                     .lineLimit(1).minimumScaleFactor(0.6)
-                if !unit.isEmpty { Text(unit).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft) }
+                if !unit.isEmpty { Text(unit).font(.jero(size: 11.5)).foregroundStyle(Palette.inkSoft) }
             }
-            Text(note).font(.system(size: 11.5)).foregroundStyle(Palette.inkFaint).lineLimit(1).minimumScaleFactor(0.8)
+            Text(note).font(.jero(size: 11.5)).foregroundStyle(Palette.inkFaint).lineLimit(1).minimumScaleFactor(0.8)
         }
         .frame(maxWidth: .infinity, minHeight: 72, alignment: .topLeading)
         .padding(.horizontal, 12).padding(.vertical, 10)
@@ -68,11 +68,11 @@ struct RegionMapCard: View {
                         .frame(maxWidth: .infinity).aspectRatio(2, contentMode: .fit).clipped().allowsHitTesting(false)
                     HStack(spacing: 10) {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(r.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                            Text(r.kind == "country" ? "Country" : r.country).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                            Text(r.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                            Text(r.kind == "country" ? "Country" : r.country).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft)
                         }
                         Spacer()
-                        Text("Open in the Atlas").font(.system(size: 12.5, weight: .semibold)).foregroundStyle(Palette.wine)
+                        Text("Open in the Atlas").font(.jero(size: 12.5, weight: .semibold)).foregroundStyle(Palette.wine)
                         Image(systemName: "chevron.right").font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.wine)
                     }
                     .padding(12)

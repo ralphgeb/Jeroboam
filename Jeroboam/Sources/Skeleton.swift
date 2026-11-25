@@ -6,6 +6,7 @@ struct SkeletonBar: View {
     var height: CGFloat = 12
     var radius: CGFloat? = nil
     @State private var phase: CGFloat = -0.6
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         let r = radius ?? height / 2
@@ -23,7 +24,8 @@ struct SkeletonBar: View {
                 .allowsHitTesting(false)
             }
             .onAppear {
-                withAnimation(.linear(duration: 1.25).repeatForever(autoreverses: false)) { phase = 1.1 }
+                // with Reduce Motion the bar stays still (a calm grey placeholder)
+                if !reduceMotion { withAnimation(.linear(duration: 1.25).repeatForever(autoreverses: false)) { phase = 1.1 } }
             }
     }
 }
@@ -43,7 +45,7 @@ struct ScanSkeleton: View {
                 let i = Int(ctx.date.timeIntervalSinceReferenceDate / 1.7) % Self.steps.count
                 HStack(spacing: 10) {
                     ProgressView().controlSize(.small).tint(Palette.wine)
-                    Text(Self.steps[i]).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                    Text(Self.steps[i]).font(.jero(size: 14.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
                         .id(i).transition(.opacity)
                 }
                 .animation(.easeInOut(duration: 0.3), value: i)

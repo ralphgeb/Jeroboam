@@ -133,13 +133,13 @@ struct LabelDecoderCard: View {
                     HStack(spacing: 8) {
                         Text("\(current + 1)").font(.system(size: 10.5, weight: .semibold).monospacedDigit()).foregroundStyle(.white)
                             .frame(width: 19, height: 19).background(Circle().fill(Palette.pink))
-                        Text(Self.kindName(f.kind)).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(Self.kindName(f.kind)).font(.jero(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
                         Spacer()
-                        Text("\(current + 1) of \(fields.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                        Text("\(current + 1) of \(fields.count)").font(.jero(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
                         stepButton("chevron.left", enabled: current > 0) { current -= 1 }
                         stepButton("chevron.right", enabled: current < fields.count - 1) { current += 1 }
                     }
-                    Text(rich(f.note)).font(.system(size: 15)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(3)
+                    Text(rich(f.note)).font(.jero(size: 15)).foregroundStyle(Palette.ink.opacity(0.9)).lineSpacing(3)
                         .fixedSize(horizontal: false, vertical: true)
                         .id(current)
                         .transition(.opacity)
@@ -163,6 +163,7 @@ struct LabelDecoderCard: View {
                 .foregroundStyle(enabled ? Palette.ink : Palette.inkFaint)
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(icon.contains("left") || icon.contains("backward") ? "Previous" : "Next")
         .disabled(!enabled)
     }
 }
@@ -187,7 +188,7 @@ struct LabelsScreen: View {
                     ForEach(labels) { l in
                         Button { withAnimation(.smooth(duration: 0.25)) { selected = l.id } } label: {
                             HStack {
-                                Text(l.title).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Text(l.title).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                                 Spacer()
                                 Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
                             }
@@ -207,8 +208,8 @@ struct LabelsScreen: View {
             ScrollView {
                 if let l = current {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(l.title).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
-                        Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                        Text(l.title).font(.jero(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                        Text(rich(l.summary)).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                             .fixedSize(horizontal: false, vertical: true)
                         LabelDecoderCard(label: l)
                     }
@@ -236,7 +237,7 @@ struct LabelsScreen: View {
                         HStack(spacing: 8) {
                             ForEach(labels) { l in
                                 Button { withAnimation(.smooth(duration: 0.35)) { selected = l.id } } label: {
-                                    Text(l.title).font(.system(size: 14, weight: .medium))
+                                    Text(l.title).font(.jero(size: 14, weight: .medium))
                                         .foregroundStyle(selected == l.id ? Palette.onWine : Palette.ink)
                                         .padding(.horizontal, 14).padding(.vertical, 8)
                                         .background(Capsule().fill(selected == l.id ? Palette.wine : Palette.cardAlt))
@@ -254,7 +255,7 @@ struct LabelsScreen: View {
                     LazyHStack(alignment: .top, spacing: 0) {
                         ForEach(labels) { l in
                             VStack(alignment: .leading, spacing: 16) {
-                                Text(rich(l.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                                Text(rich(l.summary)).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                                     .fixedSize(horizontal: false, vertical: true)
                                 LabelDecoderCard(label: l)
                             }

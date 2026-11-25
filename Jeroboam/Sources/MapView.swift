@@ -102,19 +102,45 @@ final class MapGeometry {
         return min(l, maxLevel)
     }
 
+    // Decoded maps stay in memory (the quiz generator and the journal look at many maps in a row).
+    // TODO (maps, step 2): small pre-rendered thumbnails so the Atlas grid no longer needs whole maps in memory.
     private static var cache: [String: MapGeometry] = [:]
     private static let lock = NSLock()
 
-    static func get(_ id: String) -> MapGeometry? {
+    /// An already decoded map, or nil (never decodes).
+    static func cached(_ id: String) -> MapGeometry? {
         lock.lock(); defer { lock.unlock() }
-        if let g = cache[id] { return g }
+        return cache[id]
+    }
+
+    /// The map, decoded now if it is not in memory (full-size maps: explorer, lesson and region cards).
+    static func get(_ id: String) -> MapGeometry? {
+        if let g = cached(id) { return g }
+        guard let g = decode(id) else { return nil }
+        store(id, g)
+        return g
+    }
+
+    /// The map, decoded away from the main thread (country thumbnails in the Atlas: a screenful of them no longer
+    /// freezes the page while their files are read).
+    static func load(_ id: String) async -> MapGeometry? {
+        if let g = cached(id) { return g }
+        let g = await Task.detached(priority: .userInitiated) { MapGeometry.decode(id) }.value
+        if let g { store(id, g) }
+        return g
+    }
+
+    private static func decode(_ id: String) -> MapGeometry? {
         guard let url = Bundle.main.url(forResource: id, withExtension: "json", subdirectory: "Maps")
                 ?? Bundle.main.url(forResource: id, withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let m = try? JSONDecoder().decode(WineMapV2.self, from: data) else { return nil }
-        let g = MapGeometry(m)
-        cache[id] = g
-        return g
+        return MapGeometry(m)
+    }
+
+    private static func store(_ id: String, _ g: MapGeometry) {
+        lock.lock(); defer { lock.unlock() }
+        if cache[id] == nil { cache[id] = g }
     }
 
     private static func pts(_ f: [Int], k: CGFloat = 1) -> [CGPoint] {
@@ -728,6 +754,15 @@ struct WineMapView: View {
 
     @Environment(\.colorScheme) private var scheme
     @State private var tapped: String? = nil
+    /// Thumbnails decode their map in the background; this holds it once it is ready.
+    @State private var loaded: MapGeometry? = nil
+    @State private var loadFailed = false
+
+    private var geometry: MapGeometry? {
+        guard thumbnail else { return MapGeometry.get(mapID) }
+        if let l = loaded, l.map.id == mapID { return l }
+        return MapGeometry.cached(mapID)
+    }
 
     private func layout(_ g: MapGeometry, _ size: CGSize) -> (zoom: CGFloat, offset: CGSize) {
         if thumbnail { return g.thumbLayout(size: size, tight: tightThumb) }
@@ -745,7 +780,7 @@ struct WineMapView: View {
     }
 
     var body: some View {
-        if let g = MapGeometry.get(mapID) {
+        if let g = geometry {
             let canvas = Canvas { ctx, size in
                 let (zoom, offset) = layout(g, size)
                 var r = MapRenderer(g: g)
@@ -812,6 +847,12 @@ struct WineMapView: View {
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Map of \(g.map.title)")
+        } else if thumbnail && !loadFailed {
+            // the sea colour for the moment the map takes to load
+            Rectangle().fill(Palette.sea.opacity(0.55))
+                .task(id: mapID) {
+                    if let g = await MapGeometry.load(mapID) { loaded = g } else { loadFailed = true }
+                }
         } else {
             RoundedRectangle(cornerRadius: 12).fill(Palette.cardAlt).frame(height: 160)
                 .overlay(Text("Map unavailable").font(.footnote).foregroundStyle(Palette.inkSoft))
@@ -1318,6 +1359,7 @@ struct MapExplorer: View {
                 .frame(width: 42, height: 42)
                 .background(Circle().fill(Palette.focusLand.opacity(0.94)))
         }
+        .accessibilityLabel(["xmark": "Close map", "plus": "Zoom in", "minus": "Zoom out"][icon] ?? "Show the whole map")
     }
 
     private func selectedCard(_ a: MapGeometry.Area, g: MapGeometry) -> some View {
@@ -1336,6 +1378,7 @@ struct MapExplorer: View {
                 Button { selected = nil } label: {
                     Image(systemName: "xmark.circle.fill").font(.system(size: 22)).foregroundStyle(Palette.inkFaint)
                 }
+                .accessibilityLabel("Close")
             }
             if let gr = a.grapes ?? region?.grapes.compactMap({ ContentStore.shared.grape($0)?.name }).prefix(3).joined(separator: " · ") , !gr.isEmpty {
                 Text(gr).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.mapColor(a.color).mix(with: .black, 0.15))

@@ -97,8 +97,8 @@ struct AtlasSearchResults: View {
             if p.isEmpty && g.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "magnifyingglass").font(.system(size: 26, weight: .light)).foregroundStyle(Palette.inkFaint)
-                    Text("Nothing found for \u{201C}\(query)\u{201D}").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
-                    Text("Try a region, an appellation, a country or a grape.").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                    Text("Nothing found for \u{201C}\(query)\u{201D}").font(.jero(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
+                    Text("Try a region, an appellation, a country or a grape.").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                 }
                 .frame(maxWidth: .infinity).padding(.vertical, 40)
             }
@@ -147,10 +147,10 @@ struct PlaceResultRow: View {
             .frame(width: 92, height: 64)
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             VStack(alignment: .leading, spacing: 3) {
-                Text(region.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text(region.kind == "country" ? "Country" : region.country).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(region.name).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text(region.kind == "country" ? "Country" : region.country).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 if !region.summary.isEmpty {
-                    Text(region.summary).font(.system(size: 12)).foregroundStyle(Palette.inkFaint).lineLimit(1)
+                    Text(region.summary).font(.jero(size: 12)).foregroundStyle(Palette.inkFaint).lineLimit(1)
                 }
             }
             Spacer(minLength: 0)

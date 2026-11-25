@@ -37,6 +37,67 @@ struct ProgressData: Codable {
     var perfectLessons = 0
     var viewedGrapes: [String] = []
     var viewedRegions: [String] = []
+    /// Spaced review of corrected mistakes: card id -> its box (1–4) and the day it is due again (optional: older saves load).
+    var reviews: [String: ReviewItem]? = nil
+}
+
+/// A corrected mistake coming back for review: after 1, 3, 7 and 21 days, then it graduates.
+struct ReviewItem: Codable, Hashable {
+    var box: Int
+    var due: String
+    static let intervals = [1, 3, 7, 21]
+}
+
+extension ProgressData {
+    /// Two phones' progress put together, so neither goes backwards: completed lessons, badges, viewed pages and
+    /// mistakes are joined, counters keep the higher value, the streak comes from the phone used last.
+    /// This phone's own settings (goal, reminders, appearance) stay as they are.
+    static func merged(local: ProgressData, remote: ProgressData) -> ProgressData {
+        var m = local
+        m.onboarded = local.onboarded || remote.onboarded
+        if m.name.isEmpty { m.name = remote.name }
+        if !local.onboarded && remote.onboarded {
+            // a new phone takes the settings chosen on the other one
+            m.startLevel = remote.startLevel; m.dailyGoal = remote.dailyGoal
+            m.reminders = remote.reminders; m.reminderHour = remote.reminderHour
+            m.morningFacts = remote.morningFacts; m.factHour = remote.factHour
+        }
+        m.xp = max(local.xp, remote.xp)
+        if remote.lastActiveDay > local.lastActiveDay {
+            m.streak = remote.streak; m.lastActiveDay = remote.lastActiveDay; m.freezes = remote.freezes
+        } else if remote.lastActiveDay == local.lastActiveDay {
+            m.streak = max(local.streak, remote.streak)
+        }
+        m.bestStreak = max(local.bestStreak, remote.bestStreak, m.streak)
+        for (k, r) in remote.lessons {
+            guard let l = local.lessons[k] else { m.lessons[k] = r; continue }
+            m.lessons[k] = LessonRecord(completions: max(l.completions, r.completions), bestAccuracy: max(l.bestAccuracy, r.bestAccuracy),
+                                        perfect: l.perfect || r.perfect, lastDate: max(l.lastDate, r.lastDate))
+        }
+        for (k, v) in remote.dailyXP { m.dailyXP[k] = max(local.dailyXP[k] ?? 0, v) }
+        m.mistakes = local.mistakes + remote.mistakes.filter { !local.mistakes.contains($0) }
+        if m.mistakes.count > 200 { m.mistakes.removeFirst(m.mistakes.count - 200) }
+        if local.reviews != nil || remote.reviews != nil {
+            var rv = remote.reviews ?? [:]
+            for (k, v) in local.reviews ?? [:] { rv[k] = v }      // this phone's schedule wins for the same card
+            for k in m.mistakes { rv[k] = nil }                    // a card answered wrong is a mistake again, not a review
+            m.reviews = rv.isEmpty ? nil : rv
+        }
+        m.unlockedLevels = Array(Set(local.unlockedLevels).union(remote.unlockedLevels)).sorted()
+        m.answered = max(local.answered, remote.answered)
+        m.correct = max(local.correct, remote.correct)
+        m.achievements = local.achievements + remote.achievements.filter { !local.achievements.contains($0) }
+        if local.achievementDates != nil || remote.achievementDates != nil {
+            var dates = remote.achievementDates ?? [:]
+            for (k, v) in local.achievementDates ?? [:] { dates[k] = min(v, dates[k] ?? v) }
+            m.achievementDates = dates
+        }
+        m.practiceSessions = max(local.practiceSessions, remote.practiceSessions)
+        m.perfectLessons = max(local.perfectLessons, remote.perfectLessons)
+        m.viewedGrapes = local.viewedGrapes + remote.viewedGrapes.filter { !local.viewedGrapes.contains($0) }
+        m.viewedRegions = local.viewedRegions + remote.viewedRegions.filter { !local.viewedRegions.contains($0) }
+        return m
+    }
 }
 
 /// The player's progress: XP, streak, completed lessons and settings. Saved in UserDefaults.
@@ -65,7 +126,16 @@ final class GameProgress {
         refreshStreakState()
     }
 
+    /// Several changes in a row (one answer touches the counters, the mistakes and the review schedule) are written once.
+    @ObservationIgnored private var savePending = false
     private func save() {
+        guard !savePending else { return }
+        savePending = true
+        DispatchQueue.main.async { [weak self] in self?.saveNow() }
+    }
+    /// Writes straight away (the app going to the background calls this so nothing is lost).
+    func saveNow() {
+        savePending = false
         if let raw = try? JSONEncoder().encode(data) { defaults.set(raw, forKey: key); CloudSync.shared.pushProgress(raw) }
     }
 
@@ -151,15 +221,38 @@ final class GameProgress {
     }
 
     func recordAnswer(cardID: String, correct: Bool) {
-        data.answered += 1
+        var d = data
+        d.answered += 1
+        var rv = d.reviews ?? [:]
+        let today = Self.day()
+        func inDays(_ n: Int) -> String { Self.day(Calendar.current.date(byAdding: .day, value: n, to: Date()) ?? Date()) }
         if correct {
-            data.correct += 1
-            if let i = data.mistakes.firstIndex(of: cardID) { data.mistakes.remove(at: i) }
+            d.correct += 1
+            if let i = d.mistakes.firstIndex(of: cardID) {
+                // a corrected mistake is not forgotten: it comes back tomorrow, then after 3, 7 and 21 days
+                d.mistakes.remove(at: i)
+                rv[cardID] = ReviewItem(box: 1, due: inDays(ReviewItem.intervals[0]))
+            } else if let r = rv[cardID], r.due <= today {
+                let box = r.box + 1
+                if box > ReviewItem.intervals.count { rv[cardID] = nil }   // remembered after 21 days: learned
+                else { rv[cardID] = ReviewItem(box: box, due: inDays(ReviewItem.intervals[box - 1])) }
+            }
         } else {
-            data.mistakes.removeAll { $0 == cardID }
-            data.mistakes.append(cardID)
-            if data.mistakes.count > 200 { data.mistakes.removeFirst(data.mistakes.count - 200) }
+            d.mistakes.removeAll { $0 == cardID }
+            d.mistakes.append(cardID)
+            if d.mistakes.count > 200 { d.mistakes.removeFirst(d.mistakes.count - 200) }
+            rv[cardID] = nil
         }
+        d.reviews = rv.isEmpty ? nil : rv
+        data = d
+    }
+
+    /// Questions to review now: recent mistakes first, then corrected ones whose review day has come.
+    var dueReviews: [String] {
+        let today = Self.day()
+        let due = (data.reviews ?? [:]).filter { $0.value.due <= today && !data.mistakes.contains($0.key) }
+            .sorted { $0.value.due < $1.value.due }.map(\.key)
+        return data.mistakes + due
     }
 
     func completeLesson(_ id: String, accuracy: Double) {

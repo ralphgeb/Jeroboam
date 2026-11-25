@@ -149,7 +149,7 @@ struct PlacementQuizView: View {
 
     private var intro: some View {
         VStack(spacing: 0) {
-            HStack { Spacer(); Button { onFinish(nil) } label: { Image(systemName: "xmark").font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.inkSoft).padding(8) } }
+            HStack { Spacer(); Button { onFinish(nil) } label: { Image(systemName: "xmark").font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.inkSoft).padding(8) }.accessibilityLabel("Close") }
                 .padding(.horizontal, Metrics.margin).padding(.top, 8)
             Spacer()
             ZStack {
@@ -172,7 +172,7 @@ struct PlacementQuizView: View {
     }
 
     private func pill(_ t: String, _ c: Color) -> some View {
-        Text(t).font(.system(size: 13, weight: .semibold)).foregroundStyle(c)
+        Text(t).font(.jero(size: 13, weight: .semibold)).foregroundStyle(c)
             .padding(.horizontal, 14).frame(height: 30).background(Capsule().fill(c.opacity(0.12)))
     }
 
@@ -182,13 +182,14 @@ struct PlacementQuizView: View {
         return VStack(spacing: 0) {
             HStack(spacing: 12) {
                 Button { onFinish(nil) } label: { Image(systemName: "xmark").font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.inkSoft) }
+                    .accessibilityLabel("Close")
                 GeometryReader { g in
                     ZStack(alignment: .leading) {
                         Capsule().fill(Palette.line)
                         Capsule().fill(Palette.wine).frame(width: g.size.width * CGFloat(index + (feedback == nil ? 0 : 1)) / CGFloat(cards.count))
                     }
                 }.frame(height: 6)
-                Text("\(index + 1)/\(cards.count)").font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+                Text("\(index + 1)/\(cards.count)").font(.jero(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.inkSoft)
             }
             .padding(.horizontal, Metrics.margin).padding(.top, 12)
             ScrollView {
@@ -219,12 +220,12 @@ struct PlacementQuizView: View {
         return VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
                 Image(systemName: ok ? "checkmark.circle.fill" : "lightbulb.fill").font(.system(size: 22)).foregroundStyle(tint)
-                Text(ok ? "You knew it" : "Did you know?").font(.system(size: 19, weight: .semibold)).foregroundStyle(tint)
+                Text(ok ? "You knew it" : "Did you know?").font(.jero(size: 19, weight: .semibold)).foregroundStyle(tint)
             }
             if !ok, let a = card.options?.first {
-                Text("Answer: \(a)").font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text("Answer: \(a)").font(.jero(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
             }
-            Text(card.explain ?? "").font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
+            Text(card.explain ?? "").font(.jero(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
                 .fixedSize(horizontal: false, vertical: true)
             Button(index == cards.count - 1 ? "See my level" : "Next") {
                 feedback = nil
@@ -248,7 +249,7 @@ struct PlacementQuizView: View {
         let names = [1: "New to wine", 2: "Curious drinker", 3: "Growing palate", 4: "Serious student", 5: "Ready for the great regions"]
         return VStack(spacing: 0) {
             Spacer()
-            Text("\(results.filter { $0 }.count) of \(cards.count) right").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+            Text("\(results.filter { $0 }.count) of \(cards.count) right").font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
             Text("Level \(n)").font(.system(size: 64, weight: .bold)).foregroundStyle(Palette.level(n)).padding(.top, 8)
             Text(names[n] ?? "").font(.serif(26)).foregroundStyle(Palette.ink)
             HStack(spacing: 6) {

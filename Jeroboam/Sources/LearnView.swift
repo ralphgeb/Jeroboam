@@ -223,10 +223,10 @@ struct LearnView: View {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     Eyebrow(progress.completedCount == 0 ? "Start here" : "Up next", color: .white.opacity(0.75))
-                    Text(lesson.title).font(.system(size: 22, weight: .bold)).foregroundStyle(.white).multilineTextAlignment(.leading)
-                    Text(unit?.title ?? "").font(.system(size: 13)).foregroundStyle(.white.opacity(0.75))
+                    Text(lesson.title).font(.jero(size: 22, weight: .bold)).foregroundStyle(.white).multilineTextAlignment(.leading)
+                    Text(unit?.title ?? "").font(.jero(size: 13)).foregroundStyle(.white.opacity(0.75))
                     HStack(spacing: 6) {
-                        Text("Start lesson").font(.system(size: 14, weight: .semibold))
+                        Text("Start lesson").font(.jero(size: 14, weight: .semibold))
                         Image(systemName: "arrow.right").font(.system(size: 12, weight: .semibold))
                     }
                     .foregroundStyle(Palette.bordeaux)
@@ -293,7 +293,7 @@ struct UnitSection: View {
                     .foregroundStyle(Palette.level(level.number).opacity(0.75))
                 VStack(alignment: .leading, spacing: 5) {
                     Text(unit.title).font(.sectionTitle).foregroundStyle(Palette.ink)
-                    Text(unit.summary).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                    Text(unit.summary).font(.jero(size: 14)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 0)
@@ -303,7 +303,7 @@ struct UnitSection: View {
             Button(action: onGuide) {
                 HStack(spacing: 6) {
                     Image(systemName: "book.pages").font(.system(size: 12))
-                    Text("Guidebook").font(.system(size: 13, weight: .semibold))
+                    Text("Guidebook").font(.jero(size: 13, weight: .semibold))
                 }
                 .foregroundStyle(Palette.level(level.number))
                 .padding(.horizontal, 12).padding(.vertical, 7)
@@ -325,6 +325,7 @@ struct UnitSection: View {
 }
 
 struct LessonRow: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let lesson: Lesson
     let level: Level
     let isFirst: Bool
@@ -358,17 +359,17 @@ struct LessonRow: View {
                         .foregroundStyle(unlocked ? Palette.ink : Palette.inkFaint)
                         .multilineTextAlignment(.leading)
                     HStack(spacing: 6) {
-                        Text("\(lesson.questionCount) questions").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                        Text("\(lesson.questionCount) questions").font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft)
                         if let r = record {
                             Text("·").foregroundStyle(Palette.inkFaint)
-                            Text("Best \(Int((r.bestAccuracy * 100).rounded()))%").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                            Text("Best \(Int((r.bestAccuracy * 100).rounded()))%").font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft)
                         }
                     }
                 }
                 .padding(.vertical, 14)
                 Spacer(minLength: 0)
                 if current {
-                    Text("Start").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
+                    Text("Start").font(.jero(size: 13, weight: .semibold)).foregroundStyle(.white)
                         .padding(.horizontal, 14).padding(.vertical, 7)
                         .background(Capsule().fill(tint))
                 } else if done {
@@ -386,7 +387,7 @@ struct LessonRow: View {
                 Circle().stroke(tint.opacity(0.25), lineWidth: 6).frame(width: 34, height: 34)
                     .scaleEffect(pulse ? 1.12 : 0.95)
                     .opacity(pulse ? 0.2 : 0.8)
-                    .onAppear { withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) { pulse = true } }
+                    .onAppear { if !reduceMotion { withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) { pulse = true } } }
             }
             Circle()
                 .fill(done ? tint : Palette.paper)
@@ -426,11 +427,11 @@ struct GuidebookView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow("Guidebook")
                         Text(unit.title).font(.serif(32)).foregroundStyle(Palette.ink)
-                        Text(unit.summary).font(.system(size: 16)).foregroundStyle(Palette.inkSoft)
+                        Text(unit.summary).font(.jero(size: 16)).foregroundStyle(Palette.inkSoft)
                     }
                     ForEach(unit.lessons) { lesson in
                         VStack(alignment: .leading, spacing: 26) {
-                            Text(lesson.title.uppercased()).font(.system(size: 12, weight: .semibold)).kerning(1.4).foregroundStyle(Palette.wine)
+                            Text(lesson.title.uppercased()).font(.jero(size: 12, weight: .semibold)).kerning(1.4).foregroundStyle(Palette.wine)
                             ForEach(Array(lesson.cards.filter { $0.kind == .learn }.enumerated()), id: \.element.id) { i, card in
                                 LearnCard(card: card, topic: topicNumber(lesson, i))
                             }
@@ -487,7 +488,7 @@ struct PlusLevelBanner: View {
             HStack(spacing: 14) {
                 LockDot(size: 40)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Unlock Level \(level.number)").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text("Unlock Level \(level.number)").font(.jero(size: 16, weight: .semibold)).foregroundStyle(.white)
                     Text("Every lesson, guidebook and exam with Jero Plus · \(Plus.shared.price)/month")
                         .font(.system(size: 12.5)).foregroundStyle(.white.opacity(0.8))
                         .fixedSize(horizontal: false, vertical: true)

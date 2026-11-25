@@ -119,7 +119,7 @@ The build workflow already made the group, the product `com.ralphgeb.jero.plus.m
 - Notes (paste):
 ```
 Jero is a wine-learning app: short lessons, an atlas of grapes and regions, and a journal.
-No account is needed. Sign in with Apple is optional and only syncs progress through the user's own iCloud.
+No account is needed and there is no sign-in. Progress, tastings and cellar sync through the user's own iCloud (Settings > Sync with iCloud), and Settings > Erase all my data deletes everything from the phone and iCloud.
 To try it: finish onboarding, open the Journal tab and tap "Scan a wine" (camera) or type a wine. The label text is read on the device, and the wine details come from the Claude API (Anthropic) and our wine database. Photos are not kept.
 Jero Plus is an auto-renewing monthly subscription (com.ralphgeb.jero.plus.monthly). Levels 2-5, all countries and the Journal are in Plus; France and Level 1 are free. Please test it with the sandbox account.
 All photos, map data and wine facts are original, public domain or Creative Commons and credited in the app (Settings > Regions & maps). The app is not affiliated with any wine school or brand.

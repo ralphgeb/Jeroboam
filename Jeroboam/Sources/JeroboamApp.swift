@@ -19,15 +19,9 @@ struct JeroboamApp: App {
         UINavigationBar.appearance().standardAppearance = bar
         UINavigationBar.appearance().scrollEdgeAppearance = bar
         UINavigationBar.appearance().compactAppearance = bar
-        // Stylish navigation bar titles in the serif face.
-        let serif = UIFont.systemFont(ofSize: 17, weight: .semibold).fontDescriptor.withDesign(.serif)
-        if let serif {
-            UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(descriptor: serif, size: 17)]
-        }
-        let large = UIFont.systemFont(ofSize: 34, weight: .regular).fontDescriptor.withDesign(.serif)
-        if let large {
-            UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(descriptor: large, size: 34)]
-        }
+        // Navigation bar titles in SF Pro like the rest of the app (one type family; see TypeScale)
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont.systemFont(ofSize: 17, weight: .semibold)]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont.systemFont(ofSize: 33, weight: .bold)]
     }
 
     var body: some Scene {
@@ -238,7 +232,7 @@ struct RootView: View {
         }
         .onChange(of: phase) { _, p in
             if p == .active { progress.refreshStreakState(); progress.scheduleReminder() }
-            if p == .background || p == .inactive { CloudSync.shared.pushAll() }
+            if p == .background || p == .inactive { progress.saveNow(); CloudSync.shared.pushAll() }
         }
         .onAppear {
             #if DEBUG

@@ -73,8 +73,8 @@ struct ExtraCountryCard: View {
                 }
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text(country.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text("\(country.sub?.count ?? 0) regions").font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+                Text(country.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text("\(country.sub?.count ?? 0) regions").font(.jero(size: 12)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.horizontal, 12).padding(.vertical, 10)
         }

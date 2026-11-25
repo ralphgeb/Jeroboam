@@ -71,7 +71,7 @@ struct Avatar: View {
             if let img = UserProfile.photo() {
                 Image(uiImage: img).resizable().scaledToFill()
             } else if let initial = name.trimmingCharacters(in: .whitespaces).first {
-                Text(String(initial).uppercased()).font(.system(size: size * 0.45, weight: .semibold)).foregroundStyle(Palette.onWine)
+                Text(String(initial).uppercased()).font(.jero(size: size * 0.45, weight: .semibold)).foregroundStyle(Palette.onWine)
                     .frame(maxWidth: .infinity, maxHeight: .infinity).background(Palette.wine)
             } else {
                 Image(systemName: "person.fill").font(.system(size: size * 0.48)).foregroundStyle(Palette.inkSoft)
@@ -130,7 +130,7 @@ struct AboutYouSection: View {
                 Button { withAnimation(.easeInOut(duration: 0.2)) { open.toggle() } } label: {
                     HStack {
                         Image(systemName: "person.text.rectangle").foregroundStyle(Palette.wine)
-                        Text("About you").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("About you").font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                         Spacer()
                         Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(Palette.inkSoft).rotationEffect(.degrees(open ? 90 : 0))
@@ -169,7 +169,7 @@ struct AboutYouSection: View {
 
     private func pickerRow(_ title: String, _ value: Binding<String>, _ options: [String], last: Bool = false) -> some View {
         HStack(spacing: 12) {
-            Text(title).font(.system(size: 15)).foregroundStyle(Palette.ink).fixedSize()
+            Text(title).font(.jero(size: 15)).foregroundStyle(Palette.ink).fixedSize()
             Spacer(minLength: 8)
             Menu {
                 Picker(title, selection: value) {
@@ -231,7 +231,7 @@ struct CollapsingPage<Content: View>: View {
                     .allowsHitTesting(collapse < 0.5)
             }
             HStack {
-                Text(title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
                     .opacity(collapse).offset(y: 6 * (1 - collapse))
                 Spacer()
                 if !showStatus || collapse > 0.5 { AvatarButton(size: 30) }

@@ -109,6 +109,16 @@ enum Palette {
 // Poster type (`display`) is reserved for numbers and short posters and is kept small and bold, not heavy.
 
 enum TypeScale {
+    /// Dynamic Type: how much the reader's text-size setting (Settings > Display & Text Size) enlarges or shrinks body text,
+    /// kept between 88% and 124% (Apple's xxLarge) so text gets comfortably bigger without breaking the layouts on the
+    /// iPhone or the Duo. Accessibility sizes stop at the same cap.
+    static var factor: CGFloat {
+        let c = UIApplication.shared.preferredContentSizeCategory
+        let body: [UIContentSizeCategory: CGFloat] = [.extraSmall: 14, .small: 15, .medium: 16, .large: 17,
+                                                      .extraLarge: 19, .extraExtraLarge: 21, .extraExtraExtraLarge: 23]
+        let size = c.isAccessibilityCategory ? 23 : (body[c] ?? 17)
+        return min(1.24, max(0.88, size / 17))
+    }
     static let title: CGFloat = 33
     static let section: CGFloat = 19
     static let cardTitle: CGFloat = 17
@@ -118,6 +128,11 @@ enum TypeScale {
 }
 
 extension Font {
+    /// SF Pro that follows the reader's text size (see `TypeScale.factor`); same arguments as `.system(size:weight:design:)`.
+    /// Used for reading text; map labels, diagrams, badges and the Duo's tab column keep fixed sizes.
+    static func jero(size: CGFloat, weight: Font.Weight = .regular, design: Font.Design = .default) -> Font {
+        .system(size: size * TypeScale.factor, weight: weight, design: design)
+    }
     /// Poster/number type: bold SF, scaled down from older call sites so nothing shouts.
     static func display(_ size: CGFloat, _ weight: Font.Weight = .bold) -> Font {
         let w: Font.Weight = (weight == .black || weight == .heavy) ? .bold : weight

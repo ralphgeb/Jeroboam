@@ -39,9 +39,9 @@ struct WineCardView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack(spacing: 6) {
                         if let i = index {
-                            Text(String(format: "No. %02d", i)).font(.system(size: 11, weight: .semibold).monospacedDigit()).foregroundStyle(tint)
+                            Text(String(format: "No. %02d", i)).font(.jero(size: 11, weight: .semibold).monospacedDigit()).foregroundStyle(tint)
                         }
-                        Text(Self.styleLine(for: grape).uppercased()).font(.system(size: 10.5, weight: .semibold)).kerning(1)
+                        Text(Self.styleLine(for: grape).uppercased()).font(.jero(size: 10.5, weight: .semibold)).kerning(1)
                             .foregroundStyle(Palette.inkSoft)
                     }
                     Text(grape.name)
@@ -50,9 +50,9 @@ struct WineCardView: View {
                         .lineLimit(2).minimumScaleFactor(0.6)
                         .fixedSize(horizontal: false, vertical: true)
                     if let p = grape.pronounce {
-                        Text(p).font(.system(size: 13).italic()).foregroundStyle(Palette.inkSoft)
+                        Text(p).font(.jero(size: 13).italic()).foregroundStyle(Palette.inkSoft)
                     } else {
-                        Text(grape.origin).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                        Text(grape.origin).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                     }
                 }
                 Spacer(minLength: 0)
@@ -69,7 +69,7 @@ struct WineCardView: View {
                         ForEach(grape.aromas.prefix(5), id: \.self) { a in
                             VStack(spacing: 6) {
                                 FlavorIcon(aroma: a, size: compact ? 30 : 34)
-                                Text(a).font(.system(size: 10.5)).foregroundStyle(Palette.ink)
+                                Text(a).font(.jero(size: 10.5)).foregroundStyle(Palette.ink)
                                     .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.8)
                             }
                             .frame(maxWidth: .infinity)
@@ -85,7 +85,7 @@ struct WineCardView: View {
                         WineGlass(color: glassColor, fill: 0.5).frame(width: 22, height: 34)
                         VStack(alignment: .leading, spacing: 2) {
                             Eyebrow("Serve with")
-                            Text(grape.food.prefix(3).joined(separator: " · ")).font(.system(size: 13.5)).foregroundStyle(Palette.ink)
+                            Text(grape.food.prefix(3).joined(separator: " · ")).font(.jero(size: 13.5)).foregroundStyle(Palette.ink)
                                 .lineLimit(2)
                         }
                     }
@@ -263,7 +263,7 @@ struct BoldnessScreen: View {
                     HStack(spacing: 14) {
                         GrapeBadge(grape: g, size: 46)
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(WineCardView.styleLine(for: g)).font(.system(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                            Text(WineCardView.styleLine(for: g)).font(.jero(size: 12, weight: .medium)).foregroundStyle(Palette.inkSoft)
                             HStack(spacing: 10) {
                                 ForEach(g.aromas.prefix(4), id: \.self) { a in FlavorIcon(aroma: a, size: 22) }
                             }

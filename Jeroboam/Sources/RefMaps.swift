@@ -91,6 +91,7 @@ struct ZoomableImage: View {
                 Image(systemName: "xmark").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
                     .frame(width: 40, height: 40).background(Circle().fill(Palette.card)).shadow(color: .black.opacity(0.12), radius: 6, y: 2)
             }
+            .accessibilityLabel("Close")
             .padding(16)
             if let credit {
                 Text(credit).font(.system(size: 10)).foregroundStyle(Palette.inkFaint)

@@ -9,10 +9,10 @@ struct PracticeView: View {
             CollapsingPage(eyebrow: "Keep it fresh", title: "Practice",
                            subtitle: "Short quizzes from everything you have learned, and mock exams for each level.", showStatus: true) {
                 dailyHero
-                if !progress.data.mistakes.isEmpty {
+                if !progress.dueReviews.isEmpty {
                     GroupCard {
-                        Button { session = QuizGenerator.mistakes(progress.data.mistakes) } label: {
-                            IconRow(title: "Review mistakes", detail: "\(progress.data.mistakes.count) questions to revisit", last: true) {
+                        Button { session = QuizGenerator.mistakes(progress.dueReviews) } label: {
+                            IconRow(title: "Review mistakes", detail: "\(progress.dueReviews.count) questions to revisit", last: true) {
                                 Image(systemName: "arrow.uturn.backward").font(.system(size: 15)).foregroundStyle(Palette.wrong)
                             }
                         }
@@ -32,7 +32,7 @@ struct PracticeView: View {
                              text: "Pick the daily mix, a mock exam or a topic on the left. The questions open here.",
                              button: "Start daily mix", action: { start(.mixed) },
                              chips: [("flame.fill", "\(progress.data.streak) day streak"), ("bolt.fill", "\(progress.data.xp) XP"),
-                                     ("arrow.uturn.backward", "\(progress.data.mistakes.count) to review")]))
+                                     ("arrow.uturn.backward", "\(progress.dueReviews.count) to review")]))
         })
         .onAppear {
             #if DEBUG
@@ -55,7 +55,7 @@ struct PracticeView: View {
                         .font(.system(size: 13).monospacedDigit()).foregroundStyle(.white.opacity(0.8))
                     HStack(spacing: 6) {
                         Image(systemName: "shuffle").font(.system(size: 12, weight: .semibold))
-                        Text("Start daily mix").font(.system(size: 14, weight: .semibold))
+                        Text("Start daily mix").font(.jero(size: 14, weight: .semibold))
                     }
                     .foregroundStyle(Palette.bordeaux)
                     .padding(.horizontal, 14).padding(.vertical, 8)
@@ -107,10 +107,10 @@ struct PracticeView: View {
                             }
                             .frame(width: 52, height: 64)
                             VStack(alignment: .leading, spacing: 3) {
-                                Text("Level \(lv) · \(i.1)").font(.system(size: 12, weight: .semibold))
+                                Text("Level \(lv) · \(i.1)").font(.jero(size: 12, weight: .semibold))
                                     .foregroundStyle(open ? Palette.wine : Palette.inkFaint)
-                                Text(i.0).font(.system(size: 17, weight: .semibold)).foregroundStyle(open ? Palette.ink : Palette.inkFaint)
-                                Text(open ? i.2 : "Finish Level \(lv - 1) to unlock").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                                Text(i.0).font(.jero(size: 17, weight: .semibold)).foregroundStyle(open ? Palette.ink : Palette.inkFaint)
+                                Text(open ? i.2 : "Finish Level \(lv - 1) to unlock").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                                     .lineLimit(2).multilineTextAlignment(.leading)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -152,7 +152,7 @@ struct PracticeView: View {
                                 art(k).scaleEffect(0.82)
                             }
                             .frame(width: 42, height: 42)
-                            Text(k.title).font(.system(size: 14.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                            Text(k.title).font(.jero(size: 14.5, weight: .semibold)).foregroundStyle(Palette.ink)
                                 .lineLimit(2).minimumScaleFactor(0.85).multilineTextAlignment(.leading)
                             Spacer(minLength: 0)
                         }

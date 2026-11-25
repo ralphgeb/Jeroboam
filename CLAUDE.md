@@ -190,3 +190,35 @@ Same as Ahead: push to `main`, run build-ios.yml, TestFlight build number = run 
   `pdo_used.txt` is merged across runs (building one map keeps the others' credits).
 - Sources: geoBoundaries (CC BY 4.0), EU PDO boundaries (Candiago et al. 2022, CC BY 4.0), UC Davis AVA project (CC0),
   adynak/WineRegions (CC0), IPONZ (NZ Crown copyright, CC BY 4.0), OpenStreetMap (ODbL) — credits page should list OSM and IPONZ.
+
+## App round (release fixes, sync, accessibility) — not yet on TestFlight
+- **Paywall:** the test checkout (`TestCheckoutSheet`) only opens in TestFlight/debug builds (`Distribution.isTestFlight`); an App
+  Store copy that cannot load the product shows "The App Store can't be reached" and Plus turned on by the test checkout in a
+  non-test copy is withdrawn by `Plus.refresh()`.
+- **No Sign in with Apple** (entitlement removed; old stored ids are deleted). Settings > About you > "Sync with iCloud" switch
+  (`Account.syncEnabled`, on by default) + "Erase all my data" (phone + iCloud; the subscription is left to the App Store).
+  A new phone (not onboarded) looks for its progress first (`CloudSync.restore`, onboarding shows "Looking for your progress…").
+- **Sync:** progress/profile/avatar in the iCloud key-value store, merged field by field (`ProgressData.merged`: never goes
+  backwards). Tastings and bottles with full-size photos in CloudKit (`JournalCloud`, private DB, zone "Journal", record types
+  Tasting/Bottle with `payload` Bytes + `photo` Asset; only changed records go up; remote edits/deletions come down).
+  CloudKit is only in builds where the repo variable **CLOUDKIT_READY=true** (build-ios.yml adds the entitlements and Info.plist
+  `JeroCloudKit=1`). One-time setup before turning it on: developer portal > Identifiers > iCloud Containers >
+  `iCloud.com.ralphgeb.jero`; App ID com.ralphgeb.jero > iCloud > CloudKit + that container; run a debug build once on a device
+  signed in to iCloud (creates the record types in Development), then CloudKit Console > Deploy Schema Changes to Production.
+  Until CloudKit has synced once on a phone, the journal also keeps going through the key-value store (`JournalCloud.working`).
+- **Progress saves** are coalesced (`GameProgress.save` -> next run-loop; `saveNow()` on going to the background).
+- **Spaced review:** a corrected mistake comes back after 1, 3, 7, 21 days (`ProgressData.reviews`, optional; `GameProgress.dueReviews`
+  feeds Practice > Review mistakes).
+- **Lessons:** multiple choice and true/false are select-then-Check (same Check button as fill-in-the-blank).
+- **Dynamic Type:** `Font.jero(size:weight:design:)` = `.system` scaled by `TypeScale.factor` (the reader's text size, 0.88–1.24).
+  Used for reading text (252 sites); map canvases, diagrams, badges, label art, pinned bars, the Duo rail and Adaptive layouts
+  keep fixed `.system(size:)`. Journal.swift and CellarView.swift are not converted yet (pricing work in progress there).
+  New screens should use `.jero` for text, `.system` inside fixed-size frames.
+- **Accessibility:** VoiceOver names on icon-only buttons (map zoom/close, close buttons, label steppers); Reduce Motion stops the
+  lesson pulse, limit-card glow and loading shimmer. Navigation bar titles are SF Pro (no serif).
+- **Maps:** Atlas thumbnails decode their map off the main thread (`MapGeometry.load`); full maps unchanged.
+- **Privacy manifest** declares Photos, Other User Content and Product Interaction (not linked, app functionality) + App Group
+  defaults reason 1C8F.1; the widget has its own manifest. Keep APP_STORE_LISTING.md §5 and docs/privacy.html in step.
+- **Tests:** `SnapshotTests/LogicTests.swift` (merge, spaced review, streak freeze, blind score) runs with snapshots.yml.
+- Still to do: the Claude API behind the Cloudflare worker (key out of the binary), pre-rendered map thumbnails (maps step 2),
+  string catalog for localization, splitting Journal.swift.

@@ -66,8 +66,8 @@ struct StyleGuideScreen: View {
                             HStack(spacing: 14) {
                                 SilhouetteGlass(shape: shape(s), color: s.color, fill: s.fill, sparkling: s.sparkling).frame(width: 30, height: 52)
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text(s.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                                    Text(s.wines).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                                    Text(s.name).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                    Text(s.wines).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                                 }
                                 Spacer(minLength: 4)
                                 Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
@@ -91,8 +91,8 @@ struct StyleGuideScreen: View {
                         SilhouetteGlass(shape: shape(st), color: st.color, fill: st.fill, sparkling: st.sparkling).frame(width: 64, height: 110)
                         VStack(alignment: .leading, spacing: 6) {
                             Eyebrow("Style")
-                            Text(st.name).font(.system(size: 28, weight: .bold)).foregroundStyle(Palette.ink)
-                            Text(st.wines).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft)
+                            Text(st.name).font(.jero(size: 28, weight: .bold)).foregroundStyle(Palette.ink)
+                            Text(st.wines).font(.jero(size: 14.5)).foregroundStyle(Palette.inkSoft)
                         }
                     }
                     meter("Serve at", st.temp, st.tempLevel, icon: "thermometer.medium", from: Color(hex: "#5BA4D9"), to: Color(hex: "#E5484D"))
@@ -103,7 +103,7 @@ struct StyleGuideScreen: View {
                     }
                     VStack(alignment: .leading, spacing: 6) {
                         Label("Great with " + st.food.lowercased(), systemImage: "fork.knife").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                        Text(st.foods).font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                        Text(st.foods).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft)
                     }
                     .cardStyle(padding: 14)
                 }
@@ -145,11 +145,11 @@ struct StyleGuideScreen: View {
                     SilhouetteGlass(shape: shape(st), color: st.color, fill: st.fill, sparkling: st.sparkling)
                         .frame(width: 34, height: 58)
                     VStack(alignment: .leading, spacing: 3) {
-                        Text(st.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
-                        Text(st.wines).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                        Text(st.name).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(st.wines).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                     }
                     Spacer(minLength: 6)
-                    Text(st.abv).font(.system(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                    Text(st.abv).font(.jero(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
                         .padding(.horizontal, 8).padding(.vertical, 4).background(Capsule().fill(Palette.wineSoft))
                     Image(systemName: "chevron.down").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
                         .rotationEffect(.degrees(isOpen ? 180 : 0))
@@ -169,7 +169,7 @@ struct StyleGuideScreen: View {
                     }
                     VStack(alignment: .leading, spacing: 6) {
                         Label("Great with " + st.food.lowercased(), systemImage: "fork.knife").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
-                        Text(st.foods).font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                        Text(st.foods).font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
                     }
                 }
                 .padding(.horizontal, 14).padding(.bottom, 14)
@@ -189,7 +189,7 @@ struct StyleGuideScreen: View {
             HStack {
                 Label(title, systemImage: icon).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                 Spacer()
-                Text(value).font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                Text(value).font(.jero(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
             }
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
@@ -205,7 +205,7 @@ struct StyleGuideScreen: View {
     private func stat(_ t: String, _ v: String, _ icon: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Label(t, systemImage: icon).font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
-            Text(v).font(.system(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+            Text(v).font(.jero(size: 15, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(10)

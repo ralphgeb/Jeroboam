@@ -64,15 +64,15 @@ struct PaneIdle: View {
             VStack(spacing: 14) {
                 ZStack { Circle().fill(Palette.wineSoft); SplashMark().frame(width: 52, height: 52) }.frame(width: 96, height: 96)
                 Eyebrow(eyebrow, color: Palette.wine)
-                Text(title).font(.system(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
-                Text(text).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).frame(maxWidth: 360)
+                Text(title).font(.jero(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                Text(text).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center).frame(maxWidth: 360)
                 if let button, let action { StartPill(title: button, action: action).padding(.top, 2) }
                 if !chips.isEmpty {
                     HStack(spacing: 10) {
                         ForEach(Array(chips.enumerated()), id: \.offset) { _, c in
                             HStack(spacing: 6) {
                                 Image(systemName: c.0).font(.system(size: 13)).foregroundStyle(Palette.wine)
-                                Text(c.1).font(.system(size: 13.5, weight: .medium)).foregroundStyle(Palette.ink)
+                                Text(c.1).font(.jero(size: 13.5, weight: .medium)).foregroundStyle(Palette.ink)
                             }
                             .padding(.horizontal, 12).padding(.vertical, 9)
                             .background(Capsule().fill(Palette.card))
@@ -95,7 +95,7 @@ struct StartPill: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
-                Text(title).font(.system(size: 15.5, weight: .semibold))
+                Text(title).font(.jero(size: 15.5, weight: .semibold))
                 Image(systemName: "arrow.right").font(.system(size: 12, weight: .bold))
             }
             .foregroundStyle(Palette.onWine)
@@ -117,16 +117,16 @@ struct LessonPreviewPane: View {
             VStack(spacing: 14) {
                 ZStack { Circle().fill(Palette.wineSoft); SplashMark().frame(width: 52, height: 52) }.frame(width: 96, height: 96)
                 Eyebrow("Up next · Level \(level)", color: Palette.wine)
-                Text(lesson.title).font(.system(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
-                Text("\(lesson.cards.count) cards · \(lesson.questionCount) questions").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                Text(lesson.title).font(.jero(size: 27, weight: .bold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                Text("\(lesson.cards.count) cards · \(lesson.questionCount) questions").font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
                 StartPill(title: "Start lesson", action: onStart).padding(.top, 2)
                 if !topics.isEmpty {
                     VStack(alignment: .leading, spacing: 0) {
                         Text("In this lesson").font(.sectionTitle).foregroundStyle(Palette.ink).padding(.bottom, 6)
                         ForEach(Array(topics.enumerated()), id: \.offset) { i, t in
                             HStack(spacing: 12) {
-                                Text(String(format: "%02d", i + 1)).font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
-                                Text(t).font(.system(size: 15.5)).foregroundStyle(Palette.ink)
+                                Text(String(format: "%02d", i + 1)).font(.jero(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.wine)
+                                Text(t).font(.jero(size: 15.5)).foregroundStyle(Palette.ink)
                                 Spacer(minLength: 0)
                             }
                             .padding(.vertical, 10)

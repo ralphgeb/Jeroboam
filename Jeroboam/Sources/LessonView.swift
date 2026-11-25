@@ -229,12 +229,12 @@ struct FeedbackPanel: View {
             if let a = feedback.answer {
                 VStack(alignment: .leading, spacing: 2) {
                     Eyebrow("Correct answer", color: tint)
-                    Text(rich(a)).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text(rich(a)).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                 }
             }
             if let e = feedback.explain {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(rich(e)).font(.system(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
+                    Text(rich(e)).font(.jero(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
                         .lineLimit(expanded ? nil : 2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
@@ -318,7 +318,7 @@ struct LearnCard: View {
         VStack(alignment: .leading, spacing: 10) {
             Eyebrow(topic.map { String(format: "Topic %02d", $0) } ?? "Learn", color: Palette.wine)
             if let t = card.title {
-                Text(t).font(.system(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                Text(t).font(.jero(size: 26, weight: .bold)).kerning(-0.3).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -339,13 +339,13 @@ struct LearnCard: View {
                 ForEach(p.components(separatedBy: "\n").map { $0.hasPrefix("- ") ? String($0.dropFirst(2)) : $0 }, id: \.self) { line in
                     HStack(alignment: .firstTextBaseline, spacing: 10) {
                         Circle().fill(Palette.wine).frame(width: 4.5, height: 4.5).offset(y: -3)
-                        Text(rich(line)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
+                        Text(rich(line)).font(.jero(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(3)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
         } else {
-            Text(rich(p)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
+            Text(rich(p)).font(.jero(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -357,7 +357,7 @@ struct QuestionHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Eyebrow(label)
-            Text(rich(text)).font(.system(size: 21, weight: .semibold)).foregroundStyle(Palette.ink).lineSpacing(2)
+            Text(rich(text)).font(.jero(size: 21, weight: .semibold)).foregroundStyle(Palette.ink).lineSpacing(2)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -370,6 +370,8 @@ struct ChoiceCard: View {
     let onAnswer: (Bool, String?) -> Void
     @State private var order: [Int] = []
     @State private var picked: Int? = nil
+    /// Tapped but not yet checked: a mis-tap can still be changed (select, then Check).
+    @State private var selected: Int? = nil
 
     var body: some View {
         let options = card.options ?? []
@@ -384,9 +386,8 @@ struct ChoiceCard: View {
                 ForEach(order, id: \.self) { i in
                     Button {
                         guard !locked, picked == nil else { return }
-                        picked = i
-                        let correct = i == card.answer
-                        onAnswer(correct, options[safe: card.answer ?? 0])
+                        if selected != i { Haptics.tap() }
+                        selected = i
                     } label: {
                         HStack(spacing: 12) {
                             if showColorGlasses, let c = ContentStore.shared.library.colors.first(where: { $0.name.caseInsensitiveCompare(options[i]) == .orderedSame }) {
@@ -403,7 +404,18 @@ struct ChoiceCard: View {
                     }
                     .buttonStyle(TileStyle(state: state(i)))
                     .disabled(locked)
+                    .accessibilityAddTraits(selected == i ? .isSelected : [])
                 }
+            }
+            if picked == nil {
+                Button("Check") {
+                    guard !locked, picked == nil, let i = selected else { return }
+                    picked = i
+                    onAnswer(i == card.answer, options[safe: card.answer ?? 0])
+                }
+                .buttonStyle(PrimaryButtonStyle(enabled: selected != nil))
+                .disabled(selected == nil || locked)
+                .padding(.top, 8)
             }
         }
         .onAppear {
@@ -412,7 +424,7 @@ struct ChoiceCard: View {
     }
 
     private func state(_ i: Int) -> TileStyle.TileState {
-        guard let p = picked else { return .idle }
+        guard let p = picked else { return selected == i ? .selected : .idle }
         if i == card.answer { return .correct }
         if i == p { return .wrong }
         return .disabled
@@ -424,6 +436,7 @@ struct TrueFalseCard: View {
     let locked: Bool
     let onAnswer: (Bool, String?) -> Void
     @State private var picked: Bool? = nil
+    @State private var selected: Bool? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
@@ -435,22 +448,33 @@ struct TrueFalseCard: View {
                 option(true)
                 option(false)
             }
+            if picked == nil {
+                Button("Check") {
+                    guard !locked, picked == nil, let v = selected else { return }
+                    picked = v
+                    onAnswer(v == card.truth, (card.truth ?? true) ? "True" : "False")
+                }
+                .buttonStyle(PrimaryButtonStyle(enabled: selected != nil))
+                .disabled(selected == nil || locked)
+                .padding(.top, 8)
+            }
         }
     }
 
     private func option(_ value: Bool) -> some View {
         Button {
             guard !locked, picked == nil else { return }
-            picked = value
-            onAnswer(value == card.truth, (card.truth ?? true) ? "True" : "False")
+            if selected != value { Haptics.tap() }
+            selected = value
         } label: {
             Text(value ? "True" : "False").frame(maxWidth: .infinity, alignment: .center)
         }
         .buttonStyle(TileStyle(state: state(value)))
+        .accessibilityAddTraits(selected == value ? .isSelected : [])
     }
 
     private func state(_ v: Bool) -> TileStyle.TileState {
-        guard let p = picked else { return .idle }
+        guard let p = picked else { return selected == v ? .selected : .idle }
         if v == card.truth { return .correct }
         if v == p { return .wrong }
         return .disabled
@@ -517,7 +541,7 @@ struct BlankCard: View {
             ForEach(Array(tokens.enumerated()), id: \.offset) { _, t in
                 switch t {
                 case .word(let w):
-                    Text(w).font(.system(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text(w).font(.jero(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
                 case .slot(let i):
                     slot(i)
                 }
@@ -610,7 +634,7 @@ struct MatchCard: View {
     private func columnHeader(_ title: String, systemImage: String, leading: Bool) -> some View {
         HStack(spacing: 5) {
             if leading { Image(systemName: systemImage).font(.system(size: 12)) }
-            Text(title.uppercased()).font(.system(size: 11, weight: .semibold)).kerning(1)
+            Text(title.uppercased()).font(.jero(size: 11, weight: .semibold)).kerning(1)
             if !leading { Image(systemName: systemImage).font(.system(size: 12)) }
         }
         .foregroundStyle(Palette.wine)
@@ -629,7 +653,7 @@ struct MatchCard: View {
             if isLeft { selL = text } else { selR = text }
             evaluate()
         } label: {
-            Text(text).font(.system(size: 14.5, weight: .medium)).multilineTextAlignment(.center)
+            Text(text).font(.jero(size: 14.5, weight: .medium)).multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, minHeight: 40)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -688,7 +712,7 @@ struct LessonComplete: View {
             }
             .padding(.bottom, 28)
             Eyebrow(session.lessonID == nil ? "Practice complete" : "Lesson complete", color: Palette.wine)
-            Text(headline).font(.system(size: 29, weight: .semibold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+            Text(headline).font(.jero(size: 29, weight: .semibold)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
                 .padding(.top, 8).padding(.horizontal, Metrics.margin)
 
             HStack(spacing: 0) {
@@ -710,7 +734,7 @@ struct LessonComplete: View {
                     Image(systemName: "flame.fill").font(.system(size: 22)).foregroundStyle(Palette.flame)
                         .symbolEffect(.bounce, value: appear)
                     VStack(alignment: .leading, spacing: 1) {
-                        Text("\(r.newStreak)-day streak").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("\(r.newStreak)-day streak").font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                         Text(r.usedFreeze ? "A streak freeze covered yesterday." : "Come back tomorrow to keep it going.")
                             .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
                     }
@@ -725,8 +749,8 @@ struct LessonComplete: View {
                     HStack(spacing: 10) {
                         Image(systemName: a.icon).font(.system(size: 18)).foregroundStyle(Palette.brass).frame(width: 24)
                         VStack(alignment: .leading, spacing: 1) {
-                            Text("Achievement: \(a.title)").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                            Text(a.detail).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                            Text("Achievement: \(a.title)").font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                            Text(a.detail).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                         }
                         Spacer()
                     }
@@ -758,7 +782,7 @@ struct LessonComplete: View {
         VStack(spacing: 6) {
             Image(systemName: icon).font(.system(size: 13)).foregroundStyle(c)
             Text(v).font(.numeric(20, .semibold)).foregroundStyle(Palette.ink)
-            Text(label).font(.system(size: 11)).foregroundStyle(Palette.inkSoft)
+            Text(label).font(.jero(size: 11)).foregroundStyle(Palette.inkSoft)
         }
         .frame(maxWidth: .infinity)
     }

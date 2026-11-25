@@ -82,7 +82,7 @@ struct WinesScreen: View {
                     HStack(spacing: 8) {
                         ForEach(WineKind.allCases) { k in
                             Button { withAnimation(.snappy) { kind = k } } label: {
-                                Text(k.title).font(.system(size: 14, weight: .medium))
+                                Text(k.title).font(.jero(size: 14, weight: .medium))
                                     .foregroundStyle(kind == k ? Palette.onWine : Palette.ink)
                                     .padding(.horizontal, 14).padding(.vertical, 8)
                                     .background(Capsule().fill(kind == k ? Palette.wine : Palette.card))
@@ -129,8 +129,8 @@ struct WineRow: View {
             HStack(spacing: 14) {
                 WineGlassIcon(wine: wine, height: 34).frame(width: 40)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(wine.name).font(.system(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
-                    Text(subtitle).font(.system(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                    Text(wine.name).font(.jero(size: 16, weight: .medium)).foregroundStyle(Palette.ink)
+                    Text(subtitle).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 }
                 Spacer(minLength: 6)
                 Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
@@ -168,7 +168,7 @@ struct WineDetailView: View {
                     factRow("Price") {
                         HStack(spacing: 1) {
                             ForEach(1...4, id: \.self) { i in
-                                Text("$").font(.system(size: 15, weight: .semibold))
+                                Text("$").font(.jero(size: 15, weight: .semibold))
                                     .foregroundStyle(i <= w.price ? Palette.wine : Palette.inkFaint.opacity(0.5))
                             }
                         }
@@ -178,7 +178,7 @@ struct WineDetailView: View {
                         factRow("Color") {
                             HStack(spacing: 6) {
                                 Circle().fill(Color(hex: c.hex)).frame(width: 12, height: 12)
-                                Text(c.name).font(.system(size: 14)).foregroundStyle(Palette.ink)
+                                Text(c.name).font(.jero(size: 14)).foregroundStyle(Palette.ink)
                             }
                         }
                     }
@@ -191,7 +191,7 @@ struct WineDetailView: View {
                             ForEach(w.taste.prefix(4), id: \.self) { n in
                                 VStack(spacing: 6) {
                                     FlavorIcon(aroma: n, size: 30)
-                                    Text(n.prefix(1).uppercased() + n.dropFirst()).font(.system(size: 12)).foregroundStyle(Palette.ink)
+                                    Text(n.prefix(1).uppercased() + n.dropFirst()).font(.jero(size: 12)).foregroundStyle(Palette.ink)
                                         .multilineTextAlignment(.center).lineLimit(2)
                                 }
                                 .frame(maxWidth: .infinity)
@@ -225,8 +225,8 @@ struct WineDetailView: View {
                             NavigationLink(value: r) {
                                 HStack {
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(r.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                                        Text(r.country).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                                        Text(r.name).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                        Text(r.country).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                                     }
                                     Spacer()
                                     Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
@@ -280,7 +280,7 @@ struct WineDetailView: View {
 
     private func factRow<V: View>(_ title: String, @ViewBuilder _ value: () -> V) -> some View {
         HStack {
-            Text(title).font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+            Text(title).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft)
             Spacer()
             value()
         }

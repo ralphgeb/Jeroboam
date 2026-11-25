@@ -35,8 +35,8 @@ struct JournalExtras: View {
             SectionTitle(text: "Your palate")
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .firstTextBaseline) {
-                    Text("\(countries.count)").font(.system(size: 28, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                    Text("of \(Self.wineCountries) wine countries explored").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    Text("\(countries.count)").font(.jero(size: 28, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                    Text("of \(Self.wineCountries) wine countries explored").font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
                 }
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
@@ -48,7 +48,7 @@ struct JournalExtras: View {
                 if !countries.isEmpty {
                     FlowLayout(spacing: 6, lineSpacing: 6) {
                         ForEach(countries, id: \.self) { c in
-                            Text(c).font(.system(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
+                            Text(c).font(.jero(size: 12.5, weight: .medium)).foregroundStyle(Palette.ink)
                                 .padding(.horizontal, 10).padding(.vertical, 5)
                                 .background(Capsule().fill(Palette.wineSoft))
                         }
@@ -56,7 +56,7 @@ struct JournalExtras: View {
                 }
                 if !grapes.isEmpty {
                     Hairline()
-                    Text("Most poured grapes").font(.system(size: 13, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                    Text("Most poured grapes").font(.jero(size: 13, weight: .medium)).foregroundStyle(Palette.inkSoft)
                     let top = grapes.first?.1 ?? 1
                     ForEach(grapes, id: \.0) { g, n in
                         let known = matchGrape(g)
@@ -98,11 +98,11 @@ struct JournalExtras: View {
             }
             .frame(width: 38, height: 38)
             VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.system(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
-                Text(text).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                Text(title).font(.jero(size: 15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text(text).font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
             }
             Spacer(minLength: 0)
-            Text("\(n)").font(.system(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+            Text("\(n)").font(.jero(size: 12, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.inkFaint)
         }
         .padding(.horizontal, 14).padding(.vertical, 12)
         .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 66) } }
@@ -126,9 +126,9 @@ struct JournalExtras: View {
         return Button(action: onBlind) {
             HStack(alignment: .top, spacing: 14) {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("TONIGHT’S CHALLENGE").font(.system(size: 11, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.onWine.opacity(0.75))
-                    Text(c.0).font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.onWine)
-                    Text(c.1).font(.system(size: 13.5)).foregroundStyle(Palette.onWine.opacity(0.85)).multilineTextAlignment(.leading)
+                    Text("TONIGHT’S CHALLENGE").font(.jero(size: 11, weight: .semibold)).kerning(1.2).foregroundStyle(Palette.onWine.opacity(0.75))
+                    Text(c.0).font(.jero(size: 18, weight: .semibold)).foregroundStyle(Palette.onWine)
+                    Text(c.1).font(.jero(size: 13.5)).foregroundStyle(Palette.onWine.opacity(0.85)).multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                     Label("Start a blind tasting", systemImage: "arrow.right").labelStyle(TrailingIconLabel())
                         .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.onWine).padding(.top, 4)
@@ -158,7 +158,7 @@ struct JournalExtras: View {
             HStack(alignment: .firstTextBaseline) {
                 SectionTitle(text: "Classics to try")
                 Spacer()
-                Text("Tap to learn more").font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                Text("Tap to learn more").font(.jero(size: 12)).foregroundStyle(Palette.inkFaint)
             }
             ScrollView(.horizontal) {
                 HStack(spacing: 12) {
@@ -183,8 +183,8 @@ private struct ClassicCard: View {
             }
             .frame(height: 96)
             VStack(alignment: .leading, spacing: 3) {
-                Text(wine.name).font(.system(size: 14.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
-                Text(wine.country).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(wine.name).font(.jero(size: 14.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
+                Text(wine.country).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
             .padding(12)
         }

@@ -152,15 +152,15 @@ struct AromaWheelScreen: View {
                         ForEach(lib.aromas) { g in
                             VStack(alignment: .leading, spacing: 12) {
                                 SectionTitle(text: g.name)
-                                Text(rich(g.summary)).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
+                                Text(rich(g.summary)).font(.jero(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
                                     .fixedSize(horizontal: false, vertical: true)
                                 ForEach(g.categories) { cat in
                                     Button { selected = cat.id } label: {
                                         HStack(spacing: 8) {
                                             Circle().fill(Color(hex: cat.color)).frame(width: 9, height: 9)
-                                            Text(cat.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                            Text(cat.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
                                             Spacer()
-                                            Text("\(cat.items.count)").font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                                            Text("\(cat.items.count)").font(.jero(size: 12).monospacedDigit()).foregroundStyle(Palette.inkFaint)
                                         }
                                         .padding(.vertical, 6)
                                     }
@@ -203,13 +203,13 @@ struct AromaWheelScreen: View {
                         HStack(alignment: .firstTextBaseline) {
                             SectionTitle(text: g.name)
                         }
-                        Text(rich(g.summary)).font(.system(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
+                        Text(rich(g.summary)).font(.jero(size: 15)).foregroundStyle(Palette.inkSoft).lineSpacing(3)
                             .fixedSize(horizontal: false, vertical: true)
                         ForEach(g.categories) { cat in
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack(spacing: 8) {
                                     Circle().fill(Color(hex: cat.color)).frame(width: 9, height: 9)
-                                    Text(cat.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                    Text(cat.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
                                 }
                                 iconGrid(cat.items)
                             }
@@ -233,8 +233,9 @@ struct AromaWheelScreen: View {
                 Text(cat.name).font(.sectionTitle).foregroundStyle(Palette.ink)
                 Spacer()
                 Button { selected = nil } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(Palette.inkFaint) }
+                    .accessibilityLabel("Close")
             }
-            if let n = cat.note { Text(rich(n)).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5) }
+            if let n = cat.note { Text(rich(n)).font(.jero(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2.5) }
             iconGrid(cat.items)
         }
         .cardStyle()
@@ -245,7 +246,7 @@ struct AromaWheelScreen: View {
             ForEach(items, id: \.self) { a in
                 VStack(spacing: 5) {
                     FlavorIcon(aroma: a, size: 30)
-                    Text(a).font(.system(size: 10.5)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
+                    Text(a).font(.jero(size: 10.5)).foregroundStyle(Palette.ink).multilineTextAlignment(.center)
                         .lineLimit(2).minimumScaleFactor(0.85)
                 }
             }

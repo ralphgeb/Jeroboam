@@ -25,7 +25,7 @@ struct ScanHistoryView: View {
                              subtitle: "\(items.count) \(items.count == 1 ? "wine" : "wines"), newest first. Removing a bottle from your cellar never removes it from here.")
                 if !items.isEmpty { SearchBar(text: $query, prompt: "Search your scans") }
                 if items.isEmpty {
-                    Text("Wines you scan will be listed here with the date you scanned them.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                    Text("Wines you scan will be listed here with the date you scanned them.").font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
                         .frame(maxWidth: .infinity).padding(.vertical, 40)
                 } else {
                     GroupCard {
@@ -54,15 +54,15 @@ struct ScanHistoryView: View {
             }
             .frame(width: 46, height: 58).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             VStack(alignment: .leading, spacing: 2) {
-                Text(w.name).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text([w.producer, w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(w.name).font(.jero(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
+                Text([w.producer, w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · ")).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 Text("Scanned " + (e.lastSeen ?? e.saved).formatted(date: .abbreviated, time: .omitted) + ((e.scans ?? 1) > 1 ? " · \(e.scans ?? 1) times" : ""))
                     .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 2) {
-                Text(w.vintage.isEmpty ? "NV" : w.vintage).font(.system(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                if let p = e.price { Text(p.averageText).font(.system(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
+                Text(w.vintage.isEmpty ? "NV" : w.vintage).font(.jero(size: 13, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                if let p = e.price { Text(p.averageText).font(.jero(size: 12).monospacedDigit()).foregroundStyle(Palette.inkSoft) }
             }
         }
         .padding(.horizontal, 14).padding(.vertical, 10)

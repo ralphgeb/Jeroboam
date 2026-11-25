@@ -1,5 +1,4 @@
 import SwiftUI
-import AuthenticationServices
 
 struct OnboardingView: View {
     @Environment(GameProgress.self) private var progress
@@ -9,8 +8,6 @@ struct OnboardingView: View {
     @State private var appear = false
     @State private var quiz = false
     @State private var account = Account.shared
-    @State private var signInFailed = false
-    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
         ZStack {
@@ -68,29 +65,19 @@ struct OnboardingView: View {
             VStack(spacing: 10) {
                 Button("Get started") { step = 1 }
                     .buttonStyle(PrimaryButtonStyle())
-                if account.signedIn && !progress.data.onboarded {
+                // a new phone looks for the player's progress in iCloud first (no sign-in: it follows the iCloud account);
+                // when it is found, the app opens straight on the player's level
+                if account.restoring {
                     HStack(spacing: 8) {
                         ProgressView()
-                        Text(account.restoring ? "Restoring your progress…" : "No saved progress found for this Apple ID yet.")
+                        Text("Looking for your progress in iCloud…")
                             .font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
                     }
                     .frame(height: 46)
                 } else {
-                    SignInWithAppleButton(.continue) { req in
-                        req.requestedScopes = [.fullName, .email]
-                    } onCompletion: { result in
-                        switch result {
-                        case .success(let auth):
-                            if let c = auth.credential as? ASAuthorizationAppleIDCredential { account.signedIn(with: c) }
-                        case .failure(let e):
-                            if (e as? ASAuthorizationError)?.code != .canceled { signInFailed = true }
-                        }
-                    }
-                    .signInWithAppleButtonStyle(scheme == .dark ? .white : .black)
-                    .frame(height: 46)
-                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    Text(signInFailed ? "Sign in didn't work. Please try again." : "Already have an account? Sign in to restore your progress.")
-                        .font(.system(size: 12.5)).foregroundStyle(signInFailed ? Palette.wrong : Palette.inkFaint)
+                    Text("Your progress and journal follow your iCloud account.")
+                        .font(.system(size: 12.5)).foregroundStyle(Palette.inkFaint)
+                        .frame(height: 46)
                 }
             }
             .padding(.horizontal, Metrics.margin).padding(.bottom, 16)
@@ -101,7 +88,7 @@ struct OnboardingView: View {
     private func bullet(_ icon: String, _ text: String) -> some View {
         HStack(spacing: 14) {
             Image(systemName: icon).font(.system(size: 16, weight: .light)).foregroundStyle(Palette.wine).frame(width: 24)
-            Text(text).font(.system(size: 15.5)).foregroundStyle(Palette.ink.opacity(0.85))
+            Text(text).font(.jero(size: 15.5)).foregroundStyle(Palette.ink.opacity(0.85))
         }
     }
 
@@ -111,7 +98,7 @@ struct OnboardingView: View {
            VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Find your level").font(.serif(30)).foregroundStyle(Palette.ink)
-                Text("Take the quiz and we'll place you, or pick a level yourself below.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                Text("Take the quiz and we'll place you, or pick a level yourself below.").font(.jero(size: 15)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.top, 30)
             // the quiz comes first: a big, inviting card at the top
@@ -121,14 +108,14 @@ struct OnboardingView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         HStack(spacing: 8) {
                             Image(systemName: "sparkles")
-                            Text("TAKE A QUIZ TO KNOW YOUR LEVEL").font(.system(size: 11.5, weight: .bold)).kerning(0.8)
+                            Text("TAKE A QUIZ TO KNOW YOUR LEVEL").font(.jero(size: 11.5, weight: .bold)).kerning(0.8)
                         }
                         .foregroundStyle(.white.opacity(0.9))
-                        Text("Think you know wine?").font(.system(size: 22, weight: .bold)).foregroundStyle(.white)
+                        Text("Think you know wine?").font(.jero(size: 22, weight: .bold)).foregroundStyle(.white)
                         Text("10 quick questions, 3 minutes, a fun fact with every answer. Most people are surprised.")
                             .font(.system(size: 14)).foregroundStyle(.white.opacity(0.88)).fixedSize(horizontal: false, vertical: true)
                         HStack(spacing: 6) {
-                            Text("Start the quiz").font(.system(size: 14.5, weight: .semibold))
+                            Text("Start the quiz").font(.jero(size: 14.5, weight: .semibold))
                             Image(systemName: "arrow.right").font(.system(size: 12, weight: .bold))
                         }
                         .foregroundStyle(Palette.wine).padding(.horizontal, 16).frame(height: 38)
@@ -146,7 +133,7 @@ struct OnboardingView: View {
             }
             .buttonStyle(PressableStyle())
             .padding(.top, 20)
-            Text("OR CHOOSE YOURSELF").font(.system(size: 11.5, weight: .bold)).kerning(1).foregroundStyle(Palette.inkFaint).padding(.top, 22)
+            Text("OR CHOOSE YOURSELF").font(.jero(size: 11.5, weight: .bold)).kerning(1).foregroundStyle(Palette.inkFaint).padding(.top, 22)
             VStack(spacing: 10) {
                 levelOption(1, "New to wine", "How wine is made, tasting and the great grapes.")
                 levelOption(2, "I drink it, I'd like to understand it", "The wine world, food pairing, serving and scores.")
@@ -181,8 +168,8 @@ struct OnboardingView: View {
             HStack(alignment: .top, spacing: 14) {
                 Text("\(n)").font(.serif(26, .light)).foregroundStyle(Palette.level(n)).frame(width: 24)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
-                    Text(detail).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.leading)
+                    Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text(detail).font(.jero(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.leading)
                 }
                 Spacer(minLength: 0)
                 Image(systemName: level == n ? "checkmark.circle.fill" : "circle")
@@ -200,7 +187,7 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Pick a daily goal").font(.serif(30)).foregroundStyle(Palette.ink)
-                Text("A lesson takes about five minutes and earns 10–20 XP.").font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
+                Text("A lesson takes about five minutes and earns 10–20 XP.").font(.jero(size: 15)).foregroundStyle(Palette.inkSoft)
             }
             .padding(.top, 36)
             VStack(spacing: 0) {
@@ -229,8 +216,8 @@ struct OnboardingView: View {
         } label: {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(title).font(.system(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
-                    Text(detail).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
+                    Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text(detail).font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft)
                 }
                 Spacer()
                 Text("\(xp) XP").font(.numeric(15, .medium)).foregroundStyle(goal == xp ? Palette.wine : Palette.inkSoft)

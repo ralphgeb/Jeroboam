@@ -109,7 +109,7 @@ struct ProfileView: View {
                                     }
                                 }
                                 .frame(height: 4)
-                                Text("\(next.xp - progress.data.xp) XP to \(next.title)").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                                Text("\(next.xp - progress.data.xp) XP to \(next.title)").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                             }
                             .padding(.top, 4)
                         }
@@ -141,9 +141,9 @@ struct ProfileView: View {
                                     VStack(spacing: 6) {
                                         AchievementBadge(achievement: a, unlocked: got, size: 78)
                                             .frame(width: 78, height: 78)
-                                        Text(a.title).font(.system(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
+                                        Text(a.title).font(.jero(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
                                             .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
-                                        Text(a.detail).font(.system(size: 10.5)).foregroundStyle(Palette.inkFaint)
+                                        Text(a.detail).font(.jero(size: 10.5)).foregroundStyle(Palette.inkFaint)
                                             .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .top)
@@ -169,8 +169,8 @@ struct ProfileView: View {
                                 HStack(spacing: 12) {
                                     Image(systemName: "map").font(.system(size: 15)).foregroundStyle(Palette.wine).frame(width: 22)
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text("More maps").font(.system(size: 16)).foregroundStyle(Palette.ink)
-                                        Text("Wine places that are not in the course").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                        Text("More maps").font(.jero(size: 16)).foregroundStyle(Palette.ink)
+                                        Text("Wine places that are not in the course").font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft)
                                     }
                                     Spacer()
                                     Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
@@ -194,7 +194,7 @@ struct ProfileView: View {
                             Button { Notifications.shared.sendTestFact() } label: { testRow("Send a fun fact now", "bell.badge") }
                             Hairline()
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Badge animations").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                                Text("Badge animations").font(.jero(size: 16)).foregroundStyle(Palette.ink)
                                 Text("Tap the play button to see one. Tap the circle to make it the one the app uses.")
                                     .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
                             }
@@ -207,8 +207,8 @@ struct ProfileView: View {
                                     }
                                     .buttonStyle(.plain).accessibilityLabel("Use " + st.title)
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(st.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
-                                        Text(st.blurb).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                                        Text(st.title).font(.jero(size: 15, weight: .medium)).foregroundStyle(Palette.ink)
+                                        Text(st.blurb).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
                                     }
                                     Spacer(minLength: 6)
                                     Button {
@@ -233,7 +233,7 @@ struct ProfileView: View {
 
                     VStack(spacing: 6) {
                         Wordmark(size: 18)
-                        Text("Jero™").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                        Text("Jero™").font(.jero(size: 12, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                         Text("Course structure inspired by the WSET levels. Not affiliated with or endorsed by WSET.")
                             .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
                     }
@@ -248,7 +248,7 @@ struct ProfileView: View {
             Button { withAnimation(.easeInOut(duration: 0.2)) { settingsOpen.toggle() } } label: {
                 HStack {
                     Image(systemName: "gearshape").foregroundStyle(Palette.wine)
-                    Text("Settings").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text("Settings").font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
                     Spacer()
                     Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(Palette.inkSoft).rotationEffect(.degrees(settingsOpen ? 90 : 0))
@@ -320,7 +320,7 @@ struct ProfileView: View {
                     Hairline()
                     Button { showCredits = true } label: {
                         HStack {
-                            Text("Map and photo credits").font(.system(size: 16)).foregroundStyle(Palette.ink)
+                            Text("Map and photo credits").font(.jero(size: 16)).foregroundStyle(Palette.ink)
                             Spacer()
                             Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
                         }
@@ -329,7 +329,7 @@ struct ProfileView: View {
                     .buttonStyle(.plain)
                     Hairline()
                     Button(role: .destructive) { confirmReset = true } label: {
-                        Text("Reset progress").font(.system(size: 16)).foregroundStyle(Palette.wrong)
+                        Text("Reset progress").font(.jero(size: 16)).foregroundStyle(Palette.wrong)
                             .frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 14)
                     }
                 }
@@ -349,7 +349,7 @@ struct ProfileView: View {
             Image(systemName: icon).font(.system(size: 16)).foregroundStyle(c).frame(width: 22)
             VStack(alignment: .leading, spacing: 1) {
                 Text(v).font(.numeric(20, .semibold)).foregroundStyle(Palette.ink)
-                Text(label).font(.system(size: 12)).foregroundStyle(Palette.inkSoft)
+                Text(label).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft)
             }
             Spacer(minLength: 0)
         }
@@ -359,7 +359,7 @@ struct ProfileView: View {
     private func testRow(_ title: String, _ icon: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon).font(.system(size: 15)).foregroundStyle(Palette.wine).frame(width: 22)
-            Text(title).font(.system(size: 16)).foregroundStyle(Palette.ink)
+            Text(title).font(.jero(size: 16)).foregroundStyle(Palette.ink)
             Spacer()
         }
         .padding(.vertical, 12)
@@ -368,7 +368,7 @@ struct ProfileView: View {
 
     private func settingRow<C: View>(_ title: String, @ViewBuilder _ control: () -> C) -> some View {
         HStack {
-            Text(title).font(.system(size: 16)).foregroundStyle(Palette.ink)
+            Text(title).font(.jero(size: 16)).foregroundStyle(Palette.ink)
             Spacer()
             control()
         }
@@ -415,12 +415,12 @@ struct PlusStatusCard: View {
             HStack(spacing: 14) {
                 SplashMark(color: .white, surface: Palette.cork).frame(width: 34, height: 34)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Jero Plus").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
-                    Text("Everything is unlocked. Thank you!").font(.system(size: 13)).foregroundStyle(.white.opacity(0.8))
+                    Text("Jero Plus").font(.jero(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text("Everything is unlocked. Thank you!").font(.jero(size: 13)).foregroundStyle(.white.opacity(0.8))
                 }
                 Spacer()
                 Link(destination: URL(string: "https://apps.apple.com/account/subscriptions")!) {
-                    Text("Manage").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.bordeaux)
+                    Text("Manage").font(.jero(size: 13, weight: .semibold)).foregroundStyle(Palette.bordeaux)
                         .padding(.horizontal, 12).frame(height: 30).background(Capsule().fill(.white))
                 }
             }
@@ -431,7 +431,7 @@ struct PlusStatusCard: View {
                 HStack(spacing: 14) {
                     SplashMark(color: .white, surface: Palette.cork).frame(width: 34, height: 34)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Get Jero Plus").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                        Text("Get Jero Plus").font(.jero(size: 16, weight: .semibold)).foregroundStyle(.white)
                         Text("Every level, every country, your journal · \(Plus.shared.price)/month")
                             .font(.system(size: 13)).foregroundStyle(.white.opacity(0.8)).fixedSize(horizontal: false, vertical: true)
                     }

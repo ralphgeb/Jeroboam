@@ -94,11 +94,11 @@ struct LibraryView: View {
     private var glossaryLink: some View {
         link(.glossary) {
                         HStack(spacing: 14) {
-                            Text("Aa").font(.system(size: 20, weight: .semibold)).foregroundStyle(Palette.wine)
+                            Text("Aa").font(.jero(size: 20, weight: .semibold)).foregroundStyle(Palette.wine)
                                 .frame(width: 44, height: 44).background(Circle().fill(Palette.wineSoft))
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("Glossary").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                                Text(LibrarySection.glossary.subtitle).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                Text("Glossary").font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                                Text(LibrarySection.glossary.subtitle).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft)
                             }
                             Spacer()
                             Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
@@ -147,8 +147,8 @@ struct LibraryView: View {
                 .scaleEffect(1.05)
                 .frame(width: 60, height: 60)
             Spacer(minLength: 8)
-            Text(s.title).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.85)
-            Text(s.subtitle).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1).padding(.top, 1)
+            Text(s.title).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.85)
+            Text(s.subtitle).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1).padding(.top, 1)
         }
         .frame(maxWidth: .infinity, minHeight: 112, alignment: .topLeading)
         .cardStyle(padding: 12)
@@ -211,7 +211,7 @@ struct LibraryView: View {
                 HStack(alignment: .bottom, spacing: 2) {
                     ForEach([14.0, 20.0, 26.0], id: \.self) { h in BottleShape().fill(Palette.wine).frame(width: h * 0.34, height: h) }
                 }
-            case .glossary: Text("Aa").font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.wine)
+            case .glossary: Text("Aa").font(.jero(size: 18, weight: .semibold)).foregroundStyle(Palette.wine)
             }
         }
     }
@@ -245,8 +245,8 @@ struct ColorsScreen: View {
                                     Circle().fill(Color(hex: c.hex)).frame(width: 16, height: 16)
                                         .overlay(Circle().strokeBorder(Palette.line, lineWidth: 0.5)).padding(.top, 2)
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text(c.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                                        Text(c.note).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                                        Text(c.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                                        Text(c.note).font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                                     }
                                     Spacer(minLength: 0)
                                 }
@@ -307,9 +307,9 @@ struct StyleTile: View {
             }
             .frame(height: 96)
             VStack(alignment: .leading, spacing: 3) {
-                Text(style.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
+                Text(style.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
                     .multilineTextAlignment(.leading)
-                Text(count > 0 ? "\(count) wines to try" : style.summary).font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                Text(count > 0 ? "\(count) wines to try" : style.summary).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
             .padding(12)
         }
@@ -347,12 +347,12 @@ struct StyleDetailView: View {
                 if let v = style.visual { VisualView(spec: v).cardStyle() }
                 VStack(alignment: .leading, spacing: 10) {
                     SectionTitle(text: "How it’s made")
-                    Text(rich(style.how)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
+                    Text(rich(style.how)).font(.jero(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                 }
                 if let t = style.taste {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "In the glass")
-                        Text(rich(t)).font(.system(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
+                        Text(rich(t)).font(.jero(size: 16)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(4)
                     }
                 }
                 let wines = (ContentStore.shared.library.wines ?? []).filter { $0.style == style.id }
@@ -371,7 +371,7 @@ struct StyleDetailView: View {
                     SectionTitle(text: wines.isEmpty ? "Look for" : "Also look for")
                     FlowLayout(spacing: 8, lineSpacing: 8) {
                         ForEach(style.examples, id: \.self) { e in
-                            Text(e).font(.system(size: 14, weight: .medium)).foregroundStyle(Palette.ink)
+                            Text(e).font(.jero(size: 14, weight: .medium)).foregroundStyle(Palette.ink)
                                 .padding(.horizontal, 12).padding(.vertical, 7)
                                 .background(Capsule().fill(Palette.cardAlt))
                         }
@@ -408,8 +408,8 @@ struct TastingScreen: View {
                     HStack(spacing: 8) {
                         ForEach(["Look", "Smell", "Taste", "Conclude"], id: \.self) { w in
                             VStack(spacing: 2) {
-                                Text(String(w.prefix(1))).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.wine)
-                                Text(w).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                                Text(String(w.prefix(1))).font(.jero(size: 26, weight: .bold)).foregroundStyle(Palette.wine)
+                                Text(w).font(.jero(size: 11.5)).foregroundStyle(Palette.inkSoft)
                             }
                             .frame(maxWidth: .infinity).padding(.vertical, 12)
                             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
@@ -475,12 +475,12 @@ struct TastingStepCard: View {
             .frame(width: 64, height: 64)
             Spacer(minLength: 14)
             HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text("\(number)").font(.system(size: 13, weight: .bold).monospacedDigit()).foregroundStyle(Color(hex: step.tint))
-                Text(step.title).font(.system(size: 18, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text("\(number)").font(.jero(size: 13, weight: .bold).monospacedDigit()).foregroundStyle(Color(hex: step.tint))
+                Text(step.title).font(.jero(size: 18, weight: .semibold)).foregroundStyle(Palette.ink)
             }
-            Text(step.line).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(2, reservesSpace: true).padding(.top, 2)
+            Text(step.line).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(2, reservesSpace: true).padding(.top, 2)
             HStack(spacing: 4) {
-                Text("Learn").font(.system(size: 12.5, weight: .semibold))
+                Text("Learn").font(.jero(size: 12.5, weight: .semibold))
                 Image(systemName: "chevron.right").font(.system(size: 10, weight: .bold))
             }
             .foregroundStyle(Palette.wine).padding(.top, 8)
@@ -521,16 +521,16 @@ struct TastingStepSheet: View {
                         .frame(width: 46, height: 46).background(Circle().fill(Color(hex: step.tint).opacity(0.12)))
                     VStack(alignment: .leading, spacing: 2) {
                         Eyebrow("Step \((TastingStep.all.firstIndex(of: step) ?? 0) + 1) of 4")
-                        Text(step.title).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                        Text(step.title).font(.jero(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
                     }
                 }
                 PhotoView(id: "taste-" + step.id, height: 200)
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(Array(step.how.enumerated()), id: \.offset) { i, t in
                         HStack(alignment: .top, spacing: 12) {
-                            Text("\(i + 1)").font(.system(size: 12, weight: .bold)).foregroundStyle(.white)
+                            Text("\(i + 1)").font(.jero(size: 12, weight: .bold)).foregroundStyle(.white)
                                 .frame(width: 22, height: 22).background(Circle().fill(Color(hex: step.tint)))
-                            Text(t).font(.system(size: 15)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
+                            Text(t).font(.jero(size: 15)).foregroundStyle(Palette.ink).fixedSize(horizontal: false, vertical: true)
                         }
                     }
                 }
@@ -538,7 +538,7 @@ struct TastingStepSheet: View {
                 if let section {
                     VStack(alignment: .leading, spacing: 12) {
                         SectionTitle(text: "What to note")
-                        Text("Tap a level to see what it means.").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                        Text("Tap a level to see what it means.").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
                         ForEach(section.items, id: \.name) { item in SATScaleRow(item: item, tint: Color(hex: step.tint)) }
                     }
                 }
@@ -555,12 +555,12 @@ struct SATScaleRow: View {
     @State private var picked: Int? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(item.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+            Text(item.name).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
             HStack(spacing: 4) {
                 ForEach(Array(item.scale.enumerated()), id: \.offset) { i, s in
                     let on = picked == i
                     Button { withAnimation(.snappy) { picked = on ? nil : i } } label: {
-                        Text(s).font(.system(size: 11, weight: on ? .semibold : .medium))
+                        Text(s).font(.jero(size: 11, weight: on ? .semibold : .medium))
                             .foregroundStyle(on ? .white : Palette.ink.opacity(0.8))
                             .lineLimit(1).minimumScaleFactor(0.7)
                             .padding(.vertical, 8).frame(maxWidth: .infinity)
@@ -570,7 +570,7 @@ struct SATScaleRow: View {
                     .buttonStyle(.plain)
                 }
             }
-            Text(rich(item.tip)).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+            Text(rich(item.tip)).font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
         }
         .padding(14)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
@@ -610,7 +610,7 @@ struct PairingScreen: View {
                                         .foregroundStyle(on ? Palette.onWine : Palette.wine)
                                         .frame(width: 54, height: 54)
                                         .background(Circle().fill(on ? Palette.wine : Palette.wineSoft.opacity(0.7)))
-                                    Text(d.0).font(.system(size: 12, weight: on ? .semibold : .regular))
+                                    Text(d.0).font(.jero(size: 12, weight: on ? .semibold : .regular))
                                         .foregroundStyle(on ? Palette.ink : Palette.inkSoft)
                                         .lineLimit(1).minimumScaleFactor(0.8)
                                 }
@@ -623,10 +623,10 @@ struct PairingScreen: View {
                     let keys = dishes.first { $0.0 == dish }?.2 ?? []
                     let matches = Array((lib.wines ?? []).filter { w in w.food.contains { f in keys.contains { f.lowercased().contains($0) } } }.prefix(5))
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("With \(dish.lowercased()), try").font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                        Text("With \(dish.lowercased()), try").font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
                             .padding(.top, 4)
                         if matches.isEmpty {
-                            Text("No classic match in the catalog yet.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
+                            Text("No classic match in the catalog yet.").font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
                         } else {
                             GroupCard {
                                 ForEach(matches) { w in
@@ -665,16 +665,16 @@ struct PairingScreen: View {
                     HStack(spacing: 12) {
                         Image(systemName: p.icon).font(.system(size: 22)).foregroundStyle(Palette.wine)
                             .frame(width: 52, height: 52).background(Circle().fill(Palette.wineSoft))
-                        Text(p.food).font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+                        Text(p.food).font(.jero(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
                     }
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow("What it does")
-                        Text(rich(p.effect)).font(.system(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
+                        Text(rich(p.effect)).font(.jero(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
                     }
                     .cardStyle(padding: 16)
                     VStack(alignment: .leading, spacing: 8) {
                         Eyebrow("What to pour")
-                        Text(rich(p.tip)).font(.system(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
+                        Text(rich(p.tip)).font(.jero(size: 16)).foregroundStyle(Palette.ink).lineSpacing(3)
                     }
                     .cardStyle(padding: 16)
                 }
@@ -710,8 +710,8 @@ struct GlossaryScreen: View {
                 Section {
                     ForEach(terms.filter { String($0.term.folding(options: .diacriticInsensitive, locale: nil).prefix(1)).uppercased() == letter }) { t in
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(t.term).font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                            Text(rich(t.def)).font(.system(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
+                            Text(t.term).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                            Text(rich(t.def)).font(.jero(size: 14.5)).foregroundStyle(Palette.inkSoft).lineSpacing(2)
                         }
                         .padding(.vertical, 4)
                         .listRowBackground(Palette.card)
@@ -778,11 +778,11 @@ struct BottlesScreen: View {
             }
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text(f.name).font(.system(size: 17, weight: .semibold)).foregroundStyle(isJ ? Palette.wine : Palette.ink)
+                    Text(f.name).font(.jero(size: 17, weight: .semibold)).foregroundStyle(isJ ? Palette.wine : Palette.ink)
                     Text(f.liters < 1 ? String(format: "%.0f cl", f.liters * 100) : String(format: f.liters == floor(f.liters) ? "%.0f L" : "%.1f L", f.liters))
                         .font(.system(size: 13, weight: .medium).monospacedDigit()).foregroundStyle(Palette.inkSoft)
                 }
-                Text(f.note).font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                Text(f.note).font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
                 Text("= \(f.bottles) standard bottle\(f.bottles == "1" || f.bottles.contains("¼") || f.bottles.contains("½") ? "" : "s")")
                     .font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
                     .padding(.horizontal, 8).padding(.vertical, 3).background(Capsule().fill(Palette.wineSoft))

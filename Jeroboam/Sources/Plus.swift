@@ -103,7 +103,8 @@ enum Distribution {
         let d = UserDefaults.standard
         if owned {
             if !active || !d.bool(forKey: Self.storeKey) { activate(fromStore: true) }
-        } else if d.bool(forKey: Self.storeKey) {
+        } else if d.bool(forKey: Self.storeKey) || (active && !Distribution.isTestFlight) {
+            // an App Store subscription that ended, or Plus turned on by the test checkout in a copy that is not a test build
             d.set(false, forKey: Self.storeKey); d.set(false, forKey: Self.key)
             active = false
         }
@@ -225,7 +226,7 @@ struct LockBadge: View {
         HStack(spacing: 6) {
             Image(systemName: "lock.fill").font(.system(size: 11, weight: .bold)).foregroundStyle(.white)
                 .frame(width: 20, height: 20).background(Circle().fill(Palette.bordeaux))
-            Text("Jero Plus").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
+            Text("Jero Plus").font(.jero(size: 13, weight: .semibold)).foregroundStyle(Palette.ink)
         }
         .padding(.leading, 6).padding(.trailing, 12)
         .frame(height: 32)
@@ -254,7 +255,7 @@ struct QuotaPill: View {
             Button { PaywallPresenter.shared.show("Open every card in the atlas with Jero Plus.") } label: {
                 HStack(spacing: 5) {
                     Image(systemName: left > 0 ? "sparkles" : "lock.fill").font(.system(size: 10, weight: .bold))
-                    Text(left > 0 ? "\(left) of \(Plus.freeOpens) free" : "Jero Plus").font(.system(size: 12, weight: .semibold).monospacedDigit())
+                    Text(left > 0 ? "\(left) of \(Plus.freeOpens) free" : "Jero Plus").font(.jero(size: 12, weight: .semibold).monospacedDigit())
                 }
                 .foregroundStyle(left > 0 ? Palette.wine : .white)
                 .padding(.horizontal, 10).frame(height: 28)
@@ -289,8 +290,8 @@ struct PlusCallout: View {
                     .shadow(color: Palette.bordeaux.opacity(0.35), radius: 10, y: 4)
                 Image(systemName: "lock.fill").font(.system(size: 20, weight: .semibold)).foregroundStyle(.white)
             }
-            Text(title).font(.system(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
-            Text(message).font(.system(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
+            Text(title).font(.jero(size: 19, weight: .semibold)).foregroundStyle(Palette.ink)
+            Text(message).font(.jero(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             Text("Unlock with Jero Plus")
                 .font(.system(size: 14, weight: .semibold)).foregroundStyle(.white)
@@ -385,7 +386,7 @@ struct PlusSheet: View {
             Button(action: subscribe) {
                 ZStack {
                     if step == .paying { ProgressView().tint(.white) }
-                    else { Text("Subscribe · \(plus.price)/month").font(.system(size: 16.5, weight: .semibold)) }
+                    else { Text("Subscribe · \(plus.price)/month").font(.jero(size: 16.5, weight: .semibold)) }
                 }
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity).frame(height: 52)
@@ -395,7 +396,7 @@ struct PlusSheet: View {
             .disabled(step == .paying)
 
             if let note {
-                Text(note).font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
+                Text(note).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
             }
             Text("Renews automatically until cancelled. Cancel any time in Settings › Apple Account › Subscriptions.")
                 .font(.system(size: 11)).foregroundStyle(Palette.inkFaint).multilineTextAlignment(.center)
@@ -415,7 +416,7 @@ struct PlusSheet: View {
         VStack(spacing: 0) {
             Hairline()
             HStack(spacing: 0) {
-                Text(title).font(.system(size: 14.5)).foregroundStyle(Palette.ink).frame(maxWidth: .infinity, alignment: .leading)
+                Text(title).font(.jero(size: 14.5)).foregroundStyle(Palette.ink).frame(maxWidth: .infinity, alignment: .leading)
                 mark(free).frame(width: 62)
                 mark(plus).frame(width: 62)
             }
@@ -433,7 +434,15 @@ struct PlusSheet: View {
         step = .paying
         Task {
             await plus.loadProduct()
-            guard let product = plus.product else { showCheckout = true; return }
+            guard let product = plus.product else {
+                // the test checkout exists only for TestFlight and development builds; an App Store copy never unlocks
+                // Plus without a real purchase (if the App Store can't be reached it says so and lets you try again)
+                if Distribution.isTestFlight { showCheckout = true } else {
+                    step = .offer
+                    note = "The App Store can\u{2019}t be reached right now. Check your connection and try again."
+                }
+                return
+            }
             switch await plus.buy(product) {
             case .bought: welcomeThenClose(fromStore: true)
             case .cancelled: step = .offer
@@ -466,7 +475,7 @@ struct PlusSheet: View {
                 Image(systemName: "checkmark.seal.fill").font(.system(size: 54)).foregroundStyle(Palette.wine)
                     .symbolEffect(.bounce, value: step == .done)
             }
-            Text("Welcome to Jero Plus").font(.system(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
+            Text("Welcome to Jero Plus").font(.jero(size: 26, weight: .bold)).foregroundStyle(Palette.ink)
             Text("You're subscribed. Every level, map, wine and your journal are now open. Santé!")
                 .font(.system(size: 16)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
                 .padding(.horizontal, 30).fixedSize(horizontal: false, vertical: true)
@@ -488,7 +497,7 @@ struct PlusSheet: View {
     private func welcomePoint(_ t: String) -> some View {
         HStack(spacing: 10) {
             Image(systemName: "checkmark.circle.fill").foregroundStyle(Palette.wine)
-            Text(t).font(.system(size: 15)).foregroundStyle(Palette.ink)
+            Text(t).font(.jero(size: 15)).foregroundStyle(Palette.ink)
         }
     }
 }
@@ -506,7 +515,7 @@ struct TestCheckoutSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("App Store").font(.system(size: 17, weight: .semibold))
+                Text("App Store").font(.jero(size: 17, weight: .semibold))
                 Spacer()
                 Button("Cancel") { finish(false) }.font(.system(size: 17)).disabled(stage != .ready)
             }
@@ -516,24 +525,24 @@ struct TestCheckoutSheet: View {
                 Image("IconPreview").resizable().frame(width: 64, height: 64)
                     .clipShape(RoundedRectangle(cornerRadius: 14.5, style: .continuous))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Jero Plus").font(.system(size: 17, weight: .semibold))
-                    Text("Jero").font(.system(size: 15)).foregroundStyle(.secondary)
-                    Text("Subscription").font(.system(size: 15)).foregroundStyle(.secondary)
+                    Text("Jero Plus").font(.jero(size: 17, weight: .semibold))
+                    Text("Jero").font(.jero(size: 15)).foregroundStyle(.secondary)
+                    Text("Subscription").font(.jero(size: 15)).foregroundStyle(.secondary)
                 }
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 20).padding(.vertical, 16)
             Divider().padding(.leading, 20)
             VStack(alignment: .leading, spacing: 6) {
-                Text("Starts today. \(Plus.shared.price)/month.").font(.system(size: 15, weight: .semibold))
+                Text("Starts today. \(Plus.shared.price)/month.").font(.jero(size: 15, weight: .semibold))
                 Text("Renews automatically every month until cancelled. Cancel at least a day before each renewal date in Settings › Apple Account › Subscriptions.")
                     .font(.system(size: 13)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 20).padding(.vertical, 14)
             Divider().padding(.leading, 20)
             VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) { Text("Account:").foregroundStyle(.secondary); Text("Test account") }.font(.system(size: 15))
-                Text("[Environment: Test]").font(.system(size: 13)).foregroundStyle(.secondary)
+                HStack(spacing: 6) { Text("Account:").foregroundStyle(.secondary); Text("Test account") }.font(.jero(size: 15))
+                Text("[Environment: Test]").font(.jero(size: 13)).foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 20).padding(.vertical, 14)
             Spacer(minLength: 8)
@@ -555,7 +564,7 @@ struct TestCheckoutSheet: View {
         ZStack {
             RoundedRectangle(cornerRadius: 14, style: .continuous).fill(stage == .done ? Color(uiColor: .secondarySystemFill) : Color.blue)
             switch stage {
-            case .ready: Text("Subscribe").font(.system(size: 17, weight: .semibold)).foregroundStyle(.white)
+            case .ready: Text("Subscribe").font(.jero(size: 17, weight: .semibold)).foregroundStyle(.white)
             case .authenticating:
                 HStack(spacing: 8) { Image(systemName: bio.0).font(.system(size: 18)); Text(bio.1).font(.system(size: 17, weight: .semibold)) }
                     .foregroundStyle(.white)
@@ -608,7 +617,7 @@ struct JeroPrivacyView: View {
     }
     private func section(_ t: String, _ x: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(t).font(.system(size: 15, weight: .semibold))
+            Text(t).font(.jero(size: 15, weight: .semibold))
             Text(x).foregroundStyle(.secondary)
         }
     }
