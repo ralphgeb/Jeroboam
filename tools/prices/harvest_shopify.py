@@ -68,10 +68,12 @@ def slim(p, base):
             "published_at": p.get("published_at"), "variants": vs}
 
 
-def paged(session, url_fmt, delay, max_pages):
+def paged(session, url_fmt, delay, max_pages, deadline=None):
     """Yields product lists page by page; stops on empty page, error or repeated page (Shopify's paging cap)."""
     seen_first = set()
     for page in range(1, max_pages + 1):
+        if deadline and time.time() > deadline:
+            return
         r = get(session, url_fmt.format(page=page))
         if r is None or r.status_code != 200:
             return
@@ -116,7 +118,8 @@ def harvest(shop, out, delay, max_pages, budget=9000):
     try:
         rep["storefront_currency"], rep["storefront_rate"] = storefront_currency(s, base)
         prods = {}
-        for page in paged(s, base + "/products.json?limit=250&page={page}", delay, max_pages):
+        deadline = t0 + budget
+        for page in paged(s, base + "/products.json?limit=250&page={page}", delay, max_pages, deadline):
             rep["pages"] += 1
             for p in page:
                 prods[p["id"]] = p
@@ -139,7 +142,7 @@ def harvest(shop, out, delay, max_pages, budget=9000):
             for h in handles:
                 if time.time() - t0 > budget:   # keep what we have rather than run out of job time
                     rep['stopped_early'] = True; break
-                for page in paged(s, f"{base}/collections/{h}/products.json?limit=250&page={{page}}", delay, max_pages):
+                for page in paged(s, f"{base}/collections/{h}/products.json?limit=250&page={{page}}", delay, max_pages, deadline):
                     for p in page:
                         prods.setdefault(p["id"], p)
         with gzip.open(os.path.join(out, host + ".jsonl.gz"), "wt", encoding="utf-8") as f:
