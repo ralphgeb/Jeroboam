@@ -1,0 +1,13 @@
+{
+ "name": "Helen's Wines",
+ "base": "https://helenswines.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 246,
+ "pages": 1,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 2
+}
