@@ -6,17 +6,17 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 |---|---|---|---|---|---|---|---|---|
 | 8greenbottles (www.8greenbottles.nl) | new | EUR | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | ALLY Wines (allywines.com) | new | USD | 117 | 6 | 0 | 111 | 110 / 1 / 0 / 0 / 0 / 0 | storefront shows GBP (rate 1.0) |
-| Ake & Humphris (www.akeandhumphris.co.uk) | new | GBP | 658 | 253 | 29 | 376 | 0 / 66 / 7 / 225 / 43 / 35 |  |
+| Ake & Humphris (www.akeandhumphris.co.uk) | new | GBP | 658 | 253 | 29 | 376 | 0 / 66 / 7 / 221 / 46 / 36 |  |
 | Aylesbury Estate (aylesburyestate.com.au) | new | AUD | 13 | 3 | 0 | 10 | 0 / 0 / 0 / 3 / 7 / 0 |  |
-| BGWM (bgwm.co.uk) | existing | GBP | 5527 | 32 | 416 | 5055 | 0 / 0 / 3935 / 1017 / 100 / 27 |  |
-| Biondivino (www.biondivino.com) | new | USD | 2088 | 740 | 109 | 1237 | 0 / 384 / 3 / 629 / 200 / 23 |  |
-| Black Market (www.blackmarket.co.nz) | existing | NZD | 14536 | 2427 | 219 | 11884 | 0 / 2203 / 0 / 8640 / 546 / 501 |  |
+| BGWM (bgwm.co.uk) | existing | GBP | 5527 | 32 | 416 | 5055 | 0 / 0 / 3935 / 1014 / 100 / 30 |  |
+| Biondivino (www.biondivino.com) | new | USD | 2088 | 740 | 109 | 1237 | 0 / 384 / 3 / 630 / 199 / 23 |  |
+| Black Market (www.blackmarket.co.nz) | existing | NZD | 14536 | 2427 | 219 | 11884 | 0 / 2203 / 0 / 8637 / 546 / 504 |  |
 | Blackhearts & Sparrows (www.blackheartsandsparrows.com.au) | candidate | AUD | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Bottle Apostle (www.bottleapostle.com) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Camperdown Cellars (camperdowncellars.com.au) | existing | AUD | 5254 | 2836 | 197 | 2219 | 0 / 2196 / 0 / 21 / 2 / 2 |  |
 | Cape Fine Wines (www.capefinewines.co.uk) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Caps and Taps (www.capsandtaps.co.uk) | candidate | GBP | 464 | 409 | 12 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | dropped: not a wine catalogue |
-| Chambers Street Wines (www.chambersstwines.com) | existing | USD | 23682 | 342 | 120 | 23211 | 0 / 387 / 5498 / 15349 / 1741 / 245 |  |
+| Chambers Street Wines (www.chambersstwines.com) | existing | USD | 23682 | 342 | 120 | 23211 | 0 / 387 / 5498 / 15345 / 1745 / 245 |  |
 | Chapel Down (www.chapeldown.com) | existing | GBP | 139 | 67 | 13 | 57 | 0 / 0 / 0 / 28 / 14 / 17 |  |
 | Croatian Fine Wines (www.croatianfinewines.com) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Crush Wine & Spirits (www.crushwineco.com) | existing | USD | 2894 | 517 | 3 | 2371 | 0 / 0 / 426 / 1852 / 80 / 16 |  |
@@ -31,9 +31,9 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 | Flatiron Wines (nyc.flatiron-wines.com) | existing | USD | 500 | 49 | 0 | 451 | 450 / 0 / 1 / 0 / 0 / 0 |  |
 | Flatiron Wines (sf.flatiron-wines.com) | existing | USD | 5033 | 1654 | 1 | 3375 | 3361 / 1 / 5 / 4 / 3 / 4 |  |
 | Flight Wine Shop (flightwineshop.com) | new | USD | 870 | 276 | 80 | 513 | 0 / 159 / 6 / 317 / 30 / 2 |  |
-| Great Wines Direct (www.greatwinesdirect.co.uk) | existing | GBP | 4084 | 154 | 44 | 3882 | 0 / 0 / 1577 / 1976 / 244 / 89 |  |
+| Great Wines Direct (www.greatwinesdirect.co.uk) | existing | GBP | 4084 | 154 | 44 | 3882 | 0 / 0 / 1577 / 1973 / 246 / 90 |  |
 | Hard to Find Wines (www.htfwines.co.uk) | new | GBP | 1375 | 221 | 1 | 1140 | 0 / 1144 / 0 / 3 / 4 / 2 |  |
-| Hedonism Wines (hedonism.co.uk) | existing | GBP | 34590 | 9160 | 3 | 25401 | 0 / 23599 / 0 / 1422 / 231 / 175 |  |
+| Hedonism Wines (hedonism.co.uk) | existing | GBP | 34590 | 9160 | 3 | 25401 | 0 / 23599 / 0 / 1418 / 232 / 178 |  |
 | Helen's Wines (helenswines.com) | existing | USD | 246 | 55 | 13 | 178 | 0 / 168 / 5 / 1 / 3 / 1 |  |
 | Highbury Vintners (www.highburyvintners.co.uk) | existing | GBP | 2340 | 508 | 1 | 1831 | 0 / 68 / 6 / 1525 / 188 / 44 |  |
 | Keeling Andrew & Co (www.keelingandrew.co.uk) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
@@ -41,7 +41,7 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 | Kermit Lynch (shop.kermitlynch.com) | new | USD | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Last Bottle (www.lastbottlewines.com) | existing | USD | 108 | 2 | 1 | 105 | 0 / 4 / 0 / 61 / 38 / 2 |  |
 | Le Petit Ballon (www.lepetitballon.com) | existing | EUR | 5508 | 474 | 74 | 7252 | 0 / 4895 / 29 / 6 / 8 / 22 |  |
-| Leon & Son (leonandsonwine.com) | existing | USD | 10517 | 885 | 407 | 8854 | 0 / 16 / 1976 / 6844 / 305 / 84 |  |
+| Leon & Son (leonandsonwine.com) | existing | USD | 10517 | 885 | 407 | 8854 | 0 / 16 / 1976 / 6838 / 309 / 86 |  |
 | Les Caves de Pyrene (www.lescaves.co.uk) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Maltby & Greek (www.maltbyandgreek.com) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Merchant of Wine (merchantofwine.com) | new | USD | 1404 | 57 | 7 | 1334 | 0 / 66 / 1180 / 77 / 11 / 6 |  |
@@ -82,16 +82,16 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 | Vanderbilt Wine (vanderbilt.wine) | new | USD | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Veritas Wine (www.veritaswines.com) | new | USD | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Verve Wine (sf.vervewine.com) | existing | USD | 885 | 58 | 0 | 827 | 572 / 226 / 0 / 28 / 1 / 0 |  |
-| Vin Chicago (www.vinchicago.com) | new | USD | 2091 | 399 | 26 | 1664 | 0 / 184 / 11 / 1278 / 163 / 30 |  |
-| Vino Fine Wine & Spirits (vinosite.com) | new | USD | 1685 | 717 | 40 | 927 | 0 / 225 / 0 / 615 / 67 / 21 |  |
+| Vin Chicago (www.vinchicago.com) | new | USD | 2091 | 399 | 26 | 1664 | 0 / 184 / 11 / 1269 / 168 / 34 |  |
+| Vino Fine Wine & Spirits (vinosite.com) | new | USD | 1685 | 717 | 40 | 927 | 0 / 225 / 0 / 614 / 67 / 22 |  |
 | Vins Naturels (www.vinsnaturels.fr) | new | EUR | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Vintage Berkeley (vintageberkeley.com) | existing | USD | 362 | 32 | 52 | 278 | 0 / 213 / 0 / 51 / 12 / 2 |  |
 | Wayward Wines (www.waywardwines.co.uk) | new | GBP | 297 | 18 | 2 | 277 | 276 / 1 / 0 / 0 / 0 / 0 |  |
-| Wine Boutique (www.wine-boutique.co.uk) | new | GBP | 231 | 50 | 0 | 182 | 0 / 172 / 0 / 4 / 0 / 5 |  |
-| Wine Chateau (www.winechateau.com) | existing | USD | 50967 | 12793 | 640 | 36129 | 29346 / 8059 / 1 / 62 / 31 / 35 |  |
+| Wine Boutique (www.wine-boutique.co.uk) | new | GBP | 231 | 50 | 0 | 182 | 0 / 172 / 0 / 3 / 0 / 6 |  |
+| Wine Chateau (www.winechateau.com) | existing | USD | 50967 | 12793 | 640 | 36129 | 29343 / 8059 / 1 / 63 / 32 / 36 |  |
 | Wine Online (wineonline.ie) | existing | EUR | 3220 | 604 | 21 | 2584 | 0 / 2589 / 0 / 3 / 0 / 3 |  |
-| Wine Therapy (winetherapynyc.com) | existing | USD | 7959 | 760 | 94 | 7096 | 0 / 500 / 155 / 5482 / 720 / 248 |  |
-| Zachys (www.zachys.com) | existing | USD | 8356 | 583 | 2 | 7767 | 0 / 0 / 1 / 7108 / 192 / 470 |  |
-| Zyn (zyn.ca) | existing | CAD | 10914 | 3389 | 310 | 7201 | 0 / 143 / 28 / 6105 / 816 / 123 |  |
+| Wine Therapy (winetherapynyc.com) | existing | USD | 7959 | 760 | 94 | 7096 | 0 / 500 / 155 / 5471 / 722 / 257 |  |
+| Zachys (www.zachys.com) | existing | USD | 8356 | 583 | 2 | 7767 | 0 / 0 / 1 / 7106 / 192 / 472 |  |
+| Zyn (zyn.ca) | existing | CAD | 10914 | 3389 | 310 | 7201 | 0 / 143 / 28 / 6089 / 831 / 124 |  |
 
 Total offers: 235780 from 68 shops.
