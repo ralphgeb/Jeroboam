@@ -1,0 +1,1642 @@
+{{Short description|None}}
+[[File:Wine production, OWID.svg|thumb|Wine production in 2022<ref>{{cite web |title=Wine production |url=https://ourworldindata.org/grapher/wine-production |website=Our World in Data |access-date=5 March 2020}}</ref>|350x350px]]
+
+[[Wine]]s are produced in significant [[growing region]]s where [[vineyard]]s are planted. Wine grapes berries mostly grow between the 30th and the 50th degrees of latitude, in both the Northern and Southern Hemispheres, typically in regions of [[Mediterranean climate]]. Grapes will sometimes grow beyond this range, thus minor amounts of wine are made in some rather unexpected places.
+
+As of 2021, the five largest producers of wine in the world were, in order, [[#Italy|Italy]], [[#France|France]], [[#Spain|Spain]], the [[#United States|United States]], and [[#China|China]].
+
+==Countries==
+[[File:GlobalWineProduction.png|thumbnail|350x350px|Map of global wine production in 2013|alt=A colour-coded map of 2013 global wine production]]
+
+2021 data from the [[Food and Agriculture Organization]] (FAO) show a total worldwide production of 27 million tonnes of wine with the top 15 producing countries accounting for over 90% of the total.<ref name="faostat">{{cite web|url=http://www.fao.org/faostat/en/#data/QC|title=Wine production in 2021, Crops/Regions/World list/Production Quantity/Year (pick lists)|date=2024|publisher=UN Food and Agriculture Organization, Corporate Statistical Database (FAOSTAT)|access-date=10 June 2024}}</ref>
+
+{{srn}}{{table alignment}}
+{| class="wikitable sortable plainrowheaders static-row-numbers col2right" 
+|+ Wine production by country in 2021
+! scope="col" | Country 
+! scope="col" | Production<br /><small>([[tonne]]s)</small>
+|-
+| [[Italian wine|Italy]] || 5,088,500
+|-
+| [[French wine|France]] || 3,713,200
+|-
+| [[Spanish wine|Spain]] || 3,700,588 
+|-
+| [[American wine|United States]] || 2,057,021
+|-
+| [[Wine in China|China]] || 1,814,400
+|-
+| [[Australian wine|Australia]] || 1,482,000
+|-
+| [[Chilean wine|Chile]] || 1,343,729
+|-
+| [[Argentinian wine|Argentina]] || 1,248,155
+|-
+| [[South African wine|South Africa]] || 1,133,300
+|-
+| [[Portuguese wine|Portugal]] || 718,547
+|-
+| [[Romanian wine|Romania]] || 530,000
+|-
+| [[German wine|Germany]] || 452,693
+|-
+| [[Russian wine|Russia]] || 450,000
+|-
+| [[Brazilian wine|Brazil]] || 348,449
+|-
+| [[Hungarian wine|Hungary]] || 310,000
+|-
+| [[Greek wine|Greece]] || 290,000
+|-
+| [[Turkish wine|Turkey]] || 266,962
+|-
+| [[New Zealand wine|New Zealand]] || 266,400
+|-
+| [[Austrian wine|Austria]] || 246,000
+|-
+| [[Moldovan wine|Moldova]] || 167,500
+|-
+| [[Georgian wine|Georgia]] || 119,617
+|-
+| [[Macedonian wine|North Macedonia]] || 93,600
+|-
+| [[Bulgarian wine|Bulgaria]] || 82,300
+|-
+| [[Peruvian wine|Peru]] || 81,000
+|-
+| [[Uruguayan wine|Uruguay]] || 74,865
+|-
+| [[Ukrainian wine|Ukraine]] || 68,470
+|-
+| [[Croatian wine|Croatia]] || 66,000
+|-
+| [[Canadian wine|Canada]] || 65,357
+|-
+| [[Swiss wine|Switzerland]] || 60,904
+|-
+| [[Czech wine|Czech Republic]] || 59,000
+|-
+| [[Turkmenistan]] || 52,098
+|-
+| [[Japanese wine|Japan]] || 49,473
+|-
+| [[Mexican wine|Mexico]] || 43,268
+|-
+| [[Moroccan wine|Morocco]] || 43,083
+|-
+| [[Tunisian wine|Tunisia]] || 28,000
+|-
+| [[Serbian wine|Serbia]] || 26,550
+|-
+| [[Belarus]] || 26,430
+|-
+| [[Kazakh wine|Kazakhstan]] || 23,343
+|-
+| [[Vietnamese wine|Vietnam]] || 18,153
+|-
+| [[Belgian wine|Belgium]] || 17,496
+|-
+| [[Uzbekistan]] || 16,899
+|-
+| [[Armenian wine|Armenia]] || 12,829
+|-
+| [[Slovenian wine|Slovenia]] || 10,192
+|-
+| [[Azerbaijani wine|Azerbaijan]] || 10,116
+|-
+| [[Montenegrin wine|Montenegro]] || 10,022
+|-
+| [[Luxembourg wine|Luxembourg]] || 9,800
+|-
+| [[Cypriot wine|Cyprus]] || 8,900
+|-
+| [[Bolivian wine|Bolivia]] || 8,400
+|-
+| [[Madagascar]] || 7,791
+|-
+| [[Slovak wine|Slovakia]] || 7,711
+|-
+| [[Bosnia and Herzegovina wine|Bosnia and Herzegovina]] || 5,677
+|-
+| [[Egyptian wine|Egypt]]|| 4,775
+|-
+| [[Saint Lucia]]|| 4,449
+|-
+| [[Lithuania]]|| 4,143
+|-
+| [[Mauritius]]|| 3,166
+|-
+| [[Colombia]]|| 2,606
+|-
+| [[Albanian wine|Albania]] || 2,587
+|-
+| [[Sabile|Latvia]] || 2,569
+|-
+| [[Kyrgyzstan]] || 2,316
+|-
+| [[Estonia]] || 2,088
+|-
+| [[Israeli wine|Israel]] || 2,020
+|-
+| [[Paraguayan wine|Paraguay]] || 1,981
+|-
+| [[Lebanese wine|Lebanon]] || 932
+|-
+| [[Jordanian wine|Jordan]] || 557
+|-
+| [[Thai wine|Thailand]] || 461
+|-
+| [[Mongolia]] || 371
+|-
+| [[Wine from the United Kingdom|United Kingdom]] || 354
+|-
+| [[Tajikistan]] || 182
+|-
+| [[Panama]] || 108
+|-
+|}
+
+== Africa ==
+
+=== Algeria ===
+{{See also|Algerian wine}}
+* [[Algiers Province|Algiers]]{{citation needed|date=April 2015}}
+* [[Béjaïa Province|Béjaïa]]{{citation needed|date=April 2015}}
+* [[Chlef Province]]
+** [[Dahra, Algeria|Dahra]]<ref name=atlas>{{cite web|url=http://www.algerianwine.com/history.html |title=The History of Vineyards in Algeria |publisher=Atlasian Cellars Meghdir & Sons |year=2005 |access-date=2005-04-07}}</ref>
+* [[Mascara Province|Mascara]]<ref name=atlas />
+* [[Médéa Province|Médéa]]<ref name=atlas />
+* [[Tlemcen Province|Tlemcen]]<ref name=atlas />
+* [[Zaccar]]<ref name=atlas />
+
+=== Cape Verde ===
+* [[Chã das Caldeiras]]
+
+=== Morocco ===
+{{See also|Moroccan wine}}
+
+* [[Atlas Mountains]]
+* [[Benslimane]]
+* [[Meknès]]
+
+=== South Africa ===
+[[File:Stellenbosch-region.JPG|thumb|A vineyard in the [[Stellenbosch]] region, South Africa]]
+{{See also|South African wine}}
+* [[Breede River Valley]]
+* [[Constantia, Cape Town|Constantia]]
+* [[Durbanville]]
+* [[Elgin, South Africa|Elgin]]
+* [[Elim, South Africa|Elim]]
+* [[Franschhoek]]
+* [[Little Karoo]]
+* [[Orange River Valley]]
+* [[Paarl]]
+* [[Robertson, South Africa|Robertson]]
+* [[Stellenbosch]]
+* [[Swartland]]
+* [[Tulbagh]]
+
+=== Tunisia ===
+{{See also|Tunisian wine}}
+
+* [[Arianah]]
+* [[Nabul]]
+* [[Sousse]]
+
+== South America ==
+[[File:Argentine wine regions.jpg|right|thumb|350px|Argentine wine regions]]
+
+=== Argentina ===
+{{See also|Argentine wine}}
+* [[Buenos Aires wines|Buenos Aires Province]]
+** [[Médanos, Buenos Aires|Médanos]]
+* [[Catamarca Province]]
+* [[La Rioja Province (Argentina)|La Rioja Province]]
+* [[Mendoza Province (wine)|Mendoza Province]]
+* [[Neuquén Province]]
+* [[Río Negro Province]]
+* [[Salta Province]]
+** [[Cafayate]]
+* [[San Juan Province, Argentina|San Juan Province]]
+
+=== Bolivia ===
+{{Location map+|Bolivia|relief = 1|float=right|width=250|caption=The location of the main wine regions of Bolivia.|places=
+<!-- North-East-->
+{{Location map~|Bolivia|lat_deg=-18.75 |lon_deg=-63.916667 |label=[[Vallegrande Province|Vallegrande]]|position=right|mark=Purple pog.svg}}
+{{Location map~|Bolivia|lat_deg=-20.820583 |lon_deg=-65.652850 |label=[[Cotagaita Valley]]|position=left|mark=Purple pog.svg}}
+{{Location map~|Bolivia|lat_deg=-20.674595 |lon_deg=-65.216746 |label=[[Cinti Valley]]|position=right|mark=Purple pog.svg}}
+{{Location map~|Bolivia|lat_deg=-21.549973 |lon_deg=-64.747519 |label=[[Central Valley of Tarija]]|position=right|mark=Purple pog.svg}}
+}}
+{{See also|Bolivian wine}}
+* [[Cinti Valley]]
+* [[Cotagaita Valley]]
+* [[Samaipata, Bolivia|Samaipata Valley]]
+* [[Central Valley of Tarija]]
+* [[Valle de la Concepción]]
+
+=== Brazil ===
+{{See also|Brazilian wine}}
+* [[Bahia]]
+** [[Curaçá]]
+** [[Irecê]]
+** [[Juazeiro]]
+* [[Mato Grosso]]
+** [[Nova Mutum]]
+* [[Minas Gerais]]
+** [[Andradas]]
+** [[Caldas, Minas Gerais|Caldas]]
+** [[Pirapora]]
+** [[Santa Rita de Caldas]]
+* [[Paraná (state)|Paraná]]
+** [[Bandeirantes]]
+** [[Marialva]]
+** [[Maringá]]
+** [[Rosário do Avaí]]
+* [[Pernambuco]]
+** [[Casa Nova]]
+** [[Petrolina]]
+** [[Santa Maria da Boa Vista]]
+* [[Rio Grande do Sul]]
+** [[Bento Gonçalves, Rio Grande do Sul|Bento Gonçalves]]
+** [[Caxias do Sul]]
+** [[Cotiporã]]
+** [[Farroupilha]]
+** [[Flores da Cunha]]
+** [[Garibaldi, Rio Grande do Sul|Garibaldi]]
+** [[Pinto Bandeira]]
+* [[Santa Catarina (state)|Santa Catarina]]
+** [[Pinheiro Preto]]
+** [[São Joaquim]]
+** [[Tangará, Santa Catarina|Tangará]]
+* [[São Paulo (state)|São Paulo]]
+** [[Jundiaí]]
+** [[São Roque, São Paulo|São Roque]]
+
+=== Chile ===
+{{See also|Chilean wine}}
+[[File:Chile map2 with wine regions highlighted.JPG|thumb|right|Chile's topography with the location of most of Chile's wine regions highlighted]]
+* [[Aconcagua (wine region)|Aconcagua]]
+** [[Aconcagua River|Aconcagua Valley]]
+** [[Casablanca Valley]]
+* [[Atacama Region|Atacama]]
+** [[Copiapó Valley]]
+** [[Huasco River|Huasco Valley]]
+* [[Central Valley (Chilean wine region)|Central Valley]]
+** [[Cachapoal River|Cachapoal Valley]]
+** [[Maipo River|Maipo Valley]]
+** [[Mataquito River|Mataquito Valley]]
+** [[Maule River|Maule Valley]]
+* [[Coquimbo Region|Coquimbo]]
+** [[Choapa River|Choapa Valley]]
+** [[Elqui River|Elqui Valley]]
+** [[Limarí River|Limarí]]
+* [[Pica, Chile|Pica]] – a wine-producing oasis before the [[Chilenization of Tacna, Arica and Tarapacá|Chilenization of Tarapacá]]
+* [[Southern Chile (wine region)|Southern Chile]]
+** [[Bío-Bío River|Bío-Bío Valley]]
+** [[Itata River|Itata Valley]]
+** [[Malleco River|Malleco Valley]]
+** [[Bueno River|Bueno Valley]] and [[Ranco Lake]]
+
+=== Colombia ===
+
+* [[Villa de Leyva]]
+* [[Valle del Cauca Department|Valle del Cauca]] 
+** [[La Unión, Valle del Cauca|La Unión]]
+
+=== Peru ===
+{{See also|Peruvian wine}}
+* [[Arequipa]] region valleys
+* [[Huaral District]] and [[Cañete Province]] – both in [[Lima Region]]; formerly in [[Santiago de Surco|Surco]] were vineyards that have disappeared due to urban expansion
+* [[Ica Region]] – including Chincha, Pisco and Ica valleys
+* [[Pica, Chile|Pica]] – a wine-producing oasis before the Chilenization of [[Department of Tarapacá (Peru)|Tarapacá]]
+
+=== Uruguay ===
+{{See also|Uruguayan wine}}
+* [[Montevideo]]
+* [[Canelones Department|Canelones]]
+* [[Maldonado Department|Maldonado]]
+** [[Garzón, Uruguay|Garzón]]
+** [[José Ignacio, Uruguay|José Ignacio]]
+* [[Colonia Department|Colonia]]
+* [[San José Department|San José]]
+
+=== Venezuela ===
+:''The wine-producing enterprise for Venezuela can be found [http://www.bodegaspomar.com.ve/ here]''.
+* [[Carora]], [[Lara State]]
+
+== North America ==
+
+=== Canada ===
+{{See also|Canadian wine|British Columbia wine|Ontario wine}}
+* [[British Columbia]]
+** [[Fraser Valley]] ([[Vintners Quality Alliance|VQA]] defined viticultural area)
+** [[Gulf Islands]] (VQA defined viticultural area)
+** [[Okanagan Valley (wine region)|Okanagan Valley]] (VQA defined viticultural area)
+** [[Similkameen Country|Similkameen Valley]] (VQA defined viticultural area)
+** [[Thompson Valley (wine region)]] (VQA defined viticultural area)
+** [[Vancouver Island]] (VQA defined viticultural area)
+* [[Nova Scotia]]
+** [[Annapolis Valley]]
+* [[Ontario]]
+** [[Lake Erie]] North Shore and [[Pelee, Ontario|Pelee Island]] (VQA defined viticultural area)
+** [[Niagara Peninsula]] (VQA defined viticultural area)
+** [[Prince Edward County, Ontario|Prince Edward County]] (VQA defined viticultural area)
+** [[Toronto]]
+* [[Quebec]]
+** [[Eastern Townships]]
+
+=== Costa Rica ===
+* [[Costa Rican Central Valley|Valle Central]] 
+** [[Santa Ana Canton|Santa Ana]]
+** [[La Garita District|La Garita]]
+* [[Dota]] 
+** [[Copey District|Copey de Dota]]
+
+=== Mexico ===
+{{See also|Mexican wine}}
+* [[Aguascalientes]]
+** [[Aguascalientes]] Valley
+* [[Baja California]]
+** [[Valle de Guadalupe, Baja California|Valle de Guadalupe]]
+*** [[Valle de Calafia]]
+*** [[Mexicali Valley|Valle de Mexicali]]
+*** [[Valle de San Vicente]]
+*** [[Valle de Santo Tomás]]
+*** [[Zona Tecate]]
+* [[Coahuila]] / [[Durango]], collectively known as La Laguna wine region
+** [[Valle de Parras]]
+* [[Guanajuato]]
+** [[Guanajuato City]]
+** [[San Miguel de Allende]]
+** [[Dolores Hidalgo]]
+** [[San Felipe, Guanajuato|San Felipe]]
+** [[Salvatierra, Guanajuato|Salvatierra]]
+** [[San Francisco del Rincón]]
+* [[Hidalgo (state)|Hidalgo]]
+* [[Nuevo León]]
+** [[Valle de Las Maravillas]]
+* [[Querétaro]] (''[[Vinos de la Región Vitivinícola de Querétaro]]'', first Mexican IGP)
+** Valle de [[Tequisquiapan Municipality|Tequisquiapan]]
+* [[Sonora]]
+** [[Caborca]]
+** [[Hermosillo]]
+* [[Zacatecas]]
+** [[Valle de las Arcinas]]
+
+=== United States ===
+{{Main|List of American Viticultural Areas}}
+{{See also|American Wine}}
+* [[Arizona wine|Arizona]]
+* [[California wine|California]]
+**[[Central Coast AVA]]
+***[[Livermore Valley AVA]]
+***[[Paso Robles AVA]]
+***[[York Mountain AVA]]
+**[[Central Valley (California)|Central Valley]]
+***[[Lodi AVA]]
+**[[North Coast AVA]]
+***[[Mendocino AVA]]
+***[[Napa Valley AVA]]
+***[[Sonoma County Wine|Sonoma County]]
+**[[Sierra Foothills AVA]]
+**[[South Coast AVA]]
+* [[Colorado wine|Colorado]]
+* [[Idaho wine|Idaho]]
+* [[Michigan wine|Michigan]]
+* [[Missouri wine|Missouri]]
+* [[New Jersey wine|New Jersey]]
+* [[New Mexico wine|New Mexico]]
+* [[New York wine|New York]]
+**[[Finger Lakes AVA]]
+**[[Hudson River Region AVA]]
+**[[Long Island AVA]]
+* [[Oregon wine|Oregon]]
+** [[Willamette Valley AVA]]
+* [[Pennsylvania wine|Pennsylvania]]
+* [[Texas wine|Texas]]
+**[[Texas High Plains AVA]]
+**[[Texas Hill Country AVA]]
+**[[Trans-Pecos]]
+* [[Virginia wine|Virginia]]
+* [[Washington wine|Washington]]
+** [[Columbia Valley AVA]]
+
+== Europe ==
+
+=== Albania ===
+{{See also|Albanian wine}}
+* [[Berat]]
+* [[Korça]]
+* [[Leskovik]]
+* [[Lezhë]]
+* [[Përmet]]
+* [[Shkoder]]
+* [[Tirana County]]
+
+=== Andorra ===
+* [[Ordino]]
+* [[Sant Julià de Lòria]]
+
+===Armenia===
+{{See also|Armenian wine}}
+* [[Aragatsotn Province]]
+* [[Ararat Province]]
+* [[Armavir Province]]
+* [[Gegharkunik Province]]
+* [[Kotayk Province]]
+* [[Shirak Province]]
+* [[Syunik Province]]
+* [[Tavush Province]]
+* [[Vayots Dzor Province]]
+* [[Yerevan]]
+* [[Republic of Artsakh]]
+
+=== Austria ===
+{{See also|Austrian wine}}
+* [[Burgenland]]
+* Northeastern and eastern [[Lower Austria]]
+** [[Kamptal]]
+** [[Kremstal]]
+** [[Wachau (wine)|Wachau]]
+** [[Wagram]]
+** [[Weinviertel]]
+* Southern [[Styria]]
+* [[Vienna, Austria|Vienna]] and surrounding area
+
+===Azerbaijan===
+{{See also|Azerbaijani wine}}
+* [[Ganja-Qazakh]]
+* [[Shirvan]]
+
+===Belarus===
+* [[Brest, Belarus|Brest]]
+* [[Gomel]]
+* [[Minsk]]
+
+=== Belgium ===
+{{See also|Belgian wine}}
+* [[Côtes de Sambre et Meuse]], between the rivers Sambre et Meuse, since 2004
+* [[Hagelandse wijn]], near Rotselaar/Leuven, since 1997
+* [[Haspengouw]], Limburg, since 2000
+* [[Heuvelland]], since 2005
+* [[Province of Brabant]] area
+* [[Hainaut Province|Hainaut]] area
+* [[Liège]] area
+* [[Namur]] area
+
+=== Bosnia and Herzegovina ===
+* [[Čapljina]]
+* [[Čitluk]]
+* [[Ljubuški]]
+* [[Međugorje]]
+* [[Mostar]]
+* [[Stolac]]
+* [[Trebinje]]
+
+=== Bulgaria ===
+{{See also|Bulgarian wine}}
+<!-- Deleted image removed: [[File:bulgarian wine regions map.gif|250px|right|thumb|Wine-producing regions in Bulgaria.]] -->
+* [[Black Sea]] region
+* [[Danubian Plain (Bulgaria)|Danubian Plain]]
+* [[Rose Valley, Bulgaria|Rose Valley]]
+* [[Thrace]]
+* Valley of the [[Struma River]]
+
+=== Croatia ===
+{{See also|Croatian wine}}
+* Continental Croatia: [[Central Croatia]] and [[Slavonia]]
+** [[Moslavina]]
+** Plešivica
+** [[Podunavlje]]
+** [[Pokuplje]]
+** [[Prigorje]] – [[Bilogora]]
+** [[Slavonia]]
+** [[Zagorje]] – [[Međimurje]]
+* Littoral Croatia: [[Northern Croatian Littoral]] and [[Dalmatia]]
+** Croatian Coast (Hrvatsko primorje)
+** [[Zagora (Croatia)|Dalmatian Interior]] (Dalmatinska zagora)
+** Central and South [[Dalmatia]] (Srednja i Južna Dalmacija)
+** Northern [[Dalmatia]] (Sjeverna Dalmacija)
+** [[Istria]] (Istra)
+
+=== Cyprus ===
+{{See also|Cypriot wine}}
+* [[Commandaria]]
+* Laona – [[Akamas]]
+* Vouni Panagias – Ambelitis
+* Krasochoria Lemesou
+* [[Pitsilia]]
+* Diarizos Valley
+
+=== Czech Republic ===
+{{See also|Czech wine}}
+* [[Moravia]]
+** [[Mikulov]] – [[Mikulovska wine]]
+** [[Slovácko]]
+** [[Velké Pavlovice]]
+** [[Znojmo]]
+* [[Bohemia]]
+** [[Litoměřice]]
+** [[Mělník]]
+* [[Prague]]<ref>{{cite web | url=http://www.czechtourism.com/a/prague-vineyards/ | title=#VisitCzechia | date=May 2024 }}</ref>
+** [[Gazebo at Gröbe's Villa]]
+** St. Clare's
+** [[St. Wenceslas' Vineyard at Prague castle]]
+** [[Salabka, Troja]]
+
+=== Denmark ===
+{{See also|Danish wine}}
+
+=== Estonia ===
+* [[West Estonian archipelago]] area
+* [[Viljandi]] area
+* [[Võru]] area
+
+=== France ===
+{{See also|French wine}}
+[[File:Viticulture France.svg|thumb|right|250px|Map of wine regions in France]]
+[[File:Corse AOC.png|thumb|Corsica's wine regions: (1) Cap Corse, (2) Patrimonio, (3) Calvi, (4) Ajaccio, (5) Sartène, (6) Figari, (7) Porto-Vecchio, (8) Greater Vin de Corse region. The Muscat du Cap Corse region overlaps with part of the Cap Corse and Patrimonio regions.]]
+* [[Alsace]] – [[Alsace wine]]
+* [[Bordeaux]] – [[Bordeaux wine]]
+** [[Barsac AOC|Barsac]]
+** [[Entre-Deux-Mers]]
+** [[Fronsac, Gironde|Fronsac]]
+** [[Graves (wine region)|Graves]]
+** [[Haut-Médoc AOC|Haut-Médoc]]
+** [[Margaux AOC|Margaux]]
+** [[Médoc AOC|Médoc]]
+** [[Pauillac AOC|Pauillac]]
+** [[Pessac-Léognan]]
+** [[Pomerol AOC|Pomerol]]
+** [[Saint-Émilion AOC|Saint-Émilion]]
+** [[Saint-Estèphe AOC|Saint-Estèphe]]
+** [[Saint-Julien AOC|Saint-Julien]]
+** [[Graves (wine region)#Sauternes AOC and Barsac AOC|Sauternes]] – [[Sauternes (wine)|Sauternes]]
+* [[Burgundy]] (Bourgogne) – [[Burgundy wine]]
+** [[Beaujolais]]
+** [[Bugey wine|Bugey]]
+** [[Chablis wine|Chablis]]
+** [[Côte Chalonnaise]]
+** [[Côte d'Or (escarpment)|Côte d'Or]]
+*** [[Côte de Beaune]]
+**** [[Aloxe-Corton]]
+**** [[Auxey-Duresses]]
+**** [[Beaune]]
+**** [[Chassagne-Montrachet]]
+**** [[Meursault]]
+**** [[Santenay, Côte-d'Or|Santenay]]
+*** [[Côte de Nuits]]
+**** [[Chambolle-Musigny]]
+**** [[Gevrey-Chambertin]]
+**** [[Nuits-Saint-Georges]]
+**** [[Vosne-Romanée]]
+** [[Mâconnais]]
+*** [[Pouilly-Fuissé]]
+* [[Champagne (wine region)|Champagne]] – [[Champagne]]
+*[[Corsica wine|Corsica]]
+**[[Corsica wine#Ajaccio|Ajaccio]]
+**[[Corsica wine#Muscat du Cap Corse|Cap Course]]
+**[[Corsica wine#Patrimonio|Patrimonio]]
+**[[Corsica wine#Vin de Corse|Vin de Corse]]
+***Calvi
+***Figari
+***Porto-Vecchio
+***Sartène 
+* [[Jura (department)|Jura]] – [[Jura wine]]
+* [[Languedoc-Roussillon]]
+** [[Banyuls AOC|Banyuls]]
+** [[Blanquette de Limoux]]
+** [[Cabardès AOC|Cabardès]]
+** [[Collioure]]
+** [[Corbières AOC|Corbières]]
+** [[Côtes du Roussillon AOC|Côtes du Roussillon]]
+** [[Fitou AOC|Fitou]]
+** [[Maury AOC|Maury]]
+** [[Minervois AOC|Minervois]]
+** [[Rivesaltes AOC|Rivesaltes]]
+* [[Loire Valley]] – [[Loire Valley (wine)|Loire Valley (wine region)]]
+** [[Anjou wine|Anjou]] – [[Saumur (wine)|Saumur]]
+** [[Cognac, France|Cognac]]
+** [[Muscadet]]
+** [[Pouilly-Fumé]]
+** [[Sancerre (wine)|Sancerre]]
+** [[Touraine]]
+* [[Lorraine]]
+* [[Madiran wine|Madiran]]
+* [[Provence]]
+* [[Rhône]] – [[Rhône wine]]
+** [[Beaumes de Venise AOC|Beaumes-de-Venise]]
+** [[Château-Grillet AOC|Château-Grillet]]
+** [[Châteauneuf-du-Pape AOC|Châteauneuf-du-Pape]]
+** [[Condrieu AOC|Condrieu]]
+** [[Cornas AOC|Cornas]]
+** [[Côtes du Rhône Villages AOC|Côte du Rhône-Villages]], [[Rhône wine]]
+** [[Côte-Rôtie AOC|Côte-Rôtie]]
+** [[Côtes du Rhône AOC|Côtes du Rhône]]
+** [[Crozes-Hermitage AOC|Crozes-Hermitage]]
+** [[Gigondas AOC|Gigondas]]
+** [[Hermitage AOC|Hermitage]]
+** [[Saint-Joseph AOC|St. Joseph]]
+** [[Saint-Péray AOC|Saint-Péray]]
+** [[Vacqueyras AOC|Vacqueyras]]
+* [[Savoy wine|Savoy]]
+
+=== Georgia ===
+{{See also|Georgian wine|Abkhazian wine|List of Georgian wine appellations}}
+* [[Abkhazia]]
+* [[Kakheti]], containing the micro-regions [[Telavi]] and [[Kvareli]]
+* [[Kartli]]
+* [[Imereti]]
+* [[Racha-Lechkhumi and Kvemo Svaneti]]
+
+=== Germany ===
+{{See also|German wine}}
+[[File:WeinbaugebieteDeutschland.svg|thumb|300px|The German wine regions]]
+* [[Ahr (wine region)|Ahr]]
+* [[Baden (wine region)|Baden]]
+* [[Franconia (wine region)|Franconia]] (Franken)
+* [[Hessische Bergstraße]]
+* [[Mittelrhein (wine region)|Mittelrhein]]
+* [[Mosel wine|Mosel]]
+* [[Nahe (wine region)|Nahe]]
+* [[Palatinate (wine region)|Palatinate]] (Pfalz)
+* [[Rheingau (wine region)|Rheingau]]
+* [[Rheinhessen (wine region)|Rheinhessen]]
+* [[Saale-Unstrut]]
+* [[Saxony (wine region)|Saxony]] (Sachsen)
+* [[Württemberg (wine region)|Württemberg]]
+
+=== Greece ===
+[[File:Greece wine regions de.png|thumb|500px|Greek wine regions]]
+{{See also|Greek wine}}
+* [[Aegean islands]]
+** [[Crete]]
+** [[Limnos]]
+** [[Paros]]
+** [[Rhodes]]
+** [[Samos]]
+** [[Santorini (wine)|Santorini]]
+* Central Greece
+** [[Attica, Greece|Attica]]
+** [[Epirus (region)|Epirus]]
+*** [[Zitsa]]
+** [[Thessaly]]
+*** [[Nea Anchialos]]
+*** [[Rapsani]]
+* [[Ionian Islands]]
+** [[Kefalonia]]
+* [[Macedonia (Greece)|Macedonia]]
+** [[Amyntaion]]
+** [[Goumenissa]]
+** [[Naousa, Imathia]]
+* [[Peloponnesus]]
+** [[Mantineia]]
+** [[Nemea]]
+** [[Patras]]
+
+=== Hungary ===
+[[File:Wine regions Hungary.svg|thumb|Wine regions in [[Hungary]]]]
+{{See also|Hungarian wine}}
+* [[Balaton wine region|Balaton]]
+** [[Badacsony wine region|Badacsony]]
+** [[Balaton-felvidék wine region|Balaton-felvidék]]
+** [[Balatonboglár wine region|Balatonboglár]]
+** [[Balatonfüred-Csopak wine region|Balatonfüred-Csopak]]
+** [[Nagy-Somló wine region|Nagy-Somló]]
+** [[Zala wine region|Zala]]
+* [[Duna wine region|Duna]]
+** [[Csongrád wine region|Csongrád]]
+** [[Hajós-Baja wine region|Hajós-Baja]]
+** [[Kunság wine region|Kunság]]
+* [[Eger wine region|Eger]]
+** [[Bükk wine region|Bükk]]
+** [[Eger wine region|Eger]]
+** [[Észak-Dunántúl wine region|Észak-Dunántúl]]
+** [[Etyek-Buda wine region|Etyek-Buda]]
+** [[Mátra wine region|Mátra]]
+** [[Mór wine region|Mór]]
+** [[Neszmély wine region|Neszmély]]
+** [[Pannonhalma wine region|Pannonhalma]]
+* [[Pannon wine region|Pannon]]
+** [[Pécs wine region|Pécs]]
+** [[Szekszárd wine region|Szekszárd]]
+** [[Tolna wine region|Tolna]]
+** [[Villány wine region|Villány]]
+* [[Sopron wine region|Sopron]]
+* [[Tokaj wine region|Tokaj]]
+
+=== Ireland ===
+{{See also|Irish wine}}
+
+* [[County Cork|Cork]]
+
+=== Italy ===
+{{See also|Italian wine|List of Italian DOCG wines|List of Italian DOC wines}}
+[[File:Sottozone chianti.jpg|thumb|right|300px|"Chianti" areas in Tuscany]]
+
+*[[Abruzzo wine region|Abruzzo]]
+**[[Montepulciano d'Abruzzo]]
+**[[Trebbiano d'Abruzzo (wine)|Trebbiano d'Abruzzo]]
+**[[Terre Tollesi (wine)|Terre Tollesi]]
+**[[Cerasuolo d'Abruzzo]]
+* [[Apulia (wine)|Apulia]]
+** [[Bianco di Locorotondo e Martina Franca]]
+** [[Primitivo di Manduria]]
+* [[Calabria (wine)|Calabria]]
+** [[Bivongi]]
+** [[Cirò (wine)|Cirò]]
+** [[Gaglioppo]]
+** [[Greco di Bianco]]
+** [[Lamezia Terme|Lamezia]]
+** [[Melissa, Calabria|Melissa]]
+** [[Isola Capo Rizzuto|Aant'Anna di Isola Capo Rizzuto]]
+** [[Savuto]]
+** [[Scavigna]]
+** [[Cosenza|Terre di Cosenza]]
+* [[Campania (wine)|Campania]]
+** [[Avellino]]
+*** [[Aglianico]]
+*** [[Falanghina]]
+*** [[Fiano (grape)|Fiano]]
+*** [[Greco di Tufo]]
+** [[Benevento]]
+*** [[Aglianico]]
+*** [[Falanghina]]
+*** [[Solopaca]]
+** [[Caserta]]
+** [[Naples]]
+** [[Salerno]]
+* [[Emilia-Romagna]]
+** [[Colli Cesenate]]{{Citation needed|date=February 2010}}
+** [[Sangiovese Superiore di Romagna]]
+** [[Trebbiano di Romagna]]
+* [[Liguria (wine)|Liguria]]
+** [[Cinque Terre]]
+* [[Lombardy (wine)|Lombardy]]
+** [[Franciacorta (region)|Franciacorta]]
+** [[Oltrepò Pavese]]
+* [[Marche (wine)|Marche]]
+** [[Castelli di Jesi]]
+** [[Conero]]
+** [[Province of Ascoli Piceno|Piceno]]
+* [[Piemonte (wine)|Piedmont]]
+** [[Acqui]]
+** [[Alba, (CN)|Alba]]
+** [[Asti]]
+** [[Barolo]]
+** [[Colli Tortonesi]]
+** [[Gattinara]]
+** [[Gavi, Piedmont|Gavi]]
+** [[Ghemme]]
+** [[Langhe]]
+** [[Monferrato]]
+** [[Nizza DOCG|Nizza]]
+** [[Ovada]]
+* [[Sardinia (wine)|Sardinia]]
+** [[Cagliari]]
+** [[Cannonau]]
+** [[Monti, Sardinia|Monti]]
+** [[Nuragus]]
+** [[Ogliastra]]
+** [[Vermentino di Gallura]]
+* [[Viticulture in Sicily|Sicily]]
+** [[Val Demone wine]]
+*** [[Etna DOC|Etna]]
+** [[Val di Noto wine]]
+*** [[Cerasuolo di Vittoria]]
+*** [[Noto]]
+** [[Val di Mazara wine]]
+*** [[Alcamo wine|Alcamo]]
+*** [[Erice DOC|Erice]]
+*** [[Marsala wine|Marsala]]
+*** [[Pantelleria]]
+* [[Trentino-Alto Adige (wine)|Trentino-Alto Adige]]
+** [[South Tyrol (wine region)|South Tyrol]], known alternatively as ''Südtirol'' (in German) or ''Alto Adige'' (in Italian)
+** [[Trentino (wine region)|Trentino]]
+* [[Tuscany (wine)|Tuscany]]
+** [[Bolgheri]]
+** [[Chianti]]
+** [[Chianti Classico]]
+** [[Colli Apuani]]
+** [[Colli Etruria Centrale]]
+** [[Colline Lucchesi]]
+** [[Elba]]
+** [[Montalcino]]
+** [[Montescudaio]]
+** [[Parrina]]
+** [[Pitigliano]]
+** [[San Gimignano]]
+** [[Scansano]]
+** [[Val di Chiana]]
+** [[Val di Cornia]]
+** [[Valdinievole]]
+** [[Valle di Arbia]]
+* [[Umbria (wine)|Umbria]]
+** [[Montefalco]]
+** [[Orvieto]]
+** [[Torgiano]]
+* [[Veneto wine|Veneto]]
+** [[Arcole]]
+** [[Bagnoli]]
+** [[Bardolino]]
+** [[Bianco di Custoza]]
+** [[Breganze]]
+** [[Colli Berici]]
+** [[Colli di Conegliano]]
+** [[Colli Euganei]]
+** [[Gambellara]]
+** [[Garda (Italian commune)|Garda]]
+** [[Lessini Durello]]
+** [[Lison Pramaggiore]]
+** [[Lugana]]
+** [[Montgello e Colli Asolani]]
+** [[Piave (river)|Piave]]
+** [[Prosecco]]
+** [[Soave (wine)|Soave]]
+** [[Valdadige]]
+** [[Valpolicella]]
+
+===Kosovo===
+* [[Gjakova]]
+* [[Leposavić]]
+* [[Lipjan]]
+* [[Malisheva]]
+* [[Prizren]]
+* [[Rahovec]]
+
+=== Latvia ===
+* [[Sabile]]
+* [[Courland]] area
+* [[Semigallia]] area
+
+===Liechtenstein===
+{{See also|Liechtenstein wine}}
+
+=== Lithuania ===
+{{See also|Lithuanian wine}}
+* [[Anykščių vynas]] – [[Anykščiai]] area
+* [[Mėmelio vynas]] – [[Priekulė]] area
+
+=== Luxembourg ===
+{{See also|Luxembourg wine}}
+* [[Moselle valley|Moselle Valley]]
+
+=== Malta ===
+{{See also|Maltese wine}}
+* [[Malta]]
+* [[Gozo]]
+
+=== Moldova ===
+{{See also|Moldovan wine}}
+* [[Bardar]]
+* [[Codri]]
+* [[Cricova]]
+* [[Hîncești]]
+* [[Purcari]]
+
+=== Montenegro ===
+{{See also|Montenegrin wine}}
+
+* [[Crmnica]]
+* [[Plantaže]], near [[Podgorica]]
+
+=== Netherlands ===
+{{See also|Dutch wine}}
+* [[Groesbeek]]
+* [[Gelderland]]
+* [[Limburg (Netherlands)|Limburg]]
+
+=== North Macedonia ===
+{{See also|Macedonian wine}}
+* [[Povardarie]]
+* [[Skopsko vinogorje]]
+* [[Tikveš]]
+
+=== Norway ===
+* Mostly [[Viken (county)|Viken]] and [[Vestfold og Telemark]]
+* [[Sognefjord]]
+
+=== Poland ===
+{{See also|Polish wine}}
+* [[Dolny Śląsk]]
+* [[Kazimierz Dolny]]
+* [[Małopolska]]
+* [[Podkarpackie Voivodeship|Podkarpacie]]
+* [[Warka]], near [[Warsaw]]
+* [[Zielona Góra]]
+
+=== Portugal ===
+[[File:Vinos DOC de Portugal.png|thumb|right|230px|Portuguese wine regions]]
+{{See also|Portuguese wine}}
+* [[Alentejo Wines|Alentejo]]
+* [[Bairrada]]
+* [[Bucelas]]
+* [[Carcavelos]]
+* [[Colares (Portugal)|Colares]]
+* [[Dão DOC|Dão]]
+* [[Lagoa Municipality (Algarve)|Lagoa]]
+* [[Lagos]]
+* [[Madeira]]
+* [[Portimão]]
+* [[Douro|Porto e Douro]]
+* [[Setúbal]]
+* [[Tavira Municipality|Tavira]]
+* [[Vinho Verde|Vinhos Verdes]]
+
+=== Romania ===
+{{See also|Romanian wine}}
+
+*[[Banat]] wine regions:
+** [[Arad, Romania|Arad]]
+** [[Jamu Mare]]
+** [[Măderat]]
+** [[Ghioroc|Miniș]]
+** [[Moldova Nouă]]
+** [[Recaș]]
+** [[Silagiu]]
+** [[Teremia]]
+** [[Tirol (Romania)|Tirol]]
+*[[Crișana]] wine regions:
+** [[Diosig]]
+** [[Săcuieni]]
+** [[Sâniob]]
+** [[Sanislău]]
+** [[Valea lui Mihai]]
+*[[Northern Dobruja|Dobrogea]] wine regions:
+** [[Adamclisi]]
+** [[Aliman]]
+** [[Babadag]]
+** [[Băneasa, Constanța|Băneasa]]
+** [[Cernavodă]]
+** [[Chirnogeni]]
+** [[Dăeni]]
+** [[Hârșova]]
+** [[Istria]]
+** [[Măcin]]
+** [[Medgidia]]
+** [[Murfatlar]]
+** [[Oltina]]
+** [[Ostrov, Constanța]]
+** [[Ostrov, Tulcea]]
+** [[Poarta Albă]]
+** [[Sarica-Niculițel]]
+** [[Simioc]]
+** [[Tulcea]]
+** [[Valea Dacilor]]
+** [[Valea Nucarilor]]
+** [[Valu lui Traian]]
+*[[Western Moldavia|Moldavia]] wine regions:
+** [[Berești]]
+** [[Răducăneni|Bohotin]]
+** [[Cotești]]
+** [[Colinele Tutovei]]
+** [[Comarna]]
+** [[Copou]]
+** [[Corod]]
+** [[Cotnari]]
+** [[Covurlui]]
+** [[Cucuteni]]
+** [[Dealu Morii]]
+** [[Dealul Bujorului]]
+** [[Hârlău]]
+** [[Hlipicani]]
+** [[Huși]]
+** [[Iași]]
+** [[Ivești, Galați|Ivești]]
+** [[Jariștea]]
+** [[Nămoloasa]]
+** [[Nicorești]]
+** [[Odobești]]
+** [[Panciu]]
+** [[Păunești]]
+** [[Probota]]
+** [[Tănăsoaia]]
+** [[Târgu Frumos]]
+** [[Tecuci]]
+** [[Țifești]]
+** [[Tomești, Iași|Tomești]]
+** [[Vaslui]]
+** [[Cătina, Buzău|Zeletin]]
+*[[Muntenia]] wine regions:
+** [[Boldești-Scăeni|Seciu]]
+** [[Breaza]]
+** [[Cricov]]
+** [[Dealu Mare wine region|Dealu Mare]]
+** [[Dealurile Buzăului]]
+** [[Pietroasele|Pietroasa]]
+** [[Râmnicu Sărat]]
+** [[Șercaia]]
+** [[Ștefănești, Argeș|Ștefănești]]
+** [[Tohani]]
+** [[Topoloveni]]
+** [[Urlați–Ceptura]]
+** [[Valea Călugărească]]
+** [[Priboieni|Valea Mare]]
+** [[Zărnești]]
+** [[Zorești]]
+*[[Oltenia]] wine regions:
+** [[Banu Mărăcine]]
+** [[Calafat]]
+** [[Cetate, Dolj|Cetate]]
+** [[Corcova]]
+** [[Dăbuleni]]
+** [[Dealul Viilor]]
+** [[Dealurile Craiovei]]
+** [[Drăgășani]]
+** [[Golul Drincei]]
+** [[Greaca]]
+** [[Iancu Jianu]]
+** [[Izvoarele, Olt|Izvoarele]]
+** [[Orevița]]
+** [[Plaiurile Drâncei]]
+** [[Plenița]]
+** [[Podgoria Dacilor]]
+** [[Podgoria Severinului]]
+** [[Poiana Mare]]
+** [[Potelu]]
+** [[Sadova-Corabia]]
+** [[Sâmburești]]
+** [[Segarcea]]
+** [[Tâmburești]]
+** [[Vânju Mare]]
+** [[Zimnicea]]
+*[[Transylvania]] wine regions:
+** [[Aiud]]
+** [[Alba Iulia]]
+** [[Bistrița]]
+** [[Blaj]]
+** [[Ighiu]]
+** [[Jidvei]]
+** [[Lechința]]
+** [[Mediaș]]
+** [[Șamșud]]
+** [[Sebeș-Apold]]
+** [[Șimleu Silvaniei]]
+** [[Târnave Vineyard|Târnave]]
+** [[Târnăveni]]
+** [[Teaca]]
+** [[Triteni]]
+** [[Valea Nirajului]]
+
+=== Russia ===
+{{See also|Russian wine}}
+* [[Caucasus]]
+* [[Krasnodar]]
+* [[Stavropol]]
+{{Expand section|date=June 2008}}
+
+=== San Marino ===
+{{See also|Sammarinese wine}}
+
+=== Serbia ===
+{{See also|Serbian wine}}
+[[File:Wine regions of Serbia.svg|thumb|Wine regions of Serbia]]
+
+* [[Banat]] region
+* [[Nišava]] – [[South Morava]] region
+* [[Cer (mountain)|Pocerina]] region
+* [[Srem]] region
+* [[Subotica]] – [[Horgoš]] region
+* [[Šumadija]] – [[Great Morava]] region
+* [[Timok Valley]]
+* [[West Morava]] region
+
+=== Slovakia ===
+[[File:Vinohradnicke oblasti Slovenska.png|250px|right|thumb|Wine-producing regions in Slovakia]]
+{{See also|Slovak wine}}
+* [[Malokarpatská]] (Small Carpathians)
+* [[Južnoslovenská]] (Southern Slovakia)
+* [[Nitrianska]] (region of Nitra)
+* [[Stredoslovenská]] (Central Slovakia)
+* [[Tokaj (region in Slovakia)|Tokaj]] (Tokaj region of Slovakia)
+* [[Východoslovenská]] (Eastern Slovakia)
+* The whole of southern Slovakia
+
+=== Slovenia ===
+[[File:Slovenia wine regions.JPG|thumb|right|220px|The three wine regions in [[Slovenia]]]]
+{{See also|Slovenian wine}}
+* [[Podravje]]
+* [[Posavje]]
+* [[Slovenian Littoral|Primorska]]
+
+=== Spain ===
+[[File:Vinos DO de España.png|thumb|right|250px|Spanish wine-producing regions]]
+{{See also|Spanish wine}}
+* [[Andalusia]]
+** [[Condado de Huelva]]
+** [[Sherry|Jerez-Xeres-Sherry]]
+** [[Málaga and Sierras de Málaga]]
+** [[Manzanilla (wine)|Manzanilla]] de [[Sanlúcar de Barrameda]]
+** [[Montilla-Moriles]]
+* [[Aragon]]
+** [[Calatayud]]
+** [[Campo de Borja]]
+** [[Campo de Cariñena]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Somontano]]
+* [[Balearic Islands]]
+** [[Binissalem-Mallorca]]
+** [[Plà i Llevant (DO)]]
+* [[Basque Country (autonomous community)|Basque Country]]
+** [[Txakoli#Alavan Txakoli|Alavan Txakoli]]
+** [[Txakoli#Biscayan Txakoli|Biscayan Txakoli]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Txakoli#Txakoli from Getaria|Getaria Txakoli]]
+** [[Rioja (wine)|Rioja (Alavesa)]]
+* [[Canary Islands]]
+** [[Abona]]
+** [[El Hierro (DO)]]
+** [[Gran Canaria (DO)]]
+** [[La Gomera (DO)]]
+** [[La Palma (DO)]]
+** [[Lanzarote (DO)]]
+** [[Tacoronte-Acentejo]]
+** [[Valle de Güímar]]
+** [[Valle de la Orotava]]
+** [[Ycoden-Daute-Isora]]
+* [[Castile and León]]
+** [[Arlanza (DO)|Arlanza]]
+** [[Arribes (wine)|Arribes del Duero]]
+** [[Bierzo]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Cigales]]
+** [[Sparkling wine|Espumosos de Castilla y León]]
+** [[Ribera del Duero]]
+** [[Rueda (DO)|Rueda]]
+** [[Tierra del Vino de Zamora DO|Tierra del Vino de Zamora]]
+** [[Denominación de Origen Toro|Toro]]
+** [[Valles de Benavente]]
+** [[Tierra de León (DO)|Tierra de León]]
+** [[Valtiendas (Vino de Calidad)|Valtiendas]]
+** [[Castilla y León (Vino de la Tierra)|Vino de la Tierra Castilla y León]]
+* [[Castile–La Mancha]]
+** [[Almansa]]
+** [[Dominio de Valdepusa]]
+** [[Guijoso]]
+** [[Jumilla]]
+** [[La Mancha]]
+** [[Manchuela]]
+** [[Méntrida (wine)|Méntrida]]
+** [[Mondéjar (DO)|Mondéjar]]
+** [[Ribera del Júcar]]
+** [[Valdepeñas]]
+* [[Catalonia]]
+** [[Alella]]
+** [[Catalunya (DO)|Catalunya]]
+** [[Catalan wine#Cava|Cava]]
+** [[Conca de Barberà]]
+** [[Costers del Segre]]
+** [[Empordà (DO)|Empordà]]
+** [[Montsant DO|Montsant]]
+** [[Penedès]]
+** [[Pla de Bages]]
+** [[Priorat]]
+** [[Tarragona]]
+** [[Terra Alta (DO)|Terra Alta]]
+* [[Extremadura]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Ribera del Guadiana]]
+* [[Galicia (Spain)|Galicia]]
+** [[Monterrei (DO)|Monterrei]]
+** [[Rías Baixas (DO)|Rías Baixas]]
+** [[Ribeira Sacra (DO)|Ribeira Sacra]]
+** [[Ribeiro (DO)|Ribeiro]]
+** [[Valdeorras (DO)|Valdeorras]]
+* [[La Rioja (Spain)|La Rioja]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Rioja (wine)|Rioja]] (DOCa)
+* [[Community of Madrid]]
+** [[Vinos de Madrid]]
+* [[Región de Murcia]]
+** [[Bullas]]
+** [[Jumilla]]
+** [[Yecla]]
+* [[Navarre]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Navarra]]
+** [[Rioja (wine)|Rioja]]
+* [[Valencian Community]]
+** [[Alicante province|Alicante]]
+** [[Cava (Spanish wine)|Cava]]
+** [[Utiel-Requena]]
+** [[Valencia (province)|Valencia]]
+
+=== Sweden ===
+{{See also|Swedish wine}}
+* [[Gutevin]] – Gotland
+
+=== Switzerland ===
+{{See also|Swiss wine}}
+* [[Aargau]]<ref>{{cite web|url=http://www.ernestopauli.ch/Wein/Schweiz/SchweizAargau.htm|title=Schweiz Aargau und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-url=https://web.archive.org/web/20110512235517/http://www.ernestopauli.ch/wein/schweiz/SchweizAargau.htm|archive-date=2011-05-12|url-status=dead}}</ref>
+* [[Bern]]<ref>{{cite web|url=http://www.ernestopauli.ch/wein/schweiz/SchweizBern.htm|title=Schweiz Bern und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-date=2015-09-03|archive-url=https://web.archive.org/web/20150903053038/http://www.ernestopauli.ch/wein/schweiz/SchweizBern.htm|url-status=dead}}</ref>
+** [[Lake Biel|Shores of Lake Biel]]
+** [[Lake Thun|Shores of Lake Thun]] ([[Spiez]] / [[Oberhofen am Thunersee|Oberhofen]])
+* [[Freiburg]]<ref>{{cite web|url=http://www.ernestopauli.ch/Wein/Schweiz/SchweizFreiburg.htm|title=Schweiz – Kt. Freiburg und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-date=2015-09-03|archive-url=https://web.archive.org/web/20150903052054/http://www.ernestopauli.ch/wein/schweiz/SchweizFreiburg.htm|url-status=dead}}</ref>
+* [[Geneva]]
+* [[Grisons]]
+* [[Neuchâtel]]
+* [[St. Gallen]]<ref>{{cite web|url=http://www.ernestopauli.ch/Wein/Schweiz/SchweizStGallen.htm|title=Schweiz – Kt. St.Gallen und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-date=2015-09-03|archive-url=https://web.archive.org/web/20150903052134/http://www.ernestopauli.ch/wein/schweiz/SchweizStGallen.htm|url-status=dead}}</ref>
+* [[Schaffhausen]]<ref>{{cite web|url=http://www.ernestopauli.ch/wein/schweiz/SchweizSchaffhausen.htm|title=Schweiz – Kt. Schaffhausen und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-date=2015-09-03|archive-url=https://web.archive.org/web/20150903052113/http://www.ernestopauli.ch/wein/schweiz/SchweizSchaffhausen.htm|url-status=dead}}</ref>
+* [[Thurgau]]<ref>{{cite web|url=http://www.ernestopauli.ch/Wein/Schweiz/SchweizThurgau.htm|title=Thurgau – Der Ostschweizer Kanton und seine Weingebiete|website=www.ernestopauli.ch|access-date=2015-07-30|archive-date=2015-09-03|archive-url=https://web.archive.org/web/20150903052533/http://www.ernestopauli.ch/wein/schweiz/SchweizThurgau.htm|url-status=dead}}</ref>
+* [[Ticino]]
+* [[Valais]]
+* [[Vaud]]
+** [[La Côte]]
+** [[Lavaux]]
+* [[Zürich]]<ref>{{cite web|url=http://www.ernestopauli.ch/Wein/Schweiz/SchweizZ%C3%BCrich.htm|title=Zürich und seine Weingebiete – Wine of Zurich|website=www.ernestopauli.ch|access-date=2015-07-30|archive-url=https://web.archive.org/web/20161112211914/http://www.ernestopauli.ch/wein/schweiz/SchweizZ%C3%BCrich.htm|archive-date=2016-11-12|url-status=dead}}</ref>
+
+=== Turkey ===
+{{See also|List of Turkish wine regions|Turkish wine}}
+[[File:Turkish wine regions map.png|thumb|300px|Wine-producing regions in Turkey]]
+*'''White wine grapes:'''<ref name=turkish>{{cite web |url=http://www.yazganwine.com/en/sarap.html |title=Grapes grown for wine production in Turkey |publisher=[[Yazgan Winery]] |access-date=2007-06-06 |year=2007 |archive-url=https://web.archive.org/web/20071006083553/http://www.yazganwine.com/en/sarap.html |archive-date=2007-10-06 |url-status=dead }}</ref>
+** [[Altıntaş wine|Altıntaş]]&nbsp;– Marmara region and Bozcaada
+** [[Beylerce]]&nbsp;– Bilecik area
+** [[Bornova Misketi]]&nbsp;– İzmir area
+** [[Emir (grape)|Emir]]&nbsp;– Nevşehir (Cappadocia) area
+** [[Hasandede]]&nbsp;– Ankara and central Anatolia
+** [[Narince (grape)|Narince]]&nbsp;– Tokat area
+** [[Rumi wine|Rumi]], [[Kabarcık]], [[Dökülgen]]&nbsp;– Southeastern Anatolia region
+** [[Sultaniye wine|Sultaniye]]&nbsp;– Aegean region
+** [[Yapıncak]]&nbsp;– Thracian region
+*'''Red wine grapes'''<ref name=turkish />
+** [[Adakarası]]&nbsp;– Marmara region and Avşa Island
+** [[Boğazkere]]&nbsp;– Elazığ and Diyarbakır areas
+** [[Çalkarası]]&nbsp;– Çal, Denizli area
+** [[Dimrit]]&nbsp;– central Anatolia and eastern Aegean region
+** [[Horozkarası]], [[Sergikarası]]&nbsp;– southeastern Anatolia region
+** [[Kalecik Karası]]&nbsp;– Ankara area
+** [[Karalahna]]&nbsp;– Tekirdağ region, Bozcaada 
+** [[Karasakız]], Kuntra&nbsp;– Çanakkale region
+** [[Öküzgözü]]&nbsp;– Elazığ area
+** [[Papazkarası]]&nbsp;– Kırklareli area
+
+=== Ukraine ===
+{{See also|Ukrainian wine}}
+
+In Ukraine, at the present time there are seven administrative regions (provinces) in which the wine industry has developed. Given the favorable climatic location, the law of Ukraine allocated 15 winegrowing areas (macrozones), which are the basis for growing certain varieties of grapes, and 58 natural wine regions (microzones). These are located mainly in the following areas.
+
+* [[Autonomous Republic of Crimea]] and [[Sevastopol]] – 6 macrozones with 12 microzones (69 wine grapes)
+* [[Kherson Oblast]] – 2 macrozones with 10 microzones (28 wine grapes)
+* [[Mykolaiv Oblast]] – 2 macrozones with 7 microzones (31 wine grapes)
+* [[Odesa Oblast]] – 3 macrozones with 16 microzones (42 wine grapes)
+* [[Zakarpattia Oblast]] – 1 macrozone with 12 microzones (24 wine grapes)
+* [[Zaporizhzhia Oblast]] – 1 macrozone with 1 microzone (5 wine grapes)
+
+=== United Kingdom ===
+{{Main|Wine from the United Kingdom}}
+In the UK, the area under vines is small, and whilst viticulture is not a major part of the rural economy, significant planting of new vines has occurred in the early 21st century. The greatest concentration of vineyards is found in the south east of England, in the counties of [[Hampshire]], [[Kent]], [[Surrey]], and [[Sussex]].
+
+== Asia ==
+{{See also|Wine in religious communities of the Middle East}}
+
+=== Armenia ===
+{{See also|Armenian wine}}
+* [[Ararat plain|Ararat Valley]]
+* [[Areni]], in the [[Vayots Dzor Province]]
+* [[Armavir, Armenia|Armavir]], in the [[Armavir Province]]
+* [[Ijevan]], in the [[Tavush Province]]
+* [[Voskevaz]], in the [[Aragatsotn Province]]
+* [[Yerevan]], the country’s capital
+
+=== Azerbaijan ===
+{{See also|Azerbaijani wine}}
+* [[Aghdam]], [[Agdam District]]
+* [[Baku]], capital
+* [[Ganja, Azerbaijan|Ganja]], Ganja-Basar zone in central [[Azerbaijan]]
+* [[Mədrəsə|Madrasa]] village of [[Shamakhi Rayon]], from Madrasa, indigenous only to this region
+* [[Tovuz, Azerbaijan|Tovuz]] and [[Şəmkir|Shamkir]], northwestern Azerbaijan
+
+=== Burma ===
+* [[Shan State]]
+
+=== China ===
+{{Main|Wine in China}}
+Regions producing native wines have been present since the [[Qin dynasty]],<ref>{{cite web |url=http://www.fask.uni-mainz.de/inst/chinesisch/wineculture_abstract_chenxigang.pdf |title=Archived copy |access-date=2007-11-27 |url-status=dead |archive-url=https://web.archive.org/web/20080409163700/http://www.fask.uni-mainz.de/inst/chinesisch/wineculture_abstract_chenxigang.pdf |archive-date=2008-04-09 }}</ref> with wines being brought to China from Persia. Some of the more famous wine-producing regions are:
+* [[Chang'an]]
+* [[Gaochang]]
+* [[Luoyang]]
+* [[Qiuci]]
+* [[Yantai]]-Penglai
+
+With the import of Western wine-making technologies, especially French technology, production of wines similar to modern [[French wine]] has begun in many parts of China with the direction of experienced French wine-makers; China is now the sixth largest producer of wine in the world. The following regions produce significant quality of wine:
+* [[Chang'an]]<ref name=wineinfo>[http://www.wines-info.com/html/192/6033.html Chinese Markets for Wines :wines-info<!-- Bot generated title -->] {{webarchive|url=https://web.archive.org/web/20071127055859/http://www.wines-info.com/html/192/6033.html |date=2007-11-27 }}</ref>
+* [[Dalian]], [[Liaoning]]<ref name=wineinfo />
+* [[Tonghua]], [[Jilin]]<ref name=wineinfo />
+* [[Yantai]], [[Shandong]]<ref>{{cite web|url=http://www.wines-info.com/Newshtml/200812/2282008123011241759.html |title=The wine output of Yantai will reach 230000 kiloliters in 2008:wines-info |access-date=2009-06-28 |url-status=dead |archive-url=https://web.archive.org/web/20090215013857/http://wines-info.com/Newshtml/200812/2282008123011241759.html |archive-date=2009-02-15 }}</ref>
+* [[Yibin]], [[Sichuan]]<ref name=wineinfo />
+* [[Zhangjiakou]], [[Hebei]]<ref name=wineinfo />
+
+=== India ===
+{{See also|Indian wine}}
+* [[Nashik]], [[Maharashtra]]
+* [[Bangalore]], [[Karnataka]]
+* [[Bijapur, Karnataka|Vijayapura]], [[Karnataka]]
+* [[Narayangaon]]
+* [[Pune]], [[Maharashtra]]
+* [[Sangli]], [[Maharashtra]]
+
+=== Indonesia ===
+{{unreferenced section|date=May 2018}}
+Indonesia has been producing wine for over 18 years, with North Bali's vineyards producing three main grape varieties: the Belgia, the Alphonse Lavallee and the Probolinggo Biru. The main producer, Hatten Wines, has revolutionized the world of winemaking, with eight wines produced from these three varieties.
+* [[Bali]]
+
+=== Iran ===
+Prior to the Iranian Islamic Revolution of 1979, Iran was a producer of wine. While production has stopped, the vineyards continue to exist and their product has been diverted to non-alcoholic purposes.
+* [[Malayer]]
+* [[Shiraz]]
+* [[Takestan]]
+* [[Urmia]]
+* [[Qazvin]]
+* [[Quchan]]
+
+=== Israel ===
+{{See also|Israeli wine}}
+''Also includes wine regions in [[Israeli-occupied territories]].''
+* [[Galilee]]
+** [[Upper Galilee]]
+* [[Golan Heights]]
+* [[Judean Hills]]
+** [[Jerusalem]]
+** [[Bet Shemesh]]
+** [[Latrun]]
+* [[Mount Carmel]]
+* [[Rishon LeZion]] (wine production since 1886)
+* [[Negev]] The only Desert in the world which produces wine
+
+=== Japan ===
+{{See also|Japanese wine}}
+* [[Yamanashi Prefecture|Yamanashi]]
+* [[Hokkaido Prefecture|Hokkaido]]
+* [[Nagano prefecture|Nagano]]
+
+=== Kazakhstan ===
+{{See also|Kazakh wine}}
+
+=== South Korea ===
+{{See also|Korean wine}}
+* [[Anseong]], [[Gyeonggi-do]]<ref>{{cite web|url=http://tour.anseong.go.kr/eng/open_contents/05_Product/02.php|title=Anseong Culture Tour|publisher=[[Anseong|City of Anseong]]|access-date=2010-11-05|archive-url=https://web.archive.org/web/20120314170008/http://tour.anseong.go.kr/eng/open_contents/05_Product/02.php|archive-date=2012-03-14|url-status=dead}}</ref>
+* [[Gimcheon]], [[Gyeongsangbuk-do]]
+* [[Gyeongsan]], [[Gyeongsangbuk-do]]
+* [[Yeongcheon]], [[Gyeongsangbuk-do]]
+* [[Yeongdong County|Yeongdong]], [[Chungcheongbuk-do]]<ref>[http://english.visitkorea.or.kr/enu/SI/SI_EN_3_1_1_1.jsp?cid=1065096 Official Site of Korea Tourism Org.: Wine Korea] Official Site of [[Korea Tourism Organization]]</ref>
+
+=== Lebanon ===
+{{See also|Lebanese wine}}
+* [[Bekaa Valley]]
+** [[Anjar, Lebanon|Anjar]]
+** [[Chtoura]]
+** [[Rashaya]]
+** [[Zahlé]]
+* [[Mount Lebanon]]
+** [[Aley]]
+** [[Baabda]]
+** [[Beit Mery]]
+** [[Bhamdoun]]
+** [[Brummana]]
+** [[Byblos]]
+** [[Chouf]]
+** [[Keserwan District]]
+* [[North Governorate]]
+** [[Batroun District]]
+** [[Chekka]]
+** [[Ehden]]
+** [[Koura District|Koura]]
+** [[Qadisha Valley]]
+** [[Tripoli, Lebanon|Tripoli]]
+** [[Zgharta]]
+* [[South Governorate]]
+** [[Jezzine]]
+** [[Marjayoun]]
+** [[Rmaich]]
+
+=== Palestinian territories ===
+* [[Beit Jala]]
+* [[Hebron]]
+
+=== Syria ===
+{{See also|Syrian wine}}
+
+* [[Bloudan]]
+* [[Homs District]]
+* [[Jabal el Druze]]
+* [[Latakia]]
+* [[Sednaya]]
+* [[Syrian Golan]]
+* [[Tartous]]
+
+=== Turkey ===
+{{See also|List of Turkish wine regions|Turkish wine}}
+[[File:Turkish wine regions map.png|thumb|300px|Wine-producing regions in Turkey]]
+*'''White wine grapes:'''<ref name=turkish/>
+** [[Altıntaş wine|Altıntaş]]&nbsp;– Marmara region and Bozcaada
+** [[Beylerce]]&nbsp;– Bilecik area
+** [[Bornova Misketi]]&nbsp;– İzmir area
+** [[Emir (grape)|Emir]]&nbsp;– Nevşehir (Cappadocia) area
+** [[Hasandede]]&nbsp;– Ankara and central Anatolia
+** [[Narince (grape)|Narince]]&nbsp;– Tokat area
+** [[Rumi wine|Rumi]], [[Kabarcık]], [[Dökülgen]]&nbsp;– Southeastern Anatolia region
+** [[Sultaniye wine|Sultaniye]]&nbsp;– Aegean region
+** [[Yapıncak]]&nbsp;– Thracian region
+*'''Red wine grapes'''<ref name=turkish />
+** [[Adakarası]]&nbsp;– Marmara region and Avşa Island
+** [[Boğazkere]]&nbsp;– Elazığ and Diyarbakır areas
+** [[Çalkarası]]&nbsp;– Çal, Denizli area
+** [[Dimrit]]&nbsp;– central Anatolia and eastern Aegean region
+** [[Horozkarası]], [[Sergikarası]]&nbsp;– southeastern Anatolia region
+** [[Kalecik Karası]]&nbsp;– Ankara area
+** [[Karalahna]]&nbsp;– Tekirdağ region, Bozcaada 
+** [[Karasakız]], Kuntra&nbsp;– Çanakkale region
+** [[Öküzgözü]]&nbsp;– Elazığ area
+** [[Papazkarası]]&nbsp;– Kırklareli area
+
+=== Vietnam ===
+{{See also|Vietnamese wine}}
+* [[Da Lat]]
+
+== Oceania ==
+
+=== Australia ===
+{{See also|Australian wine}}
+[[File:Australian wine zones2.png|thumb|250px|Australian geographic indications by state]]
+Geographic indications for Australian wine are governed by law. The geographic indication must indicate where the ''grapes'' are grown, irrespective of where the wine itself is made. A geographic indication may be "Australia", "South Eastern Australia", a [[States and territories of Australia|state name]], zone, region or subregion if defined.<ref>{{cite web|url=http://www.wineaustralia.com/Australia/Default.aspx?tabid=834|title=Register of Protected Names Section (a) Australian GI|publisher=[[Wine Australia|Australian Wine & Brandy Corporation]]|access-date=2008-04-08|archive-url=https://web.archive.org/web/20080331235035/http://www.wineaustralia.com/Australia/Default.aspx?tabid=834|archive-date=2008-03-31|url-status=dead}}</ref>
+
+The zones, regions and subregions in each state are listed below:
+
+==== Australian Capital Territory ====
+{{See also|Australian Capital Territory wine}}
+* [[Canberra District wine region]]
+* [[Hall, Australian Capital Territory]]
+* [[Majura (district)|Majura]]
+[[File:Hunter panorama-1b-web-l.jpg|thumb|249x249px|Vineyard in Hunter Valley, Australia]]
+
+==== New South Wales ====
+{{Further|New South Wales wine}}
+* [[Big Rivers (wine)|Big Rivers]]
+** [[Murray Darling]]
+** [[Perricoota]]
+** [[Riverina wine region|Riverina]]
+** [[Swan Hill wine region|Swan Hill]]
+* [[Central Ranges wine region|Central Ranges]]
+** [[Cowra wine region|Cowra]]
+** [[Mudgee wine region|Mudgee]]
+** [[Orange wine region|Orange]]
+* [[Hunter Valley]]
+** [[Hunter Valley wine region|Hunter]]
+*** Broke Fordwich
+*** [[Pokolbin]]
+*** Upper Hunter Valley
+* [[Northern Rivers]]
+** [[Hastings River wine region|Hastings River]]
+* [[Northern Tablelands]]
+** [[New England, New South Wales|New England]]
+* [[South Coast, New South Wales|South Coast]]
+** [[Shoalhaven Coast]]
+** [[Southern Highlands, New South Wales|Southern Highlands]]
+* [[Southern New South Wales]]
+** [[Canberra District wine region|Canberra District]] (includes the northern part of the [[Australian Capital Territory]])
+** [[Gundagai wine region|Gundagai]]
+** [[Hilltops wine region|Hilltops]]
+** [[Tumbarumba wine region|Tumbarumba]]
+
+==== Queensland ====
+{{See also|Queensland wine}}
+* [[Granite Belt]]
+* [[South Burnett]]
+
+==== South Australia ====
+{{See also|South Australian wine}}
+''Adelaide Super Zone includes Mount Lofty Ranges, Fleurieu and Barossa wine zones''.
+* [[Barossa zone (wine)|Barossa]]
+** [[Barossa Valley wine region|Barossa Valley]]
+** [[Eden Valley wine region|Eden Valley]]
+*** [[High Eden]]
+* [[Far North zone (wine)|Far North]]
+** [[Southern Flinders Ranges]]
+* [[Fleurieu zone (wine)|Fleurieu]]
+** [[Currency Creek wine region|Currency Creek]]
+** [[Kangaroo Island wine region|Kangaroo Island]]
+** [[Langhorne Creek wine region|Langhorne Creek]]
+** [[McLaren Vale]]
+** [[Southern Fleurieu wine region|Southern Fleurieu]]
+* [[Limestone Coast zone (wine)|Limestone Coast]]
+** [[Coonawarra wine region|Coonawarra]]
+** [[Mount Benson wine region|Mount Benson]]
+** [[Mount Gambier wine region|Mount Gambier]]
+** [[Padthaway wine region|Padthaway]]
+** [[Robe wine region|Robe]]
+** [[Wrattonbully]]
+* [[Lower Murray zone (wine)|Lower Murray]]
+** [[Riverland wine region|Riverland]]
+* [[Mount Lofty Ranges zone (wine)|Mount Lofty Ranges]]
+** [[Adelaide Hills wine region|Adelaide Hills]]
+*** [[Lenswood wine sub-region|Lenswood]]
+*** [[Piccadilly Valley wine sub-region|Piccadilly Valley]]
+** [[Adelaide Plains wine region|Adelaide Plains]]
+** [[Clare Valley wine region|Clare Valley]]
+* [[The Peninsulas zone (wine)|The Peninsulas]]
+
+==== Tasmania ====
+{{further|Tasmanian wine}}
+:Regions, no zones defined
+* Coal River
+* Derwent Valley
+* East Coast
+* North West
+* Pipers River
+* Southern
+* [[Tamar River, Tasmania|Tamar Valley]]
+
+==== Victoria ====
+{{further|Victorian wine}}
+* [[Central Victoria]]
+** [[Bendigo]]
+** [[Goulburn Valley wine region|Goulburn Valley]]
+*** [[Nagambie Lakes wine region|Nagambie Lakes]]
+** [[Heathcote wine region|Heathcote]]
+** [[Strathbogie Ranges wine region|Strathbogie Ranges]]
+** [[Upper Goulburn]]
+* [[Gippsland]]
+* [[North East Victoria]]
+** [[Alpine Valleys]]
+** [[Beechworth]]
+** [[Glenrowan wine region|Glenrowan]]
+** [[King Valley]]
+** [[Rutherglen wine region|Rutherglen]]
+* North West Victoria
+** [[Murray Darling]]
+** [[Swan Hill wine region|Swan Hill]]
+* [[Port Phillip]]
+** [[Geelong]]
+** [[Shire of Macedon Ranges|Macedon Ranges]]
+** [[Mornington Peninsula (wine)|Mornington Peninsula]]
+** [[Sunbury wine region|Sunbury]]
+** [[Yarra Valley (wine)|Yarra Valley]]
+* [[Western Victoria (wine region)|Western Victoria]]
+** [[Grampians (wine)|Grampians]]
+** [[Henty (wine)|Henty]]
+** [[Pyrenees (Victoria)|Pyrenees]]
+
+==== Western Australia ====
+{{further|Western Australian wine}}
+* Greater Perth
+** [[Peel (Western Australia)|Peel]]
+** [[Perth Hills]]
+** [[Swan Valley, Western Australia|Swan Valley]]
+* [[South West (Western Australia)|South Western Australia]]
+** [[Blackwood Valley]]
+** [[Geographe Bay|Geographe]]
+** [[Great Southern Wine Region|Great Southern]]
+*** [[Great Southern Wine Region#Subregions|Albany]]
+*** [[Great Southern Wine Region#Subregions|Denmark]]
+*** [[Great Southern Wine Region#Subregions|Frankland River]]
+*** [[Great Southern Wine Region#Subregions|Mount Barker]]
+*** [[Great Southern Wine Region#Subregions|Porongurup]]
+** [[Manjimup]]
+** [[Margaret River wine region|Margaret River]]
+** [[Pemberton, Western Australia|Pemberton]]<ref name="Western Australia">{{cite web|url=http://www.wineaustralia.com/australia/Default.aspx?tabid=4466|work=Western Australia|title=Western Australia's Wine Regions|access-date=2010-11-25|archive-url=https://web.archive.org/web/20101127123842/http://www.wineaustralia.com/australia/Default.aspx?tabid=4466|archive-date=2010-11-27|url-status=dead}}</ref>
+
+=== New Zealand ===
+{{See also|New Zealand wine}}
+[[File:Geographical indications register for New Zealand wine.svg|alt=Map of the wine regions of New Zealand|thumb|Wine region map of New Zealand]]
+GI stands for New Zealand Geographical Indication.
+
+* [[Auckland wine region|Auckland]] (GI)
+** [[Henderson, New Zealand|Henderson]]
+** [[Kumeu (wine)|Kumeu]] (GI)
+** [[Matakana (wine)|Matakana]] (GI)
+** [[Waiheke Island (wine)|Waiheke Island]] (GI)
+* [[Canterbury (wine)|Canterbury]] (GI)
+** [[North Canterbury (wine)|North Canterbury]] (GI)
+** [[Waipara Valley (wine)|Waipara Valley]] (GI)
+* [[Central Otago wine region|Central Otago]] (GI)
+** [[Bendigo, New Zealand|Bendigo]]
+** [[Bannockburn (wine)|Bannockburn]] (GI)
+** [[Gibbston]]
+** [[Wānaka]]
+* [[Gisborne (wine)|Gisborne]] (GI)
+* [[Hawke's Bay wine region|Hawke's Bay]] (GI)
+** [[Central Hawke's Bay (wine)|Central Hawke's Bay]] (GI)
+** [[Gimblett Gravels]]
+** [[Bridge Pa Triangle]]
+* [[Marlborough wine region|Marlborough]] (GI)
+** [[Wairau Valley (wine)|Wairau Valley]]
+** [[Marlborough wine region#Southern Valleys|Southern Valleys]]
+** [[Marlborough wine region#Awatere Valley|Awatere Valley]]
+* [[Nelson (wine)|Nelson]] (GI)
+* [[Northland (wine)|Northland]] (GI)
+* [[Te Kauwhata#Viticulture|Waikato (Te Kauwhata)]]
+* [[Wairarapa (wine)|Wairarapa]] (GI)
+** [[Martinborough (wine)|Martinborough]] (GI)
+** [[Gladstone, New Zealand|Gladstone]] (GI)
+* [[Waitaki Valley (wine)|Waitaki Valley]] (GI)
+
+== References ==
+{{reflist|22em}}
+
+{{wines}}
+{{Wine by country}}
+{{Agriculture country lists}}
+{{Portal bar|Wine}}
+
+[[Category:Wine regions| ]]
+[[Category:Wine-related lists|Wine-producing regions]]

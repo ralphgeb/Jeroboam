@@ -1,0 +1,481 @@
+{{Short description|Wine making in New Zealand}}
+{{Use dmy dates|date=November 2020}}
+{{Use New Zealand English|date=August 2024}}
+{{Infobox wine region
+| name           = New Zealand
+| image          = New Zealand wines - a selection.jpg
+| image_alt      = Left to right: Saint Clair 2017 Wairau Reserve Sauvignon Blanc (Marlborough); Forrest Estate 2010 Wairau Riesling (Marlborough); Kumeu River 2016 Estate Chardonnay (Kumeu, Auckland); Martinborough Vineyard 2012 Pinot Noir (Martinborough, Wairarapa); Felton Road 2011 Bannockburn Pinot Noir (Central Otago); Te Mata Estate 2001 Coleraine (Hawke's Bay); Stonyridge Vineyard 1998 Larose (Waiheke Island, Auckland); Craggy Range 2013 Le Sol Syrah (Hawke's Bay).
+| caption        = A selection of New Zealand wines
+| type           = [[Geographical indication]]
+| year           = 2017
+| season         = October–April
+| country        = New Zealand
+| sub regions    = {{hlist | [[Marlborough wine region|Marlborough]] | [[Hawke's Bay wine region|Hawke's Bay]] | [[Central Otago wine region|Central Otago]] | Waipara | Gisborne | ([[#Wine regions of New Zealand|more]]) }}
+| climate region = Ia–III, mainly II<br />[[Maritime climate (wine)|Maritime climate]]<ref name="oeno-one-NZ">{{Cite journal |author1-first=Jon D. |author1-last=Anderson |author2-first=Gregory V. |author2-last=Jones |author3-first=Andrew |author3-last=Tait |author4-first=Andrew |author4-last=Hall |author5-first=Michael C. T. |author5-last=Trought |title=Analysis of viticulture region climate structure and suitability in New Zealand |journal=OENO One |volume=46 |number=3 |pages=149–165 |date=30 September 2012 |doi=10.20870/oeno-one.2012.46.3.1515 |url=http://oeno-one.eu/article/view/1515 |access-date=4 April 2018 |doi-access=free |archive-date=4 April 2018 |archive-url=https://web.archive.org/web/20180404201445/http://oeno-one.eu/article/view/1515 |url-status=live }}</ref>
+| heat units     = 805–1606&nbsp;°C
+| precipitation  = 300–1500 mm (12–59 in)<ref name="NIWA">{{Cite web |title=Overview of New Zealand's climate |author1-first=Lesley |author1-last=Mackintosh |date=2001 |publisher=[[NIWA]] |url=https://www.niwa.co.nz/education-and-training/schools/resources/climate/overview |access-date=5 April 2018 |postscript=. Indicative average annual rainfall in the winegrowing areas of New Zealand; it is well in excess of {{convert|1500|mm}} in other areas, but nobody is growing grapes in the Fiordland rainforest. |archive-date=14 April 2018 |archive-url=https://web.archive.org/web/20180414044207/https://www.niwa.co.nz/education-and-training/schools/resources/climate/overview |url-status=live }}</ref>{{Failed verification|date=February 2026}}<!--  -->
+| planted        = {{convert|39935|ha}}
+| vineyards      = 2023
+| grapes         = 457,000 tonnes
+| varietals      = {{hlist | [[Sauvignon Blanc]] | [[Pinot Noir]] | [[Chardonnay]] | [[Pinot Gris]] | [[Merlot]] | [[Riesling]] | [[Syrah]] }}
+| wine produced  = {{convert|3.29|e6hl|e6gal|abbr=off}}
+| comments       = Data from 2020<ref name="stats"/>
+}}
+'''New Zealand wine''' is produced in several of its distinct [[list of wine-producing regions#New Zealand|winegrowing regions]].{{efn|If New Zealand as a whole is taken to be a wine region then the various 'regions' may be regarded as sub-regions.<ref>{{cite book |last1=Parker |first1=Robert M. Jr.|author-link=Robert Parker (wine critic)|title=Parker's Wine Buyer's Guide: the complete, easy-to-use reference on recent vintages, prices, and ratings for more than 8,000 wines from all the major wine regions |date=2008 |publisher=[[Simon & Schuster]] |location=New York |isbn=978-0743271981 |page=1452 |edition=7th, 1st Simon & Schuster trade paperback}}</ref>}} As an island country in the [[Oceania|South Pacific Ocean]], [[New Zealand]] has a largely [[maritime climate]], although its elongated geography produces considerable regional variation from north to south. Like many other [[New World wines]], New Zealand wine is usually produced and labelled as single varietal wines, or if blended, winemakers list the varietal components on the label. New Zealand is best known for its [[Marlborough wine region|Marlborough]] [[Sauvignon Blanc]], and more recently for premium cool-climate [[Pinot noir|Pinot Noir]] from Marlborough, [[Martinborough]], [[Central Otago wine region|Central Otago]] and the limestone-rich [[Waitaki Valley wine region|Waitaki Valley]].<ref name="ws-nz">{{Cite web| title = New Zealand Wine| publisher = [[Wine-Searcher]]| date = 22 December 2015| url = https://www.wine-searcher.com/regions-new+zealand| access-date = 1 March 2018| archive-date = 22 December 2017| archive-url = https://web.archive.org/web/20171222234938/https://www.wine-searcher.com/regions-new+zealand| url-status = live}}</ref>
+
+While New Zealand wine traces its history to the early 19th century, the modern wine industry in New Zealand began in the mid-20th century and expanded rapidly in the early 21st century, growing by 17% a year from 2000 to 2020. In 2020, New Zealand produced {{convert|329|e6l|usgal}} from {{convert|39935|ha}} of vineyard area, of which {{formatnum:25160}} ha (about two-thirds) is dedicated to Sauvignon Blanc. Nearly 90% of total production is exported, chiefly to the United States, Britain and Australia, reaching a record {{currency|1.92 billion|NZD|passthrough=yes}} in export revenue in 2020. <!-- All the stats in this paragraph are from the NZW annual report. -->
+
+== History ==
+
+[[Winemaking]] and [[viticulture]] date back to New Zealand's [[History of New Zealand#Colonial period|colonial era]]. New Zealand's first vineyard was planted in 1819 by missionary [[Samuel Marsden]] in [[Kerikeri]].<ref name="teara-wine-p1"/><ref name=":0">{{Cite web |title=Moments in Wine: Australia, New Zealand & South Africa |url=https://www.bibendum-wine.co.uk/moments-in-wine-a-timeline/moments-in-wine-australia-new-zealand-south-africa/ |access-date=28 January 2026 |website=Bibendum}}</ref> [[James Busby]], New Zealand's governing [[Resident (title)|British Resident]] in the 1830s, planted vineyards on his land near [[Waitangi, Northland|Waitangi]],<ref name=":0" /> having earlier established what is now the [[Hunter Valley wine region]] during his time in Australia. He was producing wine for locally stationed British soldiers in 1836.{{sfn|Robinson|Harding|2015|p=505–9|loc=New Zealand}}<ref name="nzw-annual-report">{{cite web| title = New Zealand Winegrowers Annual Report 2020| publisher = [[New Zealand Winegrowers]]| year = 2020| access-date = 22 April 2021| url = https://www.nzwine.com/en/media/statistics/annual-report/| archive-date = 19 February 2023| archive-url = https://web.archive.org/web/20230219064122/https://www.nzwine.com/en/media/statistics/annual-report/| url-status = dead}}</ref><!-- All the stats in this paragraph are from the NZW annual report. --> In 1851, French [[Society of Mary (Marists)|Marist]] missionaries established a [[vineyard]] in [[Hawke's Bay wine region|Hawke's Bay]] for making [[Communion wine]]. Now part of the [[Mission Estate Winery]], it is the oldest commercial vineyard in New Zealand.<ref name="teara-wine-p1">{{Cite encyclopedia |title=Wine – Page 1. 19th-century origins |last=Dalley |first=Bronwyn |encyclopedia=[[Te Ara: The Encyclopedia of New Zealand]] |date=24 November 2008 |publisher=[[Ministry for Culture and Heritage]] |url=https://teara.govt.nz/en/wine/page-1 |access-date=8 December 2019 |archive-date=8 December 2019 |archive-url=https://web.archive.org/web/20191208064004/https://teara.govt.nz/en/wine/page-1 |url-status=live }}</ref><ref name=":0" /> Portrait artist [[William Beetham]] planted [[Pinot Noir]] and Hermitage ([[Syrah]]) grapes at his [[Lansdowne, Masterton]] vineyard in 1881. In 1895, the New Zealand government's Department of Agriculture invited the expert consultant [[viticulture|viticulturist]] and [[oenology|oenologist]] [[Romeo Bragato]] to investigate winemaking possibilities.<ref name="teara-wine-p3">{{Cite encyclopedia |title=Wine – Page 3. Industry expansion, 1890s–1910s |last=Dalley |first=Bronwyn |encyclopedia=[[Te Ara: The Encyclopedia of New Zealand]] |date=24 November 2008 |publisher=[[Ministry for Culture and Heritage]] |url=https://teara.govt.nz/en/wine/page-3 |access-date=8 January 2024 |archive-date=15 January 2021 |archive-url=https://web.archive.org/web/20210115041654/https://teara.govt.nz/en/wine/page-3 |url-status=live }}</ref> After tasting Beetham's Hermitage, he concluded that New Zealand and the [[Wairarapa]] in particular were "pre-eminently suited to viticulture." His French wife, Marie Zelie Hermance Frere Beetham, supported Beetham in his endeavours. Their partnership and innovation to pursue winemaking helped form the basis of modern New Zealand's viticulture practices.<ref name="NZH-riesling-2014">{{Cite news| title = Wine: Rise and rise of the riesling| author = Burzynska, J.| work = [[The New Zealand Herald]]| date = 30 October 2014| url = https://www.nzherald.co.nz/nz/wine-rise-and-rise-of-the-riesling/GRZMU7XRGPWN5NH33TAUKJPETA/| access-date = 6 February 2018| archive-date = 6 February 2018| url-access = subscription| archive-url = https://web.archive.org/web/20180206131748/http://www.nzherald.co.nz/viva-magazine/news/article.cfm?c_id=533&objectid=11349492| url-status = live}}</ref> In 1896, Joseph Soler, a [[Tarragona]]n winemaker settling in [[Whanganui]], published a [[Māori language]] pamphlet entitled {{lang|mi|Kupu tohutohu mo te mahi whakato tapahanga waina karepe}} ("Instructions for propagating grapevine cuttings") for educating local Māori on viticulture.<ref>{{cite web |last=Derby |first=Mark |title=Whakapapa, whenua and wine |date=4 May 2025 |publisher=E-Tangata |url= https://e-tangata.co.nz/history/whakapapa-whenua-and-wine/ |access-date=8 May 2025 |url-status=live |archive-url= https://web.archive.org/web/20250503233346/https://e-tangata.co.nz/history/whakapapa-whenua-and-wine/ |archive-date=3 May 2025 }}</ref>
+
+[[Dalmatia]]n immigrants arriving in New Zealand in the late 19th and early 20th centuries brought with them viticultural knowledge and planted vineyards<ref name=":0" /> in West and North Auckland. Typically, their vineyards produced [[table wine]] and [[fortified wine]] to suit the palates of their communities.<ref name="JWR-dalm">{{cite journal| author-last = Mabbett| author-first = Jason| title = The Dalmatian influence on the New Zealand wine industry: 1895–1946| journal = Journal of Wine Research| date = April 1998| volume = 9| issue = 1| pages = 15–25| issn = 0957-1264| doi = 10.1080/09571269808718130}}</ref> For the first half of the 20th century, winemaking in New Zealand was a marginal economic activity. Land use during this period was primarily animal agriculture, and the exports of dairy, meat, and wool dominated the economy. Most New Zealanders were of British descent, and favoured [[beer]] and [[Alcoholic spirit|spirit]]s; the [[temperance movement in New Zealand|temperance movement]] further reduced the national appreciation for wine.<ref name=":0" /> The [[Great Depression]] of the 1930s also hampered the growth of the fledgling industry.<ref name=":0" />{{sfn|Moran|2016|p=}}
+
+By the 1970s, some of these inhibiting factors underwent important changes. In 1973, [[United Kingdom|Britain]] entered the [[European Economic Community]] which required ending the favourable trade terms for New Zealand's meat and dairy exports. This led ultimately to a dramatic restructuring of the agricultural economy, and diversification away from traditional "primary" products—dairy, meat and wool—to products with potentially higher economic returns. Vines, which produce best in low moisture and low soil fertility environments, were seen as suitable for areas that had previously been marginal [[pasture]].
+
+The end of the 1960s saw the end of the New Zealand policy known as the "[[six o'clock swill]]", where [[pub]]s and [[bar (establishment)|bars]] were open for only an hour after the working day ended, and closed all day Sunday. The same legislative reform saw the introduction of [[BYOB|BYO ("bring your own")]] licences for restaurants, which had a marked effect on New Zealanders' appreciation and consumption of wine.{{sfn|Moran|2016|p=}}
+
+Finally, the advent of [[jet airliner]]s in the late 1960s and early 1970s ushered in the [[overseas experience|OE ("overseas experience")]], where young, typically well-educated New Zealanders spent time living and working overseas, often in Europe. The ensuing exposure to wine while abroad subsequently stimulated demand within New Zealand.{{sfn|Cooper|2010|p=}}
+
+=== Emergence of modern industry ===
+
+In 1973, Montana Wines, now [[Brancott Estate]] owned by [[Pernod Ricard]], planted Marlborough's first vineyards and produced its first [[Sauvignon Blanc]] in 1979, labelled by year of production ([[vintage]]) and grape variety, in the style of wine producers in Australia.<ref name="ws-marlborough">{{Cite web |title=Marlborough Wine |work=[[Wine-Searcher]] |date=4 October 2019 |url=https://www.wine-searcher.com/regions-marlborough |access-date=30 October 2019 |archive-date=30 October 2019 |archive-url=https://web.archive.org/web/20191030070410/https://www.wine-searcher.com/regions-marlborough |url-status=live }}</ref> That year, superior quality wines of [[Müller-Thurgau]], [[Riesling]] and [[Pinotage]] were also produced. Good [[Cabernet Sauvignon]] wine from Auckland and Hawke's Bay bolstered the industry with ever-increasing investment, vineyard plantings, rising land prices and greater local interest and pride. The result of this boom was over-planting, particularly in hybrids and less well regarded but high yield varietals such as Müller-Thurgau. Hoping to address this issue, a 1984 government initiative paid growers to pull up vines, but many growers used the grants to swap these varieties with more fashionable ones, particularly [[Chardonnay]] and Sauvignon Blanc, often keeping the old [[rootstock]].<ref name=":0" /> This, combined with the introduction throughout the 1980s of much improved [[Canopy (grape)|canopy]] management techniques to reduce leaf vigour and improve grape quality, set the New Zealand wine industry on course for recovery and greatly improved quality.{{sfn|Robinson|Harding|2015|p=505–9 |loc=New Zealand}}
+
+=== Sauvignon Blanc breakthrough ===
+
+[[File:NZ Sauvignon Blanc wines.jpg|thumb|alt=Photograph five different Sauvignon Blanc bottles|Left to right: Cloudy Bay (Marlborough); Montana (Marlborough) was bought by Pernod Ricard and is now [[Brancott Estate]]; Saint Clair (Marlborough); Luna Estate (Martinborough); Clearview (Hawke's Bay).]]
+By the 1980s, wineries in New Zealand, especially in the Marlborough region, were producing outstanding Sauvignon Blanc. It was in 1985 that the Sauvignon Blanc from [[Cloudy Bay Vineyards]] finally garnered international attention and critical acclaim for New Zealand wine.{{sfn|Robinson|Harding|2015|p=505–9 |loc=New Zealand}} Wine writer [[George M. Taber|George Taber]] recounts Cloudy Bay is "what many people consider to be the world's best Sauvignon Blanc".<ref>{{cite book| author-last = Taber| author-first = George|author-link=George Taber| title = Judgment of Paris: California vs France and the Historic 1976 Paris Tasting that Revolutionized Wine| place = New York| publisher =[[Charles Scribner's Sons|Scribner]]| date = 2005| isbn = 978-0-74-324751-1| pages = [https://archive.org/details/judgmentofparisc00tabe/page/243 243]| url-access = registration | url = https://archive.org/details/judgmentofparisc00tabe/page/243}}</ref> New Zealand's reputation is now well established; [[Oz Clarke]] wrote New Zealand Sauvignon Blanc was "arguably the best in the world",<ref name="economist1999">{{cite news| author-last = Rachman| author-first = Gideon| title = The globe in a glass| newspaper = [[The Economist]]| date = 16 December 1999| url = https://www.economist.com/special-report/1999/12/16/the-globe-in-a-glass| access-date = 22 February 2018| archive-date = 22 February 2018| archive-url = https://web.archive.org/web/20180222165034/http://www.economist.com/node/268095| url-status = live}}</ref> and Mark Oldman wrote "New Zealand Sauvignon Blanc is like a child who inherits the best of both parents—exotic aromas found in&nbsp;... the New World and the pungency and limy acidity of an [[Old World]] Sauvignon Blanc like Sancerre."<ref name="oldman">{{cite book| author-last = Oldman| author-first = Mark| title = Oldman's Guide to Outsmarting Wine| place = New York| publisher = [[Penguin Books|Penguin]]| date = 2004| isbn = 9-781-86971-091-0| pages = 152
+}}</ref>
+
+== Climate and soil ==
+
+{{unreferenced section|date=August 2021}}
+Wine regions are located mostly in free draining [[Alluvium|alluvial valleys]]—Hawke's Bay, [[Martinborough]], [[Nelson, New Zealand|Nelson]], the [[Wairau River|Wairau]] and [[Awatere River|Awatere]] valleys of [[Marlborough Region|Marlborough]], and [[Canterbury, New Zealand|Canterbury]]—with the notable exceptions of [[Waiheke Island]], [[Kawarau River|Kawarau Gorge]] in Central Otago. The alluvial deposits are typically the local sandstone called [[greywacke]], which makes up much of the mountainous spine of New Zealand.
+
+Sometimes the alluvial nature of the soil is important, as in Hawke's Bay where the deposits known as the [[Gimblett Gravels]] represent such quality characteristics that they are often mentioned on the wine label. The Gimblett Gravels is a former riverbed with very stony soils. The effect of the stones is to lower fertility, lower the water table, and act as a heat store that tempers the cool sea breezes that Hawke's Bay experiences. This creates a significantly warmer [[mesoclimate]].
+
+[[Waipara]], in Canterbury, represents another soil type. The [[Omihi Hills]], part of the [[Torlesse]] group of limestone deposits, are located here. Viticulturists have planted Pinot Noir here because of the French experience of the affinity between the grape type and the chalky soil on the [[Côte-d'Or]]. Even the greywacke alluvial soils in the Waipara valley floor have a higher [[calcium carbonate]] concentration than the Côte-d'Or, indicated by the milky water that flows in the Waipara River.
+
+The Kawarau valley has a thin and patchy topsoil over a bedrock that is [[schist]]. Early growers blasted holes into the bare rock of north-facing slopes with miners' caps to provide planting holes for the vines. These conditions necessitate [[irrigation (wine)|irrigation]] and make the vines work hard for nutrients. Irrigation, low cropping techniques, and the thermal effect of the rock produces great intensity for the grapes and subsequent wine.
+
+The wine regions in New Zealand stretch from latitudes 36°S in the north ([[Northland Region|Northland]]) (comparable in latitude to Jerez, Spain), to 45°S ([[Central Otago Wine Region|Central Otago]]) in the south (comparable in latitude to [[Bordeaux wine|Bordeaux]], France). New Zealand's climate is [[maritime (wine)|maritime]], meaning that the sea moderates the weather, producing cooler summers and milder winters than would be expected at similar latitudes in Europe and North America. Maritime climates tend to demonstrate higher variability with cold snaps possible at any time of the year and warm periods even in the depth of winter. The climate is typically wetter, but wine regions have developed in rain shadows and in the east, on the opposite coast from the prevailing moisture-laden wind. The wine regions of New Zealand tend to experience cool nights even in the hottest of summers. The effect of consistently cool nights is to produce fruit, which is nearly always high in acidity.
+
+== Industry structure and production methods ==
+
+{{Unreferenced section|date=August 2021}}
+
+New Zealand's winemakers employ a variety of production techniques.  The traditional concept of a vineyard, where grapes are grown on the land surrounding a central simply owned or family-owned estate with its own discrete viticultural and winemaking equipment and storage, is only one model. While the European cooperative model (where district or AOC village winemaking takes place in a centralised production facility) is uncommon, contract growing of fruit for winemakers has been a feature of the New Zealand industry since the start of the winemaking boom in the 1970s.<ref name="BevWireNZ_1970s">{{cite web |last=Park |first=David |date=2026-01-23 |title=New Zealand Wine on the World Map: Climate, History, and a Different Kind of Supply Chain |url=https://bevwire.com/wine/editorials/new-zealand-wine-old-world-contrast |access-date=2026-04-23 |website=BevWire |quote=Contract fruit was how a place that was mid-land-rush in the 1970s could get enough tonnes into fixed tank space in time to fill the first big runs to the UK a few years later.}}</ref> Indeed, many well-known producers began as contract growers.
+
+Many fledgling producers started out using contract fruit while waiting for their own vines to mature enough to produce production-quality fruit. Some producers use contract fruit to supplement the range of varieties they market, even using fruit from other geographical regions. For example, it is common to see an Auckland producer market a "Marlborough Sauvignon Blanc" or a Marlborough producer market a "Gisborne Chardonnay". Contract growing is an example of the use of indigenous agro-industrial methods that predate the New Zealand wine industry.
+
+Another example of the adaptation of NZ methods toward the new industry was the universal use of stainless steel in winemaking adapted from the norms and standards of the New Zealand dairy industry.  There was an existing small-scale industrial infrastructure ready for winemakers to employ economically. While current winemaking technology is almost universally sterile and hygienic worldwide, the natural antibiotic properties of alcohol production were more heavily relied upon in the 1970s when the New Zealand wine industry started.<ref name="NZWineHistory">{{cite web |last=New Zealand Winegrowers |title=History of New Zealand Winemaking |url=https://www.nzwine.com/en/media/story/history-of-nz-winemaking/ |access-date=2026-04-23 |publisher=New Zealand Winegrowers |quote=New Zealand had a very strong dairy industry so were accustomed to managing large volumes of liquid in sterile conditions along with the use of refrigeration... This created a combination of 'Old World' traditional winemaking and science-based 'New World' winemaking.}}</ref>
+
+This pervasive use of stainless steel had a distinctive effect on both New Zealand wine styles and the domestic palate. The early wines, which made a stir internationally, were lauded for the intensity and purity of the fruit in the wine. Indeed, the strength of flavour in the wine accommodated very dry styles, despite intense acidity. While stainless steel did not produce the intensity of fruit, it allowed for its exploitation. Even today, New Zealand white wines tend toward the drier end of the spectrum.
+
+== Varieties, styles and directions ==
+
+
+
+=== White wines ===
+
+[[File:Some white wines New Zealand.jpg|thumb|Left to right: Cloudy Bay brought New Zealand's [[#Marlborough|Marlborough]] [[#Sauvignon Blanc|Sauvignon Blanc]] to international attention in the 1980s; Chardonnays from [[#Martinborough|Martinborough]] (Wairarapa) and [[#Kumeu|Kumeu]] (Auckland) regions; a single vineyard Viognier from [[#Gisborne|Gisborne]]; Riesling and Pinot Gris from [[#Central Otago|Central Otago]].]]
+
+==== Sauvignon Blanc ====
+
+New Zealand has long been best known for its Sauvignon Blanc, which dominates its wine industry. In 2017, its vines took up {{convert|22085|ha}} of vineyard area, a full 60% of New Zealand's total grape planting, and Sauvignon Blanc wine made up 86% of the nation's exports. Many critics regard New Zealand's Sauvignon Blanc as among the best in the world.<ref name="economist1999"/> Historically, Sauvignon Blanc has been used in many French regions in both [[Appellation d'Origine Contrôlée|AOC]] and [[Vin de pays]] wine, and famously [[Sancerre (wine)|Sancerre]] and [[Pouilly Fumé]]. Following [[Robert Mondavi]]'s lead in renaming Californian Sauvignon Blanc [[Fumé Blanc]] (partially in reference to Pouilly Fumé, but also to denote the smokiness of the wine produced from flinty soil and oak barrel ageing), there was a trend for oaked Sauvignon Blanc in New Zealand during the late 1980s. Strong oaky overtones dropped out of fashion through the 1990s but have since made a comeback, with several makers now offering oak-aged Sauvignon Blanc—Greywacke, Dog Point, te Pa (Sauvignon Blanc 'Oke'), Sacred Hill (Sauvage), Jackson Estate (Grey Ghost), Hans Herzog (Sur Lie) and Saint Clair (Barrique).{{citation needed|date=August 2021}}
+
+New Zealand pioneered the use of [[Screw cap (wine)|screwtop]] closures in fine wines because of the frequency of quality issues affecting wines being shipped long distances with [[Wine cork|cork]] closures.<ref>{{Cite web |last=Phillips |first=Sawyer |date=20 December 2023 |title=Is All Screw-Top Wine Bad? |url=http://www.americastestkitchen.com/articles/7908-is-all-screw-top-wine-bad?j=91667&sfmc_sub=23207551&l=26_HTML&u=40547204&mid=7211371&jb=21097&sk=DA91AE5EF496429630336974F3F49B3E&extcode=LN23N4QAA&sourcekey=BL23124AA&cds_response_key=&cds_tracking_code=&tag=atkntk1-20&atc=ntkA&Survey_id=&mi_ecmp=%E2%80%8B&couponcode= |access-date=2023-12-22 |website=[[America's Test Kitchen]] |language=en |archive-date=25 January 2025 |archive-url=https://web.archive.org/web/20250125031307/https://www.americastestkitchen.com/articles/7908-is-all-screw-top-wine-bad?j=91667&sfmc_sub=23207551&l=26_HTML&u=40547204&mid=7211371&jb=21097&sk=DA91AE5EF496429630336974F3F49B3E&extcode=LN23N4QAA&sourcekey=BL23124AA&cds_response_key=&cds_tracking_code=&tag=atkntk1-20&atc=ntkA&Survey_id=&mi_ecmp=%E2%80%8B&couponcode= |url-status=live }}</ref>
+
+==== Chardonnay ====
+
+Chardonnay is produced as far south as Central Otago, but plantings increase moving further north. There is little discernible difference in styles of Chardonnay between the New Zealand wine regions; individual winemakers' recipes, use of oak, and the particular qualities of a vintage have tended to blur any distinction of terroir. Almost every region is represented among the most highly rated New Zealand Chardonnays, which include wines from Kumeu River Estate (Kumeu), Millton Estate (Gisborne), Church Road, Clearview, and Te Mata Estate (Hawke's Bay), Ata Rangi (Martinborough), Fromm (Marlborough), Neudorf (Nelson), and Felton Road (Central Otago). Although Chardonnay may be less fashionable and has declined in vineyard area (losing ground largely to [[Pinot Gris]]), winemakers in 2016 reported an upswing and strong sales. It also commands higher prices than any other New Zealand white wine variety.<ref name="cooperguide2017"/>
+
+==== Pinot Gris ====
+
+Pinot Gris emerged in the early 2000s from almost nowhere to the country's fourth most planted variety in 2017, having overtaken Riesling in 2007. It is planted mostly in Marlborough, Hawke's Bay and Gisborne, with the remainder in the South Island. Some of the initial plantings of Pinot Gris were identified later as [[Flora (grape)|Flora]]; some Auckland winemakers allude to this in their Flora wine names, such as ''"The Rogue"'' from Ascension and ''"The Impostor"'' from Omaha Bay Vineyards.<ref>{{Cite web |title=Ascension "The Rogue" Matakana Flora |publisher=Ascension Wine Estate |publication-place=Matakana |url= https://ascensionwine.co.nz/product/ascension-the-rogue-matakana-flora/ |access-date=14 January 2026 }}</ref><ref>{{Cite web |title=OBV Matakana The Impostor 2025 |publisher=Omaha Bay Vineyard |location=Matakana |url= https://omahabay.co.nz/product/obv-matakana-the-imposter-2024/ |access-date=14 January 2026 }}</ref>
+
+==== Other white wines ====
+
+Other white wine varietals grown in New Zealand include (in descending order of vineyard area) Riesling, [[Gewürztraminer]] and [[Viognier]], and less commonly [[Chenin Blanc]], [[Albariño]], [[Arneis]] and [[Sémillon]]. Riesling is produced predominantly in Martinborough and the South Island, as is Gewürztraminer, although it is also planted extensively in Gisborne.<ref name="nzw-vineyard-report"/> Chenin Blanc was once more important, but the viticultural peculiarities of the variety, particularly its unpredictable cropping in New Zealand, have led to its disfavour. Nevertheless, good examples exist from Esk Valley, Margrain and Millton Estate.<ref name="cooperguide2017">{{cite book| author-last = Cooper| author-first = Michael| title = Michael Cooper's Buyer's Guide to New Zealand Wines| publisher = Upstart Press| place = Auckland| date = 2017| isbn = 978-1-92-726266-5}}</ref>
+
+=== Red wines ===
+
+New Zealand's Pinot Noir has become well known internationally. Plantings of Pinot Noir grew in the early 21st century to become New Zealand's second-most planted variety after Sauvignon Blanc.<ref name="nzw-vineyard-report"/> In the warmer northerly regions, particularly Hawke's Bay and Waiheke Island, Syrah and [[Merlot]]-dominant Bordeaux style blends have gained recognition.{{sfn|Johnson|Robinson|2019|p=368–369}}
+
+==== Pinot Noir ====
+
+[[File:Bouteilles Central Otago 2.JPG|thumb|alt=Photograph of Pinot Noir bottgles from various vineyards|Several Pinot Noir wines from Central Otago]]
+The late 1970s were early in the modern wine industry, and the comparatively low annual sunshine hours to be found in New Zealand discouraged the planting of red varieties. Despite this, some held great hopes for Pinot Noir. Initial results were mixed because of limited access to good clones, yet the Saint Helena 1984 Pinot Noir was notable enough that the Canterbury region was thought to become the New Zealand home for Pinot Noir. While the early excitement passed, the Canterbury region has witnessed the development of Pinot Noir as the dominant red variety, particularly in the now dominant Waipara sub-region. Producers include Waipara Hills, [[Pegasus Bay Vineyards|Pegasus Bay]], Waipara Springs, Muddy Water, Greystone, Omihi Hills and Black Estate.{{citation needed|date=August 2021}}
+
+The next region to excel with Pinot Noir was Martinborough, {{convert|75|km}} east of Wellington in the Wairarapa region. Several vineyards, including Palliser Estate, Martinborough Vineyards, Murdoch James Estate (now Luna Estate) and Ata Rangi consistently produced interesting and increasingly complex wine from Pinot Noir at the end of the 1980s and into the 1990s.
+
+At around this time, the first plantings of Pinot Noir in Central Otago occurred in the Kawarau Gorge. Central Otago had a long (for New Zealand) history as a producer of quality stone fruit, particularly cherries. Significantly further south than all other wine regions in New Zealand, it benefited from being surrounded by mountain ranges which increased both its daily and seasonal temperature variations, making the climate unusual in the typically maritime conditions in New Zealand, and ideal for growing Pinot Noir. Indeed, recent years have seen Pinot Noir from Central Otago win numerous international awards and accolades, and excite the interest of British wine commentators including [[Jancis Robinson]] and Oz Clarke. Not only did the wines have the distinctive acidity and abundant fruit of New Zealand wines, but they demonstrated a great deal of complexity, with aromas and flavours not common in New Zealand wine and normally associated with [[Burgundy wine]]. Notable producers include Akarua, Felton Road, Prophets rock, Moko Hills, Chard Farm and Mount Difficulty.{{citation needed|date=August 2021}}
+
+At around the same period, small-scale plantings were also established in the Waitaki Valley, on the boundary of North Otago and Canterbury. With vines first planted in 2001, the region is a relative newcomer to viticulture, but its limestone-rich soils and very cool climate quickly attracted a small group of dedicated producers.<ref name="WaitakiAssoc">{{cite web |title=Waitaki Valley, North Otago |url=https://waitakiwine.com/our-region/
+|publisher=Waitaki Valley Winegrowers Association |access-date=26 February 2026}}</ref> Early vineyards such as Clos Ostler, planted with Pinot Noir in 2002 by regional pioneers Jim Jerram and Jeff Sinnott, helped demonstrate the area’s potential for premium winegrowing.<ref name="ODT2018">{{cite news |last=MacLean |first=Hamish |title=Distinct flavour to Waitaki wine region |url=https://www.odt.co.nz/rural-life/horticulture/distinct-flavour-waitaki-wine-region
+|work=Otago Daily Times |date=8 December 2018 |access-date=26 February 2026}}</ref> Clos Ostler later gained recognition for its limestone-grown Pinot Noir, with critics noting the wines for their mineral structure, savoury complexity, and ageing potential, and has become regarded among New Zealand’s leading Pinot Noir producers.<ref name="ODT2018" /> The valley has since gained recognition for producing distinctive wines, and the establishment of an official geographical indication confirmed the region’s growing reputation and unique identity.<ref name="ODT2018"/>
+
+In a blind tasting of New Zealand Pinot Noir in 2006, Michael Cooper reported that of the top ten wines, five came from Central Otago, four from Marlborough and one from Waipara. This compares with all top ten wines coming from Marlborough in an equivalent blind tasting in the previous year. Cooper suggested that this has to do with more Central Otago production becoming available in commercial quantities, than the relative qualities of the regions' Pinot Noir.<ref>{{cite journal
+  | title = New Zealand Pinot Noir blind tasting (pending)| journal = [[Cuisine (magazine)|Cuisine]]| issue = 119| date = November 2006}}</ref><!-- Fairfax are generally pretty terrible at indexing or archiving their stuff online; I'll need to dig this up at the National Library. -->
+
+As is the case for other New Zealand wine, New Zealand Pinot Noir is fruit-driven, forward and early maturing in the bottle. It tends to be quite full bodied (for the variety), very approachable and oak maturation tends to be restrained. High quality examples of New Zealand Pinot Noir are distinguished by savoury, earthy flavours with a greater complexity. In an article in ''Decanter'' (September 2014), Bob Campbell suggests regional styles are starting to emerge within New Zealand Pinot Noir. Marlborough, with by far the largest plantings of Pinot, produces wines that are quite aromatic, red fruit in particular red cherry, with a firm tannic structure that provides cellaring potential.<ref name="pn-paradise"/>
+
+==== Bordeaux-style blends and Syrah ====
+
+New Zealand red wines are also made from the classic Bordeaux varieties, mainly Merlot, with Cabernet Sauvignon, [[Cabernet Franc]], [[Malbec]], and [[Petit Verdot]]. Syrah wines from Hawke's Bay, particularly the Gimblett Gravels and [[Bridge Pa Triangle]] sub-regions, as well as farther north from Waiheke Island, have also gained a good reputation internationally.{{sfn|Johnson|Robinson|2019|p=368–369}}
+
+Early success in the Hawke's Bay Region in the 1960s by McWilliams and in the 1980s by [[Te Mata Estate]], led to a phase in the 1980s and 1990s of mainly Cabernet Sauvignon planting and wine production by large producers such as [[Corbans]], McWilliams, and Mission Estate. As viticultural techniques were improved and tailored to New Zealand's maritime climate, other Bordeaux-style grapes were planted, and a switch of emphasis made to the more suitable, earlier-ripening Merlot. Today, Merlot is the second most planted red variety after Pinot Noir, accounting for {{convert|1087|ha}}, outweighing Cabernet Sauvignon plantings by five to one.<ref name="nzw-vineyard-report"/>
+
+Typically, these Bordeaux blends come from the hotter and drier regions of New Zealand, largely in the Hawke's Bay Region. Wines that typify the best of Hawke's Bay include Elephant Hill's Airavata, Te Mata Estate's Coleraine, Craggy Range's Sophia, Newton Forrest Estate's Cornerstone, Esk Valley's The Terraces and Villa Maria's Reserve Merlot and Cabernet. Waiheke Island, whilst a very small viticultural region, also produces acclaimed red wines like the Larose from Stonyridge, the Dreadnought and Ironclad from Man O' War, wines from Destiny Bay, and Goldie Estate. In Marlborough, Hans Herzog Estate is famous for making the Spirit of Marlborough, and examples of Bordeaux blends can be found as far south as Waipara, where the Maestro from Pegasus Bay also demonstrates the shift from Cabernet Sauvignon to Merlot predominant blends.<ref name="cooperguide2017"/>
+
+The amount of Cabernet Sauvignon in production has dropped to a third of what it was in the early 2000s and has been overtaken by a tripling of Syrah planting in that time. In the same time period, Sauvignon Blanc has grown more than five-fold and Pinot Noir has doubled.<ref name="stats"/> Whilst today's fashion has turned from Bordeaux blends to Pinot Noir, it also indicates the marginality of Cabernet Sauvignon in New Zealand conditions.{{sfn|Robinson|Harding|2015|p=505–9|loc=New Zealand}}
+
+==== Other red wines ====
+
+There are some producers dedicated to establishing other red grape varieties. New Zealand has small plantings of [[Tempranillo]], Pinotage, [[Montepulciano (grape)|Montepulciano]] and [[Sangiovese]] in Hawke's Bay and the warmer [[Auckland]] regions.<ref name="cooperguide2017"/>
+
+=== Rosé ===
+
+Most New Zealand wine producers that produce Pinot Noir or Merlot also produce a [[rosé]] style wine, although it is sometimes found made from other red varieties. New Zealand rosé is made to drink immediately rather than age, resulting in the crisp, fresh, fruit-forward flavours popular with the New Zealand public.<ref name="cooperguide2017"/> Well rated examples are from Forrest, Isabel, Ti Point, Whitehaven and Rapaura Springs.<ref>{{cite web| title = NZ Rosé Full Tasting Results 2017| work = [[Cuisine (magazine)|Cuisine]]| publisher = [[Fairfax Media]]| date = 2017| url = https://www.cuisinewine.co.nz/tasting/nz-rose-2017/| access-date = 28 February 2018| archive-date = 28 February 2018| archive-url = https://web.archive.org/web/20180228100739/https://www.cuisinewine.co.nz/tasting/nz-rose-2017/| url-status = live}}</ref>
+
+=== Sparkling wine ===
+
+[[File:methode_marlborough.jpg|thumb|upright|alt=Photograph of the logo Méthode Marlborough used for New Zealand sparkling wine|Méthode Marlborough, a collaboration of sparkling wine producers]]
+{{Lang|fr|[[Traditional method|Méthode traditionelle]]}} sparkling wine is produced in New Zealand. In 1956, Selaks in Kumeu made the first commercial sparkling wine called Champelle.<ref name="saluting-selaks">{{Cite web| title = Saluting Selaks: Let's drink to the 'Dallies'| author-last = Barton| author-first = Warren| date = 6 December 2010| work = [[The Southland Times]]| publisher = [[Fairfax Media]]| access-date = 27 June 2018| url = http://www.stuff.co.nz/southland-times/life-style/wine/4417781/Saluting-Selaks-Lets-drink-to-the-Dallies| archive-date = 27 June 2018| archive-url = https://web.archive.org/web/20180627145855/http://www.stuff.co.nz/southland-times/life-style/wine/4417781/Saluting-Selaks-Lets-drink-to-the-Dallies| url-status = live}}</ref> In 1975, Daniel Le Brun, a [[Champagne]] maker, emigrated to New Zealand to begin producing {{Lang|fr|méthode traditionelle}} in Marlborough. The suitability of the Marlborough terroir and success of the wines produced over the next 20 years were sufficient to attract investment from large Champagne producers, most notably [[Deutz (wine)|Deutz]] and [[Moët & Chandon]]. Today, the Le Brun family continues to produce well-awarded {{lang|fr|méthode}} sparkling wine, operating as No. 1 Family Estate, after [[Lion (Australasian company)|Lion]] acquired the Daniel Le Brun name. In 2013, several Marlborough producers established Méthode Marlborough, a collaborative organisation to standardise and promote the brand both domestically and internationally.<ref name="methode-marlborough">{{Cite web| title = About Us| work = Méthode Marlborough| access-date = 27 June 2018| url = http://www.methodemarlborough.org/about| quote = Méthode Marlborough is a society of highly regarded Marlborough producers; established with the aim to communicate the quality and heritage of Marlborough traditional method sparkling wines.| archive-date = 27 June 2018| archive-url = https://web.archive.org/web/20180627144813/http://www.methodemarlborough.org/about| url-status = live}}</ref>
+
+Although the majority of {{Lang|fr|méthode traditionelle}} sparkling wines in New Zealand are made in Marlborough, there are also examples from throughout the rest of New Zealand. Quartz Reef is based in Central Otago, Church Road in Hawke's Bay, and Lindauer (originally established in Gisborne now also owned by [[Lion (Australasian company)|Lion]]); there are makers as far north as the Auckland regions as well.
+
+Exports of New Zealand sparkling wines are chiefly to the United Kingdom, where the best-known examples there are the Pelorus from Cloudy Bay, now owned by [[LVMH]], and the Special Reserve from Lindauer. More recently, exports of ''{{Lang|fr|méthode}}'' have been declining, halving in volume between 2005 and 2011, and now making up less than one percent of total New Zealand exports. This is due partly to a rise in popularity and production of sparkling Sauvignon Blanc, a new style of sparkling New Zealand wine, as well as the 21st century advent and success of [[English sparkling wine]] on UK shelves.<ref name="easton-sparkling">{{Cite web| title = New Zealand sparkling wine| author-first = Sally| author-last = Easton (MW)| work = Wine Wisdom| date = 22 February 2012| access-date = 27 June 2018| url = http://www.winewisdom.com/articles/regional-profiles/new-zealand-sparkling-wine/| archive-date = 27 June 2018| archive-url = https://web.archive.org/web/20180627144657/http://www.winewisdom.com/articles/regional-profiles/new-zealand-sparkling-wine/| url-status = live}}</ref>
+
+== Wine regions of New Zealand ==
+
+{{Cleanup split|Auckland wine region |Canterbury wine region |Hawke's Bay wine region |Marlborough wine region |Central Otago wine region |21=section|date=March 2026}}
+[[File:Geographical indications register for New Zealand wine.svg|thumb|upright=1.5|alt=See caption.|Map showing the major New Zealand wine regions (Geographical Indications)]]
+New law came into force in New Zealand in 2017 that established a Geographical Indication (GI) classification for New Zealand wine, equivalent to the European [[Protected Geographical Indication]] (PGI) classification and the [[American Viticultural Area]]s in the [[United States wine|United States]].<ref>{{cite news| last = MacLean| first = Hamish| date = 12 August 2017| title = Step up for wine regions| url = https://www.odt.co.nz/regions/central-otago/step-wine-regions| work = [[Otago Daily Times]]| location = Central Otago, New Zealand| access-date = 14 November 2017| archive-date = 14 November 2017| archive-url = https://web.archive.org/web/20171114202309/https://www.odt.co.nz/regions/central-otago/step-wine-regions| url-status = live}}</ref> In 2017, a total of 18 applications were lodged with the GI register at the [[Intellectual Property Office of New Zealand]], and registrations were complete by early 2019.<ref>{{cite web| title = Geographical indications Register| publisher = [[Intellectual Property Office of New Zealand]]| url = https://www.iponz.govt.nz/about-ip/geographical-indications/register/?location=nz&sort=north-to-south| access-date = 29 December 2017| archive-date = 29 December 2017| archive-url = https://web.archive.org/web/20171229172242/https://www.iponz.govt.nz/about-ip/geographical-indications/register/?location=nz&sort=north-to-south| url-status = live}}</ref>
+
+=== Northland ===
+
+Northland is the most northerly wine region in New Zealand, and thus closest to the [[equator]]. A Geographical Indication since October 2017, it is also the smallest GI, producing 269 tonnes in 2020 from an area of {{convert|71|ha}} under vines.<ref name="nzw-annual-report" /> Although Chardonnay is the most planted variety, Northland is most well known for ripe Syrah red wines, and white wines from Pinot Gris, which together comprise the top three planted varieties. Some Northland wineries are also making wine from warmer climate grapes such as Montepulciano, [[Chambourcin]] and Pinotage.<ref name="nzw-vineyard-report">{{Cite web| title = Vineyard Report 2020-2023| publisher = [[New Zealand Winegrowers]]| date = 2020| access-date = 21 April 2021| url = https://www.nzwine.com/en/media/statistics/vineyard-reports/| archive-date = 22 April 2021| archive-url = https://web.archive.org/web/20210422032430/https://www.nzwine.com/en/media/statistics/vineyard-reports/| url-status = live}}</ref> The combination of high summer temperatures and high rainfall can be challenging for viticulture; although irrigation is not needed, the humidity can encourage some pests and diseases. The fertile soils and Northland climate also results in high vine productivity, requiring good vineyard management to limit yields in order to ensure better quality wines. Consequently, Northland tends to produce ripe wines, with low acidity.
+
+=== Auckland ===
+
+{{Main|Auckland wine region}}
+The Auckland Geographical Indication is a small region covering the greater [[Auckland Region]], with a total vineyard area in 2022 of {{convert|285|ha}}.<ref name="nzw-annual-report"/> The region mostly consists of small boutique wineries, and produces some of New Zealand's finest Chardonnay white wines, as well as red Bordeaux-style wines and Syrah. Auckland has three sub-regions established as geographical indications: [[Waiheke Island (wine)|Waiheke Island]], [[Kumeu (wine)|Kumeu]], and [[Matakana (wine)|Matakana]].
+
+=== Gisborne ===
+
+Although the Gisborne GI established in October 2017 covers most of the East Cape [[Gisborne District]], most of the {{convert|1191|ha}} of vineyard area in 2020 is concentrated in a relatively small area around [[Gisborne, New Zealand|Gisborne city]].<!-- This area has declined from a peak of {{convert|2149|ha}} in 2009 due to ...? --><ref name="nzw-annual-report" /> The fertile Gisborne region originally grew prodigious grape yields throughout the mid-20th Century, which was mostly used to make fortified and cask wines. In the 1980s, a shift away from cask wine for better quality, bottled [[still wine]] meant that huge areas of bulk varieties, most notably Müller-Thurgau, were uprooted and replaced with Chardonnay and Gewürztraminer, for which the region is well known today. It is also the world's most easterly vine-producing region.{{citation needed|date=August 2021}}
+
+=== Hawke's Bay ===
+
+{{Main|Hawke's Bay wine region}}
+
+Hawke's Bay is New Zealand's oldest and second-largest wine region, and includes the Gimblett Gravels, Bridge Pa Triangle and Te Mata Special Character Zone sub-regions. It is best known for its Merlot and Syrah red wines, and white wines mainly from Chardonnay, Sauvignon Blanc and Viognier.{{citation needed|date=August 2021}}
+
+=== Wairarapa ===
+
+The Wairarapa winegrowing region, a Geographical Indication since October 2017, is one of New Zealand's smallest. It contains two GI sub-regions, [[Gladstone, New Zealand|Gladstone]] and Martinborough, as well as [[Masterton]] and [[Wairarapa Line|Opaki]]. Martinborough was the original area planted on the basis of careful scientific study in the 1970s, which identified its soils and climate as perfectly suited to the cultivation of Pinot Noir. As a consequence, many of the vineyards established there are older than their counterparts in the rest of the Wairarapa. In general, the area lies in the [[rain shadow]] of the [[Tararua Range]], which gives it a warm climate with relatively low rainfall. Subtle differences are seen in the wines from the [[South Wairarapa District|South Wairarapa]] (which includes Martinborough), which has more maritime influences, to those grown farther north in Gladstone and Masterton.{{citation needed|date=August 2021}}
+
+By 2020, the Wairarapa had 126 vineyards with a total area of {{convert|1067|ha}}, or about three per cent of the New Zealand total. Nearly half of this area is Pinot Noir, the remainder mostly Sauvignon Blanc, with smaller areas of Pinot Gris, Chardonnay, Riesling and Syrah.<ref name="nzw-vineyard-report"/>
+
+==== Martinborough ====
+
+Martinborough is a small wine village located {{convert|75|km}} east of Wellington by road, in the South Wairarapa. The combination of topography, geology, climate and human effort has led to the region becoming one of New Zealand's premier wine regions, despite its small size, particularly for Pinot Noir. The growing season from flowering to harvest is amongst the longest in New Zealand. Naturally breezy conditions control vine vigour, creating lower yields of grapes with greater intensity. A genuine cool climate, with a long, dry autumn, provides ideal ripening conditions for Pinot Noir and other varietals, such as Sauvignon Blanc, Pinot Gris and Syrah. Most of the wineries are on the Martinborough terrace, a raised alluvial terrace of the nearby [[Ruamāhanga River]].{{citation needed|date=August 2021}}
+
+Martinborough wineries are often relatively small and typically family-owned, with a stated focus on producing quality rather than quantity. Among the many long-established wineries, several, including Martinborough Vineyard, Schubert Wines, Te Kairanga, Ata Rangi, Palliser Estate, Luna Estate, Dry River, Escarpment, Te Hera, and Craggy Range have become internationally recognised for their Pinot Noir.<ref name="ws-martinborough">{{Cite web| title = Martinborough Wine Region| work = Wine-Searcher| date = 28 April 2014| url = https://www.wine-searcher.com/regions-martinborough| access-date = 23 February 2018| archive-date = 21 October 2018| archive-url = https://web.archive.org/web/20181021031230/https://www.wine-searcher.com/regions-martinborough| url-status = live}}</ref>
+
+=== Nelson ===
+
+Nelson has the sunniest climate in New Zealand, with an annual average sunshine total of over 2400 hours, approximately equivalent to [[Tuscany]].<ref>{{cite journal| author = Macara, G.R.| title = The climate and weather of Nelson and Tasman.| year = 2016| journal = Science and Technology Series| number = 71| url = https://www.niwa.co.nz/node/110338| access-date = 30 January 2018| archive-date = 31 January 2018| archive-url = https://web.archive.org/web/20180131200945/https://www.niwa.co.nz/node/110338| url-status = live}}</ref> The long autumns permit the production of fine late-harvest wines. There are two sub-regions in Nelson: Waimea and Moutere Valley. Notable wineries from the region include Neudorf Vineyards, awarded Raymond Chan's 2012 Winery of the Year <ref>{{cite web| author = Chan, R.| title = Raymond Chan Wine Reviews 'Winery of the Year 2012' – Neudorf Vineyards| url = http://www.raymondchanwinereviews.co.nz/blog/raymond-chan-wine-reviews-winery-of-the-year-2012-neudorf-vineyards| date = 10 December 2012| publisher = Raymond Chan Wine Reviews| access-date = 30 January 2018| archive-date = 28 January 2018| archive-url = https://web.archive.org/web/20180128120942/http://www.raymondchanwinereviews.co.nz/blog/raymond-chan-wine-reviews-winery-of-the-year-2012-neudorf-vineyards| url-status = live}}</ref> and [[Seifried Estate Winery]], who have won Champion Open White Wine, Champion Sauvignon Blanc and Best Wine - Nelson at the New Zealand Wine Awards in 2019.<ref>{{cite web |last1=Gee |first1=Samantha |title=Nelson's Seifried Estate recognised for champion wines at Royal Easter Show Wine Awards |url=https://www.stuff.co.nz/life-style/food-wine/drinks/120104664/nelsons-seifried-estate-recognised-for-champion-wines-at-royal-easter-show-wine-awards |website=stuff.co.nz |publisher=Stuff |access-date=22 September 2021 |date=20 March 2020 |archive-date=22 September 2021 |archive-url=https://web.archive.org/web/20210922033834/https://www.stuff.co.nz/life-style/food-wine/drinks/120104664/nelsons-seifried-estate-recognised-for-champion-wines-at-royal-easter-show-wine-awards |url-status=live }}</ref>
+
+=== Marlborough ===
+
+{{Pie chart of New Zealand vineyard area by region|<ref name="nzw-annual-report"/>}}
+{{Main|Marlborough wine region}}
+
+Marlborough is by far the largest wine region in New Zealand, accounting for three-quarters of the country's total wine production and 70% of its planted vineyard area. Internationally it is also the most recognised, its wines accounting for 85% of New Zealand's 2019 wine exports. Marlborough is well known internationally for its Sauvignon Blanc, and its Pinot Noir is also attracting attention.{{citation needed|date=August 2021}}
+
+=== Canterbury ===
+
+{{Main|Canterbury wine region}}
+
+The Canterbury Geographical Indication covers wine made anywhere within the [[Canterbury Region]] of New Zealand, a very large area of some {{convert|44500|km2}}. The North Canterbury GI is a subregion established in 2020 and is simply the top half of the larger Canterbury GI, north of the [[Rakaia River]]. In practice most Canterbury vineyards are concentrated in the Waipara Valley GI, a small subregion of North Canterbury with a warm microclimate and limestone soils about {{convert|60|km}} north of the city of [[Christchurch]].
+
+=== Waitaki Valley ===
+
+{{Main|Waitaki Valley wine region}}
+
+The [[Waitaki Valley wine region]] lies in North Otago on the southern side of the [[Waitaki River]], near the provincial boundary with Canterbury. Its vineyards extend from the limestone escarpments around [[Duntroon, New Zealand|Duntroon]] towards [[Omarama]], along a corridor of approximately {{convert|75|km}}.<ref name="directory">{{cite web |title=Waitaki Valley Wineries & Vineyards |url=https://nzwinedirectory.co.nz/wine-regions/south-island/waitaki-valley/ |publisher=New Zealand Wine Directory |access-date=29 October 2026}}</ref> The geographical indication ''Waitaki Valley North Otago / Waitaki Valley'' was registered on 3 December 2018.<ref name="gi-register">{{cite web |title=Waitaki Valley North Otago / Waitaki Valley |url=https://www.iponz.govt.nz/get-ip/geographical-indications/register/waitaki-valley-north-otago/ |publisher=Intellectual Property Office of New Zealand |access-date=29 October 2026}}</ref>
+
+The region combines north-facing limestone slopes and river gravels containing greywacke and schist with a cool, maritime-influenced climate. Warm summers and long, dry autumns can allow prolonged ripening, although frost presents a recurring risk.<ref name="nzw-region">{{cite web |title=Waitaki Valley Wine Region |url=https://www.nzwine.com/en/regions/waitakivalley/ |publisher=New Zealand Winegrowers |access-date=29 October 2026}}</ref> Its principal varieties are Pinot Noir, Pinot Gris, Chardonnay and Riesling. Waitaki Pinot Noir has been described as more restrained and delicate than that of neighbouring Central Otago.<ref name="pn-paradise"/>
+
+Modern commercial planting began in 2001.<ref name="nzw-region"/> Early ventures included [[Clos Ostler]], where Jim Jerram and Jeff Sinnott planted Pinot Noir in 2002 after investigating sites from 1998.<ref name="pioneers">{{cite web |title=Ostler: pioneers in the Waitaki Valley |url=https://www.nzwine.com/en/media/our-people/ostler/ |publisher=New Zealand Winegrowers |date=16 July 2020 |access-date=29 October 2026}}</ref> Low yields, high production costs and the global financial crisis subsequently slowed the region's development.<ref name="worth-effort">{{cite web |title=Waitaki – Worth The Effort |url=https://www.ruralnewsgroup.co.nz/wine-grower/wg-regional-updates/waitaki-%E2%80%93-worth-the-effort |publisher=New Zealand Winegrower |date=23 May 2013 |access-date=29 October 2026}}</ref> New Zealand Winegrowers recorded {{convert|49|ha}} planted, of which {{convert|45|ha}} was producing, in 2025.<ref name="vineyards-2026">{{cite web |title=Vineyard Report 2026 |url=https://www.nzwine.com/media/5fzng52v/vineyard-report-2026-final.pdf |publisher=New Zealand Winegrowers |date=2026 |pages=3, 6, 18 |access-date=29 October 2026}}</ref>
+
+=== Central Otago ===
+
+{{Main|Central Otago wine region}}
+
+[[File:Central Otago Wine.JPG|thumb|alt=Photograph of a vineyard in Bannockburn|Vineyard in [[Bannockburn, New Zealand|Bannockburn]], Central Otago]]
+Central Otago is home to the world's most southerly wine region. The vineyards are the highest in New Zealand – at {{convert|200|to|400|m}} above sea level – on the steep slopes of lakesides and the edges of deep river gorges, often in glacial soils. Central Otago is a sheltered inland area with a [[continental (wine)|continental]] [[microclimate (wine)|microclimate]] characterised by hot dry summers, short cool autumns, and crisp cold winters. It is divided into several subregions around [[Bannockburn, New Zealand|Bannockburn]], [[Bendigo, New Zealand|Bendigo]], [[Gibbston]] and [[Queenstown, New Zealand|Queenstown]], [[Wānaka]], the [[Kawarau Gorge]], the [[Alexandra, New Zealand|Alexandra]] Basin, and the [[Cromwell, New Zealand|Cromwell]] Basin.
+
+==== Bannockburn ====
+
+Bannockburn is a small Geographical Indication and sub-region of the Central Otago GI, located within the larger [[Cromwell, New Zealand|Cromwell Basin]] and defined by the [[Kawarau River]] and [[Lake Dunstan]] to the north and the high mountains of the [[Southern Alps]], specifically the Cairnmuir and Carrick Ranges, to the east, south and west.
+
+== Trends in production and export ==
+
+The initial focus for the industry's export efforts was the United Kingdom. The late 1970s and early 1980s were not only pioneering times for production but also for marketing. As with many New Zealand products, wine was only really taken seriously at home when it was noticed and praised overseas, and in particular by British wine commentators and critics. For much of the history of New Zealand's wine exports, the United Kingdom market, with its lack of indigenous production, great demand, and sophisticated wine palate, has been either the principal or only market.{{citation needed|date=August 2020}} More recently, this UK dominance has eroded. In 2000, the UK market represented half of New Zealand's total exports of NZ$168 million. By 2017, the export value had risen to NZ$1.66 billion. UK exports had dropped to second place at 23% of total exports behind the United States at 31%, with Australia accounting for 22% in third place. Other countries include Canada (six per cent), the Netherlands (three per cent), and China (two per cent). Wine exports to China, whilst still only a small proportion of export revenue, are remarkable for having grown more than tenfold in the decade since 2008.<ref name="nzwstats"/> Some wineries and industry pundits view the Chinese market as having a large untapped potential.<ref name="wine_Howi">{{Cite journal| title = Great opportunities for NZ wine in China| journal = Wine Technology News| date = 12 September 2012| url = http://winetechnology.co.nz/resource/how-important-are-nz-wine-exports-to-china-and-asia/| access-date = 21 February 2018| archive-date = 22 February 2018| archive-url = https://web.archive.org/web/20180222110326/http://winetechnology.co.nz/resource/how-important-are-nz-wine-exports-to-china-and-asia/| url-status = live}}</ref>
+
+Today, New Zealand's wine industry is highly successful in the international market. New Zealand Winegrowers reported in 2020 that export sales had risen to a record NZ$1.92 billion, with a goal to achieve NZ$2 billion and become a top five export industry. To meet the increasing demand for its wines, the entire country's vineyard plantings grew from {{convert|7410|ha}} in 1997 to {{convert|37129|ha}} in 2017.<ref name="nzw-annual-report" /> This more than five-fold increase in vineyard area over just two decades has led to a similar increase in sales and export revenue. In 2008, ''[[The Economist]]'' reported that for the first time, wine overtook wool to become New Zealand's 12th most valuable export at NZ$760 million, up from only NZ$94 million just a decade earlier in 1997. The industry sold one billion glasses of wine in nearly 100 countries, and over 10% of the wine sold in Britain for more than £5 was from New Zealand.<ref name="econ_sweetspot">{{Cite news |title=At the sweet spot |newspaper=[[The Economist]] |date=27 March 2008 |access-date=21 February 2018 |url=https://www.economist.com/business/2008/03/27/at-the-sweet-spot |archive-date=21 October 2017 |archive-url=https://web.archive.org/web/20171021054420/http://www.economist.com/node/10926423 |url-status=live }}</ref>
+
+As in many places in the world, an emerging trend in New Zealand wine is an increased recognition for high quality wines coming from small boutique wineries. In 2020, these smaller producers, with a vineyard area of no more than {{convert|20|ha}}, represented over three-quarters of New Zealand's wineries. They are located fairly evenly throughout all wine regions, with the larger producers predominantly in Marlborough, Hawke's Bay, Gisborne, and Waipara.<ref name="nzw-vineyard-report"/>
+
+New Zealand Winegrowers has also placed a growing emphasis on sustainability and organic certification, including monitoring and measuring water, energy, soil and pest management, waste reuse, land and [[biodiversity]] restoration, and social factors such as tourism impacts and staff training. Its first annual sustainability report in 2016 states that 98% of NZ's vineyard area is certified under its Sustainable Winegrowing New Zealand scheme.<ref name="nzw-sust2016">{{cite report| title = New Zealand Winegrowers Sustainability Report 2016| publisher = [[New Zealand Winegrowers]]| date = 2016| url = https://www.nzwine.com/media/1213/nzw-sustainability-report-2016.pdf| access-date = 1 March 2018| archive-date = 1 March 2018| archive-url = https://web.archive.org/web/20180301164415/https://www.nzwine.com/media/1213/nzw-sustainability-report-2016.pdf| url-status = live}}</ref>
+
+== Praise and criticism ==
+
+Cloudy Bay Vineyards set a new standard for New World Sauvignon Blanc and was arguably responsible for the huge increase in interest in it, particularly in the United Kingdom. [[Louis Vuitton Moët Hennessy]], a French luxury brand conglomerate, now owns a controlling interest in Cloudy Bay. Following on from the early success of Sauvignon Blanc, New Zealand has been building a strong reputation with other styles—Pinot Noir, Chardonnay, Cabernet/Merlot blends, Pinot Gris and Syrah to name a few.{{citation needed|date=August 2021}}
+
+UK wine writer Paul Howard praised New Zealand Pinot Noir in 2006, writing that "comparisons with Burgundy are inevitable" and that New Zealand Pinot Noir is:
+: "rapidly developing its own distinctive style, often with deeper colour, purer fruit and higher alcohol. While regional differences are apparent, the best wines do have Burgundy's elusive complexity, texture and 'pinosity' and are capable of ageing. It is a testament to the skill and craft of New Zealand producers that poor examples are infrequently encountered."<ref name="howard2006">{{cite web| author-last = Howard| author-first = Paul| url = https://www.jancisrobinson.com/articles/new-zealand-whats-the-latest| title = New Zealand - what's the latest?| quote = While regional differences are apparent, the best wines do have Burgundy's elusive complexity, texture and "pinosity" and are capable of ageing.| work = [[Jancis Robinson|jancisrobinson.com]]| date = 6 April 2006| access-date = 20 February 2018| archive-date = 20 February 2018| archive-url = https://web.archive.org/web/20180220152533/https://www.jancisrobinson.com/articles/new-zealand-whats-the-latest| url-status = live}}</ref><!-- Howard's original article is missing from his since-revamped Wine Alchemy website, leaving only the reprint on Jancis Robinson's, which is sufficient. -->
+In that same year, Pinot Noir overtook Chardonnay as New Zealand's second most-planted variety, after Sauvignon Blanc. In the decade since, its international reputation has "gone from strength to strength"<ref name="pn-paradise">{{Cite web| title = New Zealand: a Pinot Noir paradise| author-last = Campbell| author-first = Bob| work = [[Decanter (magazine)|Decanter]]| date = 25 September 2014| access-date = 20 February 2018| url = http://www.decanter.com/features/new-zealand-a-pinot-noir-paradise-245743/| quote = Over the past 30 years, New Zealand’s Pinot Noir has gone from strength to strength and become a serious player on the world stage. Here, Bob Campbell MW highlights the stylistic differences between each of the country’s five main regions, and the key estates and wines to watch.| archive-date = 20 February 2018| archive-url = https://web.archive.org/web/20180220212335/http://www.decanter.com/features/new-zealand-a-pinot-noir-paradise-245743/| url-status = live}}</ref> and has performed very well in reviews and competitions; wine from Marlborough has won the Champion Pinot Noir Trophy three times at the [[International Wine and Spirit Competition]] – in 2006, 2007, and by Giesen Wines most recently in 2016.<ref name="scoo_Gies">{{Cite press release| title = Giesen Wines Awarded World's Best Pinot Noir| agency = scoop.co.nz| publisher = Giesen Wines| date = 30 September 2016| access-date = 20 February 2018| url = http://www.scoop.co.nz/stories/BU1609/S01009/giesen-wines-awarded-worlds-best-pinot-noir.htm| quote = It is the third time in a decade that the Marlborough region has won the IWSC champion Pinot Noir trophy (also in 2006 and 2007).| archive-date = 21 February 2018| archive-url = https://web.archive.org/web/20180221035533/http://www.scoop.co.nz/stories/BU1609/S01009/giesen-wines-awarded-worlds-best-pinot-noir.htm| url-status = live}}</ref> A New Zealand wine also won the 2014 Decanter International Trophy for Best in Show Pinot Noir, up against Burgundy [[Gevrey-Chambertin]] [[Premier Cru]] and other top wines from around the world.<ref name="deca_DWWA">{{Cite web| title = DWWA 2014 International Trophies: Pinot Noir over £15| work = [[Decanter (magazine)|Decanter]]| date = 11 June 2014| access-date = 20 February 2018| url = http://www.decanter.com/decanter-world-wine-awards/latest-coverage/dwwa-2014-international-trophies-pinot-noir-over-15-11093/| quote = This year's Decanter World Wine Awards International Trophy for the Best in Show Pinot Noir over £15 went to Greystone, The Brothers' Reserve Pinot Noir, Waipara, Canterbury, New Zealand 2012.| archive-date = 20 February 2018| archive-url = https://web.archive.org/web/20180220212359/http://www.decanter.com/decanter-world-wine-awards/latest-coverage/dwwa-2014-international-trophies-pinot-noir-over-15-11093/| url-status = live}}</ref> However, many of the top producers in France do not submit their wines to international competitions.
+
+Waitaki Valley has also received international recognition for Pinot Noir. At the 2025 [[International Wine Challenge]], [[Clos Ostler]]'s Caroline's Pinot Noir 2021 won the New Zealand Red Trophy, New Zealand Pinot Noir Trophy and North Otago Pinot Noir Trophy.<ref name="iwc-2025">{{cite web |title=International Wine Challenge 2025 names eight Australian and six New Zealand wines amongst best in the world |url=https://www.internationalwinechallenge.com/filestore/pdf/IWC%202025/IWC%20Top%20Wines%20NZ%20and%20Australia.pdf |publisher=International Wine Challenge |date=10 September 2025 |access-date=29 October 2026}}</ref> At the 2026 [[Decanter World Wine Awards]], its EOS Pinot Noir 2022 received 97 points and the region's first Platinum medal.<ref name="decanter-2026">{{cite web |title=Decanter World Wine Awards 2026 results revealed: Global wine quality reaches new heights |url=https://www.decanter.com/decanter-awards/decanter-world-wine-awards-2026-results-revealed-global-wine-quality-reaches-new-heights/ |publisher=Decanter |date=17 June 2026 |author=Olivia Mason |access-date=29 October 2026}}</ref><ref name="pinot-2026">{{cite web |title=Pinot Noir Day: 15 top-scoring wines to discover |url=https://www.decanter.com/decanter-world-wine-awards/15-top-scoring-pinot-noir-wines-to-try-474158/ |publisher=Decanter |date=18 August 2026 |author=Martin Green |access-date=29 October 2026}}</ref>
+
+In 2023, the Hawkes Bay region was officially declared a Great Wine Capital of the World, alongside [[Bordeaux]], [[Napa Valley]] and [[Verona]].<ref>{{cite news |url=https://www.stuff.co.nz/style/350473089/hawke-s-bay-named-one-of-12-great-wine-capitals-in-the-world-alongside-bordeaux-verona-napa-valley |archive-url=https://web.archive.org/web/20230526094934/https://www.newshub.co.nz/home/lifestyle/2023/05/hawke-s-bay-named-one-of-12-great-wine-capitals-in-the-world-alongside-bordeaux-verona-napa-valley.html |url-status=live |archive-date=26 May 2023 |title=Hawke's Bay named one of 12 great wine capitals in the world, alongside Bordeaux, Verona, Napa Valley
+|date=2023-05-25 |publisher=Newshub }}</ref>
+
+== Statistics ==
+
+{{image frame
+  | caption = New Zealand annual wine production (1990–2025), in millions of litres of wine. Production increased dramatically in the first two decades of the 21st century. <br />
+{{small|Statistics from [[New Zealand Winegrowers]] 1993–2025 annual reports.}}<ref name="stats">{{cite web |url= https://www.nzwine.com/en/media/statistics |title=New Zealand Wine: Statistics & Reports |publisher=[[New Zealand Winegrowers]] |access-date=22 April 2021 |archive-date=22 April 2021 |archive-url= https://web.archive.org/web/20210422032432/https://www.nzwine.com/en/media/statistics |url-status=live}}</ref><ref name="nzwstats">{{cite web |url= https://www.nzwine.com/en/search/?&term=annual+report |title=Statistics from New Zealand Winegrowers 2003, 2007, 2008, 2013, and 2020 annual reports. |publisher=[[New Zealand Winegrowers]] |access-date=22 April 2021 |archive-date=20 February 2018 |archive-url= https://web.archive.org/web/20180220152403/https://www.nzwine.com/en/search/?&term=annual+report |url-status=live }}</ref>
+  | align = center | width = 700
+  | content =  {{#chart:New Zealand Annual Wine Production.chart}}
+}}
+
+{| class="wikitable sortable collapsible collapsed" style="text-align:center"
+|+ New Zealand wine production
+|-
+! Year !! Productive wine area (hectares) !! Total Production (millions of litres)
+|-
+! 1981
+| 2,600 || 44.0
+|-
+! 1982 
+| 4,700 || 47.0
+|-
+! 1983 
+| 5,000 || 57.7
+|-
+! 1984 
+| 5,500 || 41.7
+|-
+! 1985 
+| 5,900 || 59.6
+|-
+! 1986 
+| 4,300 || 42.4
+|-
+! 1987 
+| -     || 37.7
+|-
+! 1988 
+| -     || 39.2
+|-
+! 1989 
+| 4,270 || 45.3
+|-
+! 1990 
+| 4,880 || 54.4
+|-
+! 1991 
+| 5,440 || 49.9
+|-
+! 1992
+| 5,800 || 41.6
+|-
+! 1993 
+| 5,980 || 32.5
+|-
+! 1994 
+| 6,110 || 41.1
+|-
+! 1995 
+| 6,110 || 56.4
+|-
+! 1996 
+| 6,610 || 57.3
+|-
+! 1997 
+| 7,410 || 45.8
+|-
+! 1998 
+| 7,580 || 60.6
+|-
+! 1999 
+| 9,000 || 60.2
+|-
+! 2000 
+| 10,197 || 60.2
+|-
+! 2001 
+| 11,648 || 53.3
+|-
+! 2002 
+| 13,787 || 89.0
+|-
+! 2003 
+| 15,800 || 55.0
+|-
+! 2004 
+| 18,112 || 119.2
+|-
+! 2005 
+| 21,002 || 102.2
+|-
+! 2006 
+| 22,616 || 133.2
+|-
+! 2007 
+| 25,355 || 147.6
+|-
+! 2008 
+| 29,310 || 205.2
+|-
+! 2009 
+| 31,964 || 205.2
+|-
+! 2010 
+| 33,428 || 190.0
+|-
+! 2011 
+| 34,500 || 235.0
+|-
+! 2012 
+| 35,337 || 194.0
+|-
+! 2013 
+| 35,182 || 248.4
+|-
+! 2014 
+| 35,510 || 320.4
+|-
+! 2015
+| 35,463 || 234.7
+|-
+! 2016
+| 36,226 || 313.9
+|-
+! 2017
+| 36,943 || 285.1
+|-
+! 2018
+| 38,073 || 301.7
+|-
+! 2019
+| 38,680 || 297.4
+|-
+! 2020
+| 39,935 || 329.0
+|-
+! 2021
+| 40,949 || 266.4
+|-
+! 2022
+| 41,304 || 383.0
+|-
+! 2023
+| 41,991 || 360.7
+|-
+! 2024
+| 41,628 || 284.4
+|-
+! 2025
+| 42,520 || 374.0
+|}
+
+{{Chart of NZ vineyard area by variety over time|<ref name="stats"/>}}
+
+=== By region ===
+
+{| class="wikitable sortable"
+|+ New Zealand wine production by region, 2025<ref name="nzw-annual-report" />
+|-
+! Region !! Vineyard area (ha) !! Tonnes crushed
+|- align=right
+| align=left| Northland || 68 || 223
+|- align=right
+| align=left| Auckland || 258 || 890
+|- align=right
+| align=left| Gisborne || 1,265 || 12,679
+|- align=right
+| align=left| Hawke's Bay || 4,605 || 35,417
+|- align=right
+| align=left| Wairarapa || 1,122 || 7,597
+|- align=right
+| align=left| Marlborough || 30,469 || 410,291
+|- align=right
+| align=left| Nelson || 1,059 || 12,166
+|- align=right
+| align=left| North Canterbury || 1,497 || 15,019
+|- align=right
+| align=left| Waitaki Valley || 45 || 283
+|- align=right
+| align=left| Central Otago || 2,106 || 8,717
+|}
+
+== See also ==
+
+{{portal|New Zealand|Wine}}
+* [[New Zealand Winegrowers]]
+* [[New World wine]]
+* [[Alcohol in New Zealand]]
+
+== Footnotes ==
+
+{{Notelist}}
+
+== References ==
+
+{{Reflist}}
+
+=== Bibliography ===
+
+{{refbegin|30em|indent=yes}}
+
+* {{Cite book |author-last=Cooper |date=2010
+    |author-first=Michael |title=Wine Atlas of New Zealand |edition=2nd
+    |publisher=Hatchette New Zealand
+    |isbn=978-1-86971-091-0}} <!-- TODO: add to Wikidata -->
+* {{Cite Q |author1-last=Johnson |author2-last=Robinson |date=2019
+    |author1-first=Hugh | author1-link=Hugh Johnson (wine writer)
+    |author2-first=Jancis |author2-link=Jancis Robinson
+    |Q116727739}} <!-- World Atlas of Wine, 8th ed. -->
+* {{Cite book |author-last=Moran |date=2016
+    |author-first=Warren |title=New Zealand Wine: The Land, the Vines, the People
+    |publication-place=Auckland |publisher=[[Auckland University Press]]
+    |isbn=978-1-77558-877-1}} <!-- TODO: add to Wikidata -->
+* {{Cite Q |editor1-last=Robinson |editor2-last=Harding |date=2015
+    |editor1-first=Jancis |editor1-link=Jancis Robinson |editor2-first=Julia
+    |Q7755792}} <!-- Oxford Companion to Wine, 4th ed. -->
+
+{{refend}}
+
+== External links ==
+
+{{Commons category|Wines of New Zealand}}
+*[http://www.nzwine.com/ New Zealand Winegrowers]
+*[http://nzwinedirectory.co.nz/ The New Zealand Wine Directory]
+
+{{Wines}}
+{{Wine by country}}
+{{New Zealand topics}}
+{{Wine regions of New Zealand|state=expanded}}
+{{Authority control}}
+
+{{DEFAULTSORT:New Zealand Wine}}
+[[Category:New Zealand wine| ]]
+[[Category:New Zealand drinks]]
+[[Category:Wine by country]]
+[[Category:Agriculture in New Zealand]]

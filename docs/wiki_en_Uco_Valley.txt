@@ -1,0 +1,144 @@
+{{Short description|Human settlement in Argentina}}
+{{Infobox valley
+| name               = Uco Valley
+| other_name         = 
+| image              = Vineyard_in_Mendoza,_Argentina.jpg
+| caption            = Vineyards in the Uco Valley
+<!-- MAP -->
+| pushpin_map        = Argentina
+| image_map          = 
+| map_caption        = Location in Argentina
+| location           = {{Flag|Argentina}}, [[Mendoza Province|Mendoza]]
+| pushpin_relief     = yes
+| pushpin_label      = 
+| coordinates        = {{coord|33|37|S|69|08|W|dim:20000_region:AR|display=inline,title}}
+| coordinates_ref    = 
+<!-- Statistics -->
+| elevation          = 
+| elevation_m        = 
+| elevation_ft       = 
+| elevation_ref      = 
+| length_orientation = 
+| length             = 
+| width              = 
+| area               = 
+| depth              = 
+| type               = 
+| age                = 
+| boundaries         = 
+| topo               = 
+| towns              = 
+| traversed          = 
+| watercourses       = 
+<!-- Below -->
+| footnotes          = 
+| embed              = 
+}}
+
+'''Valle de Uco''' is a [[viticultural]] region southwest of [[Mendoza, Argentina|Mendoza]], in [[Argentina]]. Situated along the [[Tunuyán River]], the Uco Valley is widely considered one of the top [[Mendoza wine|wine regions in Mendoza]], and all of Argentina. The annual average temperature is {{convert|14|C|F}} and altitudes range from {{convert|900|-|1200|m|ft}} above sea level.<ref>Michel Rolland & E. Chrabolowsky (2208) ''Wines of Argentina'', pp. 93-94 Mirrol SA, Buenos Aires, Argentina</ref>
+
+The combination of high elevation, [[alluvial soils]], [[irrigation (wine)|irrigation]] sourced from the Andes Mountains, a long growing season with over 250 sunny days a year, little rain and vast temperature differences between day and night are all conducive to growing quality wine grapes.  These climate and geography elements come together to provide excellent fruit ripening and concentration, developing colors, aromas, flavors and textures resulting in wines that are deep in color, intense in aromas and rich in flavors. The Uco Valley figures prominently in the [[Argentina Wine Route]] for tourist visitors.<ref>{{cite web |title=Channel 2 Valle de Uco S.A. |url=http://www.jn000426.ferozo.com/ |website=Channel 2 Valle de Uco |archive-url=https://web.archive.org/web/20120324060625/http://www.jn000426.ferozo.com/ |archive-date=24 March 2012 |url-status=dead |access-date=8 July 2026}}</ref>
+
+Traditionally, the varietals grown in this area are [[Sémillon]] and [[Malbec]]; together with [[Douce noir|Bonarda]] and [[Barbera]] in a smaller amount.<ref>{{cite web |title=Vineyards in Uco Valley Mendoza |url=https://www.argentinawinetourism.com/wine_tourism_argentina/02-wine_routes_argentina/07-valle_de_uco_mendoza.htm |website=Altura Argentina Tourism & Wines |access-date=8 July 2026}}</ref>
+
+==Climate==
+{{Weather box
+|location = Valle de Uco (Temperature normals and records: 1993–2018; Precipitation normals: 1981-2010)
+|width=auto
+|metric first = yes
+|single line = Yes
+|Jan record high C = 39.0
+|Feb record high C = 36.5
+|Mar record high C = 34.0
+|Apr record high C = 31.0
+|May record high C = 28.2
+|Jun record high C = 27.2
+|Jul record high C = 27.0
+|Aug record high C = 31.5
+|Sep record high C = 34.0
+|Oct record high C = 38.4
+|Nov record high C = 34.8
+|Dec record high C = 36.6
+|year record high C = 39.0
+|Jan high C = 28.8
+|Feb high C = 26.9
+|Mar high C = 24.4
+|Apr high C = 19.9
+|May high C = 15.9
+|Jun high C = 13.3
+|Jul high C = 12.9
+|Aug high C = 14.5
+|Sep high C = 16.9
+|Oct high C = 20.7
+|Nov high C = 24.6
+|Dec high C = 27.8
+|year high C = 20.6
+|Jan mean C = 21.7
+|Feb mean C = 20.0
+|Mar mean C = 17.4
+|Apr mean C = 12.9
+|May mean C = 9.2
+|Jun mean C = 6.5
+|Jul mean C = 5.7
+|Aug mean C = 7.4
+|Sep mean C = 10.1
+|Oct mean C = 14.0
+|Nov mean C = 17.4
+|Dec mean C = 20.5
+|year mean C = 13.6
+|Jan low C = 14.5
+|Feb low C = 13.3
+|Mar low C = 11.2
+|Apr low C = 7.1
+|May low C = 3.9
+|Jun low C = 1.0
+|Jul low C = -0.3
+|Aug low C = 1.5
+|Sep low C = 3.8
+|Oct low C = 7.3
+|Nov low C = 10.0
+|Dec low C = 12.9
+|year low C = 7.2
+|Jan record low C = 3.8
+|Feb record low C = 2.0
+|Mar record low C = 1.5
+|Apr record low C = -3.0
+|May record low C = -9.6
+|Jun record low C = -8.2
+|Jul record low C = -13.6
+|Aug record low C = -13.8
+|Sep record low C = -5.6
+|Oct record low C = -0.6
+|Nov record low C = 0.6
+|Dec record low C = 0.3
+|year record low C = -13.8
+|precipitation colour = green
+|Jan precipitation mm = 43.2
+|Feb precipitation mm = 50.1
+|Mar precipitation mm = 52.1
+|Apr precipitation mm = 30.9
+|May precipitation mm = 29.4
+|Jun precipitation mm = 29.0
+|Jul precipitation mm = 37.3
+|Aug precipitation mm = 30.2
+|Sep precipitation mm = 40.4
+|Oct precipitation mm = 41.8
+|Nov precipitation mm = 40.1
+|Dec precipitation mm = 42.0
+|year precipitation mm = 466.3
+|source 1 = Red Hidrológica Nacional<ref>{{cite web
+| url = https://www.argentina.gob.ar/interior/secretaria-de-infraestructura-y-politica-hidrica/red-hidrologica-nacional
+| title = Base de Datos Hidrológica Integrada
+| date = 7 November 2017
+| publisher = Secretaría de Infraestructura y Política Hídrica
+| language = es
+| access-date = March 13, 2018}}</ref>
+}}
+
+==References==
+
+{{reflist}}
+
+== External links ==
+[https://www.bookyourwineguide.com/argentina/uco-valley/ Uco Valley guide].
+[[Category:Wine regions of Argentina]]

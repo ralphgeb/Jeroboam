@@ -1,0 +1,247 @@
+{{short description|Areas within South Africa where wine is manufactured}}
+[[File:South African wine regions.jpg|right|300px|thumb|General location of some South African wine regions]]
+The '''wine regions of South Africa''' were defined under the "Wine of Origin" (''Wyn van Oorsprong'') act of 1973. Mirroring the [[French (wine)|French]] ''[[Appellation d'origine contrôlée]]'' (AOC) system, all [[South African wine]]s listing a "Wine of Origin" must be composed entirely of grapes from its region.<ref name="Sotheby pp 445-446">T. Stevenson. ''"The Sotheby's Wine Encyclopedia"'', pp. 445-446, Dorling Kindersley 2005, {{ISBN|0-7566-1324-8}}.</ref> The "Wine of Origins" (WO) program mandates how wine regions of South Africa are defined and can appear on [[wine labels]]. While some aspects of the WO are taken from the AOC, the WO is primarily concerned with accuracy in labeling. As a result, the WO does not place adjunct regulations on wine regions such as delineating permitted varieties, trellising methods, [[irrigation (wine)|irrigation]] techniques, and crop [[yields (wine)|yields]].
+
+The WO system divides growing regions into four categories. The largest and most generic are '''Geographical Units''' (such as the [[Western Cape]] region) which subsume the smaller, but still broad spanning '''Regions''' (such as [[Cape South Coast]]). Under these are clustered '''districts''' (like [[Walker Bay]]) and within them are '''wards''' (such as [[Elgin, Western Cape|Elgin]]). Although these are geographic units, regions and districts are largely traced by political boundaries (wards are the segment most defined by unique, ''[[Terroir]]'' characteristics).<ref name="Oxford pp 645-649">J. Robinson (ed). ''"The Oxford Companion to Wine"'', Third Edition, pp. 162-163, Oxford University Press 2006 {{ISBN|0-19-860990-6}}.</ref>
+
+==Summary table==
+
+{| class="wikitable"
+! Geographical units
+! Region
+! District
+! Ward
+|-
+| Western Cape||Breede River Valley||Breedekloof||Goudini
+|-
+| ||||||Slanghoek
+|-
+| ||||||Scherpenheuvel
+|-
+| ||||Robertson||Agterkliphoogte
+|-
+| ||||||Bonnievale
+|-
+| ||||||Boesmansrivier
+|-
+| ||||||Eilandia
+|-
+| ||||||Hoopsrivier
+|-
+| ||||||Klaasvoogds
+|-
+| ||||||Le Chasseur
+|-
+| ||||||McGregor
+|-
+| ||||||Vinkrivier
+|-
+| ||Cape South Coast ||Cape Agulhas||Elim
+|-
+| ||||Overberg||Elgin
+|-
+| ||||||Greyton
+|-
+| ||||||Klein Rivier
+|-
+| ||||||Theewater
+|-
+| ||||Plettenberg Bay||
+|-
+| ||||Swellendam||Buffeljags
+|-
+| ||||||Malgas
+|-
+| ||||||Stormsvlei
+|-
+| ||||Walker Bay||Bot River
+|-
+| ||||||Hemel-en-Aarde Ridge
+|-
+| ||||||Hemel-en-Aarde Valley
+|-
+| ||||||Sunday's Glen
+|-
+| ||||||Upper Hemel-en-Aarde Valley
+|-
+| ||||Other||Herbertsdale
+|-
+| ||||||Stilbaai East
+|-
+| ||Coastal Region||Cape Peninsula||
+|-
+| ||||Darling||Groenekloof
+|-
+| ||||Franschhoek/Franschhoek Valley||
+|-
+| ||||Paarl||Simonsberg-Paarl
+|-
+| ||||||Voor Paardeberg
+|-
+| ||||||Wellington
+|-
+| ||||Stellenbosch||Banghoek
+|-
+| ||||||Bottelary
+|-
+| ||||||Devon Valley
+|-
+| ||||||Jonkershoek Valley
+|-
+| ||||||Papegaaiberg
+|-
+| ||||||Polkadraai Hills
+|-
+| ||||||Simonsberg-Stellenbosch
+|-
+| ||||Swartland||Malmesbury 
+|-
+| ||||||Riebeekberg
+|-
+| ||||Tulbagh||
+|-
+| ||||Tygerberg||Durbanville
+|-
+| ||||||Philadelphia
+|-
+| ||||Wellington||
+|-
+| ||||Other||Constantia
+|-
+| ||||||Hout Bay
+|-
+| ||Klein Karoo ||Calitzdorp||
+|-
+| ||||Langeberg-Garcia||
+|-
+| ||||Other||Montagu
+|-
+| ||||||Tradouw
+|-
+| ||||||Tradouw Highlands
+|-
+| ||||||Outeniqua
+|-
+| ||||||Upper Langkloof
+|-
+| ||Olifants River||Citrusdal Mountain, ||Piekenierskloof
+|-
+| ||||Citrusdal Valley||
+|-
+| ||||Lutzville Valley||Koekenaap
+|-
+| ||||Other||Bamboes Bay
+|-
+| ||||||Spruitdrift
+|-
+| ||||||Vredendal
+|-
+| ||||||Cederberg
+|-
+| ||||||Ceres
+|-
+| ||||||Lamberts Bay
+|-
+| ||||||Prince Albert Valley
+|-
+| ||||||Swartberg
+|-
+| Northern Cape||||Douglas||Hartswater
+|-
+| ||||||Central Orange River 
+|-
+| ||||||Rietrivier FS
+|-
+| ||||Sutherland-Karoo||
+|-
+| Eastern Cape||||||St Francis Bay
+|-
+|Free State
+|
+|
+|
+|-
+| [[KwaZulu-Natal wine|KwaZulu-Natal]]||||||
+|-
+| Limpopo||||||
+|-
+|North-West Province
+|
+|
+|
+|}
+
+==Geographical units==
+*[[Western Cape]] - A large multi-regional designation covering every appellation except those in the Northern Cape.
+*[[KwaZulu-Natal (wine)|KwaZulu-Natal]] - The whole Province was designated as a Geographical Unit in August 2005. 
+*[[Eastern Cape]] - The [[Eastern Cape]] Province was designated [[South Africa]]’s newest wine region in 2009.<ref name="newpaper">{{cite web | last = Sokopo | first = Asa | title = Eastern Cape's First Wine Estate | publisher = Daily Dispatch - South Africa | date = 5 June 2010 | url = http://www.dispatch.co.za/article/e-cape's-first-wine-estate-2010-06-05.html | access-date = 2010-06-05 }}{{Dead link|date=December 2025 |bot=InternetArchiveBot }}</ref>
+*[[Limpopo]]
+*[[Northern Cape]]
+*Free State
+*North-West Province
+
+==Regions==
+[[Western Cape (wine)|Western Cape]]
+*[[Boberg, South Africa|Boberg]] - For use in respect of fortified wines from Paarl, Franschhoek and Tulbagh.
+*[[Breede River Valley]] - contains three wine districts and fifteen wards.
+*[[Cape South Coast]] - contains five districts and 15 wards.
+*[[Coastal Region (South Africa)|Coastal Region]] - contains eight districts and seventeen wards.
+*[[Klein Karoo]] - contains two districts and five wards.
+*[[Olifants River (Western Cape)|Olifants River]] - contains three districts and five wards.
+
+[[Northern Cape (wine)|Northern Cape]]
+*[[Northern Cape]] - contains two districts and three wards.
+
+[[Eastern Cape (wine)|Eastern Cape]]
+*[[Eastern Cape]] - contains no districts and one ward.
+
+==Districts==
+*Boberg - [[Paarl]], [[Franschhoek]] and [[Tulbagh]]
+*Breede River Valley - [[Breedekloof]], [[Robertson, Western Cape|Robertson]], and [[Worcester, Western Cape|Worcester]]
+*Cape South Coast - [[Cape Agulhas]], [[Overberg]], [[Plettenberg Bay]], [[Swellendam]] and [[Walker Bay]] 
+*Coastal Region - [[Cape Peninsula]], [[Darling, Western Cape|Darling]], [[Franschhoek/Franschhoek Valley]], [[Paarl]], [[Stellenbosch]], [[Swartland]], [[Tulbagh]], [[Tygerberg]] and [[Wellington, Western Cape|Wellington]]
+*Klein Karoo - [[Calitzdorp]] and Langeberg-Garcia
+*Olifants River - [[Citrusdal Mountain]], [[Citrusdal Valley]] and [[Lutzville Valley]]
+*Northern Cape - [[Douglas, South Africa|Douglas]] and [[Sutherland-Karoo]],
+
+==Wards==
+[[File:Stellenbosch sauv blanc.jpg|right|thumb|A Sauvignon blanc from the WO of Stellenbosch.]]
+Western Cape:
+*Breedekloof district of the Breede River Valley - [[Goudini]] and [[Slanghoek]]
+*Robertson district of the Breede River Valley - [[Agterkliphoogte]], [[Bonnievale, South Africa|Bonnievale]], [[Boesmansrivier]], [[Eilandia]], [[Hoopsrivier]], [[Klaasvoogds]], [[Le Chasseur, South Africa|Le Chasseur]], [[McGregor, Western Cape|McGregor]] and [[Vinkrivier]]
+*Worcester district of the Breede River Valley - [[Aan-de-Doorns]], [[Hex River Valley]], [[Nuy]] and [[Scherpenheuvel, South Africa|Scherpenheuvel]]
+*Cape Agulhas district of the Cape South Coast - [[Elim, Western Cape|Elim]]
+*Overberg district of the Cape South Coast - [[Elgin, Western Cape|Elgin]], [[Greyton]], [[Klein River]] and [[Theewater]]
+*Swellendam district of the Cape South Coast - [[Buffeljags]], [[Malgas]] and [[Stormsvlei]]
+*Walker Bay district of the Cape South Coast - [[Bot River]], [[Hemel-en-Aarde Ridge]], [[Hemel-en-Aarde Valley]], [[Sunday's Glen]], [[Upper Hemel-en-Aarde Valley]]
+*Other wards from the Cape South Coast - [[Herbertsdale]] and [[Stilbaai East]]
+*Darling district of the Coastal Region - [[Groenekloof]]
+*Paarl district of the Coastal Region - [[Simonsberg-Paarl]], [[Voor Paardeberg]], and [[Wellington, Western Cape|Wellington]]
+*Stellenbosch district of the Coastal Region - [[Banghoek]], [[Bottelary]], [[Devon Valley]], [[Jonkershoek Valley]], [[Papegaaiberg]], [[Polkadraai Hills]] and [[Simonsberg-Stellenbosch]]
+*Swartland district of the Coastal Region - [[Malmesbury, Western Cape|Malmesbury]] and [[Riebeekberg]]
+*Tygerberg district of the Coastal Region - [[Durbanville]] and [[Philadelphia, South Africa|Philadelphia]]
+*Other wards in the Coastal Region - [[Constantia, Cape Town|Constantia]] and [[Hout Bay]]
+*Other wards in the Klein Karoo Region - [[Montagu, Western Cape|Montagu]], [[Tradouw]], [[Tradouw Highlands]], [[Outeniqua Mountains|Outeniqua]] and [[Upper Langkloof]]
+*Citrusdal Mountain district of the Olifants River region - [[Piekenierskloof]] 
+*Lutzville Valley district of the Olifants River region - [[Koekenaap]]
+Other wards in the Olifants River Region - [[Bamboes Bay]], [[Spruitdrift]], [[Vredendal]], [[Cederberg]], [[Ceres, Western Cape|Ceres]], [[Lamberts Bay]], [[Prince Albert Valley]] and [[Swartberg]]
+
+Northern Cape:
+*Wards of the Northern Cape - [[Hartswater]], [[Central Orange River]] and [[Rietrivier FS]]
+
+Eastern Cape:
+*Wards of the Eastern Cape - [[St Francis Bay]]
+
+==See also==
+* [[List of wineries in South Africa]]
+* [[History of South African wine]]
+* [[South African wine]]
+
+==References==
+{{reflist}}
+
+{{portal bar|Drink}}
+
+{{DEFAULTSORT:Wine Regions Of South Africa}}
+[[Category:Wine regions of South Africa| ]]
+[[Category:South African wine| ]]

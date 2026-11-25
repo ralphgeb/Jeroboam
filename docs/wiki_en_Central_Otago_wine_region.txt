@@ -1,0 +1,157 @@
+{{Short description|Wine region in New Zealand}}
+{{Use New Zealand English|date=December 2021}}
+{{More citations needed|date=August 2019}}
+{{Infobox Wine Region
+  | name = Central Otago
+  | image = RipponVineyard.jpg
+  | caption = Rippon vineyard by Lake Wānaka, Central Otago
+  | official name = 
+  | other name = 
+  | type = [[Geographical Indication]]
+  | year = 2018
+  | country = New Zealand
+  | part of =
+  | similar = 
+  | sub regions = Bannockburn, Bendigo, Wānaka, Gibbston Valley, Cromwell, Alexandra
+  | season = 
+  | climate region = 
+  | heat units = 
+  | precipitation = 
+  | soil = 
+  | total size = 
+  | planted = {{convert|1956|ha}}
+  | vineyards = 
+  | grapes = [[Pinot Noir]], [[Chardonnay]], [[Riesling]], [[Pinot Gris]]
+  | varietals =
+  | wineries = 133
+  | wine produced =
+  | designation =
+  | comments = Data source: [[New Zealand Winegrowers]], 2020<ref name="nzw-annual-report">{{cite web
+    | title = New Zealand Winegrowers Annual Report
+    | publisher = [[New Zealand Winegrowers]]
+    | date = 2020
+    | access-date = 14 May 2021
+    | url = https://www.nzwine.com/en/media/statistics/annual-report/
+    | archive-date = 19 February 2023
+    | archive-url = https://web.archive.org/web/20230219064122/https://www.nzwine.com/en/media/statistics/annual-report/
+    | url-status = dead
+    }}</ref><ref name="nzw-stats">{{cite web
+    | url = https://www.nzwine.com/en/media/statistics
+    | title = New Zealand Wine: Statistics & Reports
+    | publisher = [[New Zealand Winegrowers]]
+    | access-date= 14 May 2021
+  }}</ref>
+}}
+The '''Central Otago wine region''' is a [[geographical indication]] in [[New Zealand wine|New Zealand]]'s South Island, and the world's southernmost commercial wine growing region.<ref name="iponz">{{Cite web
+    | title = Geographical Indications Register: Central Otago
+    | work = Intellectual Property Office of New Zealand
+    | date = 29 October 2018
+    | access-date = 5 August 2019
+    | url = https://www.iponz.govt.nz/about-ip/geographical-indications/register/central-otago/
+  }}</ref> While Central Otago is best known for [[Pinot Noir]], many [[white wine]] varieties are also popular.<ref>{{cite web
+  |title=New Zealand Winegrowers Labelling Guide 22nd Edition August 2013
+  |url=http://www.nzwine.com/assets/sm/upload/5l/ep/ut/un/NZW_labelling_guide_Aug2013.pdf
+  |website=New Zealand Wine
+  |access-date=1 April 2015
+  |archive-date=17 April 2015
+  |archive-url=https://web.archive.org/web/20150417082059/http://www.nzwine.com/assets/sm/upload/5l/ep/ut/un/NZW_labelling_guide_Aug2013.pdf
+  |url-status=dead
+  }}</ref>
+
+==History of the wine region==
+Significant [[European ethnic groups|European]] occupation in this region started with the [[Otago gold rush]] in the 1860s. [[France|French]] [[immigrant]] gold miner Jean Desire Feraud soon started planting [[vine]]s and embarking upon small-scale commercial wine production, even winning medals in Australian wine competitions.{{sfn|Cooper|1993|p=174}} Late in the nineteenth century, the New Zealand government hired [[Romeo Bragato]] to survey the country. While this early experimentation showed the wine-growing potential of the region, the wine industry did not survive for long on a commercial basis.
+
+From the 1950s through to the late 1970s, there were many small-scale trial plantings of vines by private individuals and under the auspices of the [[New Zealand Department of Agriculture]]. By 1980 enough experience and confidence had been gained for commercial plantings to start.
+
+Vineyard planting and production remained modest until the middle of the 1990s when the industry began to expand rapidly. In 1996 there were just 11 [[Winery|wineries]] in the Central Otago region, according to New Zealand Winegrowers, accounting for 4.6% of the national total. By 2020 this had risen to 133 wineries and 18.5%. Over the same period, the area planted with vines rose from 92 to 1,930 hectares, a more-than twentyfold increase. Reflecting this rapid expansion, the long lead-time for planting to come into production, and the focus in Central Otago on quality wines rather than [[bulk wine]]s, actual wine production accounted for only 0.5% (376 tonnes) of the New Zealand total in 1996, increasing to 3.0% (11,868 tonnes) in 2019.
+
+{{Chart
+  | definition = Central Otago annual wine harvest in thousand tonnes of grapes crushed.chart
+  | data       = Central Otago annual wine harvest in thousand tonnes of grapes crushed.tab
+  | caption    = Central Otago annual harvest (1994–2025), in thousand tonnes of grapes crushed.<br>
+    {{small | Sources: ''[[Otago Daily Times]]'', [[New Zealand Winegrowers]] annual reports.<ref name="odt-nzw2007">{{cite news|newspaper=[[Otago Daily Times]]|date=21 May 2007|page=2|title=Otago's bumper wine harvest|access-date=|url=<!--TODO: check title, URL; digital.odt.co.nz is down currently-->}}</ref><ref name="nzw-stats"/>}}
+}}
+
+==Climate and soil==
+
+{{climate chart
+  | [[Alexandra, New Zealand|Alexandra]]
+  | 10.8 | 25.1 | 50.1
+  | 10.1 | 24.8 | 23.8
+  | 7.3  | 22.3 | 29.0
+  | 3.8  | 18.0 | 22.0
+  | 1.5  | 13.6 | 27.4
+  | -1.5 | 8.8  | 31.6
+  | -2.4 | 8.1  | 24.2
+  | -0.5 | 12.5 | 17.6
+  | 2.2  | 16.4 | 20.9
+  | 4.4  | 19.0 | 28.7
+  | 6.7  | 21.1 | 30.6
+  | 9.3  | 23.3 | 44.5
+  | source = [[NIWA]].<ref name="niwa">{{cite periodical
+    | last = Macara | first = G. R. | date = 2015 | edition = 3
+    | title = The climate and weather of Otago | publisher = NIWA
+    | periodical = Science and Technology Series | issue = 67 | pages = 44
+    | url = https://niwa.co.nz/regionalclimatologies/otago
+    | access-date=13 May 2021
+  }}</ref><ref>{{cite web
+    | work = NIWA | title = Climate data and activities
+    | date = 28 February 2007
+ | url = https://niwa.co.nz/education-and-training/schools/resources/climate
+    | access-date = 13 May 2021 }}</ref>
+    | float=right | clear=right
+}}
+At around {{convert|300|m|ft}}  [[elevation]], Central Otago's vineyards are protected from New Zealand's characteristic [[maritime climate (wine)|maritime climate]] by high mountains up to {{convert|3700|m|ft}} high. They thus have the only true [[continental climate (wine)|continental climate]] zone in the country, with large daily and seasonal temperature extremes. [[Rainfall]] averages around {{convert|375-600|mm|in}}: summer is hot and relatively dry, and often accompanied by the [[Nor'west arch|Nor'wester]] [[foehn wind]]; autumn is short, cool and sunny; and winter is cold, with substantial falls of snow. Heavy frosts are common throughout winter and, indeed, frost can occur at any time between March and November. One of Central Otago's warmest wine growing areas can be found just north of the Lowburn Inlet area.
+
+The climatic contrast between Central Otago and the more humid, warmer wine regions of the [[North Island]] can be illustrated by the difference in the timing of the grape harvest. In the more northerly vineyards, picking generally takes place in late February or early March, while in Central Otago the harvest begins in mid to late April &mdash; a difference of some six to seven weeks.
+
+The structure of the soil also differs considerably from other wine growing regions of the country, with heavy deposits of rough-edged mica and other metamorphic schists in silt loams. This soil drains easily, and given that most vineyards are positioned on hillside slopes, artificial [[irrigation (wine)|irrigation]] is generally essential.
+
+In 2025, Central Otago Winegrowers Association wrote to the Prime Minister expressing concern over the potential impact to the industry from the proposed [[Open-pit mining|open-pit]] goldmine in the [[Bendigo Goldfields|Bendigo]] region, highlighting the threats of contamination, reputational harm and long-term damage.<ref>{{Cite web |last= |first= |date=6 October 2025 |title=Central Otago Winegrowers Warn of Risks from Proposed Bendigo Goldmine |url=https://www.ruralnewsgroup.co.nz/wine-grower/wg-general-news/central-otago-bendigo-goldmine-risks |access-date=2026-03-13 |website=Rural News Group |language=en-gb}}</ref>
+
+==Central Otago's wines==
+
+[[File:Hinton central otago Pinot.jpg|left|thumb|180px|Pinot noir from Central Otago]]
+[[Pinot noir]] is the leading grape variety in Central Otago, estimated to account for over 80% of plantings.
+The other 20% of production comes from [[Chardonnay]], [[Sauvignon blanc]], [[Riesling]], [[Pinot gris]], and [[Gewürztraminer]].
+[[Sparkling wine]] is made in the [[Sparkling wine production#Traditional method|traditional style]] from Pinot noir and Chardonnay grapes.{{cn|date=May 2026}}
+
+==Sub-regions==
+[[File:016 Central Otago wine region - vineyard in Gibbston Valley in South Island, New Zealand.jpg|right|thumb|A vineyard in Gibbston valley]]
+The Central Otago wine region is broken into multiple sub-regions, each with its own climate and characteristics.<ref>{{Cite web |title=Subregions |url=https://www.centralotagowine.co/place-subregions |access-date=2026-05-24 |website=Central Otago Wine |language=en}}</ref>
+
+*[[Bannockburn, New Zealand|Bannockburn]] is a small Geographical Indication on the southern banks of the [[Kawarau River]] near [[Cromwell, New Zealand|Cromwell]] and is a very warm area that was known by gold miners as "the Heart of the Desert".<ref name="autogenerated1">{{cite web
+  |title=Central Otago Vineyards & Wineries
+  |url=https://www.cowa.org.nz/central-otago-wine-region.html
+  |website=Central Otago Wine Association (COWA)
+  |access-date=24 Aug 2010
+  |archive-date=26 May 2010
+  |archive-url=https://web.archive.org/web/20100526221719/http://www.cowa.org.nz/central-otago-wine-region.html
+  |url-status=dead
+  }}</ref> Grapes ripen early on sandy, silty loam soils. The elevation ranges from {{convert |220| to |370| m|ft}}.
+
+*[[Bendigo, New Zealand|Bendigo]] lies east of the [[Clutha River / Mata-Au]] and [[Lake Dunstan]], with grapes planted at both medium elevation ({{convert|220|m|ft}}) and high elevation terraces ({{convert|330| to |350|m|ft}}). This warm area has semi arid soils at variable depths, with free draining soils at the lower levels and shallower soils at higher elevations. 
+*[[Tarras]], on the eastern banks of the [[Clutha River / Mata-Au]], includes the vineyards at [[Maori Point]].<ref>{{Cite web |title=Subregions |url=https://www.centralotagowine.co/place-subregions |access-date=2026-05-24 |website=Central Otago Wine |language=en}}</ref>
+*[[Gibbston]] is a tight valley enclosed by mountainous terrain. About 250 hectares of vines are planted on sloping land on the southern bank of the [[Kawarau River]]. Gibbston is the coolest and highest of the sub-regions with vineyards between {{convert|320| and |420| m| ft}} altitude. It is sometimes referred to as the [[Queenstown, New Zealand|Queenstown]] subregion.
+*[[Wānaka]], the smallest of the sub-regions, has vineyards planted between the banks of [[Lake Wānaka]] and the town of [[Luggate]] to the east. Ranging between {{convert|290 |to| 320|m|ft}} above sea level, the vineyards have a similar but slightly warmer climate than those at Gibbston.
+*[[Alexandra, New Zealand|The Alexandra Basin]] is surrounded by the Clutha River / Mata-Au and [[Manuherikia River]] and regularly records New Zealand's hottest summer temperatures.<ref name="autogenerated1"/> [[Schist]] outcrops dominate the arid landscape. A wide [[Diurnal temperature variation|diurnal shift]] moderates the high temperatures.
+*[[Cromwell, New Zealand|The Cromwell Basin]]  contains the highest concentration of vines, in an area bounded by the [[Kawarau River]], [[Lake Dunstan]] and the Pisa mountain range. It is a warm district characterised by semi arid, high [[Terrace (agriculture)|terraces]] and [[moraines]] and gently sloping [[Alluvial fan|fans]].
+
+==References==
+{{reflist}}
+
+==External links==
+*[https://centralotagowine.co/ Central Otago Winegrowers Association]
+
+==Bibliography==
+{{refbegin}}
+* {{Cite Q |Q114772405 |author-last=Cooper |author-first=Michael |date=1993}}
+{{refend}}
+{{Portalbar|Wine|New Zealand}}
+{{Wine regions of New Zealand}}
+
+[[Category:Wine regions of New Zealand]]
+[[Category:Geography of Otago]]
+[[Category:Central Otago District]]
+[[Category:Clutha River]]
+[[Category:Central Otago wine region|*]]

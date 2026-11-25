@@ -1,0 +1,124 @@
+{{short description|New Zealand's largest wine region}}
+{{Use dmy dates|date=October 2019}}
+{{Infobox wine region
+  | name = Marlborough
+  | image = Wairau Valley vineyards in Marlborough, New Zealand.jpg
+  | caption = Wairau Valley vineyards in Marlborough, New Zealand
+  | official name = 
+  | other name = 
+  | type = [[Geographical Indication]]
+  | year = 1970s; GI registered in 2018
+  | country = [[New Zealand wine|New Zealand]]
+  | part of =
+  | similar = 
+  | sub regions = {{hlist | Awatere Valley | Southern Valleys | Wairau Valley }} 
+  | season = 
+  | climate region = 
+  | heat units = 
+  | precipitation = 
+  | soil = 
+  | total size = 
+  | planted = {{convert|27808|ha}}
+  | vineyards = 
+  | grapes = 343,036 tonnes
+  | varietals = {{hlist | [[Sauvignon Blanc]] | [[Chardonnay]] | [[Pinot Noir]] | [[Pinot Gris]] }}
+  | wineries = 158
+  | wine produced = 
+  | designation =
+  | comments = GI established 2018, commercial vineyards first established in 1973; data from 2020<ref name="nzw-annual-report">{{cite web
+    | title = Annual Report 2020
+    | publisher = [[New Zealand Winegrowers]]
+    | url = https://www.nzwine.com/en/media/statistics/annual-report/
+    | accessdate = 13 May 2021
+    | archive-date = 19 February 2023
+    | archive-url = https://web.archive.org/web/20230219064122/https://www.nzwine.com/en/media/statistics/annual-report/
+    | url-status = dead
+    }}</ref>
+}}
+{{Pie chart of New Zealand vineyard area by region|<ref name="nzw-annual-report"/>}}
+The '''Marlborough wine region''' is by far [[New Zealand]]'s largest, accounting in 2020 for three quarters of the [[New Zealand wine|country's wine production]], 70% of its vineyard area and 85% of its wine exports.<ref name="nzw-annual-report"/> It covers the entire [[Marlborough District]] and the [[Kaikōura District]] of the [[Canterbury Region]] in the north-east of the [[South Island]],<ref>{{Cite web|last=|first=|date=|title=Marlborough Wine geographical indication|url=https://www.iponz.govt.nz/about-ip/geographical-indications/register/marlborough/|access-date=2020-06-17|website=Intellectual Property Office of New Zealand|language=en-NZ}}</ref> but in practice the vineyards are concentrated around the [[Blenheim, New Zealand|Blenheim]] and [[Seddon, New Zealand|Seddon]] townships. Marlborough was registered as a [[Geographical Indication]] in 2018, and its [[Sauvignon Blanc]] is recognised as world class; wine writers such as [[Oz Clarke]] and [[George M. Taber|George Taber]] have described it as the best in the world.<ref name="economist1999">{{cite news|date=16 December 1999|title=The globe in a glass|url=https://www.economist.com/special-report/1999/12/16/the-globe-in-a-glass|newspaper=[[The Economist]]|author-last=Rachman|author-first=Gideon|quote=according to Oz Clarke, a respected British critic, New Zealand sauvignon blanc is now “arguably the best in the world.”|archive-date=22 February 2018|access-date=30 October 2019|archive-url=https://web.archive.org/web/20180222165034/http://www.economist.com/node/268095|url-status=live}}</ref><ref name="taber">{{cite book|url=https://archive.org/details/judgmentofparisc00tabe/page/243|title=Judgment of Paris: California vs France and the Historic 1976 Paris Tasting that Revolutionized Wine|author-last=Taber|author-first=George|date=2005|publisher=Scribner|isbn=978-0-74-324751-1|place=New York|pages=[https://archive.org/details/judgmentofparisc00tabe/page/243 243]|url-access=registration|quote=[Cloudy Bay is ...] what many people consider to be the world's best Sauvignon Blanc}}</ref>
+
+== History ==
+
+Early settlers in Marlborough planted vines as early as the 1870s. A small block of [[Muscat Blanc à Petits Grains|Brown Muscat]] was planted in 1873 by David Herd, but in 1931 his son pulled up the last of the vines, and no others were recorded in the region for the next forty years.<ref name="wm-history">{{Cite web |title=Marlborough's Wine History |last=Nicholson |first=Tessa |work=Wine Marlborough |url=http://www.wine-marlborough.co.nz/about-marlborough/marlboroughs-wine-history/ |access-date=30 October 2019 |archive-date=30 October 2019 |archive-url=https://web.archive.org/web/20191030040327/http://www.wine-marlborough.co.nz/about-marlborough/marlboroughs-wine-history/ |url-status=dead }}</ref> Commercial wine-making began in earnest only in 1973 when the first large-scale vineyards were planted by Montana Wines, at the time New Zealand's largest producer (now [[Brancott Estate]], owned by [[Vinarchy]]).<ref name="ws-marlborough">{{Cite web |title=Marlborough Wine |work=[[Wine-Searcher]] |date=4 October 2019 |url=https://www.wine-searcher.com/regions-marlborough |access-date=30 October 2019 |archive-date=30 October 2019 |archive-url=https://web.archive.org/web/20191030070410/https://www.wine-searcher.com/regions-marlborough |url-status=live }}</ref> Meanwhile, in 1975 Daniel Le Brun, a [[Champagne]] maker, emigrated to New Zealand to begin producing ''[[traditional method|méthode traditionelle]]'' in Marlborough.
+
+Wineries in the Marlborough region were producing outstanding Sauvignon Blanc by the early 1980s, and in 1985 the Sauvignon Blanc from [[Cloudy Bay Vineyards]] finally garnered international attention and critical acclaim for New Zealand wine.<ref name="OCW4-NZ">{{Cite encyclopedia|title=New Zealand|pages=505–509|encyclopedia=[[The Oxford Companion to Wine]]|edition=4th|editor-last1=Robinson|editor-first1=Jancis|editor-link1=Jancis Robinson|editor-last2=Harding|editor-first2=Julia|publisher=[[Oxford University Press]]|date=2015|isbn=978-0-19-870538-3}}</ref> Wine writer [[George M. Taber|George Taber]] recounted in 2006 that Cloudy Bay is "what many people consider to be the world's best Sauvignon Blanc" and [[Oz Clarke]] wrote that New Zealand Sauvignon Blanc is "arguably the best in the world."<ref name="taber"/><ref name="economist1999"/> The suitability of the region and later success of Daniel Le Brun's sparkling wines were also sufficient to attract significant investment from [[Champagne]] producers.
+
+{{Chart of NZ vineyard area by variety over time}}
+
+New Zealand's plantings of Sauvignon Blanc experienced enormous growth in the 21st century, driven almost exclusively by investment in the Marlborough region.<ref name="wm-history"/> Vineyard area of the grape expanded from {{convert|4516|ha}} in 2003 to {{convert|23102|ha}} in 2018, a five-fold increase in just 15 years.<ref name="nzw-annual-report"/>
+
+== Climate and geography ==
+
+{{climate chart
+  | [[Blenheim, New Zealand|Blenheim]]
+  | 11.8 | 24.1 | 48.9
+  | 11.5 | 23.8 | 49.4
+  | 9.8  | 21.9 | 46.5
+  | 6.9  | 19.0 | 52.7
+  | 4.5  | 16.0 | 60.6
+  | 2.2  | 13.3 | 70.7
+  | 1.5  | 12.6 | 74.3
+  | 2.6  | 13.8 | 62.2
+  | 4.7  | 15.8 | 65.2
+  | 6.5  | 18.0 | 67.4
+  | 8.4  | 20.0 | 55.0
+  | 10.8 | 22.2 | 58.1
+  | float=right | clear=right
+  | source = NIWA Climate Statistics, 1981–2010.<ref name="niwa">{{cite web
+    | url = http://www.niwa.co.nz/education-and-training/schools/resources/climate
+    | title = Climate Data and Activities
+    | date = 28 February 2007
+    | publisher = NIWA
+    | accessdate = 19 October 2013
+    | archive-date = 25 December 2018
+    | archive-url = https://web.archive.org/web/20181225042316/https://www.niwa.co.nz/education-and-training/schools/resources/climate%0a
+    | url-status = live
+    }}</ref>
+}}
+The soils in the [[Wairau Valley]] and the wine-growing districts surrounding [[Blenheim, New Zealand|Blenheim]] are primarily free-draining alluvial gravels. The valley is situated between the Richmond Ranges to the north and the Wither Hills to the south, which protect it from extreme weather conditions. These two factors make the valley ideal for viticulture. The climate is usually sunny and warm in summer and autumn, resulting in a long growing season, and the cool night-time sea breezes provide the temperature variation required for good characterful wines.<ref name="ws-marlborough"/> It can also be very dry, and younger vines often require some degree of [[irrigation]].<ref name=WAW7-cant>{{Cite encyclopedia | title = Marlborough | pages = 360 | encyclopedia = [[The World Atlas of Wine]] | edition = 7th | editor-first1 = Hugh | editor-last1 = Johnson | editor-link1 = Hugh Johnson (wine) | editor-last2 = Robinson | editor-first2 = Jancis | editor-link2 = Jancis Robinson | publisher = [[Mitchell Beazley]] | date = 2013 | isbn = 978-1-84533-689-9 }}</ref> Extensive planting has been undertaken on the river terraces and flood plains on the valley floor, although some wineries are using organic practices to also dry-farm vines on north-facing hill slopes.
+
+== Sub-regions ==
+
+[[File:Marlborough wine region map.svg|thumb|Map of the Marlborough wine region]]
+Although the Marlborough GI extends to the entire Marlborough and Kaikoura district boundaries, vineyards are broadly concentrated into three sub-regions.
+
+=== Wairau Valley ===
+The Wairau Valley is the flood plain and valley floor of the [[Wairau River]], around the town of [[Blenheim, New Zealand|Blenheim]], with deep alluvial gravel soils and river terraces.
+
+=== Southern Valleys ===
+The Southern Valleys are the north–south tributary valleys on the southern slope of the Wairau Valley. These valleys climb south into the Wither Hills, and form ideal, north-facing slopes with largely glacial [[loess]] soils.
+
+=== Awatere Valley ===
+[[File:Autumn in the Awatere Valley.jpg|thumb|Vineyards in the Awatere Valley, looking south towards the Kaikōura Ranges]]
+Awatere Valley is further to the south-east and south of the Wither Hills. The most recent sub-region to be substantially developed, it accounts for about a third of the total Marlborough growing area. Vineyards are concentrated in the alluvial valley floor of the [[Awatere River]], centred around the town of [[Seddon, New Zealand|Seddon]]. Vineyards are also planted further up the narrowing river valley floor to the southwest, and further south following [[State Highway 1 (New Zealand)|State Highway 1]] through to the township of [[Ward, New Zealand|Ward]]. This sub-region is protected from winds by both the Wither Hills and the mountains of the [[Kaikōura Ranges|Inland Kaikōura Range]] to the south, with a generally cooler climate.<ref name="ws-marlborough"/>
+
+== Winemaking and regulations ==
+
+{{Multiple image
+ | total_width = 260px
+ | align = right
+ | image1 = Appellation Marlborough Wine logo.png
+ | image2 = Methode marlborough.jpg
+ | alt1 = Appellation Marlborough Wine logo
+ | alt2 = Méthode Marlborough logo
+ | footer = Quality marks appearing on Marlborough wine labels: Appellation Marlborough Wine (''left''), and Méthode Marlborough (''right'').
+ | footer_align = left
+}}
+Marlborough was established in 2018 as a New Zealand geographical indication (GI) under new legislation.<ref name="iponz">{{Cite web | title = Geographical Indications Register: Marlborough | work = Intellectual Property Office of New Zealand | date = 23 March 2018 | url = https://www.iponz.govt.nz/about-ip/geographical-indications/register/marlborough/ | access-date = 5 August 2019 | archive-date = 30 October 2019 | archive-url = https://web.archive.org/web/20191030093841/https://www.iponz.govt.nz/about-ip/geographical-indications/register/marlborough/ | url-status = live }}</ref><ref name="somm_NewA">{{Cite web |title=New Act Protects New Zealand's Geographical Indications for Wine |last=Fallis |first=Catherine |work=The Somm Journal |date=10 November 2018 |access-date=30 October 2019 |url= https://www.sommjournal.com/new-act-protects-new-zealands-geographical-indications-for-wine/ }}</ref> In the same year, several Marlborough wineries formed an incorporated society ''Appellation Marlborough Wine'' to administer a global label trademark and a certification process to further protect the integrity and quality standards of Marlborough wines.<ref name="amw-faq">{{Cite web |title=Frequently Asked Questions |work=Appellation Marlborough Wine |url=https://www.appellationmarlboroughwine.co.nz/about/frequently-asked-questions |access-date=27 May 2022 |archive-date=21 May 2023 |archive-url=https://web.archive.org/web/20230521073849/https://www.appellationmarlboroughwine.co.nz/about/frequently-asked-questions |url-status=live }}</ref> To qualify, wines must be made entirely from sustainably grown grapes from Marlborough, comply with cropping rates set annually, and be bottled in New Zealand.<ref name="JR-appelation">{{Cite web|url=https://www.jancisrobinson.com/articles/appellation-marlborough-wine-launched|title=Appellation Marlborough Wine launched|author-last=Robinson|author-first=Jancis|date=7 June 2018|work=jancisrobinson.com|accessdate=2018-08-01|archive-date=30 October 2019|archive-url=https://web.archive.org/web/20191030025814/https://www.jancisrobinson.com/articles/appellation-marlborough-wine-launched|url-status=live}}</ref> Starting with the 2022 vintage, qualifying wines must also be approved by an independent tasting panel.<ref>{{cite news |title=Marlborough appellation strengthened |first=Bob |last=Campbell |newspaper=The Real Review |date=25 July 2022 |url=https://www.therealreview.com/2022/07/25/marlborough-appellation-strengthened/ |access-date=2 January 2023 |archive-date=27 November 2022 |archive-url=https://web.archive.org/web/20221127014221/https://www.therealreview.com/2022/07/25/marlborough-appellation-strengthened/ |url-status=live }}</ref>
+
+Marlborough also hosts significant production of ''[[Traditional method|méthode traditionelle]]'' sparkling wine made from Chardonnay and Pinot Noir, sufficient to attract investment from large Champagne producers [[G. H. Mumm|Mumm]], [[Deutz (wine)|Deutz]], [[Moët & Chandon]] (which now owns Cloudy Bay) and [[Veuve Clicquot]].<ref name="ther_NewZ">{{Cite web |title=New Zealand gets some food for thought from Tom Stevenson |last=Hooke |first=Huon |work=The Real Review |date=12 September 2015 |url=https://www.therealreview.com/2015/09/12/new-zealand-gets-some-food-for-thought-from-tom-stevenson/ |access-date=30 October 2019 |archive-date=5 August 2022 |archive-url=https://web.archive.org/web/20220805105538/https://www.therealreview.com/2015/09/12/new-zealand-gets-some-food-for-thought-from-tom-stevenson/ |url-status=live }}</ref> In 2013 several Marlborough producers established ''Méthode Marlborough'', a collaborative organisation to set quality standards and promote the brand both domestically and internationally. Méthode Marlborough wines must be produced entirely in Marlborough using the traditional method of production from only Marlborough-grown Pinot Noir, Chardonnay and Pinot Meunier, and aged on lees for a minimum of 18 months.<ref name="methode-marlborough">{{Cite web | title = About Us | work = Méthode Marlborough | accessdate = 2018-06-27 | url = http://www.methodemarlborough.org/about | quote = Méthode Marlborough is a society of highly regarded Marborough producers; established with the aim to communicate the quality and heritage of Marlborough traditional method sparkling wines. | archive-date = 27 June 2018 | archive-url = https://web.archive.org/web/20180627144813/http://www.methodemarlborough.org/about | url-status = live }}</ref>
+
+== References ==
+{{reflist}}
+
+== External links ==
+
+* [http://www.wine-marlborough.co.nz/ Wine Marlborough] official site
+* {{Commons-inline}}
+
+{{Wine regions of New Zealand}}
+
+[[Category:Wine regions of New Zealand]]
+[[Category:Marlborough District]]
+[[Category:Marlborough wine region|*]]

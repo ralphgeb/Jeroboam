@@ -1,0 +1,501 @@
+{{Short description|Fifth largest producer of wine in the world}}
+[[File:Vino Argentino Bebida Nacional Logo.jpg|right|thumb|Official logo for ''{{lang|es|Vino Argentino Bebida Nacional}}'' ("Argentine Wine National Liquor")<ref name=natliquor>{{cite Argentine law|l=26870 – Declárase al Vino Argentino como bebida nacional|date=2 de agosto de 2013|bo=32693|p=1}}</ref>]]
+{{multiple image
+| align = right
+| image1 = Vino tinto argentino.jpg
+| width1 = 170
+| alt1 = 
+| caption1 = 
+| image2 = Vino blanco argentino.jpg
+| width2 = 160
+| alt2 = 
+| caption2 = 
+| footer = Argentine red (left) and white (right) wine, with typical elements such as the ''pingüino'' ("penguin") and the "Drago" siphon.
+}}
+[[Argentina]] is the fifth largest producer of [[wine]] in the world.<ref name="Johnson atlas pp 300-301">H. Johnson & J. Robinson: ''The World Atlas of Wine'', pp. 300-301, Mitchell Beazley Publishing 2005 {{ISBN|1-84000-332-4}}.</ref> '''Argentine wine''', as with some aspects of [[Cuisine of Argentina|Argentine cuisine]], has its roots in colonial [[Spain (wine)|Spain]], as well in the subsequent large [[Immigration to Argentina|Spanish and Italian immigration]] which installed its mass consumption.<ref name=":0" /><ref name=":1" /><ref name=":2" /><ref name=":3" /> During the [[Spanish colonization of the Americas]], [[vine cuttings]] were brought to [[Santiago del Estero]] in 1557, and the cultivation of the grape and wine production stretched first to neighboring regions, and then to other parts of the country.{{Citation needed|date=September 2023}}
+
+Historically, Argentine winemakers were traditionally more interested in quantity than quality.<ref name=":2">{{cite journal |last1=Stein |first1=Stephen |title=Making Wine for the People's Taste: The Emergence of the Argentine Wine Industry, 1885–1915 |journal=Journal of the Canadian Historical Association |date=2023 |volume=33 |issue=2 |pages=89–113 |doi=10.7202/1108199ar }}</ref> The country's wine industry exploded in the 1880s and into the early 20th century as the result of a rapidly growing population, the immigration of new producers, workers, and consumers from other wine regions (Italy and Spain), and the completion of a railroad between Mendoza and Buenos Aires.<ref name=":0">{{cite web |last1=Stein |first1=Stephen |title="Lots of Wine, Very Quickly, Very Badly:" European Immigrants and the Making of Argentina's Wine Industry |url=https://bridgetoargentina.com/podcast/ |website=Bridge to Argentina |access-date=25 May 2024}}</ref> Until the early 1990s, [[Argentina]] produced more wine than any other country outside Europe, though the majority of it was considered unexportable and was for internal consumption, as part of the typical [[Mediterranean diet]] installed in the country by the mass Italian and Spanish [[Immigration to Argentina|immigration]].<ref name=":1">{{Cite web |date=2023-05-22 |title=La influencia de los italianos en la industria vinícola argentina |url=https://italianosdargentina.com.ar/la-influencia-de-los-italianos-en-la-industria-vinicola-argentina/ |access-date=2024-07-20 |website=Italianos en Argentina |language=es}}</ref><ref name=":3">{{Cite web |last=Portelli |first=Por Fabricio |date=2023-11-24 |title=Cómo el vino se convirtió en la bebida nacional argentina: 10 etiquetas para celebrar su día |url=https://www.infobae.com/tendencias/2023/11/24/como-el-vino-se-convirtio-en-la-bebida-nacional-argentina-10-etiquetas-para-celebrar-su-dia/ |access-date=2024-07-20 |website=infobae |language=es-ES}}</ref><ref name=jr07>{{cite web |last= Robinson |first= Jancis |title= Chile v Argentina - an old rivalry |url= http://www.jancisrobinson.com/articles/20070708_1.html |date= July 13, 2007 |access-date= December 26, 2008 |archive-url= https://web.archive.org/web/20140703234845/http://www.jancisrobinson.com/articles/20070708_1.html |archive-date= July 3, 2014 |url-status= dead }}</ref><ref>{{Cite web |date=2024-06-26 |title=Origen del primer vino argentino: Descubre su historia |url=https://blog.borderio.com/origen-del-primer-vino-argentino-descubre-su-historia/ |access-date=2024-07-20 |language=es}}</ref><ref>{{Cite web |date=2024-05-15 |title=Tomar un vino de... 1940. Crece la costumbre de guardar vino y el gusto por las botellas añejas |url=https://www.lanacion.com.ar/sabado/tomar-un-vino-de-1940-crece-la-costumbre-de-guardar-vino-y-el-gusto-por-las-botellas-anejas-nid15052024/ |access-date=2024-07-20 |website=LA NACION |language=es}}</ref> However, the desire to increase [[export]]s fueled significant advances in quality. Argentine wines started being exported during the 1990s, and are currently growing in popularity, making it now the largest wine exporter in South America. The devaluation of the [[Argentine peso]] in 2002 further fueled the industry as production costs decreased and tourism significantly increased, giving way to a whole new concept of [[enotourism]] in Argentina.{{Citation needed|date=September 2023}}
+
+The most important wine regions of the country are located in the [[provinces of Argentina|provinces]] of [[Mendoza (wine)|Mendoza]], [[San Juan Province (Argentina)|San Juan]] and [[La Rioja Province (Argentina)|La Rioja]]. [[Salta Province|Salta]], [[Catamarca Province|Catamarca]], [[Río Negro Province|Río Negro]] and more recently southern [[Buenos Aires wines|Buenos Aires]] are also [[wine producing region]]s. The [[Mendoza province]] produces more than 60% of the Argentine wine and is the source of an even higher percentage of the total exports. Due to the high altitude and low humidity of the main wine producing regions, Argentine [[vineyard]]s rarely face the problems of insects, fungi, molds and other [[grape diseases]] that affect vineyards in other countries. This allows cultivating with little or no pesticides, enabling even [[organic wine]]s to be easily produced.<ref name="MacNeil pp 848-857">K. MacNeil ''The Wine Bible'' pp. 848-857. Workman Publishing 2001 {{ISBN|1-56305-434-5}}.</ref>
+
+There are many different varieties of grapes cultivated in Argentina, reflecting the country's many immigrant groups. The [[French (wine)|French]] brought [[Malbec]], which makes most of Argentina's best known wines. The [[Italians (wine)|Italians]] brought vines that they called ''Bonarda'', although Argentine Bonarda appears to be the [[Douce noir]] of [[Savoie (wine)|Savoie]], also known as Charbono in [[California (wine)|California]]. It has nothing in common with the light fruity wines made from [[Bonarda Piemontese]] in [[Piedmont (wine)|Piedmont]].<ref name=jar-arg>{{cite web |last= Robinson |first= Jancis |title= Argentina |url= http://www.jancisrobinson.com/articles/a2008080712.html |date= September 9, 2008 |access-date= December 26, 2008 |archive-url= https://web.archive.org/web/20140306221355/http://www.jancisrobinson.com/articles/a2008080712.html |archive-date= March 6, 2014 |url-status= dead}}</ref> [[Torrontés]] is another typically Argentine grape and is mostly found in the provinces of La Rioja, San Juan, and Salta. It is a member of the [[Malvasia]] group{{fact|date=October 2023}} that makes aromatic white wines. It has recently been grown in Spain. [[Cabernet Sauvignon]], [[Syrah]], [[Chardonnay]] and other [[international varieties]] are becoming more widely planted, but some varieties are cultivated characteristically in certain areas.<ref name="Wine pp 840-844">A. Domine (ed): ''Wine'' pp. 840-844. Ullmann Publishing 2008 {{ISBN|978-3-8331-4611-4}}.</ref>
+
+In November 2010, the [[government of Argentina|Argentine government]] declared [[wine]] as [[Argentina]]'s [[List of national liquors|national liquor]].<ref name=natliquor/>
+{{TOC limit}}
+
+==History==
+{{See also|History of Argentina}}
+[[File:Ignacio Baz - Domingo F. Sarmiento - Google Art Project.jpg|thumb|200px|As a provincial governor, [[Domingo Sarmiento]] was instrumental in having the first [[Malbec]] vines brought from France to Argentina]]
+
+[[Viticulture]] was introduced to Argentina during the Spanish colonization of the Americas and later again by [[Spanish missions in South America|Christian missionaries]]. In 1556 father Juan Cedrón established the first vineyard in Argentina when cuttings from the [[Central Valley (Chilean wine region)|Chilean Central Valley]] were brought to what is now the [[San Juan Province (Argentina)|San Juan]] and [[Mendoza wine]] region, which firmly established viticulture in Argentina.<ref>{{cite web|url=http://www.tryvino.com/The-History-of-Wine-in-Argentina.html |title=The History of Wine in Argentina |access-date=2011-07-14 |url-status=dead |archive-url=https://web.archive.org/web/20120327154417/http://www.tryvino.com/The-History-of-Wine-in-Argentina.html |archive-date=2012-03-27 }}</ref> [[Ampelographers]] suspect that one of these cuttings brought the ancestor grape of [[Chile (wine)|Chile]]'s [[Pais]] and California's [[Mission grape]]. This grape was the forerunner of the ''Criolla Chica'' variety that would be the backbone of the Argentine wine industry for the next 300 years.<ref name="Oxford pp 29-33">J. Robinson (ed) ''"The Oxford Companion to Wine"'' Third Edition, pp. 29-33. Oxford University Press 2006 {{ISBN|0-19-860990-6}}.</ref>
+
+The first recorded commercial vineyard was established at [[Santiago del Estero]] in 1557 by [[Jesuit missionaries]] which was followed by expansion of vineyard plantings in Mendoza in the early 1560s and San Juan between 1569 and 1589. During this time the missionaries and settlers in the area began construction of complex [[irrigation (wine)|irrigation]] channels and dams that would bring water down from the melting glaciers of the Andes to sustain vineyards and [[Agriculture in Argentina|agriculture]].<ref name="Oxford pp 29-33"/> A provincial governor, [[Domingo Faustino Sarmiento]], instructed the French [[agronomist]] Miguel Aimé Pouget to bring grapevine cuttings from France to Argentina. Of the vines that Pouget brought were the very first Malbec vines to be planted in that country.<ref name="Wine pp 840-844"/>
+
+As the early Argentine wine industry centralized in the western part of the country among the foothills of the mountains, the population centers of the country developed in the east. Transporting wine by means of a long wagon journey put a crimp in the growth of the wine industry that would not be eased till the 1885 completion of the [[Rail transport in Argentina|Argentine railway]] that connected the city of [[Mendoza, Argentina|Mendoza]] to Buenos Aires. Don Tiburcio Benegas, governor of the province of Mendoza and owner of [[El Trapiche]] wine estate, was instrumental in financing and pushing through the construction, convinced that in order for the Argentine wine industry to survive it needed a market.<ref name="Johnson pp 434">H. Johnson ''Vintage: The Story of Wine'' pp. 434 Simon and Schuster 1989 {{ISBN|0-671-68702-6}}.</ref> The 19th century also saw the first wave of immigrants from Europe. Many of these immigrants were escaping the scourge of the [[phylloxera epidemic]] that ravaged vineyards in their homeland and they brought with them their expertise and winemaking knowledge to their new home.<ref name="Oxford pp 29-33"/>
+
+===Economic troubles and growth of export industry===
+In the 20th century, the development and fortunes of the Argentine wine industry were deeply influenced by the [[Economy of Argentina|economic influences]] of the country. In the 1920s, Argentina was the eighth richest nation in the world {{citation needed|date=August 2013}} with the domestic market feeding {{citation needed|date=August 2013}} a strong wine industry. The ensuing global [[Great Depression]] dramatically reduced vital export revenues and foreign investment and led to a decline in the wine industry.{{Citation needed|date=September 2023}}
+
+There was a brief revival in the economy during the [[President of Argentina|presidency]] of [[Juan Perón]] but the economy declined soon again under the [[History of Argentina (1966–1973)|military dictatorship]] of the 1960s and 1970s. During this time the wine industry was sustained by the domestic consumption of cheap ''[[vino de mesa]]''. By the early 1970s, per capita consumption was nearly {{convert|90|L|usgal|abbr=on|disp=or}} (''i.e.'' around 120 standard 750 mL wine bottles) per year, significantly more than many other countries including the [[United Kingdom]]<ref name="Oxford pp 29-33"/> and [[United States]] which averaged around three liters (less than a gallon) per person during the same period.<ref name="MacNeil pp 848-857"/>
+
+In the 1980s there was a period of [[Hyperinflation#Argentina|hyperinflation]], running at up to 12,000%<!--twelve thousand percent--> per year in 1989.<ref>[https://www.nytimes.com/1989/06/04/weekinreview/the-world-for-argentina-inflation-and-rage-rise-in-tandem.html?src=pm New York Times: THE WORLD; For Argentina, Inflation and Rage Rise in Tandem, 4 June 1989]</ref> Foreign investment was mostly stagnant. Under the presidency of [[Carlos Menem]], the country saw some economic stability. The favorable [[exchange rate]] on the [[Argentine peso]] during the [[Convertibility plan|convertibility period]] saw an influx of foreign investment. However this period also saw a dramatic drop in domestic consumption.<ref name="Oxford pp 29-33"/>
+
+Following the example of neighboring Chile, the Argentine wine industry started to more aggressively focus on the export market—particularly the lucrative British and American markets. The presence of Flying winemakers from [[France (wine)|France]], [[California (wine)|California]] and [[Australia (wine)|Australia]] brought modern technical know-how for [[viticultural]] and [[winemaking]] techniques such as [[yield (wine)|yield]] control, temperature control [[fermentation (wine)|fermentation]] and the use of new [[oak (wine)|oak barrels]]. By the end of the 1990s, Argentina was exporting more 3.3 million gallons (12.5 million liters) to the United States with exports to the UK also strong. Wine experts such as [[Karen MacNeil]] noted that up to this point the Argentine wine industry was considered a "sleeping giant" which by the end of the 20th century was waking up.<ref name="MacNeil pp 848-857"/>
+
+==Climate and geography==
+{{See also|Climate of Argentina|Climatic regions of Argentina}}
+[[File:Annual Precipitation Map Argentina INTA.png|thumb|350px|Located in the western part of the country among the foothills of the Andes, the major wine regions of Argentina have a semi-arid desert-like climate owing to low annual precipitation and rely on irrigation from the melting snow caps of the mountains for viticulture.]]
+The major wine regions of Argentina are located in the western part of the country among the foothills of the [[Andes Mountains]] between the [[Tropic of Capricorn]] to the north and the [[40th parallel south]]. Most of the regions have a [[Semi-arid climate|semi-arid desert]]-like climate with annual rainfall rarely exceeding more than {{convert|250|mm|in|abbr=on|0}} a year. In the warmest regions (such as [[Catamarca (province)|Catamarca]], [[La Rioja (Argentinan province)|La Rioja]], [[San Juan Province (Argentina)|San Juan]] and the eastern outreaches of [[Mendoza (province)|Mendoza]]), summer temperatures during the [[growing season (vine)|growing season]] can be very hot during the day with temperatures upwards of {{convert|40|C}}. Nighttime temperatures can drop to {{convert|10|C}} creating a wide [[diurnal temperature variation]].<ref name="Oxford pp 29-33"/>
+
+Some regions have more [[temperate climate]]s such as the [[Cafayate]] region of [[Salta (province)|Salta]], [[Río Negro (province)|Río Negro]] and the western reaches of Mendoza which includes the [[Luján de Cuyo (department)|Luján de Cuyo]] and [[Tupungato department]]s. Wintertime temperatures can drop below {{convert|0|C}} but frost is a rare occurrence for most vineyards, except those planted at extremely high [[altitudes]] with poor air circulation. Most rainfall occurs during the summer months and in late summer sometimes fall as [[hail]] (known as ''La Piedra''), posing potential damage to the vines.<ref name="Oxford pp 29-33"/> These warmer regions can see an average of 320 days of sunshine a year.<ref name="MacNeil pp 848-857"/>
+
+The northwestern wine regions are particularly prone to the effects of the [[hurricane force]] winds known as the ''[[Zonda (wind)|Zonda]]'' which blows from the Andes during the [[flowering (vine)|flowering]] period of early summer. This fierce wind of hot, dry air can disrupt the flowering process and severely reduce potential [[yields (wine)|yields]]. Most of the growing season is dry with the lack of [[humidity]] limiting the risk and hazard from various [[grape diseases]] and fungal rot. Many vineyards operate without the need for any chemical spraying, a condition conducive to [[organic viticulture]]. The periodic occurrence of the [[El Niño]] phenomenon can have a sharp influence on climate condition during a growing season-such as the case during the 1998 [[vintage]] when prolong heavy rains brought by El Niño led to widespread rot and fungal disease.<ref name="Oxford pp 29-33"/>
+
+The Andes Mountains are the dominant geographical feature of Argentine wine regions, with the snow-capped mountains often serving as a backdrop view to the vineyards. As the winter snows start to melt in the spring, an intricate irrigation system of dams, canals and channels brings vital water supplies down to the wine regions to sustain viticulture in the dry, arid climates. Most of the wine regions are located within the foothills of the Andes and recent trends have seen a push to plant vineyards on higher elevations closer to the mountains.<ref name="Wine pp 840-844"/>
+
+The climate in some of this regions can be more [[continental (wine)|continental]] and less prone to extremes in temperatures. Soils throughout the country are mostly [[alluvial]] and [[sand]]y with some areas having [[Substrate (biology)|substrates]] of [[clay]], [[gravel]] and [[limestone]]. In the cooler [[Patagonia]] region which contains the winemaking provinces of Río Negro and [[Neuquén (province)|Neuquén]], the soil is more [[chalk]]y.<ref name="Oxford pp 29-33"/>
+
+==Viticulture==
+The growing season in Argentina usually last from [[budbreak (vine)|budbreak]] in October to [[harvest (wine)|harvest]] beginning sometime in February. The ''Instituto Nacional de Vitivinicultura'' (INV), the main government controlling body for the wine industry, declares the beginning date for harvest in a region with the harvest season sometimes lasting till April depending on the variety and wine region. A sizable population of [[wikt:itinerant|itinerant]] laborers provides an abundance of grape pickers at low cost which has slowed the conversion to [[mechanical harvesting]]. After harvest, grapes often have to be transported long distances, taking several hours, from the rural vineyards to winemaking facilities located in more urban areas. In the 1970s, yields were reported as surpassing {{convert|22|ST/acre|t/ha|order=flip}}, a sharp contrast to the average yields in premium wine regions such as [[Bordeaux (wine)|Bordeaux]] and [[Napa Valley (wine)|Napa Valley]] of {{convert|2|to|5|ST/acre|t/ha|order=flip|abbr=on|0}}.<ref name="MacNeil pp 848-857"/> As the Argentine wine industry continues to grow in the 21st century, several related viticultural trends will involve improvements in irrigation, yield control, [[canopy management]] and the construction of more winemaking facilities closer to the vineyards.<ref name="Oxford pp 29-33"/>
+
+[[File:Cafayate vineyard.jpg|thumb|250px|A vineyard in the [[Cafayate]] region of [[Calchaquí Valleys]], [[Salta]], utilizing modern vine training and drip irrigation techniques.]]
+Argentina is unique in the wine world for the absence of the [[phylloxera]] threat that has [[Great French Wine Blight|devastated vineyards]] across the globe. The phylloxera louse is present in Argentina but is a particular weak biotype that does not survive long in the soil. When it does attack vines, the damage is not significant enough to kill the vine and the roots eventually grow back.<ref name="Johnson atlas pp 300-301"/>
+
+Because of this, most of the vineyards in Argentina are planted on [[grafting|ungrafted]] [[rootstock]]. There are many theories about why phylloxera has not yet reached this part of the world. The centuries-old tradition of [[flood irrigation]] where water is allowed to deeply saturate the soil may be one reason, as is the high proportion of sand present in the soil. The relative isolation of Argentina is also cited as a potential benefit against phylloxera with the country's wine regions being bordered by mountains, deserts and oceans that create natural barriers against the spread of the louse.<ref name="Oxford pp 29-33"/> Despite the minimal risk of phylloxera, some producers are switching to grafted rootstock that provide better yield control.<ref name="MacNeil pp 848-857"/>
+
+Various methods of [[vine training]] were introduced in Argentina by European immigrants in the 19th and 20th century. The ''espaldera'' system combined the traditional method of using three wires to train the vines close to the ground. In the 1950s a new system known as ''parral cuyano'' was introduced where vines were trained high off the ground with the clusters allowed to hang down.<ref name="Wine pp 840-844"/> This style was conducive to the high yielding varieties of Criolla and Cereza that were the backbone of the bulk wine production industry that arose in response to the large domestic market. In the late 20th century, as the market turned to focus more on premium wine production, more producers switched back to the traditional ''espaldera'' system and began to practice canopy management in order to control yields.<ref name="Oxford pp 29-33"/>
+
+===Irrigation===
+{{See also|Irrigation in viticulture}}
+The intricate irrigation system used to bring water from melted snow caps in the Andes originated in the 16th century (with the Spanish settlers adopting techniques previously used by the [[Incas]]<ref name="MacNeil pp 848-857"/>) and has been a vital component of [[agriculture in Argentina]]. Water flows down from the mountain through a series of ditches and canals where it is stored in reservoirs for use by vineyards which can apply for government-regulated [[water license]]s that grant them access to the water. Newly planted vineyards on land that does not have existing water rights will often use alternative water sources such as drilling deep [[borehole]]s to {{convert|60|-|200|m|abbr=on}} below the surface to retrieve water from underground [[aquifer]]. These [[water well]]s, though costly to build, can supply a vineyard with as much as {{convert|250,000|L|usgal|abbr=off|sp=us}} of water per hour.<ref name="Oxford pp 29-33"/>
+
+Historically, flood irrigation was the most common method used, whereby large amounts of water are allowed to run across flat vineyard lands. While this method may have been an unwittingly preventive measure against the advance of phylloxera, it does not provide much control for the vineyard manager to limit yields and increase potential quality in the wine grapes.<ref name="Wine pp 840-844"/> Subsequently, a method of [[furrow irrigation]] was developed whereby water is funneled into [[furrow]] channels that the vines are planted in. While providing a little more control, this method was still more suited to producing high yields. In the late 1990s, [[drip irrigation]] started to become more popular. Though expensive to install, this method provides for the maximum level of control by the vineyard manager to facilitate yield control and increase potential quality in the grape by leveraging [[moisture stress|water stress]] on the vine.<ref name="Oxford pp 29-33"/>
+
+==Wine regions==
+[[File:Argentine wine regions.jpg|right|thumb|350px|Argentine wine regions.]]
+While there is some wine production in the provinces of [[Buenos Aires (province)|Buenos Aires]], [[Córdoba Province (Argentina)|Córdoba]] and [[La Pampa (province)|La Pampa]], the vast majority of wine production takes place in the far western expanse of Argentina leading up to the foothills of the Andes. The Mendoza region is the largest region and the leading producer, responsible for more than two-thirds of the country's yearly production, followed by the San Juan and La Rioja regions to the north.
+
+In the far northwestern corner of the country are the provinces of Catamarca, [[Jujuy (province)|Jujuy]] and Salta which includes some of the world's highest planted vineyards. In the southern region of Patagonia, the Río Negro and Neuquén provinces have traditionally been the fruit producing centers of the country but have recently seen growth in the planting of cool climate varietals (such as [[Pinot noir]] and [[Chardonnay]]).<ref name="Oxford pp 29-33"/>
+
+===Mendoza===
+{{Main|Mendoza wine}}
+
+Despite the total area planted declining from {{convert|629,850|to|360,972|acre|ha|0|abbr=on}} between 1980 and 2003, Mendoza is still the leading producer of wine in Argentina.<ref name="Oxford pp 29-33"/> As of the beginning of the 21st century, the vineyard area in Mendoza alone was slightly less than half of the entire planted area in the [[United States (wine)|United States]] and more than the area of [[New Zealand (wine)|New Zealand]] and [[Australia (wine)|Australia]] combined.<ref name="MacNeil pp 848-857"/>
+
+The majority of the vineyards are found in the [[Maipú Department, Mendoza|Maipú]] and [[Luján de Cuyo Department|Luján]] [[Departments of Argentina|departments]]. In 1993, the Mendoza sub region of [[Luján de Cuyo]] was the first controlled [[appellation]] established in Mendoza. Other notable sub-regions include the [[Uco Valley]] and the [[Tupungato department]]. Located in the shadow of Mount [[Aconcagua]], the average vineyards in Mendoza are planted at altitudes {{convert|600|to|1100|m|ft|abbr=on}} above sea level. The soil of the region is sandy and alluvial on top of clay substructures and the climate is continental with four distinct seasons that affect the grapevine, including winter [[dormancy]].<ref name="Oxford pp 29-33"/>
+
+Historically, the region has been dominated by production of wine from the high yielding, pink-skinned varieties of [[Cereza]] and [[Criolla Grande]] but in recent years [[Malbec]] has become the regions most popular planting. Cereza and Criolla Grande still account for nearly a quarter of all vineyard plantings in Mendoza but more than half of all plantings are now to premium red [[varietals]] which beyond Malbec include [[Cabernet Sauvignon]], [[Tempranillo]] and [[Italian (wine)|Italian]] varieties. In the high altitude vineyards of Tupungato, located southwest of the city of [[Mendoza, Argentina|Mendoza]] in the Uco Valley, Chardonnay is increasing in popularity.<ref name="Oxford pp 29-33"/> The cooler climate and lower [[salinity]] in the soils of the Maipú region has been receiving attention for the quality of its Cabernet Sauvignon. Wine producers in the region are working with authorities to establish a controlled appellation.<ref name="Johnson atlas pp 300-301"/>
+
+====High-altitude plantings====
+[[File:Winery, Cachi, Argentina (7306769988).jpg|thumb|200px|Winery & Vineyards at [[Cachi, Argentina]], rising to {{convert|10,200|ft|0|abbr=on}}.]]Argentina's most highly rated Malbec wines originate from Mendoza's high altitude wine regions of [[Luján de Cuyo Department|Luján de Cuyo]] and the [[Uco Valley]]. These Districts are located in the foothills of the Andes mountains between {{convert|2800|and|5000|ft|m|order=flip|abbr=on}} elevation.<ref name=VA>{{cite book |last=Catena |first=Laura |title=Vino Argentino, An Insiders Guide to the Wines and Wine Country of Argentina. |publisher=[[Chronicle Books]] |date=September 2010 |isbn=978-0-8118-7330-7 |url-access=registration |url=https://archive.org/details/vinoargentinoins0000cate}}</ref><ref name=MR>{{cite book|last= Rolland |first= Michel |title=Wines of Argentina. |publisher=Mirroll |date=January 2006 |isbn=978-987-20926-3-4}}</ref><ref name="winem">{{Cite news |title=Wine Tip: Malbec Madness {{!}} Wine Tips {{!}} News & Features {{!}} Wine Spectator |url=https://www.winespectator.com/webfeature/show/id/42514 |archive-url=https://web.archive.org/web/20190320202836/https://www.winespectator.com/webfeature/show/id/42514 |archive-date=2019-03-20 |access-date=2026-02-06 |work=WineSpectator.com |language=en}}</ref><ref name="tim">{{Cite web |title=CorkTalk with Piero Incisa della Rocchetta – Tim Atkin – Master of Wine |url=https://timatkin.com/cork-talk/corktalk-with-piero-incisa-della-rocchetta/ |access-date=2026-02-06 |language=en-GB}}</ref>
+
+Argentine vintner Nicolas Catena Zapata has been widely credited for elevating the status of Argentine Malbec and the Mendoza region through serious experimentation into the effects of high altitude.<ref name="aaep19" /><ref name="Personalities">{{Cite web |title=Winebow - POS & Trade |url=http://clickwinegroup.com/winebow/trade_detail.php?id=2122&brand_id=51&pos_id=all |archive-url=https://web.archive.org/web/20120313024525/http://clickwinegroup.com/winebow/trade_detail.php?id=2122&brand_id=51&pos_id=all |archive-date=2012-03-13 |access-date=2026-02-06 |website=clickwinegroup.com}}</ref><ref name="Independent">{{Cite web |date=2014-06-20 |title=The might of Mendoza: The romantic tale behind Argentina's booming |url=https://www.the-independent.com/life-style/food-and-drink/features/the-might-of-mendoza-the-romantic-tale-behind-argentina-s-booming-malbec-grape-9549419.html |access-date=2026-02-06 |website=The Independent |language=en}}</ref> In 1994, he was the first to plant a Malbec vineyard at almost {{convert|5000|ft|m|order=flip|abbr=on}} elevation in the Gualtallary sub-district of Tupungato, the [[Adrianna Vineyard]],<ref name="aaep19" /><ref name=VA/> and to develop a clonal selection of Argentine Malbec.<ref name="Patente">{{Cite web |title=Catena malbec 'Clone 17' - US Patent Application 20090217434 Description |url=http://www.patentstorm.us/applications/20090217434/description.html |archive-url=https://web.archive.org/web/20121013144850/http://www.patentstorm.us/applications/20090217434/description.html |archive-date=2012-10-13 |access-date=2026-02-06 |website=www.patentstorm.us |language=en}}</ref><ref name="montecristo">{{Cite web |title=Nicolás Catena |url=https://montecristomagazine.com/magazine/autumn-2014/nicolas-catena |access-date=2026-02-06 |website=MONTECRISTO |language=en-US}}</ref><ref name="fourmagazine">{{Cite web |title=Argentina's Malbec Pioneer {{!}} FOUR Magazine |url=http://www.four-magazine.com/articles/984/argentinas-malbec-pioneer |archive-url=https://web.archive.org/web/20161227021559/http://www.four-magazine.com/articles/984/argentinas-malbec-pioneer |archive-date=2016-12-27 |access-date=2026-02-06 |website=www.four-magazine.com}}</ref><ref name="aaep19">Julio Elías, Gustavo Ferro, and Alvaro Garcia, 2019.[https://ideas.repec.org/p/aep/anales/4135.html/ "A Quest for Quality: Creativity and Innovation in the Wine Industry of Argentina"] Asociación Argentina de Economía Política: Working Papers 4135.</ref>
+
+High altitude Mendoza has attracted many notable foreign winemakers such as Paul Hobbs, [[Michel Rolland]], Roberto Cipresso and [[Alberto Antonini]]<ref name=VA/><ref name=MR/>
+
+===San Juan & La Rioja===
+After Mendoza, the San Juan region is the second largest producer of wine with over {{convert|116,000|acres|ha|abbr=on|order=flip}} planted as of 2003. The climate of this region is considerably hotter and drier than Mendoza with rainfall averaging {{convert|150|mm|in|0|abbr=on}} a year and summer time temperatures regularly hitting {{convert|42|C|F}}. Premium wine production is centered on the [[Calingasta (department)|Calingasta]], [[Ullum (department)|Ullum]] and [[Zonda department]]s as well as the Tulum Valley.<ref name="Wine pp 840-844"/> In addition to producing premium red varietals made from [[Syrah]] and [[Douce noir]] (known locally as [[Douce noir|Bonarda]]), the San Juan region has a long history of producing [[sherry]]-style wines, [[brandies]] and [[vermouth]]. The high yielding Cereza vine is also prominent here where it is used for blending and grape concentrate as well as for [[raisin]] and [[table grape]] consumption.<ref name="Oxford pp 29-33"/>
+
+Recently, the higher-altitude vines planted in the Pedernal valley in Western San Juan, one of the most isolated regions in Argentina, have received significant acclaim for their potential to bring fame to the province's wine industry. The altitude here exceeds that of more southerly Uco Valley in Mendoza, leading to extremely dry conditions with high thermal amplitude and excellent results both for red and white wines.<ref>Wines of Argentina, Pedernal. URL: http://blog.winesofargentina.com/es/pedernal-valley-the-extreme-wines-of-san-juan/ {{Webarchive|url=https://web.archive.org/web/20191206163136/http://blog.winesofargentina.com/es/pedernal-valley-the-extreme-wines-of-san-juan/ |date=2019-12-06 }}</ref>
+
+The La Rioja region was one of the first areas to be planted by Spanish missionaries and has the longest continued history of wine production in Argentina. Though a relatively small region, with only {{convert|20,000|acres|ha|abbr=on|order=flip}} planted as of 2003, the region is known for [[aromatic (wine)|aromatic]] [[Moscatel de Alexandria]]s and [[Torrontés]] made from a local sub-variety known as ''Torrontés Riojano''.<ref name="Oxford pp 29-33"/> Lack of water has curtailed vineyard expansion here.{{Citation needed|date=September 2023}}
+
+===Northwestern regions===
+[[File:Torrontes grape.jpg|thumb|200px|Torrontés grapes, ''pre-[[veraison]]'', growing in the [[Cafayate]] region.]]
+The vineyards of the northwestern provinces of Catamarca, Jujuy and Salta are located between the [[24th parallel (south)|24th parallel]] and [[26th parallel south]]. They include some of the highest elevated vineyards in the world, with many planted more than {{convert|1500|m|ft|abbr=on}} above sea level. Two vineyards planted by ''Bodega Colomé''<ref>{{Cite web |title=Bodega Colomé – Visionary, Since 1831 |url=https://www.bodegacolome.com/historia/ |archive-url=https://web.archive.org/web/20241219001026/https://www.bodegacolome.com/historia/ |archive-date=2024-12-19 |access-date=2026-02-06 |website=www.bodegacolome.com |language=es-AR}}</ref> in Salta are at elevations of {{convert|2250|m|ft|abbr=on}} and {{convert|3000|m|ft|abbr=on}}. In contrast, most European vineyards are rarely planted above {{convert|900|m|ft|abbr=on}}. Wine expert [[Tom Stevenson]] notes that the habit of some Argentine producers to tout the altitude of their vineyards in advertisements and on [[wine labels]] as if they were [[Cru (wine)#Grand cru|grand cru]] classifications.<ref name="Sotheby pp 535">T. Stevenson ''"The Sotheby's Wine Encyclopedia"'' p. 545; Dorling Kindersley 2005 {{ISBN|0-7566-1324-8}}.</ref>
+
+The soils and climate of the regions are very similar to Mendoza but the unique [[mesoclimate (vine)|mesoclimate]] and high elevation of the vineyards typically produces grapes with higher levels of [[total acidity]] which contribute to the wines [[balance (wine)|balance]] and depth. Of the three regions, Catamarca is the most widely planted with more than {{convert|5,800|acres|ha|abbr=on|order=flip}} under vine as of 2003. In recent years the Salta region, and particularly its sub-region of [[Cafayate]], have been gaining the most worldwide attention the quality of its [[body (wine)|full bodied]] whites made from Torrontés Riojano as well as its fruity reds made from Cabernet Sauvignon and [[Tannat]].<ref name="Oxford pp 29-33"/>
+
+Most of Cafayate region in Salta is located at {{convert|1660|m|ft|abbr=on}} above sea levels in the river delta between the [[Rio Calchaqui]] and the Rio Santa Maria. The climate of the area experiences a [[foehn effect]] which traps rain producing cloud cover in the mountains and leaves the area dry and sunny. Despite its high altitude daytime temperatures in the summertime can reach {{convert|38|C|F}} but at night the area experiences a wide [[diurnal temperature variation]] with night time temperatures dropping as low as {{convert|12|C|F}}. There is some threat of frost during the winter when temperatures can drop as low as {{convert|-6|C|F}}. Despite producing less than 2% of Argentina's yearly wine production, the Cafayate region is increasing gaining in prestige and appearance on wine labels, as well as foreign investment from worldwide wine producers such as [[enologist]] [[Michel Rolland]] and California wine producer [[Donald M. Hess]].<ref name="Wine pp 840-844"/>
+
+===Patagonia===
+[[File:Pinot noir vines in Argentina.jpg|thumb|250px|The wine regions of Patagonia are the source of many Pinot noir grapes used for the Argentine sparkling wine industry.]]
+The southern Patagonia region includes the fruit producing regions of Río Negro and Neuquén. These have a considerably cooler climate than the major regions to the north, which provides a long, drawn-out growing season in the chalky soils of the area. In the early 20th century, Humberto Canale imported vine cuttings from Bordeaux and established the first commercial winery in the region.<ref name="Wine pp 840-844"/> While {{convert|9,300|acres|ha|abbr=on|order=flip}} were planted as of 2003, the region is growing as more producers plant cool climate varietals like Chardonnay and Pinot noir as well as Malbec, [[Semillon]] and Torrontés Riojano. Many of the grapes for the Argentine [[sparkling wine]] industry are sourced from this area. Located more than {{convert|1600|km|mi|sigfig=2|abbr=on}} south of Mendoza, the vineyards of Bodega Weinert are noted as the southernmost planted vineyards in the [[Americas]].<ref name="Oxford pp 29-33"/>
+
+The most significant vineyards are located in the Rio Negro Valley, where some of the most prominent Pinot Noir red wines in Argentina are made, and in the upper Neuquen Valley, especially around the town of San Patricio del Chanar. Additionally, there are promising vineyards located in the La Pampa Province near the Colorado river, near the city of 25 de Mayo. These regions have shorter summers with longer daylight hours, and significantly colder winters than the main wine areas further north.
+Besides Pinot Noir, the area is known for producing good Merlot wines as well as white wines (mostly Chardonnay and Sauvignon Blanc). Recently, however, the area has gained traction because of its promising Cabernet Franc red wines, which have added to the diversity of Argentine wine with their hint of red fruit, elegant tannins and peppery taste.
+.<ref>{{Cite web |title=Wines of Argentina |url=https://www.winesofargentina.org/es/argentina/regiones/patagonia/ |access-date=2026-02-06 |website=www.winesofargentina.org}}</ref>
+
+Further south, the Province of Chubut is a mostly uncharted wine frontier. Traditionally considered too cold for plantings, there are micro-climates (e.g. the irrigated Chubut Valley area near the Atlantic coast, the Trevelin Valley where Pacific winds moderate the climate, and some steppe regions) which are promising for winemaking. Production started in the late 2000s, with a new Wine Route established in 2017. The main plantings have been, so far, Pinot Noir, Chardonnay, Sauvignon Blanc, Gewürztraminer, Merlot, Riesling and Pinot Gris.<ref>{{Cite web |last=en |first=Por Carlos MiraSeguir |title=La ruta del vino en Chubut: un viaje para potenciar todos los sentidos |url=https://www.infobae.com/turismo/2017/03/17/la-ruta-del-vino-en-chubut-un-viaje-para-potenciar-todos-los-sentidos/ |access-date=2026-02-06 |website=infobae |language=es-ES}}</ref>
+
+===New developments===
+Argentine winemakers have long held the belief that vines required hot and arid climates with large temperature variations to produce quality wines. This 'winning formula' led to a concentration of wineries in Mendoza, San Juan and La Rioja provinces in the west, as well as higher-altitude vineyards in Salta.
+More recently, there has been a shift towards slightly cooler and equally arid climates further south, in Neuquen and Rio Negro. Wineries there still benefit from windy and arid conditions, but with cooler temperatures and a shorter growing season.{{Citation needed|date=September 2023}}
+
+However, in the last decade, the potential for 'non-traditional' (or re-discovered) regions has become apparent, concentrated in several areas: (1) the Atlantic coast from [[Mar del Plata]] (Buenos Aires) south and including the hills in Southern Buenos Aires, and (2) the mountains in [[Córdoba Province (Argentina)|Cordoba Province]], which had been significant growers in colonial times, but where winemakers have only recently started experimenting with higher altitudes, (3) Entre Rios, an unlikely location because of its humid, warm climate, which had been famous for its wines more than a century ago, and (4) the Patagonian Plateau, a region of cold, windy and arid climates.
+Except for coastal Buenos Aires, where large investments are underway, most developments have consisted of smaller-scale wineries experimenting with new wine varieties and techniques, with the potential to bring about a completely 'new style' of Argentine wines which will be very different from the typical Malbec produced currently.{{Citation needed|date=September 2023}}
+
+The climate in Mar del Plata and along the coast of [[Buenos Aires Province]] display the same temperature range as [[Bordeaux]] with similar (high) precipitation. Further inland, summers gain a few degrees while winter nights become somewhat colder in the flat southern Pampas. Adding to the variety of climates and soils in the area, there are low mountain areas (generally below 1,000 metres or 3,000&nbsp;ft.), valleys and rivers. Major wineries (like Trapiche) have made investments in the area and production is likely to increase significantly, but most of the potential in this vast area is untapped.
+As the coast continues south, the weather becomes drier and windier, with (counter-intuitively) hotter summers. South of the city of [[Bahia Blanca]], the [[Médanos, Buenos Aires|Medanos]] area is becoming another focal point of the wine industry (see [[Buenos Aires wines]]. Weather records suggest that the coast should be adequate for wine making much further south: into [[Viedma]], [[San Antonio Oeste]], [[Puerto Madryn]], [[Trelew]] and even [[Comodoro Rivadavia]] where cool, windy desert climates are greatly moderated by the Atlantic.{{Citation needed|date=September 2023}}
+
+Climate chart for Mar del Plata:
+
+{{Weather box
+|location = Mar del Plata (1961–1990, extremes 1931–present)
+|metric first = yes
+|single line = yes
+|Jan record high C = 41.6
+|Feb record high C = 38.2
+|Mar record high C = 36.3
+|Apr record high C = 33.0
+|May record high C = 28.5
+|Jun record high C = 25.5
+|Jul record high C = 27.7
+|Aug record high C = 29.9
+|Sep record high C = 30.1
+|Oct record high C = 34.4
+|Nov record high C = 35.7
+|Dec record high C = 39.4
+|year record high C = 41.6
+|Jan high C = 26.3
+|Feb high C = 25.8
+|Mar high C = 23.7
+|Apr high C = 20.5
+|May high C = 16.8
+|Jun high C = 13.8
+|Jul high C = 13.1
+|Aug high C = 14.4
+|Sep high C = 16.0
+|Oct high C = 18.5
+|Nov high C = 21.7
+|Dec high C = 24.4
+|year high C = 19.6
+|Jan mean C = 20.3
+|Feb mean C = 19.9
+|Mar mean C = 18.0
+|Apr mean C = 14.6
+|May mean C = 11.3
+|Jun mean C = 8.5
+|Jul mean C = 8.1
+|Aug mean C = 8.9
+|Sep mean C = 10.5
+|Oct mean C = 13.1
+|Nov mean C = 15.9
+|Dec mean C = 18.5
+|year mean C = 14.0
+|Jan low C = 14.3
+|Feb low C = 14.1
+|Mar low C = 12.5
+|Apr low C = 9.1
+|May low C = 6.4
+|Jun low C = 4.1
+|Jul low C = 3.8
+|Aug low C = 4.0
+|Sep low C = 5.3
+|Oct low C = 7.6
+|Nov low C = 10.1
+|Dec low C = 12.7
+|year low C = 8.7
+|Jan record low C = 3.0
+|Feb record low C = 1.2
+|Mar record low C = 0.2
+|Apr record low C = -3.6
+|May record low C = -3.7
+|Jun record low C = -8.0
+|Jul record low C = -9.3
+|Aug record low C = -6.4
+|Sep record low C = -6.3
+|Oct record low C = -3.0
+|Nov record low C = -2.0
+|Dec record low C = -0.2
+|year record low C = -9.3
+|precipitation colour = green
+|Jan precipitation mm = 100.1
+|Feb precipitation mm = 72.8
+|Mar precipitation mm = 107.0
+|Apr precipitation mm = 73.3
+|May precipitation mm = 73.5
+|Jun precipitation mm = 54.9
+|Jul precipitation mm = 58.9
+|Aug precipitation mm = 64.0
+|Sep precipitation mm = 56.4
+|Oct precipitation mm = 83.4
+|Nov precipitation mm = 75.3
+|Dec precipitation mm = 104.0
+|year precipitation mm = 923.6
+|Jan humidity = 76
+|Feb humidity = 77
+|Mar humidity = 79
+|Apr humidity = 81
+|May humidity = 83
+|Jun humidity = 84
+|Jul humidity = 81
+|Aug humidity = 81
+|Sep humidity = 80
+|Oct humidity = 80
+|Nov humidity = 77
+|Dec humidity = 76
+|year humidity = 80
+|unit precipitation days = 0.1 mm
+|Jan precipitation days = 9
+|Feb precipitation days = 8
+|Mar precipitation days = 9
+|Apr precipitation days = 9
+|May precipitation days = 9
+|Jun precipitation days = 9
+|Jul precipitation days = 9
+|Aug precipitation days = 8
+|Sep precipitation days = 7
+|Oct precipitation days = 10
+|Nov precipitation days = 10
+|Dec precipitation days = 10
+|year precipitation days = 
+|Jan sun = 288.3
+|Feb sun = 234.5
+|Mar sun = 232.5
+|Apr sun = 195.0
+|May sun = 167.4
+|Jun sun = 120.0
+|Jul sun = 127.1
+|Aug sun = 164.3
+|Sep sun = 174.0
+|Oct sun = 210.8
+|Nov sun = 222.0
+|Dec sun = 269.7
+|year sun = 2405.6
+|Jan percentsun = 63
+|Feb percentsun = 60
+|Mar percentsun = 54
+|Apr percentsun = 58
+|May percentsun = 51
+|Jun percentsun = 41
+|Jul percentsun = 42
+|Aug percentsun = 46
+|Sep percentsun = 47
+|Oct percentsun = 51
+|Nov percentsun = 52
+|Dec percentsun = 59
+|year percentsun = 52
+|source 1 = NOAA,<ref name = NOAA>
+{{Cite FTP | url=ftp://ftp.atdd.noaa.gov/pub/GCOS/WMO-Normals/TABLES/REGIII/AG/87692.TXT
+| server=[[National Oceanic and Atmospheric Administration]]
+| title=Mar del Plata AERO Climate Normals 1961–1990
+| access-date=March 29, 2015}}</ref> Meteo Climat (record highs and lows), Oficina de Riesgo Agropecuario (June record low only)
+|source 2=Servicio Meteorológico Nacional (precipitation days),<ref name = SMN>
+{{cite web
+| url=http://www.smn.gov.ar/serviciosclimaticos/?mod=turismo&id=5&var=buenosaires
+| title=Valores Medios de Temperature y Precipitación-Buenos Aires: Mar del Plata
+| publisher=Servicio Meteorológico Nacional
+| language=es
+| access-date=March 29, 2015}}</ref> UNLP (sun only)<ref name = UNLP>{{cite web
+| url=http://www.arquinstal.com.ar/atlas.html
+| language=es
+| title=Datos bioclimáticos de 173 localidades argentinas
+| work=Atlas Bioclimáticos
+| publisher=Universidad Nacional de La Plata
+| access-date=April 5, 2014
+}}</ref>
+
+}}
+
+Climate of Bordeaux (for comparison - note the reverted seasons)
+
+{{Weather box
+|location=Bordeaux-Mérignac (1981–2010 averages)
+|metric first=Yes
+|single line=Yes
+|Jan record high C = 20.2
+|Feb record high C = 26.2
+|Mar record high C = 27.7
+|Apr record high C = 31.1
+|May record high C = 35.4
+|Jun record high C = 39.2
+|Jul record high C = 38.8
+|Aug record high C = 40.7
+|Sep record high C = 37.0
+|Oct record high C = 32.2
+|Nov record high C = 26.7
+|Dec record high C = 22.5
+|year record high C = 40.7
+| Jan high C=10.1
+| Feb high C=11.7
+| Mar high C=15.1
+| Apr high C=17.3
+| May high C=21.2
+| Jun high C=24.5
+| Jul high C=26.9
+| Aug high C=27.1
+| Sep high C=24.0
+| Oct high C=19.4
+| Nov high C=13.7
+| Dec high C=10.5
+|year high C=18.5
+| Jan mean C=6.6
+| Feb mean C=7.5
+| Mar mean C=10.3
+| Apr mean C=12.4
+| May mean C=16.1
+| Jun mean C=19.3
+| Jul mean C=21.4
+| Aug mean C=21.4
+| Sep mean C=18.5
+| Oct mean C=14.9
+| Nov mean C=9.9
+| Dec mean C=7.2
+|year mean C=13.8
+| Jan low C=3.1
+| Feb low C=3.3
+| Mar low C=5.4
+| Apr low C=7.4
+| May low C=11.0
+| Jun low C=14.1
+| Jul low C=15.8
+| Aug low C=15.7
+| Sep low C=12.9
+| Oct low C=10.4
+| Nov low C=6.1
+| Dec low C=3.8
+|year low C=9.1
+|Jan record low C = -16.4
+|Feb record low C = -15.2
+|Mar record low C = -9.9
+|Apr record low C = -5.3
+|May record low C = -1.8
+|Jun record low C = 2.5
+|Jul record low C = 4.8
+|Aug record low C = 1.5
+|Sep record low C = -1.8
+|Oct record low C = -5.3
+|Nov record low C = -12.3
+|Dec record low C = -13.4
+|year record low C = −16.4
+|precipitation colour = green
+| Jan precipitation mm=87.3
+| Feb precipitation mm=71.7
+| Mar precipitation mm=65.3
+| Apr precipitation mm=78.2
+| May precipitation mm=80.0
+| Jun precipitation mm=62.2
+| Jul precipitation mm=49.9
+| Aug precipitation mm=56.0
+| Sep precipitation mm=84.3
+| Oct precipitation mm=93.3
+| Nov precipitation mm=110.2
+| Dec precipitation mm=105.7
+|year precipitation mm=944.1
+| Jan precipitation days=12.2
+| Feb precipitation days=10.1
+| Mar precipitation days=11.0
+| Apr precipitation days=11.9
+| May precipitation days=10.9
+| Jun precipitation days=8.3
+| Jul precipitation days=7.1
+| Aug precipitation days=7.5
+| Sep precipitation days=9.2
+| Oct precipitation days=11.0
+| Nov precipitation days=12.6
+| Dec precipitation days=12.4
+|year precipitation days=124.3
+|Jan snow days = 1.1
+|Feb snow days = 1.2
+|Mar snow days = 0.6
+|Apr snow days = 0.0
+|May snow days = 0.0
+|Jun snow days = 0.0
+|Jul snow days = 0.0
+|Aug snow days = 0.0
+|Sep snow days = 0.0
+|Oct snow days = 0.0
+|Nov snow days = 0.2
+|Dec snow days = 0.8
+|year snow days = 3.9
+|Jan humidity = 88
+|Feb humidity = 84
+|Mar humidity = 78
+|Apr humidity = 76
+|May humidity = 77
+|Jun humidity = 76
+|Jul humidity = 75
+|Aug humidity = 76
+|Sep humidity = 79
+|Oct humidity = 85
+|Nov humidity = 87
+|Dec humidity = 88
+|year humidity = 80.8
+| Jan sun=96.0
+| Feb sun=114.9
+| Mar sun=169.7
+| Apr sun=182.1
+| May sun=217.4
+| Jun sun=238.7
+| Jul sun=248.5
+| Aug sun=242.3
+| Sep sun=202.7
+| Oct sun=147.2
+| Nov sun=94.4
+| Dec sun=81.8
+|year sun=2035.4
+|source 1 = Météo France<ref name="Météo">{{cite web
+| url=http://www.meteofrance.com/climat/france/bordeaux/33281001/normales
+| title=Données climatiques de la station de Bordeaux
+| publisher=Meteo France
+| language=fr
+| access-date=December 30, 2015}}</ref><ref name=MFclimat2>{{cite web
+| url=http://www.meteofrance.com/climat/france/aquitaine/regi72/normales
+| title=Climat Aquitaine
+| publisher=Meteo France
+| language=fr
+| access-date=December 30, 2015
+| archive-date=May 20, 2019
+| archive-url=https://web.archive.org/web/20190520060612/http://www.meteofrance.com/climat/france/aquitaine/regi72/normales
+| url-status=dead
+}}</ref>
+|source 2=Infoclimat.fr (humidity and snowy days, 1961–1990)<ref name=Infoclimat>{{cite web
+| url=https://www.infoclimat.fr/climatologie-07510-bordeaux-merignac.html
+| title=Normes et records 1961-1990: Bordeaux-Merignac (33) - altitude 47m
+| language=fr
+| publisher=Infoclimat
+| access-date=December 30, 2015}}</ref>
+|date=November 2013
+}}
+
+Another promising region are the [[Sierras de Cordoba]] in the middle of the country. Contrasting with the humid temperate [[Pampas]], mountainous areas have better drainage, cooler nights and sunny weather. Historically, wine was grown in two areas: the Northern part of the province around Colonia Caroya and the extreme Western part, around [[Villa Dolores]]. These are the warmest, sunniest parts of the province and, in the past, produced sweet, lower quality wines (although new wineries are creating more interesting varietals).<ref>{{Cite web |last=Braga |first=Mariano |date=2014-08-05 |title=Córdoba, tras los vinos |url=https://marianobraga.com/blog/cordoba-vino-argentina-traslasierra/ |access-date=2026-02-06 |website=Mariano Braga |language=es}}</ref>
+The Eastern part of the Sierras, from the [[Villa General Belgrano]] area to the [[Punilla Valley]], was generally considered to be too cool and humid, following the old Argentine stereotype of hot-desert wine-making. Over the last decade, however, boutique wineries have discovered the potential of the exceptional variety of soils and micro-climates in the area, producing wines that have won significant national awards (some near [[La Cumbrecita]], an alpine town that would have been considered too cool for vines recently).<ref>{{Cite web |last=mariajose.patino |date=2013-11-20 |title=Vino cordobés ganó premio internacional |url=https://prensa.cba.gov.ar/campo/vino-cordobes-gano-premio-internacional/ |access-date=2026-02-06 |website=Web de Noticias - Gobierno de Córdoba |language=es}}</ref> The scale of production remains minimal, but large numbers of new producers are experimenting with grape varieties and techniques to make wines that are significantly different from the stereotypical Mendoza Malbecs, often with great success. The large variation in elevation in the Sierras make them suitable for high-altitude wine experimentation, similar to what producers have done in Mendoza.{{Citation needed|date=September 2023}}
+
+The Province of Entre Ríos has a warm, humid climate similar to neighboring Uruguay, where tannat wines are produced. Until the 1930s there were over 60 wineries in the Province, producing more wine than Mendoza and San Juan; these were however forbidden by law in an effort to ensure the settlement of Western Argentina. In recent years, over 60 producers have started replanting wines.<ref name="La Nacion">{{cite web |work=La Nacion: Vino del Parana |url=http://www.lanacion.com.ar/1924433-el-vino-del-parana-entre-cuchillas-y-vides-con-historia |first=Marcelo |last=Manera |date=5 August 2016 |title=Entre Ríos, una zona que vuelve a apostar por el vino |language=es |trans-title=Between rivers, a zone that bets on the return of wine |access-date=19 June 2017 |publisher=Grupo de Diarios América }}{{Dead link|date=May 2025 |bot=InternetArchiveBot |fix-attempted=yes }}</ref>
+
+Finally, the steppes of Central Patagonia in Chubut have the southernmost wines in the world. The climate here is markedly colder than any other region, with a threat of summer frost. Much longer summer days with very cold nights and a short growing season have the potential to produce wines that are markedly different from any other wines in Argentina.<ref>{{Cite web |title=Gualjaina: bodega elaborará vinos de calidad |url=https://www.diariojornada.com.ar/182759/magazine/gualjaina_bodega__elaborara_vinos_de_calidad |access-date=2026-02-06 |website=www.diariojornada.com.ar |language=es}}</ref>
+
+==Grape varieties and wines==
+Under Argentine wine laws, if a grape name appears on the [[wine label]], 100% of the wine must be composed that [[grape variety]].<ref name="Zraly">{{cite book |title=Kevin Zraly Windows on the World Complete Wine Course |author=Kevin Zraly |date=2018 |publisher=Sterling Epicure |isbn=978-1454930464}}</ref> The backbone of the early Argentine wine industry was the high yielding, pink skin grapes [[Cereza]], [[Criolla Chica]] and [[Criolla Grande]] which still account for nearly 30% of all vines planted in Argentina today. Very vigorous vines, these varieties are able to produce many clusters weighing as much as 9 pounds (4&nbsp;kg) and tend to produce pink or deeply colored white wines that [[oxidize]] easily and often have noticeable [[sweetness]].<ref name="Oxford pp 29-33"/>
+
+These varieties are often used today for bulk [[jug wine]] sold in 1 liter cardboard cartons or as grape concentrate which is exported worldwide with Japan being a considerably large market. In the late 20th century, as the Argentine wine industry shifted it focus on premium wine production capable for export, [[Malbec]] arose to greater prominence and is today the most widely planted red grape variety followed by [[Douce noir|Bonarda]], [[Cabernet Sauvignon]], [[Syrah]] and [[Tempranillo]]. The influence of Italian immigrants has brought a variety of Italian varietals with sizable plantings throughout Argentina-including [[Barbera]], [[Dolcetto]], [[Freisa]], [[Lambrusco]], [[Nebbiolo]], [[Raboso (grape)|Raboso]] and [[Sangiovese]].<ref name="Oxford pp 29-33"/>
+
+While the historic birthplace of Malbec is [[Southwest France (wine)|Southwest France]], where it is still widely grown in [[Cahors (wine)|Cahors]], and has some presence in [[Bordeaux (wine)|Bordeaux]], it is in Argentina where the grape receives most of its notoriety. The grape clusters of Argentine Malbec are different from its French relatives; they have smaller berries in tighter, smaller clusters.<ref name="Johnson atlas pp 300-301"/> Malbec wine is characterized by deep color and intense fruity flavors with a velvety texture.<ref name="MacNeil pp 848-857"/> As of 2003 there were over {{convert|50,000|acres|ha|order=flip|abbr=on}} of Malbec. The [[international variety]] of Cabernet Sauvignon is gaining in popularity and beside being made as a varietal, it used as a blending partner with Malbec, [[Merlot]], Syrah and [[Pinot noir]]. Syrah has been steadily increasing in planting going from {{convert|1,730|acres|ha|order=flip|abbr=on}} in 1990 to more than {{convert|24,710|acres|ha|order=flip|abbr=on}} in 2003, with the San Juan region earning particular recognition for the grape. Tempranillo (known locally as ''Tempranilla'') is often made by [[carbonic maceration]] (similar to [[Beaujolais (wine)|Beaujolais]]); though some premium, [[old vine]] examples are made in the Uco Valley.<ref name="Oxford pp 29-33"/> Red wine production accounts for nearly 60% of all Argentine wine. The high temperatures of most regions contribute to soft, [[ripe tannins]] and high [[alcohol levels]].<ref name="Johnson atlas pp 300-301"/>
+
+The [[Pedro Giménez]] grape (a different but perhaps closely related relative of Spain's [[Pedro Ximénez]]) is the most widely planted white grape varietal with more than {{convert|36,300|acres|ha|order=flip|abbr=on}} planted primarily in the Mendoza and San Juan region. The grape is known for its fully bodied wines with high alcohol levels and is also used to produce grape concentrate. The next largest plantings are dedicated to the [[Torrontés]] Riojano variety followed by [[Muscat of Alexandria]], [[Chardonnay]], Torrontés Sanjuanino (the sub-variety of Torrontés that is believed to have originated in the San Juan province) and [[Sauvignon blanc]]. Other white grape varieties found in Argentina include [[Chenin blanc]], [[Pinot gris]], [[Riesling]], [[Sauvignonasse]], [[Semillon]], [[Ugni blanc]] and [[Viognier]].<ref name="Oxford pp 29-33"/>
+
+Torrontés produces some of the most distinctive white wines in Argentina, characterized by floral [[Muscat (grape)|Muscat]]-like aromas and a spicy note.<ref name="MacNeil pp 848-857"/> The grape requires careful handling during the [[winemaking]] process with temperature control during [[fermentation (wine)|fermentation]] and a sensitivity to [[yeast in winemaking|certain strains of yeast]]. The grape is most widely planted in the northern provinces of La Rioja and Salta, particularly the [[Calchaquí Valleys]], but has spread to Mendoza. In response to international demand, plantings of Chardonnay have steadily increased. The [[University of California, Davis]] produced a special clone of the variety (known as the ''[[Mendoza clone]]'') that, despite it propensity to develop [[millerandage]], is still widely used in Argentina and [[Australia (wine)|Australia]]. Argentine Chardonnay has shown to thrive in high altitude plantings and is being increasing planted in the Tupungato region on vineyard sites located at altitudes around nearly {{convert|1200|m|ft|abbr=on}}.<ref name="Oxford pp 29-33"/>
+
+==Modern wine industry==
+[[File:Tapiz Winery.jpg|thumb|250px|The Tapiz Winery, located in Mendoza.]]
+By the turn of the 21st century there were over 1,500 wineries in Argentina. The two largest companies are Bodegas Esmeralda (which owns the widely exported brand Alamos) and Peñaflor (which owns another widely exported brand [[Trapiche (winery)|Bodegas Trapiche]]). Between the two of them, these companies are responsible for nearly 40% of all the wine made in Argentina. The Argentine wine industry is fifth worldwide in production and eighth in wine consumption.<ref name="MacNeil pp 848-857"/>
+
+The continued trend of the industry is to increase quality and control yields. Between the mid-1990s and early 21st century, Argentina had ripped up nearly a third of its vineyards but reduced yearly production only by 10%. This meant there was an increase in yields from 66 hl/ha to 88 hl/ha.<ref name="Sotheby pp 535"/>
+
+==See also==
+{{Portal|Argentina|Wine}}
+* [[Foreign trade of Argentina]]
+* [[Sir Edmund James Palmer Norton]]
+* [[Agriculture in Argentina]]
+* [[Winemaking]]
+
+==References==
+{{Reflist|2}}
+
+==External links==
+*[https://www.winesofargentina.org Wines of Argentina]
+*[https://www.argentina.gob.ar/inv Instituto Nacional de Vitivincultura] {{in lang|es}}
+*[https://www.academia.edu/39977794/La_vid_y_el_vino_en_el_Cono_Sur_de_Am%C3%A9rica_Argentina_y_Chile_1545-2019_._Aspectos_pol%C3%ADticos_econ%C3%B3micos_sociales_culturales_y_enol%C3%B3gicos._Mendoza_2019 * Lacoste, Pablo. ''La vid y el vino en el Cono Sur de América Argentina y Chile (1545–2019). Aspectos políticos, económicos, sociales, culturales y enológicos''. Mendoza, 2019]
+
+{{Wine by country}}
+{{Economy of Argentina}}
+{{wines}}
+{{National emblems of Argentina}}
+{{Authority control}}
+
+[[Category:Argentine wine| ]]
+[[Category:National symbols of Argentina|National liquor]]
+[[Category:Argentine drinks]]
+[[Category:Agriculture in Argentina]]
+[[Category:Wine by country]]

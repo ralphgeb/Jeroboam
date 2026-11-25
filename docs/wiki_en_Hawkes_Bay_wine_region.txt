@@ -1,0 +1,272 @@
+{{Short description|Wine region in New Zealand}}
+{{Use dmy dates|date=August 2019}}
+{{Use New Zealand English|date=July 2024}}
+{{Infobox Wine Region
+  | name = Hawke's Bay
+  | image = HB_Vineyard_autumn.JPG
+  | caption = Hawke's Bay vineyard, in autumn
+  | official name = 
+  | other name = 
+  | type = [[Geographical Indication]]
+  | year = 1851; GI established 2018<ref name="iponz">{{Cite web
+    | title = Geographical Indications Register: Hawke's Bay
+    | work = Intellectual Property Office of New Zealand
+    | date = 23 March 2018
+    | access-date = 5 August 2019
+    | url = https://www.iponz.govt.nz/about-ip/geographical-indications/register/hawkes-bay/
+    | archive-date = 5 August 2019
+    | archive-url = https://web.archive.org/web/20190805120750/https://www.iponz.govt.nz/about-ip/geographical-indications/register/hawkes-bay/
+    | url-status = live
+    }}</ref>
+  | country = New Zealand
+  | part of =
+  | similar = 
+  | sub regions = Gimblett Gravels, Bridge Pa Triangle, Te Mata Special Character Zone
+  | season = 
+  | climate region = 
+  | heat units = 
+  | precipitation = 
+  | soil = 
+  | total size = 
+  | planted = {{convert|4681|ha}} (2018)<ref name="nzw-stats">{{cite web
+    | url = https://www.nzwine.com/en/news-media/statistics-reports/
+    | title = New Zealand Wine: Statistics & Reports
+    | publisher = [[New Zealand Winegrowers]]
+    | accessdate = 5 August 2019
+    | archive-date = 2 May 2019
+    | archive-url = https://web.archive.org/web/20190502173117/https://www.nzwine.com/en/news-media/statistics-reports/
+    | url-status = live
+    }}</ref>
+  | vineyards = 
+  | grapes = [[Chardonnay]], [[Merlot]], [[Pinot Gris]], [[Syrah]], [[Cabernet Sauvignon]], [[Malbec]], [[Sauvignon Blanc]], [[Viognier]]<ref name="nzw-stats"/>
+  | varietals = 
+  | wineries = 91<ref name="nzw-2018"/>
+  | wine produced =
+  | designation =
+  | comments = GI established 2018; wineries first established as early as 1851.
+}}
+The '''Hawke's Bay wine region''' is [[New Zealand wine|New Zealand]]'s oldest and second-largest wine-production region, on the east coast of the North Island. Production reached 41,000 tonnes in 2018 from {{convert|4681|ha}} of planted vines, representing 10.2% of total national production.<ref name="nzw-2018">{{cite web
+  | title = New Zealand Winegrowers Annual Report 2018
+  | publisher = [[New Zealand Winegrowers]]
+  | date = 2018
+  | accessdate = 5 August 2019
+  | url = https://www.nzwine.com/media/9567/nzw-annual-report-2018.pdf
+  | archive-date = 5 August 2019
+  | archive-url = https://web.archive.org/web/20190805120749/https://www.nzwine.com/media/9567/nzw-annual-report-2018.pdf
+  | url-status = live
+  }}</ref> Some of the oldest wineries still operating in New Zealand, including [[Te Mata Estate]], Church Road, and [[Mission Estate]], were established in the Hawke's Bay area in the late 19th century. Despite this, it was only established as a [[geographical indication]] (GI) in 2018.<ref name="iponz"/> The GI protects any wine produced within the boundaries of the entire [[Hawke's Bay Region]], but in practice the vineyards are chiefly concentrated in the plains and low hills surrounding the cities of [[Napier, New Zealand|Napier]] and [[Hastings, New Zealand|Hastings]].<ref name="OCW4-NZ">{{Cite encyclopedia
+  | title = New Zealand
+  | pages = 505–509
+  | encyclopedia = [[The Oxford Companion to Wine]]
+  | edition = 4th
+  | editor-last1 = Robinson
+  | editor-first1 = Jancis
+  | editor-link1 = Jancis Robinson
+  | editor-last2 = Harding
+  | editor-first2 = Julia
+  | publisher = [[Oxford University Press]]
+  | date = 2015
+  | isbn = 978-0-19-870538-3
+}}</ref>
+<!--
+== History ==
+TODO. Marist missionaries in 1851; 19th C. endeavours, Te Mata, Church Road, 1960's McWilliams, G Gravels & Bridge Pa in early 1980s, etc.
+--> 
+
+== Climate ==
+{{climate chart
+  | [[Napier, New Zealand|Napier]]
+  | 14.6 | 24.5 | 46.8
+  | 14.6 | 24.2 | 54.3
+  | 12.7 | 22.7 | 66.8
+  | 10.3 | 19.9 | 67.9
+  | 8.5  | 17.4 | 74.8
+  | 6.8  | 15.0 | 82.1
+  | 5.6  | 14.1 | 108.3
+  | 6.4  | 15.1 | 60.1
+  | 8.1  | 17.3 | 57.9
+  | 9.6  | 19.2 | 59.9
+  | 10.9 | 20.9 | 52.4
+  | 13.0 | 23.2 | 53.5
+  | source = NIWA Climate Statistics, 1981-2010.<ref name="niwa">{{cite web
+    | url = http://www.niwa.co.nz/education-and-training/schools/resources/climate
+    | title = Climate Data and Activities
+    | date = 28 February 2007
+ | publisher = NIWA
+    | accessdate = 19 October 2013
+    | archive-date = 7 January 2019
+    | archive-url = https://web.archive.org/web/20190107051745/https://www.niwa.co.nz/education-and-training/schools/resources/climate
+    | url-status = live
+    }}</ref>
+  <!--| float=right | clear=right-->
+}}
+<!--
+{{Weather box
+  | location = Napier (1981–2010)
+  | Jan high C = 24.5 | Feb high C = 24.2 | Mar high C = 22.7
+  | Apr high C = 19.9 | May high C = 17.4 | Jun high C = 15.0
+  | Jul high C = 14.1 | Aug high C = 15.1 | Sep high C = 17.3
+  | Oct high C = 19.2 | Nov high C = 20.9 | Dec high C = 23.2
+  | year high C = 19.5
+  | Jan low C = 14.6 | Feb low C = 14.6 | Mar low C = 12.7
+  | Apr low C = 10.3 | May low C = 8.5 | Jun low C = 6.8
+  | Jul low C = 5.6 | Aug low C = 6.4 | Sep low C = 8.1
+  | Oct low C = 9.6 | Nov low C = 10.9 | Dec low C = 13.0
+  | year low C = 10.0
+  | Jan mean C = 19.5 | Feb mean C = 19.4 | Mar mean C = 17.7
+  | Apr mean C = 15.0 | May mean C = 12.4 | Jun mean C = 10.0
+  | Jul mean C = 9.4 | Aug mean C = 10.3 | Sep mean C = 12.3
+  | Oct mean C = 14.3 | Nov mean C = 16.1 | Dec mean C = 18.4
+  | year mean C = 14.6
+  | Jan precipitation mm = 46.8 | Feb precipitation mm = 54.3 | Mar precipitation mm = 66.8
+  | Apr precipitation mm = 67.9 | May precipitation mm = 74.8 | Jun precipitation mm = 82.1
+  | Jul precipitation mm = 108.3 | Aug precipitation mm = 60.1 | Sep precipitation mm = 57.9
+  | Oct precipitation mm = 59.9 | Nov precipitation mm = 52.4 | Dec precipitation mm = 53.5
+  | year precipitation mm = 784.8
+  | Jan precipitation days = 6.0 | Feb precipitation days = 5.9 | Mar precipitation days = 7.2
+  | Apr precipitation days = 7.1 | May precipitation days = 7.9 | Jun precipitation days = 8.8
+  | Jul precipitation days = 9.4 | Aug precipitation days = 8.2 | Sep precipitation days = 7.4
+  | Oct precipitation days = 7.5 | Nov precipitation days = 6.0 | Dec precipitation days = 6.5
+  | year precipitation days = 88.1
+  | Jan humidity = 69.9 | Feb humidity = 73.9 | Mar humidity = 74.6
+  | Apr humidity = 77.1 | May humidity = 78.7 | Jun humidity = 79.9
+  | Jul humidity = 79.6 | Aug humidity = 76.0 | Sep humidity = 69.2
+  | Oct humidity = 67.3 | Nov humidity = 67.8 | Dec humidity = 67.0
+  | year humidity = 73.4
+  | Jan sun = 249.3 | Feb sun = 202.6 | Mar sun = 201.7
+  | Apr sun = 172.4 | May sun = 155.6 | Jun sun = 130.7
+  | Jul sun = 134.7 | Aug sun = 166.8 | Sep sun = 181.2
+  | Oct sun = 213.9 | Nov sun = 216.2 | Dec sun = 233.7
+  | year sun = 2258.7
+  | date = August 2010
+  | metric first = Y | single line = Y | precipitation colour = green | unit precipitation days = 1.0 mm
+  | source 1 = NIWA Climate Data
+}}
+-->
+
+== Wines ==
+{{Pie chart
+  | thumb
+  | caption = Grape varieties planted in Hawke's Bay by vineyard area in hectares, 2020.
+  | footer = <small>Data from [[New Zealand Winegrowers]] vineyard report.<ref name="nzw-vineyard-report">{{cite web
+    | title = New Zealand Winegrowers Vineyard Report, 2020-2023
+    | publisher = [[New Zealand Winegrowers]]
+    | year = 2020
+    | url = https://www.nzwine.com/en/media/statistics/vineyard-reports/
+    | access-date = 13 May 2021
+    | archive-date = 22 April 2021
+    | archive-url = https://web.archive.org/web/20210422032430/https://www.nzwine.com/en/media/statistics/vineyard-reports/
+    | url-status = live
+    }}</ref></small>
+  | label1 = Chardonnay
+  | value1 = 22.8
+  | label2 = Merlot
+  | value2 = 21.6
+  | label3 = Sauvignon Blanc
+  | value3 = 19.8
+  | label4 = Pinot Gris
+  | value4 = 12.4
+  | label5 = Syrah
+  | value5 = 7.4
+  | label6 = Pinot Noir
+  | value6 = 4.9
+  | label7 = Cabernet Sauvignon
+  | value7 = 4.2
+  | other  = yes
+  | color1 = #8dd3c7 | color2 = #ffffb3 | color3 = #bebada | color4 = #fb8072
+  | color5 = #80b1d3 | color6 = #fdb462 | color7 = #b3de69
+}}<!-- Colour values from Template:BrewerColors, Set2; values obtained from report, using (e.g.) value1={{percent|1039.6|4563|1|%=}} but they caused errors in the chart template. -->
+Red wines made from Merlot blends and Syrah are consistently well reviewed. Varietal white wines from [[Chardonnay]], [[Sauvignon Blanc]], [[Pinot Gris]] and [[Viognier]] are also produced.<ref>{{Cite encyclopedia
+  | title = Hawke's Bay
+  | pages = 358
+  | encyclopedia = [[The World Atlas of Wine]]
+  | edition = 7th
+  | editor-first1 = Hugh
+  | editor-last1 = Johnson
+  | editor-link1 = Hugh Johnson (wine)
+  | editor-last2 = Robinson
+  | editor-first2 = Jancis
+  | editor-link2 = Jancis Robinson
+  | publisher = [[Mitchell Beazley]]
+  | date = 2013
+  | isbn = 978-1-84533-689-9
+}}</ref>
+
+== Sub-regions ==
+
+There are several sub-regions within the Hawke's Bay GI, most notably Gimblett Gravels and Bridge Pa Triangle, which have developed reputations for fine red wines.<ref name="decanter-travelguide">{{Cite web
+  | title = Hawke's Bay travel guide for wine lovers
+  | last = Barnes
+  | first = Amanda
+  | work = Decanter
+  | date = 30 November 2018
+  | access-date = 8 August 2019
+  | url = https://www.decanter.com/wine-travel/hawkes-bay-travel-guide-wine-lovers-405074/
+  | issn = 0954-4240
+  | archive-date = 8 August 2019
+  | archive-url = https://web.archive.org/web/20190808121520/https://www.decanter.com/wine-travel/hawkes-bay-travel-guide-wine-lovers-405074/
+  | url-status = live
+  }}</ref>
+
+=== Gimblett Gravels ===
+
+[[File:Gimblett Gravels wine district logo.jpg|thumb|right|The Gimblett Gravels logo]]
+The Gimblett Gravels is an area of approximately {{convert|800|ha}} defined by the extent of a particular local soil [[stratum]] known as the Omahu Gravels. It is one of the few wine regions in the world defined by a soil type rather than the usual geographical, municipal or political boundaries. The designation is controlled as a registered trademark owned by the Gimblett Gravels Winegrowers Association, available only to its members. Membership is open to any producer that can show their vineyards are on the Gimblett Gravels soil (and thus by definition within the Gimblett Gravels area), and membership then allows the use of the label designation on any wines sourced (minimum 95%) from these vineyards. There are no other grape growing or winemaking regulations.<ref name="gimblett-gravels">{{cite web |url= https://thegimblettgravels.com/about-us/the-association/ |title=About the Association |author=Gimblett Gravels Winegrowing Association |date=2016 |work=Gimblett Gravels Wine Growing District |access-date=28 August 2018 |archive-date=28 August 2018 |archive-url=https://web.archive.org/web/20180828035726/https://gimblettgravels.com/about-us/the-association/ |url-status=live}}</ref> Notable producers are Trinity Hill, Forrest Estate (Cornerstone), Čuvar, Craggy Range, Church Road, Stonecroft, and Pask.
+
+=== Bridge Pa Triangle ===
+
+[[File:Bridge Pa Triangle wine district logo.jpg|thumb|right|The Bridge Pa Triangle logo]]
+Also known as the Ngatarawa Triangle, the Bridge Pa Triangle wine district is approximately {{convert|2100|ha}} traced by three roads: Ngatarawa Road, State Highway 50 and Maraekakaho Road. The area adjoins the Gimblett Gravels to the north, and contains the old riverbed of the nearby [[Ngaruroro River]] before it changed course after an earthquake in the 1860s. The soils include free draining alluvial gravels and shallow clay-loam soils over [[Lake Taupō]] pumice [[Tephra|tephras]]. Vineyards were first established in the area in 1981 by Alwyn Corban and Garry Glazebrook, who founded Ngatarawa Wines. Their successes attracted others to the area, and the Bridge Pa Triangle Wine District organisation was eventually incorporated in 2015. Membership allows producers to use the Bridge Pa Triangle logo and branding on the label as long as the wine has a minimum of 85% of the grapes sourced from the area. There are no other grape or wine-production regulations.<ref>{{cite work|title=Rules of Bridge Pa Triangle Wine District Incorporated |date=16 November 2017 |via=[[New Zealand Companies Office]] |publisher=Bridge Pa Triangle Wine District Incorporated |url=https://app.businessregisters.govt.nz/view/is/9429043291908 |access-date=10 April 2022 }}</ref> Notable wineries in the area include Alpha Domus, Sileni Estates, Red Metal and Ash Ridge. Several other producers make single vineyard wines from their plantings in the Bridge Pa Triangle area, most notably the award-winning Syrah from Te Mata Estate's "Bullnose" vineyard.
+
+=== Te Mata ===
+
+The ''Te Mata Special Character Zone'' is an area of hills adjacent to [[Havelock North]] and [[Te Mata Peak]]. It was first protected by the Hawke's Bay Regional Council in 1996, making it New Zealand's first legally protected wine growing area.<ref name="tematazone">{{Cite web
+  | url = https://www.hastingsdc.govt.nz/assets/Document-Library/District-Plan/Part-B-Zones/Te-Mata-Special-Character-Zone.pdf
+  | title = The Te Mata Special Character Zone
+  | work = Operative Hastings District Plan
+  | publisher = Hastings District Council
+  | date = 2003
+  | access-date = 26 February 2018
+  | archive-date = 28 January 2018
+  | archive-url = https://web.archive.org/web/20180128221952/https://www.hastingsdc.govt.nz/assets/Document-Library/District-Plan/Part-B-Zones/Te-Mata-Special-Character-Zone.pdf
+  | url-status = live
+  }}</ref> The principal producers in the region are [[Te Mata Estate]], Craggy Range and Black Barn, but other producers have vineyards in the area, including De La Terre and Trinity Hill.
+
+=== Te Awanga ===
+
+Several vineyards are established in the coastal area around the small town of [[Te Awanga]], {{convert|12|km}} east of Hastings. The area has the sunny warm Hawke's Bay climate, moderated by cool coastal breezes at night. Notable producers here are Beach House, Clearview Estate, and Elephant Hill.<ref name="winetrail-map">{{Cite web
+| title = Wine Trail Map
+| work = Hawke's Bay Wine
+| access-date = 8 August 2019
+| url = http://hawkesbaywine.co.nz/hawkes-bay-wine-trail
+| archive-date = 5 August 2019
+| archive-url = https://web.archive.org/web/20190805125320/http://hawkesbaywine.co.nz/hawkes-bay-wine-trail
+| url-status = live
+}}</ref>
+
+=== Central Hawke's Bay ===
+
+Growers {{convert|50|km}} further south around the towns of [[Waipawa]] and [[Waipukurau]] registered their own sub-region geographical indication in 2019, which covers roughly the southern half of the larger Hawke's Bay GI, with the same boundary as the [[Central Hawke's Bay District]] local authority.<ref name="iponz-central">{{Cite web
+  | title = Geographical Indications Register: Central Hawke's Bay
+  | work = Intellectual Property Office of New Zealand
+  | date = 28 January 2019
+  | access-date = 8 August 2019
+  | url = https://www.iponz.govt.nz/about-ip/geographical-indications/register/central-hawkes-bay/
+  | archive-date = 5 August 2019
+  | archive-url = https://web.archive.org/web/20190805120756/https://www.iponz.govt.nz/about-ip/geographical-indications/register/central-hawkes-bay/
+  | url-status = live
+  }}</ref> The principal producers are Lime Rock, Junction Wines and Pukeora Estate.<ref name="winetrail-map"/>
+
+== References ==
+{{reflist}}
+
+== External links ==
+
+* [http://hawkesbaywine.co.nz/ Hawke's Bay Winegrowers]
+* [https://thegimblettgravels.com/ Gimblett Gravels Wine Growing District]
+* [http://www.bridgepatriangle.nz/ Bridge Pa Triangle Wine District]
+
+{{Wine regions of New Zealand}}
+
+[[Category:Wine regions of New Zealand]]
+[[Category:Geography of Hawke's Bay]]

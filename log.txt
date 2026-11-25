@@ -1,0 +1,233 @@
+  retry https://nuevo.leychile.cl/servicios/Navegar/get_norma_json?idNorma=12013 HTTP Error 500: Internal Server Error
+  retry https://nuevo.leychile.cl/servicios/Navegar/get_norma_json?idNorma=12013 HTTP Error 500: Internal Server Error
+doc cl_decreto464_leychile.json None
+doc cl_decreto464_obtxml.xml None
+doc cl_decreto464_sag.pdf 254355
+doc cl_decreto464_wipo_489584.html 69870
+doc cl_decreto464_wipo_489551.html 57682
+doc ar_ig_doc_2024.pdf 474909
+doc ar_ig_doc.pdf 85229
+  retry https://www.sawis.co.za/cert/download/wineoforiginbooklet201604.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>
+  retry https://www.sawis.co.za/cert/download/wineoforiginbooklet201604.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>
+doc za_wo_booklet.pdf None
+  retry https://www.sawis.co.za/winelaw/download/86_New_demarcations.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>
+  retry https://www.sawis.co.za/winelaw/download/86_New_demarcations.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1011)>
+doc za_new_demarcations.pdf None
+  retry https://legacy.trade.gov/td/ocg/sawineregions.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'legacy.trade.gov'. (_ssl.c:1011)>
+  retry https://legacy.trade.gov/td/ocg/sawineregions.pdf <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'legacy.trade.gov'. (_ssl.c:1011)>
+doc us_sa_wine_regions.pdf None
+wiki en Wine_regions_of_South_Africa 9162
+wiki en Chilean_wine 51012
+wiki en Argentine_wine 61475
+wiki en New_Zealand_wine 74302
+wiki en Mendoza_wine 9553
+wiki en List_of_wine-producing_regions 53766
+wiki en Uco_Valley 5386
+  retry https://en.wikipedia.org/w/index.php?title=Luj%C3%A1n_de_Cuyo_%28wine%29&action=raw HTTP Error 404: Not Found
+  retry https://en.wikipedia.org/w/index.php?title=Luj%C3%A1n_de_Cuyo_%28wine%29&action=raw HTTP Error 404: Not Found
+wiki en Luján_de_Cuyo_(wine) None
+wiki en Marlborough_wine_region 15494
+wiki en Hawke's_Bay_wine_region 15815
+wiki en Central_Otago_wine_region 12242
+  retry https://en.wikipedia.org/w/index.php?title=Stellenbosch_%28wine_region%29&action=raw HTTP Error 404: Not Found
+  retry https://en.wikipedia.org/w/index.php?title=Stellenbosch_%28wine_region%29&action=raw HTTP Error 404: Not Found
+wiki en Stellenbosch_(wine_region) None
+  retry https://en.wikipedia.org/w/index.php?title=Colchagua_Valley&action=raw HTTP Error 404: Not Found
+  retry https://en.wikipedia.org/w/index.php?title=Colchagua_Valley&action=raw HTTP Error 404: Not Found
+wiki en Colchagua_Valley None
+wiki en Maipo_Valley 71
+wiki en Casablanca_Valley 61
+wiki es Vino_de_Chile 47095
+wiki es Vino_de_Argentina 42015
+  retry https://es.wikipedia.org/w/index.php?title=Denominaci%C3%B3n_de_origen_%28Chile%29&action=raw HTTP Error 404: Not Found
+  retry https://es.wikipedia.org/w/index.php?title=Denominaci%C3%B3n_de_origen_%28Chile%29&action=raw HTTP Error 404: Not Found
+wiki es Denominación_de_origen_(Chile) None
+wiki es Valle_de_Uco 10820
+  retry https://es.wikipedia.org/w/index.php?title=Vitivinicultura_en_Argentina&action=raw HTTP Error 404: Not Found
+  retry https://es.wikipedia.org/w/index.php?title=Vitivinicultura_en_Argentina&action=raw HTTP Error 404: Not Found
+wiki es Vitivinicultura_en_Argentina None
+register slugs: 27
+GI northland | Northland | ['https://www.iponz.govt.nz/assets/GIRegister/1884/Northland-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1884/Northland-GI-boundary.zip']
+   files ['dl/nz/northland/0/Northland.json', 'dl/nz/northland/0/Northland.shp']
+   saved northland MultiPolygon 1.3205
+GI matakana | Matakana | ['https://www.iponz.govt.nz/assets/GIRegister/1881/Matakana-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1881/Matakana-GI-boundary.zip']
+   files ['dl/nz/matakana/0/Matakana.json', 'dl/nz/matakana/0/Matakana.shp']
+   saved matakana Polygon 0.0255
+GI kumeu | Kumeu | ['https://www.iponz.govt.nz/assets/GIRegister/1854/Kumeu-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1854/Kumeu-GI-boundary.zip']
+   files ['dl/nz/kumeu/0/Kumeu.json', 'dl/nz/kumeu/0/Kumeu.shp']
+   saved kumeu Polygon 0.0045
+GI auckland | Auckland | ['https://www.iponz.govt.nz/assets/GIRegister/1872/Auckland-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1872/Auckland-GI-boundary.zip']
+   files ['dl/nz/auckland/0/Auckland.shp', 'dl/nz/auckland/0/Auckland.json']
+   saved auckland MultiPolygon 0.4952
+GI waiheke-island | Waiheke Island | ['https://www.iponz.govt.nz/assets/GIRegister/1863/Waiheke-Island-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1863/Waiheke-Island-GI-boundary.zip']
+   files ['dl/nz/waiheke-island/0/Waiheke_Island.json', 'dl/nz/waiheke-island/0/Waiheke_Island.shp']
+   saved waiheke-island Polygon 0.0094
+GI gisborne | Gisborne | ['https://www.iponz.govt.nz/assets/GIRegister/1842/Gisborne-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1842/Gisborne-GI-boundary.zip']
+   files ['dl/nz/gisborne/0/Gisborne.shp', 'dl/nz/gisborne/0/Gisborne.json']
+   saved gisborne MultiPolygon 0.8602
+GI hawkes-bay | Hawke’s Bay / Hawkes Bay | ['https://www.iponz.govt.nz/assets/GIRegister/1833/Hawkes-Bay-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1833/Hawkes-Bay-GI-boundary.zip']
+   files ['dl/nz/hawkes-bay/0/Hawkes_Bay.json', 'dl/nz/hawkes-bay/0/Hawkes_Bay.shp']
+   saved hawkes-bay MultiPolygon 1.4811
+GI central-hawkes-bay | Central Hawke&#039;s Bay / Central Hawkes Bay | ['https://www.iponz.govt.nz/assets/GIRegister/1878/Central-Hawkes-Bay-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1878/Central-Hawkes-Bay-GI-boundary.zip']
+   files ['dl/nz/central-hawkes-bay/0/Central_Hawkes_Bay.json', 'dl/nz/central-hawkes-bay/0/Central_Hawkes_Bay.shp']
+   saved central-hawkes-bay Polygon 0.3512
+GI wairarapa | Wairarapa | ['https://www.iponz.govt.nz/assets/GIRegister/1851/Wairarapa-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1851/Wairarapa-GI-boundary.zip']
+   files ['dl/nz/wairarapa/0/Wairarapa.shp', 'dl/nz/wairarapa/0/Wairarapa.json']
+   saved wairarapa Polygon 0.6362
+GI gladstone | Gladstone | ['https://www.iponz.govt.nz/assets/GIRegister/1860/Gladstone-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1860/Gladstone-GI-boundary.zip']
+   files ['dl/nz/gladstone/0/Gladstone.json', 'dl/nz/gladstone/0/Gladstone.shp']
+   saved gladstone Polygon 0.0489
+GI martinborough | Martinborough | ['https://www.iponz.govt.nz/assets/GIRegister/1848/Martinborough-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1848/Martinborough-GI-boundary.zip']
+   files ['dl/nz/martinborough/0/Martinborough.json', 'dl/nz/martinborough/0/Martinborough.shp']
+   saved martinborough Polygon 0.0307
+GI nelson | Nelson | ['https://www.iponz.govt.nz/assets/GIRegister/1836/Nelson-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1836/Nelson-GI-boundary.zip']
+   files ['dl/nz/nelson/0/Nelson.json', 'dl/nz/nelson/0/Nelson.shp']
+   saved nelson MultiPolygon 1.0885
+GI marlborough | Marlborough | ['https://www.iponz.govt.nz/assets/GIRegister/1830/Marlborough-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1830/Marlborough-GI-boundary.zip']
+   files ['dl/nz/marlborough/0/Marlborough.json', 'dl/nz/marlborough/0/Marlborough.shp']
+   saved marlborough MultiPolygon 1.3956
+GI north-canterbury | North Canterbury | ['https://www.iponz.govt.nz/assets/GIRegister/1866/North-Canterbury-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1866/North-Canterbury-GI-boundary.zip']
+   files ['dl/nz/north-canterbury/0/North_Canterbury.shp', 'dl/nz/north-canterbury/0/North_Canterbury.json']
+   saved north-canterbury Polygon 2.1148
+GI waipara-valley | Waipara Valley / Waipara | ['https://www.iponz.govt.nz/assets/GIRegister/1845/Waipara-Valley-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1845/Waipara-Valley-GI-boundary.zip']
+   files ['dl/nz/waipara-valley/0/Waipara_Valley.shp', 'dl/nz/waipara-valley/0/Waipara_Valley.json']
+   saved waipara-valley Polygon 0.0353
+GI canterbury | Canterbury | ['https://www.iponz.govt.nz/assets/GIRegister/1869/Canterbury-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1869/Canterbury-GI-boundary.zip']
+   files ['dl/nz/canterbury/0/Canterbury.json', 'dl/nz/canterbury/0/Canterbury.shp']
+   saved canterbury Polygon 4.5564
+GI waitaki-valley-north-otago | Waitaki Valley North Otago / Waitaki Valley | ['https://www.iponz.govt.nz/assets/GIRegister/1875/Waitaki-Valley-North-Otago-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1875/Waitaki-Valley-North-Otago-GI-boundary.zip']
+   files ['dl/nz/waitaki-valley-north-otago/0/Waitaki_Valley_North_Otago.shp', 'dl/nz/waitaki-valley-north-otago/0/Waitaki_Valley_North Otago.json']
+   saved waitaki-valley-north-otago Polygon 0.0614
+GI central-otago | Central Otago | ['https://www.iponz.govt.nz/assets/GIRegister/1839/Central-Otago-GI-boundary.zip', 'https://www.iponz.govt.nz/assets/GIRegister/1839/Central-Otago-GI-boundary.zip']
+   files ['dl/nz/central-otago/0/Central_Otago.shp', 'dl/nz/central-otago/0/Central_Otago.json']
+   saved central-otago Polygon 2.2016
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/eastern-bays/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/eastern-bays/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/ruapehu/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/ruapehu/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/wellington/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/wellington/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/te-muna/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/te-muna/ HTTP Error 404: Not Found
+GI bannockburn | Bannockburn | ['https://www.iponz.govt.nz/assets/GIRegister/2926/Bannockburn-GI-boundary-v2.zip', 'https://www.iponz.govt.nz/assets/GIRegister/2926/Bannockburn-GI-boundary-v2.zip']
+   files ['dl/nz/bannockburn/0/Bannockburn.shp', 'dl/nz/bannockburn/0/Bannockburn.json']
+   saved bannockburn Polygon 0.0047
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/gimblett-gravels/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/gimblett-gravels/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/new-zealand/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/new-zealand/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/north-island/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/north-island/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/south-island/ HTTP Error 404: Not Found
+  retry https://www.iponz.govt.nz/get-ip/geographical-indications/register/south-island/ HTTP Error 404: Not Found
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+admin Mendoza 553
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+places failed Mendoza 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+admin San Juan 1216
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+places failed San Juan 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+admin Salta 216
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed Salta 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+admin Catamarca 363
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed Catamarca 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+admin failed La Rioja overpass failed
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+places failed La Rioja 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+admin Neuquén 749
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places failed Neuquén 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+admin Río Negro 899
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places failed Río Negro 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+admin Tucumán 160
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places failed Tucumán 'lat'
+admin ar relations 4156 places 0
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed cl 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed cl 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+places failed cl 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+places failed cl 'lat'
+places cl 0
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places failed nz 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed nz 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+places failed nz 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+places failed nz 'lat'
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  retry https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
