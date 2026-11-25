@@ -1,0 +1,13 @@
+{
+ "name": "Thatcher's Wine",
+ "base": "https://thatcherswine.com",
+ "status": "existing",
+ "declared_currency": "USD",
+ "products": 22336,
+ "pages": 90,
+ "via_collections": false,
+ "error": null,
+ "storefront_currency": "USD",
+ "storefront_rate": "1.0",
+ "seconds": 83
+}
