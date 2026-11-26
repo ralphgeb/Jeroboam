@@ -4,6 +4,8 @@ Duolingo-style wine course (Levels 1–3, WSET-inspired) plus a wine atlas: grap
 
 - App name **Jero** (short for Jeroboam). Bundle ID `com.ralphgeb.jero`, iOS 17+, iPhone only, Swift 5 mode, SwiftUI + Observation. No third-party packages.
 - Project root `Jeroboam/` (XcodeGen `project.yml`; never commit a .xcodeproj).
+- **More than one Claude works on this repo.** At the start of every session read `docs/handoff/` (README + every
+  `claude-*.md`), and keep your own `docs/handoff/claude-<topic>.md` up to date as you work (never edit another Claude's file).
 
 ## Layout
 ```
