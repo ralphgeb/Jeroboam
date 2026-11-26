@@ -231,10 +231,15 @@ struct CollapsingPage<Content: View>: View {
                     .allowsHitTesting(collapse < 0.5)
             }
             HStack {
-                Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1)
                     .opacity(collapse).offset(y: 6 * (1 - collapse))
-                Spacer()
-                if !showStatus || collapse > 0.5 { AvatarButton(size: 30) }
+                Spacer(minLength: 8)
+                // streak and XP stay in view while you scroll, next to your picture
+                if !showStatus || collapse > 0.5 {
+                    StreakXPPill()
+                        .opacity(showStatus ? collapse : 1)
+                    AvatarButton(size: 30)
+                }
             }
         }
         .frame(height: isWide ? 34 : 44)

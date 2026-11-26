@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct GrapeListView: View {
+    @Environment(JournalStore.self) private var journal
     @State private var filter = 0      // 0 all, 1 black, 2 white
     @State private var query = ""
 
@@ -22,9 +23,13 @@ struct GrapeListView: View {
                 }
                 .pickerStyle(.segmented)
 
+                let tried = Tried.of(journal.persist ? journal.entries : [])
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 12)], spacing: 12) {
                     ForEach(grapes) { g in
-                        DetailLink(value: g) { card(g) }.buttonStyle(PressableStyle())
+                        DetailLink(value: g) {
+                            card(g).overlay(alignment: .bottomTrailing) { if tried.grapes[g.id] != nil { TriedTick().padding(10) } }
+                        }
+                        .buttonStyle(PressableStyle())
                     }
                 }
             }

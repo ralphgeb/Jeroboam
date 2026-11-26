@@ -72,6 +72,7 @@ struct ProfileView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(for: CollectionRoute.self) { _ in CollectionView() }
             .onAppear { progress.checkAchievements() }
             .statusBarBackdrop()
             .plusSheetHost()
@@ -130,6 +131,8 @@ struct ProfileView: View {
     }
 
     @ViewBuilder private func achievements() -> some View {
+                    // the stamp album (grapes, countries and classics tasted) sits above the badges
+                    CollectionCard()
                     VStack(alignment: .leading, spacing: 14) {
                         SectionTitle(text: "Achievements", detail: "\(progress.data.achievements.count)/\(Achievement.all.count)")
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12, alignment: .top)], alignment: .center, spacing: 18) {
@@ -283,6 +286,13 @@ struct ProfileView: View {
                                 progress.data.morningFacts = $0; progress.scheduleReminder()
                             }))
                             .labelsHidden().tint(Palette.wine)
+                        }
+                        Hairline()
+                        settingRow("Drinking-window alerts") {
+                            Toggle("", isOn: Binding(get: { DrinkAlerts.enabled }, set: {
+                                DrinkAlerts.enabled = $0; limitTick += 1; progress.scheduleReminder()
+                            }))
+                            .labelsHidden().tint(Palette.wine).id(limitTick)
                         }
                         Hairline()
                         settingRow("Evening practice at") {

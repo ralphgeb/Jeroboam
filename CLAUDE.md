@@ -252,3 +252,24 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - Repeat scans: `WineRecognizer.known` looks a wine up by producer/name/vintage (phone, then cloud `?key=`) before `verifyOnline`.
 - Launch race after a reinstall: `refreshFromShopList`/`repriceShopBottlesOnce` are @MainActor; the CloudKit pull applies its
   changes to the journal as it is after the network wait.
+
+## Cellar & journal round (not yet on TestFlight, not compiled yet)
+- **Drinking-window alerts** (`DrinkAlerts.swift`): `DrinkWindow.years/phase` parse "2025–2035", "Now–2032", "by 2030". A cellar
+  bottle gets 3 alerts a month apart (first Friday, at the fun-fact hour; "It's ready" / "Plan it" / "Don't miss it"), starting when
+  its window opens (or the month after it was added), squeezed into short windows; same-month bottles share one; tasted or removed
+  bottles stop. Max 6 pending (`drink-0..5`, iOS limit 64 with the 56 daily ones); that morning's fun fact steps aside.
+  Settings > Notifications > Drinking-window alerts (`jero.drinkAlerts`). `Notifications.journalChanged()` reschedules after edits.
+- **Journal world map** (JournalInsights): `MapDot` (colour = dominant style, size by count), filter All / In my cellar / Tasted
+  (`MapFilter`), styles `WineMapStyle` dots (default) / glow (mono Bordeaux heat) / countries (shaded by count, outlines from
+  `Resources/Maps/world-countries.json`, built by `tools/build_world_countries.py` from Natural Earth 50m). TestFlight shows a style
+  picker (`jero.wineMapStyle`). Full map: tap a dot -> place card (wines + "Open the map of X").
+- **Wine profile** (`WineProfile.swift`): expected sweetness/body/tannin/acidity/alcohol from grapes (blend %), style and cool/warm
+  place; `BottleProfileCard` on the bottle page, with your tasting's marks (brass) beside it.
+- **Journal charts** (`JournalCharts.swift`): insight sentence, taste fingerprint radar, month by month (+ average score line),
+  blind-tasting progress with trend, grape ring (tap a slice), cellar readiness bar.
+- **Collection** (`Collection.swift`): `Tried.of(entries)` — only journal TASTINGS count (not cellar bottles): grapes, regions,
+  countries, classics (name on label, or place + grape). `TriedTick` on grape cards, country cards and `WineRow`. `CollectionView`
+  stamp album (Grapes / Countries / Classics, counters, milestones) in Journal (`CollectionCard`) and Profile (above Achievements);
+  wide windows (Duo sideways) show the stamp on the right (`rightPane`), else a sheet. `CollectionMilestone.all` (8) are also
+  Achievements; checked when a tasting is added.
+- **Top bar**: `StreakXPPill` (flame + XP) stays next to the avatar in the collapsed bar of Practice, and always in Atlas and Journal.

@@ -148,8 +148,8 @@ final class JournalStore {
         spentUSD = UserDefaults.standard.double(forKey: "jero.spent")
     }
 
-    private func save() { guard persist else { return }; if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) }; CloudSync.shared.journalChanged() }
-    private func saveCellar() { guard persist else { return }; if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) }; CloudSync.shared.journalChanged() }
+    private func save() { guard persist else { return }; if let d = try? JSONEncoder().encode(entries) { try? d.write(to: url, options: .atomic) }; CloudSync.shared.journalChanged(); Notifications.shared.journalChanged() }
+    private func saveCellar() { guard persist else { return }; if let d = try? JSONEncoder().encode(cellar) { try? d.write(to: cellarURL, options: .atomic) }; CloudSync.shared.journalChanged(); Notifications.shared.journalChanged() }
 
     func savePhoto(_ image: UIImage, id: UUID) -> String? {
         let name = id.uuidString + ".jpg"
@@ -347,6 +347,7 @@ struct JournalView: View {
 
 struct JournalHome: View {
     @Environment(JournalStore.self) private var journal
+    @Environment(GameProgress.self) private var progress
     @State private var section = 0
     @State private var scan = false
     @State private var blind = false
@@ -369,6 +370,7 @@ struct JournalHome: View {
 
                     if section == 0 { cellarSection } else { tastingsSection }
                     JournalInsights()
+                    CollectionCard()
                     JournalExtras(onBlind: { blind = true })
                     NavigationLink(value: HistoryRoute()) {
                         HStack(spacing: 12) {
@@ -396,6 +398,7 @@ struct JournalHome: View {
             .navigationDestination(for: CellarBottle.self) { b in CellarDetailView(bottleID: b.id) }
             .navigationDestination(for: CellarRoute.self) { _ in CellarView() }
             .navigationDestination(for: HistoryRoute.self) { _ in ScanHistoryView() }
+            .navigationDestination(for: CollectionRoute.self) { _ in CollectionView() }
             .navigationDestination(for: Wine.self) { w in PlusGate(quota: "wines", id: w.id) { WineDetailView(wine: w) } }
             .navigationDestination(for: Grape.self) { g in PlusGate(quota: "grapes", id: g.id) { GrapeDetailView(grape: g) } }
             .navigationDestination(for: Region.self) { r in PlusGate(country: r.gateCountry, reason: "Every country and appellation comes with Jero Plus.") { RegionDetailView(region: r) } }
@@ -403,6 +406,8 @@ struct JournalHome: View {
         }
         .fullScreenCover(isPresented: $scan) { ScanFlow() }
         .fullScreenCover(isPresented: $blind) { TastingFlow(blind: true) }
+        // a new tasting can stamp a grape, a country or a classic: milestones are checked (and celebrated) straight away
+        .onChange(of: journal.entries.count) { _, _ in if journal.persist { progress.checkAchievements() } }
         .onAppear {
             #if DEBUG
             DebugScreens.journalHook(journal) { kind in
@@ -1878,6 +1883,8 @@ struct CellarDetailView: View {
                     }
                     .foregroundStyle(Palette.wine).padding(.top, -8)
                     WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
+                    // body, acidity, tannin… expected from its grapes and place; your own marks beside them once you have tasted it
+                    BottleProfileCard(wine: b.wine, tasting: journal.entries.first { WineDB.key($0.wine) == WineDB.key(b.wine) })
                     PriceCard(price: b.price, loading: pricing, quantity: b.quantity, wine: b.wine) { Task { await refresh(b) } }
                     PaidField(paidUSD: Binding(get: { b.paidUSD }, set: { v in var c = b; c.setPaid(v); journal.upsert(c) }))
                     if let paid = b.paidTotal, b.value > 0 {
@@ -2066,19 +2073,7 @@ struct DrinkWindowChart: View {
         return Double(yr) < peak ? "Getting there" : "Still good"
     }
 
-    private var years: (start: Int, end: Int)? {
-        let now = Calendar.current.component(.year, from: Date())
-        let found = window.split(whereSeparator: { !$0.isNumber }).compactMap { Int($0) }.filter { (1900...2100).contains($0) }
-        let lower = window.lowercased()
-        if found.count >= 2 { return (min(found[0], found[1]), max(found[0], found[1])) }
-        if found.count == 1 {
-            let y = found[0]
-            if lower.contains("by") || lower.contains("until") || lower.contains("now") || lower.contains("before") { return (min(now, y), max(now, y)) }
-            return (y, y + 6)
-        }
-        if lower.contains("now") { return (now, now + 2) }
-        return nil
-    }
+    private var years: (start: Int, end: Int)? { DrinkWindow.years(window) }
 
     var body: some View {
         if let w = years {

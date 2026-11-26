@@ -417,17 +417,41 @@ final class Notifications {
         ("Ready for a mock exam?", "Thirty questions to see how close you are to the next level."),
     ]
 
+    private weak var lastProgress: GameProgress?
+    private var pending: DispatchWorkItem?
+
+    /// The cellar or the tastings changed: drinking-window alerts follow (a removed or tasted bottle stops getting them).
+    func journalChanged() {
+        pending?.cancel()
+        let w = DispatchWorkItem { [weak self] in if let p = self?.lastProgress { self?.reschedule(p) } }
+        pending = w
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: w)
+    }
+
     func reschedule(_ p: GameProgress) {
+        lastProgress = p
         let ids = (0..<64).flatMap { ["fact-\($0)", "practice-\($0)"] } + ["daily-reminder"]
+            + (0..<DrinkAlerts.maxPending).map { "drink-\($0)" }
         center.removePendingNotificationRequests(withIdentifiers: ids)
         guard p.data.reminders else { return }
         let facts = ContentStore.shared.library.facts ?? []
         let cal = Calendar.current
         let today = cal.startOfDay(for: Date())
         let dayNumber = Int(today.timeIntervalSince1970 / 86400)
+        // drinking-window alerts, sent at the fun-fact hour; on those mornings they replace the fun fact
+        var alertDays: Set<Date> = []
+        if DrinkAlerts.enabled, let j = Achievement.journal, j.persist {
+            let alerts = DrinkAlerts.plan(cellar: j.cellar, tastings: j.entries, hour: p.data.factHour ?? 9)
+            alertDays = DrinkAlerts.days(alerts)
+            for (i, a) in alerts.enumerated() {
+                let comps = cal.dateComponents([.year, .month, .day, .hour, .minute], from: a.date)
+                center.add(UNNotificationRequest(identifier: "drink-\(i)", content: DrinkAlerts.content(a),
+                                                 trigger: UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)))
+            }
+        }
         for d in 0..<28 {
             guard let day = cal.date(byAdding: .day, value: d, to: today) else { continue }
-            if p.data.morningFacts ?? true, !facts.isEmpty {
+            if p.data.morningFacts ?? true, !facts.isEmpty, !alertDays.contains(day) {
                 let c = UNMutableNotificationContent()
                 c.title = "Did you know? 🍇"
                 c.body = facts[(dayNumber + d) % facts.count]
@@ -529,5 +553,10 @@ struct Achievement: Identifiable, Hashable {
         Achievement(id: "blind-10", title: "Trained nose", detail: "Finish 10 blind tastings", icon: "checkmark.seal.fill") { _ in blindEntries.count >= 10 },
         Achievement(id: "countries-3", title: "Three countries", detail: "Taste wines from 3 countries", icon: "airplane") { _ in countryCount >= 3 },
         Achievement(id: "countries-10", title: "Around the world", detail: "Taste wines from 10 countries", icon: "globe.americas.fill") { _ in countryCount >= 10 },
-    ]
+    ] + CollectionMilestone.all.map { m in
+        // the Collection's milestones (tasted in the journal only)
+        Achievement(id: m.id, title: m.title, detail: m.detail, icon: m.icon) { _ in
+            m.count(Tried.of(journal?.persist == true ? journal?.entries ?? [] : [])) >= m.target
+        }
+    }
 }

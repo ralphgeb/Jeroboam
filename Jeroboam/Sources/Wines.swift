@@ -124,6 +124,7 @@ struct WinesScreen: View {
 struct WineRow: View {
     let wine: Wine
     var last = false
+    @Environment(JournalStore.self) private var journal
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 14) {
@@ -133,6 +134,7 @@ struct WineRow: View {
                     Text(subtitle).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 }
                 Spacer(minLength: 6)
+                if Tried.of(journal.persist ? journal.entries : []).classics[wine.id] != nil { TriedTick(size: 18) }
                 Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
             }
             .padding(.horizontal, 14).padding(.vertical, 11)

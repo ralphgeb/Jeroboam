@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RegionListView: View {
+    @Environment(JournalStore.self) private var journal
     @State private var query: String
     @State private var explore: MapRef? = nil
     init(query: String = "") { _query = State(initialValue: query) }
@@ -59,7 +60,8 @@ struct RegionListView: View {
     }
 
     private func countryCard(_ c: Region) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
+        let tasted = Tried.of(journal.persist ? journal.entries : []).countries[Tried.countryKey(c.country.isEmpty ? c.name : c.country)] != nil
+        return VStack(alignment: .leading, spacing: 0) {
             Group {
                 if let m = c.map {
                     WineMapView(mapID: m, showLabels: false, showCities: false, fill: true, thumbnail: true, tightThumb: true)
@@ -80,6 +82,7 @@ struct RegionListView: View {
         .background(Palette.card)
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .overlay(alignment: .topLeading) { if tasted { TriedTick().padding(8) } }
         .zoomSource(ZoomID.region(c.id))
     }
 }

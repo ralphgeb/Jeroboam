@@ -263,14 +263,23 @@ struct TopStatusBar: View {
         HStack(spacing: 10) {
             Wordmark(size: 22)
             Spacer()
-            HStack(spacing: 14) {
-                FlameBadge(count: progress.data.streak, active: progress.activeToday)
-                XPBadge(xp: progress.data.xp)
-            }
-            .padding(.horizontal, 12).padding(.vertical, 7)
-            .background(Capsule().fill(Palette.card))
+            StreakXPPill()
             AvatarButton(size: 30)
         }
+    }
+}
+
+/// The streak flame and the XP spark in one small capsule: in the Learn tab's bar, and kept in the slim top bar of Practice,
+/// Atlas and Journal once their big title has scrolled away.
+struct StreakXPPill: View {
+    @Environment(GameProgress.self) private var progress
+    var body: some View {
+        HStack(spacing: 14) {
+            FlameBadge(count: progress.data.streak, active: progress.activeToday)
+            XPBadge(xp: progress.data.xp)
+        }
+        .padding(.horizontal, 12).padding(.vertical, 7)
+        .background(Capsule().fill(Palette.card))
     }
 }
 
