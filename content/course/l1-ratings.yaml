@@ -53,6 +53,7 @@ lessons:
           - **Vinous** (Antonio Galloni, USA): detailed reviews, strong on Italy and California.
           - **Wine Enthusiast** (USA): magazine scores on the 100-point scale, broad coverage.
       - learn: The 20-point school
+        visual: "ladder:score-scales"
         body: |
           Many European critics prefer **20 points**:
 

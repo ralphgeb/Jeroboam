@@ -65,6 +65,7 @@ lessons:
   - title: Threats in the vineyard
     cards:
       - learn: Pests and diseases
+        visual: "photo:mildew"
         body: |
           - **Phylloxera**: an aphid-like louse that kills vine roots. Grafting onto **American rootstock** is the main defense.
           - **Powdery mildew** (oidium) and **downy mildew**: fungal diseases.

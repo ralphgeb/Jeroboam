@@ -78,3 +78,11 @@
     - {name: Dry (Sec), note: "17–32 g/L"}
     - {name: Demi-Sec, note: "32–50 g/L: sweet, for desserts"}
     - {name: Doux, note: "Over 50 g/L"}
+- id: score-scales
+  title: "Three scales, roughly side by side"
+  style: pyramid
+  tiers:
+    - {name: Exceptional, note: "96–100 points · 18.5–20 / 20 · 4.5★ and up"}
+    - {name: Outstanding, note: "90–95 points · 17–18 / 20 · about 4.2★"}
+    - {name: Very good, note: "85–89 points · 16–16.5 / 20 · about 3.9★"}
+    - {name: Good, note: "80–84 points · 15–15.5 / 20 · about 3.6★"}

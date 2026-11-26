@@ -100,7 +100,7 @@
   icon: square.stack.3d.down.right
   cards:
     - learn: Gravel
-      visual: "photo:soil-gravel"
+      visual: "map:france:medoc,graves"
       body: |
         Loose stones that drain fast and store the day's heat. The Left Bank of **Bordeaux** (the Médoc and Graves) is built on gravel banks left by ancient rivers, perfect for late-ripening **Cabernet Sauvignon**.
     - learn: Clay
@@ -120,7 +120,7 @@
       body: |
         Ash, pumice and basalt: poor, free-draining and rich in minerals. **Santorini**, **Etna**, the Canary Islands and parts of Campania make tense, smoky, saline wines.
     - learn: Granite
-      visual: "photo:soil-granite"
+      visual: "map:france:beaujolais,cote-rotie,hermitage"
       body: |
         Crumbly, acidic and warm. The crus of **Beaujolais** and the northern Rhône's **Côte-Rôtie** and **Hermitage** owe their perfumed, structured wines to granite.
     - learn: Special soils
