@@ -59,6 +59,8 @@ lids = {l["id"] for l in labels}
 maps = {}
 for p in glob.glob(os.path.join(MAPS, "*.json")):
     m = json.load(open(p))
+    if "id" not in m:          # not a map (e.g. world-countries.json, the Journal's country outlines)
+        continue
     maps[m["id"]] = {r["id"] for r in m.get("areas", m.get("regions", []))}
 
 gids = [g["id"] for g in grapes]
@@ -556,6 +558,8 @@ for fp in sorted(glob.glob(os.path.join(SRC, "extra", "*.yaml"))):
 places, _lv0 = {}, {}
 for _p in glob.glob(os.path.join(MAPS, "*.json")):
     _m = json.load(open(_p))
+    if "id" not in _m:         # not a map
+        continue
     for _a in _m.get("areas", []):
         if _a.get("ll"):
             places.setdefault(_a["id"], _a["ll"])
