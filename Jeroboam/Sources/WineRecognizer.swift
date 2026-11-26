@@ -103,6 +103,9 @@ enum RecognizerError: LocalizedError {
 /// 2. Only if the text is too thin or the answer has low confidence → send a small JPEG of the photo.
 enum WineRecognizer {
     static let model = "claude-haiku-5-5"
+    /// Claude Haiku 5.5 thinks by default (adaptive), and with a web search the thinking alone could use up the whole answer
+    /// allowance, leaving no text: these short JSON answers need none. Allowed at effort "high" or lower; every call sends "low".
+    static let noThinking: [String: Any] = ["type": "disabled"]
     static let endpoint = URL(string: "https://api.anthropic.com/v1/messages")!
 
     static var apiKey: String? {
@@ -316,7 +319,7 @@ enum WineRecognizer {
         let pages = await WebFacts.pages(for: wine + " " + w.region, shopURL: shopURL)
         if !pages.isEmpty {
             let prompt = "Wine: \(wine)\(place).\nBelow is text from web pages. Report only what these pages say about this exact wine; never fill gaps from memory.\n\n\(pages)\n\n" + format
-            if let (obj, cost) = await askJSON(prompt: prompt, tools: nil, maxTokens: 500) {
+            if let (obj, cost) = await askJSON(prompt: prompt, tools: nil, maxTokens: 1500) {
                 total += cost
                 if apply(obj, to: &v) { v.checked = true; return (v, total, false) }
             }
@@ -326,7 +329,7 @@ enum WineRecognizer {
         if DailyBudget.reached { return (hideUnchecked(w), total, true) }
         let prompt = "Use web search to check this wine: \(wine)\(place). Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + format
         let tools: [[String: Any]] = [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]]
-        guard let (obj, cost) = await askJSON(prompt: prompt, tools: tools, maxTokens: 600) else {
+        guard let (obj, cost) = await askJSON(prompt: prompt, tools: tools, maxTokens: 2000) else {
             // no connection: not marked as checked, so it is tried again next time
             return (w, total, false)
         }
@@ -371,7 +374,8 @@ enum WineRecognizer {
 
     /// One Claude call that must answer with a JSON object. Returns the object and what the call cost (also counted against today's allowance).
     private static func askJSON(prompt: String, tools: [[String: Any]]?, maxTokens: Int) async -> ([String: Any], Double)? {
-        var body: [String: Any] = ["model": model, "max_tokens": maxTokens, "messages": [["role": "user", "content": prompt]]]
+        var body: [String: Any] = ["model": model, "max_tokens": maxTokens, "messages": [["role": "user", "content": prompt]],
+                                   "thinking": noThinking, "output_config": ["effort": "low"]]
         if let tools { body["tools"] = tools }
         do {
             guard var req = claudeRequest(timeout: 60) else { throw RecognizerError.noKey }
@@ -537,6 +541,7 @@ enum WineRecognizer {
             "max_tokens": 2000,
             "system": system,
             "output_config": ["effort": "low", "format": ["type": "json_schema", "schema": schema]],
+            "thinking": noThinking,
             "messages": [["role": "user", "content": content]]
         ]
         guard var req = claudeRequest(timeout: 45) else { throw RecognizerError.noKey }
@@ -624,7 +629,7 @@ extension WineRecognizer {
         guard isAvailable, !w.name.isEmpty, !DailyBudget.reached else { return (nil, 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let body: [String: Any] = [
-            "model": model, "max_tokens": 120,
+            "model": model, "max_tokens": 400, "thinking": noThinking, "output_config": ["effort": "low"],
             "messages": [["role": "user", "content": "Typical current retail price in US dollars of one 750 ml bottle of \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")"). Reply with only JSON: {\"low\": number, \"average\": number, \"high\": number}. Use your best estimate; never 0."]]
         ]
         do {
@@ -658,7 +663,7 @@ extension WineRecognizer {
         """
         let body: [String: Any] = [
             "model": model,
-            "max_tokens": 1500,
+            "max_tokens": 2000, "thinking": noThinking, "output_config": ["effort": "low"],
             "tools": [["type": "web_search_20250305", "name": "web_search", "max_uses": 2,
                        "allowed_domains": ["wine-searcher.com", "cellartracker.com"]]],
             "messages": [["role": "user", "content": prompt]]

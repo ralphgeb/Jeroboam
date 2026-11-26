@@ -30,9 +30,15 @@ const claudeError = (message, status, type = "proxy") => json({ type: "error", e
 function shape(b) {
   if (!b || !Array.isArray(b.messages) || b.messages.length === 0 || b.messages.length > 4) return null;
   if (b.messages.some((m) => !m || (m.role !== "user" && m.role !== "assistant"))) return null;
-  const out = { model: MODEL, max_tokens: Math.max(16, Math.min(Number(b.max_tokens) || 500, 1500)), messages: b.messages };
+  // at least 800 tokens: Jero's answers are short JSON, but a cut-off answer is paid for and useless
+  const out = { model: MODEL, max_tokens: Math.max(800, Math.min(Number(b.max_tokens) || 1000, 3000)), messages: b.messages };
+  // thinking off unless the app asks for it: Haiku thinks by default and, after a web search, can spend the whole answer on it
+  // (app builds up to 83 don't send this, so the worker sets it for them)
+  out.thinking = { type: b.thinking && b.thinking.type === "adaptive" ? "adaptive" : "disabled" };
   if (typeof b.system === "string") out.system = b.system.slice(0, 8000);
-  if (b.output_config && typeof b.output_config === "object") out.output_config = b.output_config;
+  out.output_config = Object.assign({ effort: "low" }, b.output_config && typeof b.output_config === "object" ? b.output_config : {});
+  // thinking can only be off at effort "high" or lower
+  if (out.thinking.type === "disabled" && ["xhigh", "max"].includes(out.output_config.effort)) out.output_config.effort = "high";
   if (Array.isArray(b.tools)) {
     const t = b.tools.find((x) => x && x.type === "web_search_20250305");
     if (t) {
@@ -94,7 +100,7 @@ async function claude(req, env) {
 }
 
 // ---- Gemini with Google Search (test: tools/compare_wine_check.py). The key is the secret GEMINI_API_KEY; the model is
-// GEMINI_MODEL (default gemini-2.5-flash). At most GEMINI_DAILY_CALLS calls a day (default 300), counted in claude_usage.
+// GEMINI_MODEL (default: the current Flash, asked from Google). At most GEMINI_DAILY_CALLS calls a day (default 300), counted in claude_usage.
 async function gemini(req, env) {
   if (!env.GEMINI_API_KEY) return claudeError("The Gemini key is not set up yet.", 503);
   let b;
@@ -105,7 +111,8 @@ async function gemini(req, env) {
   const d = day();
   const row = await env.DB.prepare("SELECT calls FROM claude_usage WHERE day = ? AND device = 'gemini'").bind(d).first();
   if (row && row.calls >= Number(env.GEMINI_DAILY_CALLS || 300)) return claudeError("Gemini's daily test limit is reached.", 429, "limit");
-  const model = env.GEMINI_MODEL || "gemini-2.5-flash";
+  const model = env.GEMINI_MODEL || (await geminiModel(env));
+  if (!model) return claudeError("No Gemini Flash model found for this key.", 503);
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
@@ -115,7 +122,22 @@ async function gemini(req, env) {
   const text = await res.text();
   await env.DB.prepare(`INSERT INTO claude_usage (day, device, usd, calls) VALUES (?, 'gemini', 0, 1)
                         ON CONFLICT(day, device) DO UPDATE SET calls = calls + 1`).bind(d).run();
-  return new Response(text, { status: res.status, headers: { "content-type": "application/json" } });
+  return new Response(text, { status: res.status, headers: { "content-type": "application/json", "x-gemini-model": model } });
+}
+
+// Google renames its models often: without GEMINI_MODEL, ask Google which models this key can use and take the current Flash
+// ("gemini-flash-latest" when offered, else the newest plain Flash that can generate content).
+async function geminiModel(env) {
+  const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
+  if (!r.ok) return null;
+  const list = ((await r.json()).models || [])
+    .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
+    .map((m) => String(m.name || "").replace(/^models\//, ""));
+  if (list.includes("gemini-flash-latest")) return "gemini-flash-latest";
+  const flash = list.filter((n) => /^gemini-[\d.]+-flash(-\d+)?$/.test(n) || /^gemini-[\d.]+-flash-preview/.test(n));
+  const ver = (n) => parseFloat((n.match(/gemini-([\d.]+)/) || [0, 0])[1]);
+  flash.sort((a, b) => ver(b) - ver(a) || a.length - b.length);
+  return flash[0] || null;
 }
 
 export default {
@@ -124,7 +146,10 @@ export default {
     const url = new URL(req.url);
 
     if (url.pathname === "/claude/ping") return json({ ok: true, key: !!env.ANTHROPIC_API_KEY });
-    if (url.pathname === "/gemini/ping") return json({ ok: true, key: !!env.GEMINI_API_KEY, model: env.GEMINI_MODEL || "gemini-2.5-flash" });
+    if (url.pathname === "/gemini/ping") {
+      const model = env.GEMINI_API_KEY ? (env.GEMINI_MODEL || (await geminiModel(env))) : null;
+      return json({ ok: true, key: !!env.GEMINI_API_KEY, model });
+    }
     if (url.pathname === "/gemini") {
       if (req.method !== "POST") return json({ error: "method" }, 405);
       return gemini(req, env);

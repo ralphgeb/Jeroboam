@@ -303,3 +303,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   42% settled for free, main grape right 99.6%. Stricter than the price list's MONO table (no "usually" rules).
 - Gemini test: worker route `/gemini` (secret GEMINI_API_KEY) + `tools/compare_wine_check.py` / `compare-check.yml` compare
   Claude + web search with Gemini + Google Search on wines with known grapes. Not used by the app.
+- **Haiku 5.5 thinks by default** (adaptive): with web search, short max_tokens were spent on thinking and the answer was empty
+  (stop_reason max_tokens). Every app call now sends `thinking: {type: "disabled"}` (`WineRecognizer.noThinking`) + effort low with
+  1,500–2,000 max_tokens, and the worker forces the same (thinking off unless "adaptive", effort low, max_tokens 800–3,000) so
+  older builds are fixed too. The worker picks the Gemini model itself (Google's model list; GEMINI_MODEL overrides).

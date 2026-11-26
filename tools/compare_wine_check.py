@@ -68,7 +68,8 @@ def last_json(text):
     return None
 
 def ask_claude(prompt):
-    body = {"max_tokens": 600, "messages": [{"role": "user", "content": prompt}],
+    body = {"max_tokens": 2000, "messages": [{"role": "user", "content": prompt}],
+            "thinking": {"type": "disabled"}, "output_config": {"effort": "low"},
             "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 1}]}
     d, secs, err = post("/claude", body)
     if err: return None, secs, 0.0, err
