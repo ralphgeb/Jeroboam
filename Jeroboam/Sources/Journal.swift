@@ -835,31 +835,95 @@ struct ScoreLinkCard: View {
     let wine: WineIdentity
     var score: Int? = nil
     var link: String? = nil
-    private var url: URL? {
-        if let l = link, let u = URL(string: l.hasPrefix("http") ? l : "https://" + l) { return u }
+    private static func url(_ l: String?) -> URL? {
+        guard let l, !l.isEmpty else { return nil }
+        return URL(string: l.hasPrefix("http") ? l : "https://" + l)
+    }
+    /// Wine-Searcher lists the critics' scores of a wine for free.
+    private var searchURL: URL? {
         let slug = wine.name.folding(options: .diacriticInsensitive, locale: .current).lowercased()
             .components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }.joined(separator: "+")
         guard !slug.isEmpty else { return nil }
         let v = wine.vintage.trimmingCharacters(in: .whitespaces)
         return URL(string: "https://www.wine-searcher.com/find/" + slug + (v.count == 4 ? "/" + v : ""))
     }
+    /// ("Wine Advocate", "96", page quoting it) for every critic the wine database knows.
+    private var critics: [(name: String, score: String, url: URL?)] {
+        let names = wine.dbCritics ?? []
+        let links = wine.dbCriticLinks ?? []
+        return names.enumerated().compactMap { i, c in
+            guard let cut = c.lastIndex(of: " ") else { return nil }
+            return (String(c[..<cut]), String(c[c.index(after: cut)...]), Self.url(i < links.count ? links[i] : link))
+        }
+    }
+    /// "hedonism.co.uk/products/…" -> "Hedonism"
+    static func shopName(_ u: URL) -> String {
+        let host = (u.host ?? "").replacingOccurrences(of: "www.", with: "")
+        let known = ["hedonism.co.uk": "Hedonism", "zachys.com": "Zachys", "zyn.ca": "Zyn", "merchantofwine.com": "Merchant of Wine",
+                     "winechateau.com": "Wine Chateau", "thatcherswine.com": "Thatcher's", "chambersstwines.com": "Chambers Street",
+                     "wineonline.ie": "Wine Online", "crushwineco.com": "Crush", "tannico.it": "Tannico", "fieldandfawcett.co.uk": "Field & Fawcett",
+                     "parcellewine.com": "Parcelle", "biondivino.com": "Biondivino", "flatiron-wines.com": "Flatiron", "nyc.flatiron-wines.com": "Flatiron",
+                     "sf.flatiron-wines.com": "Flatiron", "wine.sothebys.com": "Sotheby's", "greatwinesdirect.co.uk": "Great Wines Direct",
+                     "schenk-wine.ch": "Schenk", "caskcartel.com": "CaskCartel"]
+        if let k = known[host] { return k }
+        let first = host.split(separator: ".").first.map(String.init) ?? host
+        return first.prefix(1).uppercased() + first.dropFirst()
+    }
     var body: some View {
-        if let url {
-            HStack(alignment: .center, spacing: 14) {
-                Image(systemName: "star.leadinghalf.filled").font(.system(size: 17)).foregroundStyle(Palette.wine)
-                    .frame(width: 40, height: 40).background(Circle().fill(Palette.wineSoft))
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text(score.map { "\($0) pts" } ?? "Critic scores").font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                        if score != nil { Text("critics' average").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft) }
+        let list = critics
+        let fallback = Self.url(link) ?? searchURL
+        if fallback != nil || !list.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .center, spacing: 14) {
+                    Image(systemName: "star.leadinghalf.filled").font(.system(size: 17)).foregroundStyle(Palette.wine)
+                        .frame(width: 40, height: 40).background(Circle().fill(Palette.wineSoft))
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(alignment: .firstTextBaseline, spacing: 6) {
+                            Text(score.map { "\($0) pts" } ?? "Critic scores").font(.system(size: 20, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                            if score != nil {
+                                Text(list.count > 1 ? "average of \(list.count) critics" : "critics' average").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                            }
+                        }
+                        if list.isEmpty, let fallback {
+                            Link(destination: fallback) {
+                                Label(link == nil ? "See the scores on Wine-Searcher" : "See where these scores come from", systemImage: "arrow.up.right.square")
+                                    .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
+                            }
+                            .foregroundStyle(Palette.wine).padding(.top, 2)
+                        }
                     }
-                    Link(destination: url) {
-                        Label(link == nil ? "See the scores on Wine-Searcher" : "See where these scores come from", systemImage: "arrow.up.right.square")
-                            .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
-                    }
-                    .foregroundStyle(Palette.wine).padding(.top, 2)
+                    Spacer()
                 }
-                Spacer()
+                if !list.isEmpty {
+                    VStack(spacing: 0) {
+                        ForEach(Array(list.enumerated()), id: \.offset) { i, c in
+                            HStack(spacing: 10) {
+                                Text(c.name).font(.system(size: 14)).foregroundStyle(Palette.ink).lineLimit(1)
+                                Spacer(minLength: 8)
+                                if let u = c.url {
+                                    Link(destination: u) {
+                                        Label("quoted by " + Self.shopName(u), systemImage: "arrow.up.right")
+                                            .labelStyle(.titleAndIcon).font(.system(size: 12)).lineLimit(1)
+                                    }
+                                    .foregroundStyle(Palette.wine)
+                                }
+                                Text(c.score).font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                                    .frame(minWidth: 40, alignment: .trailing)
+                            }
+                            .padding(.vertical, 7)
+                            if i < list.count - 1 { Divider().overlay(Palette.line.opacity(0.6)) }
+                        }
+                    }
+                    if let searchURL {
+                        Link(destination: searchURL) {
+                            Label("Compare critics' scores on Wine-Searcher", systemImage: "arrow.up.right.square")
+                                .font(.system(size: 12.5, weight: .semibold)).lineLimit(1)
+                        }
+                        .foregroundStyle(Palette.wine)
+                    }
+                    Text("Scores as quoted by wine shops; the critics' own reviews need a subscription.")
+                        .font(.system(size: 12)).foregroundStyle(Palette.inkFaint)
+                }
             }
             .padding(14)
             .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))

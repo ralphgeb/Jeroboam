@@ -306,7 +306,7 @@ def main():
                     elif 80 <= v <= 100: d.setdefault(name, (v, ''))
                 if d: PAGE[p['url']] = d
         print('product pages with scores', len(PAGE))
-    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','grape_blend','blend_source','aromas','aromas_source','notes','avg_score','scores','score_links','details_link']
+    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','grape_blend','blend_source','aromas','aromas_source','notes','avg_score','scores','score_links','details_link','score_sources']
     w = csv.DictWriter(open(P + 'wine_details.csv', 'w', newline=''), fieldnames=cols)
     w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
@@ -338,11 +338,12 @@ def main():
                 if s not in style: style.append(s)
         arl = [a for a, _ in aromas.most_common(6)]
         blend = next((f['blend'] for _, f in facts if f.get('blend')), [])
-        crit = C.defaultdict(list); links = []
+        crit = C.defaultdict(list); links = []; src = {}
         for u, f in facts:
             for n, (s, sc) in f['scores'].items():
                 crit[(n, sc)].append(s)
                 if u and u not in links: links.append(u)
+                if u: src.setdefault((n, sc), u)        # the page that quotes this critic's score
         sc_list = [(n, sc, S.mean(v)) for (n, sc), v in crit.items()]
         hundred = [s for n, sc, s in sc_list if not sc]
         avg = f'{S.mean(hundred):.1f}' if hundred else ''
@@ -356,7 +357,7 @@ def main():
         if arl: bits.append('Aromas: ' + ', '.join(a.lower() for a in arl) + '.')
         if avg: bits.append(f'Critics: {avg}/100 on average from {len(hundred)} score' + ('s' if len(hundred) > 1 else '') + '.')
         detail = next((u for u in urls if u in DET and len(DET[u]['text']) > 80), (urls[0] if urls else r.get('cheapest_link', '')))
-        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
+        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_src': src, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
                     'region': region, 'appellation': app, 'grapes': ', '.join(grapes), 'aromas': ', '.join(arl), 'notes': ' '.join(bits), 'avg_score': avg,
                     'details_link': detail, 'grape_blend': ', '.join(f'{g} {v:g}%' for g, v in blend), 'blend_source': 'shop description' if blend else ''})
     def wkey(row):
@@ -365,8 +366,9 @@ def main():
     share = {}
     for row in ROWS:
         if row['_crit'] and row['vintage']:
-            k = wkey(row); cur = share.setdefault(k, ({}, []))
+            k = wkey(row); cur = share.setdefault(k, ({}, [], {}))
             for key, v in row['_crit'].items(): cur[0].setdefault(key, v)
+            for key, v in row['_src'].items(): cur[2].setdefault(key, v)
             for u in row['_links']:
                 if u not in cur[1]: cur[1].append(u)
     # same wine, other vintages/sizes: share facts that do not depend on the vintage
@@ -421,17 +423,20 @@ def main():
     for row in ROWS:
         row.pop('_style', None)
         if row['vintage'] and wkey(row) in share:
-            crit, links = share[wkey(row)]
+            crit, links, srcs = share[wkey(row)]
             for key, v in crit.items(): row['_crit'].setdefault(key, v)
+            for key, v in srcs.items(): row['_src'].setdefault(key, v)
             for u in links:
                 if u not in row['_links']: row['_links'].append(u)
-        crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits')
+        crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits'); src = row.pop('_src')
         hundred = [v for (n, sc), v in crit.items() if not sc]
         row['avg_score'] = f'{S.mean(hundred):.1f}' if hundred else ''
         bits = [b for b in bits if not b.startswith('Critics:')]
         if hundred: bits.append(f"Critics: {row['avg_score']}/100 on average from {len(hundred)} score" + ('s' if len(hundred) > 1 else '') + '.')
         row['notes'] = ' '.join(bits)
-        row['scores'] = ' ; '.join(f'{n}: {v:g}{sc}' for (n, sc), v in sorted(crit.items(), key=lambda x: -x[1]))
+        order = sorted(crit.items(), key=lambda x: -x[1])
+        row['scores'] = ' ; '.join(f'{n}: {v:g}{sc}' for (n, sc), v in order)
+        row['score_sources'] = ' ; '.join(f'{n}: {src.get((n, sc)) or (links[0] if links else "")}' for (n, sc), v in order)
         row['score_links'] = ' ; '.join(links)
         w.writerow(row)
         stats['rows'] += 1
