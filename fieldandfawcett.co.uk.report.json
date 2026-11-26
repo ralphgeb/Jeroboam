@@ -3,11 +3,11 @@
  "base": "https://fieldandfawcett.co.uk",
  "status": "existing",
  "declared_currency": "GBP",
- "products": 2310,
+ "products": 2305,
  "pages": 10,
  "via_collections": false,
  "error": null,
  "storefront_currency": "GBP",
  "storefront_rate": "1.0",
- "seconds": 11
+ "seconds": 10
 }
