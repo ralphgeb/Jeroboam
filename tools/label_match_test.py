@@ -38,8 +38,13 @@ NOISE = {"magnum", "jeroboam", "half", "bottle", "bottles", "case", "gift", "box
          "igp", "dop", "dоса", "freres", "fils", "pere", "sons", "brothers", "nv", "750ml", "375ml", "1500ml", "150cl", "75cl"}
 MIN = 4   # the signature keeps only words of 4+ letters; the phone would use every word of 3+
 
-def core(s, drop=()):
-    return frozenset(t for t in tokens(s) if len(t) >= MIN and t not in GENERIC and t not in NOISE and t not in drop)
+# a wine's own name keeps colour and tier words (Maximum Rosé is not Maximum Blanc de Blancs, Réserve du Couvent is not the plain one)
+NAME_GENERIC = {"chateau", "bodega", "bodegas", "weingut", "tenuta", "cantina", "estate", "winery", "vineyard", "vineyards",
+                "cellars", "family", "maison", "casa", "vina", "vino", "vins", "wines", "vin", "appellation", "controlee",
+                "origine", "protegee", "denominazione", "product", "produit", "bottled"}
+
+def core(s, drop=(), generic=GENERIC):
+    return frozenset(t for t in tokens(s) if len(t) >= MIN and t not in generic and t not in NOISE and t not in drop)
 
 def load_list():
     """Every wine in the list as (producer words, own-name words): the name minus the producer, packaging, country and the
@@ -51,7 +56,7 @@ def load_list():
         if len(f) < 8: continue
         place = tokens((f[11] if len(f) > 11 else "") + " " + (f[12] if len(f) > 12 else ""))
         P = core(f[1], drop=place)   # "Domaine X: Gevrey-Chambertin": the place is not the producer
-        N = core(f[0], drop=set(tokens(f[1])) | place)
+        N = core(f[0], drop=set(tokens(f[1])) | place, generic=NAME_GENERIC)
         if not P or not N: continue
         k = (P, N, frozenset(t for t in place if len(t) >= MIN and t not in GENERIC))
         if k not in wines: wines[k] = (f[0], f[1], f[13] if len(f) > 13 else "", f[11] if len(f) > 11 else "")
@@ -60,10 +65,33 @@ def load_list():
         for w in k[1]: index[w].append(k)
     return wines, index
 
+def deletes(w):
+    return {w[:i] + w[i + 1:] for i in range(len(w))}
+
+def fuzzy_index(index):
+    """For each list word of 5+ letters, the forms one letter shorter: a label word one letter off finds it (SymSpell-style)."""
+    near = defaultdict(set)
+    for w in index:
+        if len(w) >= 5:
+            near[w].add(w)
+            for d in deletes(w): near[d].add(w)
+    return near
+
+def corrected(label_words, index, near):
+    """The label's words, plus the list word each 6+ letter label word is one typo away from (only when that is unique)."""
+    out = set(label_words)
+    for w in label_words:
+        if w in index or len(w) < 6: continue
+        cands = set(near.get(w, ())) | {x for d in deletes(w) for x in near.get(d, ())}
+        cands = {c for c in cands if abs(len(c) - len(w)) <= 1}
+        if len(cands) == 1: out |= cands
+    return out
+
 def match(label_words, wines, index):
     """The list's wine whose producer is on the label and whose own name is entirely on it: the one with the longest name
     wins; another producer's or another cuvée's name just as long -> ambiguous (ask Claude)."""
     L = {t for t in label_words if len(t) >= MIN}
+    if NEAR is not None: L = corrected(L, index, NEAR)
     seen, cands = set(), []
     for w in L:
         for k in index.get(w, ()):
@@ -84,11 +112,15 @@ def match(label_words, wines, index):
         return None, "ambiguous"
     return best, "match"
 
+NEAR = None
+
 def main():
+    global NEAR
     url, key = os.environ["URL"].rstrip("/"), os.environ["KEY"]
     req = urllib.request.Request(url + "/wines/export?limit=5000", headers={"x-jero-key": key, "user-agent": "jero-label-test"})
     rows = json.loads(urllib.request.urlopen(req, timeout=60).read())["rows"]
     wines, index = load_list()
+    if os.environ.get("FUZZY", "1") == "1": NEAR = fuzzy_index(index)
     print(f"{len(rows)} scanned labels; {len(wines)} distinct wines in the list", flush=True)
     tally = defaultdict(int)
     lines = []
@@ -102,7 +134,7 @@ def main():
             verdict = why
         else:
             # same wine as Claude's when most of the list wine's words are in Claude's producer + name
-            same = bool(t[0] & claude4) and len(t[1] & claude4) >= max(1, int(0.6 * len(t[1]) + 0.5))
+            same = bool(t[0] & claude4) and t[1] <= claude4
             verdict = "agrees with Claude" if same else "DIFFERENT from Claude"
             tally[verdict] += 1
         n, p = (wines[t][0], wines[t][1]) if t else ("", "")
