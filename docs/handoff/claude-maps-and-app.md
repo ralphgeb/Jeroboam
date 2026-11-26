@@ -10,6 +10,14 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 26 Nov 2026 (night, later): journal/profile round, sent to TestFlight
+
+- Merged to `main` (e3bb716) and uploaded: build-ios run 84, upload succeeded 20:47 UTC (expected TestFlight build 68; run 83 = build 67).
+- In it: journal without the world map, charts per Cellar/Tastings tab; "Remove from cellar" after tasting a cellar bottle;
+  wine profile on scan/tasting/Atlas wine pages; Profile Collection + Achievements cards (Duo sideways: chosen page on the right);
+  scan timings in Settings > TestFlight > Scan timings; label read once per scan. Details in CLAUDE.md "Journal & profile round".
+- Waiting on Ralph: scan timings from his phone (to find the slow step); Brave Search API decision for the online check.
+
 ## 26 Nov 2026 (night): Claude vs Gemini wine check (50 wines, run 45872356028)
 
 - Wines with grapes known from the shop text, minus those the appellation rule settles for free (9,704 such wines).
