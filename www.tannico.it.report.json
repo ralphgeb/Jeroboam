@@ -3,11 +3,11 @@
  "base": "https://www.tannico.it",
  "status": "existing",
  "declared_currency": "EUR",
- "products": 9039,
+ "products": 9022,
  "pages": 37,
  "via_collections": false,
  "error": null,
  "storefront_currency": "EUR",
  "storefront_rate": "1.0",
- "seconds": 45
+ "seconds": 41
 }
