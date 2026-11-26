@@ -108,7 +108,7 @@ enum FlavorGlyph {
         ("rosemary", .thyme), ("rose", .rose), ("licorice", .liquorice), ("liquorice", .liquorice), ("anise", .fennel), ("star anise", .fennel),
         ("tarragon", .dill), ("tart", .cherry), ("tar", .tar), ("asphalt", .tar), ("bitumen", .tar), ("pencil", .pencil), ("graphite", .pencil), ("lead", .pencil),
         ("kirsch", .cherry), ("cherry", .cherry), ("cherries", .cherry),
-        ("strawberr", .strawberry), ("raspberr", .raspberry), ("blackberr", .raspberry), ("bramble", .raspberry), ("mulberr", .raspberry),
+        ("gooseberr", .grape), ("strawberr", .strawberry), ("raspberr", .raspberry), ("blackberr", .raspberry), ("bramble", .raspberry), ("mulberr", .raspberry),
         ("blueberr", .blueberry), ("bilberr", .blueberry), ("cassis", .currants), ("currant", .currants), ("cranberr", .currants),
         ("pomegranate", .pomegranate), ("plum", .plum), ("damson", .plum), ("sloe", .plum), ("prune", .prune), ("raisin", .raisin),
         ("sultana", .raisin), ("date", .raisin), ("fig", .fig), ("dried fruit", .raisin), ("fruit cake", .fruitCake), ("christmas", .fruitCake),
