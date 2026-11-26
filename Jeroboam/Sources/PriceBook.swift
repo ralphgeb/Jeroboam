@@ -22,6 +22,7 @@ final class PriceBook {
                          var critics: [String] = [], criticLinks: [String] = [] }
     private var rows: [Row] = []
     private var index: [String: [Int32]] = [:]
+    private var labels = LabelMatcher()   // names a wine from its label text (LabelMatcher.swift)
     private let lock = NSLock()
     private var loaded = false
 
@@ -154,7 +155,7 @@ final class PriceBook {
     /// Throws the loaded list away so the next lookup reads the newly downloaded file.
     func reload() {
         lock.lock(); defer { lock.unlock() }
-        rows = []; index = [:]; loaded = false
+        rows = []; index = [:]; labels = LabelMatcher(); loaded = false
     }
 
     private func loadIfNeeded() {
@@ -184,6 +185,7 @@ final class PriceBook {
             }
             rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : "")), detail: detail))
             for t in toks { index[t, default: []].append(i) }
+            labels.add(name: f[0], producer: f[1], place: f.count > 12 ? f[11] + " " + f[12] : "", row: i)
         }
     }
 
@@ -243,5 +245,34 @@ final class PriceBook {
         }
         return PriceInfo(average: lowest(r), low: lowest(r), high: max(per750(r, r.high), lowest(r)), currency: "USD",
                          source: src, url: r.link.isEmpty ? nil : "https://" + r.link)
+    }
+
+    /// The wine a label names, found in the list from the label's text alone (no Claude call), with what the list knows about it.
+    /// nil when the list does not have it or the label could be two of its wines.
+    func wine(fromLabel lines: [String]) -> WineIdentity? {
+        loadIfNeeded()
+        guard !rows.isEmpty, let m = labels.match(lines: lines) else { return nil }
+        var w = WineIdentity.empty
+        w.found = true; w.confidence = "high"; w.fromDatabase = true
+        w.producer = m.maker
+        w.name = LabelMatcher.displayName(m)
+        w.vintage = LabelMatcher.vintage(lines)
+        let r = rows[Int(m.row)]
+        if let d = r.detail {
+            if !d.country.isEmpty { w.country = d.country }
+            let place = [d.appellation, d.region].filter { !$0.isEmpty }
+            if !place.isEmpty { w.region = place.count == 2 && !place[0].localizedCaseInsensitiveContains(place[1]) ? place.joined(separator: ", ") : place[0] }
+            w.grapes = d.grapes; w.grapePercent = d.percents.count == d.grapes.count && !d.grapes.isEmpty ? d.percents : nil
+            w.tastingNotes = Array(d.aromas.prefix(6))
+            switch d.colour { case "r": w.style = "red"; case "w": w.style = "white"; case "p": w.style = "rose"; case "s": w.style = "sparkling"
+                              case "o": w.style = "orange"; case "f": w.style = "fortified"; case "d": w.style = "sweet"; default: break }
+        }
+        if w.style.isEmpty { w.style = ["", "red", "white", "rose"][Int(r.color)] }
+        // a better-matching row of the same wine (its vintage, its critic scores) when there is one
+        let o = overlay(w)
+        if o.fromDatabase == true { w.dbScore = o.dbScore; w.dbScoreLink = o.dbScoreLink; w.dbCritics = o.dbCritics; w.dbCriticLinks = o.dbCriticLinks }
+        // without grapes it is not settled: the usual check runs after it is shown
+        if w.grapes.isEmpty { w.fromDatabase = nil }
+        return w
     }
 }

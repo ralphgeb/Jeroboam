@@ -185,6 +185,15 @@ enum WineRecognizer {
             if needsVet(hit.identity) { r.pending = .vet(sig: sig) }
             return r
         }
+        // our wine list may name it from the label alone: instant, free, and its grapes come with it (LabelMatcher)
+        t = Date()
+        if let w = await Task.detached(priority: .userInitiated, operation: { PriceBook.shared.wine(fromLabel: lines) }).value {
+            clock.add("Our wine list", since: t)
+            var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+            if w.fromDatabase == true { WineDB.shared.save(w, signature: sig) } else { r.pending = .fresh(sig: sig) }
+            return r
+        }
+        clock.add("List (not found)", since: t)
         // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
         let cloud = Task { () -> WineIdentity? in
             guard let sig else { return nil }

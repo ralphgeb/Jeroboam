@@ -158,4 +158,34 @@ final class LogicTests: XCTestCase {
         w.confidence = "low"
         XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
     }
+
+    private func sampleList() -> LabelMatcher {
+        var m = LabelMatcher()
+        m.add(name: "Ferrari Maximum Rosé", producer: "Ferrari", place: "Trentino Trento")
+        m.add(name: "Trento DOC \"Maximum Blanc de Blancs\" - Ferrari", producer: "Ferrari", place: "Trentino Trento")
+        m.add(name: "Domaine Humbert Charmes Chambertin Grand Cru", producer: "Domaine Humbert Frères", place: "Burgundy Charmes-Chambertin")
+        m.add(name: "Domaine Humbert Gevrey Chambertin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Gevrey-Chambertin")
+        m.add(name: "Domaine Humbert Fixin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Fixin")
+        m.add(name: "St Hallett Faith Shiraz Red Wine", producer: "St Hallett", place: "Barossa Valley")
+        m.add(name: "Bread & Butter - Chardonnay - California", producer: "Bread & Butter", place: "California")
+        return m
+    }
+
+    func testLabelFindsTheRightCuvee() {
+        let m = sampleList()
+        // Blanc de Blancs label: never the Rosé
+        let bdb = m.match(lines: ["FERRARI", "MAXIMUM", "BLANC DE BLANCS", "TRENTO DOC"])
+        XCTAssertEqual(bdb.map(LabelMatcher.displayName), "Maximum Blanc de Blancs")
+        XCTAssertEqual(m.match(lines: ["Ferrari", "Maximum", "Rosé"])?.name, "Ferrari Maximum Rosé")
+        // the appellation picks Gevrey over Fixin; "Grand Vin de Bourgogne" alone is not the Grand Cru
+        XCTAssertEqual(m.match(lines: ["Domaine Humbert Frères", "Gevrey-Chambertin", "Vieilles Vignes", "Grand Vin de Bourgogne"])?.name,
+                       "Domaine Humbert Gevrey Chambertin Vieilles Vignes")
+        XCTAssertNil(m.match(lines: ["Domaine Humbert", "Grand Vin de Bourgogne"]))
+        // an OCR slip in the producer's name
+        XCTAssertEqual(m.match(lines: ["ST HALTETT", "FAITH", "SHIRAZ", "BAROSSA"])?.maker, "St Hallett")
+        // a wine the list does not have
+        XCTAssertNil(m.match(lines: ["Atibaia", "Les Cousins", "75cl"]))
+        XCTAssertEqual(m.match(lines: ["BREAD & BUTTER", "CHARDONNAY", "2025"]).map(LabelMatcher.displayName), "Chardonnay")
+        XCTAssertEqual(LabelMatcher.vintage(["Fundada en 1877", "CHARDONNAY 2025"]), "2025")
+    }
 }
