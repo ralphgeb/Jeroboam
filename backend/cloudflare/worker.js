@@ -50,6 +50,33 @@ function shape(b) {
   return out;
 }
 
+// The wines table gets readable grapes, their percentages and whether they were checked online (added Nov 2026). Done once per
+// worker start: missing columns are added and older rows filled from the JSON they already hold.
+let winesReady = false;
+async function winesColumns(env) {
+  if (winesReady) return;
+  for (const col of ["grapes TEXT", "grape_percent TEXT", "checked INTEGER"]) {
+    try { await env.DB.prepare(`ALTER TABLE wines ADD COLUMN ${col}`).run(); } catch (e) { /* already there */ }
+  }
+  await env.DB.prepare(`UPDATE wines SET
+      grapes = (SELECT group_concat(value, ', ') FROM json_each(wines.json, '$.grapes')),
+      grape_percent = (SELECT group_concat(value, ', ') FROM json_each(wines.json, '$.grape_percent')),
+      checked = CASE WHEN json_extract(wines.json, '$.checked') = 1 OR json_extract(wines.json, '$.from_database') = 1 THEN 1 ELSE 0 END
+    WHERE grapes IS NULL AND json IS NOT NULL AND json_valid(json)`).run();
+  winesReady = true;
+}
+
+/// What a wine's JSON says about its grapes, for the readable columns.
+function grapeColumns(text) {
+  try {
+    const w = JSON.parse(text || "{}");
+    const g = Array.isArray(w.grapes) ? w.grapes.map(String).filter(Boolean) : [];
+    const p = Array.isArray(w.grape_percent) ? w.grape_percent.map(Number) : [];
+    return { grapes: g.length ? g.join(", ").slice(0, 300) : null, percent: p.length ? p.join(", ").slice(0, 100) : null,
+             checked: w.checked === true || w.from_database === true ? 1 : 0 };
+  } catch { return { grapes: null, percent: null, checked: 0 }; }
+}
+
 async function usage(env) {
   await env.DB.prepare(
     "CREATE TABLE IF NOT EXISTS claude_usage (day TEXT NOT NULL, device TEXT NOT NULL, usd REAL NOT NULL DEFAULT 0, calls INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, device))"
@@ -190,14 +217,25 @@ export default {
         try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
         const key = clean(b.key, 300);
         if (!key || !clean(b.name)) return json({ error: "bad" }, 400);
+        await winesColumns(env);
         const now = Math.floor(Date.now() / 1000);
+        const g = grapeColumns(b.json);
+        // a scan counts once: the app also sends the wine again after checking it, with "count": false (older builds send no flag)
+        const add = b.count === false ? 0 : 1;
+        // a checked wine's grapes replace an unchecked guess, never the other way round; region and country fill in when known
         await env.DB.prepare(
-          `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, scans, first_seen, last_seen)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-           ON CONFLICT(key) DO UPDATE SET scans = scans + 1, last_seen = excluded.last_seen,
-             sig = COALESCE(excluded.sig, sig), json = COALESCE(excluded.json, json)`
+          `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, grapes, grape_percent, checked, scans, first_seen, last_seen)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(key) DO UPDATE SET scans = scans + ?, last_seen = excluded.last_seen,
+             sig = COALESCE(excluded.sig, sig),
+             region = COALESCE(NULLIF(excluded.region, ''), region), country = COALESCE(NULLIF(excluded.country, ''), country),
+             style = COALESCE(NULLIF(excluded.style, ''), style),
+             json = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.json, json) ELSE json END,
+             grapes = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.grapes, grapes) ELSE grapes END,
+             grape_percent = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.grape_percent, grape_percent) ELSE grape_percent END,
+             checked = MAX(COALESCE(checked, 0), excluded.checked)`
         ).bind(key, b.sig ? clean(b.sig, 300) : null, clean(b.name), clean(b.producer), clean(b.vintage, 12), clean(b.region), clean(b.country, 60),
-               clean(b.style, 20), b.json ? String(b.json).slice(0, 8000) : null, now, now).run();
+               clean(b.style, 20), b.json ? String(b.json).slice(0, 8000) : null, g.grapes, g.percent, g.checked, add, now, now, add).run();
         return json({ ok: true });
       }
       return json({ error: "method" }, 405);

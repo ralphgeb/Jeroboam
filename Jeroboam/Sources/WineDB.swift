@@ -69,7 +69,7 @@ final class WineDB {
     /// Remembers a scan: the wine stays in this list for good, even when it is removed from the cellar or the tastings.
     func noteScan(_ w: WineIdentity, image: UIImage?) {
         guard !w.name.isEmpty else { return }
-        PriceCloud.shareWine(w)   // counted anonymously, so we can see what people scan
+        PriceCloud.shareWine(w, count: true)   // counted anonymously (once per scan), so we can see what people scan
         let small: Data? = image.flatMap { img in
             let side = max(img.size.width, img.size.height)
             let k = min(1, 240 / max(1, side))
