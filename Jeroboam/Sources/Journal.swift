@@ -1013,6 +1013,7 @@ struct ScanFlow: View {
     @State private var error: String? = nil
     @State private var price: PriceInfo? = nil
     @State private var pricing = false
+    @State private var checking = false   // the bottle is shown; its grapes and notes are being checked
     @State private var quantity = 1
     @State private var added = false
     @State private var tasteNow = false
@@ -1083,7 +1084,8 @@ struct ScanFlow: View {
         } else {
             if let e = error { ErrorNote(message: e) }
             if identified { WineInfoCard(wine: wine) }
-            else {
+            if checking { CheckingNote() }
+            if !identified {
                 TextField("Wine name", text: $wine.name)
                     .font(.system(size: 17, weight: .semibold))
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
@@ -1121,23 +1123,36 @@ struct ScanFlow: View {
         }
     }
 
+    /// The bottle appears as soon as it is known; its price is looked up and its grapes and notes checked side by side after that.
     private func identify() async {
         guard WineRecognizer.isAvailable else { return }
         working = true; error = nil
+        var first: RecognitionResult? = nil
         do {
             let r: RecognitionResult
-            if let img = image { r = try await WineRecognizer.identify(image: img) }
-            else { r = try await WineRecognizer.identify(text: wine.name) }
-            var w = r.identity
+            if let img = image { r = try await WineRecognizer.identifyFast(image: img) }
+            else { r = try await WineRecognizer.identifyFast(text: wine.name) }
+            var w = WineRecognizer.provisional(r)
             if w.name.isEmpty { w.name = wine.name }
             wine = w
             identified = true
-            if r.limited { self.error = RecognizerError.limit.errorDescription }
             journal.noteCost(r.costUSD)
-            WineDB.shared.noteScan(w, image: image)
+            first = r
         } catch { self.error = error.localizedDescription }
         working = false
-        if identified { await findPrice() }
+        guard let r0 = first else { return }
+        let shownName = wine.name
+        checking = r0.pending != nil
+        async let priced: Void = findPrice()
+        let r = await WineRecognizer.finish(r0)
+        var w = r.identity
+        if w.name.isEmpty || wine.name != shownName { w.name = wine.name }   // a correction typed meanwhile wins
+        wine = w
+        checking = false
+        if r.limited { self.error = RecognizerError.limit.errorDescription }
+        journal.noteCost(r.costUSD)
+        WineDB.shared.noteScan(w, image: image)
+        await priced
     }
 
     private func findPrice() async {
@@ -1350,27 +1365,42 @@ struct TastingFlow: View {
         .task {
             guard !entry.identified, WineRecognizer.isAvailable else { return }
             working = true; error = nil
+            var first: RecognitionResult? = nil
             do {
                 let r: RecognitionResult
-                if let img = photo { r = try await WineRecognizer.identify(image: img) }
-                else { r = try await WineRecognizer.identify(text: entry.wine.name) }
-                var w = r.identity
+                if let img = photo { r = try await WineRecognizer.identifyFast(image: img) }
+                else { r = try await WineRecognizer.identifyFast(text: entry.wine.name) }
+                var w = WineRecognizer.provisional(r)
                 if w.name.isEmpty { w.name = entry.wine.name }
                 entry.wine = w
                 entry.identified = true
-                if r.limited { self.error = RecognizerError.limit.errorDescription }
                 journal.noteCost(r.costUSD)
-                WineDB.shared.noteScan(w, image: photo)
+                first = r
             } catch { self.error = error.localizedDescription }
             working = false
-            if entry.identified && blind {
-                pricing = true
-                let (p, cost) = await WineRecognizer.averagePrice(for: entry.wine)
-                entry.price = p
-                journal.noteCost(cost)
-                pricing = false
-            }
+            guard let r0 = first else { return }
+            // the price (blind tastings show it) and the check run side by side while the taster gets started
+            async let priced: Void = blindPrice()
+            let shownName = entry.wine.name
+            let r = await WineRecognizer.finish(r0)
+            var w = r.identity
+            if w.name.isEmpty || entry.wine.name != shownName { w.name = entry.wine.name }
+            entry.wine = w
+            if r.limited { self.error = RecognizerError.limit.errorDescription }
+            journal.noteCost(r.costUSD)
+            WineDB.shared.noteScan(w, image: photo)
+            await priced
         }
+    }
+
+    /// Blind tastings show only the price: looked up while the taster gets started.
+    private func blindPrice() async {
+        guard blind else { return }
+        pricing = true
+        let (p, cost) = await WineRecognizer.averagePrice(for: entry.wine)
+        entry.price = p
+        journal.noteCost(cost)
+        pricing = false
     }
 
     // ---- look
@@ -2166,5 +2196,18 @@ struct FlowPhotoPane: View {
         }
         .padding(Metrics.margin)
         .animation(.easeInOut(duration: 0.3), value: blur)
+    }
+}
+
+
+/// "Checking grapes and tasting notes…" under a bottle that is already on screen.
+struct CheckingNote: View {
+    var body: some View {
+        HStack(spacing: 8) {
+            ProgressView().controlSize(.small)
+            Text("Checking grapes and tasting notes…").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+        }
+        .padding(.horizontal, 4)
+        .accessibilityElement(children: .combine)
     }
 }

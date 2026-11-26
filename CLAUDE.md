@@ -280,3 +280,10 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   wide windows (Duo sideways) show the stamp on the right (`rightPane`), else a sheet. `CollectionMilestone.all` (8) are also
   Achievements; checked when a tasting is added.
 - **Top bar**: `StreakXPPill` (flame + XP) stays next to the avatar in the collapsed bar of Practice, and always in Atlas and Journal.
+
+## Faster scans (not yet on TestFlight)
+- `WineRecognizer.identifyFast(image:|text:)` returns the bottle as soon as it is known (phone DB; else the cloud list with a 0.8 s head
+  start raced against Claude, first answer wins) with `pending`; `finish(_:)` then does the by-name lookup / online check.
+  `identify(...)` = both in one go. ScanFlow/TastingFlow show `provisional(r)` (unconfirmed grapes/notes hidden) + `CheckingNote`,
+  and run the price search side by side with `finish`. `PriceBook.warm()` builds the wine-list index in the background at launch and
+  after each download.

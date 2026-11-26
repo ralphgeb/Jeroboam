@@ -51,6 +51,10 @@ struct RecognitionResult {
     var extraUSD: Double = 0
     /// True when today's allowance was used up before this new wine could be checked online: its grapes and notes are left out.
     var limited = false
+    /// What is still to do after the bottle is on screen (`WineRecognizer.finish`): checking a wine the databases do not fully
+    /// know. nil when the result is final.
+    var pending: Pending? = nil
+    enum Pending { case vet(sig: String?), fresh(sig: String?), typed }
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
     var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
 }
@@ -132,29 +136,117 @@ enum WineRecognizer {
     // MARK: Identify
 
     /// A wine seen before comes straight from the phone's own database (WineDB): no network, no cost.
+    /// The whole job in one go (the bottle, then its check); the scan screens use `identifyFast` + `finish` to show the bottle sooner.
     static func identify(image: UIImage) async throws -> RecognitionResult {
+        let r = try await identifyFast(image: image)
+        let f = await finish(r)
+        var out = f; out.inputTokens = r.inputTokens; out.outputTokens = r.outputTokens; out.usedImage = r.usedImage
+        return out
+    }
+
+    /// Who the bottle is, as fast as possible: the phone's database, else the shared online list and Claude side by side
+    /// (the list gets a short head start, since a hit there is free). The online check of a new wine is left to `finish`.
+    static func identifyFast(image: UIImage) async throws -> RecognitionResult {
         let sig = WineDB.signature(await readText(image))
         if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
-            return await vetted(hit.identity, sig: sig)
+            var r = RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
+            if needsVet(hit.identity) { r.pending = .vet(sig: sig) }
+            return r
         }
         // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
-        if let sig, let w = await PriceCloud.wine(sig: sig) {
-            WineDB.shared.save(w, signature: sig)
-            return await vetted(w, sig: sig)
+        let cloud = Task { () -> WineIdentity? in
+            guard let sig else { return nil }
+            return await PriceCloud.wine(sig: sig)
         }
-        if DailyBudget.hardStop { throw RecognizerError.limit }
-        var r = try await identifyFresh(image: image)
-        DailyBudget.add(r.costUSD)
-        r.identity = tidy(r.identity)
-        r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
-        // a wine already checked (here or on another phone) under its name: the web check is not paid for twice, even
-        // when this photo's label words differ from the last one's
-        if let k = await known(r.identity, sig: sig) { r.identity = k; PriceCloud.shareWine(k, sig: sig); return r }
-        let (w, cost, limited) = await verifyOnline(r.identity)
-        r.identity = w; r.extraUSD = cost; r.limited = limited
-        WineDB.shared.save(r.identity, signature: sig)
-        if !limited { PriceCloud.shareWine(r.identity, sig: sig) }   // an unchecked wine is not shared
+        if let w = await firstOf(cloud, within: 0.8) {
+            return cloudResult(w, sig: sig)
+        }
+        if DailyBudget.hardStop {
+            if let w = await cloud.value { return cloudResult(w, sig: sig) }
+            throw RecognizerError.limit
+        }
+        // the list is slow today: ask Claude now, and take whichever answers first
+        let claude = Task { try await identifyFresh(image: image) }
+        let winner = await withTaskGroup(of: Answer.self) { group -> Answer in
+            group.addTask { if let w = await cloud.value { return .cloud(w) }; return .nothing }
+            group.addTask { do { return .claude(try await claude.value) } catch { return .failed(error) } }
+            var last: Answer = .nothing
+            for await a in group {
+                switch a {
+                case .cloud, .claude: group.cancelAll(); return a
+                case .failed: last = a                           // Claude's error is what to report
+                case .nothing: break
+                }
+            }
+            return last
+        }
+        switch winner {
+        case .cloud(let w):
+            claude.cancel()
+            return cloudResult(w, sig: sig)
+        case .claude(var r):
+            DailyBudget.add(r.costUSD)
+            r.identity = tidy(r.identity)
+            r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+            r.pending = .fresh(sig: sig)
+            return r
+        case .failed(let e): throw e
+        case .nothing: throw RecognizerError.badResponse
+        }
+    }
+
+    private enum Answer { case cloud(WineIdentity), claude(RecognitionResult), failed(Error), nothing }
+
+    private static func cloudResult(_ w: WineIdentity, sig: String?) -> RecognitionResult {
+        WineDB.shared.save(w, signature: sig)
+        var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+        if needsVet(w) { r.pending = .vet(sig: sig) }
         return r
+    }
+
+    /// The task's answer if it comes within `seconds`, else nil (the task keeps running).
+    private static func firstOf(_ task: Task<WineIdentity?, Never>, within seconds: Double) async -> WineIdentity? {
+        await withTaskGroup(of: WineIdentity??.self) { group in
+            group.addTask { .some(await task.value) }
+            group.addTask { try? await Task.sleep(nanoseconds: UInt64(seconds * 1e9)); return .none }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first ?? nil
+        }
+    }
+
+    private static func needsVet(_ w: WineIdentity) -> Bool { w.found && !w.name.isEmpty && w.fromDatabase != true && w.checked != true }
+
+    /// The rest of the job, while the bottle is already on screen: for a wine the databases do not fully know, look it up by
+    /// name (free) or check it online. Returns the final result; its tokens are 0 and `extraUSD` is what the check cost.
+    static func finish(_ r0: RecognitionResult) async -> RecognitionResult {
+        guard let p = r0.pending else { return r0 }
+        var r = RecognitionResult(identity: r0.identity, usedImage: r0.usedImage, inputTokens: 0, outputTokens: 0)
+        switch p {
+        case .vet(let sig):
+            let v = await vetted(r0.identity, sig: sig)
+            r.identity = v.identity; r.extraUSD = v.extraUSD; r.limited = v.limited
+        case .fresh(let sig):
+            // a wine already checked (here or on another phone) under its name: the web check is not paid for twice, even
+            // when this photo's label words differ from the last one's
+            if let k = await known(r0.identity, sig: sig) { r.identity = k; PriceCloud.shareWine(k, sig: sig); return r }
+            let (w, cost, limited) = await verifyOnline(r0.identity)
+            r.identity = w; r.extraUSD = cost; r.limited = limited
+            WineDB.shared.save(r.identity, signature: sig)
+            if !limited { PriceCloud.shareWine(r.identity, sig: sig) }   // an unchecked wine is not shared
+        case .typed:
+            if let k = await known(r0.identity, sig: nil) { r.identity = k; return r }
+            let (w, cost, limited) = await verifyOnline(r0.identity)
+            r.identity = w; r.extraUSD = cost; r.limited = limited
+            WineDB.shared.save(r.identity)
+        }
+        return r
+    }
+
+    /// What can be shown while the check runs: grapes and notes not yet confirmed stay hidden (a guess is never shown as a fact).
+    static func provisional(_ r: RecognitionResult) -> WineIdentity {
+        guard r.pending != nil, r.identity.checked != true, r.identity.fromDatabase != true else { return r.identity }
+        return hideUnchecked(r.identity)
     }
 
     /// A wine we already hold: when nothing has checked its grapes yet, check them now (if today's allowance lasts).
@@ -294,16 +386,21 @@ enum WineRecognizer {
     }
 
     static func identify(text: String) async throws -> RecognitionResult {
+        let r = try await identifyFast(text: text)
+        let f = await finish(r)
+        var out = f; out.inputTokens = r.inputTokens; out.outputTokens = r.outputTokens
+        return out
+    }
+
+    /// A typed wine name: Claude names it; the check is left to `finish`.
+    static func identifyFast(text: String) async throws -> RecognitionResult {
         guard let key = apiKey else { throw RecognizerError.noKey }
         if DailyBudget.hardStop { throw RecognizerError.limit }
         var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
-        if let k = await known(r.identity, sig: nil) { r.identity = k; return r }
-        let (w, cost, limited) = await verifyOnline(r.identity)
-        r.identity = w; r.extraUSD = cost; r.limited = limited
-        WineDB.shared.save(r.identity)
+        r.pending = .typed
         return r
     }
 

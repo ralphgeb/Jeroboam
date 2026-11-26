@@ -39,5 +39,6 @@ enum PriceUpdater {
         guard (try? text.write(to: dest, options: .atomic)) != nil else { return }
         if let tag = http.value(forHTTPHeaderField: "Etag") ?? http.value(forHTTPHeaderField: "ETag") { d.set(tag, forKey: etagKey) }
         PriceBook.shared.reload()
+        PriceBook.shared.warm()     // the new list is indexed right away, not at the next scan
     }
 }

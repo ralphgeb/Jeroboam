@@ -144,6 +144,9 @@ final class PriceBook {
         return o
     }
 
+    /// Reads the list and builds its search index now (in the background at launch), so the first scan does not wait for it.
+    func warm() { loadIfNeeded() }
+
     /// Throws the loaded list away so the next lookup reads the newly downloaded file.
     func reload() {
         lock.lock(); defer { lock.unlock() }
