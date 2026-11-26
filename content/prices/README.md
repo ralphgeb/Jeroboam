@@ -52,6 +52,12 @@
 - `sources/reseller_only.csv` — CaskCartel, a reseller that relists other shops' wines at large markups. **Last resort only**: a CaskCartel
   offer is kept only when no other shop sells that wine + vintage + size (rows say `price_note = high reseller price`, shown as
   "CaskCartel (high reseller price)"); as soon as any shop sells it, the CaskCartel price is dropped. CaskCartel is never harvested.
+- `sources/wine_enthusiast_scores.csv` — Wine Enthusiast scores from the public "Wine Reviews" dataset (~247k reviews scraped from
+  winemag.com in Feb 2019; Hugging Face `psiyum/winemag-feb-2019`, fetched by `tools/prices/fetch_we_scores.py` / `we_scores.yml`).
+  Only title, winery, grape, place, points and price are kept — **no review text**. Used only for a wine with no other critic's score,
+  when the vintage and winery match and the remaining name words are identical (place names left out; a rosé/white review never scores
+  a wine of another colour). Never linked in the app. The dataset's rights are unclear (published as CC BY-NC-SA): owner's decision
+  (Nov 2026) is to use it and **remove it if anyone complains — delete this file and rebuild**.
 - `sources/manual_overrides.csv` — the owner's fixes (price + cheapest link; adds the wine when no shop lists it).
 
 Matching across shops is by name words + vintage + size, so a few matches may be wrong. Supermarket wines mostly have no vintage. Personal use only.
@@ -69,7 +75,12 @@ notes, avg_score, scores, score_links, details_link.
 - Aromas use the app's aroma wheel words (`content/aromas.yaml`) found in the shop descriptions.
 - `notes` is a short summary generated from these facts (shop and critic texts are copyrighted, so they are not copied);
   `details_link` opens a shop page with the full description.
+- `score_sources` (same order as `scores`): the shop page that quotes each critic's score. The app shows every critic with a
+  "quoted by <shop>" link and a Wine-Searcher comparison link (critics' own sites need a subscription and are never linked).
+  Extra scores come from shop product pages (`tools/prices/fetch_score_pages.py` / `score_pages.yml` -> `score-pages` branch; shops in
+  `tools/prices/score_shops.txt`; menu text that repeats across a shop's pages and competition medals are ignored):
+  `python3 tools/prices/enrich_details.py <shop-data dir> <score-pages dir>`.
 - Scores are critics' scores quoted on the shop pages (Wine Advocate, Wine Spectator, James Suckling, Vinous, Jeb Dunnuck,
   Burghound, Decanter, Wine Enthusiast, Jancis Robinson /20 …), plus the ones kept from the previous build. `avg_score` averages the
   100-point scores; `score_links` are the shop pages that quote them (the critics' own sites need a subscription).
-- Filled in (2026-11-25): colour 96%, country 93%, region 87%, appellation 49%, grapes 86%, blend 32%, aromas 88%, critics' score 8.5% (16.7k wines); producer known for 98.5%.
+- Filled in (2026-11-26): colour 96%, country 93%, region 87%, appellation 49%, grapes 86%, blend 32%, aromas 88%, critics' score 14.7% (28.9k wines: shop feeds, 14 shops' product pages, 2.3k from the Wine Enthusiast dataset); producer known for 98.5%.

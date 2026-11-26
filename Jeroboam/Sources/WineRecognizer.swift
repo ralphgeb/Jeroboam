@@ -26,6 +26,9 @@ struct WineIdentity: Codable, Hashable {
     /// From the wine database when it is certainly this bottle: the critics' average score and the page that quotes it.
     var dbScore: Int? = nil
     var dbScoreLink: String? = nil
+    /// Every critic's score ("Wine Advocate 96", "Jancis Robinson 17/20") and, in the same order, the shop page that quotes it.
+    var dbCritics: [String]? = nil
+    var dbCriticLinks: [String]? = nil
     var fromDatabase: Bool? = nil
     /// True once the grapes, region and notes were checked on the web (or came from the wine database).
     var checked: Bool? = nil
@@ -34,6 +37,7 @@ struct WineIdentity: Codable, Hashable {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
         case tastingNotes = "tasting_notes", priceLow = "price_low", priceHigh = "price_high", funFact = "fun_fact"
         case drinkWindow = "drink_window", grapePercent = "grape_percent", dbScore = "db_score", dbScoreLink = "db_score_link", fromDatabase = "from_database"
+        case dbCritics = "db_critics", dbCriticLinks = "db_critic_links"
         case checked
     }
 

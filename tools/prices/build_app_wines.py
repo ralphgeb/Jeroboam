@@ -3,7 +3,8 @@
 (raw deflate of a tab-separated text). Columns:
  name, producer, vintage, size_ml, usd, low_usd, high_usd, shops, cheapest_link,
  colour (r/w/p/s/o or empty), country, region, appellation, grapes (; separated), aromas (; separated), score (0-100 or empty), score_link,
- grape percents (; separated, same order as the grapes, empty when unknown)
+ grape percents (; separated, same order as the grapes, empty when unknown),
+ critics (; separated 'Wine Advocate 96', 'Jancis Robinson 17/20'), critic links (; separated, same order: the shop page quoting each score)
 Joins content/prices/wine_prices.csv with content/prices/wine_details.csv row by row (same wine/producer/vintage/size).
 Run: python3 tools/prices/build_app_wines.py"""
 import csv, os, re, sys, zlib
@@ -57,13 +58,24 @@ with open(PRICES, newline="", encoding="utf-8") as f:
         slink = clean((d.get("score_links") or "").split(";")[0].split(" ")[0]).replace("https://", "", 1) if sc else ""
         # blend percentages ("Merlot 60%, Cabernet Franc 40%") give the grapes in order, and the percent column
         pairs = re.findall(r"([^,%]+?)\s+(\d{1,3})%", d.get("grape_blend") or "")
+        # every critic's score and the shop page that quotes it (same order): 'Wine Advocate 96;Vinous 95;Jancis Robinson 17/20'
+        crits = clinks = ""
+        if sc:
+            src = dict(x.split(": ", 1) for x in (d.get("score_sources") or "").split(" ; ") if ": " in x)
+            names, urls = [], []
+            for part in (d.get("scores") or "").split(" ; "):
+                m = re.match(r"(.+?): ([\d.]+)(/20)?$", part.strip())
+                if not m: continue
+                v = float(m.group(2)); names.append(f"{m.group(1)} {v:g}{m.group(3) or ''}")
+                urls.append(clean(src.get(m.group(1), "")).replace("https://", "", 1))
+            crits, clinks = ";".join(names[:8]), ";".join(urls[:8])
         gr = semi(clean(d.get("grapes"))); pct = ""
         if pairs and 95 <= sum(int(p) for _, p in pairs) <= 105:
             gr = ";".join(g.strip() for g, _ in pairs); pct = ";".join(p for _, p in pairs)
         row = [clean(r["wine"]), clean(r["producer"]), clean(r["vintage"]), str(size), f"{usd:.0f}", f"{lo:.0f}", f"{hi:.0f}", clean(r["shops_count"]),
                clean(r.get("cheapest_link")).replace("https://", "", 1),
                COL.get((d.get("color") or "").strip().lower(), ""), clean(d.get("country")), clean(d.get("region")), clean(d.get("appellation")),
-               gr, semi(clean(d.get("aromas"))), sc, slink, pct]
+               gr, semi(clean(d.get("aromas"))), sc, slink, pct, crits, clinks]
         if any(row[9:]): withd += 1
         out.append("\t".join(row))
         n += 1

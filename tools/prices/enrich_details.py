@@ -4,7 +4,7 @@ content/prices/wine_prices.csv and writes content/prices/wine_details.csv (same 
 
 Input: the shop-data folder (raw Shopify catalogues, *.jsonl.gz from harvest_shopify.py; plain *.jsonl {url,title,type,vendor,tags,text} also works)
        + sources/legacy_details.csv (facts kept from the previous build for shops that are not re-harvested).
-Run:   python3 tools/prices/enrich_details.py <shop-data dir>
+Run:   python3 tools/prices/enrich_details.py <shop-data dir> [<score-pages dir>]
 Place names come from shop tags first, then content/regions.yaml (+ the list below) matched in the name, then in the
 description. Notes are generated from the facts found (not copied); `details_link` opens the shop page with the full text.
 Scores are read from shop pages that quote them; `score_links` lists those pages."""
@@ -291,6 +291,26 @@ def main():
             'the wine independent': 'Wine Independent', 'lisa perrotti-brown': 'Lisa Perrotti-Brown', 'william kelley': 'William Kelley', 'tim atkin': 'Tim Atkin',
             'jasper morris': 'Jasper Morris', 'falstaff': 'Falstaff', 'james halliday': 'James Halliday', 'wine & spirits': 'Wine & Spirits'}
     if len(sys.argv) > 2:
+        # product pages fetched by fetch_score_pages.py (score-pages branch): short snippets around critic names
+        AWARD = re.compile(r'medal|award|trophy|competition|concours|mundus|challenge|world wine|wine show|\bgold\b|\bsilver\b|\bbronze\b', re.I)
+        for f in glob.glob(os.path.join(sys.argv[2], '*.pages.jsonl.gz')):
+            import gzip
+            pages = [json.loads(l) for l in gzip.open(f, 'rt', encoding='utf-8')]
+            CRITW = re.compile(r'wine advocate|parker|spectator|suckling|vinous|galloni|dunnuck|decanter|enthusiast|burghound|jancis|robinson|atkin|halliday|falstaff|neal martin|anson|\b(?:WA|RP|WS|JS|VM|JD|WE|JR|BH|AG|NM|JA)\b', re.I)
+            def core(x):                               # the words right around the critic's name
+                m = CRITW.search(x)
+                return x[max(0, m.start() - 50):m.end() + 50] if m else x
+            seen = C.Counter(c for pg in pages for c in {core(x) for x in pg.get('snippets') or []})
+            limit = max(3, len(pages) // 50)          # text on many pages of a shop is its menu or footer, not this wine
+            for pg in pages:
+                parts = []
+                for x in pg.get('snippets') or []:
+                    if seen[core(x)] > limit: continue
+                    # keep only the part of a snippet that is not an award line
+                    parts += [y for y in re.split(r'(?<=[.!|])\s+', x) if not AWARD.search(y)]
+                found = scores_in(' | '.join(parts)) if parts else {}
+                if found: PAGE[pg['url']] = found
+        print('product pages with scores', len(PAGE))
         for f in glob.glob(os.path.join(sys.argv[2], '*.jsonl')):
             for line in open(f):
                 try: p = json.loads(line)
@@ -306,7 +326,7 @@ def main():
                     elif 80 <= v <= 100: d.setdefault(name, (v, ''))
                 if d: PAGE[p['url']] = d
         print('product pages with scores', len(PAGE))
-    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','grape_blend','blend_source','aromas','aromas_source','notes','avg_score','scores','score_links','details_link']
+    cols = ['wine','producer','vintage','size_ml','color','country','region','appellation','grapes','grape_blend','blend_source','aromas','aromas_source','notes','avg_score','scores','score_links','details_link','score_sources']
     w = csv.DictWriter(open(P + 'wine_details.csv', 'w', newline=''), fieldnames=cols)
     w.writeheader(); stats = C.Counter(); ROWS = []
     for r in csv.DictReader(open(P + 'wine_prices.csv')):
@@ -338,11 +358,12 @@ def main():
                 if s not in style: style.append(s)
         arl = [a for a, _ in aromas.most_common(6)]
         blend = next((f['blend'] for _, f in facts if f.get('blend')), [])
-        crit = C.defaultdict(list); links = []
+        crit = C.defaultdict(list); links = []; src = {}
         for u, f in facts:
             for n, (s, sc) in f['scores'].items():
                 crit[(n, sc)].append(s)
                 if u and u not in links: links.append(u)
+                if u: src.setdefault((n, sc), u)        # the page that quotes this critic's score
         sc_list = [(n, sc, S.mean(v)) for (n, sc), v in crit.items()]
         hundred = [s for n, sc, s in sc_list if not sc]
         avg = f'{S.mean(hundred):.1f}' if hundred else ''
@@ -356,7 +377,7 @@ def main():
         if arl: bits.append('Aromas: ' + ', '.join(a.lower() for a in arl) + '.')
         if avg: bits.append(f'Critics: {avg}/100 on average from {len(hundred)} score' + ('s' if len(hundred) > 1 else '') + '.')
         detail = next((u for u in urls if u in DET and len(DET[u]['text']) > 80), (urls[0] if urls else r.get('cheapest_link', '')))
-        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
+        ROWS.append({'_crit': {(n, sc): s for n, sc, s in sc_list}, '_links': links, '_src': src, '_bits': bits, '_style': list(style), 'wine': r['wine'], 'producer': r['producer'], 'vintage': r['vintage'], 'size_ml': r['size_ml'], 'color': color, 'country': country,
                     'region': region, 'appellation': app, 'grapes': ', '.join(grapes), 'aromas': ', '.join(arl), 'notes': ' '.join(bits), 'avg_score': avg,
                     'details_link': detail, 'grape_blend': ', '.join(f'{g} {v:g}%' for g, v in blend), 'blend_source': 'shop description' if blend else ''})
     def wkey(row):
@@ -365,8 +386,9 @@ def main():
     share = {}
     for row in ROWS:
         if row['_crit'] and row['vintage']:
-            k = wkey(row); cur = share.setdefault(k, ({}, []))
+            k = wkey(row); cur = share.setdefault(k, ({}, [], {}))
             for key, v in row['_crit'].items(): cur[0].setdefault(key, v)
+            for key, v in row['_src'].items(): cur[2].setdefault(key, v)
             for u in row['_links']:
                 if u not in cur[1]: cur[1].append(u)
     # same wine, other vintages/sizes: share facts that do not depend on the vintage
@@ -418,25 +440,71 @@ def main():
         if row['_style']: b.append('Style: ' + ', '.join(row['_style'][:6]) + '.')
         if row['aromas']: b.append(('Aromas: ' if row['aromas_source'].startswith('shop') else 'Typical aromas: ') + row['aromas'].lower() + '.')
         row['_bits'] = b
+    # Wine Enthusiast scores from the public dataset (sources/wine_enthusiast_scores.csv; scores only, no review text):
+    # only for wines with no other critic's score, same vintage and winery, never linked (owner's decision, Nov 2026)
+    WE = {}
+    wp = P + 'sources/wine_enthusiast_scores.csv'
+    WESTOP = set('the a an de du des la le les di del della dei d l y and et e wine wines vin vino red white rose rosso bianco blanco tinto rouge blanc nv '
+                 'chateau ch domaine magnum half bottle ml cl estate winery cellars vineyards'.split())
+    wt = lambda x: {t for t in re.findall(r'[a-z0-9]+', fold(x)) if t not in WESTOP and not re.fullmatch(r'(19|20)\d\d', t)}
+    def wcolour(x):
+        f = fold(x)
+        if re.search(r'\bros[eé]\b|rosato|rosado', f): return 'Rosé'
+        if re.search(r'\bwhite\b|\bblanc\b|bianco|blanco|branco', f): return 'White'
+        if re.search(r'\bred\b|\brouge\b|rosso|tinto', f): return 'Red'
+        return ''
+    if os.path.exists(wp):
+        for r in csv.DictReader(open(wp, encoding='utf-8')):
+            y = re.search(r'\b(19[5-9]\d|20[0-2]\d)\b', r['title'])
+            if not y or not r['winery']: continue
+            try: pts = float(r['points'])
+            except ValueError: continue
+            if not 80 <= pts <= 100: continue
+            wk = wt(r['winery'])
+            if not wk: continue
+            paren = ' '.join(re.findall(r'\(([^)]*)\)', r['title']))
+            place = wt(' '.join([paren, r['province'], r['region_1'], r['country']]))
+            core = wt(re.sub(r'\([^)]*\)', ' ', r['title'])) - wk - place
+            WE.setdefault((y.group(1), sorted(wk)[0]), []).append((wk, place, core, pts, wcolour(r['title'] + ' ' + r['variety'])))
+        print('Wine Enthusiast scores loaded', sum(len(v) for v in WE.values()))
+    def we_score(row):
+        """Same vintage, the winery in our name, and exactly the same remaining words (place names left out): no second wines,
+        neighbouring châteaux or other cuvées. A rosé or white review never scores a wine of another colour."""
+        if not WE or not row['vintage'][:4].isdigit(): return None
+        mine = wt(row['wine'] + ' ' + row['producer'])
+        hits = set()
+        for t in mine:
+            for wk, place, core, pts, col in WE.get((row['vintage'], t), []):
+                if not wk <= mine or (mine - wk - place) != core: continue
+                if col and row['color'] and col != row['color'] and not (col == 'White' and row['color'] == 'Sparkling'): continue
+                hits.add(pts)
+        return hits.pop() if len(hits) == 1 else None      # two different reviews fit: not sure which one, leave it
+    we_hits = 0
     for row in ROWS:
         row.pop('_style', None)
         if row['vintage'] and wkey(row) in share:
-            crit, links = share[wkey(row)]
+            crit, links, srcs = share[wkey(row)]
             for key, v in crit.items(): row['_crit'].setdefault(key, v)
+            for key, v in srcs.items(): row['_src'].setdefault(key, v)
             for u in links:
                 if u not in row['_links']: row['_links'].append(u)
-        crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits')
+        if not row['_crit'] and WE:      # only when no shop quotes any critic for this wine
+            v = we_score(row)
+            if v: row['_crit'][('Wine Enthusiast', '')] = v; we_hits += 1
+        crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits'); src = row.pop('_src')
         hundred = [v for (n, sc), v in crit.items() if not sc]
         row['avg_score'] = f'{S.mean(hundred):.1f}' if hundred else ''
         bits = [b for b in bits if not b.startswith('Critics:')]
         if hundred: bits.append(f"Critics: {row['avg_score']}/100 on average from {len(hundred)} score" + ('s' if len(hundred) > 1 else '') + '.')
         row['notes'] = ' '.join(bits)
-        row['scores'] = ' ; '.join(f'{n}: {v:g}{sc}' for (n, sc), v in sorted(crit.items(), key=lambda x: -x[1]))
+        order = sorted(crit.items(), key=lambda x: -x[1])
+        row['scores'] = ' ; '.join(f'{n}: {v:g}{sc}' for (n, sc), v in order)
+        row['score_sources'] = ' ; '.join(f'{n}: {src.get((n, sc)) or (links[0] if links else "")}' for (n, sc), v in order)
         row['score_links'] = ' ; '.join(links)
         w.writerow(row)
         stats['rows'] += 1
         for k in ('country', 'region', 'appellation', 'color', 'grapes', 'aromas', 'avg_score'):
             if row[k]: stats[k] += 1
-    print(dict(stats))
+    print(dict(stats), 'Wine Enthusiast (dataset) scores used', we_hits)
 if __name__ == '__main__':
     main()
