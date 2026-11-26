@@ -14,10 +14,14 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 - Wines with grapes known from the shop text, minus those the appellation rule settles for free (9,704 such wines).
 - Claude Haiku + 1 web search: 37 right, 0 wrong, 13 "not found" (even Pichon Lalande, Smith Haut Lafitte), median 3.2 s, $0.58.
-- Gemini (gemini-flash-latest) + google_search: 47 right, 3 scored wrong, median 13.3 s, free. The 3 "wrong" are really scoring/data
+- Gemini (gemini-flash-latest) + google_search: 47 right, 3 scored wrong, median 13.3 s (not free: see below). The 3 "wrong" are really scoring/data
   issues: Pelaverga Piccolo = Pelaverga, Malvasia di Candia Aromatica = Malvasia, and Pape Clément **Blanc** is listed as Merlot in
   wine_details.csv (data error for the price session). BUT Gemini's grounding metadata was empty on all 50: it never searched,
   it answered from memory. Not used by the app; decision waiting for Ralph.
+- Speed test (10 wines x 4 ways): thinking on 15 s, thinking off (`thinkingBudget: 0`) 5.1 s 9/10 right, Flash-Lite 2.3 s 8/10,
+  `thinkingLevel` is refused by this model; searched 0 of 40 — Gemini answers from memory here.
+- **Gemini is NOT free for Ralph**: his Google project has billing on (paid tier, no free allowance). ~150 test calls cost him
+  about $0.25, mostly thinking tokens (charged as output). With thinking off it's about 5x less per wine.
 - The app's compile check after the thinking fix passed (10 logic tests, run 45870079106 re-run).
 
 ## 26 Nov 2026 (late): Claude proxy live, everything merged to main
