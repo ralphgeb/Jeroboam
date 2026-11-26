@@ -117,7 +117,7 @@ async function gemini(req, env) {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
     body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], tools: [{ google_search: {} }],
-                           generationConfig: { maxOutputTokens: 1024, temperature: 0.2 } }),
+                           generationConfig: { maxOutputTokens: Number(env.GEMINI_MAX_TOKENS || 8192) } }),   // Gemini's thinking counts against this limit too
   });
   const text = await res.text();
   await env.DB.prepare(`INSERT INTO claude_usage (day, device, usd, calls) VALUES (?, 'gemini', 0, 1)
