@@ -1,0 +1,23 @@
+name: Free wine-check steps (the app's own)
+# Runs tools/check_free_steps.py: the app's free steps (DuckDuckGo + shop page, read by Haiku without tools) on the same
+# 50 wines as the Claude vs Gemini comparison. Costs a few cents of Haiku through Jero's worker.
+on:
+  workflow_dispatch:
+    inputs:
+      n: {description: "How many wines", default: "50"}
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/free-steps.yml"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pyyaml
+      - run: python3 tools/check_free_steps.py "${{ inputs.n || '50' }}"
+      - if: always()
+        run: '[ -f free_steps_report.md ] && cat free_steps_report.md >> "$GITHUB_STEP_SUMMARY" || true'
