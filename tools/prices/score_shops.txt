@@ -1,0 +1,17 @@
+# Shops whose product pages show critics' scores that their catalogue feed leaves out (sample of 25 pages each, Nov 2026).
+# A change to this file re-fetches every wine page of these shops (score_pages.yml -> score-pages branch).
+# Not here: htfwines.co.uk (its menu says "Robert Parker 100 Points" on every page), hedonism.co.uk (scores already in the feed).
+thatcherswine.com
+www.zachys.com
+www.vinchicago.com
+sf.flatiron-wines.com
+nyc.flatiron-wines.com
+www.tannico.it
+zyn.ca
+www.blackmarket.co.nz
+wine.sothebys.com
+www.thecorkscrew.ie
+montyswineemporium.com
+www.lastbottlewines.com
+merchantofwine.com
+schenk-wine.ch

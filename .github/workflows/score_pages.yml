@@ -7,14 +7,13 @@ on:
   workflow_dispatch:
     inputs:
       full:
-        description: "Shops to fetch completely (comma separated hosts); empty = sample every shop"
+        description: "Shops to fetch completely (comma separated hosts), or 'sample' for 25 pages of every shop"
         required: false
         default: ""
   push:
     branches: ["claude/**"]
     paths:
-      - "tools/prices/fetch_score_pages.py"
-      - ".github/workflows/score_pages.yml"
+      - "tools/prices/score_shops.txt"
 
 permissions:
   contents: write
@@ -38,10 +37,13 @@ jobs:
           mkdir shop-data && cd shop-data && git init -q && git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data && git checkout -q FETCH_HEAD
       - name: Fetch pages
         run: |
-          if [ -n "${{ github.event.inputs.full }}" ]; then
-            python3 tools/prices/fetch_score_pages.py --data shop-data --out score-pages --full "${{ github.event.inputs.full }}"
-          else
+          FULL="${{ github.event.inputs.full }}"
+          # a push fetches every page of the shops the Nov 2026 sample showed scores for (tools/prices/score_shops.txt)
+          [ -z "$FULL" ] && FULL=$(grep -v "^#" tools/prices/score_shops.txt | paste -sd, -)
+          if [ "$FULL" = "sample" ]; then
             python3 tools/prices/fetch_score_pages.py --data shop-data --out score-pages --sample 25 --budget 1200
+          else
+            python3 tools/prices/fetch_score_pages.py --data shop-data --out score-pages --full "$FULL" --budget 16500 --delay 0.5
           fi
       - name: Push to score-pages branch
         run: |

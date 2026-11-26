@@ -4,7 +4,7 @@ content/prices/wine_prices.csv and writes content/prices/wine_details.csv (same 
 
 Input: the shop-data folder (raw Shopify catalogues, *.jsonl.gz from harvest_shopify.py; plain *.jsonl {url,title,type,vendor,tags,text} also works)
        + sources/legacy_details.csv (facts kept from the previous build for shops that are not re-harvested).
-Run:   python3 tools/prices/enrich_details.py <shop-data dir>
+Run:   python3 tools/prices/enrich_details.py <shop-data dir> [<score-pages dir>]
 Place names come from shop tags first, then content/regions.yaml (+ the list below) matched in the name, then in the
 description. Notes are generated from the facts found (not copied); `details_link` opens the shop page with the full text.
 Scores are read from shop pages that quote them; `score_links` lists those pages."""
@@ -291,6 +291,26 @@ def main():
             'the wine independent': 'Wine Independent', 'lisa perrotti-brown': 'Lisa Perrotti-Brown', 'william kelley': 'William Kelley', 'tim atkin': 'Tim Atkin',
             'jasper morris': 'Jasper Morris', 'falstaff': 'Falstaff', 'james halliday': 'James Halliday', 'wine & spirits': 'Wine & Spirits'}
     if len(sys.argv) > 2:
+        # product pages fetched by fetch_score_pages.py (score-pages branch): short snippets around critic names
+        AWARD = re.compile(r'medal|award|trophy|competition|concours|mundus|challenge|world wine|wine show|\bgold\b|\bsilver\b|\bbronze\b', re.I)
+        for f in glob.glob(os.path.join(sys.argv[2], '*.pages.jsonl.gz')):
+            import gzip
+            pages = [json.loads(l) for l in gzip.open(f, 'rt', encoding='utf-8')]
+            CRITW = re.compile(r'wine advocate|parker|spectator|suckling|vinous|galloni|dunnuck|decanter|enthusiast|burghound|jancis|robinson|atkin|halliday|falstaff|neal martin|anson|\b(?:WA|RP|WS|JS|VM|JD|WE|JR|BH|AG|NM|JA)\b', re.I)
+            def core(x):                               # the words right around the critic's name
+                m = CRITW.search(x)
+                return x[max(0, m.start() - 50):m.end() + 50] if m else x
+            seen = C.Counter(c for pg in pages for c in {core(x) for x in pg.get('snippets') or []})
+            limit = max(3, len(pages) // 50)          # text on many pages of a shop is its menu or footer, not this wine
+            for pg in pages:
+                parts = []
+                for x in pg.get('snippets') or []:
+                    if seen[core(x)] > limit: continue
+                    # keep only the part of a snippet that is not an award line
+                    parts += [y for y in re.split(r'(?<=[.!|])\s+', x) if not AWARD.search(y)]
+                found = scores_in(' | '.join(parts)) if parts else {}
+                if found: PAGE[pg['url']] = found
+        print('product pages with scores', len(PAGE))
         for f in glob.glob(os.path.join(sys.argv[2], '*.jsonl')):
             for line in open(f):
                 try: p = json.loads(line)
