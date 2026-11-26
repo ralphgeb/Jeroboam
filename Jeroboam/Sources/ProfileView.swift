@@ -19,6 +19,7 @@ struct ProfileView: View {
     @State private var settingsOpen = false
     @State private var showCredits = false
     @State private var showScanTimings = false
+    @State private var sidePane = 0   // Duo sideways: 0 collection, 1 achievements on the right
     @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
 
@@ -33,15 +34,31 @@ struct ProfileView: View {
         NavigationStack {
             Group {
                 if width >= AdaptiveLayout.twoPaneThreshold {
-                    // Duo sideways: the badges on the left, you, your settings and progress on the right
+                    // Duo sideways: you, the two cards and your settings on the left; the collection or the achievements open
+                    // on the right, with a switch to flip between them
                     HStack(spacing: 0) {
-                        ScrollView { VStack(alignment: .leading, spacing: 24) { achievements() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
-                            .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2)
-                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 24) {
+                                leftColumn()
+                                CollectionAndAchievementsTiles(selected: sidePane) { p in withAnimation(.snappy) { sidePane = p } }
+                                rightColumn()
+                            }
+                            .padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped()
+                        }
+                        .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2)
+                        .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                         Rectangle().fill(Palette.line.opacity(0.6)).frame(width: 0.5).ignoresSafeArea()
-                        ScrollView { VStack(alignment: .leading, spacing: 24) { leftColumn(); rightColumn() }.padding(.horizontal, Metrics.margin).padding(.top, 8).containerRelativeFrame(.horizontal).clipped() }
-                            .scrollIndicators(.hidden).scrollBounceBehavior(.basedOnSize, axes: .horizontal).frame(width: width / 2 - 0.5)
-                            .environment(\.windowWidth, width / 2).environment(\.isWide, false)
+                        VStack(spacing: 0) {
+                            Picker("Show", selection: $sidePane) {
+                                Text("Collection").tag(0)
+                                Text("Achievements").tag(1)
+                            }
+                            .pickerStyle(.segmented)
+                            .padding(.horizontal, Metrics.margin).padding(.top, 10).padding(.bottom, 4)
+                            if sidePane == 0 { CollectionView() } else { AchievementsView() }
+                        }
+                        .frame(width: width / 2 - 0.5)
+                        .environment(\.windowWidth, width / 2).environment(\.isWide, false)
                     }
                 } else {
                     ScrollView {

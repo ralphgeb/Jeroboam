@@ -400,6 +400,9 @@ struct AchievementsRoute: Hashable {}
 struct CollectionAndAchievementsTiles: View {
     @Environment(JournalStore.self) private var journal
     @Environment(GameProgress.self) private var progress
+    /// Duo sideways: the card shown on the right (0 collection, 1 achievements) and what a tap does instead of opening a page.
+    var selected: Int? = nil
+    var onPick: ((Int) -> Void)? = nil
 
     var body: some View {
         let t = Tried.of(journal.persist ? journal.entries : [])
@@ -408,8 +411,8 @@ struct CollectionAndAchievementsTiles: View {
         let recent = Achievement.all.filter { got.contains($0.id) }
             .sorted { (progress.data.achievementDates?[$0.id] ?? .distantPast) > (progress.data.achievementDates?[$1.id] ?? .distantPast) }
         HStack(alignment: .top, spacing: 12) {
-            NavigationLink(value: CollectionRoute()) {
-                tile(title: "Your collection",
+            link(0, CollectionRoute()) {
+                tile(0, title: "Your collection",
                      detail: "\(t.grapes.count) grapes · \(t.countries.count) countries · \(t.classics.count) classics") {
                     HStack(spacing: -10) {
                         ForEach(0..<3, id: \.self) { i in
@@ -424,9 +427,8 @@ struct CollectionAndAchievementsTiles: View {
                     }
                 }
             }
-            .buttonStyle(PressableStyle())
-            NavigationLink(value: AchievementsRoute()) {
-                tile(title: "Achievements", detail: "\(got.count) of \(Achievement.all.count) earned") {
+            link(1, AchievementsRoute()) {
+                tile(1, title: "Achievements", detail: "\(got.count) of \(Achievement.all.count) earned") {
                     HStack(spacing: -14) {
                         if recent.isEmpty {
                             AchievementBadge(achievement: Achievement.all[0], unlocked: false, size: 48).frame(width: 48, height: 48)
@@ -438,11 +440,19 @@ struct CollectionAndAchievementsTiles: View {
                     }
                 }
             }
-            .buttonStyle(PressableStyle())
         }
     }
 
-    private func tile<Art: View>(title: String, detail: String, @ViewBuilder art: () -> Art) -> some View {
+    /// A page to open on a phone; on the Duo sideways a tap shows it on the right instead.
+    @ViewBuilder private func link<R: Hashable, L: View>(_ i: Int, _ route: R, @ViewBuilder label: () -> L) -> some View {
+        if let onPick {
+            Button { onPick(i) } label: { label() }.buttonStyle(PressableStyle())
+        } else {
+            NavigationLink(value: route) { label() }.buttonStyle(PressableStyle())
+        }
+    }
+
+    private func tile<Art: View>(_ i: Int, title: String, detail: String, @ViewBuilder art: () -> Art) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             art().frame(height: 52, alignment: .leading)
             Spacer(minLength: 0)
@@ -459,7 +469,8 @@ struct CollectionAndAchievementsTiles: View {
         .padding(14)
         .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
         .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
-        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous)
+            .strokeBorder(selected == i ? Palette.wine : Palette.line.opacity(0.7), lineWidth: selected == i ? 1.5 : 0.5))
         .contentShape(Rectangle())
     }
 }

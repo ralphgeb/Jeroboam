@@ -314,6 +314,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   Cellar = styles, grape, readiness, grape ring, price, body, months. Countries card stays (no map behind it).
 - Tasting a wine that is in the cellar ends with "Remove (one) from cellar" (`JournalStore.takeOne`, `cellarBottle(for:)`).
 - Profile: `CollectionAndAchievementsTiles` (two cards side by side) -> `CollectionView` / `AchievementsView` (`AchievementsRoute`).
+  Duo sideways: settings + the two cards on the left, the chosen page on the right with a Collection | Achievements switch (`sidePane`).
 - Wine profile (`BottleProfileCard`) also on the scan result (after the check), tastings, Wines of the world and Great wines pages
   (`Wine.identity`, `GreatWine.identity`).
 - Scan timing: `ScanClock` records each step (label, phone/cloud lookup, Claude, name lookup, free pages, paid search, price);
