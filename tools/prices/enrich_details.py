@@ -444,31 +444,41 @@ def main():
     # only for wines with no other critic's score, same vintage and winery, never linked (owner's decision, Nov 2026)
     WE = {}
     wp = P + 'sources/wine_enthusiast_scores.csv'
-    WESTOP = set('the a de du des la le les di del della y and et wine wines vin vino red white rose blanc rouge rosso bianco tinto blanco nv'.split())
+    WESTOP = set('the a an de du des la le les di del della dei d l y and et e wine wines vin vino red white rose rosso bianco blanco tinto rouge blanc nv '
+                 'chateau ch domaine magnum half bottle ml cl estate winery cellars vineyards'.split())
     wt = lambda x: {t for t in re.findall(r'[a-z0-9]+', fold(x)) if t not in WESTOP and not re.fullmatch(r'(19|20)\d\d', t)}
+    def wcolour(x):
+        f = fold(x)
+        if re.search(r'\bros[eé]\b|rosato|rosado', f): return 'Rosé'
+        if re.search(r'\bwhite\b|\bblanc\b|bianco|blanco|branco', f): return 'White'
+        if re.search(r'\bred\b|\brouge\b|rosso|tinto', f): return 'Red'
+        return ''
     if os.path.exists(wp):
         for r in csv.DictReader(open(wp, encoding='utf-8')):
             y = re.search(r'\b(19[5-9]\d|20[0-2]\d)\b', r['title'])
             if not y or not r['winery']: continue
-            title = re.sub(r'\([^)]*\)\s*$', '', r['title'])          # '(Willamette Valley)' is the region, not the name
             try: pts = float(r['points'])
             except ValueError: continue
             if not 80 <= pts <= 100: continue
             wk = wt(r['winery'])
             if not wk: continue
-            WE.setdefault((y.group(1), min(wk, key=len) if False else sorted(wk)[0]), []).append((wk, wt(title) | wk, pts))
+            paren = ' '.join(re.findall(r'\(([^)]*)\)', r['title']))
+            place = wt(' '.join([paren, r['province'], r['region_1'], r['country']]))
+            core = wt(re.sub(r'\([^)]*\)', ' ', r['title'])) - wk - place
+            WE.setdefault((y.group(1), sorted(wk)[0]), []).append((wk, place, core, pts, wcolour(r['title'] + ' ' + r['variety'])))
         print('Wine Enthusiast scores loaded', sum(len(v) for v in WE.values()))
     def we_score(row):
+        """Same vintage, the winery in our name, and exactly the same remaining words (place names left out): no second wines,
+        neighbouring châteaux or other cuvées. A rosé or white review never scores a wine of another colour."""
         if not WE or not row['vintage'][:4].isdigit(): return None
         mine = wt(row['wine'] + ' ' + row['producer'])
-        best = None
+        hits = set()
         for t in mine:
-            for wk, tt, pts in WE.get((row['vintage'], t), []):
-                if not wk <= mine: continue                     # the winery must be in our name or producer
-                extra_we, extra_us = tt - mine, mine - tt
-                if len(extra_we) <= 1 and len(extra_us) <= 1 and (best is None or len(tt) > best[0]):
-                    best = (len(tt), pts)
-        return best[1] if best else None
+            for wk, place, core, pts, col in WE.get((row['vintage'], t), []):
+                if not wk <= mine or (mine - wk - place) != core: continue
+                if col and row['color'] and col != row['color'] and not (col == 'White' and row['color'] == 'Sparkling'): continue
+                hits.add(pts)
+        return hits.pop() if len(hits) == 1 else None      # two different reviews fit: not sure which one, leave it
     we_hits = 0
     for row in ROWS:
         row.pop('_style', None)
