@@ -12,8 +12,8 @@ Output: <out>/wine_enthusiast_scores.csv
 import csv, io, os, sys
 import requests
 
-CANDIDATES = ["GroNLP/ik-nlp-22_winemag", "leowang707/wine_review", "ChiJuiChen/wine_review", "spawn99/WineReviews",
-              "alfredodeza/wine-ratings", "psiyum/winemag-feb-2019"]
+# the only public copy with the wine's title (needed to match a bottle): ~250k reviews scraped in February 2019
+CANDIDATES = ["psiyum/winemag-feb-2019"]
 KEEP = ["title", "winery", "variety", "country", "province", "region_1", "points", "price"]
 
 
@@ -43,23 +43,33 @@ def frames(name):
 
 
 def main():
+    import re
     out = sys.argv[1] if len(sys.argv) > 1 else "we-data"
     os.makedirs(out, exist_ok=True)
     rows, seen = [], set()
     for name in CANDIDATES:
         for df in frames(name):
             cols = {c.lower(): c for c in df.columns}
-            if "points" not in cols or "title" not in cols:
-                continue
-            for rec in df[[cols[c] for c in KEEP if c in cols]].to_dict("records"):
-                r = {c: rec.get(cols[c], "") if c in cols else "" for c in KEEP}
-                r = {k: ("" if str(v) == "nan" else str(v).strip()) for k, v in r.items()}
-                key = (r["title"].lower(), r["points"])
-                if not r["title"] or not r["points"] or key in seen:
+            score = cols.get("points") or cols.get("rating")
+            if not score or "title" not in cols:
+                continue          # copies without the wine's title cannot be matched to a bottle
+            for rec in df.to_dict("records"):
+                g = lambda c: "" if c not in cols or str(rec.get(cols[c])) == "nan" else str(rec.get(cols[c])).strip()
+                if re.search(r"spirit|beer|cider|sake", g("category"), re.I):
+                    continue      # Wine Enthusiast also rates spirits
+                title = g("title")
+                pts = str(rec.get(score, "")).strip()
+                m = re.search(r"\b(\d{2,3})\b", pts)
+                if not title or not m:
+                    continue
+                winery = g("winery") or re.split(r"\s+(?:19|20)\d\d\b|\s+NV\b", title)[0].strip()
+                r = {"title": title, "winery": winery, "variety": g("variety") or g("varietal"), "country": g("country"),
+                     "province": g("province") or g("region"), "region_1": g("region_1") or g("subregion"), "points": m.group(1),
+                     "price": re.sub(r"[^\d.]", "", g("price"))}
+                key = (title.lower(), r["points"])
+                if key in seen:
                     continue
                 seen.add(key); rows.append(r)
-        if len(rows) > 100000:
-            break
     with open(os.path.join(out, "wine_enthusiast_scores.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=KEEP); w.writeheader(); w.writerows(rows)
     print("kept", len(rows), "reviews (scores only, no review text)")
