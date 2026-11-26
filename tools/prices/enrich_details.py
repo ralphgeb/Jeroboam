@@ -440,6 +440,36 @@ def main():
         if row['_style']: b.append('Style: ' + ', '.join(row['_style'][:6]) + '.')
         if row['aromas']: b.append(('Aromas: ' if row['aromas_source'].startswith('shop') else 'Typical aromas: ') + row['aromas'].lower() + '.')
         row['_bits'] = b
+    # Wine Enthusiast scores from the public dataset (sources/wine_enthusiast_scores.csv; scores only, no review text):
+    # only for wines with no other critic's score, same vintage and winery, never linked (owner's decision, Nov 2026)
+    WE = {}
+    wp = P + 'sources/wine_enthusiast_scores.csv'
+    WESTOP = set('the a de du des la le les di del della y and et wine wines vin vino red white rose blanc rouge rosso bianco tinto blanco nv'.split())
+    wt = lambda x: {t for t in re.findall(r'[a-z0-9]+', fold(x)) if t not in WESTOP and not re.fullmatch(r'(19|20)\d\d', t)}
+    if os.path.exists(wp):
+        for r in csv.DictReader(open(wp, encoding='utf-8')):
+            y = re.search(r'\b(19[5-9]\d|20[0-2]\d)\b', r['title'])
+            if not y or not r['winery']: continue
+            title = re.sub(r'\([^)]*\)\s*$', '', r['title'])          # '(Willamette Valley)' is the region, not the name
+            try: pts = float(r['points'])
+            except ValueError: continue
+            if not 80 <= pts <= 100: continue
+            wk = wt(r['winery'])
+            if not wk: continue
+            WE.setdefault((y.group(1), min(wk, key=len) if False else sorted(wk)[0]), []).append((wk, wt(title) | wk, pts))
+        print('Wine Enthusiast scores loaded', sum(len(v) for v in WE.values()))
+    def we_score(row):
+        if not WE or not row['vintage'][:4].isdigit(): return None
+        mine = wt(row['wine'] + ' ' + row['producer'])
+        best = None
+        for t in mine:
+            for wk, tt, pts in WE.get((row['vintage'], t), []):
+                if not wk <= mine: continue                     # the winery must be in our name or producer
+                extra_we, extra_us = tt - mine, mine - tt
+                if len(extra_we) <= 1 and len(extra_us) <= 1 and (best is None or len(tt) > best[0]):
+                    best = (len(tt), pts)
+        return best[1] if best else None
+    we_hits = 0
     for row in ROWS:
         row.pop('_style', None)
         if row['vintage'] and wkey(row) in share:
@@ -448,6 +478,9 @@ def main():
             for key, v in srcs.items(): row['_src'].setdefault(key, v)
             for u in links:
                 if u not in row['_links']: row['_links'].append(u)
+        if not row['_crit'] and WE:      # only when no shop quotes any critic for this wine
+            v = we_score(row)
+            if v: row['_crit'][('Wine Enthusiast', '')] = v; we_hits += 1
         crit = row.pop('_crit'); links = row.pop('_links'); bits = row.pop('_bits'); src = row.pop('_src')
         hundred = [v for (n, sc), v in crit.items() if not sc]
         row['avg_score'] = f'{S.mean(hundred):.1f}' if hundred else ''
@@ -462,6 +495,6 @@ def main():
         stats['rows'] += 1
         for k in ('country', 'region', 'appellation', 'color', 'grapes', 'aromas', 'avg_score'):
             if row[k]: stats[k] += 1
-    print(dict(stats))
+    print(dict(stats), 'Wine Enthusiast (dataset) scores used', we_hits)
 if __name__ == '__main__':
     main()
