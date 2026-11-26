@@ -22,6 +22,13 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
   `thinkingLevel` is refused by this model; searched 0 of 40 — Gemini answers from memory here.
 - **Gemini is NOT free for Ralph**: his Google project has billing on (paid tier, no free allowance). ~150 test calls cost him
   about $0.25, mostly thinking tokens (charged as output). With thinking off it's about 5x less per wine.
+- **The app's free step (WebFacts: DuckDuckGo + shop page, read by Haiku) on the same 50 wines** (tools/check_free_steps.py,
+  free-steps.yml): DuckDuckGo refused all 50 searches from GitHub (202 bot check, then 403, then blocked). With the shop page
+  only: 28/50 right (Pineau d'Aunis was a case slip), 0 really wrong, 21 not found, ~2 s, **$0.006 for all 50** (0.01 c each).
+  So reading pages is nearly free; finding them is the weak point. DuckDuckGo's html page is not a dependable source
+  (phones may get through more often; not measured). Next idea: a search API in the worker (Brave) + the same Haiku reading.
+- Gemini on "Chateau Thomas 2020" (not in our list): Flash-Lite said confirmed Cab/Cab Franc/Merlot without any search;
+  Flash said not confirmed; both gave the same remembered review sentence. Don't use Flash-Lite; Gemini = memory only.
 - The app's compile check after the thinking fix passed (10 logic tests, run 45870079106 re-run).
 
 ## 26 Nov 2026 (late): Claude proxy live, everything merged to main
