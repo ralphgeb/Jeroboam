@@ -50,7 +50,7 @@ def post(path, body):
         with urllib.request.urlopen(req, timeout=90) as r:
             return json.loads(r.read()), time.time() - t0, None
     except urllib.error.HTTPError as e:
-        return None, time.time() - t0, f"HTTP {e.code}: {e.read()[:200]!r}"
+        return None, time.time() - t0, f"HTTP {e.code}: {e.read()[:600].decode(errors='replace')}"
     except Exception as e:
         return None, time.time() - t0, str(e)[:200]
 
@@ -73,6 +73,8 @@ def ask_claude(prompt):
     d, secs, err = post("/claude", body)
     if err: return None, secs, 0.0, err
     text = "".join(c.get("text", "") for c in d.get("content", []) if c.get("type") == "text")
+    if os.environ.get("DEBUG"):
+        print("  claude stop:", d.get("stop_reason"), "| blocks:", [c.get("type") for c in d.get("content", [])], "| text end:", repr(text[-400:]), flush=True)
     u = d.get("usage", {})
     cost = u.get("input_tokens", 0) * 0.10 / 1e6 + u.get("output_tokens", 0) * 0.50 / 1e6 + \
         (u.get("server_tool_use", {}) or {}).get("web_search_requests", 0) * 0.01
@@ -80,6 +82,7 @@ def ask_claude(prompt):
 
 def ask_gemini(prompt):
     d, secs, err = post("/gemini", {"prompt": prompt})
+    if err and os.environ.get("DEBUG"): print("  gemini error:", err, flush=True)
     if err: return None, secs, None, err
     cand = (d.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts", []))
