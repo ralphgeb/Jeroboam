@@ -203,6 +203,16 @@ export default {
     // ---- wines: every scan adds to a counter and keeps what Claude found out (so the next person's scan costs nothing)
     //   GET  /wine?sig=<label signature>  or  ?key=<wine key>   -> 200 {"json": "<identity>"} or 404
     //   POST /wine  {"key","sig","json","name","producer","vintage","region","country","style"}  -> adds the wine or counts one more scan
+    // ---- for tests run on GitHub (tools/label_match_test.py): the scanned wines that have a label signature, newest first
+    //   GET /wines/export?limit=1000 -> {"rows": [{"sig","name","producer","vintage","json"}]}
+    if (url.pathname === "/wines/export") {
+      const limit = Math.max(1, Math.min(5000, Number(url.searchParams.get("limit")) || 1000));
+      const { results } = await env.DB.prepare(
+        "SELECT sig, name, producer, vintage, json FROM wines WHERE sig IS NOT NULL AND sig != '' ORDER BY last_seen DESC LIMIT ?"
+      ).bind(limit).all();
+      return json({ rows: results || [] });
+    }
+
     if (url.pathname === "/wine") {
       if (req.method === "GET") {
         const sig = clean(url.searchParams.get("sig"), 300), key = clean(url.searchParams.get("key"), 300);
