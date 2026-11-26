@@ -125,12 +125,15 @@ struct LabelMatcher {
         return out.isEmpty ? w.name : out
     }
 
-    /// The vintage printed on the label: a year between 1900 and next year, standing on its own.
+    /// The vintage printed on the label: a year between 1900 and next year, standing on its own (not part of a longer number).
     static func vintage(_ lines: [String]) -> String {
         let next = Calendar.current.component(.year, from: Date()) + 1
         for l in lines {
-            for m in l.matches(of: #/(?<![0-9])(19[0-9]{2}|20[0-9]{2})(?![0-9])/#) {
-                if let y = Int(m.1), y <= next { return String(y) }
+            var run = ""
+            for ch in l + " " {
+                if ch.isASCII && ch.isNumber { run.append(ch); continue }
+                if run.count == 4, let y = Int(run), y >= 1900, y <= next { return run }
+                run = ""
             }
         }
         return ""
