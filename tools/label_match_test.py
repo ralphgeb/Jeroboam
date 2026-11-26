@@ -65,6 +65,11 @@ def load_list():
         for w in k[1]: index[w].append(k)
     return wines, index
 
+# words that appear on many labels: a wine whose own name is only these needs its appellation on the label too
+WEAK = {"grand", "reserve", "reserva", "riserva", "vieilles", "vignes", "rouge", "blanc", "blancs", "rose", "rosso", "bianco",
+        "tinto", "blanco", "brut", "classico", "superiore", "selection", "special", "cuvee", "premier", "villages", "crianza",
+        "estate", "old", "vines", "red", "white", "dry", "sec"}
+
 def deletes(w):
     return {w[:i] + w[i + 1:] for i in range(len(w))}
 
@@ -99,7 +104,10 @@ def match(label_words, wines, index):
             seen.add(k)
             P, N, Pl = k
             # the producer on the label (more than half of its words), and the wine's own name entirely on it
-            if N <= L and 2 * len(P & L) > len(P): cands.append(k)
+            if not (N <= L and 2 * len(P & L) > len(P)): continue
+            # "Charmes-Chambertin Grand Cru" has only "grand" of its own: its appellation must be on the label as well
+            if N <= WEAK and not (Pl and Pl <= L): continue
+            cands.append(k)
     if not cands: return None, "no match"
     # the most words in common wins: the wine's own name, plus its place when the label prints it (Gevrey, not Fixin)
     def score(k): return len(k[1]) + len(k[2] & L)
