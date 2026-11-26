@@ -1,6 +1,6 @@
 # Claude: maps, app, course and journal
 
-Branch: **`claude/vibrant-ramanujan-g4uz35`** (pushed). `main` is at `4b82399`; everything after that is on the branch only.
+Branch: **`claude/vibrant-ramanujan-g4uz35`**, merged into **`main`** on 26 Nov (evening). Work from `main` from now on.
 Last TestFlight build: **1.0 (65)** = GitHub run 80. Run 82 also uploaded (freeze fix + iCloud status line), probably build 66.
 Nothing below the line "Not yet on TestFlight" has been built for TestFlight yet; the branch compiles and passes the 10
 logic tests (snapshots.yml, `only: LogicTests`, last run 45826698233).
@@ -9,6 +9,20 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 "App round", "Welcome back", "Cellar & journal round", "Faster scans"). This file is the story and the decisions.
 
 ---
+
+## 26 Nov 2026 (late): Claude proxy live, everything merged to main
+
+- **The Anthropic key is no longer meant to live in the app.** The Cloudflare worker `jero-prices` now has `POST /claude`
+  (code in `backend/cloudflare/worker.js`, pasted into the Cloudflare dashboard) with the secret `ANTHROPIC_API_KEY`.
+  It forces Claude Haiku, caps tokens (1,500) and web searches (2), and keeps daily $ caps per phone and overall (D1 table
+  `claude_usage`, created by the worker). `check-proxy.yml` passed (ping key:true, one real call answered by claude-haiku-5-5).
+- Ralph set the repo variable **`CLAUDE_PROXY_READY=true`**: from the next build the app sends every Claude call through the
+  worker (`WineRecognizer.claudeRequest`, header `x-jero-device` = random `PriceCloud.installID`) and the build no longer contains
+  `JERO_API_KEY`. After that build is confirmed on a phone: delete the old Anthropic key in the console.
+- The worker is managed in the Cloudflare dashboard only (no wrangler.toml). If you change it, paste + Deploy there.
+- Privacy: the install number is declared as Device ID (not linked, app functionality) in PrivacyInfo.xcprivacy,
+  docs/privacy.html and APP_STORE_LISTING.md §5.
+- Everything on `claude/vibrant-ramanujan-g4uz35` is merged into `main` (with the price session's PR #2). Not yet on TestFlight.
 
 ## 26 Nov 2026 (evening): merged the price session's work
 
