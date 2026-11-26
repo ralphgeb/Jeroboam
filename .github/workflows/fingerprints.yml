@@ -16,6 +16,10 @@ on:
         description: "Skip fingerprinting, only re-run the test"
         type: boolean
         default: false
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "tools/prices/fingerprint_shops.txt"
 
 permissions:
   contents: write
@@ -36,7 +40,13 @@ jobs:
           if [ "${{ github.event.inputs.test_only }}" = "true" ]; then echo 'hosts=[]' >> "$GITHUB_OUTPUT"; exit 0; fi
           git fetch -q --depth 1 origin shop-data
           have=$(git ls-tree --name-only FETCH_HEAD | sed -n 's/\.jsonl\.gz$//p' | paste -sd, -)
-          python3 - "$have" "${{ github.event.inputs.only }}" >> "$GITHUB_OUTPUT" <<'PY'
+          ONLY="${{ github.event.inputs.only }}"
+          # a push runs the shops listed in tools/prices/fingerprint_shops.txt ("all" = every shop in the price list)
+          if [ "${{ github.event_name }}" = "push" ]; then
+            ONLY=$(grep -v "^#" tools/prices/fingerprint_shops.txt | grep -v "^all$" | grep . | paste -sd, -)
+            if [ -z "$ONLY" ] && ! grep -qx all tools/prices/fingerprint_shops.txt; then echo 'hosts=[]' >> "$GITHUB_OUTPUT"; exit 0; fi
+          fi
+          python3 - "$have" "$ONLY" >> "$GITHUB_OUTPUT" <<'PY'
           import csv, json, sys
           from urllib.parse import urlparse
           csv.field_size_limit(10 ** 9)
