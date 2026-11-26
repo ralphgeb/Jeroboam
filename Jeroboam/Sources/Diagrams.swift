@@ -27,7 +27,8 @@ struct VisualView: View {
                 LessonMap(mapID: arg, highlight: Set(extra.split(separator: ",").map(String.init)), compact: compact)
             case "map":
                 let hl = Set(extra.split(separator: ",").map(String.init))
-                WineMapView(mapID: arg, highlight: hl, showCities: !compact && !hideAnswers, labelScale: compact ? 0.9 : 1,
+                // in a question the area names stay off the map: "Highlighted on the map is…" must not read the answer out
+                WineMapView(mapID: arg, highlight: hl, showLabels: !hideAnswers, showCities: !compact && !hideAnswers, labelScale: compact ? 0.9 : 1,
                             fill: true, autoCallout: !hideAnswers)
                     .frame(height: hideAnswers ? 200 : (compact ? 230 : 280))
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
@@ -85,7 +86,7 @@ struct VisualView: View {
                     WineGlass(color: Color(hex: c.hex), rim: Color(hex: c.rim)).frame(height: 170)
                 }
             case "colors":
-                ColorLadder(family: arg)
+                ColorLadder(family: arg, hideNames: hideAnswers)
             case "profile":
                 if let g = ContentStore.shared.grape(arg) { StructureBars(grape: g) }
             case "aromas":
@@ -117,7 +118,7 @@ struct VisualView: View {
         case "serving-temps": ServingTempsDiagram()
         case "sweetness": SweetnessScale()
         case "solera": SoleraDiagram()
-        case "wine-belt": WineBeltDiagram()
+        case "wine-belt": WineBeltDiagram(hideAnswers: hideAnswers)
         case "glass-shapes": GlassShapesDiagram()
         case "three-colors": ThreeColorsDiagram()
         case "tannin-acid": TanninAcidDiagram()
@@ -132,14 +133,18 @@ struct MapRef: Identifiable { let id: String; let hl: Set<String> }
 
 struct ColorLadder: View {
     let family: String
+    /// In a question the glasses are shown without their names (the names are often the answer).
+    var hideNames = false
     var body: some View {
         let colors = ContentStore.shared.library.colors.filter { $0.family == family && $0.chart != true }
         HStack(alignment: .bottom, spacing: 4) {
             ForEach(colors) { c in
                 VStack(spacing: 8) {
                     WineGlass(color: Color(hex: c.hex), rim: Color(hex: c.rim), fill: 0.6).frame(height: 84)
-                    Text(c.name).font(.system(size: 10, weight: .medium)).foregroundStyle(Palette.inkSoft)
-                        .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.8)
+                    if !hideNames {
+                        Text(c.name).font(.system(size: 10, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                            .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.8)
+                    }
                 }
                 .frame(maxWidth: .infinity)
             }

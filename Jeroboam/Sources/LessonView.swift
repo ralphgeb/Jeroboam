@@ -212,7 +212,8 @@ struct FeedbackPanel: View {
     let feedback: LessonPlayer.Feedback
     let combo: Int
     let onContinue: () -> Void
-    @State private var expanded = false
+    /// The explanation is how people learn: always shown in full. A long one scrolls inside the panel instead of covering the screen.
+    @State private var explainHeight: CGFloat = 0
 
     var body: some View {
         let tint = feedback.correct ? Palette.correct : Palette.wrong
@@ -233,19 +234,22 @@ struct FeedbackPanel: View {
                 }
             }
             if let e = feedback.explain {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(rich(e)).font(.jero(size: 14.5)).foregroundStyle(Palette.ink.opacity(0.85)).lineSpacing(2.5)
-                        .lineLimit(expanded ? nil : 2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                    if expanded, let v = feedback.visual, !v.hasPrefix("map"), !v.hasPrefix("glassonly") {
-                        VisualView(spec: v, compact: true)
+                let cap: CGFloat = 300
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(rich(e)).font(.jero(size: 15)).foregroundStyle(Palette.ink.opacity(0.88)).lineSpacing(2.5)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                        // the picture again, now with its names and labels (the question hid them)
+                        if let v = feedback.visual, v.hasPrefix("diagram") || v.hasPrefix("colors") {
+                            VisualView(spec: v, compact: true)
+                        }
                     }
-                    if !expanded && e.count > 90 {
-                        Button("Why?") { withAnimation(.easeOut(duration: 0.2)) { expanded = true } }
-                            .font(.system(size: 13.5, weight: .semibold)).foregroundStyle(tint)
-                    }
+                    .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { explainHeight = $0 }
                 }
+                .frame(height: min(max(explainHeight, 20), cap))
+                .scrollBounceBehavior(.basedOnSize)
+                .scrollIndicators(explainHeight > cap ? .visible : .hidden)
             }
             Button("Continue", action: onContinue)
                 .buttonStyle(PrimaryButtonStyle(color: tint))

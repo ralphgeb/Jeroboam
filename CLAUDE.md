@@ -92,7 +92,9 @@ Jeroboam/Sources/        Swift app
   provinces/states (Spain's autonomous regions, Chile/Argentina regions, Australian states, Austrian Länder…), level 1 =
   appellations inside (existing regions find their parent by overlap; extra ones via B(lat, lon, km) snapped to municipalities).
   Province tints (`tints`) are drawn only on maps without a level-0 hierarchy. Keep the original bold palette (owner's choice).
-- Quiz visuals in question cards use `hideAnswers` (no grape names, no map callouts, smaller maps).
+- Quiz visuals in question cards use `hideAnswers` (no grape names, no map callouts or area names, smaller maps, colour ladder without
+  names, wine belt without latitude numbers or caption). Answer feedback always shows the whole explanation (no "Why?"); long ones
+  scroll inside the panel (max 300 pt), followed by the full diagram/colour picture.
 - Practice: `QuizGenerator` has ~30 templates across grapes/regions/maps/colors/aromas/styles/pairings/labels/terms and a
   repeat memory (`QuizMemory`, last 400). Every unit ends with a "Going further" lesson (source in content/extras/*.yaml,
   merged into the unit files).

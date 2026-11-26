@@ -3,6 +3,8 @@ import SwiftUI
 /// The two wine belts (30°–50° north and south) on a soft world map, with famous regions pinned.
 struct WineBeltDiagram: View {
     var compact = false
+    /// In a question: no latitude numbers and no caption (they are the answer); the bands and the pinned regions stay.
+    var hideAnswers = false
     @Environment(\.colorScheme) private var scheme
 
     var body: some View {
@@ -40,7 +42,7 @@ struct WineBeltDiagram: View {
                     // latitude labels
                     let labels: [(String, CGFloat)] = [("50° N", CGFloat(b[0]) * s), ("30° N", CGFloat(b[1]) * s), ("Equator", eqY),
                                                        ("30° S", CGFloat(b[2]) * s), ("50° S", CGFloat(b[3]) * s)]
-                    for (t, y) in labels {
+                    for (t, y) in labels where !hideAnswers || t == "Equator" {
                         let txt = Text(t).font(.system(size: compact ? 8 : 9, weight: .semibold)).foregroundColor(t == "Equator" ? Palette.slate : Palette.bordeaux)
                         ctx.draw(txt, at: CGPoint(x: 4, y: y - 1), anchor: .bottomLeading)
                     }
@@ -64,7 +66,7 @@ struct WineBeltDiagram: View {
                 }
                 .aspectRatio(aspect, contentMode: .fit)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                if !compact {
+                if !compact && !hideAnswers {
                     HStack(spacing: 8) {
                         RoundedRectangle(cornerRadius: 2).fill(Palette.bordeaux.opacity(0.25)).frame(width: 14, height: 10)
                         Text("Most of the world's vineyards lie between 30° and 50° of latitude, where summers are warm and winters cool enough to rest the vine.")
