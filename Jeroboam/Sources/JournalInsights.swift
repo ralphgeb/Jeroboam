@@ -85,19 +85,14 @@ enum WorldCountries {
 /// Until you have a few wines of your own it shows an example, clearly marked, so you can see how it will look.
 struct JournalInsights: View {
     @Environment(JournalStore.self) private var journal
-    @State private var explore: MapRef? = nil
-    @State private var showWorld = false
+    /// Which tab the charts belong to: the wines you have tasted, or the bottles in your cellar.
+    var tasted: Bool
     /// Worked out once, away from the main thread, and again only when the bottles or tastings change
     /// (matching every wine's region against the atlas used to make the Journal tab hesitate when it opened).
     @State private var snap: Snapshot? = nil
-    @State private var filter: MapFilter = .all
-    @AppStorage("jero.wineMapStyle") private var styleRaw = 0
-    private var mapStyle: WineMapStyle { WineMapStyle(rawValue: styleRaw) ?? .dots }
 
     private struct Snapshot {
         var real: [InsightWine]
-        var dots: [MapFilter: [MapDot]]
-        var shades: [MapFilter: [CountryShade]]
     }
 
     /// Changes whenever a bottle or tasting is added, removed or gets a different country, region or style.
@@ -108,7 +103,8 @@ struct JournalInsights: View {
         return h.finalize()
     }
 
-    private var real: [InsightWine] { snap?.real ?? [] }
+    /// Only this tab's wines: tastings on the Tastings tab, bottles on the Cellar tab.
+    private var real: [InsightWine] { (snap?.real ?? []).filter { $0.tasted == tasted } }
 
     private static func makeReal(cellar: [CellarBottle], entries: [JournalEntry]) -> [InsightWine] {
         var out: [InsightWine] = []
@@ -134,7 +130,7 @@ struct JournalInsights: View {
     }
 
     private var useExample: Bool { real.count < 3 }
-    private var wines: [InsightWine] { useExample ? Self.example : real }
+    private var wines: [InsightWine] { useExample ? Self.example.filter { $0.tasted == tasted } : real }
 
     var body: some View {
         Group {
@@ -143,15 +139,7 @@ struct JournalInsights: View {
         .task(id: signature) {
             let cellar = journal.cellar, entries = journal.entries
             snap = await Task.detached(priority: .userInitiated) { () -> Snapshot in
-                let real = JournalInsights.makeReal(cellar: cellar, entries: entries)
-                let ws = real.count < 3 ? JournalInsights.example : real
-                var dots: [MapFilter: [MapDot]] = [:], shades: [MapFilter: [CountryShade]] = [:]
-                for f in MapFilter.allCases {
-                    let kept = ws.filter(f.keeps)
-                    dots[f] = JournalInsights.makeDots(kept)
-                    shades[f] = JournalInsights.makeShades(kept)
-                }
-                return Snapshot(real: real, dots: dots, shades: shades)
+                Snapshot(real: JournalInsights.makeReal(cellar: cellar, entries: entries))
             }.value
         }
     }
@@ -159,16 +147,18 @@ struct JournalInsights: View {
     /// For the moment the section takes to work out (it sits at the bottom of the page).
     private var placeholder: some View {
         VStack(alignment: .leading, spacing: 14) {
-            SectionTitle(text: "Your wine world")
-            SkeletonBar(height: 190, radius: 16)
+            SectionTitle(text: heading)
+            SkeletonBar(height: 120, radius: 16)
             SkeletonBar(height: 120, radius: 16)
         }
     }
 
+    private var heading: String { tasted ? "Your tastings" : "Your cellar" }
+
     private var content: some View {
         VStack(alignment: .leading, spacing: 26) {
             HStack(alignment: .firstTextBaseline) {
-                SectionTitle(text: "Your wine world")
+                SectionTitle(text: heading)
                 if useExample {
                     Text("EXAMPLE").font(.system(size: 10, weight: .bold)).kerning(1)
                         .foregroundStyle(Palette.wine).padding(.horizontal, 8).padding(.vertical, 3)
@@ -176,22 +166,12 @@ struct JournalInsights: View {
                 }
             }
             if useExample {
-                Text("This is how it will look. It fills in with the bottles you scan and the wines you taste.")
+                Text(tasted ? "This is how it will look. It fills in with the wines you taste."
+                            : "This is how it will look. It fills in with the bottles you add to your cellar.")
                     .font(.system(size: 13)).foregroundStyle(Palette.inkSoft).padding(.top, -16)
             }
-            mapCards
             countriesCard
             chartGrid
-        }
-        .railCover(item: $explore) { ref in MapExplorer(mapID: ref.id, highlight: ref.hl) }
-        .railCover(isPresented: $showWorld) {
-            let list = dots
-            WorldMapFull(dots: list, shades: shades, style: mapStyle) { id in
-                showWorld = false
-                if let d = list.first(where: { $0.id == id }) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { explore = MapRef(id: d.map, hl: d.highlight) }
-                }
-            }
         }
     }
 
@@ -235,13 +215,6 @@ struct JournalInsights: View {
     // world coordinates: the world map is a plain lat/lon grid, 13.71 map units per degree, 0° east at x 2331 and 44.84° north at y 372
     private static func mapPoint(lat: Double, lon: Double) -> CGPoint { CGPoint(x: 2331 + 13.71 * lon, y: 372 - 13.74 * (lat - 44.84)) }
 
-    /// One dot per place you have wine from, at the real centre of that place (the atlas and "beyond the atlas" maps know where
-    /// every region is); a wine whose region is not known is not drawn rather than drawn in the wrong place.
-    private var dots: [MapDot] { snap?.dots[filter] ?? [] }
-    private var shades: [CountryShade] { snap?.shades[filter] ?? [] }
-    /// The wines the map section shows (All, In my cellar or Tasted).
-    private var mapWines: [InsightWine] { wines.filter(filter.keeps) }
-
     private static func makeDots(_ wines: [InsightWine]) -> [MapDot] {
         var by: [String: (region: Region, wines: [InsightWine])] = [:]
         for w in wines {
@@ -269,55 +242,17 @@ struct JournalInsights: View {
         return by.values.compactMap { c, n in WorldCountries.shape(for: c).map { CountryShade(path: $0, count: n) } }
     }
 
-    private var mapCards: some View {
-        let list = dots
-        return VStack(alignment: .leading, spacing: 10) {
-            if !useExample {
-                Picker("Show", selection: $filter) {
-                    ForEach(MapFilter.allCases, id: \.self) { Text($0.title).tag($0) }
-                }
-                .pickerStyle(.segmented)
-            }
-            if Distribution.isTestFlight {
-                // TestFlight: compare the three ways of drawing the map
-                Picker("Map style", selection: $styleRaw) {
-                    ForEach(WineMapStyle.allCases, id: \.rawValue) { Text($0.title).tag($0.rawValue) }
-                }
-                .pickerStyle(.segmented)
-            }
-            let countries = Set(mapWines.map { norm($0.country) }).count
-            Text(list.isEmpty ? (filter == .tasted ? "Wines you taste in the journal show here." : "Bottles you add to your cellar show here.")
-                 : "\(countries) \(countries == 1 ? "country" : "countries") · \(list.count) \(list.count == 1 ? "place" : "places"). Tap the map to open it, then tap a place.")
-                .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
-            Button { showWorld = true } label: {
-                WorldTriedMap(dots: list, shades: shades, style: mapStyle, interactive: false, height: 190) { _ in }
-                    .overlay(alignment: .bottomTrailing) {
-                        Label("Open the map", systemImage: "arrow.up.left.and.arrow.down.right")
-                            .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
-                            .padding(.horizontal, 12).padding(.vertical, 8)
-                            .background(.regularMaterial, in: Capsule()).padding(10)
-                    }
-            }
-            .buttonStyle(.plain)
-        }
-    }
-
     // MARK: countries (flags and bottle counts)
 
     private var countriesCard: some View {
         var tally: [String: (name: String, n: Int)] = [:]
-        for w in mapWines { let k = norm(w.country); tally[k] = (tally[k]?.name ?? w.country, (tally[k]?.n ?? 0) + 1) }
+        for w in wines { let k = norm(w.country); tally[k] = (tally[k]?.name ?? w.country, (tally[k]?.n ?? 0) + 1) }
         let rows = tally.values.sorted { $0.n > $1.n || ($0.n == $1.n && $0.name < $1.name) }
         let most = max(1, rows.first?.n ?? 1)
-        return Button { showWorld = true } label: {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack(alignment: .firstTextBaseline) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Where your wines come from").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
-                        Text("\(rows.count) \(rows.count == 1 ? "country" : "countries"). Tap to open the detailed map.").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
-                    }
-                    Spacer()
-                    Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+        return VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Where your wines come from").font(.system(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text("\(rows.count) \(rows.count == 1 ? "country" : "countries")").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
                 }
                 VStack(spacing: 10) {
                     ForEach(rows.prefix(8), id: \.name) { r in
@@ -338,8 +273,6 @@ struct JournalInsights: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .cardStyle(padding: 16)
-        }
-        .buttonStyle(.plain)
     }
 
     // MARK: charts
@@ -349,18 +282,26 @@ struct JournalInsights: View {
         let blind = tastings.filter { $0.isBlind && $0.score != nil }
         let cellar = journal.persist ? journal.cellar : []
         return VStack(spacing: 14) {
-            if let line = TasteInsight.sentence(entries: tastings) { InsightSentenceCard(text: line) }
+            if tasted, let line = TasteInsight.sentence(entries: tastings) { InsightSentenceCard(text: line) }
             HStack(alignment: .top, spacing: 12) {
                 stylesCard
                 topGrapeCard
             }
-            if !tastings.isEmpty { TasteFingerprintCard(entries: tastings) }
-            MonthsCard(wines: wines)
-            if blind.count >= 2 { BlindProgressCard(blind: blind) }
-            GrapeRingCard(wines: wines)
-            if cellar.contains(where: { DrinkWindow.years($0.wine.drinkWindow) != nil }) { CellarReadinessCard(cellar: cellar) }
-            bodyCard
-            priceCard
+            if tasted {
+                // what you have tasted: your palate, month by month, blind progress
+                if !tastings.isEmpty { TasteFingerprintCard(entries: tastings) }
+                MonthsCard(wines: wines)
+                if blind.count >= 2 { BlindProgressCard(blind: blind) }
+                GrapeRingCard(wines: wines)
+                bodyCard
+            } else {
+                // what you keep: when it is ready, what it cost, how it grew
+                if cellar.contains(where: { DrinkWindow.years($0.wine.drinkWindow) != nil }) { CellarReadinessCard(cellar: cellar) }
+                GrapeRingCard(wines: wines)
+                priceCard
+                bodyCard
+                MonthsCard(wines: wines)
+            }
         }
     }
 
@@ -410,7 +351,8 @@ struct JournalInsights: View {
         for w in wines { for g in w.grapes.prefix(1) { tally[g, default: 0] += 1 } }
         let top = tally.max { $0.value < $1.value || ($0.value == $1.value && $0.key > $1.key) }
         let grape = matchGrape(top?.key)
-        return card("Your grape", top == nil ? "Taste a wine to find it" : "The one you pick most") {
+        return card(tasted ? "Your grape" : "Your cellar's grape",
+                    top == nil ? (tasted ? "Taste a wine to find it" : "Add a bottle to find it") : (tasted ? "The one you pick most" : "The one you keep most")) {
             VStack(alignment: .leading, spacing: 8) {
                 if let g = grape { GrapeBadge(grape: g, size: 62) }
                 Text(top?.key ?? "–").font(.system(size: 19, weight: .bold)).foregroundStyle(Palette.ink).lineLimit(2).minimumScaleFactor(0.8)

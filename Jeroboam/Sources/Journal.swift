@@ -288,6 +288,17 @@ final class JournalStore {
         }
     }
 
+    /// One bottle drunk: the count goes down, and the card leaves the cellar with its last bottle.
+    func takeOne(_ b: CellarBottle) {
+        if b.quantity > 1 { var c = b; c.quantity -= 1; upsert(c) } else { delete(b) }
+    }
+
+    /// The cellar card of this wine (same name, producer and vintage), if it is in the cellar.
+    func cellarBottle(for w: WineIdentity) -> CellarBottle? {
+        let k = WineDB.key(w)
+        return k.isEmpty ? nil : cellar.first { WineDB.key($0.wine) == k }
+    }
+
     func delete(_ b: CellarBottle) {
         CloudSync.shared.noteDeleted(b.id)
         cellar.removeAll { $0.id == b.id }
@@ -369,7 +380,8 @@ struct JournalHome: View {
                     .pickerStyle(.segmented)
 
                     if section == 0 { cellarSection } else { tastingsSection }
-                    JournalInsights()
+                    // the charts follow the tab: your cellar's bottles, or the wines you have tasted
+                    JournalInsights(tasted: section == 1)
                     CollectionCard()
                     JournalExtras(onBlind: { blind = true })
                     NavigationLink(value: HistoryRoute()) {
@@ -1083,7 +1095,6 @@ struct ScanFlow: View {
     @State private var tasteNow = false
     @State private var started = false
     @State private var paidUSD: Double? = nil
-    @State private var timing = ""   // TestFlight: how long each step took
 
     var body: some View {
         GeometryReader { g in
@@ -1160,11 +1171,6 @@ struct ScanFlow: View {
             PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
             if identified { ScoreLinkCard(wine: wine, score: wine.dbScore, link: wine.dbScoreLink) }
             if identified { PaidField(paidUSD: $paidUSD) }
-            if !timing.isEmpty {
-                // TestFlight only: where this scan's time went
-                Text(timing).font(.system(size: 11).monospacedDigit()).foregroundStyle(Palette.inkFaint)
-                    .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)
-            }
 
             VStack(spacing: 12) {
                 HStack {
@@ -1198,7 +1204,7 @@ struct ScanFlow: View {
     /// The bottle appears as soon as it is known; its price is looked up and its grapes and notes checked side by side after that.
     private func identify() async {
         guard WineRecognizer.isAvailable else { return }
-        ScanClock.shared.start(); timing = ""
+        ScanClock.shared.start()
         working = true; error = nil
         var first: RecognitionResult? = nil
         do {
@@ -1226,7 +1232,7 @@ struct ScanFlow: View {
         journal.noteCost(r.costUSD)
         WineDB.shared.noteScan(w, image: image)
         await priced
-        if Distribution.isTestFlight { timing = ScanClock.shared.summary() }
+        ScanClock.shared.finish(wine: wine.name)   // TestFlight: Settings > TestFlight > Scan timings
     }
 
     private func findPrice() async {
@@ -1281,6 +1287,7 @@ struct TastingFlow: View {
     @State private var grapeOptions: [String] = []
     @State private var countryOptions: [String] = []
     @State private var prepared = false
+    @State private var tookFromCellar = false   // the tasted bottle was taken out of the cellar
 
     private var steps: [Step] {
         Step.allCases.filter { s in
@@ -1778,8 +1785,33 @@ struct TastingFlow: View {
                         .font(.system(size: 15)).foregroundStyle(Palette.inkSoft)
                 }
             }
+            cellarPrompt
             Text("+\(blind ? 25 : 15) XP").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.brass)
             Button("Done") { dismiss() }.buttonStyle(PrimaryButtonStyle())
+        }
+    }
+
+    /// A tasted wine that is in the cellar: offer to take that bottle out (one of them when there are several).
+    @ViewBuilder private var cellarPrompt: some View {
+        if tookFromCellar {
+            Label("Taken out of your cellar", systemImage: "checkmark.circle.fill")
+                .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.correct)
+        } else if let b = journal.cellarBottle(for: entry.wine) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(b.quantity > 1 ? "You have \(b.quantity) of these in your cellar." : "This bottle is in your cellar.")
+                    .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                Button {
+                    journal.takeOne(b)
+                    Haptics.success()
+                    withAnimation { tookFromCellar = true }
+                } label: {
+                    Label(b.quantity > 1 ? "Remove one from cellar" : "Remove from cellar", systemImage: "minus.circle")
+                }
+                .buttonStyle(SecondaryButtonStyle())
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         }
     }
 

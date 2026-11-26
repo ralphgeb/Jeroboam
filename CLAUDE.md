@@ -307,3 +307,14 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (stop_reason max_tokens). Every app call now sends `thinking: {type: "disabled"}` (`WineRecognizer.noThinking`) + effort low with
   1,500–2,000 max_tokens, and the worker forces the same (thinking off unless "adaptive", effort low, max_tokens 800–3,000) so
   older builds are fixed too. The worker picks the Gemini model itself (Google's model list; GEMINI_MODEL overrides).
+
+## Journal & profile round (27 Nov, not yet on TestFlight)
+- Journal: the world map and its pickers (All/In my cellar/Tasted, Dots/Glow/Countries) are gone. `JournalInsights(tasted:)` follows
+  the Cellar | Tastings switch: Tastings = insight sentence, styles, grape, taste fingerprint, months, blind progress, grape ring, body;
+  Cellar = styles, grape, readiness, grape ring, price, body, months. Countries card stays (no map behind it).
+- Tasting a wine that is in the cellar ends with "Remove (one) from cellar" (`JournalStore.takeOne`, `cellarBottle(for:)`).
+- Profile: `CollectionAndAchievementsTiles` (two cards side by side) -> `CollectionView` / `AchievementsView` (`AchievementsRoute`).
+- Wine profile (`BottleProfileCard`) also on the scan result (after the check), tastings, Wines of the world and Great wines pages
+  (`Wine.identity`, `GreatWine.identity`).
+- Scan timing: `ScanClock` records each step (label, phone/cloud lookup, Claude, name lookup, free pages, paid search, price);
+  last 30 scans in Settings > TestFlight > Scan timings (`ScanTimingsView`), never in the scan screen. The label is read once.

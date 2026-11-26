@@ -391,3 +391,112 @@ struct CollectionCard: View {
         .buttonStyle(PressableStyle())
     }
 }
+
+// MARK: - Profile: collection and achievements as two cards
+
+struct AchievementsRoute: Hashable {}
+
+/// Profile: "Your collection" and "Achievements" side by side, each a tap away from its full page.
+struct CollectionAndAchievementsTiles: View {
+    @Environment(JournalStore.self) private var journal
+    @Environment(GameProgress.self) private var progress
+
+    var body: some View {
+        let t = Tried.of(journal.persist ? journal.entries : [])
+        let got = progress.data.achievements
+        // the latest badges first, as a little fan on the card
+        let recent = Achievement.all.filter { got.contains($0.id) }
+            .sorted { (progress.data.achievementDates?[$0.id] ?? .distantPast) > (progress.data.achievementDates?[$1.id] ?? .distantPast) }
+        HStack(alignment: .top, spacing: 12) {
+            NavigationLink(value: CollectionRoute()) {
+                tile(title: "Your collection",
+                     detail: "\(t.grapes.count) grapes · \(t.countries.count) countries · \(t.classics.count) classics") {
+                    HStack(spacing: -10) {
+                        ForEach(0..<3, id: \.self) { i in
+                            ZStack {
+                                StampShape().fill(Color(hex: ["#FBF3E4", "#F3E6EA", "#EAF0E4"][i]))
+                                StampShape().stroke(Palette.bordeaux.opacity(0.35), lineWidth: 0.6)
+                                Image(systemName: ["seal.fill", "globe.europe.africa.fill", "star.fill"][i])
+                                    .font(.system(size: 15)).foregroundStyle(Palette.bordeaux)
+                            }
+                            .frame(width: 38, height: 46).rotationEffect(.degrees([-8, 2, 10][i]))
+                        }
+                    }
+                }
+            }
+            .buttonStyle(PressableStyle())
+            NavigationLink(value: AchievementsRoute()) {
+                tile(title: "Achievements", detail: "\(got.count) of \(Achievement.all.count) earned") {
+                    HStack(spacing: -14) {
+                        if recent.isEmpty {
+                            AchievementBadge(achievement: Achievement.all[0], unlocked: false, size: 48).frame(width: 48, height: 48)
+                        } else {
+                            ForEach(recent.prefix(3)) { a in
+                                AchievementBadge(achievement: a, unlocked: true, size: 48).frame(width: 48, height: 48)
+                            }
+                        }
+                    }
+                }
+            }
+            .buttonStyle(PressableStyle())
+        }
+    }
+
+    private func tile<Art: View>(title: String, detail: String, @ViewBuilder art: () -> Art) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            art().frame(height: 52, alignment: .leading)
+            Spacer(minLength: 0)
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 4) {
+                    Text(title).font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.8)
+                    Spacer(minLength: 2)
+                    Image(systemName: "chevron.right").font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+                }
+                Text(detail).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(2).minimumScaleFactor(0.85)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, minHeight: 150, alignment: .topLeading)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
+        .contentShape(Rectangle())
+    }
+}
+
+/// Every badge, earned or still to win (tap an earned one to see it again).
+struct AchievementsView: View {
+    @Environment(GameProgress.self) private var progress
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                ScreenHeader(eyebrow: "Profile", title: "Achievements",
+                             subtitle: "\(progress.data.achievements.count) of \(Achievement.all.count) earned. Tap a badge you have won to see it again.")
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12, alignment: .top)], alignment: .center, spacing: 18) {
+                    ForEach(Achievement.all) { a in
+                        let got = progress.data.achievements.contains(a.id)
+                        Button {
+                            if got { BadgeCelebration.shared.play(a, date: progress.data.achievementDates?[a.id]) }
+                        } label: {
+                            VStack(spacing: 6) {
+                                AchievementBadge(achievement: a, unlocked: got, size: 78)
+                                    .frame(width: 78, height: 78)
+                                Text(a.title).font(.jero(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
+                                    .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
+                                Text(a.detail).font(.jero(size: 10.5)).foregroundStyle(Palette.inkFaint)
+                                    .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .top)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+            .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+        }
+        .background(Palette.paper.ignoresSafeArea())
+        .pageChrome()
+    }
+}

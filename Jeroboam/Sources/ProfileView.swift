@@ -18,6 +18,7 @@ struct ProfileView: View {
     @State private var showExtraAtlas = false
     @State private var settingsOpen = false
     @State private var showCredits = false
+    @State private var showScanTimings = false
     @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
 
@@ -73,11 +74,13 @@ struct ProfileView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: CollectionRoute.self) { _ in CollectionView() }
+            .navigationDestination(for: AchievementsRoute.self) { _ in AchievementsView() }
             .onAppear { progress.checkAchievements() }
             .statusBarBackdrop()
             .plusSheetHost()
             .sheet(isPresented: $showExtraAtlas) { ExtraAtlasView() }
             .sheet(isPresented: $showCredits) { CreditsView() }
+            .sheet(isPresented: $showScanTimings) { ScanTimingsView() }
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -131,31 +134,8 @@ struct ProfileView: View {
     }
 
     @ViewBuilder private func achievements() -> some View {
-                    // the stamp album (grapes, countries and classics tasted) sits above the badges
-                    CollectionCard()
-                    VStack(alignment: .leading, spacing: 14) {
-                        SectionTitle(text: "Achievements", detail: "\(progress.data.achievements.count)/\(Achievement.all.count)")
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 12, alignment: .top)], alignment: .center, spacing: 18) {
-                            ForEach(Achievement.all) { a in
-                                let got = progress.data.achievements.contains(a.id)
-                                Button {
-                                    if got { BadgeCelebration.shared.play(a, date: progress.data.achievementDates?[a.id]) }
-                                } label: {
-                                    VStack(spacing: 6) {
-                                        AchievementBadge(achievement: a, unlocked: got, size: 78)
-                                            .frame(width: 78, height: 78)
-                                        Text(a.title).font(.jero(size: 12, weight: .semibold)).foregroundStyle(got ? Palette.ink : Palette.inkSoft)
-                                            .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
-                                        Text(a.detail).font(.jero(size: 10.5)).foregroundStyle(Palette.inkFaint)
-                                            .multilineTextAlignment(.center).lineLimit(2, reservesSpace: true)
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .top)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }
+                    // two cards side by side: the stamp album and the badges, each opens its own page
+                    CollectionAndAchievementsTiles()
 
     }
 
@@ -184,6 +164,8 @@ struct ProfileView: View {
                                 .padding(.vertical, 12).contentShape(Rectangle())
                             }
                             .buttonStyle(.plain)
+                            Hairline()
+                            Button { showScanTimings = true } label: { testRow("Scan timings", "stopwatch") }
                             Hairline()
                             DuoPreviewPicker().padding(.vertical, 12)
                             Hairline()
