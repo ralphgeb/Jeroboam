@@ -1,0 +1,37 @@
+# Grapes the app may state as FACT without any online check (WineRecognizer.verifyOnline, before free pages or paid search).
+# Only what the appellation rules require, never a "usually":
+#   full: true   the law allows one grape (or a sliver of another): shown as 100 %
+#   full: false  the law requires this grape as the main one (at least ~70-85 %): shown without a percentage
+# match: words looked for in the wine's region, appellation and name (lower case, no accents, whole words).
+# color: red / white (the wine's style must be that colour), or absent for any colour.
+# not:   words that cancel the rule (Bourgogne Aligoté is not Chardonnay).
+# A label that names its grape ("Sauvignon Blanc", "Malbec") also confirms it (main grape), see WineRecognizer.
+# Kept in step with the looser table the price list uses (tools/prices/enrich_details.py MONO), minus the guesses.
+- {match: [barolo, barbaresco, nebbiolo d'alba], grape: Nebbiolo, full: true}
+- {match: [gattinara, ghemme, langhe nebbiolo], grape: Nebbiolo, full: false}
+- {match: [brunello di montalcino, rosso di montalcino], grape: Sangiovese, full: true}
+- {match: [chianti, vino nobile di montepulciano, morellino di scansano], color: red, grape: Sangiovese, full: false, not: [vin santo]}
+- {match: [chablis, meursault, puligny-montrachet, chassagne-montrachet, batard-montrachet, corton-charlemagne, pouilly-fuisse, saint-veran, macon-villages], color: white, grape: Chardonnay, full: true, not: [aligote, rouge]}
+- {match: [sancerre, pouilly-fume, menetou-salon, quincy, reuilly], color: white, grape: Sauvignon Blanc, full: true}
+- {match: [sancerre, menetou-salon], color: red, grape: Pinot Noir, full: true}
+- {match: [vouvray, savennieres, montlouis, jasnieres, coteaux du layon], grape: Chenin Blanc, full: true}
+- {match: [chinon, bourgueil, saumur-champigny], color: red, grape: Cabernet Franc, full: false}
+- {match: [muscadet], grape: Melon de Bourgogne, full: true}
+- {match: [morgon, fleurie, moulin-a-vent, brouilly, cote de brouilly, chiroubles, julienas, chenas, regnie, saint-amour, beaujolais], color: red, grape: Gamay, full: false}
+- {match: [cornas], grape: Syrah, full: true}
+- {match: [cote-rotie, hermitage, crozes-hermitage, saint-joseph], color: red, grape: Syrah, full: false}
+- {match: [condrieu, chateau-grillet], grape: Viognier, full: true}
+- {match: [gevrey-chambertin, vosne-romanee, chambolle-musigny, morey-saint-denis, nuits-saint-georges, pommard, volnay, vougeot, echezeaux, chambertin, musigny, richebourg, romanee, la tache, clos de tart, marsannay, fixin, cote de nuits], color: red, grape: Pinot Noir, full: false}
+- {match: [ribera del duero, toro], color: red, grape: Tempranillo, full: false}
+- {match: [soave], grape: Garganega, full: false}
+- {match: [prosecco, conegliano valdobbiadene], grape: Glera, full: false}
+- {match: [gavi], grape: Cortese, full: true}
+- {match: [moscato d'asti, asti spumante], grape: Muscat, full: true}
+- {match: [dolcetto d'alba, dolcetto di dogliani, dogliani], grape: Dolcetto, full: true}
+- {match: [barbera d'asti, barbera d'alba], grape: Barbera, full: false}
+- {match: [taurasi, aglianico del vulture], grape: Aglianico, full: false}
+- {match: [cahors], color: red, grape: Malbec, full: false}
+- {match: [madiran], grape: Tannat, full: false}
+- {match: [santorini], color: white, grape: Assyrtiko, full: false}
+- {match: [naoussa], grape: Xinomavro, full: true}
+- {match: [nemea], color: red, grape: Agiorgitiko, full: true}

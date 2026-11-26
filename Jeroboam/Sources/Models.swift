@@ -241,6 +241,16 @@ struct Library: Decodable {
     var soils: [String: String]? = nil
     /// Pyramids and ladders drawn as diagrams (content/ladders.yaml).
     var ladders: [Ladder]? = nil
+    /// Grapes an appellation requires by law (content/grape_rules.yaml): stated as fact without any online check.
+    var grapeRules: [GrapeRule]? = nil
+}
+
+struct GrapeRule: Decodable, Hashable {
+    let match: [String]
+    let color: String?
+    let grape: String
+    let full: Bool
+    let not: [String]?
 }
 
 /// A quality pyramid (top tier narrowest) or a scale (rows with a growing bar), e.g. Burgundy's crus or Champagne sweetness.

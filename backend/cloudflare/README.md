@@ -32,3 +32,11 @@ requests (always Claude Haiku, short answers, at most two web searches) and keep
    From the next TestFlight build the app talks to Claude only through the worker and carries no Anthropic key.
 5. Then create a new key in the Anthropic console, put it in the worker's `ANTHROPIC_API_KEY`, and delete the old one
    (the old one shipped inside earlier TestFlight builds).
+
+## Gemini test route (optional)
+
+`POST /gemini {"prompt"}` asks Gemini with Google Search (secret `GEMINI_API_KEY`; model `GEMINI_MODEL`, default
+`gemini-2.5-flash`; at most `GEMINI_DAILY_CALLS` a day, default 300). Used only by the comparison
+(`tools/compare_wine_check.py`, Actions > **Compare wine checks**), not by the app yet.
+1. aistudio.google.com > **Get API key** > Create API key. 2. Paste the new `worker.js`, Deploy.
+3. Worker > Settings > Variables and Secrets > Add > Secret `GEMINI_API_KEY`. Deploy. 4. Run the comparison.

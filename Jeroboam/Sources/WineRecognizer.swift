@@ -295,6 +295,12 @@ enum WineRecognizer {
     /// Only when those pages don't settle the grapes is one paid web search used. Whatever stays unconfirmed is Claude's guess.
     static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double, Bool) {
         guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0, false) }
+        // grapes that are certain without looking anything up: the appellation's law, or the grape printed on the label
+        if let c = certainGrapes(w) {
+            var v = w
+            v.grapes = c.grapes; v.grapePercent = c.percent; v.checked = true
+            return (v, 0, false)
+        }
         guard isAvailable else { return (w, 0, false) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let place = w.region.isEmpty ? "" : " (" + w.region + ")"
@@ -328,6 +334,39 @@ enum WineRecognizer {
         v.checked = true
         _ = apply(obj, to: &v)
         return (v, total, false)
+    }
+
+    /// Grapes that need no lookup: the one the appellation requires by law (content/grape_rules.yaml: Barolo is Nebbiolo,
+    /// Sancerre blanc Sauvignon Blanc…), else the grapes printed on the label itself ("Marlborough Sauvignon Blanc").
+    /// `percent` is [100] only when the law allows a single grape.
+    static func certainGrapes(_ w: WineIdentity) -> (grapes: [String], percent: [Int]?)? {
+        func fold(_ s: String) -> String {
+            s.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
+                .replacingOccurrences(of: "\u{2019}", with: "'").replacingOccurrences(of: "\u{2018}", with: "'")
+        }
+        func has(_ word: String, in text: String) -> Bool {
+            text.range(of: "(?<![a-z])" + NSRegularExpression.escapedPattern(for: fold(word)) + "(?![a-z])", options: .regularExpression) != nil
+        }
+        let text = fold(w.region + " " + w.name)
+        let style = w.style.lowercased()
+        let color = style.contains("red") ? "red" : (style.contains("white") ? "white" : "")
+        for r in ContentStore.shared.library.grapeRules ?? [] {
+            if let c = r.color, c != color { continue }
+            if (r.not ?? []).contains(where: { has($0, in: text) }) { continue }
+            if r.match.contains(where: { has($0, in: text) }) { return ([r.grape], r.full ? [100] : nil) }
+        }
+        // a varietal label: the grape's own name (or another name for it) is in the wine's name
+        let name = fold(w.name)
+        var named: [String] = []
+        for g in ContentStore.shared.library.grapes {
+            // nicknames that are also family names on labels (Domaine Breton, Rolle) are not taken as the grape
+            for n in [g.name] + (g.aka ?? []) where n.count >= 4 && !["breton", "bouchet", "rolle", "jaen"].contains(fold(n)) && has(n, in: name) {
+                // "Vino Nobile / Rosso di Montepulciano" name the town (their wine is Sangiovese), not the Montepulciano grape
+                if fold(n) == "montepulciano" && has("di montepulciano", in: name) { continue }
+                if !named.contains(g.name) { named.append(g.name) }
+            }
+        }
+        return named.isEmpty ? nil : (named, nil)
     }
 
     /// One Claude call that must answer with a JSON object. Returns the object and what the call cost (also counted against today's allowance).

@@ -37,6 +37,7 @@ sat = load("sat.yaml")
 pairings = load("pairings.yaml")
 labels = load("labels.yaml")
 ladders = load("ladders.yaml") or []
+grape_rules = load("grape_rules.yaml") or []
 
 # ---- five levels. The grapes, regions and terms were written for three; they are spread over five here.
 def _relevel():
@@ -146,6 +147,10 @@ def check_visual(v, where):
         err(f"{where}: unknown visual kind {kind}")
 
 for s in styles: check_visual(s.get("visual"), f"style {s['id']}")
+# grapes stated as fact from the appellation: every grape must have a page (the app shows it as a link)
+_gnames = {g["name"] for g in grapes} | {a for g in grapes for a in (g.get("aka") or [])}
+for _r in grape_rules:
+    if _r["grape"] not in _gnames: err(f"grape_rules: unknown grape {_r['grape']}")
 
 # ---------------- course
 UNIT_COVERS = {
@@ -516,7 +521,7 @@ for gw in great:
     if "bw-" + gw["id"] in photo_ids: gw["bottle"] = "bw-" + gw["id"]
     if gw.get("bottle") and gw["id"] in LABEL_POS: gw["labelY"] = LABEL_POS[gw["id"]]
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
-           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels, "ladders": ladders}
+           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels, "ladders": ladders, "grapeRules": grape_rules}
 
 _known = set(rids)
 for _m in maps.values(): _known |= _m

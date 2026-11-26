@@ -1,0 +1,33 @@
+name: Compare wine checks (Claude vs Gemini)
+# Runs tools/compare_wine_check.py against Jero's worker: the same "check this wine online" question to Claude + web search
+# and to Gemini + Google Search, on wines whose grapes are known. About $0.012 per wine on the Claude side; Gemini uses its
+# free daily allowance. The report is in the run summary and the "compare-report" artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      n:
+        description: "How many wines"
+        default: "50"
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pyyaml
+      - name: Is Gemini set up on the worker?
+        run: |
+          curl -s -H "x-jero-key: $KEY" "$URL/gemini/ping" | tee ping.json; echo
+          grep -q '"key":true' ping.json || { echo "::error::Add the GEMINI_API_KEY secret to the worker (and paste the new worker.js)"; exit 1; }
+      - name: Compare
+        run: python3 tools/compare_wine_check.py "${{ inputs.n || '50' }}"
+      - if: always()
+        run: '[ -f compare_report.md ] && cat compare_report.md >> "$GITHUB_STEP_SUMMARY" || true'
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compare-report
+          path: compare_report.md

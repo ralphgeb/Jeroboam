@@ -7,6 +7,8 @@
 //   POST /price              -> {"key","name","producer","vintage","usd","low","high","source"}  (adds or improves)
 //   POST /claude             -> the app's calls to Claude (Anthropic Messages API), forwarded with the ANTHROPIC_API_KEY secret
 //   GET  /claude/ping        -> {"ok": true, "key": true|false}: is the proxy set up? (costs nothing)
+//   POST /gemini {"prompt"}  -> Gemini with Google Search grounding (secret GEMINI_API_KEY), for the wine-check comparison
+//   GET  /gemini/ping        -> {"ok": true, "key": true|false}
 //
 // All of them need the header  x-jero-key: <API_KEY secret>.
 
@@ -91,12 +93,42 @@ async function claude(req, env) {
   return new Response(text, { status: res.status, headers: { "content-type": "application/json" } });
 }
 
+// ---- Gemini with Google Search (test: tools/compare_wine_check.py). The key is the secret GEMINI_API_KEY; the model is
+// GEMINI_MODEL (default gemini-2.5-flash). At most GEMINI_DAILY_CALLS calls a day (default 300), counted in claude_usage.
+async function gemini(req, env) {
+  if (!env.GEMINI_API_KEY) return claudeError("The Gemini key is not set up yet.", 503);
+  let b;
+  try { b = await req.json(); } catch { return claudeError("json", 400); }
+  const prompt = String(b && b.prompt || "").slice(0, 6000);
+  if (!prompt) return claudeError("Not a Jero request.", 400);
+  await usage(env);
+  const d = day();
+  const row = await env.DB.prepare("SELECT calls FROM claude_usage WHERE day = ? AND device = 'gemini'").bind(d).first();
+  if (row && row.calls >= Number(env.GEMINI_DAILY_CALLS || 300)) return claudeError("Gemini's daily test limit is reached.", 429, "limit");
+  const model = env.GEMINI_MODEL || "gemini-2.5-flash";
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
+    body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], tools: [{ google_search: {} }],
+                           generationConfig: { maxOutputTokens: 1024, temperature: 0.2 } }),
+  });
+  const text = await res.text();
+  await env.DB.prepare(`INSERT INTO claude_usage (day, device, usd, calls) VALUES (?, 'gemini', 0, 1)
+                        ON CONFLICT(day, device) DO UPDATE SET calls = calls + 1`).bind(d).run();
+  return new Response(text, { status: res.status, headers: { "content-type": "application/json" } });
+}
+
 export default {
   async fetch(req, env) {
     if (req.headers.get("x-jero-key") !== env.API_KEY) return json({ error: "no" }, 401);
     const url = new URL(req.url);
 
     if (url.pathname === "/claude/ping") return json({ ok: true, key: !!env.ANTHROPIC_API_KEY });
+    if (url.pathname === "/gemini/ping") return json({ ok: true, key: !!env.GEMINI_API_KEY, model: env.GEMINI_MODEL || "gemini-2.5-flash" });
+    if (url.pathname === "/gemini") {
+      if (req.method !== "POST") return json({ error: "method" }, 405);
+      return gemini(req, env);
+    }
     if (url.pathname === "/claude") {
       if (req.method !== "POST") return json({ error: "method" }, 405);
       return claude(req, env);

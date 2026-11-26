@@ -294,3 +294,12 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   `identify(...)` = both in one go. ScanFlow/TastingFlow show `provisional(r)` (unconfirmed grapes/notes hidden) + `CheckingNote`,
   and run the price search side by side with `finish`. `PriceBook.warm()` builds the wine-list index in the background at launch and
   after each download.
+
+## Grapes without a lookup, Gemini test (after build 83)
+- `content/grape_rules.yaml` (-> library.json `grapeRules`, validated: every grape must have a page): appellations whose grape is
+  fixed by law (`full: true` = 100%, else the required main grape, no percent). `WineRecognizer.certainGrapes` checks it, then the
+  grape printed on the label (grape names + aka, minus family-name nicknames Breton/Bouchet/Rolle/Jaen; "di Montepulciano" is the
+  town), at the start of `verifyOnline`: no free pages, no paid search. Tested on 16,834 wines with shop-described blends:
+  42% settled for free, main grape right 99.6%. Stricter than the price list's MONO table (no "usually" rules).
+- Gemini test: worker route `/gemini` (secret GEMINI_API_KEY) + `tools/compare_wine_check.py` / `compare-check.yml` compare
+  Claude + web search with Gemini + Google Search on wines with known grapes. Not used by the app.
