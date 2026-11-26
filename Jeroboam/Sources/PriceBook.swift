@@ -16,8 +16,10 @@ final class PriceBook {
         let detail: Detail?
     }
     /// What the wine database knows about a bottle besides its price (only in the downloaded list).
-    struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int] }
-    struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int] }
+    struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int]
+                    var critics: [String] = [], criticLinks: [String] = [] }
+    struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int]
+                         var critics: [String] = [], criticLinks: [String] = [] }
     private var rows: [Row] = []
     private var index: [String: [Int32]] = [:]
     private let lock = NSLock()
@@ -126,7 +128,8 @@ final class PriceBook {
         let scored = pick.same ? near.first { $0.score != nil } : nil
         return WineDetails(colour: top.colour, country: top.country, region: top.region, appellation: top.appellation, grapes: top.grapes,
                            aromas: top.aromas, score: pick.same ? (scored?.score ?? top.score) : nil, scoreLink: pick.same ? (scored?.scoreLink ?? top.scoreLink) : nil,
-                           percents: top.percents)
+                           percents: top.percents,
+                           critics: pick.same ? (scored?.critics ?? top.critics) : [], criticLinks: pick.same ? (scored?.criticLinks ?? top.criticLinks) : [])
     }
 
     /// Puts what the database knows over what the model guessed, when (and only when) it is certainly this bottle.
@@ -141,6 +144,7 @@ final class PriceBook {
         switch d.colour { case "r": o.style = "red"; case "w": o.style = "white"; case "p": o.style = "rose"; case "s": o.style = "sparkling"
                           case "o": o.style = "orange"; case "f": o.style = "fortified"; case "d": o.style = "sweet"; default: break }
         o.dbScore = d.score; o.dbScoreLink = d.scoreLink; o.confidence = "high"; o.fromDatabase = true
+        o.dbCritics = d.critics.isEmpty ? nil : d.critics; o.dbCriticLinks = d.criticLinks.isEmpty ? nil : d.criticLinks
         return o
     }
 
@@ -174,7 +178,9 @@ final class PriceBook {
                 detail = Detail(colour: f[9], country: f[10], region: f[11], appellation: f[12],
                                 grapes: f[13].split(separator: ";").map(String.init), aromas: f[14].split(separator: ";").map(String.init),
                                 score: Int(f[15]), scoreLink: f[16].isEmpty ? nil : f[16],
-                                percents: f.count > 17 ? f[17].split(separator: ";").compactMap { Int($0) } : [])
+                                percents: f.count > 17 ? f[17].split(separator: ";").compactMap { Int($0) } : [],
+                                critics: f.count > 18 ? f[18].split(separator: ";").map(String.init) : [],
+                                criticLinks: f.count > 19 ? f[19].split(separator: ";", omittingEmptySubsequences: false).map(String.init) : [])
             }
             rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : "")), detail: detail))
             for t in toks { index[t, default: []].append(i) }

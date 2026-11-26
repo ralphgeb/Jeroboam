@@ -1,0 +1,31 @@
+name: Wine Enthusiast scores (public dataset)
+
+# Downloads the public "Wine Reviews" dataset on a runner, keeps only title/winery/variety/place/points/price (no review text)
+# and pushes wine_enthusiast_scores.csv to the `we-data` branch. merge into content/prices/sources by hand (see content/prices/README.md).
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "tools/prices/fetch_we_scores.py"
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pandas pyarrow
+      - run: python3 tools/prices/fetch_we_scores.py we-data
+      - name: Push to we-data branch
+        run: |
+          cd we-data && git init -q -b we-data
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "Wine Enthusiast scores (no review text)"
+          git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" we-data
