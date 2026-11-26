@@ -380,51 +380,59 @@ final class JournalCloud {
     // MARK: Down
 
     private func pull(_ j: JournalStore) async throws {
-        var entries = j.entries, cellar = j.cellar
-        var changed = false
-        var sentNow = sent
-        let gone = CloudSync.deleted
+        // first everything that changed in iCloud (this waits on the network)...
+        var incoming: [CKRecord] = []
+        var removed: [String] = []
         var more = true
         while more {
             let r = try await db.recordZoneChanges(inZoneWith: zoneID, since: token)
             for (_, result) in r.modificationResultsByID {
-                guard case .success(let m) = result, let data = m.record["payload"] as? Data else { continue }
-                let rid = m.record.recordID.recordName
-                if gone.contains(rid) { continue }
-                let fp = Self.fingerprint(data)
-                let asset = m.record["photo"] as? CKAsset
-                if m.record.recordType == "Tasting", var e = try? JSONDecoder().decode(JournalEntry.self, from: data) {
-                    e.photo = Self.keepPhoto(asset, name: e.photo, id: e.id)
-                    if let i = entries.firstIndex(where: { $0.id == e.id }) {
-                        // take the other phone's edit unless this phone changed the tasting since the last sync
-                        let local = payload(entries[i]).map(Self.fingerprint)
-                        if local == sentNow[rid], local != fp { entries[i] = e; changed = true }
-                    } else {
-                        entries.append(e); changed = true
-                    }
-                    sentNow[rid] = fp
-                } else if m.record.recordType == "Bottle", var b = try? JSONDecoder().decode(CellarBottle.self, from: data) {
-                    b.photo = Self.keepPhoto(asset, name: b.photo, id: b.id)
-                    if let i = cellar.firstIndex(where: { $0.id == b.id }) {
-                        let local = payload(cellar[i]).map(Self.fingerprint)
-                        if local == sentNow[rid], local != fp { cellar[i] = b; changed = true }
-                        else if cellar[i].photo == nil, b.photo != nil { cellar[i].photo = b.photo; changed = true }
-                    } else {
-                        cellar.append(b); changed = true
-                    }
-                    sentNow[rid] = fp
-                }
+                if case .success(let m) = result { incoming.append(m.record) }
             }
-            for d in r.deletions {
-                let rid = d.recordID.recordName
-                let before = entries.count + cellar.count
-                entries.removeAll { $0.id.uuidString == rid }
-                cellar.removeAll { $0.id.uuidString == rid }
-                if entries.count + cellar.count != before { changed = true }
-                sentNow[rid] = nil
-            }
+            removed += r.deletions.map { $0.recordID.recordName }
             token = r.changeToken
             more = r.moreComing
+        }
+        // ...then applied in one go to the journal as it is NOW: other launch work (the key-value restore, price updates)
+        // may have changed it while we waited, and a copy taken before the wait would undo their changes
+        var entries = j.entries, cellar = j.cellar
+        var changed = false
+        var sentNow = sent
+        let gone = CloudSync.deleted
+        for rec in incoming {
+            guard let data = rec["payload"] as? Data else { continue }
+            let rid = rec.recordID.recordName
+            if gone.contains(rid) { continue }
+            let fp = Self.fingerprint(data)
+            let asset = rec["photo"] as? CKAsset
+            if rec.recordType == "Tasting", var e = try? JSONDecoder().decode(JournalEntry.self, from: data) {
+                e.photo = Self.keepPhoto(asset, name: e.photo, id: e.id)
+                if let i = entries.firstIndex(where: { $0.id == e.id }) {
+                    // take the other phone's edit unless this phone changed the tasting since the last sync
+                    let local = payload(entries[i]).map(Self.fingerprint)
+                    if local == sentNow[rid], local != fp { entries[i] = e; changed = true }
+                } else {
+                    entries.append(e); changed = true
+                }
+                sentNow[rid] = fp
+            } else if rec.recordType == "Bottle", var b = try? JSONDecoder().decode(CellarBottle.self, from: data) {
+                b.photo = Self.keepPhoto(asset, name: b.photo, id: b.id)
+                if let i = cellar.firstIndex(where: { $0.id == b.id }) {
+                    let local = payload(cellar[i]).map(Self.fingerprint)
+                    if local == sentNow[rid], local != fp { cellar[i] = b; changed = true }
+                    else if cellar[i].photo == nil, b.photo != nil { cellar[i].photo = b.photo; changed = true }
+                } else {
+                    cellar.append(b); changed = true
+                }
+                sentNow[rid] = fp
+            }
+        }
+        for rid in removed {
+            let before = entries.count + cellar.count
+            entries.removeAll { $0.id.uuidString == rid }
+            cellar.removeAll { $0.id.uuidString == rid }
+            if entries.count + cellar.count != before { changed = true }
+            sentNow[rid] = nil
         }
         sent = sentNow
         if changed {

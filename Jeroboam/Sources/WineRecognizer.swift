@@ -147,6 +147,9 @@ enum WineRecognizer {
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+        // a wine already checked (here or on another phone) under its name: the web check is not paid for twice, even
+        // when this photo's label words differ from the last one's
+        if let k = await known(r.identity, sig: sig) { r.identity = k; PriceCloud.shareWine(k, sig: sig); return r }
         let (w, cost, limited) = await verifyOnline(r.identity)
         r.identity = w; r.extraUSD = cost; r.limited = limited
         WineDB.shared.save(r.identity, signature: sig)
@@ -297,10 +300,27 @@ enum WineRecognizer {
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+        if let k = await known(r.identity, sig: nil) { r.identity = k; return r }
         let (w, cost, limited) = await verifyOnline(r.identity)
         r.identity = w; r.extraUSD = cost; r.limited = limited
         WineDB.shared.save(r.identity)
         return r
+    }
+
+    /// The same wine (producer, name and vintage) already checked: on this phone first, then in the shared online list.
+    /// The label signature of this photo is remembered too, so the next photo like it is found before any Claude call.
+    private static func known(_ w: WineIdentity, sig: String?) async -> WineIdentity? {
+        guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return nil }
+        func usable(_ x: WineIdentity) -> Bool { x.found && !x.name.isEmpty && (x.checked == true || x.fromDatabase == true) }
+        if let e = WineDB.shared.entry(for: w), usable(e.identity) {
+            if let sig { WineDB.shared.save(e.identity, signature: sig) }
+            return e.identity
+        }
+        if let c = await PriceCloud.wine(sig: nil, key: WineDB.key(w)), usable(c) {
+            WineDB.shared.save(c, signature: sig)
+            return c
+        }
+        return nil
     }
 
     private static func imageContent(_ jpeg: Data, extra: String?) -> [[String: Any]] {

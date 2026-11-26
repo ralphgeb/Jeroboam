@@ -215,7 +215,8 @@ final class JournalStore {
     }
 
     /// Once: bottles priced from the shop list before it told red from white are priced again.
-    func repriceShopBottlesOnce() async {
+    /// On the main actor: after each await it carries on there, never beside iCloud's changes to the cellar on another thread.
+    @MainActor func repriceShopBottlesOnce() async {
         let flag = "jero.cellarColorFix2"
         guard persist, !UserDefaults.standard.bool(forKey: flag) else { return }
         WineDB.shared.dropShopPricesOnce()
@@ -229,7 +230,8 @@ final class JournalStore {
 
     /// Bottles follow the shop list and the wine database: when they are updated (checked every few hours), prices, grapes, aromas
     /// and scores of bottles the database knows for certain change too. Prices you typed yourself and estimates stay as they are.
-    func refreshFromShopList() async {
+    /// On the main actor: after each await it carries on there, never beside iCloud's changes to the cellar on another thread.
+    @MainActor func refreshFromShopList() async {
         guard persist else { return }
         for b in cellar {
             let wine = b.wine
