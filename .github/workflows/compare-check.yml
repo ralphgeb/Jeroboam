@@ -8,6 +8,9 @@ on:
       n:
         description: "How many wines"
         default: "50"
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/compare-check.yml"]
 jobs:
   compare:
     runs-on: ubuntu-latest
