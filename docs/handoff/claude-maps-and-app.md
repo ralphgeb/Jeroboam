@@ -10,6 +10,19 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 26 Nov 2026 (late night): scanning option 3 tested (label -> our wine list, no Claude)
+
+- `tools/label_match_test.py` + `label-match.yml` (free): worker `GET /wines/export` gives the scanned labels (signature = up to 8
+  words of 4+ letters from the first 4 OCR lines) and Claude's answer; the matcher looks the label up in app_wines.tsv.z.
+- Rules: producer = more than half of its words on the label (place words and Château/Bodegas… not counted); the wine's own
+  name entirely on the label (shop extras like Magnum/Trento DOC/(Italy) ignored; colour/tier words KEPT: Maximum Rosé ≠ Blanc de
+  Blancs); a name of only weak words (Grand, Réserve, Vieilles Vignes…) also needs its appellation on the label; ties -> Claude;
+  one-letter OCR slips allowed for words of 6+ letters.
+- Result on 32 real scans: 7 found (22%), 6 same as Claude, 1 where the list was right and Claude wrong (St Hallett Faith read
+  "Haltett"), 0 wrong picks after two fixes (Ferrari Rosé for Blanc de Blancs; Humbert Charmes-Chambertin for Gevrey VV).
+  Not built into the app yet; waiting for Ralph.
+- Worker also now has grape columns (grapes, grape_percent, checked) and counts a scan once (`count` flag) — deployed by Ralph.
+
 ## 26 Nov 2026 (night, later): journal/profile round, sent to TestFlight
 
 - Merged to `main` (e3bb716) and uploaded: build-ios run 84, upload succeeded 20:47 UTC (expected TestFlight build 68; run 83 = build 67).
