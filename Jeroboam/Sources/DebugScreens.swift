@@ -33,6 +33,8 @@ enum DebugScreens {
             progress.data = d
             return
         }
+        // the welcome-back pages, as after a reinstall that found the progress in iCloud
+        Account.shared.returning = screen == "welcomeback"
         d.onboarded = true
         d.xp = 640
         d.streak = 12

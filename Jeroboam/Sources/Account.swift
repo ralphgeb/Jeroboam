@@ -23,6 +23,11 @@ final class Account {
         }
     }
     var restoring = false
+    /// iCloud brought back the progress of someone who used Jero before (a reinstall or a new phone): the welcome-back pages
+    /// show before the app (kept until they are done, so closing the app halfway shows them again).
+    var returning: Bool = UserDefaults.standard.bool(forKey: "jero.returning") {
+        didSet { UserDefaults.standard.set(returning, forKey: "jero.returning") }
+    }
     var lastSync: Date? = UserDefaults.standard.object(forKey: "jero.lastSync") as? Date
     /// True when the phone is signed in to iCloud (otherwise nothing can sync, whatever the switch says).
     var iCloudAvailable: Bool { FileManager.default.ubiquityIdentityToken != nil }
@@ -52,6 +57,7 @@ final class Account {
             d.removeObject(forKey: k)
         }
         lastSync = nil
+        returning = false
         syncEnabled = true
         progress.data = ProgressData()
     }
@@ -107,6 +113,7 @@ final class CloudSync {
     }
 
     func pushProgress(_ raw: Data) { schedulePush() }
+    func profileChanged() { schedulePush() }
     func journalChanged() { schedulePush() }
 
     private func schedulePush() {
@@ -184,6 +191,8 @@ final class CloudSync {
         defer { merging = false }
         if let p = progress, let raw = kv.data(forKey: "progress"), let remote = try? JSONDecoder().decode(ProgressData.self, from: raw) {
             let merged = ProgressData.merged(local: p.data, remote: remote)
+            // someone coming back: welcome them before the app opens (set before the progress, which would open it)
+            if !p.data.onboarded && remote.onboarded { Account.shared.returning = true; Account.shared.restoring = false }
             if encoded(merged) != encoded(p.data) { p.data = merged }
         }
         if let profile = kv.dictionary(forKey: "profile") as? [String: String] {

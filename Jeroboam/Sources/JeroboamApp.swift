@@ -145,7 +145,8 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if progress.data.onboarded {
+            // someone coming back sees the welcome-back pages first (OnboardingView), even though their progress is restored
+            if progress.data.onboarded && !Account.shared.returning {
                 GeometryReader { g in
                     // the Duo's screens are nearly as wide as they are tall: the tabs stand up in a column on the right.
                     // Decided from the window size measured WITHOUT the keyboard: the keyboard shrinks this reader, which used to
@@ -213,6 +214,7 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.4), value: progress.data.onboarded)
+        .animation(.easeInOut(duration: 0.4), value: Account.shared.returning)
         // widget taps: the fun fact opens Learn, a wine opens its page
         .onOpenURL { url in
             guard url.scheme == "jero" else { return }

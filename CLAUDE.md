@@ -111,7 +111,7 @@ Jeroboam/Sources/        Swift app
 - Color chart: square swatches, no corner radius, four per row.
 
 ## Debug screenshots
-DEBUG builds accept `-screen <name>` (onboarding, learn, lesson, photo, wines, wine, style, journalempty, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
+DEBUG builds accept `-screen <name>` (onboarding, welcomeback, learn, lesson, photo, wines, wine, style, journalempty, feedback, blank, match, complete, practice, library, grapes, grape, regions, region, map, explorer, tuscany, lebanon, portugal, icons, aromas, colors, styles, tasting, cards, boldness, labels, guide, journal, tastings, scan, blind, profile); journal screens seed sample bottles — see `DebugScreens.swift`. Not compiled into Release.
 
 ## Release procedure
 Same as Ahead: push to `main`, run build-ios.yml; never claim an upload without evidence. The TestFlight build number is NOT the run
@@ -243,3 +243,12 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - Build 78: app round + maps cleanup + price list (196,898 wines). Run 80 (TestFlight build 65): first build with CloudKit (CLOUDKIT_READY=true,
   container iCloud.com.ralphgeb.jero registered), Sync now animation, full-screen label photo (`PhotoViewer.swift`, `TappablePhoto`),
   iCloud photo uploads capped at 1 MB (`JournalCloud.uploadCopy`). Run 79 failed only on the CloudKit step's path (fixed).
+
+## Welcome back (after build 66, not yet on TestFlight)
+- A fresh install whose iCloud holds onboarded progress sets `Account.returning` (UserDefaults `jero.returning`, in `CloudSync.pull`).
+  RootView keeps OnboardingView up while it is set: first page ("We found your progress", auto-advances after 1.6 s) ->
+  step 10 Welcome back, <name> (avatar, Level/XP/Lessons, Change picture) -> step 11 "How would you like to pick up?"
+  (carry on / placement quiz) -> step 12 quiz result (only ever unlocks more levels). Debug screen `welcomeback`.
+- Repeat scans: `WineRecognizer.known` looks a wine up by producer/name/vintage (phone, then cloud `?key=`) before `verifyOnline`.
+- Launch race after a reinstall: `refreshFromShopList`/`repriceShopBottlesOnce` are @MainActor; the CloudKit pull applies its
+  changes to the journal as it is after the network wait.

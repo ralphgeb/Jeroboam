@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 struct OnboardingView: View {
     @Environment(GameProgress.self) private var progress
@@ -8,12 +9,18 @@ struct OnboardingView: View {
     @State private var appear = false
     @State private var quiz = false
     @State private var account = Account.shared
+    // welcome back (steps 10, 11, 12)
+    @AppStorage("jero.avatarVersion") private var avatarVersion = 0
+    @AppStorage("jero.name") private var storedName = ""
+    @State private var photoItem: PhotosPickerItem? = nil
+    @State private var placed: Int? = nil
+    @State private var levelBefore = 1
 
     var body: some View {
         ZStack {
             Palette.paper.ignoresSafeArea()
             VStack(spacing: 0) {
-                if step > 0 {
+                if step > 0 && step < 10 {
                     HStack(spacing: 6) {
                         ForEach(1..<4) { i in
                             Capsule().fill(i <= step ? Palette.wine : Palette.line).frame(height: 3)
@@ -27,7 +34,10 @@ struct OnboardingView: View {
                     case 0: welcome
                     case 1: levelStep
                     case 2: goalStep
-                    default: reminderStep
+                    case 3: reminderStep
+                    case 10: welcomeBack
+                    case 11: pickUp
+                    default: quizResult
                     }
                 }
                 .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .opacity))
@@ -36,11 +46,162 @@ struct OnboardingView: View {
         }
         .animation(.easeInOut(duration: 0.35), value: step)
         .fullScreenCover(isPresented: $quiz) {
-            PlacementQuizView { placed in
-                if let placed { level = placed; step = 2 }
+            PlacementQuizView { result in
+                if step >= 10 {
+                    // coming back: the quiz can only open more levels, never take any away
+                    if let result { levelBefore = currentLevel; placed = result; unlock(upTo: result); step = 12 }
+                } else if let result { level = result; step = 2 }
                 quiz = false
             }
         }
+        // iCloud found this player's progress: go to the welcome back, from the first page after a short pause, or from the
+        // middle of the new-player pages straight away
+        .onChange(of: account.returning, initial: true) { _, back in
+            guard back, step < 10 else { return }
+            if step == 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) { if step == 0 && account.returning { step = 10 } }
+            } else {
+                step = 10
+            }
+        }
+        .onChange(of: photoItem) { _, it in
+            guard let it else { return }
+            Task {
+                if let data = try? await it.loadTransferable(type: Data.self), let img = UIImage(data: data) {
+                    UserProfile.savePhoto(img)
+                    avatarVersion += 1
+                    CloudSync.shared.profileChanged()
+                    Haptics.success()
+                }
+            }
+        }
+    }
+
+    // MARK: Welcome back
+
+    private var displayName: String {
+        let n = storedName.trimmingCharacters(in: .whitespaces)
+        return n.isEmpty ? progress.data.name.trimmingCharacters(in: .whitespaces) : n
+    }
+    private var currentLevel: Int { max(progress.data.startLevel, progress.data.unlockedLevels.max() ?? 1) }
+
+    private var welcomeBack: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            Avatar(size: 128, version: avatarVersion, name: displayName)
+                .overlay(Circle().strokeBorder(Palette.paper, lineWidth: 4))
+                .shadow(color: Palette.wine.opacity(0.18), radius: 18, y: 8)
+            Text(displayName.isEmpty ? "Welcome back" : "Welcome back, \(displayName)")
+                .font(.jero(size: 30, weight: .bold)).foregroundStyle(Palette.ink)
+                .multilineTextAlignment(.center).padding(.top, 28)
+            Text("Your progress, cellar and tastings came back with your iCloud account.")
+                .font(.jero(size: 15.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
+                .padding(.horizontal, 24).padding(.top, 8)
+            HStack(spacing: 10) {
+                stat("\(currentLevel)", "Level")
+                stat("\(progress.data.xp)", "XP")
+                stat("\(progress.data.lessons.count)", progress.data.lessons.count == 1 ? "Lesson" : "Lessons")
+            }
+            .padding(.top, 26)
+            Spacer()
+            VStack(spacing: 10) {
+                Button("Continue") { Haptics.tap(); step = 11 }
+                    .buttonStyle(PrimaryButtonStyle())
+                PhotosPicker(selection: $photoItem, matching: .images) {
+                    Label(UserProfile.photo() == nil ? "Add a picture" : "Change picture", systemImage: "camera")
+                        .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.wine)
+                        .frame(maxWidth: .infinity).frame(height: 46)
+                }
+                .id(avatarVersion)
+            }
+            .padding(.bottom, 16)
+        }
+        .padding(.horizontal, Metrics.margin)
+    }
+
+    private func stat(_ value: String, _ label: String) -> some View {
+        VStack(spacing: 2) {
+            Text(value).font(.numeric(20, .semibold)).foregroundStyle(Palette.ink)
+            Text(label).font(.jero(size: 12)).foregroundStyle(Palette.inkSoft)
+        }
+        .frame(maxWidth: .infinity).padding(.vertical, 12)
+        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(Palette.line, lineWidth: 1))
+    }
+
+    private var pickUp: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("How would you like to pick up?").font(.jero(size: 28, weight: .bold)).foregroundStyle(Palette.ink)
+                Text("Carry on where you were, or see whether your level has gone up since.")
+                    .font(.jero(size: 15)).foregroundStyle(Palette.inkSoft)
+            }
+            .padding(.top, 36)
+            VStack(spacing: 12) {
+                choice("arrow.forward.circle", "Carry on where I left off",
+                       "Level \(currentLevel), with everything you have done so far.") { finishReturning() }
+                choice("sparkles", "Test my knowledge again",
+                       "10 quick questions. If you have moved up, the next level opens; nothing you have is taken away.") { quiz = true }
+            }
+            .padding(.top, 28)
+            Spacer()
+        }
+        .padding(.horizontal, Metrics.margin)
+    }
+
+    private func choice(_ icon: String, _ title: String, _ detail: String, action: @escaping () -> Void) -> some View {
+        Button { Haptics.tap(); action() } label: {
+            HStack(alignment: .top, spacing: 14) {
+                Image(systemName: icon).font(.system(size: 22, weight: .light)).foregroundStyle(Palette.wine).frame(width: 28)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title).font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text(detail).font(.jero(size: 14)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right").font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.inkFaint).padding(.top, 4)
+            }
+            .padding(18)
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(Palette.line, lineWidth: 1))
+        }
+        .buttonStyle(PressableStyle())
+    }
+
+    private var quizResult: some View {
+        let p = placed ?? levelBefore
+        let up = p > levelBefore
+        return VStack(spacing: 0) {
+            Spacer()
+            ZStack {
+                Circle().fill(Palette.wineSoft).frame(width: 130, height: 130)
+                Image(systemName: up ? "arrow.up.circle" : "checkmark.circle").font(.system(size: 50, weight: .light)).foregroundStyle(Palette.wine)
+            }
+            Text(up ? "You have moved up" : "Right where you are")
+                .font(.jero(size: 30, weight: .bold)).foregroundStyle(Palette.ink).padding(.top, 30)
+            Text(up ? "The quiz placed you at Level \(p). It is open now, next to everything you had."
+                    : "The quiz placed you at Level \(p). You are on Level \(levelBefore), so nothing changes: carry on from there.")
+                .font(.jero(size: 15.5)).foregroundStyle(Palette.inkSoft).multilineTextAlignment(.center)
+                .padding(.horizontal, 20).padding(.top, 10)
+            Spacer()
+            Button("Continue") { finishReturning() }
+                .buttonStyle(PrimaryButtonStyle())
+                .padding(.bottom, 16)
+        }
+        .padding(.horizontal, Metrics.margin)
+    }
+
+    private func unlock(upTo n: Int) {
+        guard n > currentLevel else { return }
+        var d = progress.data
+        for k in 1...n where !d.unlockedLevels.contains(k) { d.unlockedLevels.append(k) }
+        d.startLevel = max(d.startLevel, n)
+        progress.data = d
+    }
+
+    private func finishReturning() {
+        Haptics.success()
+        account.returning = false
     }
 
     private var welcome: some View {
@@ -63,11 +224,15 @@ struct OnboardingView: View {
             .opacity(appear ? 1 : 0)
             Spacer()
             VStack(spacing: 10) {
-                Button("Get started") { step = 1 }
+                Button(account.returning ? "Continue" : "Get started") { step = account.returning ? 10 : 1 }
                     .buttonStyle(PrimaryButtonStyle())
                 // a new phone looks for the player's progress in iCloud first (no sign-in: it follows the iCloud account);
                 // when it is found, the app opens straight on the player's level
-                if account.restoring {
+                if account.returning {
+                    Text("We found your progress in iCloud.")
+                        .font(.system(size: 13.5)).foregroundStyle(Palette.inkSoft)
+                        .frame(height: 46)
+                } else if account.restoring {
                     HStack(spacing: 8) {
                         ProgressView()
                         Text("Looking for your progress in iCloud…")
