@@ -72,7 +72,10 @@ def main():
     host = np.array([r["host"] for r in rows]); lab = np.array([r["label_id"] for r in rows])
     shops_of = defaultdict(set)
     for r in rows: shops_of[r["label_id"]].add(r["host"])
-    q = np.array([i for i, r in enumerate(rows) if r["label_id"] and len(shops_of[r["label_id"]]) >= 2])
+    q = np.array([i for i, r in enumerate(rows) if r["label_id"] and len(shops_of[r["label_id"]]) >= 2], dtype=np.int64)
+    if not len(q):
+        lines += ["No wine is sold by two of the fingerprinted shops yet: nothing to test."]
+        open(report, "w").write("\n".join(lines) + "\n"); print("\n".join(lines)); return
     rng = np.random.default_rng(7)
     if len(q) > 20000: q = np.sort(rng.choice(q, 20000, replace=False))
     lines += [f"## Test 1: shop photo vs other shops' photos", "",

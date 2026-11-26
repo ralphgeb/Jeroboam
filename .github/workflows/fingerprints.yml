@@ -101,7 +101,7 @@ jobs:
           H="${{ matrix.host }}"
           python3 tools/prices/fingerprint_wines.py jobs sd content/prices/wine_prices.csv "$H" out
           swiftc -O tools/prices/LabelPrints.swift -o labelprints
-          ./labelprints "out/$H.jobs.tsv" "out/$H" 6
+          ./labelprints "out/$H.jobs.tsv" "out/$H" 12
           python3 tools/prices/fingerprint_wines.py pack out "$H"
           rm -f "out/$H.jobs.tsv"; ls -la out
       - name: Push to fingerprints
@@ -128,7 +128,7 @@ jobs:
 
   test:
     needs: [list, shop]
-    if: ${{ always() }}
+    if: ${{ always() && (needs.shop.result == 'success' || github.event.inputs.test_only == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
