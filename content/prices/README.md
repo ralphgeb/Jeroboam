@@ -83,4 +83,4 @@ notes, avg_score, scores, score_links, details_link.
 - Scores are critics' scores quoted on the shop pages (Wine Advocate, Wine Spectator, James Suckling, Vinous, Jeb Dunnuck,
   Burghound, Decanter, Wine Enthusiast, Jancis Robinson /20 …), plus the ones kept from the previous build. `avg_score` averages the
   100-point scores; `score_links` are the shop pages that quote them (the critics' own sites need a subscription).
-- Filled in (2026-11-25): colour 96%, country 93%, region 87%, appellation 49%, grapes 86%, blend 32%, aromas 88%, critics' score 8.5% (16.7k wines); producer known for 98.5%.
+- Filled in (2026-11-26): colour 96%, country 93%, region 87%, appellation 49%, grapes 86%, blend 32%, aromas 88%, critics' score 14.7% (28.9k wines: shop feeds, 14 shops' product pages, 2.3k from the Wine Enthusiast dataset); producer known for 98.5%.
