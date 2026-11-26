@@ -3,7 +3,7 @@
  "base": "https://wine.sothebys.com",
  "status": "existing",
  "declared_currency": "USD",
- "products": 1143,
+ "products": 1139,
  "pages": 5,
  "via_collections": false,
  "error": null,
