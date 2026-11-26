@@ -10,6 +10,39 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## For the session harvesting wine images for fingerprints (27 Nov)
+
+Ralph asked another Claude to harvest wine images and make "digital fingerprints" on GitHub machines. The app side already
+exists on `claude/vibrant-ramanujan-g4uz35` (not on main/TestFlight yet) — please make yours match it, or the prints won't compare:
+
+- **Same model:** Apple Vision `VNGenerateImageFeaturePrintRequest` (see `Jeroboam/Sources/LabelPrint.swift`). It only runs on
+  Apple machines: use a **macOS runner** (`runs-on: macos-…` or the `xcode-27` label), e.g. a small Swift script. A CLIP/other model's
+  numbers don't compare with the phone's. Keep `req.revision` and store it (prints of different revisions don't compare).
+- **Same preparation:** picture drawn upright, longest side 640 px, `imageCropAndScaleOption = .scaleFit`, 32-bit floats, base64.
+- **Same store:** worker `POST /print {"key","rev","dims","vec"}` into D1 table `label_prints` (5 newest per key; the app's own
+  scans compete for those 5 — if you add many shop images per wine, add a `source` column and keep shop prints separately, e.g.
+  route `/print` with `"source":"shop"`; tell me and I'll make the app side read both).
+- **Same key:** `WineDB.key` = folded `producer|name|vintage` (lower case, no accents, letters/digits/spaces only). For list
+  wines without a Claude name, store the list's own producer/name and the list row's link instead, so we can map them later.
+- **Shop photos are usually the whole bottle on white; phone scans are label close-ups.** Consider cropping to the label area
+  (Vision `VNDetectRectanglesRequest` or the middle third of the bottle) and test same-wine distances before trusting them.
+- Store only the fingerprints (and the source link), not the images, in the app's database.
+- Matching is NOT switched on in the app yet: the plan is a test (same label vs look-alikes, like tools/label_match_test.py)
+  before anything is used.
+
+## 26 Nov 2026 (late night): scanning option 3 tested (label -> our wine list, no Claude)
+
+- `tools/label_match_test.py` + `label-match.yml` (free): worker `GET /wines/export` gives the scanned labels (signature = up to 8
+  words of 4+ letters from the first 4 OCR lines) and Claude's answer; the matcher looks the label up in app_wines.tsv.z.
+- Rules: producer = more than half of its words on the label (place words and Château/Bodegas… not counted); the wine's own
+  name entirely on the label (shop extras like Magnum/Trento DOC/(Italy) ignored; colour/tier words KEPT: Maximum Rosé ≠ Blanc de
+  Blancs); a name of only weak words (Grand, Réserve, Vieilles Vignes…) also needs its appellation on the label; ties -> Claude;
+  one-letter OCR slips allowed for words of 6+ letters.
+- Result on 32 real scans: 7 found (22%), 6 same as Claude, 1 where the list was right and Claude wrong (St Hallett Faith read
+  "Haltett"), 0 wrong picks after two fixes (Ferrari Rosé for Blanc de Blancs; Humbert Charmes-Chambertin for Gevrey VV).
+  Not built into the app yet; waiting for Ralph.
+- Worker also now has grape columns (grapes, grape_percent, checked) and counts a scan once (`count` flag) — deployed by Ralph.
+
 ## 26 Nov 2026 (night, later): journal/profile round, sent to TestFlight
 
 - Merged to `main` (e3bb716) and uploaded: build-ios run 84, upload succeeded 20:47 UTC (expected TestFlight build 68; run 83 = build 67).
