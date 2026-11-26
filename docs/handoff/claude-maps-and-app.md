@@ -10,6 +10,16 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 26 Nov 2026 (night): Claude vs Gemini wine check (50 wines, run 45872356028)
+
+- Wines with grapes known from the shop text, minus those the appellation rule settles for free (9,704 such wines).
+- Claude Haiku + 1 web search: 37 right, 0 wrong, 13 "not found" (even Pichon Lalande, Smith Haut Lafitte), median 3.2 s, $0.58.
+- Gemini (gemini-flash-latest) + google_search: 47 right, 3 scored wrong, median 13.3 s, free. The 3 "wrong" are really scoring/data
+  issues: Pelaverga Piccolo = Pelaverga, Malvasia di Candia Aromatica = Malvasia, and Pape Clément **Blanc** is listed as Merlot in
+  wine_details.csv (data error for the price session). BUT Gemini's grounding metadata was empty on all 50: it never searched,
+  it answered from memory. Not used by the app; decision waiting for Ralph.
+- The app's compile check after the thinking fix passed (10 logic tests, run 45870079106 re-run).
+
 ## 26 Nov 2026 (late): Claude proxy live, everything merged to main
 
 - **The Anthropic key is no longer meant to live in the app.** The Cloudflare worker `jero-prices` now has `POST /claude`
