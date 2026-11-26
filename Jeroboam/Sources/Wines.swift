@@ -219,6 +219,9 @@ struct WineDetailView: View {
                     }
                 }
 
+                // sweetness, body, tannin, acidity, alcohol to expect, from its grapes, style and place
+                BottleProfileCard(wine: w.identity)
+
                 if let r = w.regionInfo {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Where it’s from")

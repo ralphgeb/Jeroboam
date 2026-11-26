@@ -173,8 +173,14 @@ enum WineRecognizer {
     /// Who the bottle is, as fast as possible: the phone's database, else the shared online list and Claude side by side
     /// (the list gets a short head start, since a hit there is free). The online check of a new wine is left to `finish`.
     static func identifyFast(image: UIImage) async throws -> RecognitionResult {
-        let sig = WineDB.signature(await readText(image))
+        let clock = ScanClock.shared
+        var t = Date()
+        let lines = await readText(image)   // read once: the same lines go to Claude below
+        clock.add("Label", since: t)
+        t = Date()
+        let sig = WineDB.signature(lines)
         if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
+            clock.add("Found on phone", since: t)
             var r = RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
             if needsVet(hit.identity) { r.pending = .vet(sig: sig) }
             return r
@@ -184,7 +190,9 @@ enum WineRecognizer {
             guard let sig else { return nil }
             return await PriceCloud.wine(sig: sig)
         }
+        t = Date()
         if let w = await firstOf(cloud, within: 0.8) {
+            clock.add("Cloud list", since: t)
             return cloudResult(w, sig: sig)
         }
         if DailyBudget.hardStop {
@@ -192,7 +200,7 @@ enum WineRecognizer {
             throw RecognizerError.limit
         }
         // the list is slow today: ask Claude now, and take whichever answers first
-        let claude = Task { try await identifyFresh(image: image) }
+        let claude = Task { try await identifyFresh(image: image, lines: lines) }
         let winner = await withTaskGroup(of: Answer.self) { group -> Answer in
             group.addTask { if let w = await cloud.value { return .cloud(w) }; return .nothing }
             group.addTask { do { return .claude(try await claude.value) } catch { return .failed(error) } }
@@ -206,6 +214,7 @@ enum WineRecognizer {
             }
             return last
         }
+        clock.add(winnerName(winner), since: t)
         switch winner {
         case .cloud(let w):
             claude.cancel()
@@ -222,6 +231,14 @@ enum WineRecognizer {
     }
 
     private enum Answer { case cloud(WineIdentity), claude(RecognitionResult), failed(Error), nothing }
+
+    private static func winnerName(_ a: Answer) -> String {
+        switch a {
+        case .cloud: return "Cloud list"
+        case .claude(let r): return r.usedImage ? "Claude (text + photo)" : "Claude"
+        case .failed, .nothing: return "No answer"
+        }
+    }
 
     private static func cloudResult(_ w: WineIdentity, sig: String?) -> RecognitionResult {
         WineDB.shared.save(w, signature: sig)
@@ -255,7 +272,12 @@ enum WineRecognizer {
         case .fresh(let sig):
             // a wine already checked (here or on another phone) under its name: the web check is not paid for twice, even
             // when this photo's label words differ from the last one's
-            if let k = await known(r0.identity, sig: sig) { r.identity = k; PriceCloud.shareWine(k, sig: sig); return r }
+            let t = Date()
+            if let k = await known(r0.identity, sig: sig) {
+                ScanClock.shared.add("Known wine", since: t)
+                r.identity = k; PriceCloud.shareWine(k, sig: sig); return r
+            }
+            ScanClock.shared.add("Name lookup", since: t)
             let (w, cost, limited) = await verifyOnline(r0.identity)
             r.identity = w; r.extraUSD = cost; r.limited = limited
             WineDB.shared.save(r.identity, signature: sig)
@@ -300,6 +322,7 @@ enum WineRecognizer {
         guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0, false) }
         // grapes that are certain without looking anything up: the appellation's law, or the grape printed on the label
         if let c = certainGrapes(w) {
+            ScanClock.shared.add("Grapes by rule", since: Date())
             var v = w
             v.grapes = c.grapes; v.grapePercent = c.percent; v.checked = true
             return (v, 0, false)
@@ -316,8 +339,13 @@ enum WineRecognizer {
         var v = w
         // 1. free pages, read by Claude without tools
         let shopURL = await Task.detached(priority: .userInitiated) { PriceBook.shared.price(for: w)?.url }.value ?? WineDB.shared.entry(for: w)?.price?.url
+        let clock = ScanClock.shared
+        var t = Date()
         let pages = await WebFacts.pages(for: wine + " " + w.region, shopURL: shopURL)
+        clock.add(pages.isEmpty ? "Free pages (none)" : "Free pages", since: t)
         if !pages.isEmpty {
+            t = Date()
+            defer { clock.add("Reading pages", since: t) }
             let prompt = "Wine: \(wine)\(place).\nBelow is text from web pages. Report only what these pages say about this exact wine; never fill gaps from memory.\n\n\(pages)\n\n" + format
             if let (obj, cost) = await askJSON(prompt: prompt, tools: nil, maxTokens: 1500) {
                 total += cost
@@ -329,6 +357,8 @@ enum WineRecognizer {
         if DailyBudget.reached { return (hideUnchecked(w), total, true) }
         let prompt = "Use web search to check this wine: \(wine)\(place). Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + format
         let tools: [[String: Any]] = [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]]
+        t = Date()
+        defer { clock.add("Paid search", since: t) }
         guard let (obj, cost) = await askJSON(prompt: prompt, tools: tools, maxTokens: 2000) else {
             // no connection: not marked as checked, so it is tried again next time
             return (w, total, false)
@@ -422,9 +452,9 @@ enum WineRecognizer {
         return w
     }
 
-    private static func identifyFresh(image: UIImage) async throws -> RecognitionResult {
+    /// `lines`: the label text already read by `identifyFast` (reading it again cost up to a second).
+    private static func identifyFresh(image: UIImage, lines: [String]) async throws -> RecognitionResult {
         guard isAvailable else { throw RecognizerError.noKey }
-        let lines = await readText(image)
         if let text = usefulText(lines) {
             var r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
             // Text alone is enough only for a confident, named answer; otherwise look at the photo too
@@ -458,7 +488,9 @@ enum WineRecognizer {
     static func identifyFast(text: String) async throws -> RecognitionResult {
         guard isAvailable else { throw RecognizerError.noKey }
         if DailyBudget.hardStop { throw RecognizerError.limit }
+        let t = Date()
         var r = try await call(content: [["type": "text", "text": "The user typed this wine: " + text]])
+        ScanClock.shared.add("Claude", since: t)
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value

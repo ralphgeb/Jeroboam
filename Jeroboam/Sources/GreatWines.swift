@@ -697,6 +697,7 @@ struct GreatWineDetail: View {
                         }
                     }
                 }
+                BottleProfileCard(wine: w.identity)   // what to expect in the glass
                 if let r = w.regionInfo {
                     VStack(alignment: .leading, spacing: 10) {
                         SectionTitle(text: "Where it’s from")

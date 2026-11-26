@@ -1083,6 +1083,7 @@ struct ScanFlow: View {
     @State private var tasteNow = false
     @State private var started = false
     @State private var paidUSD: Double? = nil
+    @State private var timing = ""   // TestFlight: how long each step took
 
     var body: some View {
         GeometryReader { g in
@@ -1149,6 +1150,8 @@ struct ScanFlow: View {
             if let e = error { ErrorNote(message: e) }
             if identified { WineInfoCard(wine: wine) }
             if checking { CheckingNote() }
+            // what to expect in the glass, before deciding to add it (waits for checked grapes: a guess is never shown)
+            if identified && !checking { BottleProfileCard(wine: wine) }
             if !identified {
                 TextField("Wine name", text: $wine.name)
                     .font(.system(size: 17, weight: .semibold))
@@ -1157,6 +1160,11 @@ struct ScanFlow: View {
             PriceCard(price: price, loading: pricing, wine: wine, onRefresh: identified ? { Task { await findPrice() } } : nil)
             if identified { ScoreLinkCard(wine: wine, score: wine.dbScore, link: wine.dbScoreLink) }
             if identified { PaidField(paidUSD: $paidUSD) }
+            if !timing.isEmpty {
+                // TestFlight only: where this scan's time went
+                Text(timing).font(.system(size: 11).monospacedDigit()).foregroundStyle(Palette.inkFaint)
+                    .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)
+            }
 
             VStack(spacing: 12) {
                 HStack {
@@ -1190,6 +1198,7 @@ struct ScanFlow: View {
     /// The bottle appears as soon as it is known; its price is looked up and its grapes and notes checked side by side after that.
     private func identify() async {
         guard WineRecognizer.isAvailable else { return }
+        ScanClock.shared.start(); timing = ""
         working = true; error = nil
         var first: RecognitionResult? = nil
         do {
@@ -1217,10 +1226,13 @@ struct ScanFlow: View {
         journal.noteCost(r.costUSD)
         WineDB.shared.noteScan(w, image: image)
         await priced
+        if Distribution.isTestFlight { timing = ScanClock.shared.summary() }
     }
 
     private func findPrice() async {
         pricing = true
+        let t = Date()
+        defer { ScanClock.shared.add("Price", since: t) }
         let (p, cost) = await WineRecognizer.averagePrice(for: wine)
         price = p
         journal.noteCost(cost)
@@ -1895,6 +1907,7 @@ struct EntryDetailView: View {
                     }
                     if e.identified { WineGlance(wine: e.wine, price: e.price, points: e.points) }
                     if e.identified { WineInfoCard(wine: e.wine) }
+                    if e.identified { BottleProfileCard(wine: e.wine, tasting: e) }   // expected, with your own marks beside it
                     if let p = e.price { PriceCard(price: p, wine: e.wine) }
                     if e.identified { ScoreLinkCard(wine: e.wine, score: e.wine.dbScore, link: e.wine.dbScoreLink) }
                     if let c = e.colorID.flatMap({ ContentStore.shared.color($0) }) {

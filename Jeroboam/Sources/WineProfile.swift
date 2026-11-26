@@ -51,6 +51,32 @@ struct WineProfile: Equatable {
     }
 }
 
+extension WineIdentity {
+    /// A wine of the Atlas (Wines of the world, Great wines) as an identity, so it gets the same expected profile as a scanned bottle.
+    static func catalogue(grapes: [Grape], style: String, region: String, country: String) -> WineIdentity {
+        var w = WineIdentity.empty
+        w.found = true
+        w.grapes = grapes.map(\.name)
+        w.style = style; w.region = region; w.country = country
+        return w
+    }
+}
+
+extension Wine {
+    var identity: WineIdentity {
+        let cat = (styleInfo?.category ?? "").lowercased()
+        let style = cat.hasPrefix("fortified") ? "fortified" : (kind == .all ? "" : kind.rawValue)
+        return .catalogue(grapes: grapeInfos, style: style, region: regionInfo?.name ?? "", country: country)
+    }
+}
+
+extension GreatWine {
+    var identity: WineIdentity {
+        .catalogue(grapes: grapeInfos, style: color, region: [zone, regionInfo?.name ?? ""].joined(separator: " "),
+                   country: regionInfo?.country ?? "")
+    }
+}
+
 /// "Wine profile" on a bottle's page: the expected structure, and when you have tasted it, your own marks beside it.
 struct BottleProfileCard: View {
     let wine: WineIdentity
