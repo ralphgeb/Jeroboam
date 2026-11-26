@@ -117,7 +117,7 @@ if os.environ.get("ONE"):
     prompt = (f"Use web search to check this wine: {wine}. Use the producer's own page, a wine shop page or a critic's page "
               f"for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + FORMAT)
     lines = [f"# Gemini on one wine: {wine}", ""]
-    for v, extra in [("thinking off", {"thinking": {"thinkingBudget": 0}}), ("thinking on", {})]:
+    for v, extra in [("Flash-Lite", {"lite": True}), ("Flash, thinking off", {"thinking": {"thinkingBudget": 0}})]:
         d, secs, err = post("/gemini", {"prompt": prompt, **extra})
         cand = ((d or {}).get("candidates") or [{}])[0]
         text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts", []))
