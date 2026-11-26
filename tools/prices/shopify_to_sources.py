@@ -116,11 +116,16 @@ def main():
             return False
         n, m = vstat[(host, vendor)]
         if m / n >= 0.3:
-            return True
-        # shop titles that leave the producer out (Newcomer: 'Chardonnay 2024'): a small vendor is the producer
+            return 'strong'
+        # shop titles that leave the producer out (Newcomer: 'Chardonnay 2024'): a small vendor is the producer, unless it
+        # reads like a distributor (Vin Chicago: 'SIMPLE FARMER WINES', 'THE ORIGINAL WINE COMPANY', 'GERMAN WINE COLLECTIVE');
+        # such a 'weak' vendor is used only when the title has no producer of its own (see producer_of)
         titles_lead = lead_rate[host] / max(1, per_host[host])
-        return n <= 25 and titles_lead < 0.35
+        if n <= 25 and titles_lead < 0.35 and not DISTRIBUTOR.search(fold(vendor)):
+            return 'weak'
+        return False
 
+    DISTRIBUTOR = re.compile(r"\b(wines?|wine company|company|collective|vintners|marques|usa|imports?|selections?|cellars group)\s*$|^stellar cellars$")
     good_vendor = {k: vendor_ok(*k) for k in vstat}
     canon = {}                                      # folded -> spelling as written (vendors first, then titles, then the old list)
     spell = C.defaultdict(C.Counter)
@@ -177,8 +182,20 @@ def main():
             if m and not NOT_PRODUCER.match(fold(m.group(1)).strip()) and fold(m.group(1)).strip() not in all_shop_names:
                 return m.group(1), 'tag'
         v = p['vendor']
-        if good_vendor.get((p['host'], v)):
+        if good_vendor.get((p['host'], v)) == 'strong':
             return v, 'vendor'
+        found = title_producer(p)
+        if found:
+            return found
+        if good_vendor.get((p['host'], v)) == 'weak':
+            return v, 'vendor'
+        # the words before the first place, grape, style word or vintage ('Sandalford Margaret River Shiraz 2020')
+        pre = name_prefix(p['title'])
+        if pre:
+            return pre, 'name'
+        return '', 'unknown'
+
+    def title_producer(p):
         seg = lead_segment(p['title'])
         if seg and seg_ok(seg) and (dictionary[fold(seg).strip()] >= 2 or lead_rate[p['host']] / max(1, per_host[p['host']]) >= 0.5):
             return canon.get(fold(seg).strip(), seg), 'title'
@@ -189,11 +206,7 @@ def main():
                 k = ' '.join(tt[i:i + n])
                 if k in DICT and (n > 1 or DICT[k] >= 4 and len(k) >= 5) and not (i + n < len(tt) and tt[i + n] == 's'):
                     return canon.get(DICT_NAME[k], DICT_NAME[k].title() if DICT_NAME[k].islower() else DICT_NAME[k]), 'dictionary'
-        # the words before the first place, grape, style word or vintage ('Sandalford Margaret River Shiraz 2020')
-        pre = name_prefix(p['title'])
-        if pre:
-            return pre, 'name'
-        return '', 'unknown'
+        return None
 
     # ---- 4. offers: one per bottle size, per-bottle price
     import statistics as ST

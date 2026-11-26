@@ -22,7 +22,7 @@ NONWINE = re.compile(r"""\b(
   pisco|liquore|lik[oö]r|amaro|amari|aperitivo|bitters?|vermouth|vermut|absinthe|ouzo|raki|arak|schnapps|sake|nihonshu|shochu|soju|umeshu|baijiu|
   beer|biere|birra|cerveza|ipa|lager|pilsner?|stout|kolsch|seltzer|hard\s+seltzer|cider|cidre|sidra|kombucha|
   non[- ]?alcoholic|alcohol[- ]?free|alcoholfree|de[- ]?alcoholi[sz]ed|alcohol[- ]removed|zero[- ]alcohol|0[.,]0\s*%|0\s*%\s*(?:alc\w*|abv)|traubensaft|grape\s+juice|analcolic\w*|alkoholfrei|sans\s+alcool|
-  soda|tonic(?:\s+water)?|sirop|syrup|cordial|spritz|press[eé]|cycling\s+bottle|water\s+bottle|vertical|flutes?|soup|cakes?|booster|washing\s+up|multivitamins?|vits|gravy|stock\s+pot|(?:orange|lemon|lime|fruit|soft)\s+drinks?|flavou?r(?:ed)?\s+(?:sparkling|water|drink)|lemon\s*&\s*lime|sparkling\s+tea|tea\s+company|tea(?!\s+tree)|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
+  mead|soda|tonic(?:\s+water)?|sirop|syrup|cordial|spritz|press[eé]|cycling\s+bottle|water\s+bottle|vertical|flutes?|soup|cakes?|booster|washing\s+up|multivitamins?|vits|gravy|stock\s+pot|(?:orange|lemon|lime|fruit|soft)\s+drinks?|flavou?r(?:ed)?\s+(?:sparkling|water|drink)|lemon\s*&\s*lime|sparkling\s+tea|tea\s+company|tea(?!\s+tree)|(?:apple|orange|grape|tomato|cranberry|fruit|pressed)\s+juice|lemonade|limonata|mineral\s+water|sparkling\s+water|still\s+water|tea\s+bags?|cheese|olive\s+oil|olio|vinegar|aceto|
   crackers?|crisps|salami|truffles?\s+(?:oil|salt)|honey\s+jar|chutney|cookbook|magazine|poster|
   candle|soap|t[- ]?shirt|hoodie|sweatshirt|baseball\s+cap|tote\s+bag|apron|socks|sneakers?|earrings?|necklace|bracelet|handbag|wallet|
   corkscrew|opener|stoppers?|decanter|carafe|glass(?:es|ware)?|tumbler|ice\s+bucket|cooler|chiller|aerator|pourer|wine\s+rack|cellar\s+book|
@@ -147,7 +147,7 @@ NOT_PRODUCER = re.compile(r"""^(
   (?:chateau|ch|domaine|dom|clos|bodegas?|maison|tenuta|weingut|cantina|quinta|castello|casa|cave|caves|cellars?|estate|winery|vineyards?|famille|azienda(?:\ agricola)?)
     (?:\ (?:de|du|des|la|le|les|di|del|della|dei|da|do|dos|das|d|l|von|van|der|y|et|e))*|
   .*\bitems?\b.*|.*\bgcc\b.*|.*\bsku\b.*|.*\bcollection\b.*|en\ primeur|fine\ wine.*|rare\ wine.*|
-  natural\ wine|spanish\ natural\ wine|naturwein\w*|naturweine|organic|biodynamic|gift|gifts|shop|store|online|private.*|\d{4,}\s*-.*|
+  \d{3}\s.*|natural\ wine|spanish\ natural\ wine|naturwein\w*|naturweine|organic|biodynamic|gift|gifts|shop|store|online|private.*|\d{4,}\s*-.*|
   .*\[[a-z]{2,6}\]|.*\b(imports?|importers?|importing|selections?|distribut\w*|merchants?|wine\s*&\s*spirits|wines\s*and\s*spirits|spirits|
   trading|portfolio|wholesale|wine\s*group|beverages?|drinks|liquors?|ltd|limited|inc|llc|gmbh|pty|bv|s\.?a\.?s|sarl|plc|corp(?:oration)?|foods)\b.*
 )$""", re.I | re.X)
@@ -192,4 +192,5 @@ def tidy_title(title):
     t = re.sub(r"\s*\((?:one|limit|max)[^)]*per (?:order|customer)[^)]*\)", "", t, flags=re.I)
     t = re.sub(r"\s*[\(\[](?:[^)\]]*\b(?:pre[- ]?sale|pre[- ]?order|presale|arriving|eta|allocation|in stock|back in stock|offer|sold out|limited stock|new arrival|special price)\b[^)\]]*)[\)\]]", "", t, flags=re.I)
     t = re.sub(r"\s*[-|]\s*(?:pre[- ]?order|sold out|last bottles?|new arrival|on sale|sale)\s*$", "", t, flags=re.I)
+    t = re.sub(r"^BX\s+[A-Z]{2,4}\s+(?=[A-Z])", "", t)          # Wine Chateau bin codes: 'BX MED Cap Royal Bordeaux Superieur'
     return t.strip(" -|")
