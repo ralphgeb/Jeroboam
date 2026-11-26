@@ -86,6 +86,11 @@ def ask_gemini(prompt):
     if err and os.environ.get("DEBUG"): print("  gemini error:", err, flush=True)
     if err: return None, secs, None, err
     cand = (d.get("candidates") or [{}])[0]
+    if os.environ.get("DEBUG"):
+        parts = (cand.get("content") or {}).get("parts", [])
+        print("  gemini finish:", cand.get("finishReason"), "| usage:", d.get("usageMetadata"), "| parts:",
+              [("thought" if p.get("thought") else "text", len(p.get("text", ""))) for p in parts],
+              "| grounding:", list((cand.get("groundingMetadata") or {}).keys()), flush=True)
     text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts", []))
     grounded = bool(cand.get("groundingMetadata", {}).get("groundingChunks"))
     return last_json(text), secs, grounded, None
@@ -114,7 +119,7 @@ for i, r in enumerate(sample, 1):
     place = f" ({r['region']})" if r["region"] else ""
     prompt = (f"Use web search to check this wine: {wine}{place}. Use the producer's own page, a wine shop page or a critic's page "
               f"for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + FORMAT)
-    ca, cs, cost, cerr = ask_claude(prompt)
+    ca, cs, cost, cerr = (None, 0.0, 0.0, "skipped") if os.environ.get("GEMINI_ONLY") else ask_claude(prompt)
     ga, gs, grounded, gerr = ask_gemini(prompt)
     vc, vg = (cerr or verdict(ca, truth)), (gerr or verdict(ga, truth))
     score["claude"][vc if not cerr else "error"] = score["claude"].get(vc if not cerr else "error", 0) + 1

@@ -1,5 +1,5 @@
 name: Compare wine checks (Claude vs Gemini)
-# debug pass after the worker fix (thinking off, Gemini model from Google)
+# debug pass: Gemini only (no Claude cost)
 # Runs tools/compare_wine_check.py against Jero's worker: the same "check this wine online" question to Claude + web search
 # and to Gemini + Google Search, on wines whose grapes are known. About $0.012 per wine on the Claude side; Gemini uses its
 # free daily allowance. The report is in the run summary and the "compare-report" artifact.
@@ -29,6 +29,7 @@ jobs:
       - name: Compare
         env:
           DEBUG: ${{ github.event_name == 'push' && '1' || '' }}
+          GEMINI_ONLY: ${{ github.event_name == 'push' && '1' || '' }}
         # a push runs a short debug pass (3 wines); a manual run does the full comparison
         run: python3 tools/compare_wine_check.py "${{ inputs.n || '3' }}"
       - if: always()
