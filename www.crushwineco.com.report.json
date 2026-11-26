@@ -3,11 +3,11 @@
  "base": "https://www.crushwineco.com",
  "status": "existing",
  "declared_currency": "USD",
- "products": 2894,
+ "products": 2819,
  "pages": 12,
  "via_collections": false,
  "error": null,
  "storefront_currency": "USD",
  "storefront_rate": "1.0",
- "seconds": 10
+ "seconds": 11
 }
