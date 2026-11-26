@@ -1,0 +1,54 @@
+name: Critics' scores from shop product pages
+
+# Reads the shop catalogues on the `shop-data` branch, fetches product pages on a runner (the dev container cannot reach the shops)
+# and keeps only short snippets around critic names -> `score-pages` branch. enrich_details.py reads the score numbers from them.
+#   sample: 25 pages per shop (to see which shops show scores);  full: every wine page of the listed shops.
+on:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Shops to fetch completely (comma separated hosts); empty = sample every shop"
+        required: false
+        default: ""
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "tools/prices/fetch_score_pages.py"
+      - ".github/workflows/score_pages.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: score-pages
+  cancel-in-progress: false
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pyyaml
+      - name: Shop catalogues
+        run: |
+          mkdir shop-data && cd shop-data && git init -q && git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data && git checkout -q FETCH_HEAD
+      - name: Fetch pages
+        run: |
+          if [ -n "${{ github.event.inputs.full }}" ]; then
+            python3 tools/prices/fetch_score_pages.py --data shop-data --out score-pages --full "${{ github.event.inputs.full }}"
+          else
+            python3 tools/prices/fetch_score_pages.py --data shop-data --out score-pages --sample 25 --budget 1200
+          fi
+      - name: Push to score-pages branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          mkdir /tmp/sp && cd /tmp/sp && git init -q -b score-pages
+          git fetch -q --depth 1 "$URL" score-pages && git reset -q --hard FETCH_HEAD || true
+          cp "$GITHUB_WORKSPACE"/score-pages/* .
+          git add -A && git commit -qm "score pages $(date -u +%Y-%m-%dT%H:%MZ)" && git push -q "$URL" HEAD:score-pages
