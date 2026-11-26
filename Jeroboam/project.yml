@@ -56,6 +56,7 @@ targets:
         JeroAPIKey: $(JERO_API_KEY)
         JeroPriceURL: $(JERO_PRICE_URL)
         JeroPriceKey: $(JERO_PRICE_KEY)
+        JeroClaudeProxy: $(JERO_CLAUDE_PROXY)
         JeroCloudKit: $(JERO_CLOUDKIT)   # "1" when the build carries the iCloud container (full-size photo sync, see Account.swift)
     settings:
       base:
@@ -66,6 +67,7 @@ targets:
         JERO_API_KEY: ""        # injected by CI from the ANTHROPIC_API_KEY secret (testing only)
         JERO_PRICE_URL: ""      # the shared price list (backend/cloudflare), from the PRICE_DB_URL secret
         JERO_PRICE_KEY: ""      # and its key, from PRICE_DB_KEY
+        JERO_CLAUDE_PROXY: ""   # "1" when Claude goes through that server (repo variable CLAUDE_PROXY_READY=true; no key in the app)
         JERO_CLOUDKIT: ""       # set to 1 by build-ios.yml (with the CloudKit entitlements) when the repo variable CLOUDKIT_READY is true
 
   JeroWidget:

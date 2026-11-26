@@ -17,3 +17,18 @@ Set up once, from the Cloudflare website (no computer needed beyond a browser):
 The next TestFlight build then talks to it. Until both secrets exist the app simply skips the shared list.
 Only a wine's name, producer, vintage and price are stored: no photos, accounts or anything about the person.
 Costs: the free Cloudflare plan covers about 100,000 lookups a day.
+
+## Claude proxy (the Anthropic key lives here, not in the app)
+
+The same worker forwards the app's calls to Claude (`POST /claude`), adding the Anthropic key, allowing only Jero-shaped
+requests (always Claude Haiku, short answers, at most two web searches) and keeping a daily spending cap per phone
+(`DEVICE_DAILY_USD`, default 0.15) and for everyone together (`GLOBAL_DAILY_USD`, default 5). Its spending table creates itself.
+
+1. Workers & Pages > `jero-prices` > **Edit code**: replace everything with the new `worker.js`, **Deploy**.
+2. Settings > **Variables and Secrets** > Add > type **Secret**, name `ANTHROPIC_API_KEY`, value: the Anthropic key. Deploy.
+   (Optional: type **Text**, `GLOBAL_DAILY_USD` = the most Jero may spend on Claude per day, e.g. `5`.)
+3. GitHub > Actions > **Check the Claude proxy** > Run workflow: it must end with "The Claude proxy works".
+4. GitHub > Settings > Secrets and variables > Actions > **Variables** > New: `CLAUDE_PROXY_READY` = `true`.
+   From the next TestFlight build the app talks to Claude only through the worker and carries no Anthropic key.
+5. Then create a new key in the Anthropic console, put it in the worker's `ANTHROPIC_API_KEY`, and delete the old one
+   (the old one shipped inside earlier TestFlight builds).

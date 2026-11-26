@@ -71,7 +71,12 @@ Jeroboam/Sources/        Swift app
 - Average price: `WineRecognizer.averagePrice` uses Claude's web search tool (`web_search_20250305`, max 2 uses, allowed_domains
   wine-searcher.com + cellartracker.com), parses a JSON line; falls back to the model's estimate (source "Estimate").
   ≈ $0.01 per search + ~$0.002 tokens. Not verifiable from CI (no key in Debug builds) — check on TestFlight.
-- Key: GitHub secret `ANTHROPIC_API_KEY` -> build setting JERO_API_KEY -> Info.plist `JeroAPIKey` (testing only; ships inside the binary — use a proxy before public release).
+- Key: **Claude proxy** on the Cloudflare worker (`POST /claude`, secret `ANTHROPIC_API_KEY`, backend/cloudflare/README.md): forces Haiku,
+  caps max_tokens 1,500 and web search 2, per-phone (`x-jero-device` = random `PriceCloud.installID`) and global daily $ caps in D1
+  (`claude_usage`). Every call goes through `WineRecognizer.claudeRequest`. Switched on per build by the repo variable
+  `CLAUDE_PROXY_READY=true` (Info.plist `JeroClaudeProxy=1`, and then JERO_API_KEY is NOT injected). Without it, the old way: GitHub
+  secret `ANTHROPIC_API_KEY` -> JERO_API_KEY -> Info.plist `JeroAPIKey` (inside the binary). `check-proxy.yml` tests the worker.
+  Privacy: the install number is declared as Device ID (not linked, app functionality).
 - Cost ≈ $0.0003–0.0005 per text lookup, ≈ $0.0005–0.0008 with the image fallback (Haiku 5.5: $0.10/MTok in, $0.50/MTok out). Prices are model estimates, not live quotes.
 
 ## Design rules (owner feedback: elegant and refined, "not too bold, not too big", coherent; Wine Folly as reference)

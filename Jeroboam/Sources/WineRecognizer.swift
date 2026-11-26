@@ -110,7 +110,26 @@ enum WineRecognizer {
         return k.isEmpty || k.hasPrefix("$(") ? nil : k
     }
 
-    static var isAvailable: Bool { apiKey != nil }
+    /// Claude is reached through Jero's own server (backend/cloudflare, route /claude), which holds the Anthropic key: the key is
+    /// not in the app. A build without the server (old setup, local testing) can still call Anthropic with a key in the build.
+    static var isAvailable: Bool { PriceCloud.claudeRequest() != nil || apiKey != nil }
+
+    static func claudeRequest(timeout: TimeInterval) -> URLRequest? {
+        var req: URLRequest
+        if let r = PriceCloud.claudeRequest() {
+            req = r
+        } else if let key = apiKey {
+            req = URLRequest(url: endpoint)
+            req.setValue(key, forHTTPHeaderField: "x-api-key")
+        } else {
+            return nil
+        }
+        req.httpMethod = "POST"
+        req.timeoutInterval = timeout
+        req.setValue("application/json", forHTTPHeaderField: "content-type")
+        req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+        return req
+    }
 
     // MARK: OCR
 
@@ -258,7 +277,7 @@ enum WineRecognizer {
     private static func vetted(_ w: WineIdentity, sig: String?) async -> RecognitionResult {
         var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
         guard w.found, !w.name.isEmpty, w.fromDatabase != true, w.checked != true else { return r }
-        if apiKey == nil { r.identity = hideUnchecked(w); return r }
+        if !isAvailable { r.identity = hideUnchecked(w); return r }
         let (v, cost, limited) = await verifyOnline(w)
         r.identity = v; r.extraUSD = cost; r.limited = limited
         if !limited { WineDB.shared.save(v, signature: sig); PriceCloud.shareWine(v, sig: sig) }
@@ -276,7 +295,7 @@ enum WineRecognizer {
     /// Only when those pages don't settle the grapes is one paid web search used. Whatever stays unconfirmed is Claude's guess.
     static func verifyOnline(_ w: WineIdentity) async -> (WineIdentity, Double, Bool) {
         guard w.found, !w.name.isEmpty, w.fromDatabase != true else { return (w, 0, false) }
-        guard let key = apiKey else { return (w, 0, false) }
+        guard isAvailable else { return (w, 0, false) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let place = w.region.isEmpty ? "" : " (" + w.region + ")"
         let format = """
@@ -291,7 +310,7 @@ enum WineRecognizer {
         let pages = await WebFacts.pages(for: wine + " " + w.region, shopURL: shopURL)
         if !pages.isEmpty {
             let prompt = "Wine: \(wine)\(place).\nBelow is text from web pages. Report only what these pages say about this exact wine; never fill gaps from memory.\n\n\(pages)\n\n" + format
-            if let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: nil, maxTokens: 500) {
+            if let (obj, cost) = await askJSON(prompt: prompt, tools: nil, maxTokens: 500) {
                 total += cost
                 if apply(obj, to: &v) { v.checked = true; return (v, total, false) }
             }
@@ -301,7 +320,7 @@ enum WineRecognizer {
         if DailyBudget.reached { return (hideUnchecked(w), total, true) }
         let prompt = "Use web search to check this wine: \(wine)\(place). Use the producer's own page, a wine shop page or a critic's page for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + format
         let tools: [[String: Any]] = [["type": "web_search_20250305", "name": "web_search", "max_uses": 1]]
-        guard let (obj, cost) = await askJSON(key: key, prompt: prompt, tools: tools, maxTokens: 600) else {
+        guard let (obj, cost) = await askJSON(prompt: prompt, tools: tools, maxTokens: 600) else {
             // no connection: not marked as checked, so it is tried again next time
             return (w, total, false)
         }
@@ -312,15 +331,11 @@ enum WineRecognizer {
     }
 
     /// One Claude call that must answer with a JSON object. Returns the object and what the call cost (also counted against today's allowance).
-    private static func askJSON(key: String, prompt: String, tools: [[String: Any]]?, maxTokens: Int) async -> ([String: Any], Double)? {
+    private static func askJSON(prompt: String, tools: [[String: Any]]?, maxTokens: Int) async -> ([String: Any], Double)? {
         var body: [String: Any] = ["model": model, "max_tokens": maxTokens, "messages": [["role": "user", "content": prompt]]]
         if let tools { body["tools"] = tools }
         do {
-            var req = URLRequest(url: endpoint)
-            req.httpMethod = "POST"; req.timeoutInterval = 60
-            req.setValue("application/json", forHTTPHeaderField: "content-type")
-            req.setValue(key, forHTTPHeaderField: "x-api-key")
-            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            guard var req = claudeRequest(timeout: 60) else { throw RecognizerError.noKey }
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200,
@@ -365,16 +380,16 @@ enum WineRecognizer {
     }
 
     private static func identifyFresh(image: UIImage) async throws -> RecognitionResult {
-        guard let key = apiKey else { throw RecognizerError.noKey }
+        guard isAvailable else { throw RecognizerError.noKey }
         let lines = await readText(image)
         if let text = usefulText(lines) {
-            var r = try await call(key: key, content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
+            var r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
             // Text alone is enough only for a confident, named answer; otherwise look at the photo too
             // (script or curved labels such as López de Heredia often defeat OCR).
             if r.identity.found && !r.identity.name.isEmpty && r.identity.confidence == "high" { return r }
             // fall back to the image, adding the cost of the first call
             if let jpeg = small(image) {
-                var r2 = try await call(key: key, content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text))
+                var r2 = try await call(content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text))
                 r2.inputTokens += r.inputTokens
                 r2.outputTokens += r.outputTokens
                 r2.usedImage = true
@@ -384,7 +399,7 @@ enum WineRecognizer {
             return r
         }
         guard let jpeg = small(image) else { throw RecognizerError.badResponse }
-        var r = try await call(key: key, content: imageContent(jpeg, extra: nil))
+        var r = try await call(content: imageContent(jpeg, extra: nil))
         r.usedImage = true
         return r
     }
@@ -398,9 +413,9 @@ enum WineRecognizer {
 
     /// A typed wine name: Claude names it; the check is left to `finish`.
     static func identifyFast(text: String) async throws -> RecognitionResult {
-        guard let key = apiKey else { throw RecognizerError.noKey }
+        guard isAvailable else { throw RecognizerError.noKey }
         if DailyBudget.hardStop { throw RecognizerError.limit }
-        var r = try await call(key: key, content: [["type": "text", "text": "The user typed this wine: " + text]])
+        var r = try await call(content: [["type": "text", "text": "The user typed this wine: " + text]])
         DailyBudget.add(r.costUSD)
         r.identity = tidy(r.identity)
         r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
@@ -477,7 +492,7 @@ enum WineRecognizer {
         ]
     }
 
-    private static func call(key: String, content: [[String: Any]]) async throws -> RecognitionResult {
+    private static func call(content: [[String: Any]]) async throws -> RecognitionResult {
         let body: [String: Any] = [
             "model": model,
             "max_tokens": 2000,
@@ -485,18 +500,14 @@ enum WineRecognizer {
             "output_config": ["effort": "low", "format": ["type": "json_schema", "schema": schema]],
             "messages": [["role": "user", "content": content]]
         ]
-        var req = URLRequest(url: endpoint)
-        req.httpMethod = "POST"
-        req.timeoutInterval = 45
-        req.setValue("application/json", forHTTPHeaderField: "content-type")
-        req.setValue(key, forHTTPHeaderField: "x-api-key")
-        req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+        guard var req = claudeRequest(timeout: 45) else { throw RecognizerError.noKey }
         req.httpBody = try JSONSerialization.data(withJSONObject: body)
         let (data, resp) = try await URLSession.shared.data(for: req)
         let status = (resp as? HTTPURLResponse)?.statusCode ?? 0
         guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { throw RecognizerError.badResponse }
         if status != 200 {
             let msg = ((json["error"] as? [String: Any])?["message"] as? String) ?? "Request failed (\(status))."
+            if status == 429, ((json["error"] as? [String: Any])?["type"] as? String) == "limit" { throw RecognizerError.limit }
             throw RecognizerError.network(status == 429 ? "Too many requests. Try again in a moment." : msg)
         }
         if (json["stop_reason"] as? String) == "refusal" { throw RecognizerError.refused }
@@ -571,18 +582,14 @@ extension WineRecognizer {
 
     /// One short question, no tools: about $0.0002.
     private static func quickEstimate(for w: WineIdentity) async -> (PriceInfo?, Double) {
-        guard let key = apiKey, !w.name.isEmpty, !DailyBudget.reached else { return (nil, 0) }
+        guard isAvailable, !w.name.isEmpty, !DailyBudget.reached else { return (nil, 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let body: [String: Any] = [
             "model": model, "max_tokens": 120,
             "messages": [["role": "user", "content": "Typical current retail price in US dollars of one 750 ml bottle of \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")"). Reply with only JSON: {\"low\": number, \"average\": number, \"high\": number}. Use your best estimate; never 0."]]
         ]
         do {
-            var req = URLRequest(url: endpoint)
-            req.httpMethod = "POST"; req.timeoutInterval = 30
-            req.setValue("application/json", forHTTPHeaderField: "content-type")
-            req.setValue(key, forHTTPHeaderField: "x-api-key")
-            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            guard var req = claudeRequest(timeout: 30) else { throw RecognizerError.noKey }
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200, let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return (nil, 0) }
@@ -600,7 +607,7 @@ extension WineRecognizer {
     }
 
     private static func livePrice(for w: WineIdentity) async -> (PriceInfo?, Double) {
-        guard let key = apiKey, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
+        guard isAvailable, !w.name.isEmpty else { return (PriceInfo.estimate(from: w), 0) }
         let wine = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
         let prompt = """
         Find the current average retail price of one 750 ml bottle of this wine: \(wine)\(w.region.isEmpty ? "" : " (" + w.region + ")").
@@ -618,12 +625,7 @@ extension WineRecognizer {
             "messages": [["role": "user", "content": prompt]]
         ]
         do {
-            var req = URLRequest(url: endpoint)
-            req.httpMethod = "POST"
-            req.timeoutInterval = 60
-            req.setValue("application/json", forHTTPHeaderField: "content-type")
-            req.setValue(key, forHTTPHeaderField: "x-api-key")
-            req.setValue("2026-10-21", forHTTPHeaderField: "anthropic-version")
+            guard var req = claudeRequest(timeout: 60) else { throw RecognizerError.noKey }
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200,

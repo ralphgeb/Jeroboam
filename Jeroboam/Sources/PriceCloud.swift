@@ -23,6 +23,24 @@ enum PriceCloud {
         return r
     }
 
+    /// A call to Claude through Jero's server (route /claude), which adds the Anthropic key and keeps each phone to its daily
+    /// allowance. nil when the server is not set up in this build.
+    static func claudeRequest() -> URLRequest? {
+        guard setting("JeroClaudeProxy") == "1", var r = request("claude", method: "POST") else { return nil }
+        r.setValue(installID, forHTTPHeaderField: "x-jero-device")
+        return r
+    }
+
+    /// A random number made on this phone the first time it is needed: it only lets the server count each phone's daily
+    /// allowance. It says nothing about the person and is not linked to anything else.
+    static var installID: String {
+        let d = UserDefaults.standard
+        if let id = d.string(forKey: "jero.installID") { return id }
+        let id = UUID().uuidString
+        d.set(id, forKey: "jero.installID")
+        return id
+    }
+
     /// The wine's key plus its color, so a white and a red of the same name never share a price.
     private static func cloudKey(_ w: WineIdentity) -> String { WineDB.key(w) + "|" + w.style.lowercased() }
 

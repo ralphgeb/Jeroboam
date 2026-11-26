@@ -18,7 +18,10 @@ jobs:
       ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
       ASC_PRIVATE_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-      JERO_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # Claude through Jero's server (backend/cloudflare /claude) once the repo variable CLAUDE_PROXY_READY is "true":
+      # then the Anthropic key is NOT put into the app at all. Until then the old way (key in the build) keeps scanning working.
+      JERO_API_KEY: ${{ vars.CLAUDE_PROXY_READY != 'true' && secrets.ANTHROPIC_API_KEY || '' }}
+      JERO_CLAUDE_PROXY: ${{ vars.CLAUDE_PROXY_READY == 'true' && '1' || '' }}
       JERO_PRICE_URL: ${{ secrets.PRICE_DB_URL }}
       JERO_PRICE_KEY: ${{ secrets.PRICE_DB_KEY }}
 
@@ -256,6 +259,7 @@ jobs:
             CODE_SIGN_STYLE=Automatic \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             JERO_API_KEY="$JERO_API_KEY" \
+            JERO_CLAUDE_PROXY="$JERO_CLAUDE_PROXY" \
             JERO_PRICE_URL="$JERO_PRICE_URL" \
             JERO_PRICE_KEY="$JERO_PRICE_KEY" \
             2>&1 | tee build/archive.log || {

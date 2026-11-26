@@ -1,0 +1,32 @@
+name: Check the Claude proxy
+# Asks Jero's server (backend/cloudflare) whether the Claude proxy is set up, then makes one tiny real call through it
+# (about $0.0001). Prints only statuses, never a key. Runs when this file changes on a claude/** branch, or by hand.
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/check-proxy.yml"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - name: Ping
+        run: |
+          [ -n "$URL" ] && [ -n "$KEY" ] || { echo "::error::PRICE_DB_URL / PRICE_DB_KEY secrets are missing"; exit 1; }
+          code=$(curl -s -o ping.json -w "%{http_code}" -H "x-jero-key: $KEY" "$URL/claude/ping")
+          echo "ping: HTTP $code $(cat ping.json)"
+          [ "$code" = 200 ] || { echo "::error::The worker does not know /claude yet: paste the new worker.js and Deploy"; exit 1; }
+          grep -q '"key":true' ping.json || { echo "::error::The worker has no ANTHROPIC_API_KEY secret yet"; exit 1; }
+      - name: One tiny call through the proxy
+        run: |
+          body='{"max_tokens":16,"messages":[{"role":"user","content":"Reply with the single word: ok"}]}'
+          code=$(curl -s -o out.json -w "%{http_code}" -X POST -H "x-jero-key: $KEY" -H "x-jero-device: 00000000-0000-0000-0000-0000000c4ec4" \
+                 -H "content-type: application/json" -d "$body" "$URL/claude")
+          echo "call: HTTP $code"
+          python3 -c "import json;d=json.load(open('out.json'));print('model:',d.get('model'),'| answer:',''.join(c.get('text','') for c in d.get('content',[])),'| error:',d.get('error'))"
+          [ "$code" = 200 ] || { echo "::error::The proxy answered $code"; exit 1; }
+          echo "The Claude proxy works. Set the repo variable CLAUDE_PROXY_READY=true so the next build uses it (and carries no Anthropic key)."

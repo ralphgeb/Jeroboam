@@ -3,7 +3,8 @@
 <!--
   What leaves the phone (keep in step with the App Store "App Privacy" answers):
   - a wine label photo and the text read from it go to Anthropic (Claude) to identify the wine: Photos, Other User Content
-  - the identified wine and its price (no photo, no name, no device id) go to Jero's shared wine list: Product Interaction
+  - the identified wine and its price (no photo, no name) go to Jero's shared wine list: Product Interaction
+  - wine lookups go through Jero's server with a random install number (daily allowance per phone): Device ID
   Progress, tastings and cellar sync through the player's own private iCloud, which the developer cannot read: not collected.
   Nothing is used for tracking or linked to the player's identity.
 -->
@@ -30,6 +31,18 @@
 		<dict>
 			<key>NSPrivacyCollectedDataType</key>
 			<string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeDeviceID</string>
 			<key>NSPrivacyCollectedDataTypeLinked</key>
 			<false/>
 			<key>NSPrivacyCollectedDataTypeTracking</key>
