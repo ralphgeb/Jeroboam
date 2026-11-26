@@ -10,7 +10,7 @@ lessons:
           To make a sweet wine you need more sugar than yeast can ferment, or you stop fermentation early. Winemakers concentrate grapes by:
 
           - **Late harvest**: leaving them to ripen and shrivel on the vine.
-          - **Noble rot**: Botrytis cinerea pierces the skins.
+          - **Noble rot**: Botrytis cinerea pierces the skins: Sauternes in Bordeaux, **Tokaji Aszú** in Hungary.
           - **Freezing**: icewine.
           - **Drying** after harvest: passito.
       - choice: "What is Botrytis cinerea?"
@@ -26,6 +26,7 @@ lessons:
         explain: "Sauternes and Barsac in southern Bordeaux make sweet wines from Sémillon and Sauvignon Blanc affected by noble rot (Botrytis). The fungus shrivels the grapes and concentrates sugar, acidity and flavors like honey and saffron."
         visual: "map:france:sauternes"
       - blank: "Hungary's famous noble rot wine is Tokaji ___."
+        visual: "map:hungary"
         answers: [Aszú]
         options: [Rosso, Brut, Fino]
         explain: "Botrytized aszú berries are soaked in base wine or must, giving luscious, high-acid wines that live for decades."
@@ -66,7 +67,7 @@ lessons:
         body: |
           Sherry comes from the hot south of Spain around **Jerez**. Most is made from **Palomino** and is **dry**.
 
-          - **Fino & Manzanilla**: aged under **flor** (a layer of yeast); pale, bone dry, tangy, almond and bread.
+          - **Fino & Manzanilla**: aged under **flor** (a layer of yeast); pale, bone dry, tangy, almond and bread. Manzanilla is Fino aged by the sea in **Sanlúcar de Barrameda**, saltier still.
           - **Oloroso**: aged with oxygen; dark, nutty, dry.
           - **Pedro Ximénez**: from sun-dried grapes; black, raisiny, very sweet.
       - learn: The solera

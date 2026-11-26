@@ -8,6 +8,8 @@ lessons:
         visual: "flow:white-making"
         body: |
           For white wine, grapes are crushed and **pressed straight away**. Only the juice is fermented, usually **cool (12–22 °C)** in stainless steel, to keep delicate fruit aromas.
+
+          Richer whites, above all **Chardonnay** in Burgundy and California, may be **fermented in oak barrels** instead: the wood and the lees add **richness, a creamy texture and toasty flavors**.
       - choice: "When are white grapes pressed?"
         options: ["Before fermentation", "After fermentation", "Never", "After a year in oak"]
         a: "Before fermentation"
@@ -20,6 +22,7 @@ lessons:
         options: [oak, clay, concrete-egg]
         explain: "Steel is neutral and easy to keep cool. Oak barrels or concrete add texture and flavor for richer styles."
       - choice: "Why might a winemaker ferment Chardonnay in oak barrels?"
+        visual: "grape:chardonnay"
         options: ["To add richness, texture and toasty flavors", "To make it lighter", "To add bubbles", "To make it red"]
         a: "To add richness, texture and toasty flavors"
         explain: "Barrel fermentation integrates oak flavors and adds weight and creaminess. It is classic in Burgundy and California, and the yeast lees in the barrel add texture too."
@@ -59,6 +62,8 @@ lessons:
           - **Oak**: new barrels add vanilla, toast, smoke and spice; any barrel lets in tiny amounts of oxygen that soften tannin.
           - **Lees ageing**: contact with dead yeast adds texture and bready notes.
           - **Malolactic conversion**: turns sharp malic acid into softer lactic acid and can add butter.
+
+          Barrels are expensive: cheaper wines get their oak flavor from **oak chips or staves** soaked in a tank.
       - choice: "Which flavor does new oak typically add?"
         options: [Vanilla, Gooseberry, Lime, Strawberry]
         a: Vanilla

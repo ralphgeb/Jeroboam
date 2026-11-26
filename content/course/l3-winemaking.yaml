@@ -55,7 +55,6 @@ lessons:
   - title: After fermentation
     cards:
       - learn: Finishing the wine
-        visual: "photo:winery-bottling"
         body: |
           - **Maturation**: in steel (fresh), old oak (gentle oxygen) or new oak (flavor).
           - **Blending**: varieties, vineyards, barrels.

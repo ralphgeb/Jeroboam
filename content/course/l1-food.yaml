@@ -5,6 +5,7 @@ lessons:
   - title: The key interactions
     cards:
       - learn: Food changes wine
+        visual: "flow:food-wine"
         body: |
           A wine that tastes perfect alone can turn harsh with the wrong food, and vice versa. Some food components make wine taste **worse**, others **better**.
 
@@ -56,7 +57,7 @@ lessons:
         body: |
           Pair **light with light** and **rich with rich**. A delicate sole would be crushed by a Barossa Shiraz; a beef stew would make a Pinot Grigio vanish.
 
-          And remember regional pairing: **what grows together goes together**.
+          And remember regional pairing: **what grows together goes together**. Light seafood loves crisp, salty coastal whites such as **Albariño** from Spain's Atlantic coast or **Muscadet** from the Loire.
       - match: "Match the dish to the classic wine"
         pairs: [[Oysters, Muscadet], [Goat cheese, Sancerre], [Steak, Cabernet Sauvignon], [Duck, Pinot Noir]]
         explain: "Each is a textbook match: brine with crisp Muscadet, tangy goat cheese with high-acid Sauvignon Blanc, steak with tannic Cabernet, and rich duck with fresh, fruity Pinot Noir."
@@ -74,6 +75,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Sweetness and spice
+        visual: "diagram:sweetness"
         body: '**Sweet food** makes dry wine taste thin and sour, so pick a wine at least as sweet as the dish.
       
       
@@ -81,6 +83,7 @@ lessons:
       
           '
       - learn: Match the weight
+        visual: "flow:body"
         body: 'Pair light with light and rich with rich. A delicate fish needs a light white; a braised beef stew wants a full-bodied red.
       
       

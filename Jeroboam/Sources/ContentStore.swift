@@ -79,6 +79,7 @@ final class ContentStore {
     func color(_ id: String) -> WineColor? { colorsByID[id] }
     func flow(_ id: String) -> Flow? { flowsByID[id] }
     func label(_ id: String) -> WineLabel? { library.labels?.first { $0.id == id } }
+    func ladder(_ id: String) -> Ladder? { library.ladders?.first { $0.id == id } }
     func label(forRegion id: String) -> WineLabel? { library.labels?.first { $0.region == id } }
 
     /// Region entries that can be opened from a map region id (the map's own region ids match library ids).

@@ -95,6 +95,8 @@ struct VisualView: View {
                 }
             case "wheel":
                 AromaWheel(compact: true)
+            case "ladder":
+                if let l = ContentStore.shared.ladder(arg) { LadderView(ladder: l, hideNames: hideAnswers) }
             case "label":
                 if let l = ContentStore.shared.label(arg) {
                     WineLabelView(label: l, numbered: false).padding(.horizontal, 20).padding(.vertical, 6)
@@ -607,6 +609,76 @@ struct PhotoView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 if let c = Photos.creditLine(id) {
                     Text(c).font(.system(size: 10)).foregroundStyle(Palette.inkFaint).lineLimit(1)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Pyramids and ladders
+
+/// A quality pyramid (Burgundy, Italy, the EU, the 1855 growths, scores) or a scale (Champagne sweetness, Prädikat, Rioja ageing).
+/// Pyramid: the top tier is the narrowest and the deepest Bordeaux; each tier below is wider and paler. Scale: one row per step
+/// with a bar that grows. In a question (`hideNames`) the names are left out, the shape and notes stay.
+struct LadderView: View {
+    let ladder: Ladder
+    var hideNames = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(ladder.title).font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+            if ladder.style == "scale" { scale } else { pyramid }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var pyramid: some View {
+        let n = ladder.tiers.count
+        return VStack(spacing: 4) {
+            ForEach(Array(ladder.tiers.enumerated()), id: \.offset) { i, t in
+                let k = Double(i) / Double(max(1, n - 1))           // 0 at the top
+                let deep = k < 0.5
+                VStack(spacing: 1) {
+                    if !hideNames {
+                        Text(t.name).font(.jero(size: 14, weight: .semibold))
+                            .foregroundStyle(deep ? Palette.onWine : Palette.ink)
+                    }
+                    if let note = t.note {
+                        Text(note).font(.jero(size: 11.5))
+                            .foregroundStyle(deep ? Palette.onWine.opacity(0.85) : Palette.inkSoft)
+                            .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.85)
+                    }
+                }
+                .padding(.horizontal, 10).padding(.vertical, 7)
+                .frame(maxWidth: .infinity)
+                .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.wine.opacity(1 - 0.78 * k)))
+                // the top tier is narrowest: each tier is a little wider than the one above
+                .padding(.horizontal, CGFloat(n - 1 - i) * 18)
+            }
+        }
+    }
+
+    private var scale: some View {
+        let n = ladder.tiers.count
+        return VStack(spacing: 8) {
+            ForEach(Array(ladder.tiers.enumerated()), id: \.offset) { i, t in
+                let k = Double(i + 1) / Double(n)
+                HStack(alignment: .center, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 1) {
+                        if !hideNames { Text(t.name).font(.jero(size: 14, weight: .semibold)).foregroundStyle(Palette.ink) }
+                        if let note = t.note {
+                            Text(note).font(.jero(size: 11.5)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    GeometryReader { geo in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Palette.line)
+                            Capsule().fill(Palette.wine.opacity(0.35 + 0.65 * k)).frame(width: max(6, geo.size.width * k))
+                        }
+                    }
+                    .frame(width: 78, height: 6)
                 }
             }
         }

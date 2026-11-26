@@ -1,5 +1,6 @@
 l3-viticulture:
   - learn: Training and canopy
+    visual: "flow:training"
     body: |
       Vines are trained to control sun and air. **Bush vines** (gobelet) suit hot, dry places such as old Grenache in Châteauneuf. **Trellised** systems like Guyot and VSP spread leaves for sun in cool climates.
 
@@ -69,6 +70,7 @@ l3-bordeaux:
     a: Mouton Rothschild
     explain: "Château Mouton Rothschild was promoted to First Growth in 1973, the only change ever made to the 1855 red classification. Baron Philippe de Rothschild campaigned for it for decades."
   - tf: "Pomerol has an official classification like the Médoc."
+    visual: "map:france:medoc"
     truth: false
     explain: "Pomerol has no classification, unlike the Médoc and Sauternes, though Pétrus and Le Pin are among the world's most expensive wines. Tiny estates, nearly all Merlot on clay, rely on reputation."
   - match: "Match the appellation to its main grape"
@@ -79,6 +81,7 @@ l3-bordeaux:
     a: "Autumn mists from the Ciron river"
     explain: "Misty mornings and sunny afternoons are perfect for botrytis: the damp spreads the fungus and the sun then dries the grapes so the rot concentrates them instead of spoiling them."
   - blank: "Château ___ is the only Graves estate in the 1855 classification."
+    visual: "map:france:graves"
     answers: [Haut-Brion]
     options: [Pape Clément, Pétrus, Cheval Blanc, Yquem]
     explain: "Château Haut-Brion, the only Graves estate in the 1855 classification, was so famous that it was included alongside the Médoc. Its fame goes back to the 17th century, even in London."
@@ -94,16 +97,19 @@ l3-burgundy:
     a: Meursault
     explain: "Meursault is a great white-wine village of the Côte de Beaune, famous for rich, nutty Chardonnay. The Côte de Beaune lies south of the Côte de Nuits and also includes Pommard and Volnay for red."
   - tf: "The Côte de Nuits is best known for red wines."
+    visual: "map:france:cote-de-nuits"
     truth: true
     explain: "The Côte de Nuits is best known for red wines: nearly all its Grand Crus are Pinot Noir, with Musigny having a tiny white exception. Its villages include Gevrey-Chambertin and Vosne-Romanée."
   - match: "Match the Grand Cru to its color"
     pairs: [[Montrachet, White], [Chambertin, Red], [Corton-Charlemagne, White wine], [Romanée-Conti, Red wine]]
     explain: "Côte de Beaune Grand Crus are mostly white (Montrachet, Corton-Charlemagne) while Côte de Nuits ones are mostly red (Chambertin, Romanée-Conti). Corton is the red exception in the Côte de Beaune."
   - choice: "Why does the producer matter so much in Burgundy?"
+    visual: "map:france:burgundy"
     options: ["Many vineyards are split between owners", "All wines are blends", "Labels don't show vineyards", "Only one grape is allowed"]
     a: "Many vineyards are split between owners"
     explain: "Plots are split among many owners: Clos de Vougeot alone has more than 80 owners, each making different wine from the same vineyard. Two bottles with the same label can differ widely in quality and price."
   - blank: "Burgundy's named vineyard plots are called ___."
+    visual: "map:france:burgundy"
     answers: [climats]
     options: [crus bourgeois, châteaux, terraces, lieux-dits only]
     explain: "Burgundy's named vineyard plots are called climats. The climats of Burgundy became a UNESCO World Heritage Site in 2015, recognizing centuries of monks mapping every slope."
@@ -112,6 +118,7 @@ l3-france-more:
     body: |
       Big **houses** (négociants) buy grapes from many villages and blend for a consistent house style. **Grower Champagnes** come from a single estate's own vines, showing their village's character. Look for "RM" (récoltant-manipulant) on the label.
   - learn: The Loire's many faces
+    visual: "map:france:muscadet,anjou,touraine,sancerre"
     body: |
       From the Atlantic inland: **Muscadet** (Melon), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc) and the **Centre** (Sancerre and Pouilly-Fumé Sauvignon Blanc).
   - choice: "What does 'RM' on a Champagne label mean?"
@@ -122,13 +129,16 @@ l3-france-more:
     pairs: [[Vouvray, Chenin Blanc], [Chinon, Cabernet Franc], [Sancerre, Sauvignon Blanc], [Muscadet, Melon de Bourgogne]]
     explain: "The Loire grows mostly single varieties, each in its own district: Sauvignon Blanc in Sancerre, Chenin Blanc in Vouvray, Cabernet Franc in Chinon and Melon de Bourgogne in Muscadet."
   - tf: "Alsace wines are usually labeled with the grape variety."
+    visual: "map:france:alsace"
     truth: true
     explain: "Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris. Most other French regions name the place, so Alsace is a bridge between Old and New World labeling."
   - choice: "Which southern French region is known for Grenache-based Banyuls and Côtes du Roussillon?"
+    visual: "grape:grenache"
     options: [Roussillon, Alsace, Jura, Savoie]
     a: Roussillon
     explain: "Roussillon, next to the Pyrenees, makes powerful Grenache-based reds and sweet fortified wines such as Banyuls and Maury. The fortified wines are made like Port, but with Grenache."
   - blank: "Jura's oxidative 'yellow wine' is called vin ___."
+    visual: "map:france:jura"
     answers: [jaune]
     options: [doux, santo, gris, rouge]
     explain: "Vin jaune ages under a veil of yeast for over six years in barrel, like a French cousin of Fino sherry. It is bottled in a special 62 cl bottle called a clavelin; Château-Chalon is the most famous."
@@ -147,6 +157,7 @@ l3-italy:
     pairs: [[Amarone, Veneto], [Barolo, Piedmont], [Brunello di Montalcino, Tuscany], [Etna Rosso, Sicily]]
     explain: "Italy's twenty regions each have their own grapes and wines: Piedmont for Nebbiolo, Tuscany for Sangiovese, Veneto for Corvina and Campania for Aglianico. Matching them is a core Italian skill."
   - tf: "Super Tuscans often include Cabernet Sauvignon or Merlot."
+    visual: "map:italy:bolgheri"
     truth: true
     explain: "International grapes are what made Super Tuscans break the old rules: from the 1970s Cabernet Sauvignon and Merlot were blended outside the DOC rules. They were labeled humble vino da tavola but became icons."
   - choice: "Which grape is the backbone of Valpolicella and Amarone?"
@@ -159,6 +170,7 @@ l3-italy:
     explain: "Sassicaia comes from Bolgheri, on the Tuscan coast, which became famous for Bordeaux-style blends. First made in 1968, Sassicaia was the first Super Tuscan and got its own DOC in 1994."
 l3-iberia:
   - learn: Rioja's subregions
+    visual: "map:spain:rioja"
     body: |
       Rioja has three parts: **Rioja Alta** (cooler, elegant), **Rioja Alavesa** (limestone, finesse) and **Rioja Oriental** (warmer, Garnacha-rich). Traditional producers age in American oak; modern ones favor French oak and riper fruit.
   - learn: Port styles
@@ -179,11 +191,13 @@ l3-iberia:
     a: "A blend with an average age of about 20 years"
     explain: "A 20 Year Old Tawny is a blend of casks that tastes like the stated age, not a wine aged exactly 20 years. The stated ages are 10, 20, 30 and 40."
   - blank: "Priorat's dark slate and quartz soil is called ___."
+    visual: "map:spain:priorat"
     answers: [llicorella]
     options: [albariza, galestro, schist only, terra rossa]
     explain: "Llicorella, Priorat's dark slate and quartz soil, forces vine roots deep and gives the wines their mineral intensity. The steep terraces and old Garnacha and Cariñena vines give tiny yields."
 l3-central-europe:
   - learn: German Riesling styles
+    visual: "map:germany:mosel,rheingau,pfalz"
     body: |
       German Riesling ranges from bone-dry **Grosses Gewächs** to sweet **Beerenauslese** and **Trockenbeerenauslese**. The **Mosel** gives light, delicate, often off-dry wines on steep slate; the **Pfalz** and **Rheingau** give fuller, drier styles.
   - learn: Tokaji Aszú
@@ -200,6 +214,7 @@ l3-central-europe:
     truth: false
     explain: "Despite 'trocken' in the name, TBA is made from shriveled botrytized berries and is intensely sweet."
   - choice: "In the Wachau, what is 'Smaragd'?"
+    visual: "map:austria:wachau"
     options: ["The ripest, fullest dry category", "A sweet wine", "A sparkling wine", "A type of soil"]
     a: "The ripest, fullest dry category"
     explain: "Smaragd, named after an emerald-green lizard that basks on the warm terraces, is the Wachau's ripest dry style, above Steinfeder and Federspiel. It is full-bodied and often 13% alcohol or more."
@@ -212,9 +227,11 @@ l3-new-world:
     body: |
       New World producers chase cool sites for elegance: **Adelaide Hills** and **Tasmania** in Australia, **Casablanca** and **San Antonio** in Chile, **Sonoma Coast** in California and **Central Otago** in New Zealand.
   - learn: Signature styles
+    visual: "diagram:wine-belt"
     body: |
       **Marlborough Sauvignon Blanc**: passion fruit and cut grass. **Barossa Shiraz**: rich black fruit and chocolate. **Mendoza Malbec**: plum and violet. **Napa Cabernet**: ripe cassis and polished tannin. **Stellenbosch Chenin**: ripe stone fruit and honey.
   - choice: "Which region makes intense, passion-fruit Sauvignon Blanc?"
+    visual: "grape:sauvignon-blanc"
     options: [Marlborough, Barossa Valley, Napa Valley, Mendoza]
     a: Marlborough
     explain: "Marlborough makes intense, passion-fruit Sauvignon Blanc: bright sun, cool nights and a long season give a pungent style. Cloudy Bay put it on the world map in the 1980s."
@@ -222,9 +239,11 @@ l3-new-world:
     pairs: [[Barossa Valley, Shiraz], [Mendoza, Malbec], [Central Otago, Pinot Noir], [Napa Valley, Cabernet Sauvignon]]
     explain: "Each region built its fame on one grape: Marlborough for Sauvignon Blanc, Barossa for Shiraz, Mendoza for Malbec and Stellenbosch for Cabernet. Matching them helps in blind tasting."
   - tf: "Chile's Casablanca Valley is cooled by the Pacific Ocean."
+    visual: "map:chile"
     truth: true
     explain: "Chile's Casablanca Valley is cooled by the Pacific Ocean. Morning fog and sea breezes keep it cool, making it ideal for Sauvignon Blanc and Chardonnay."
   - choice: "Why are Mendoza's vineyards good for Malbec despite the desert?"
+    visual: "map:argentina:mendoza"
     options: ["High altitude and snowmelt irrigation", "Constant rain", "Volcanic islands", "Ocean fog"]
     a: "High altitude and snowmelt irrigation"
     explain: "Vineyards up to 1,500 m give cool nights, and Andes snowmelt provides water. With strong sun, that gives Mendoza's Malbec deep color and ripe fruit while keeping freshness."
@@ -239,6 +258,7 @@ l3-tasting:
 
       Long-lived wines need the structure to age: acidity, tannin or sugar, plus concentrated fruit.
   - learn: Deductive tasting
+    visual: "flow:deduction"
     body: |
       Blind tasters reason from clues. High acid and light color suggest a cool climate. Deep color, ripe black fruit and high alcohol suggest warmth. Vanilla and toast suggest new oak; leather and earth suggest age.
   - choice: "Which wine is most likely from a cool climate?"

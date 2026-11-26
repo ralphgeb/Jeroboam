@@ -90,3 +90,102 @@
     - {icon: wind, title: Slow oxygen, text: "Tiny amounts of oxygen through the staves soften tannin and deepen color."}
     - {icon: arrow.triangle.2.circlepath, title: Old barrels, text: "Add little flavor but still allow gentle oxygen exposure."}
     - {icon: square.grid.3x3, title: Cheaper options, text: "Oak chips or staves in a tank add oak flavors quickly, without the oxygen effect."}
+- id: body
+  title: Body is weight
+  steps:
+    - {icon: drop, title: Light, text: "Like skimmed milk: Muscadet, Prosecco, Beaujolais, Mosel Riesling."}
+    - {icon: drop.halffull, title: Medium, text: "Like whole milk: Chianti, Merlot, Sancerre, unoaked Chardonnay."}
+    - {icon: drop.fill, title: Full, text: "Like cream: Barossa Shiraz, Napa Cabernet, oaked Chardonnay, Amarone."}
+    - {icon: plus.circle, title: What adds weight, text: "Alcohol, sugar and extract (the solids from ripe skins)."}
+- id: blic
+  title: Judging quality with BLIC
+  steps:
+    - {icon: scalemass, title: Balance, text: "Fruit, acidity, tannin, alcohol and sweetness in harmony: nothing sticks out."}
+    - {icon: timer, title: Length, text: "How long the flavor lingers after you swallow: ten seconds or more is long."}
+    - {icon: speaker.wave.3, title: Intensity, text: "How pronounced the aromas and flavors are."}
+    - {icon: square.stack.3d.up, title: Complexity, text: "Many layers: fruit, then flowers, spice, earth, toast, that change in the glass."}
+- id: tasting-note
+  title: Writing a tasting note
+  steps:
+    - {icon: eye, title: Look, text: "Pale lemon."}
+    - {icon: nose, title: Nose, text: "Pronounced aromas of grapefruit, gooseberry and cut grass."}
+    - {icon: mouth, title: Palate, text: "Dry, high acidity, light body, medium finish."}
+    - {icon: checkmark.seal, title: Conclusion, text: "Very good: balanced and intense. Drink now. (A Sauvignon Blanc.)"}
+- id: food-wine
+  title: What food does to wine
+  steps:
+    - {icon: arrow.down.circle, title: Tougher on wine, text: "Sweetness and umami (mushrooms, aged cheese, soy) make wine taste drier, more bitter and more acidic."}
+    - {icon: flame, title: Chili heat, text: "Hotter with alcohol and tannin: pick off-dry, low-alcohol whites."}
+    - {icon: arrow.up.circle, title: Kinder to wine, text: "Salt and acidity make wine taste softer, fruitier and less acidic."}
+    - {icon: scalemass, title: Then match the weight, text: "Light dishes with light wines, rich dishes with rich wines."}
+- id: faults
+  title: Common wine faults
+  steps:
+    - {icon: exclamationmark.triangle, title: Cork taint (TCA), text: "Musty, wet cardboard; the fruit seems muted."}
+    - {icon: circle.lefthalf.filled, title: Oxidation, text: "Brownish color, bruised apple, flat taste."}
+    - {icon: thermometer.sun, title: Heat damage, text: "Cooked, jammy fruit; the cork may have pushed up."}
+    - {icon: aqi.medium, title: Reduction, text: "Struck match or rotten egg; often fades with air."}
+    - {icon: drop.triangle, title: Volatile acidity, text: "Vinegar or nail-polish remover when it is too high."}
+- id: open-sparkling
+  title: Opening sparkling wine safely
+  steps:
+    - {icon: snowflake, title: Chill well, text: "Cold wine holds its bubbles: 6–10 °C."}
+    - {icon: hand.raised, title: Thumb on the cork, text: "Remove the foil and loosen the cage, keeping a thumb on top. Point it away from people."}
+    - {icon: arrow.triangle.2.circlepath, title: Turn the bottle, text: "Hold the cork, twist the bottle, and ease it out with a sigh, not a pop."}
+    - {icon: wineglass, title: Pour in two goes, text: "A little first, let the foam settle, then top up."}
+- id: decanting
+  title: Decanting an old red
+  steps:
+    - {icon: arrow.up, title: Stand it up, text: "A day before, so the sediment falls to the bottom."}
+    - {icon: lightbulb, title: Light behind the neck, text: "A candle or phone light shows the sediment coming."}
+    - {icon: arrow.down.right, title: Pour slowly, text: "In one steady movement, and stop when the sediment reaches the neck."}
+    - {icon: wind, title: Young wines too, text: "A young, tannic red opens up after an hour or two in a decanter."}
+- id: training
+  title: How vines are trained
+  steps:
+    - {icon: tree, title: Bush vine (gobelet), text: "Free-standing, low to the ground: hot, dry places such as old Grenache."}
+    - {icon: line.3.horizontal, title: Guyot, text: "One or two canes along a wire: Bordeaux, Burgundy, much of Europe."}
+    - {icon: square.split.1x2, title: VSP, text: "Shoots trained upward between wires: a tidy wall of leaves, easy to work."}
+    - {icon: square.grid.3x3.topleft.filled, title: Pergola, text: "A high roof of leaves: shade in hot places, room beneath in the Veneto and Alto Adige."}
+- id: en-primeur
+  title: Buying Bordeaux en primeur
+  steps:
+    - {icon: calendar, title: April after the harvest, text: "Merchants and critics taste the new wine from barrel."}
+    - {icon: tag, title: Release, text: "Châteaux release part of the wine, tranche by tranche, at a set price."}
+    - {icon: creditcard, title: Pay now, text: "Buyers pay while the wine is still ageing in barrel."}
+    - {icon: shippingbox, title: Delivery, text: "About two years later, the bottles arrive."}
+- id: deduction
+  title: Tasting blind, clue by clue
+  steps:
+    - {icon: eye, title: Color, text: "Pale reds and light whites point to cool climates and thin-skinned grapes; deep color to warmth and thick skins."}
+    - {icon: nose, title: Aromas, text: "Fruit ripeness (green to jammy), plus oak (vanilla, toast) and age (leather, mushroom, honey)."}
+    - {icon: mouth, title: Structure, text: "High acid: cool place. High alcohol and soft acid: warm place. Firm tannin: Cabernet, Nebbiolo."}
+    - {icon: checkmark.seal, title: Conclude, text: "Put the clues together: grape, climate, then region and age."}
+- id: bordeaux-blend
+  title: The five Bordeaux grapes
+  steps:
+    - {icon: shield, title: Cabernet Sauvignon, text: "Structure, blackcurrant and long life: the Left Bank on gravel."}
+    - {icon: circle.fill, title: Merlot, text: "Plush plum and soft tannin; ripens early: the Right Bank on clay."}
+    - {icon: leaf, title: Cabernet Franc, text: "Perfume, freshness and a leafy lift: key in Saint-Émilion."}
+    - {icon: paintpalette, title: Petit Verdot, text: "A dash of color, spice and violet."}
+    - {icon: drop, title: Malbec, text: "A small part today: now Argentina's star."}
+- id: port-styles
+  title: Port styles
+  steps:
+    - {icon: wineglass, title: Ruby, text: "Young and deep red with black fruit, aged in large vats."}
+    - {icon: calendar, title: Late Bottled Vintage, text: "One year's wine, 4–6 years in wood, ready to drink."}
+    - {icon: star, title: Vintage, text: "Only the best years; bottled young, it ages for decades in bottle."}
+    - {icon: hourglass, title: Tawny, text: "Aged in small casks: amber, nutty, caramel. 10, 20, 30 and 40 years old."}
+- id: lees-ageing
+  title: What time on the lees gives Champagne
+  steps:
+    - {icon: circle.dotted, title: Dead yeast, text: "After the second fermentation the yeast dies and settles in the bottle."}
+    - {icon: arrow.down.forward.and.arrow.up.backward, title: Autolysis, text: "Over months and years the yeast cells break down."}
+    - {icon: birthday.cake, title: Flavors, text: "Bread, brioche, biscuit and toast."}
+    - {icon: bubbles.and.sparkles, title: Texture, text: "A finer, creamier mousse. At least 15 months for non-vintage, 3 years for vintage."}
+- id: families
+  title: Three families of wine
+  steps:
+    - {icon: wineglass, title: Still, text: "No bubbles, about 8–15% alcohol: most of the wine in the world."}
+    - {icon: bubbles.and.sparkles, title: Sparkling, text: "Carbon dioxide trapped in the wine: Champagne, Prosecco, Cava."}
+    - {icon: flame, title: Fortified, text: "Grape spirit added, 15–22% alcohol: Port, Sherry, Madeira."}

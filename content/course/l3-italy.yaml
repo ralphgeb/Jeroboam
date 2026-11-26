@@ -14,6 +14,7 @@ lessons:
           - **Barbera d'Asti** and **Dolcetto d'Alba**: everyday reds.
           - **Moscato d'Asti**: gently sparkling and sweet. **Gavi**: crisp Cortese.
       - learn: Barolo's communes
+        visual: "map:italy:barolo"
         body: |
           Barolo is five main villages, and each speaks differently:
 
@@ -21,10 +22,12 @@ lessons:
           - **Serralunga d'Alba**: older, compact Helvetian soils, the most powerful and structured Barolo, needing 15 years or more.
           - **Castiglione Falletto** and **Monforte d'Alba**: in between, with firm structure and depth.
       - choice: "What is the minimum ageing for Barolo?"
+        visual: "map:italy:barolo"
         options: ["38 months", "12 months", "6 months", "10 years"]
         a: "38 months"
         explain: "Barolo must age at least 38 months, including 18 months in wood. Riserva requires 62 months. Barolo is released later than almost any other red, since Nebbiolo's tannins need time."
       - choice: "Which Piedmont grape is deeply colored with high acidity but low tannin?"
+        visual: "map:italy:piedmont"
         options: [Barbera, Nebbiolo, Dolcetto, Cortese]
         a: Barbera
         explain: "Barbera has deep color, high acidity and low tannin: its juicy acidity and soft tannin make it a perfect food wine. Piedmont's Barbera d'Alba and d'Asti are everyday favorites."
@@ -33,6 +36,7 @@ lessons:
         explain: "Barbaresco, like Barolo, is 100% Nebbiolo, not Sangiovese. It is grown in a smaller, warmer zone near Alba, so it tends to be a little more elegant and earlier-maturing."
         visual: "map:piedmont:barbaresco"
       - blank: "Gavi is a crisp white wine from the ___ grape."
+        visual: "map:italy:piedmont"
         answers: [Cortese]
         options: [Arneis, Garganega, Glera]
         explain: "Gavi is a crisp white made from the Cortese grape: lemon, green apple and almond, a classic with pesto from nearby Liguria. The best Gavi di Gavi is a DOCG."
@@ -55,6 +59,7 @@ lessons:
         a: "A Tuscan wine made outside traditional rules"
         explain: "Starting with Sassicaia and Tignanello in the 1970s, often with Cabernet or Merlot, first released as table wine."
       - tf: "Vino Nobile di Montepulciano is made from the Montepulciano grape."
+        visual: "map:italy:tuscany"
         truth: false
         explain: "Vino Nobile di Montepulciano is Sangiovese from the town of Montepulciano in Tuscany. The Montepulciano grape is grown in Abruzzo, which is a classic exam trap."
       - match: "Match the Tuscan wine to its place"
@@ -98,9 +103,11 @@ lessons:
         a: Aglianico
         explain: "Taurasi, from Campania, is made from Aglianico and is often called the Barolo of the South, high in tannin and acidity. It needs years to soften and can age for decades."
       - tf: "Cannonau, from Sardinia, is the same grape as Grenache."
+        visual: "grape:grenache"
         truth: true
         explain: "Cannonau, from Sardinia, is the same grape as Grenache. Sardinia has a long tradition of the grape, possibly as old as Spain's, and the island has one of the highest numbers of centenarians in the world."
       - choice: "Why are Mount Etna's wines fresher than much of Sicily's?"
+        visual: "map:italy:sicily"
         options: ["High-altitude volcanic slopes", "Northern latitude", "Heavy rainfall", "Machine harvesting"]
         a: "High-altitude volcanic slopes"
         explain: "Mount Etna's vineyards climb above 1,000 m, giving cool nights and elegant wines. The black volcanic soils and old vines of Nerello Mascalese make reds compared to Burgundy."
@@ -139,6 +146,7 @@ lessons:
           - Sicily
         explain: "Italy's twenty regions each have their own grapes and wines: Piedmont for Nebbiolo, Tuscany for Sangiovese, Veneto for Corvina, Campania for Aglianico. Matching them is a core Italian skill."
       - tf: Super Tuscans often include Cabernet Sauvignon or Merlot.
+        visual: "map:italy:bolgheri"
         truth: true
         explain: "International grapes are what made Super Tuscans break the old rules: from the 1970s Cabernet Sauvignon and Merlot were blended outside the DOC rules. The wines were labeled humble vino da tavola, but became icons."
       - choice: Which grape is the backbone of Valpolicella and Amarone?

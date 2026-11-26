@@ -42,8 +42,9 @@ lessons:
           - **Burgenland**: Blaufränkisch, Zweigelt and sweet wines around Lake Neusiedl.
           - **Steiermark**: Sauvignon Blanc.
 
-          **DAC** labels show typical regional styles.
+          **DAC** (*Districtus Austriae Controllatus*) labels show typical regional styles.
       - choice: "In the Wachau, the ripest dry style is called…"
+        visual: "map:austria:wachau"
         options: [Smaragd, Steinfeder, Federspiel, Kabinett]
         a: Smaragd
         explain: "Smaragd, named after an emerald-green lizard that basks on the warm terraces, is the Wachau's ripest dry style. It is full-bodied and often 13% alcohol or more, above Steinfeder and Federspiel."
@@ -52,6 +53,7 @@ lessons:
         explain: "Lake Neusiedl is shallow and warm, and the morning mists from it encourage noble rot. The Burgenland region makes top sweet wines such as Ausbruch and Trockenbeerenauslese."
         visual: "map:austria:neusiedlersee"
       - choice: "Austria's most planted red grape is…"
+        visual: "map:austria"
         options: [Zweigelt, Blaufränkisch, Pinot Noir, Merlot]
         a: Zweigelt
         explain: "Austria's most planted red grape is Zweigelt, a 1922 cross of St. Laurent and Blaufränkisch. It makes juicy, cherry-fruited reds, while Blaufränkisch makes the more serious ones."
@@ -94,7 +96,7 @@ lessons:
   - title: Going further
     cards:
       - learn: German Riesling styles
-        visual: "photo:grape-riesling"
+        visual: "map:germany:mosel,rheingau,pfalz"
         body: 'German Riesling ranges from bone-dry **Grosses Gewächs** to sweet **Beerenauslese** and **Trockenbeerenauslese**. The **Mosel** gives light, delicate, often off-dry wines on steep slate; the **Pfalz** and **Rheingau** give fuller, drier styles.
       
           '
@@ -126,6 +128,7 @@ lessons:
         truth: false
         explain: "Despite trocken in the name, TBA is made from shriveled botrytized berries and is intensely sweet. Trockenbeeren means dried berries, not dry wine, which is a classic trap."
       - choice: In the Wachau, what is 'Smaragd'?
+        visual: "map:austria:wachau"
         options:
         - The ripest, fullest dry category
         - A sweet wine

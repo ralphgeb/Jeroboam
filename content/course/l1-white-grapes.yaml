@@ -22,14 +22,17 @@ lessons:
         visual: "map:france:chablis"
         explain: "Chablis is Burgundy's coolest, northernmost corner. Its Chardonnay is lean and mineral with green apple and lemon, and often unoaked."
       - choice: "Buttery aromas in Chardonnay usually come from…"
+        visual: "grape:chardonnay"
         options: [Malolactic conversion, Cold fermentation, Screwcaps, Cool climate]
         a: Malolactic conversion
         explain: "During malolactic conversion, bacteria turn sharp malic acid into softer lactic acid, creating diacetyl, which smells of butter."
       - blank: "Warm-climate Chardonnay shows riper flavors such as ___ and pineapple."
+        visual: "grape:chardonnay"
         answers: [peach]
         options: [gooseberry, grass, lime]
         explain: "Warmth ripens grapes further, moving Chardonnay from green apple and citrus toward peach, melon and pineapple. Cool places like Chablis give the lean, citrusy end; California and Australia give the tropical end."
       - tf: "Chardonnay is one of the main grapes of Champagne."
+        visual: "grape:chardonnay"
         truth: true
         explain: "Chardonnay is one of three main Champagne grapes, with Pinot Noir and Meunier. Champagne made only from Chardonnay is called Blanc de Blancs: it is typically the lightest, most citrusy and most age-worthy style."
   - title: Sauvignon Blanc
@@ -44,6 +47,7 @@ lessons:
           - **Loire Valley** (Sancerre, Pouilly-Fumé): restrained, flinty and mineral.
           - **Marlborough, New Zealand**: pungent and exuberant, with passion fruit and fresh herbs.
       - choice: "Which aroma is typical of Sauvignon Blanc?"
+        visual: "grape:sauvignon-blanc"
         options: [Gooseberry, Blackcurrant, Banana, Leather]
         a: Gooseberry
         explain: "Gooseberry, grapefruit, grass and green pepper are its signature notes. The green aromas come from compounds called methoxypyrazines."
@@ -53,9 +57,11 @@ lessons:
         visual: "map:france:sancerre"
         explain: "Like most French wines, Sancerre is named after its place, not its grape. White Sancerre is 100% Sauvignon Blanc."
       - tf: "Marlborough Sauvignon Blanc is famous for its intense passion fruit and herbaceous aromas."
+        visual: "grape:sauvignon-blanc"
         truth: true
         explain: "Sunny days ripen the grapes, while cold nights hold their acidity and aromas. That swing gives Marlborough Sauvignon its famous burst of passion fruit and cut grass, with a crisp finish. The style took off in the 1980s and made New Zealand wine famous."
       - blank: "Sauvignon Blanc typically has ___ acidity."
+        visual: "grape:sauvignon-blanc"
         answers: [high]
         options: [low, no, medium-minus]
         explain: "Sauvignon Blanc is high in acidity, which makes your mouth water. That acid cuts through creamy goat cheese and shellfish, so the pairing feels fresh. Sancerre and fresh chèvre come from the same Loire hills, which is no coincidence."
@@ -72,17 +78,21 @@ lessons:
         body: |
           Germany's **Mosel** makes delicate, low-alcohol Rieslings, often off-dry. **Alsace** and Australia's **Clare** and **Eden** valleys make dry, fuller styles.
       - choice: "Which aroma is a classic sign of aged Riesling?"
+        visual: "grape:riesling"
         options: [Petrol, Vanilla, Black pepper, Butter]
         a: Petrol
         explain: "A compound called TDN develops with age and sunlight, giving the distinctive petrol (kerosene) note that Riesling lovers prize."
       - tf: "Riesling is usually aged in new oak to add vanilla flavors."
+        visual: "grape:riesling"
         truth: false
         explain: "Riesling is prized for pure fruit and acidity, so new oak is avoided. Large old casks or stainless steel are typical."
       - choice: "Riesling is the most famous grape of which country?"
+        visual: "grape:riesling"
         options: [Germany, Spain, Argentina, Italy]
         a: Germany
         explain: "Germany, home of Riesling, grows more of it than any other country, especially in the Mosel, Rheingau and Pfalz. Alsace in France and Australia's Clare and Eden valleys are other great sources. Riesling is the most terroir-transparent white grape."
       - blank: "Riesling can be made in every style from bone dry to very ___."
+        visual: "grape:riesling"
         answers: [sweet]
         options: [tannic, oaky, red]
         explain: "Riesling's very high acidity balances even a lot of sugar, so sweet versions taste lively, not cloying. Look for the German scale on the label: Kabinett is lightest, then Spätlese, Auslese, up to Trockenbeerenauslese, which is the sweetest."
@@ -96,23 +106,26 @@ lessons:
           - **Pinot Grigio** (northern Italy): light, crisp, neutral. Lemon, green apple and pear.
           - **Pinot Gris** (Alsace): fuller, richer, with peach, honey and spice, sometimes off-dry.
       - choice: "Italian Pinot Grigio is usually…"
+        visual: "grape:pinot-grigio"
         options: ["Light, crisp and neutral", "Full-bodied and oaky", "Sweet and fortified", "Red and tannic"]
         a: "Light, crisp and neutral"
         explain: "Italian Pinot Grigio is usually picked early from high-yielding vineyards in the Veneto and Friuli, and made to be neutral, light and refreshing. Better versions come from hillside Alto Adige and Friuli, with more body and almond-pear flavor."
       - tf: "Pinot Gris and Pinot Grigio are the same grape variety."
+        visual: "grape:pinot-grigio"
         truth: true
         explain: "Gris (French) and Grigio (Italian) both mean grey, for the grapes' pinkish-grey skins. It is the same grape; the difference is style. Pinot Grigio is light and crisp, while Alsace Pinot Gris is richer and rounder, often with a touch of sweetness."
       - match: "Match the grape to its classic aroma"
         pairs: [[Sauvignon Blanc, Gooseberry], [Riesling, Lime], [Chardonnay, Butter], [Pinot Grigio, Pear]]
         explain: "Gooseberry and grass for Sauvignon, lime and petrol for Riesling, butter when Chardonnay goes through malolactic, and pear and lemon for Pinot Grigio."
       - choice: "Alsace Pinot Gris compared to Italian Pinot Grigio is usually…"
+        visual: "grape:pinot-grigio"
         options: ["Fuller and richer", "Lighter and leaner", "Red", "Sparkling"]
         a: "Fuller and richer"
         explain: "Alsace is one of France's driest and sunniest regions, sheltered by the Vosges mountains, and its lower yields give riper grapes. The result is a fuller, richer, more textured Pinot Gris than a light Italian Pinot Grigio, often with notes of honey and smoke."
   - title: Going further
     cards:
       - learn: Aromatic whites
-        visual: "photo:grape-riesling"
+        visual: "aromas:gewurztraminer"
         body: 'Some white grapes are naturally perfumed: **Muscat** smells of grapes and orange blossom, **Gewürztraminer** of lychee and rose, **Viognier** of apricot and honeysuckle, and **Riesling** of lime and white flowers.
       
       
@@ -136,6 +149,7 @@ lessons:
         a: Gewürztraminer
         explain: "Gewürztraminer is the grape of lychee, rose petals and ginger. Those aromas come from terpenes, the same family of compounds in roses and lychees, which is why it smells so perfumed. Alsace makes the benchmark versions, often with low acidity and a rich, oily texture."
       - tf: Chablis is made from Chardonnay.
+        visual: "grape:chardonnay"
         truth: true
         explain: "Chablis is Chardonnay from the northernmost part of Burgundy. Cool weather and chalky Kimmeridgian soils give a crisp, mineral wine with green apple and lemon, and it is usually unoaked. It is one of the purest expressions of the grape."
       - match: Match the grape to its classic aroma
@@ -150,6 +164,7 @@ lessons:
           - Orange blossom
         explain: "Each grape has a signature: Sauvignon Blanc is grapefruit and cut grass, Riesling is lime and petrol with age, Gewürztraminer is lychee and rose, and Chardonnay is apple, then butter and toast with oak. One signature per grape is the fastest route to blind tasting."
       - choice: Buttery notes in Chardonnay usually come from…
+        visual: "grape:chardonnay"
         options:
         - Malolactic conversion
         - Cold fermentation

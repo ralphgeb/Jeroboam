@@ -2,7 +2,7 @@
   icon: textformat
   cards:
     - learn: Prädikat levels
-      visual: "photo:mosel-slope"
+      visual: "ladder:pradikat"
       body: |
         German quality wine is graded by **grape ripeness at harvest**, not by sweetness in the glass:
 
@@ -10,6 +10,7 @@
 
         Kabinett and Spätlese are often off-dry; **Trocken** on a label means dry.
     - learn: VDP and Grosses Gewächs
+      visual: "ladder:vdp"
       body: |
         The VDP growers' association uses a Burgundy-style pyramid: **Gutswein**, **Ortswein** (village), **Erste Lage** (premier cru) and **Grosse Lage** (grand cru). A dry wine from a Grosse Lage is a **Grosses Gewächs** (GG), shown by "GG" on the bottle.
     - learn: Regions and bottles
@@ -52,10 +53,12 @@
         - **Naoussa**: **Xinomavro**, tannic and tomato-scented, Greece's "Barolo".
         - **Nemea**: soft, fruity **Agiorgitiko**.
     - choice: "What is the richest dry wine category in the Wachau?"
+      visual: "map:austria:wachau"
       options: [Smaragd, Federspiel, Steinfeder, Kabinett]
       a: Smaragd
       explain: "Smaragd, named after the emerald lizard sunning itself on the terraces, is the Wachau's richest dry category. It is full-bodied and often 13% alcohol or more."
     - choice: "Why are Santorini vines trained into baskets?"
+      visual: "map:greece:santorini"
       options: ["To protect grapes from strong winds and sun", "To make picking faster", "To keep goats away", "For decoration"]
       a: "To protect grapes from strong winds and sun"
       explain: "Santorini's strong winds would shred the vines, so they are trained into low baskets called kouloura that shelter the bunches inside the coiled vine. Volcanic ash soil also spared the island from phylloxera."
@@ -89,9 +92,11 @@
       a: A late messenger delayed the harvest and Spätlese was born
       explain: "The overripe, partly botrytized grapes made exceptional wine: the start of Germany's late-harvest tradition."
     - tf: "Tokaj's vineyards were classified in 1730, before Bordeaux's 1855 classification."
+      visual: "map:hungary"
       truth: true
       explain: "Tokaj's vineyards were classified in 1730, well before Bordeaux's 1855 classification. That makes it one of the oldest classifications in the world, and shows how highly its sweet wines were prized."
     - choice: "What did the 1985 scandal lead to in Austria?"
+      visual: "map:austria"
       options: [Very strict wine laws and a focus on quality, A ban on Grüner Veltliner, The end of Austrian wine exports forever, The creation of Tokaji]
       a: Very strict wine laws and a focus on quality
       explain: "After the 1985 glycol scandal, when some producers added antifreeze to make wine seem sweeter, Austria rebuilt its reputation on dry, pure, carefully controlled wines with strict quality laws."

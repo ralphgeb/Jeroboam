@@ -22,6 +22,7 @@
         - **Bierzo**: Mencía, fresh and floral.
         - **Toro** and **Jumilla** (Monastrell): power and sun.
     - choice: "Which Rioja label means at least 5 years of ageing?"
+      visual: "map:spain:rioja"
       options: [Gran Reserva, Reserva, Crianza, Joven]
       a: Gran Reserva
       explain: "Gran Reserva reds age at least five years, two of them in oak. It is made only in the best vintages and usually released after a decade."
@@ -33,6 +34,7 @@
       pairs: [[Rías Baixas, Albariño], [Bierzo, Mencía], [Jumilla, Monastrell], [Ribera del Duero, Tinto Fino]]
       explain: "Spain is far more than Tempranillo: Albariño in Rías Baixas, Garnacha in Priorat, Mencía in Bierzo and Verdejo in Rueda. Each region has a local hero."
     - tf: "Traditional Rioja is often aged in American oak."
+      visual: "map:spain:rioja"
       truth: true
       explain: "Traditional Rioja is aged in American oak, which gives the classic vanilla and coconut notes. Modern producers use more French oak for a more subtle style."
 - title: "Deep dive: Portugal's native treasures"
@@ -56,6 +58,7 @@
         - **Alentejo**: hot plains, ripe reds; some still fermented in clay **talhas**.
         - **Setúbal**: sweet fortified Moscatel.
     - choice: "Which grape is considered Portugal's finest red?"
+      visual: "map:portugal"
       options: [Touriga Nacional, Baga, Castelão, Trincadeira]
       a: Touriga Nacional
       explain: "Touriga Nacional is considered Portugal's finest red, with deep color, violet perfume and structure. It is used in Port and in dry Douro and Dão reds."
@@ -64,6 +67,7 @@
       a: "Clay amphorae used in Alentejo"
       explain: "Talhas are large clay amphorae used to ferment wine in the Alentejo, a Roman-era tradition revived under the Vinho de Talha DOC. The wine is made like ancient wine, with the skins in the pot."
     - tf: "Tinta Roriz is Portugal's name for Tempranillo."
+      visual: "grape:tempranillo"
       truth: true
       explain: "Tinta Roriz is Portugal's name for Tempranillo; it is also called Aragonez in the Alentejo. It is one of the main grapes of Port."
 
@@ -97,5 +101,6 @@
       a: Phylloxera and mildew had ruined their own vineyards
       explain: "In the 1870s phylloxera struck Bordeaux, and French merchants moved to Rioja, bringing barrels and Bordeaux methods. That shaped the oak-aged Rioja style."
     - tf: "The Douro was demarcated in 1756, one of the first protected wine regions."
+      visual: "map:portugal:douro"
       truth: true
       explain: "The Marquis of Pombal mapped the best vineyards and created a company to control quality and stop fraud."

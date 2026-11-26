@@ -15,6 +15,7 @@ lessons:
         body: |
           Napa is cooler in the south (Carneros, near San Pablo Bay) and hotter up-valley toward Calistoga. Famous AVAs include Oakville, Rutherford and Stags Leap District, plus mountain AVAs like Howell Mountain.
       - choice: "Why does Washington's Columbia Valley need irrigation?"
+        visual: "map:pacific-northwest:columbia-valley"
         options: ["It lies in the rain shadow of the Cascades", "It is too cold", "The soils hold too much water", "It is on the coast"]
         a: "It lies in the rain shadow of the Cascades"
         explain: "Eastern Washington is semi-desert, receiving less than 200 mm of rain a year, so vineyards need irrigation. The Columbia river and its tributaries supply water, and the dry climate means little rot or disease."
@@ -42,6 +43,7 @@ lessons:
         body: |
           High-altitude desert at the foot of the Andes. **Mendoza** and the **Uco Valley** for Malbec; **Salta** (Cafayate) for Torrontés at up to 3,000 m.
       - choice: "Why can Argentina make fresh wines despite intense sun?"
+        visual: "map:argentina"
         options: ["Very high altitude and cold nights", "Coastal fog", "High rainfall", "Northern latitude"]
         a: "Very high altitude and cold nights"
         explain: "Altitude gives a big difference between day and night, preserving acidity, and the thin air means strong UV, which builds thick skins and deep color. That is why high-altitude Malbec is so dark and fresh."
@@ -51,6 +53,7 @@ lessons:
         visual: "map:chile:casablanca"
         explain: "Casablanca Valley is known for cool-climate Sauvignon Blanc and Chardonnay. Morning fog from the Pacific keeps it cool, so the wines are fresh and aromatic."
       - tf: "Argentina's vineyards are irrigated with Andean snowmelt."
+        visual: "map:argentina"
         truth: true
         explain: "Argentina's vineyards are irrigated with Andean snowmelt, since rainfall in Mendoza is only about 200 mm a year. Channels built by the Huarpe people centuries ago still feed the vines."
       - match: "Match the region to its signature"
@@ -82,9 +85,11 @@ lessons:
         visual: "map:new-zealand:central-otago"
         explain: "Central Otago is the world's most southerly major wine region. Its continental climate, the only one in New Zealand, makes ripe, intense Pinot Noir, with hot days and very cold nights."
       - tf: "Clare Valley is known for sweet, oaky Riesling."
+        visual: "grape:riesling"
         truth: false
         explain: "Clare and Eden Valley Rieslings are bone dry, lime-scented and unoaked, and age to toast and kerosene. They are not sweet or oaky, which makes the statement false."
       - blank: "Hawke's Bay's Gimblett ___ are stony soils prized for Syrah and Bordeaux blends."
+        visual: "grape:syrah"
         answers: [Gravels]
         options: [Slopes, Clays, Sands]
         explain: "Hawke's Bay's Gimblett Gravels are former riverbed stones that drain well and store heat. They are prized for Syrah and Bordeaux blends, and a protected zone grows only on these stones."
@@ -123,11 +128,12 @@ lessons:
       
           '
       - learn: Signature styles
-        visual: "photo:grape-malbec"
+        visual: "diagram:wine-belt"
         body: '**Marlborough Sauvignon Blanc**: passion fruit and cut grass. **Barossa Shiraz**: rich black fruit and chocolate. **Mendoza Malbec**: plum and violet. **Napa Cabernet**: ripe cassis and polished tannin. **Stellenbosch Chenin**: ripe stone fruit and honey.
       
           '
       - choice: Which region makes intense, passion-fruit Sauvignon Blanc?
+        visual: "grape:sauvignon-blanc"
         options:
         - Marlborough
         - Barossa Valley
@@ -147,9 +153,11 @@ lessons:
           - Cabernet Sauvignon
         explain: "Each region built its fame on one grape: Marlborough for Sauvignon Blanc, Barossa for Shiraz, Mendoza for Malbec, Stellenbosch for Cabernet. Matching them helps in blind tasting."
       - tf: Chile's Casablanca Valley is cooled by the Pacific Ocean.
+        visual: "map:chile"
         truth: true
         explain: "Chile's Casablanca Valley is cooled by the Pacific Ocean. Morning fog and sea breezes make Casablanca ideal for Sauvignon Blanc and Chardonnay, and it was planted from the 1980s."
       - choice: Why are Mendoza's vineyards good for Malbec despite the desert?
+        visual: "map:argentina:mendoza"
         options:
         - High altitude and snowmelt irrigation
         - Constant rain

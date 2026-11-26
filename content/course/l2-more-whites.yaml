@@ -18,13 +18,16 @@ lessons:
         visual: "map:france:vouvray"
         explain: "Vouvray, near Tours, makes Chenin Blanc from dry (sec) to sweet (moelleux), plus sparkling. Chenin's high acidity keeps even sweet versions fresh, and they can age for decades, with notes of quince, honey and wet wool."
       - choice: "Which country has the most Chenin Blanc vineyards?"
+        visual: "grape:chenin-blanc"
         options: [South Africa, France, Argentina, Germany]
         a: South Africa
         explain: "Chenin Blanc (also called Steen) is South Africa's most planted grape, with more vineyards there than in its native Loire. Old bush vines make some of the Cape's best and best-value whites."
       - tf: "Sémillon is the main grape of sweet Sauternes."
+        visual: "grape:semillon"
         truth: true
         explain: "Sémillon is the main grape of sweet Sauternes, where its thin skins are susceptible to Botrytis cinerea, noble rot, which concentrates the sugar. The fog from the Ciron river encourages it on autumn mornings."
       - blank: "Hunter Valley Sémillon is light when young but ages to flavors of ___ and honey."
+        visual: "grape:semillon"
         answers: [toast]
         options: [strawberry, pepper, banana]
         explain: "Hunter Valley Sémillon is light, low in alcohol and lemony when young, yet ages to flavors of toast and honey after a decade, even though it sees no oak. It is a favorite of connoisseurs."
@@ -50,6 +53,7 @@ lessons:
         visual: "map:france:condrieu"
         explain: "Condrieu is Viognier's spiritual home in the Northern Rhône: apricot, peach and blossom with a rich, silky texture and low acidity. The steep granite terraces are tiny, so the wine is rare and expensive."
       - tf: "Gewürztraminer typically has high acidity."
+        visual: "grape:gewurztraminer"
         truth: false
         explain: "Gewürztraminer is notably low in acidity, with a rich, almost oily texture. That is why it can taste heavy, and why it works best with spicy or rich food that needs a full, aromatic wine."
       - match: "Match the aromatic grape to its classic note"
@@ -61,9 +65,10 @@ lessons:
         visual: "map:spain:rias-baixas"
         body: |
           - **Albariño** (Rías Baixas, Spain): peach, grapefruit and a salty, sea-breeze tang.
-          - **Grüner Veltliner** (Austria): green apple, citrus and white pepper.
+          - **Grüner Veltliner** (Austria): green apple, citrus and white pepper; at its best in the **Wachau**, on steep terraces above the **Danube**.
           - **Melon de Bourgogne** (Muscadet): light, lemony and briny, often aged sur lie.
       - choice: "Which grape is famous in Spain's Rías Baixas?"
+        visual: "map:spain:rias-baixas"
         options: [Albariño, Verdejo, Tempranillo, Palomino]
         a: Albariño
         explain: "On Galicia's cool, rainy Atlantic coast, Albariño makes fresh, saline whites with peach and citrus, perfect for seafood. The vines are trained high on pergolas to keep them dry from the damp."
@@ -72,10 +77,12 @@ lessons:
         a: Grüner Veltliner
         explain: "Austria's signature grape, Grüner Veltliner, combines green fruit with a peppery twist: white pepper, green apple and lentil notes. The pepper comes from rotundone, also found in black pepper."
       - blank: "Muscadet is often aged ___ lie, on its lees, for extra texture."
+        visual: "grape:melon"
         answers: [sur]
         options: [sous, vin, cru]
         explain: "'Sur lie' means on the lees. The wine is bottled straight off them, keeping freshness and a light yeasty note."
       - tf: "Albariño is the same grape as Portugal's Alvarinho."
+        visual: "grape:albarino"
         truth: true
         explain: "Albariño is the same grape as Portugal's Alvarinho. Across the border it makes the finest Vinho Verde in Monção and Melgaço, riper and fuller than the light, slightly sparkling regional wine."
       - choice: "The Wachau, famous for Grüner Veltliner and Riesling, lies along which river?"
@@ -86,7 +93,7 @@ lessons:
   - title: Going further
     cards:
       - learn: Grapes of the Atlantic
-        visual: "photo:grape-sauvignon"
+        visual: "map:spain:rias-baixas"
         body: 'Cool, damp Atlantic coasts favor fresh, salty whites: **Albariño** in Rías Baixas (Spain), **Alvarinho** in Vinho Verde (Portugal) and **Melon de Bourgogne** in Muscadet (France).
       
       
@@ -99,6 +106,7 @@ lessons:
       
           '
       - choice: Albariño and Alvarinho are…
+        visual: "grape:albarino"
         options:
         - The same grape in Spain and Portugal
         - Two unrelated grapes
@@ -118,9 +126,11 @@ lessons:
           - Argentina
         explain: "Each of these whites is closely tied to one place: Albariño to Galicia, Grüner Veltliner to Austria, Assyrtiko to Santorini and Melon de Bourgogne to the Loire's Muscadet. Knowing the homelands helps a lot with blind tasting."
       - tf: Grüner Veltliner often shows white pepper notes.
+        visual: "grape:gruner-veltliner"
         truth: true
         explain: "White pepper, green apple and lentil-like notes are typical of Austrian Grüner Veltliner. It is crisp but with some weight, which is why it is a favorite with Vienna's schnitzel."
       - choice: Which white grape keeps high acidity even on hot, volcanic Santorini?
+        visual: "map:greece:santorini"
         options:
         - Assyrtiko
         - Viognier
@@ -129,6 +139,7 @@ lessons:
         a: Assyrtiko
         explain: "Assyrtiko is famous for keeping its fresh acidity in a hot climate, even on volcanic Santorini. The vines grow in low baskets (kouloura) to protect them from the wind, and the ash soil spared them from phylloxera."
       - blank: Muscadet is made from the ___ grape.
+        visual: "map:france:muscadet"
         answers:
         - Melon de Bourgogne
         options:

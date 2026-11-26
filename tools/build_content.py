@@ -36,6 +36,7 @@ flows = load("flows.yaml")
 sat = load("sat.yaml")
 pairings = load("pairings.yaml")
 labels = load("labels.yaml")
+ladders = load("ladders.yaml") or []
 
 # ---- five levels. The grapes, regions and terms were written for three; they are spread over five here.
 def _relevel():
@@ -139,6 +140,8 @@ def check_visual(v, where):
         if arg not in photo_ids: warn(f"{where}: photo {arg} not downloaded yet (hidden)"); return "drop"
     elif kind == "label":
         if arg not in lids: err(f"{where}: unknown label {arg}")
+    elif kind == "ladder":
+        if arg not in {l["id"] for l in ladders}: err(f"{where}: unknown ladder {arg}")
     else:
         err(f"{where}: unknown visual kind {kind}")
 
@@ -513,7 +516,7 @@ for gw in great:
     if "bw-" + gw["id"] in photo_ids: gw["bottle"] = "bw-" + gw["id"]
     if gw.get("bottle") and gw["id"] in LABEL_POS: gw["labelY"] = LABEL_POS[gw["id"]]
 library = {"great": great, "facts": facts, "wines": wines, "grapes": grapes, "regions": regions, "aromas": aromas, "colors": colors, "glossary": glossary,
-           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels}
+           "styles": styles, "flows": flows, "sat": sat, "pairings": pairings, "labels": labels, "ladders": ladders}
 
 _known = set(rids)
 for _m in maps.values(): _known |= _m

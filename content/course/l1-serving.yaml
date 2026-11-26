@@ -19,6 +19,7 @@ lessons:
         a: "6–10 °C"
         explain: "Sparkling wine is served well chilled, about 6–10 °C. Cold keeps carbon dioxide dissolved, so the bubbles stay fine and lively and the wine tastes refreshing. Too warm and it foams over and tastes flabby; too cold and the aromas go silent."
       - tf: "Light reds like Beaujolais can be served slightly chilled."
+        visual: "map:france:beaujolais"
         truth: true
         explain: "Light reds like Beaujolais (Gamay) have low tannin and juicy acidity, so around 13 °C brings out their fresh fruit. A slight chill stops the alcohol from tasting hot and makes them more refreshing."
       - choice: "Serving a full-bodied red too cold will…"
@@ -26,6 +27,7 @@ lessons:
         a: "Make tannins taste harsher"
         explain: "Cold emphasizes tannin and bitterness and mutes the aromas, so a full-bodied red tastes harsh and closed. Serve fuller reds at 15–18 °C: cooler than a warm room, which makes alcohol burn."
       - blank: "Full-bodied whites such as oaked Chardonnay are best ___ chilled."
+        visual: "grape:chardonnay"
         answers: [lightly]
         options: [heavily, never, deeply]
         explain: "At 10–13 °C, richer whites such as oaked Chardonnay show their aromas and creamy texture. Straight from a very cold fridge, they taste thin and dull; a cool cellar temperature is better."
@@ -40,6 +42,7 @@ lessons:
 
           Fill only to the widest part of the bowl, or less, so there is room to swirl.
       - learn: Opening sparkling wine safely
+        visual: "flow:open-sparkling"
         body: |
           The pressure in a Champagne bottle is about 5–6 atmospheres, roughly three times a car tire.
 
@@ -67,6 +70,7 @@ lessons:
           - **On its side** for corked bottles, so the cork stays moist.
           - Once open, re-seal and refrigerate. Most wines last 1–3 days; fortified wines last longer.
       - learn: Common faults
+        visual: "flow:faults"
         body: |
           - **Cork taint (TCA)**: musty, damp cardboard, muted fruit.
           - **Oxidation**: brownish color, bruised apple, flat.

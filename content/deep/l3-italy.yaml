@@ -8,7 +8,7 @@
 
         **Barolo**: at least 38 months of ageing (18 in wood), 62 months for Riserva. **Barbaresco**: at least 26 months. Single vineyards are labeled as **MGA** (*menzioni geografiche aggiuntive*), like Cannubi or Rabajà.
     - learn: Traditionalists vs modernists
-      visual: "photo:barrel-cellar"
+      visual: "flow:oak"
       body: |
         In the 1980s–90s the "Barolo wars" split producers: **traditionalists** used long macerations and big old casks (*botti*); **modernists** used short macerations and new French *barriques* for softer, oakier wines.
 
@@ -23,20 +23,24 @@
         - **Vino Nobile di Montepulciano**: the town, not the grape.
         - **Super Tuscans**: Bordeaux varieties on the coast at **Bolgheri** (Sassicaia, Ornellaia), first sold as humble *vino da tavola*.
     - learn: The Italian pyramid
+      visual: "ladder:italy"
       body: |
         - **DOCG**: the top, with a numbered neck strip (Barolo, Brunello, Chianti Classico…).
         - **DOC**: controlled origin.
         - **IGT**: regional wine with freer rules: where many Super Tuscans began.
         - **Vino**: table wine.
     - choice: "Which grape makes Barolo and Barbaresco?"
+      visual: "map:italy:barolo"
       options: [Nebbiolo, Sangiovese, Barbera, Dolcetto]
       a: Nebbiolo
       explain: "Nebbiolo makes Barolo and Barbaresco. The name probably comes from nebbia, the fog of harvest time, and the grape ripens very late."
     - choice: "What symbol marks Chianti Classico?"
+      visual: "map:italy:chianti-classico"
       options: ["A black rooster", "A white horse", "A golden lion", "A papal key"]
       a: "A black rooster"
       explain: "The gallo nero, the black rooster, has been the emblem of the Chianti Classico consortium for nearly a century. Look for it on the neck of the bottle."
     - tf: "Vino Nobile di Montepulciano is made from the Montepulciano grape."
+      visual: "map:italy:tuscany"
       truth: false
       explain: "Vino Nobile is Sangiovese from the Tuscan town of Montepulciano, not the Montepulciano grape, which grows in Abruzzo. It is a classic exam trap."
     - match: "Match the Italian wine to its grape"
@@ -52,7 +56,7 @@
 
         **Ripasso** re-passes young Valpolicella over Amarone skins for extra body.
     - learn: The South awakens
-      visual: "photo:grape-grenache"
+      visual: "map:italy:campania,puglia,sicily"
       body: |
         - **Campania**: **Aglianico** in Taurasi (the "Barolo of the South"), whites **Fiano di Avellino** and **Greco di Tufo**.
         - **Puglia**: rich **Primitivo** (Zinfandel) and **Negroamaro**.
@@ -63,10 +67,12 @@
       a: "About 100 days"
       explain: "Grapes for Amarone are dried for about three to four months, which concentrates sugar and flavor. The wine is then fermented to dryness, giving a powerful 15–16% wine."
     - choice: "Primitivo from Puglia is genetically the same as…"
+      visual: "map:italy:puglia"
       options: [Zinfandel, Merlot, Syrah, Tempranillo]
       a: Zinfandel
       explain: "Primitivo from Puglia is genetically the same as Zinfandel. Both trace back to the Croatian grape Crljenak Kaštelanski (Tribidrag)."
     - tf: "Cannonau, Sardinia's main red grape, is Grenache."
+      visual: "grape:grenache"
       truth: true
       explain: "Cannonau, Sardinia's main red grape, is Grenache (Garnacha). Sardinians claim it as their own, and DNA shows it is the same variety."
 
@@ -86,6 +92,7 @@
 
         Twentieth-century rules forced in too much white grape and too-high yields. Quality fell, until rebels broke away.
     - learn: The Super Tuscan revolt
+      visual: "map:italy:bolgheri"
       body: |
         In **1968** the Marchese Incisa della Rocchetta released **Sassicaia**, a Cabernet from the coast at **Bolgheri**, as a humble *vino da tavola*: the rules had no place for it. **Tignanello** (Antinori, 1971) and others followed, blending Sangiovese with Cabernet and aging in French barrels.
 
@@ -97,6 +104,7 @@
 
         Barolo became "the wine of kings and the king of wines", favored by the House of Savoy, Italy's royal family.
     - choice: "Who drew Chianti's borders in 1716?"
+      visual: "map:italy:chianti-classico"
       options: [Cosimo III de' Medici, Baron Ricasoli, Count Cavour, Napoleon]
       a: Cosimo III de' Medici
       explain: "His decree defined Chianti, Carmignano, Pomino and Valdarno: one of the first legally defined wine regions."
@@ -105,5 +113,6 @@
       a: Its Cabernet blend didn't fit any DOC rules
       explain: "Tuscany's rules had no place for Cabernet from the coast; the law later created IGT and the Bolgheri DOC."
     - tf: "Barolo used to be made sweet and slightly fizzy before the mid-1800s."
+      visual: "map:italy:barolo"
       truth: true
       explain: "Cold autumns stopped fermentation; the Marchesa Falletti and Count Cavour brought in a French winemaker to make it dry."

@@ -2,13 +2,13 @@
   icon: slider.horizontal.3
   cards:
     - learn: "Yeast: wild or cultured"
-      visual: "photo:fermentation-tank"
+      visual: "photo:yeast-cells"
       body: |
         **Ambient** (wild) yeasts from the vineyard and cellar give complexity but can stall or make off-flavors. **Cultured** yeasts are reliable and can be chosen for aroma, speed or tolerance to alcohol.
 
         Many top estates start with wild yeast and keep a cultured strain in reserve.
     - learn: Temperature and time
-      visual: "photo:winery-tanks"
+      visual: "photo:ferment-cooling"
       body: |
         - **Cool** (12–16 °C) whites keep fruity esters: think Sauvignon Blanc and Riesling.
         - **Warm** (25–32 °C) reds extract color and tannin quickly.

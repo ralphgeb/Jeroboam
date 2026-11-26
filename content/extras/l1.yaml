@@ -59,6 +59,7 @@ l1-tasting:
     explain: "Alcohol feels warm. Wines above about 14% can feel hot if fruit and acidity do not balance them, which is common in wines from hot regions such as Barossa or Priorat."
 l1-white-grapes:
   - learn: Aromatic whites
+    visual: "aromas:gewurztraminer"
     body: |
       Some white grapes are naturally perfumed: **Muscat** smells of grapes and orange blossom, **Gewürztraminer** of lychee and rose, **Viognier** of apricot and honeysuckle, and **Riesling** of lime and white flowers.
 
@@ -73,12 +74,14 @@ l1-white-grapes:
     a: Gewürztraminer
     explain: "Lychee, rose and ginger are the classic Gewürztraminer signature, especially from Alsace. They come from terpenes, the same aromatic family as in roses and lychees, which is why it smells so perfumed."
   - tf: "Chablis is made from Chardonnay."
+    visual: "grape:chardonnay"
     truth: true
     explain: "Chablis, in northern Burgundy, is crisp, mineral, usually unoaked Chardonnay grown on ancient limestone full of fossil oyster shells. Many people use it as a benchmark for what unoaked Chardonnay tastes like."
   - match: "Match the grape to its classic aroma"
     pairs: [[Sauvignon Blanc, Gooseberry], [Riesling, Lime], [Viognier, Apricot], [Muscat, Orange blossom]]
     explain: "Knowing one signature aroma per grape is a great way to start identifying them: Sauvignon Blanc is grapefruit and cut grass, Riesling is lime and petrol with age, Cabernet is blackcurrant, Pinot Noir is red cherry."
   - choice: "Buttery notes in Chardonnay usually come from…"
+    visual: "grape:chardonnay"
     options: ["Malolactic conversion", "Cold fermentation", "Botrytis", "Carbonic maceration"]
     a: "Malolactic conversion"
     explain: "Buttery notes come from malolactic conversion, in which bacteria turn sharp malic acid into softer lactic acid and create diacetyl, the compound that smells of butter. Winemakers can allow it fully, partly or not at all."
@@ -88,6 +91,7 @@ l1-white-grapes:
     explain: "Aged Riesling often develops a petrol or kerosene note from a compound called TDN that forms in bottle. Many Riesling lovers prize it as a mark of maturity."
 l1-black-grapes:
   - learn: Thin skins, thick skins
+    visual: "diagram:grape-anatomy"
     body: |
       Skin thickness explains a lot. Thin-skinned grapes like **Pinot Noir** and **Gamay** make pale, light, low-tannin reds. Thick-skinned grapes like **Cabernet Sauvignon**, **Syrah** and **Malbec** give deep color and firm tannin.
 
@@ -105,6 +109,7 @@ l1-black-grapes:
     pairs: [[Malbec, Mendoza], [Syrah, Northern Rhône], [Nebbiolo, Barolo], [Tempranillo, Rioja]]
     explain: "Each of these places made its grape famous: Tempranillo in Rioja, Sangiovese in Tuscany, Malbec in Mendoza, Nebbiolo in Piedmont. Matching a grape to its home is a core step toward guessing a wine blind."
   - tf: "GSM stands for Grenache, Syrah and Mourvèdre."
+    visual: "grape:syrah"
     truth: true
     explain: "GSM is Grenache, Syrah and Mourvèdre: the classic southern Rhône blend, also popular in Australia. Grenache gives fruit and warmth, Syrah color and spice, and Mourvèdre structure and a meaty edge."
   - choice: "Which grape is known for black pepper aromas?"
@@ -147,11 +152,13 @@ l1-world:
     explain: "Europe's regions are the Old World. The Old World versus New World split is shorthand for tradition-led versus fruit-led winemaking: Old World wines are typically more savory and structured, the New World riper and fruitier."
 l1-food:
   - learn: Sweetness and spice
+    visual: "diagram:sweetness"
     body: |
       **Sweet food** makes dry wine taste thin and sour, so pick a wine at least as sweet as the dish.
 
       **Spicy heat** is made hotter by alcohol and tannin. Off-dry, low-alcohol whites like Riesling cool things down.
   - learn: Match the weight
+    visual: "flow:body"
     body: |
       Pair light with light and rich with rich. A delicate fish needs a light white; a braised beef stew wants a full-bodied red.
 

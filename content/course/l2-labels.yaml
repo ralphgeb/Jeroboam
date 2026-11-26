@@ -13,10 +13,12 @@ lessons:
         pairs: [[Chablis, Chardonnay], [Sancerre, Sauvignon Blanc], [Barolo, Nebbiolo], [Rioja, Tempranillo]]
         explain: "Learning these translations unlocks most European wine lists: Chablis is Chardonnay, Chianti is Sangiovese, Sancerre is Sauvignon Blanc and Rioja is mostly Tempranillo. Old World labels name the place, and the grape is implied."
       - choice: "Red Burgundy is made from…"
+        visual: "map:france:burgundy"
         options: [Pinot Noir, Gamay, Merlot, Syrah]
         a: Pinot Noir
         explain: "Red Burgundy is Pinot Noir and white Burgundy is Chardonnay. Burgundy labels name the place, so you have to know which grape belongs to it, with Gamay in Beaujolais as the best-known exception."
       - tf: "In the USA, a wine labeled 'Merlot' must contain at least 75% Merlot."
+        visual: "grape:merlot"
         truth: true
         explain: "US law requires at least 75% of the named variety, while the EU usually requires 85%. That means a US Merlot can include up to a quarter of other grapes, often Cabernet, to add structure."
       - choice: "Which country is considered New World?"
@@ -26,12 +28,14 @@ lessons:
   - title: Quality categories
     cards:
       - learn: The EU system
+        visual: "ladder:eu-quality"
         body: |
           European wine law has two main tiers:
 
-          - **PDO** (Protected Designation of Origin): strict rules on area, grapes, yields and methods. *AOC/AOP* in France, *DOC/DOCG* in Italy, *DO/DOCa* in Spain.
+          - **PDO** (Protected Designation of Origin): strict rules on area, grapes, yields and methods. *AOC/AOP* in France, *DOC/DOCG* in Italy, *DO/DOCa* in Spain (DOCa, written **DOQ** in Catalan, is the top tier: only Rioja and Priorat).
           - **PGI** (Protected Geographical Indication): a wider area and more flexibility. *IGP / Vin de Pays*, *IGT*, *Vino de la Tierra*.
       - choice: "Which is Italy's highest wine category?"
+        visual: "map:italy"
         options: [DOCG, IGT, Vino, DO]
         a: DOCG
         explain: "DOCG (Denominazione di Origine Controllata e Garantita) is above DOC and IGT. The guarantee is a tasting panel and a government seal on the bottle neck, as with Barolo, Brunello and Chianti Classico."
@@ -42,6 +46,7 @@ lessons:
         pairs: [[AOC, France], [DOCG, Italy], [DOCa, Spain]]
         explain: "Each country has its own names for the EU PDO category: AOC in France, DOC and DOCG in Italy, DO and DOCa in Spain, and DOP in Portugal and Greece. They all mean a protected place with set rules."
       - blank: "In Spain, Rioja and Priorat hold the top category, DOCa, also written ___ in Catalan."
+        visual: "map:spain"
         answers: [DOQ]
         options: [AOC, IGT, PDO]
         explain: "Priorat uses the Catalan form, Denominació d'Origen Qualificada (DOQ), while Rioja uses DOCa in Spanish. They are the only two Spanish regions at the top level, which says a lot about how special they are."
@@ -74,10 +79,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Quality pyramids
+        visual: "ladder:italy"
         body: 'Most EU countries rank wines in a pyramid: **PDO** wines from tightly defined places with strict rules (AOC, DOC, DOCG, DO), **PGI** wines from wider areas with more freedom (IGP, IGT, Vino de la Tierra) and simple **wine** without a place.
       
           '
       - learn: Ageing terms
+        visual: "ladder:rioja-ageing"
         body: 'Spanish and Italian labels often show ageing: **Crianza**, **Reserva** and **Gran Reserva** in Spain; **Riserva** in Italy. Each means a longer minimum time in barrel and bottle before release.
       
           '
@@ -112,6 +119,7 @@ lessons:
         a: Longer ageing before release
         explain: "Riserva wines meet a longer minimum aging period set by each DOC or DOCG. For Chianti Classico it is 24 months, and for Barolo Riserva it is 62 months, so each region sets its own bar."
       - blank: In Germany, a dry Prädikatswein is labeled ___.
+        visual: "map:germany"
         answers:
         - trocken
         options:

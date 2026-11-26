@@ -8,7 +8,7 @@
 
         Some winemakers keep **whole bunches** (stems and all) for a fresher, spicier, more aromatic red: common in Burgundy and northern Rhône.
     - learn: Fermentation on the skins
-      visual: "photo:fermentation-tank"
+      visual: "photo:punch-down"
       body: |
         Red wine ferments **with the skins**, at about **20–32 °C**, warmer than whites. Heat and alcohol pull color, tannin and flavor out of the skins.
 
@@ -16,7 +16,7 @@
         - **Pump-over** (remontage): juice from the bottom is sprayed over the cap.
         - **Punch-down** (pigeage): the cap is pushed down by hand or machine.
     - learn: Extraction and pressing
-      visual: "photo:punch-down"
+      visual: "flow:red-making"
       body: |
         After fermentation the wine may sit on the skins for days or weeks (**post-fermentation maceration**) to soften and build tannin.
 
@@ -63,7 +63,7 @@
 
         Fermentation is cool, about **12–22 °C**, to keep delicate fruit and floral aromas. Many aromatic whites stay in stainless steel; rich Chardonnay may ferment in barrel.
     - learn: Lees and bâtonnage
-      visual: "photo:barrel-cellar"
+      visual: "photo:batonnage"
       body: |
         After fermentation, dead yeast cells, the **lees**, settle out. Leaving wine on fine lees adds texture and bready, nutty notes. Stirring them up is **bâtonnage**.
 

@@ -60,6 +60,7 @@ l2-winery:
     explain: "After fermentation, red wine is separated from the skins by pressing. The free-run wine drains first, and the darker, more tannic press wine can be blended back in for structure."
 l2-more-whites:
   - learn: Grapes of the Atlantic
+    visual: "map:spain:rias-baixas"
     body: |
       Cool, damp Atlantic coasts favor fresh, salty whites: **Albariño** in Rías Baixas (Spain), **Alvarinho** in Vinho Verde (Portugal) and **Melon de Bourgogne** in Muscadet (France).
 
@@ -68,6 +69,7 @@ l2-more-whites:
     body: |
       **Viognier**, **Marsanne** and **Roussanne** make rich, textured whites in the Rhône. Around the Mediterranean, **Vermentino** gives herbal, saline whites, and **Assyrtiko** from Santorini combines ripeness with striking acidity.
   - choice: "Albariño and Alvarinho are…"
+    visual: "grape:albarino"
     options: ["The same grape in Spain and Portugal", "Two unrelated grapes", "A grape and a region", "Sweet wine styles"]
     a: "The same grape in Spain and Portugal"
     explain: "It is called Albariño in Rías Baixas and Alvarinho in Vinho Verde: the same grape on two sides of the Minho river. The Spanish side is usually a little richer and more textured."
@@ -75,13 +77,16 @@ l2-more-whites:
     pairs: [[Assyrtiko, Santorini], [Grüner Veltliner, Austria], [Melon de Bourgogne, Muscadet], [Torrontés, Argentina]]
     explain: "Each of these whites is closely tied to one place: Albariño to Galicia, Grüner Veltliner to Austria, Assyrtiko to Santorini and Melon de Bourgogne to Muscadet."
   - tf: "Grüner Veltliner often shows white pepper notes."
+    visual: "grape:gruner-veltliner"
     truth: true
     explain: "White pepper, green apple and lentil notes are typical of Austrian Grüner Veltliner. The pepper comes from rotundone, the same compound as in black pepper, so Grüner is the white wine that smells like a pepper mill."
   - choice: "Which white grape keeps high acidity even on hot, volcanic Santorini?"
+    visual: "map:greece:santorini"
     options: [Assyrtiko, Viognier, Chardonnay, Muscat]
     a: Assyrtiko
     explain: "Assyrtiko keeps its fresh acidity in a hot climate, even on volcanic Santorini. The vines are trained into low baskets (kouloura) to protect them from wind, and the ash soil spared them from phylloxera."
   - blank: "Muscadet is made from the ___ grape."
+    visual: "map:france:muscadet"
     answers: ["Melon de Bourgogne"]
     options: [Chenin Blanc, Sauvignon Blanc, Chardonnay]
     explain: "Muscadet, near the mouth of the Loire, is made from Melon de Bourgogne. Wines labeled sur lie are aged on their lees for a creamier texture, and it is the classic partner of oysters."
@@ -95,10 +100,12 @@ l2-more-reds:
     body: |
       **Tempranillo** leads Rioja and Ribera del Duero, often aged in oak for vanilla and leather notes. **Touriga Nacional** is Portugal's star for Port and dry Douro reds, with violet and black fruit.
   - choice: "Which grape makes Barolo?"
+    visual: "map:italy:barolo"
     options: [Nebbiolo, Sangiovese, Barbera, Dolcetto]
     a: Nebbiolo
     explain: "Barolo and Barbaresco are 100% Nebbiolo, from Piedmont. Barolo is the more powerful, Barbaresco the more elegant, and both age for decades."
   - tf: "Nebbiolo wines are usually deep, inky purple."
+    visual: "grape:nebbiolo"
     truth: false
     explain: "Nebbiolo is surprisingly pale, often garnet, despite huge tannin and acidity. It shows why you can not judge a red's structure by its color alone."
   - match: "Match the wine to its main grape"
@@ -109,6 +116,7 @@ l2-more-reds:
     a: Nebbiolo
     explain: "Rose petal and tar (or liquorice) are Nebbiolo's signature aromas, found in Barolo and Barbaresco. Brick-orange edges and a gripping tannic finish complete the picture."
   - blank: "Brunello di Montalcino is made from ___."
+    visual: "map:italy:montalcino"
     answers: [Sangiovese]
     options: [Nebbiolo, Merlot, Montepulciano]
     explain: "Brunello is the local name for the Sangiovese clone grown around Montalcino in Tuscany. The wine must age five years before release, two of them in oak."
@@ -120,6 +128,7 @@ l2-sparkling:
 
       **Tank method**: second fermentation in a sealed tank for fresh, fruity wines (Prosecco).
   - learn: How sweet is Brut?
+    visual: "ladder:sparkling-sweetness"
     body: |
       Sparkling sweetness runs from **Brut Nature** (no added sugar) through **Extra Brut** and **Brut** (the most common, dry) to **Extra Dry**, **Dry**, **Demi-Sec** and **Doux** (sweet).
 
@@ -135,6 +144,7 @@ l2-sparkling:
     pairs: [[Champagne, France], [Cava, Spain], [Prosecco, Italy], [Sekt, Germany]]
     explain: "Most wine countries have a sparkling tradition: Champagne in France, Cava in Spain, Prosecco and Franciacorta in Italy, Sekt in Germany and Cap Classique in South Africa."
   - choice: "Where does Champagne's toasty, bready character come from?"
+    visual: "map:france:champagne"
     options: ["Ageing on the lees", "New oak barrels", "Adding toast to the tank", "Very ripe grapes"]
     a: "Ageing on the lees"
     explain: "Dead yeast cells break down over months or years of aging, a process called autolysis, giving brioche and biscuit notes. The longer on the lees, the toastier and creamier the wine."
@@ -173,9 +183,11 @@ l2-sweet-fortified:
     explain: "Botrytis cinerea, the noble rot, shrivels grapes in the right conditions (damp mornings, sunny afternoons) and concentrates sugar and acid. In wet weather the same fungus becomes grey rot and ruins the crop."
 l2-labels:
   - learn: Quality pyramids
+    visual: "ladder:italy"
     body: |
       Most EU countries rank wines in a pyramid: **PDO** wines from tightly defined places with strict rules (AOC, DOC, DOCG, DO), **PGI** wines from wider areas with more freedom (IGP, IGT, Vino de la Tierra) and simple **wine** without a place.
   - learn: Ageing terms
+    visual: "ladder:rioja-ageing"
     body: |
       Spanish and Italian labels often show ageing: **Crianza**, **Reserva** and **Gran Reserva** in Spain; **Riserva** in Italy. Each means a longer minimum time in barrel and bottle before release.
   - choice: "Which Spanish term means the longest minimum ageing?"
@@ -193,6 +205,7 @@ l2-labels:
     a: "Longer ageing before release"
     explain: "Riserva wines meet a longer minimum aging period set by each DOC or DOCG. For Chianti Classico it is 24 months, and for Barolo Riserva 62 months."
   - blank: "In Germany, a dry Prädikatswein is labeled ___."
+    visual: "map:germany"
     answers: [trocken]
     options: [süss, Spätlese, Eiswein]
     explain: "Trocken means dry; Spätlese and Auslese describe ripeness at harvest, not sweetness. A Prädikat wine can be dry, off-dry or sweet at any ripeness level, so look for Trocken."
@@ -204,6 +217,7 @@ l2-label-decoder:
     body: |
       Burgundy labels climb a ladder: **Bourgogne** (regional), **village** (e.g. Gevrey-Chambertin), **Premier Cru** (a named vineyard plus the village) and **Grand Cru** (the vineyard name alone, e.g. Chambertin).
   - choice: "On a Burgundy label, which level shows only the vineyard name?"
+    visual: "map:france:burgundy"
     options: [Grand Cru, Premier Cru, Village, Regional]
     a: Grand Cru
     explain: "Grand Crus are so famous they stand alone on the label: Montrachet, Chambertin, Romanée-Conti. A Premier Cru shows the village plus the vineyard, and a village wine only the village."
@@ -214,10 +228,12 @@ l2-label-decoder:
     truth: true
     explain: "Estate bottling shows that the same property grew the grapes and bottled the wine, so control of quality runs from vine to bottle, a mark of fine estates in Bordeaux."
   - choice: "In Germany, which word tells you about ripeness at harvest?"
+    visual: "map:germany"
     options: [Spätlese, Weingut, Trocken, Gutsabfüllung]
     a: Spätlese
     explain: "Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness at harvest, not the sweetness of the finished wine. Ripeness rises from Kabinett to Spätlese to Auslese, then Beerenauslese and Trockenbeerenauslese."
   - blank: "In Rioja, a wine aged at least two years, one in oak, is labeled ___."
+    visual: "map:spain:rioja"
     answers: [Crianza]
     options: [Joven, Gran Reserva, Cosecha]
     explain: "A red Rioja Crianza spends at least two years aging, with at least one in oak. Reserva needs three years with one in oak, and Gran Reserva five with two in oak."

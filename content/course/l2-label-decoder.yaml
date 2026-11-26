@@ -22,6 +22,7 @@ lessons:
         a: "Chambertin"
         explain: "Grand Crus appear on their own name (Chambertin, Montrachet), because the vineyard is so famous it needs no village. A village name alone, such as Gevrey-Chambertin, is village level, one step below Premier Cru."
       - tf: "Red Burgundy labels usually state 'Pinot Noir' on the front."
+        visual: "grape:pinot-noir"
         truth: false
         explain: "Burgundy labels give place, not grape: red Burgundy is understood to be Pinot Noir and white is Chardonnay (Bourgogne Aligoté and Gamay are exceptions). This is the Old World logic: the place is the brand."
       - match: "Match the Burgundy label to its level"
@@ -38,6 +39,7 @@ lessons:
         body: |
           Unusually for France, Alsace puts the **grape** first. *Grand Cru* plus a vineyard name marks the 51 best sites; *Vendanges Tardives* and *Sélection de Grains Nobles* signal sweet wines.
       - choice: "What does 'RM' on a Champagne label tell you?"
+        visual: "map:france:champagne"
         options: ["A grower made it from their own grapes", "It's a rosé", "It's a vintage wine", "It's extra dry"]
         a: "A grower made it from their own grapes"
         explain: "RM stands for Récoltant-Manipulant: a grower who makes Champagne only from their own grapes, often called grower Champagne. NM (Négociant-Manipulant) means a house like Moët buying grapes, so RM can show more terroir character."
@@ -46,6 +48,7 @@ lessons:
         options: [Noir, "de Noirs", Brut]
         explain: "Blanc de Blancs means white from whites: Champagne made only from Chardonnay, usually elegant, citrusy and long-lived. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier) and is fuller and richer."
       - tf: "Alsace wines are usually labeled with the grape variety."
+        visual: "map:france:alsace"
         truth: true
         explain: "Alsace is the one French region that labels by grape, a German influence from its history. Riesling, Gewurztraminer, Pinot Gris and Muscat are the four noble grapes allowed in Grand Cru vineyards."
   - title: Germany, Italy, Spain & Port
@@ -115,6 +118,7 @@ lessons:
       
           '
       - choice: On a Burgundy label, which level shows only the vineyard name?
+        visual: "map:france:burgundy"
         options:
         - Grand Cru
         - Premier Cru
@@ -137,6 +141,7 @@ lessons:
         truth: true
         explain: "Estate bottling shows that the same property grew the grapes and bottled the wine. It signals control of quality from vine to bottle, a feature of fine estates in Bordeaux."
       - choice: In Germany, which word tells you about ripeness at harvest?
+        visual: "map:germany"
         options:
         - Spätlese
         - Weingut
@@ -145,6 +150,7 @@ lessons:
         a: Spätlese
         explain: "Kabinett, Spätlese and Auslese are Prädikat levels based on grape ripeness at harvest, not on the sweetness of the finished wine. Ripeness rises from Kabinett to Spätlese to Auslese, then Beerenauslese and Trockenbeerenauslese."
       - blank: In Rioja, a wine aged at least two years, one in oak, is labeled ___.
+        visual: "map:spain:rioja"
         answers:
         - Crianza
         options:

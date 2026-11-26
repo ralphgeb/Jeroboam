@@ -25,6 +25,7 @@
       a: "Grenache, Syrah, Mourvèdre"
       explain: "GSM is Grenache, Syrah and Mourvèdre: the classic southern Rhône blend, copied in Australia's McLaren Vale and Barossa. Grenache provides fruit, Syrah spice and color, Mourvèdre structure."
     - tf: "Côte-Rôtie may include some white Viognier in its red wine."
+      visual: "grape:viognier"
       truth: true
       explain: "Co-fermenting a little Viognier with Syrah in Côte-Rôtie lifts the aroma and stabilizes color. Up to 20% is allowed, though most producers use far less."
     - match: "Match the appellation to its wine"
@@ -52,14 +53,17 @@
 
         Prestige *cuvées* are their flagships: Dom Pérignon (Moët), Cristal (Roederer), La Grande Dame (Veuve Clicquot). Krug and Bollinger ferment in oak; Ruinart is known for Chardonnay.
     - choice: "How are Alsace wines usually labeled?"
+      visual: "map:france:alsace"
       options: ["By grape variety", "By château name only", "By village only", "By color only"]
       a: "By grape variety"
       explain: "Alsace is the main French region that puts the grape front and center on the label. That reflects its German heritage, and the wines come in tall flûte bottles."
     - choice: "Which Loire grape makes Vouvray?"
+      visual: "map:france:vouvray"
       options: [Chenin Blanc, Sauvignon Blanc, Melon, Chardonnay]
       a: Chenin Blanc
       explain: "Vouvray is made from Chenin Blanc and can be sec, demi-sec, moelleux or sparkling. Chenin's high acidity balances any sweetness, so the wines age very well."
     - tf: "Reserve wines help Champagne houses keep a consistent non-vintage style."
+      visual: "map:france:champagne"
       truth: true
       explain: "Reserve wines, older wines kept from earlier years, are blended in to smooth out differences between years. That is how a house keeps a consistent non-vintage style."
 
@@ -91,6 +95,7 @@
 
         That history explains the **German-sounding** names, the tall **flûte** bottles, and why Alsace labels its wines by **grape**, unlike the rest of France.
     - choice: "What does 'Châteauneuf-du-Pape' mean?"
+      visual: "map:france:chateauneuf-du-pape"
       options: [The pope's new castle, The pope's vineyard, The new church, The castle on the hill]
       a: The pope's new castle
       explain: "The popes lived in Avignon from 1309, and John XXII built a summer castle at Châteauneuf, the new castle of the Pope. The papal crest is embossed on the bottles."
@@ -99,6 +104,7 @@
       a: Barbe-Nicole Clicquot
       explain: "The widow Clicquot's riddling table (around 1816) slowly moved the yeast into the neck so it could be removed."
     - tf: "Dom Pérignon invented Champagne's bubbles."
+      visual: "map:france:champagne"
       truth: false
       explain: "Bubbles came from fermentation restarting in spring. Dom Pérignon improved the wine, its blending and its clarity."
     - choice: "Why do Alsace wines have German-sounding names?"

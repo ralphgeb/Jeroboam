@@ -19,13 +19,16 @@ lessons:
         a: Rioja Oriental
         explain: "Rioja Baja is the warmest zone, lower and more Mediterranean, so it suits Garnacha. Rioja Alta and Alavesa are cooler and higher and make the finer, more acidic Tempranillo."
       - tf: "Ribera del Duero's vineyards are at high altitude, giving cold nights."
+        visual: "map:spain:ribera-del-duero"
         truth: true
         explain: "Ribera del Duero's vineyards are at high altitude (about 800 m), giving cold nights. Frost is a risk, but the big difference between day and night keeps acidity and color in the Tempranillo (Tinto Fino)."
       - choice: "Mazuelo, used in Rioja, is better known as…"
+        visual: "map:spain:rioja"
         options: [Carignan, Grenache, Merlot, Mourvèdre]
         a: Carignan
         explain: "Mazuelo is Cariñena (Carignan) in other places. It adds acidity, color and tannin to Rioja blends, and is the same grape that makes old-vine wines in Priorat."
       - blank: "A red Rioja Reserva must age at least ___ years, one in oak."
+        visual: "map:spain:rioja"
         answers: ["three"]
         options: ["five", "one", "ten"]
         explain: "A red Rioja Reserva must age at least three years, one in oak. Crianza needs two years (one in oak); Gran Reserva needs five (two in oak). The label tells you how long it spent in cask and bottle."
@@ -69,9 +72,11 @@ lessons:
         visual: "map:portugal:douro"
         explain: "The Douro's vineyards grow on schist, which breaks into layers that let vine roots dig deep for water in the hot, dry summers. Steep terraces were cut by hand, and they are now a UNESCO World Heritage Site."
       - tf: "Portugal is the world's largest producer of cork."
+        visual: "map:portugal"
         truth: true
         explain: "Portugal is the world's largest producer of cork, mostly from cork oak forests in the Alentejo. The bark is harvested every nine years without felling the tree."
       - choice: "Which grape is considered Portugal's finest black variety?"
+        visual: "map:portugal"
         options: [Touriga Nacional, Baga, Tempranillo, Castelão]
         a: Touriga Nacional
         explain: "Touriga Nacional is considered Portugal's finest black grape: deep, floral and structured. It is key to both Port and Douro reds, and also grows well in Dão."
@@ -82,12 +87,12 @@ lessons:
   - title: Going further
     cards:
       - learn: Rioja's subregions
-        visual: "photo:grape-tempranillo"
+        visual: "map:spain:rioja"
         body: 'Rioja has three parts: **Rioja Alta** (cooler, elegant), **Rioja Alavesa** (limestone, finesse) and **Rioja Oriental** (warmer, Garnacha-rich). Traditional producers age in American oak; modern ones favor French oak and riper fruit.
       
           '
       - learn: Port styles
-        visual: "photo:port-lodge"
+        visual: "flow:port-styles"
         body: '**Ruby** and **Vintage** Port age mostly in bottle and stay deep red with black fruit. **Tawny** ages in small casks, turning amber with nutty, caramel notes; 10, 20, 30 and 40 Year Old labels give an average age.
       
           '
@@ -122,6 +127,7 @@ lessons:
         a: A blend with an average age of about 20 years
         explain: "A 20 Year Old Tawny is a blend of casks that tastes like the stated age, not a wine that spent exactly 20 years in wood. The stated ages are 10, 20, 30 and 40."
       - blank: Priorat's dark slate and quartz soil is called ___.
+        visual: "map:spain:priorat"
         answers:
         - llicorella
         options:

@@ -2,19 +2,19 @@
   icon: building.columns
   cards:
     - learn: The blend
-      visual: "photo:bordeaux-chateau"
+      visual: "flow:bordeaux-blend"
       body: |
         Bordeaux is a **blend** country. Five black grapes are allowed: **Cabernet Sauvignon** (structure, blackcurrant, age-worthiness), **Merlot** (plush plum, ripens early), **Cabernet Franc** (perfume, freshness), **Petit Verdot** (color, spice, a splash only) and **Malbec**. **Carmenère** is permitted but rare.
 
         Blending is insurance: if one grape suffers from spring frost or autumn rain, the others carry the vintage.
     - learn: Grand vin and second wine
-      visual: "photo:winery-sorting"
+      visual: "map:france:pauillac"
       body: |
         Each château makes its **grand vin** from the best plots and barrels. Lots that don't make the cut go into a **second wine**: Carruades de Lafite, Pavillon Rouge de Château Margaux, Les Forts de Latour.
 
         Top grands vins spend **18–24 months** in barrels, often **mostly new French oak**, and are racked every few months to clear the sediment.
     - learn: En primeur
-      visual: "photo:barrel-cellar"
+      visual: "flow:en-primeur"
       body: |
         Every spring, merchants and critics taste the new vintage from barrel. Châteaux then release a part of the wine **en primeur**: buyers pay now and receive bottles about two years later.
 
@@ -26,16 +26,18 @@
 
         Large formats age more slowly; Bordeaux names them differently from Champagne: a **Double Magnum** holds 3 L and an **Impériale** 6 L.
     - learn: Dry whites and clairet
-      visual: "photo:saint-emilion"
+      visual: "map:france:graves,entre-deux-mers"
       body: |
         White Bordeaux blends **Sauvignon Blanc** (zest, grass) and **Sémillon** (wax, body, ageing), sometimes with Muscadelle. Simple Entre-Deux-Mers is fresh and unoaked; Pessac-Léognan whites are barrel-fermented and age for decades.
 
         **Bordeaux clairet** is a deep rosé from a short maceration: the ancestor of the English word *claret*.
     - choice: "What is a 'second wine' in Bordeaux?"
+      visual: "map:france:bordeaux"
       options: ["Wine made from lots not chosen for the grand vin", "A wine from the second harvest", "A cheaper wine from another region", "A wine aged a second year"]
       a: "Wine made from lots not chosen for the grand vin"
       explain: "A second wine is made from younger vines or lesser barrels of a top château, for example Pavillon Rouge de Château Margaux. It gives a taste of the house style at a lower price and is ready to drink earlier."
     - choice: "Which grape gives Bordeaux blends their backbone and long ageing?"
+      visual: "map:france:bordeaux"
       options: [Cabernet Sauvignon, Merlot, Cabernet Franc, Malbec]
       a: Cabernet Sauvignon
       explain: "Cabernet Sauvignon gives Bordeaux blends their backbone and long aging: its thick skins give firm tannin and blackcurrant fruit, especially on Left Bank gravel. Merlot adds softness, and Cabernet Franc adds perfume."
@@ -46,6 +48,7 @@
       pairs: [[Cabernet Sauvignon, Tannin and structure], [Merlot, Plush body], [Cabernet Franc, Perfume], [Petit Verdot, Color and spice]]
       explain: "Each grape plays a part: Cabernet Sauvignon gives structure, Merlot gives plush fruit, Cabernet Franc adds perfume and Petit Verdot adds color and spice. The blend changes every vintage with the weather."
     - blank: "The English call red Bordeaux ___."
+      visual: "map:france:bordeaux"
       answers: [claret]
       options: [hock, sack, tawny]
       explain: "The English call red Bordeaux claret, from the French clairet, the pale reds once shipped to England. Bordeaux was English for three centuries, so claret is one of the oldest wine words in the language."
@@ -53,26 +56,28 @@
   icon: clock
   cards:
     - learn: Why vintages matter here
-      visual: "photo:grape-merlot"
+      visual: "diagram:climate"
       body: |
         Bordeaux sits on the Atlantic: some years are warm and dry, others wet and cool. A great **vintage** needs a warm summer, a dry September and no rain at harvest.
 
         Recent stars include **2005, 2009, 2010, 2015, 2016, 2019, 2020** and **2022**. In cooler years, Merlot on the Right Bank often does better than late-ripening Cabernet.
     - learn: How claret ages
-      visual: "photo:winery-cellar-bottles"
+      visual: "colors:red"
       body: |
         Young top Bordeaux is **dark, tannic and oaky**: blackcurrant, cedar and vanilla.
 
         After 10–20 years, tannins soften and **tertiary** notes appear: **cedar, cigar box, leather, forest floor, dried fruit**. The color fades from purple to **garnet** with a brick rim.
     - learn: Decanting
-      visual: "photo:sommelier"
+      visual: "flow:decanting"
       body: |
         Young claret benefits from **decanting** for air; old claret is decanted gently to leave its **sediment** behind. Stand the bottle upright a day before, then pour slowly over a light until the sediment reaches the neck.
     - choice: "What does an aged Bordeaux typically smell of?"
+      visual: "map:france:bordeaux"
       options: ["Cedar, cigar box and leather", "Banana and bubblegum", "Lychee and rose", "Fresh grass and gooseberry"]
       a: "Cedar, cigar box and leather"
       explain: "An aged Bordeaux smells of cedar, tobacco, leather, forest floor and dried fruit. These tertiary notes come from years in bottle, and are the reason old Bordeaux is so prized."
     - choice: "In a cool, rainy Bordeaux vintage, which grape often fares better?"
+      visual: "map:france:bordeaux"
       options: [Merlot, Cabernet Sauvignon, Petit Verdot, Syrah]
       a: Merlot
       explain: "Merlot ripens earlier than Cabernet, so in a cool, rainy vintage it can be picked before the autumn rain. That is why Right Bank wines often do better in wet years, and Left Bank in hot, dry ones."
@@ -90,16 +95,19 @@
 
         When the English left in **1453**, Bordeaux kept its sea trade with Britain, the Netherlands and northern Europe.
     - learn: Draining the Médoc
+      visual: "map:france:medoc"
       body: |
         Until the 1600s, the Médoc was marsh. **Dutch** engineers dug drainage channels and revealed **gravel ridges** along the Gironde. On that warm, free-draining gravel, Cabernet Sauvignon could finally ripen.
 
         Rich families of Bordeaux's Parliament built estates there. **Haut-Brion** was sold by name in London by **1663**; Lafite, Latour and Margaux soon followed: the birth of the **château** as a brand.
     - learn: Merchants, 1855 and beyond
+      visual: "ladder:bordeaux-1855"
       body: |
         Bordeaux's **négociants** (merchants), many of them British, Irish, Dutch and German families, bought wine young, aged and sold it. Their price lists became the **1855 classification**.
 
         Phylloxera, two world wars and the 1930s depression hit hard. The modern boom began with **Émile Peynaud**'s scientific winemaking in the 1950s–60s and Robert Parker's praise of the **1982** vintage, which turned the Grands Crus into global luxury goods.
     - choice: "Why do the British call red Bordeaux 'claret'?"
+      visual: "map:france:bordeaux"
       options: [From the light red 'clairet' shipped to England after 1152, Because it is always clear in color, From a château called Claret, From the Latin word for wine]
       a: From the light red 'clairet' shipped to England after 1152
       explain: "Bordeaux belonged to the English crown for three centuries, and its pale red clairet was London's everyday wine."

@@ -16,23 +16,19 @@ covers:
   l3-iberia: cv-l3u7
   l3-new-world: cv-l3u9
 cards:
-  'l2-vineyard | Deep dive: a year in the vineyard | Autumn: harvest': ph-l2u1d-4
   l1-serving | Going further | Decanting: ph-l1u7d-2
   'l3-france-more | Deep dive: Loire, Alsace and Champagne houses | The Loire: four grapes, one river': ph-l3u5f-1
   'l3-france-more | Deep dive: Loire, Alsace and Champagne houses | Alsace: French wines, German grapes': ph-l3u5f-2
   l2-label-decoder | Going further | Château, Domaine, Bodega: ph-l2u8e-1
   l3-bordeaux | Going further | The 1855 Classification: ph-l3u3g-1
-  l1-world | Going further | Old World and New World: ph-l1u5d-1
   l2-vineyard | Going further | Sun, slope and water: ph-l2u1g-2
   'l2-winery | Deep dive: whites, rosés and finishing touches | Clarifying, stabilizing, bottling': ph-l2u2e-4
   'l2-winery | Deep dive: from grape to red wine | Oak or not?': ph-l2u2d-5
   'l3-winemaking | Deep dive: the winemaker''s choices | Oxygen: friend and foe': ph-l3u2d-3
   'l2-sweet-fortified | Deep dive: Port, Sherry and Madeira | Port: the Douro and Gaia': ph-l2u6e-1
   'l3-iberia | Deep dive: Portugal''s native treasures | Over 250 native grapes': ph-l3u7e-1
-  'l2-sparkling | Deep dive: the traditional method step by step | 1. The base wine': ph-l2u5d-1
   l3-france-more | Going further | Champagne houses and growers: ph-l3u5h-1
   'l3-viticulture | Deep dive: farming philosophies and climate change | Climate change in the vineyard': ph-l3u1e-3
-  'l3-central-europe | Deep dive: German Riesling decoded | Prädikat levels': ph-l3u8d-1
   'l3-central-europe | Deep dive: German Riesling decoded | Regions and bottles': ph-l3u8d-3
   'l3-france-more | Deep dive: the Rhône, north and south | Northern Rhône: Syrah on granite': ph-l3u5e-1
   'l3-new-world | Deep dive: America and the Southern Hemisphere | Chile and Argentina': ph-l3u9e-2
@@ -41,7 +37,6 @@ cards:
   l3-italy | Going further | Super Tuscans: ph-l3u6h-1
   'l3-iberia | Deep dive: Spain beyond Rioja | Rioja''s ageing ladder': ph-l3u7d-1
   'l2-sparkling | Deep dive: the traditional method step by step | 4. Riddling and disgorging': ph-l2u5d-4
-  l2-sparkling | Going further | How sweet is Brut?: ph-l2u5f-2
   l3-bordeaux | Classifications & sweet Bordeaux | 1855 and after: ph-l3u3c-1
   'l3-burgundy | Deep dive: the Burgundy pyramid | Domaine or négociant': ph-l3u4d-3
   'l3-france-more | Deep dive: Loire, Alsace and Champagne houses | Champagne''s great houses': ph-l3u5f-3
@@ -53,8 +48,6 @@ cards:
   'l3-burgundy | Deep dive: the Burgundy pyramid | Four levels': ph-l3u4d-1
   l3-burgundy | Going further | The Côte d'Or: ph-l3u4g-1
   l3-viticulture | Threats in the vineyard | Weather hazards: ph-l3u1c-2
-  'l3-viticulture | Deep dive: farming philosophies and climate change | Yield and quality': ph-l3u1e-2
-  'l3-bordeaux | Deep dive: inside a Bordeaux château | Grand vin and second wine': ph-l3u3d-2
   l3-tasting | Faults | When wine goes wrong: ph-l3u10c-1
   l3-italy | Going further | The Veneto: ph-l3u6h-2
   l3-new-world | Going further | Cool spots in warm countries: ph-l3u9g-1

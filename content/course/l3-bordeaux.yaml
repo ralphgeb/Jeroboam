@@ -9,7 +9,7 @@ lessons:
         body: |
           West of the Gironde estuary and the Garonne river lie the **Médoc** and **Graves**. Deep **gravel** banks drain well and store heat, ideal for late-ripening **Cabernet Sauvignon**, which leads the blends.
 
-          The Haut-Médoc holds four famous communes, north to south: **Saint-Estèphe**, **Pauillac**, **Saint-Julien** and **Margaux**.
+          The Haut-Médoc holds four famous communes, north to south: **Saint-Estèphe**, **Pauillac**, **Saint-Julien** and **Margaux**. In the Graves, the top area, **Pessac-Léognan**, makes both great reds (Haut-Brion) and fine oaked dry whites.
       - learn: The communes
         visual: "map:france:saint-estephe,pauillac,saint-julien,margaux"
         body: |
@@ -27,6 +27,7 @@ lessons:
         a: Saint-Estèphe
         explain: "From north to south the four famous Haut-Médoc communes are Saint-Estèphe, Pauillac, Saint-Julien and Margaux. Pauillac, in the middle, holds three of the five First Growths (Lafite, Latour and Mouton), so it is the most powerful, long-lived Cabernet."
       - tf: "Merlot is the dominant grape in most top Left Bank blends."
+        visual: "grape:merlot"
         truth: false
         explain: "On the Left Bank, Cabernet Sauvignon usually leads the blend, thanks to the gravel soils. Merlot dominates on the Right Bank (Pomerol and Saint-Émilion), where clay and limestone suit it better."
       - choice: "Which Left Bank area makes both top reds and fine oaked dry whites?"
@@ -45,14 +46,15 @@ lessons:
           - **Pomerol**: a small clay-and-gravel plateau; Pétrus and Le Pin.
           - Satellites: Fronsac, Castillon, Bourg, Blaye.
       - learn: Entre-Deux-Mers
-        visual: "photo:grape-sauvignon"
+        visual: "map:france:entre-deux-mers"
         body: |
-          Between the Garonne and Dordogne lies **Entre-Deux-Mers**, best known for fresh, dry whites from Sauvignon Blanc and Sémillon. Much of the region's generic Bordeaux AOC red comes from here too.
+          Between the Garonne and Dordogne lies **Entre-Deux-Mers** ("between two seas": the two tidal rivers), best known for fresh, dry whites from Sauvignon Blanc and Sémillon. Much of the region's generic Bordeaux AOC red comes from here too.
       - choice: "Which grape partners Merlot on the Right Bank?"
         options: [Cabernet Franc, Syrah, Malbec, Petit Verdot]
         a: Cabernet Franc
         explain: "Cabernet Franc adds fragrance and structure to Merlot on the Right Bank. Château Cheval Blanc in Saint-Émilion is famously rich in Cabernet Franc, which ripens well on its gravelly soils."
       - tf: "Pomerol has an official classification of its châteaux."
+        visual: "map:france:pomerol"
         truth: false
         explain: "Pomerol has no official classification, yet Pétrus and Le Pin are among the most expensive wines in the world. Tiny estates and a proven track record of clay-grown Merlot let reputation, not a ranking, set the price."
       - blank: "'Entre-Deux-Mers' means between two ___."
@@ -113,6 +115,7 @@ lessons:
         a: Mouton Rothschild
         explain: "Château Mouton Rothschild became a First Growth in 1973: the only change ever made to the 1855 red classification. The other four First Growths are Lafite, Latour, Margaux and Haut-Brion."
       - tf: Pomerol has an official classification like the Médoc.
+        visual: "map:france:medoc"
         truth: false
         explain: "Pomerol has no classification, unlike the Médoc and Sauternes, though Pétrus and Le Pin are among the world's most expensive wines. Its tiny estates, nearly all Merlot on clay, rely on reputation."
       - match: Match the appellation to its main grape
@@ -135,6 +138,7 @@ lessons:
         a: Autumn mists from the Ciron river
         explain: "Misty mornings and sunny afternoons are perfect for botrytis: the damp spreads the fungus, and the sun then dries the grapes so it concentrates, not rots. Not every year works, which is one reason Sauternes is expensive."
       - blank: Château ___ is the only Graves estate in the 1855 classification.
+        visual: "map:france:graves"
         answers:
         - Haut-Brion
         options:

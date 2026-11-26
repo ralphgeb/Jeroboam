@@ -11,7 +11,7 @@
         3. **Village** (about 37%): *Meursault*, *Vosne-Romanée*.
         4. **Regional** (about half): *Bourgogne*, *Mâcon-Villages*.
     - learn: Climats and clos
-      visual: "photo:burgundy-cote"
+      visual: "map:france:cote-de-nuits"
       body: |
         A named vineyard plot is a **climat**; there are over 1,200, listed by UNESCO since 2015. A **clos** is a vineyard enclosed by a stone wall, often built by medieval monks.
 
@@ -33,6 +33,7 @@
       body: |
         The Burgundy bottle has **sloping shoulders** and a wider body, the shape used worldwide for Pinot Noir and Chardonnay (and in the Rhône for Syrah).
     - choice: "Which is the top level of the Burgundy hierarchy?"
+      visual: "map:france:burgundy"
       options: [Grand Cru, Premier Cru, Village, Bourgogne]
       a: Grand Cru
       explain: "Grand Cru is the top level of the Burgundy hierarchy: the wines carry only the vineyard name, like Romanée-Conti or Le Montrachet. Below it come Premier Cru, village and regional wines, a pyramid based on place."
@@ -41,6 +42,7 @@
       a: "A walled vineyard"
       explain: "A clos is a vineyard enclosed by a wall, usually built by monks centuries ago. Clos de Vougeot and Clos de Tart are famous examples, and some walls are still standing."
     - tf: "In Burgundy, one vineyard is often shared by many owners."
+      visual: "map:france:burgundy"
       truth: true
       explain: "Inheritance laws split plots over generations, so one famous vineyard can have dozens of owners, some with just a few rows. The producer therefore matters as much as the vineyard."
     - match: "Match the label to its level"
@@ -62,6 +64,7 @@
 
         **Beaujolais Nouveau** is released on the third Thursday of November. The **ten crus** (Morgon, Moulin-à-Vent, Fleurie…) are deeper and can age.
     - choice: "What makes Chablis' best soils special?"
+      visual: "map:france:chablis"
       options: ["Kimmeridgian marl with fossil oyster shells", "Volcanic basalt", "Red iron-rich clay", "Sand dunes"]
       a: "Kimmeridgian marl with fossil oyster shells"
       explain: "Chablis' best soils are Kimmeridgian limestone, packed with fossilized oyster shells from a Jurassic sea. The soil is linked with Chablis' steely, saline character and its affinity with oysters."
@@ -70,6 +73,7 @@
       a: "Fermentation inside whole uncrushed berries"
       explain: "In carbonic maceration, whole bunches sit in a CO₂-filled tank and enzymes start fermenting each berry from the inside. The result is a soft, fruity, low-tannin wine with banana and bubblegum notes, typical of Beaujolais."
     - tf: "Chablis has seven Grand Cru vineyards, all on one hillside."
+      visual: "map:france:chablis"
       truth: true
       explain: "Chablis has seven Grand Cru vineyards, all on one hillside that faces south-west across the Serein river from the town. The slope catches afternoon sun, so the grapes ripen better than elsewhere in Chablis."
 
@@ -91,13 +95,16 @@
 
         That is why **Clos de Vougeot** (50 ha) has more than **80 owners**, why one grower may own just a few rows of a Grand Cru, and why **négociants** who buy and blend grapes from many owners became so important. From the 1920s, growers such as the Marquis d'Angerville pushed for **domaine bottling**: the grower's own wine under their own name.
     - choice: "Who banned Gamay from the Côte d'Or in 1395?"
+      visual: "grape:gamay"
       options: [Philip the Bold, Napoleon, Louis XIV, The Cistercian monks]
       a: Philip the Bold
       explain: "The Duke of Burgundy called Gamay 'disloyal' and kept the Côte d'Or for Pinot Noir; Gamay found its home in Beaujolais."
     - choice: "Why are Burgundy's vineyards split among so many owners?"
+      visual: "map:france:burgundy"
       options: [The Revolution sold Church land and inheritance law divided it among heirs, The monks sold small plots to raise money, Phylloxera destroyed the large estates, The AOC rules require small plots]
       a: The Revolution sold Church land and inheritance law divided it among heirs
       explain: "Napoleonic inheritance law split each estate equally among the children, generation after generation, so vineyards got cut into tiny parcels. That is how Clos de Vougeot ended up with more than 80 owners."
     - tf: "Burgundy's climats are a UNESCO World Heritage site."
+      visual: "map:france:burgundy"
       truth: true
       explain: "In 2015 UNESCO listed the climats of Burgundy, the named vineyard plots mapped by monks and growers over a thousand years."

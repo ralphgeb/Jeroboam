@@ -40,6 +40,7 @@
       pairs: [[Sauternes, Noble rot], [Icewine, Frozen grapes], [Vin Santo, Dried grapes], [Port, Fortification]]
       explain: "Four different routes to sweetness: noble rot (Sauternes), freezing (Icewine), drying (Vin Santo, Recioto) and fortification (Port). Each leaves a distinct flavor."
     - tf: "Furmint is the main grape of Tokaji."
+      visual: "grape:furmint"
       truth: true
       explain: "Furmint is the main grape of Tokaji. Its high acidity balances the huge sweetness, and Hárslevelű, its partner, adds a floral, honeyed perfume."
 - title: "Deep dive: Port, Sherry and Madeira"

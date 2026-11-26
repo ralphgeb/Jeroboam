@@ -23,14 +23,14 @@
 
         Growers trim shoots, remove leaves around bunches for sun and air, and sometimes **green harvest** (cut some bunches) so the rest ripen better.
     - learn: "Autumn: harvest"
-      visual: "photo:harvest"
+      visual: "diagram:vine-cycle"
       body: |
         Picking day is a balance of **sugar** (future alcohol), **acidity** (freshness) and **ripe tannins and flavors**.
 
         - **Hand picking** allows selection of whole bunches; essential on steep slopes and for sparkling wine, sweet wine and whole-bunch ferments.
         - **Machine harvesting** shakes berries off at night, quickly and cheaply, when grapes are cool.
     - learn: Phenolic ripeness
-      visual: "photo:grape-cabernet"
+      visual: "diagram:grape-anatomy"
       body: |
         Sugar ripeness and **phenolic ripeness** are not the same thing. Phenolics are the skin and seed compounds that give color, tannin and flavor.
 
@@ -108,7 +108,7 @@
       body: |
         Cool and water-holding, so vines never go thirsty but ripen later. **Pomerol** and Saint-Émilion's clay suits early **Merlot**; clay often gives fuller, rounder wines.
     - learn: Limestone and chalk
-      visual: "photo:champagne-vineyards"
+      visual: "map:france:champagne,chablis"
       body: |
         Porous white rock that holds water like a sponge yet drains well and keeps acidity bright. **Champagne**, **Chablis**, the Côte d'Or and Saint-Émilion's plateau all sit on it.
     - learn: Slate and schist

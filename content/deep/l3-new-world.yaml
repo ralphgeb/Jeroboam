@@ -12,7 +12,7 @@
       body: |
         **Chile**: a long, thin country cooled by the Humboldt current and Andes winds. Phylloxera never arrived, so many vines grow on their own roots. Signature grape: **Carmenère**. Coastal valleys (Casablanca, Leyda) make crisp Sauvignon Blanc.
 
-        **Argentina**: **Malbec** from **Mendoza**, at 800–1,500 m, especially the cool **Uco Valley**. **Torrontés** in Salta, among the highest vineyards on Earth.
+        **Argentina**: **Malbec** from **Mendoza**, at 800–1,500 m, especially the cool **Uco Valley**. It is a desert: the vines drink **snowmelt** from the Andes, led through irrigation channels, and the altitude keeps nights cool. **Torrontés** in Salta, among the highest vineyards on Earth.
     - learn: Australia
       visual: "photo:barossa"
       body: |
@@ -35,6 +35,7 @@
       a: "California wines beat top French wines blind"
       explain: "The 1976 Judgment of Paris put Napa on the world map: Californian wines beat the best of France in a blind tasting judged by French experts. It changed how the world saw New World wine."
     - choice: "Which grape is Chile's signature, once confused with Merlot?"
+      visual: "map:chile"
       options: [Carmenère, Malbec, Pinotage, Tannat]
       a: Carmenère
       explain: "Carmenère is Chile's signature grape, long confused with Merlot. It was only identified in Chile in 1994, and it originally came from Bordeaux."
@@ -42,6 +43,7 @@
       pairs: [[Marlborough, Sauvignon Blanc], [Mendoza, Malbec], [Barossa, Shiraz], [Swartland, Chenin Blanc]]
       explain: "Each New World region found its specialty: Marlborough with Sauvignon Blanc, Barossa with Shiraz, Mendoza with Malbec and Stellenbosch with Cabernet."
     - tf: "Pinotage is a crossing of Pinot Noir and Cinsault."
+      visual: "grape:pinotage"
       truth: true
       explain: "Pinotage was created at Stellenbosch University in 1925 by crossing Pinot Noir with Cinsault. Cinsault was then called Hermitage in South Africa, hence the name."
 
@@ -79,6 +81,7 @@
       a: "1966"
       explain: "Robert Mondavi opened his Napa winery in 1966, the first major new Napa winery since Prohibition. Mondavi championed labeling wines by grape and building Napa's image."
     - choice: "Who planted the Barossa's old Shiraz vines in the 1840s?"
+      visual: "map:south-australia:barossa"
       options: [German Lutheran settlers, Spanish missionaries, French monks, Dutch traders]
       a: German Lutheran settlers
       explain: "Silesian Lutherans settled in the Barossa in the 1840s and planted vines that still produce wine today. Phylloxera never reached the Barossa, so these are some of the oldest vines in the world."

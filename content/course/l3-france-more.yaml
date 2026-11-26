@@ -47,6 +47,7 @@ lessons:
         explain: "Sancerre is on the west bank and Pouilly-sur-Loire on the east, facing each other across the river. Both are Sauvignon Blanc, but Sancerre is on limestone and flint (silex) soils and tends to be crisper."
         visual: "map:france:sancerre,pouilly-fume"
       - blank: "Pouilly-___ is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay."
+        visual: "map:france:pouilly-fume"
         answers: [Fumé]
         options: [Fuissé, Blanc, Gris]
         explain: "Pouilly-Fumé is a Loire Sauvignon Blanc; Pouilly-Fuissé is a Burgundy Chardonnay. The name Fumé refers to the smoky, flinty note from the soil, and it is a classic exam trap."
@@ -59,10 +60,12 @@ lessons:
 
           Special sweet styles: **Vendanges Tardives** (late harvest) and **Sélection de Grains Nobles** (botrytis).
       - choice: "Why is Alsace so dry and sunny for its latitude?"
+        visual: "map:france:alsace"
         options: ["The Vosges mountains create a rain shadow", "It is near the Mediterranean", "It is at high altitude", "Warm ocean currents"]
         a: "The Vosges mountains create a rain shadow"
         explain: "Alsace is dry and sunny for its latitude because the Vosges mountains block westerly rain, leaving the eastern foothills dry. It is one of the driest regions in France, which suits grapes like Riesling."
       - tf: "Alsace wines are usually labeled by grape variety."
+        visual: "map:france:alsace"
         truth: true
         explain: "Unusually for France, the grape name is front and center in Alsace, and the wine comes in tall flûte bottles. This reflects the region's German history, and a Grand Cru label then adds the vineyard."
       - choice: "Sélection de Grains Nobles means…"
@@ -85,6 +88,7 @@ lessons:
         body: |
           From driest: **Brut Nature** (0–3 g/L), **Extra Brut**, **Brut** (under 12), **Extra Dry**, **Sec**, **Demi-Sec**, **Doux** (over 50).
       - choice: "What do reserve wines give non-vintage Champagne?"
+        visual: "map:france:champagne"
         options: ["Consistency and complexity across years", "More bubbles", "Pink color", "Higher acidity only"]
         a: "Consistency and complexity across years"
         explain: "Reserve wines, older wines from previous years, are blended in to smooth out vintage variation and add depth. It lets a house keep a consistent style each year, which is the art of non-vintage Champagne."
@@ -96,6 +100,7 @@ lessons:
         truth: true
         explain: "RM means Récoltant-Manipulant: a grower who makes Champagne from their own grapes. NM (Négociant-Manipulant) is a house that buys grapes, so RM wines can show more of a single place."
       - blank: "Champagne has ___ Grand Cru villages."
+        visual: "map:france:champagne"
         answers: ["17"]
         options: ["33", "7", "42"]
         explain: "Champagne has 17 Grand Cru villages, including Aÿ, Bouzy, Cramant, Avize and Le Mesnil-sur-Oger. The Grand Cru rating applies to the village, not to individual vineyards."
@@ -107,7 +112,7 @@ lessons:
       
           '
       - learn: The Loire's many faces
-        visual: "photo:grape-chenin"
+        visual: "map:france:muscadet,anjou,touraine,sancerre"
         body: 'From the Atlantic inland: **Muscadet** (Melon), **Anjou-Saumur** (Chenin Blanc, Cabernet Franc), **Touraine** (Vouvray Chenin, Chinon Cabernet Franc) and the **Centre** (Sancerre and Pouilly-Fumé Sauvignon Blanc).
       
           '
@@ -131,9 +136,18 @@ lessons:
           - Melon de Bourgogne
         explain: "The Loire grows mostly single varieties, each in its own district: Sauvignon Blanc in Sancerre, Chenin Blanc in Vouvray, Cabernet Franc in Chinon, and Melon de Bourgogne in Muscadet."
       - tf: Alsace wines are usually labeled with the grape variety.
+        visual: "map:france:alsace"
         truth: true
         explain: "Unusually for France, Alsace names the grape: Riesling, Gewurztraminer, Pinot Gris. Most other French regions name the place, so Alsace is a bridge between Old and New World labeling."
+      - learn: The south and the mountains
+        visual: "map:france:languedoc,provence,southwest,jura"
+        body: |
+          - **Languedoc-Roussillon**: France's biggest vineyard, sun and garrigue: Grenache, Syrah, Mourvèdre and old Carignan. **Roussillon**, by the Pyrenees, also makes sweet fortified Grenache: **Banyuls** and **Maury**.
+          - **Provence**: the home of pale, dry **rosé**; **Bandol** makes long-lived red from Mourvèdre.
+          - **South West**: **Cahors** (Malbec, the "black wine"), **Madiran** (tannic Tannat) and sweet **Jurançon**.
+          - **Jura**: in the mountains near Switzerland. **Vin jaune** from Savagnin ages over six years under a veil of yeast, like Fino, and is bottled in a 62 cl **clavelin**; Château-Chalon is the most famous.
       - choice: Which southern French region is known for Grenache-based Banyuls and Côtes du Roussillon?
+        visual: "grape:grenache"
         options:
         - Roussillon
         - Alsace
@@ -142,6 +156,7 @@ lessons:
         a: Roussillon
         explain: "Roussillon, next to the Pyrenees, makes powerful Grenache-based reds and sweet fortified wines such as Banyuls and Maury. The fortified wines are made like Port, but with Grenache."
       - blank: Jura's oxidative 'yellow wine' is called vin ___.
+        visual: "map:france:jura"
         answers:
         - jaune
         options:

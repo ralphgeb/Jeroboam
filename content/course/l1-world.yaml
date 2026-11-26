@@ -9,7 +9,7 @@ lessons:
         body: |
           Most of the world's vineyards sit in two bands, roughly **30° to 50° latitude** north and south of the equator. Closer to the poles, grapes struggle to ripen; closer to the equator, vines never get the winter rest they need.
       - learn: Old World and New World
-        visual: "photo:vineyard-autumn"
+        visual: "diagram:wine-belt"
         body: |
           - **Old World**: Europe and the Mediterranean, where winemaking goes back thousands of years: France, Italy, Spain, Portugal, Germany, Austria, Greece.
           - **New World**: places where European vines arrived later: the USA, Chile, Argentina, Australia, New Zealand, South Africa.
@@ -22,6 +22,7 @@ lessons:
         pairs: [[Italy, Old World], [Chile, New World]]
         explain: "Old World means Europe's traditional regions, New World everywhere else. Italy has made wine for thousands of years; Chile's industry grew from Spanish missions in the 1500s, and the Americas, Australia and South Africa were planted by European settlers."
       - tf: "Australia is considered an Old World wine country."
+        visual: "map:australia"
         truth: false
         explain: "Australia is New World. Vines arrived with European settlers in 1788, and the style tends to be riper and fruitier, with the grape name on the label."
       - choice: "Which country makes the most wine by volume in a typical year?"
@@ -80,6 +81,7 @@ lessons:
         visual: "map:california:north-coast"
         explain: "Napa Valley is in California, north of San Francisco, and famous for Cabernet Sauvignon. Warm days and cool nights from the Pacific fog give ripe fruit and good acidity."
       - tf: "Prosecco is a sparkling wine from Italy."
+        visual: "map:italy"
         truth: true
         explain: "Prosecco comes from the Veneto and Friuli in north-east Italy and is made from the Glera grape. It usually gets its bubbles from a second fermentation in a tank, which keeps it fresh and fruity."
   - title: Going further

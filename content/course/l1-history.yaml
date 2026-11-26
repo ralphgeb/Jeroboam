@@ -11,7 +11,7 @@ lessons:
 
           The oldest known winery, about **6,100 years** old, was found in the **Areni-1 cave** in Armenia, with a pressing floor and fermentation jars.
       - learn: Egypt, Phoenicia and Greece
-        visual: "photo:h-02"
+        visual: "photo:egypt-wine"
         body: |
           In **ancient Egypt**, wine was for kings and priests; jars in Tutankhamun's tomb were labeled with the vintage, the estate and the chief winemaker, an early wine label.
 
@@ -27,53 +27,57 @@ lessons:
         a: Georgia
         explain: "Residues in clay jars in Georgia, in the South Caucasus, are the oldest evidence of grape wine. Georgians still use buried clay qvevri."
       - choice: "What did the Greeks call southern Italy?"
+        visual: "map:italy"
         options: [Oenotria, Burdigala, Gallia, Iberia]
         a: Oenotria
         explain: "The Greeks called southern Italy Oenotria, the land of vines, because they planted vineyards there from about the 8th century BC. Burdigala was the Roman name for Bordeaux, and Roman legions spread vines through Gaul."
       - tf: "The Romans spread vineyards along rivers such as the Rhône, Mosel and Rhine."
+        visual: "map:germany:mosel"
         truth: true
         explain: "Rivers gave vines water, warmth from reflected sun, and a road for barrels to market. Many great regions began as Roman vineyards."
   - title: Monks and merchants
     cards:
       - learn: The monks of Burgundy
-        visual: "photo:h-04"
+        visual: "photo:h-05"
         body: |
           After Rome fell, **monasteries** kept winemaking alive. In Burgundy, **Benedictine** monks of Cluny and **Cistercian** monks of Cîteaux (founded 1098) spent centuries tasting the wines of each plot, building walls around the best ones.
 
           The **Clos de Vougeot**, walled by the Cistercians in the 14th century, is the most famous. Their idea that each **climat** (named plot) tastes different is the root of **terroir** and of Burgundy's Grands Crus.
       - learn: Bordeaux becomes English
-        visual: "photo:h-05"
+        visual: "photo:h-06"
         body: |
           In **1152** Eleanor of Aquitaine married **Henry Plantagenet**, soon King Henry II of England. Bordeaux became English for **three centuries**, until 1453.
 
           English merchants shipped huge volumes of light red **clairet**, the origin of the British word **claret** for red Bordeaux. Trade, not monks, shaped Bordeaux: a merchant's city facing the sea.
       - learn: The Dutch drain the Médoc
-        visual: "photo:h-06"
+        visual: "photo:h-07"
         body: |
           In the **1600s**, **Dutch** engineers drained the marshy Médoc, revealing the **gravel ridges** where Cabernet Sauvignon would thrive. Dutch traders also wanted sweet whites and brandy, boosting Sauternes and Cognac.
 
           By the 1700s, estates such as **Haut-Brion**, Lafite and Latour were selling their wine **by name** in London: the birth of the "château" brand.
       - choice: "Which monks walled the Clos de Vougeot in Burgundy?"
+        visual: "map:france:burgundy"
         options: [Cistercians, Jesuits, Franciscans, Templars]
         a: Cistercians
         explain: "The Cistercians of Cîteaux, founded in 1098, studied Burgundy's plots for centuries and walled the Clos de Vougeot."
       - blank: "Bordeaux belonged to England for three centuries after Eleanor of Aquitaine married Henry Plantagenet in ___."
+        visual: "map:france:bordeaux"
         answers: ["1152"]
         options: ["1066", "1453", "1789"]
         explain: "The marriage in 1152 of Eleanor of Aquitaine and Henry Plantagenet made Bordeaux English until 1453. The English still call red Bordeaux claret, from the French clairet, a light red, and London became its biggest market."
       - tf: "Dutch engineers drained the Médoc's marshes in the 1600s."
+        visual: "map:france:medoc"
         truth: true
         explain: "Dutch engineers drained the Médoc's marshes in the 1600s. Draining revealed the gravel ridges of the Left Bank, where Cabernet Sauvignon ripens on warm stones, and that created the region's great estates."
   - title: Phylloxera
     cards:
       - learn: The plague from America
-        visual: "photo:h-07"
+        visual: "photo:h-08"
         body: |
           In the **1860s**, vines in the southern Rhône began to wither and die. The culprit, identified in **1868** by the botanist **Jules-Émile Planchon**, was **phylloxera**: a tiny yellow aphid-like insect that feeds on vine **roots**.
 
           It had crossed the Atlantic on American vines brought to Europe as botanical curiosities. Faster steamships meant the bugs survived the trip.
       - learn: A continent's vineyards destroyed
-        visual: "photo:h-08"
         body: |
           Over the next **thirty years**, phylloxera spread through almost every European vineyard: France, Spain, Italy, Portugal, Germany, then Australia, South Africa and California.
 
@@ -85,7 +89,7 @@ lessons:
 
           Today almost every vine in the world grows on American roots. The fruit, and the wine, still come from the European vine on top.
       - learn: The survivors
-        visual: "photo:h-10"
+        visual: "map:chile"
         body: |
           A few places never had phylloxera, or it couldn't survive there:
 
@@ -103,6 +107,7 @@ lessons:
         a: Grafting European vines onto American rootstocks
         explain: "Grafting keeps the European vine's fruit on resistant American roots. Almost every vineyard in the world is grafted today."
       - tf: "Chile's vineyards were never hit by phylloxera."
+        visual: "map:chile"
         truth: true
         explain: "Chile's vineyards were never hit by phylloxera, since the Andes, the Pacific and the Atacama desert isolate the country. Many Chilean vines still grow on their own roots, which is rare in the world."
       - choice: "Which French botanist identified phylloxera in 1868?"
@@ -112,13 +117,13 @@ lessons:
   - title: "1855: Bordeaux ranks itself"
     cards:
       - learn: A list for a world fair
-        visual: "photo:h-11"
+        visual: "photo:h-12"
         body: |
           For the **1855 Exposition Universelle** in Paris, Emperor **Napoleon III** wanted Bordeaux's best wines shown. The merchants of Bordeaux ranked the châteaux by **price**, the market's long verdict on quality.
 
           The result: **61 red wines** in five tiers, from First to Fifth Growth, almost all from the **Médoc**, plus **Haut-Brion** from Graves; and a list of **Sauternes and Barsac**, with **Château d'Yquem** alone at the top as *Premier Cru Supérieur*.
       - learn: Almost unchanged since
-        visual: "photo:h-12"
+        visual: "ladder:bordeaux-1855"
         body: |
           The list has barely moved. **Cantemerle** was added in 1856, and in **1973** **Mouton Rothschild** was promoted to First Growth after Baron Philippe de Rothschild's fifty-year campaign. Its motto changed from "First I cannot be, second I do not deign to be, Mouton I am" to "**First I am, second I was, Mouton does not change**."
 
@@ -134,13 +139,13 @@ lessons:
   - title: The Judgment of Paris
     cards:
       - learn: A tasting nobody expected to matter
-        visual: "photo:h-13"
+        visual: "photo:h-14"
         body: |
           On **24 May 1976**, the English wine merchant **Steven Spurrier** held a blind tasting in Paris. Nine French experts (top chefs, sommeliers and the head of the Appellation authority) tasted top **Bordeaux** and **Burgundy** against unknown wines from **California**.
 
           Only one journalist came: **George Taber** of *Time* magazine.
       - learn: California wins
-        visual: "photo:h-14"
+        visual: "photo:h-15"
         body: |
           The winners were both Californian:
 
@@ -149,7 +154,7 @@ lessons:
 
           Taber's story, "Judgment of Paris", went around the world. One judge asked for her scorecard back.
       - learn: Why it changed everything
-        visual: "photo:h-15"
+        visual: "map:california:napa-valley"
         body: |
           The result proved that great wine could be made **outside France**. Investment poured into **Napa**, then Oregon, Australia, Chile and beyond. French producers began investing abroad: Mouton Rothschild partnered with Robert Mondavi to create **Opus One** (1979).
 
@@ -178,7 +183,6 @@ lessons:
 
           **Stainless steel** tanks with cooling jackets made fresh, fruity whites possible in warm places like Australia and Spain.
       - learn: Critics and the globe
-        visual: "photo:h-17"
         body: |
           **Robert Parker**'s praise of the **1982 Bordeaux** vintage, when others doubted it, made him the world's most powerful critic, and made ripe, rich styles fashionable in the 1990s.
 
@@ -194,5 +198,6 @@ lessons:
         a: 1982 Bordeaux
         explain: "Robert Parker called 1982 a great Bordeaux vintage when others were cautious; he was right, and his influence soared. His 100-point scale then shaped what wine was made and what it cost."
       - tf: "Climate change is making harvests earlier in regions such as Champagne."
+        visual: "map:france:champagne"
         truth: true
         explain: "Warmer seasons ripen grapes sooner; Champagne now picks weeks earlier than a generation ago, and cooler places such as England are rising."

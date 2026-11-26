@@ -9,14 +9,17 @@ lessons:
         body: |
           The finest sparkling wines are made by the **traditional method**: a still base wine gets yeast and sugar, then ferments **a second time inside its own bottle**. The trapped CO₂ makes the bubbles.
       - learn: The magic of lees
-        visual: "photo:riddling"
+        visual: "flow:lees-ageing"
         body: |
           The wine then rests on its dead yeast (**lees**) for months or years. As the yeast breaks down (**autolysis**), it gives **biscuit, bread and brioche** aromas and finer bubbles.
+
+          To remove the yeast, bottles are slowly turned and tilted neck-down so it slides into the neck (**riddling**), then frozen out (**disgorgement**). A little wine and sugar, the **dosage**, sets the final sweetness.
       - choice: "In the traditional method, where does the second fermentation happen?"
         options: [In the bottle, In a pressure tank, In oak barrels, There is no second fermentation]
         a: In the bottle
         explain: "In the traditional method, the second fermentation happens inside the bottle itself. Sugar and yeast are added to a still base wine, the bottle is capped, and the CO₂ stays trapped as bubbles. It is labor-intensive, which is part of why Champagne, Cava and Crémant cost more."
       - choice: "Brioche and biscuit aromas in Champagne come from…"
+        visual: "map:france:champagne"
         options: [Ageing on the lees, New oak, The Chardonnay grape, Added sugar]
         a: Ageing on the lees
         explain: "Autolysis, the breakdown of dead yeast cells (lees) over months and years, releases bready, toasty notes such as brioche and biscuit. The longer a Champagne rests on its lees, the more of these flavors it develops."
@@ -40,14 +43,17 @@ lessons:
 
           Most Champagne is a **non-vintage** blend of many villages and years, made in a consistent house style.
       - choice: "Which three grapes dominate Champagne?"
+        visual: "map:france:champagne"
         options: ["Chardonnay, Pinot Noir, Meunier", "Chardonnay, Sauvignon Blanc, Riesling", "Glera, Pinot Grigio, Chardonnay", "Macabeo, Xarel·lo, Parellada"]
         a: "Chardonnay, Pinot Noir, Meunier"
         explain: "Champagne is made mainly from Chardonnay, Pinot Noir and Pinot Meunier. Macabeo, Xarel·lo and Parellada make Cava; Glera makes Prosecco. Two black grapes and one white make most Champagne, which is why Blanc de Blancs is the exception."
       - choice: "A Champagne labeled Blanc de Blancs is made from…"
+        visual: "map:france:champagne"
         options: ["Chardonnay only", "Pinot Noir only", "Black grapes only", "Any grapes"]
         a: "Chardonnay only"
         explain: "A Blanc de Blancs is made from Chardonnay only: white from whites, usually fine, citrusy and long-lived. Blanc de Noirs is white wine from black grapes (Pinot Noir and Meunier), fuller and richer."
       - tf: "Non-vintage Champagne must age at least 15 months before release."
+        visual: "map:france:champagne"
         truth: true
         explain: "Non-vintage Champagne must age at least 15 months before release, with at least 12 months of that on lees. Vintage Champagne needs at least three years, and most houses age it much longer."
       - match: "Match the Champagne district to its main grape"
@@ -76,6 +82,7 @@ lessons:
         visual: "map:spain:penedes"
         explain: "Cava comes from Spain, mostly from Penedès near Barcelona, and is made by the traditional method, like Champagne, usually from Macabeo, Xarel·lo and Parellada. It is one of the best-value sparkling wines in the world."
       - tf: "Crémant is a French traditional-method sparkling wine made outside Champagne."
+        visual: "map:france:champagne"
         truth: true
         explain: "Crémant uses the same method as Champagne but in other places and often with local grapes: Crémant d'Alsace, de Loire, de Bourgogne. It is often great value, since the land is cheaper."
       - blank: "Prosecco is made from the ___ grape."
@@ -97,7 +104,7 @@ lessons:
       
           '
       - learn: How sweet is Brut?
-        visual: "photo:winery-disgorging"
+        visual: "ladder:sparkling-sweetness"
         body: 'Sparkling sweetness runs from **Brut Nature** (no added sugar) through **Extra Brut** and **Brut** (the most common, dry) to **Extra Dry**, **Dry**, **Demi-Sec** and **Doux** (sweet).
       
       
@@ -127,6 +134,7 @@ lessons:
           - Germany
         explain: "Most wine countries have a sparkling tradition: Champagne in France, Cava in Spain, Prosecco and Franciacorta in Italy, Sekt in Germany, Cap Classique in South Africa. The method varies, the bubbles do not."
       - choice: Where does Champagne's toasty, bready character come from?
+        visual: "map:france:champagne"
         options:
         - Ageing on the lees
         - New oak barrels

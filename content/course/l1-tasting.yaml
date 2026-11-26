@@ -72,6 +72,7 @@ lessons:
           - **Body**: the weight of the wine, light to full.
           - **Finish**: how long the flavor lasts after you swallow.
       - learn: Body is weight
+        visual: "flow:body"
         body: |
           Think of milk: skimmed milk is **light**, whole milk **medium**, cream **full**. Alcohol, sugar and extract all add body.
       - choice: "Which sensation makes your mouth water?"
@@ -95,6 +96,7 @@ lessons:
   - title: Describing wine
     cards:
       - learn: A simple tasting note
+        visual: "flow:tasting-note"
         body: |
           A useful note covers the essentials. For example:
 
@@ -102,6 +104,7 @@ lessons:
 
           That is all you need to recognize a classic Sauvignon Blanc.
       - learn: Quality in four letters
+        visual: "flow:blic"
         body: |
           Professionals judge quality with **BLIC**:
 

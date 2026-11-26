@@ -12,7 +12,7 @@ lessons:
           - **Budburst**: green shoots emerge in spring.
           - **Flowering & fruit set**: tiny flowers become berries.
           - **Véraison**: berries soften and change color.
-          - **Harvest**: in autumn, when sugar, acid and flavor are in balance.
+          - **Harvest**: in autumn, when sugar, acid and flavor are in balance: **September and October** in the Northern Hemisphere, **March and April** in the Southern.
           - **Dormancy**: the vine rests in winter and is pruned.
       - learn: What a grape needs
         body: |
@@ -64,6 +64,7 @@ lessons:
         explain: "High-altitude vineyards stay cooler: Argentina's Mendoza vineyards sit at 800–1,500 m, where cool nights preserve acidity and color, even though days are hot. Every 100 m of altitude cools it by about 0.6 °C."
         visual: "map:argentina:uco-valley"
       - blank: "Warm-climate Chardonnay tastes of tropical fruit; cool-climate Chardonnay tastes of green ___ and citrus."
+        visual: "grape:chardonnay"
         answers: [apple]
         options: [pepper, olive, banana]
         explain: "The same grape can taste very different depending on how much warmth it receives: cool-climate Chardonnay shows green apple and citrus, while warm-climate Chardonnay tastes of peach and tropical fruit."

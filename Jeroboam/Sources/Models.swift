@@ -239,6 +239,20 @@ struct Library: Decodable {
     var great: [GreatWine]? = nil
     /// What the ground is, by region or map-area id.
     var soils: [String: String]? = nil
+    /// Pyramids and ladders drawn as diagrams (content/ladders.yaml).
+    var ladders: [Ladder]? = nil
+}
+
+/// A quality pyramid (top tier narrowest) or a scale (rows with a growing bar), e.g. Burgundy's crus or Champagne sweetness.
+struct Ladder: Decodable, Identifiable, Hashable {
+    struct Tier: Decodable, Hashable {
+        let name: String
+        let note: String?
+    }
+    let id: String
+    let title: String
+    let style: String
+    let tiers: [Tier]
 }
 
 struct WineLabel: Decodable, Identifiable, Hashable {

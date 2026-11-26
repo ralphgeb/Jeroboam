@@ -2,19 +2,19 @@
   icon: sparkles
   cards:
     - learn: 1. The base wine
-      visual: "photo:champagne-vineyards"
+      visual: "flow:traditional-method"
       body: |
         Grapes are picked early for high acidity and pressed gently as **whole bunches**. The first, purest juice is the *cuvée*; later pressings (*taille*) are fuller and less fine.
 
         The juice ferments into a dry, sharp, low-alcohol **base wine**. Many base wines from different villages, grapes and years are blended into the house style: this is the **assemblage**.
     - learn: 2. Second fermentation in bottle
-      visual: "photo:winery-cellar-bottles"
+      visual: "photo:champagne-tirage"
       body: |
         The blend is bottled with the **liqueur de tirage**: wine, sugar and yeast. A crown cap seals it.
 
         Yeast eats the sugar, making about **1.5% more alcohol** and carbon dioxide that cannot escape: around **6 atmospheres** of pressure, three times a car tire.
     - learn: 3. Ageing on the lees
-      visual: "photo:winery-cellar-bottles"
+      visual: "flow:lees-ageing"
       body: |
         Dead yeast cells (lees) slowly break down (**autolysis**), giving bread, brioche, biscuit and toast notes and a finer, creamier mousse.
 
@@ -51,6 +51,7 @@
       pairs: [[Blending base wines, Assemblage], [Turning the bottles, Remuage], [Removing the yeast, Dégorgement], [Final sweetening, Dosage]]
       explain: "These words appear on back labels and in every Champagne cellar tour: tirage (bottling with sugar and yeast), remuage (riddling), dégorgement (disgorgement) and dosage (the final sugar top-up)."
     - tf: "Non-vintage Champagne must age at least 15 months before release."
+      visual: "map:france:champagne"
       truth: true
       explain: "Non-vintage Champagne must age at least 15 months, with at least 12 on lees. Vintage Champagne needs at least three years, though many houses give it much longer."
 - title: "Deep dive: the world of bubbles"
@@ -63,20 +64,20 @@
 
         Villages are rated: 17 are **Grand Cru**, 42 **Premier Cru**.
     - learn: Who makes it
-      visual: "photo:winery-tasting-room"
+      visual: "map:france:champagne"
       body: |
         Labels carry a code:
         - **NM** (négociant-manipulant): a house that buys grapes, like Moët or Bollinger.
         - **RM** (récoltant-manipulant): a grower making wine only from their own vines, "grower Champagne".
         - **CM**: a cooperative.
     - learn: "Tank method: Prosecco and Asti"
-      visual: "photo:fermentation-tank"
+      visual: "flow:tank-method"
       body: |
         In the **tank method** (Charmat), the second fermentation happens in a big pressurized tank. It is fast and keeps the grape's fresh fruit and floral aromas.
 
         **Prosecco** (Glera, Veneto and Friuli) is the best known; Conegliano Valdobbiadene is its hilly heartland. **Asti** and **Moscato d'Asti** use a single fermentation stopped early, so they stay sweet and low in alcohol.
     - learn: Other great sparklers
-      visual: "photo:winery-disgorging"
+      visual: "photo:cava-codorniu"
       body: |
         - **Cava** (Spain, mostly Penedès): traditional method with Macabeo, Xarel·lo, Parellada.
         - **Crémant** (France: Loire, Alsace, Burgundy, Limoux…): traditional method, at least 9 months on lees.
@@ -84,10 +85,12 @@
         - **English sparkling wine**: chalk soils like Champagne's, booming since the 1990s.
         - **Pét-nat** (*pétillant naturel*): bottled before the first fermentation finishes; cloudy and rustic.
     - choice: "Which grape is the specialty of the Côte des Blancs?"
+      visual: "map:france:cote-des-blancs"
       options: [Chardonnay, Pinot Noir, Meunier, Glera]
       a: Chardonnay
       explain: "Blanc de Blancs means white from whites: 100% white grapes, in Champagne usually Chardonnay from the Côte des Blancs. These are typically the lightest, most citrusy and most age-worthy wines."
     - choice: "What does 'RM' on a Champagne label tell you?"
+      visual: "map:france:champagne"
       options: ["A grower made it from their own grapes", "It is a rosé", "It is very old", "It comes from a cooperative"]
       a: "A grower made it from their own grapes"
       explain: "RM is Récoltant-Manipulant: grower Champagne, made by the family that owns the vines. It often shows more terroir than a blended house wine, and is usually better value."
@@ -95,5 +98,6 @@
       pairs: [[Champagne, Traditional method], [Prosecco, Tank method], [Pét-nat, Ancestral method], [Cava, Traditional method in Spain]]
       explain: "Method shapes texture and flavor as much as the grape: the traditional method gives fine bubbles and toasty notes, the tank method keeps fresh fruit, and the ancestral method leaves a cloudy, lightly sparkling wine."
     - tf: "Moscato d'Asti is fully sparkling and around 12% alcohol."
+      visual: "grape:muscat"
       truth: false
       explain: "Moscato d'Asti is gently sparkling (frizzante), sweet and only about 5% alcohol, which makes it a light, grapey dessert wine. Fully sparkling, higher-alcohol wine would be Asti Spumante."

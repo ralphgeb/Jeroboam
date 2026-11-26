@@ -1,0 +1,80 @@
+# Pyramids and ladders, drawn by the app as a diagram (visual "ladder:<id>").
+# style: pyramid (top tier narrowest: quality rankings) or scale (equal rows with a growing bar: sweetness, ageing, ripeness).
+# tiers are listed top first (pyramid) or from least to most (scale); "note" is a short line under the name.
+- id: eu-quality
+  title: European wine law
+  style: pyramid
+  tiers:
+    - {name: PDO, note: "AOC/AOP, DOC/DOCG, DO/DOCa: strict area, grapes, yields"}
+    - {name: PGI, note: "IGP/Vin de Pays, IGT, Vino de la Tierra: wider area, freer rules"}
+    - {name: Wine, note: "No place named: 'Vin de France', 'Vino d'Italia'"}
+- id: burgundy
+  title: Burgundy ranks the land
+  style: pyramid
+  tiers:
+    - {name: Grand Cru, note: "About 1% · the vineyard alone: Chambertin, Montrachet"}
+    - {name: Premier Cru, note: "About 10% · village + vineyard: Meursault 1er Cru Perrières"}
+    - {name: Village, note: "About 37% · Gevrey-Chambertin, Meursault"}
+    - {name: Regional, note: "About half · Bourgogne, Mâcon-Villages"}
+- id: italy
+  title: The Italian pyramid
+  style: pyramid
+  tiers:
+    - {name: DOCG, note: "Numbered neck strip: Barolo, Brunello, Chianti Classico"}
+    - {name: DOC, note: "Controlled origin: Soave, Valpolicella, Bolgheri"}
+    - {name: IGT, note: "Regional, freer rules: where Super Tuscans began"}
+    - {name: Vino, note: "Table wine, no place on the label"}
+- id: vdp
+  title: The VDP pyramid (Germany)
+  style: pyramid
+  tiers:
+    - {name: Grosse Lage, note: "Grand cru vineyard · dry = Grosses Gewächs (GG)"}
+    - {name: Erste Lage, note: "Premier cru vineyard"}
+    - {name: Ortswein, note: "Village wine"}
+    - {name: Gutswein, note: "Estate wine"}
+- id: bordeaux-1855
+  title: The 1855 classification (Médoc reds)
+  style: pyramid
+  tiers:
+    - {name: First Growths, note: "5 · Lafite, Latour, Margaux, Haut-Brion, Mouton (1973)"}
+    - {name: Second Growths, note: "14 · Léoville Las Cases, Cos d'Estournel, Pichon…"}
+    - {name: Third Growths, note: "14 · Palmer, Giscours, Calon-Ségur…"}
+    - {name: Fourth Growths, note: "10 · Beychevelle, Talbot, Branaire-Ducru…"}
+    - {name: Fifth Growths, note: "18 · Lynch-Bages, Pontet-Canet, Grand-Puy-Lacoste…"}
+- id: scores
+  title: The 100-point scale
+  style: pyramid
+  tiers:
+    - {name: "96–100 · Classic", note: "A great wine, complex and long. Rare"}
+    - {name: "90–95 · Outstanding", note: "Real character and style"}
+    - {name: "85–89 · Very good", note: "Well made, with something special: often the best value"}
+    - {name: "80–84 · Good", note: "Solid and pleasant"}
+    - {name: "Below 80", note: "Plain, or with flaws (every wine starts at 50)"}
+- id: rioja-ageing
+  title: Spanish ageing terms (Rioja reds)
+  style: scale
+  tiers:
+    - {name: Joven, note: "Young: little or no oak"}
+    - {name: Crianza, note: "2 years, at least 1 in oak"}
+    - {name: Reserva, note: "3 years, at least 1 in oak"}
+    - {name: Gran Reserva, note: "5 years, at least 2 in oak"}
+- id: pradikat
+  title: German Prädikat levels (ripeness at harvest)
+  style: scale
+  tiers:
+    - {name: Kabinett, note: "Light, delicate, often off-dry"}
+    - {name: Spätlese, note: "Late harvest: riper, richer"}
+    - {name: Auslese, note: "Selected very ripe bunches"}
+    - {name: Beerenauslese, note: "Selected berries, usually with noble rot: sweet"}
+    - {name: Trockenbeerenauslese, note: "Shrivelled noble-rot berries: rare, very sweet"}
+- id: sparkling-sweetness
+  title: How sweet is the sparkling wine?
+  style: scale
+  tiers:
+    - {name: Brut Nature, note: "0–3 g/L: no sugar added"}
+    - {name: Extra Brut, note: "0–6 g/L"}
+    - {name: Brut, note: "Under 12 g/L: the usual style, dry"}
+    - {name: Extra Dry, note: "12–17 g/L: a touch sweeter than Brut"}
+    - {name: Dry (Sec), note: "17–32 g/L"}
+    - {name: Demi-Sec, note: "32–50 g/L: sweet, for desserts"}
+    - {name: Doux, note: "Over 50 g/L"}

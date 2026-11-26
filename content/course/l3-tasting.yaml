@@ -39,7 +39,7 @@ lessons:
   - title: Quality & readiness
     cards:
       - learn: BLIC in practice
-        visual: "photo:winery-tasting-room"
+        visual: "flow:blic"
         body: |
           - **Balance**: fruit vs acid vs tannin vs alcohol vs sweetness.
           - **Length**: medium+ or long for good wine.
@@ -97,7 +97,7 @@ lessons:
       
           '
       - learn: Deductive tasting
-        visual: "photo:winery-tasting-room"
+        visual: "flow:deduction"
         body: 'Blind tasters reason from clues. High acid and light color suggest a cool climate. Deep color, ripe black fruit and high alcohol suggest warmth. Vanilla and toast suggest new oak; leather and earth suggest age.
       
           '

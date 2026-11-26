@@ -10,6 +10,7 @@ lessons:
 
           The most common is the **100-point scale**, popularized in the 1980s by the American critic **Robert Parker** and his newsletter *The Wine Advocate*. It copies the grades of an American school report.
       - learn: Reading the numbers
+        visual: "ladder:scores"
         body: |
           Every wine starts at **50**. The rest rewards what is in the glass:
 
@@ -21,6 +22,7 @@ lessons:
 
           In practice almost every score you see in a shop is between **85 and 100**: shops quote the good ones.
       - learn: What critics look at
+        visual: "flow:blic"
         body: |
           A score is a judgment of **quality**, not of personal taste. Critics weigh the same things you learn in this course:
 

@@ -12,6 +12,7 @@ lessons:
           - **Côte de Nuits** (north): almost all red. Gevrey-Chambertin, Chambolle-Musigny, Vougeot, Vosne-Romanée, Nuits-Saint-Georges.
           - **Côte de Beaune** (south): great whites (Meursault, Puligny- and Chassagne-Montrachet) and reds (Pommard, Volnay, Corton).
       - learn: The quality pyramid
+        visual: "ladder:burgundy"
         body: |
           - **Grand Cru** (33 vineyards; names like Le Chambertin or Le Montrachet appear alone on the label)
           - **Premier Cru** (village + vineyard, e.g. Meursault 1er Cru Perrières)
@@ -24,10 +25,12 @@ lessons:
         a: Côte de Beaune
         explain: "Meursault, Puligny-Montrachet, Chassagne-Montrachet and Corton-Charlemagne make the world's most revered Chardonnay."
       - choice: "Approximately how many Grand Cru vineyards does Burgundy have?"
+        visual: "map:france:burgundy"
         options: ["33", "5", "150", "1,000"]
         a: "33"
         explain: "Burgundy has about 33 Grand Cru vineyards, which together make only about 1–2% of the region's wine. That rarity, together with its fame, explains why prices are so high."
       - tf: "In the Côte d'Or, the finest vineyards are usually at the bottom of the slope."
+        visual: "map:france:cote-de-nuits,cote-de-beaune"
         truth: false
         explain: "Mid-slope sites usually have the best balance of drainage, soil depth and sun. The top of the slope is thin and cold, and the bottom is fertile and damp, so most Grand Crus sit in a band halfway up the Côte d'Or."
       - match: "Match the wine to its part of Burgundy"
@@ -47,17 +50,21 @@ lessons:
           - **Côte Chalonnaise**: Mercurey, Givry, Rully, Montagny. Value Burgundy.
           - **Mâconnais**: warmer and riper Chardonnay: Mâcon-Villages, **Pouilly-Fuissé**, **Saint-Véran**.
       - choice: "The soil of Chablis is famous for…"
+        visual: "map:france:chablis"
         options: ["Kimmeridgian limestone with fossil oyster shells", "Volcanic basalt", "Gravel banks", "Red terra rossa"]
         a: "Kimmeridgian limestone with fossil oyster shells"
         explain: "Chablis is built on Kimmeridgian soils, full of fossilized oyster shells from the Jurassic sea about 150 million years ago. Many link its minerality to these soils, which are also found in Sancerre and the Côte des Bar."
       - tf: "Pouilly-Fuissé is a Chardonnay from the Mâconnais."
+        visual: "map:france:maconnais"
         truth: true
         explain: "Pouilly-Fuissé is Chardonnay from the Mâconnais in southern Burgundy. Do not confuse it with Pouilly-Fumé, a Sauvignon Blanc from the Loire, a classic exam trap."
       - choice: "What is the main climatic threat in Chablis?"
+        visual: "map:france:chablis"
         options: [Spring frost, Drought, Excessive heat, Hurricanes]
         a: Spring frost
         explain: "Being far north, Chablis often loses buds to spring frost. Growers light heaters or burn straw among the vines, or spray them with water to freeze a protective coat of ice around the buds."
       - blank: "Chablis has ___ Grand Cru climats, all on a single slope."
+        visual: "map:france:chablis"
         answers: ["seven"]
         options: ["three", "twenty", "one"]
         explain: "Chablis has seven Grand Cru climats, all on a single south-west-facing slope above the town, including Les Clos, Vaudésir and Valmur. The slope catches the afternoon sun, so the grapes ripen better than elsewhere in Chablis."
@@ -72,17 +79,21 @@ lessons:
           - **Beaujolais-Villages**: a step up.
           - **The ten crus** (Fleurie, Morgon, Moulin-à-Vent and more): more structure; some age for a decade.
       - choice: "How many Beaujolais crus are there?"
+        visual: "map:france:beaujolais"
         options: ["10", "3", "33", "5"]
         a: "10"
         explain: "From north to south: Saint-Amour, Juliénas, Chénas, Moulin-à-Vent, Fleurie, Chiroubles, Morgon, Régnié, Brouilly and Côte de Brouilly."
       - tf: "Beaujolais crus usually show the word 'Beaujolais' prominently on the label."
+        visual: "map:france:beaujolais"
         truth: false
         explain: "Crus usually show just the village name, such as Morgon or Fleurie, not Beaujolais. The ten crus are above the village-level Beaujolais-Villages and basic Beaujolais, so the label gives the quality away."
       - choice: "Which cru is known for the most powerful, age-worthy Beaujolais?"
+        visual: "map:france:beaujolais"
         options: [Moulin-à-Vent, Chiroubles, Saint-Amour, Régnié]
         a: Moulin-à-Vent
         explain: "Moulin-à-Vent, named after its windmill, is known for the most powerful, age-worthy Beaujolais. Its granite is rich in manganese, which gives structured wines that can resemble Pinot Noir after 10 years."
       - blank: "Most Beaujolais lies on ___ soils in the northern hills."
+        visual: "map:france:beaujolais"
         answers: [granite]
         options: [chalk, gravel, slate]
         explain: "Most Beaujolais lies on granite soils in the northern hills. Granite gives the crus their structure and floral perfume, while the limestone-clay in the south gives lighter, simpler wines."
@@ -94,7 +105,7 @@ lessons:
       
           '
       - learn: Climats
-        visual: "photo:vine-guyot"
+        visual: "map:france:cote-de-beaune"
         body: 'Burgundy is divided into hundreds of named plots called **climats**, recognized by UNESCO. Many are split between several owners, so the producer matters as much as the vineyard.
       
           '
@@ -107,6 +118,7 @@ lessons:
         a: Meursault
         explain: "Meursault is a great white-wine village of the Côte de Beaune, famous for rich, nutty Chardonnay. The Côte de Beaune lies south of the Côte de Nuits, and includes Pommard and Volnay for red."
       - tf: The Côte de Nuits is best known for red wines.
+        visual: "map:france:cote-de-nuits"
         truth: true
         explain: "The Côte de Nuits is best known for red wines: nearly all its Grand Crus are Pinot Noir, with Musigny having a tiny white exception. The villages include Gevrey-Chambertin and Vosne-Romanée."
       - match: Match the Grand Cru to its color
@@ -121,6 +133,7 @@ lessons:
           - Red wine
         explain: "Côte de Beaune Grand Crus are mostly white (Montrachet, Corton-Charlemagne), while Côte de Nuits ones are mostly red (Chambertin, Romanée-Conti). The exception is Corton, which is a red Grand Cru in the Côte de Beaune."
       - choice: Why does the producer matter so much in Burgundy?
+        visual: "map:france:burgundy"
         options:
         - Many vineyards are split between owners
         - All wines are blends
@@ -129,6 +142,7 @@ lessons:
         a: Many vineyards are split between owners
         explain: "The producer matters so much because plots are split among many owners: Clos de Vougeot alone has more than 80 owners, each making different wine from the same vineyard. Two bottles with the same label can differ widely in price and quality."
       - blank: Burgundy's named vineyard plots are called ___.
+        visual: "map:france:burgundy"
         answers:
         - climats
         options:
