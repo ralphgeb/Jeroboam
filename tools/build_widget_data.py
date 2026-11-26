@@ -13,12 +13,14 @@ BOT = os.path.join(OUT, "Bottles")
 os.makedirs(BOT, exist_ok=True)
 for f in os.listdir(BOT): os.remove(os.path.join(BOT, f))
 
-great = [g for g in lib["great"] if g.get("bottle") and os.path.exists(os.path.join(APP, "Resources/Photos", g["bottle"] + ".jpg"))]
+# the full-size originals (tools/compress_photos.py keeps them in media/photos-original)
+ORIG = os.path.join(APP, "..", "media", "photos-original")
+great = [g for g in lib["great"] if g.get("bottle") and os.path.exists(os.path.join(ORIG, g["bottle"] + ".jpg"))]
 great.sort(key=lambda g: (-(g.get("criticScore") or 0), g["name"]))
 top = great[:100]
 wines = []
 for g in top:
-    src = Image.open(os.path.join(APP, "Resources/Photos", g["bottle"] + ".jpg")).convert("RGB")
+    src = Image.open(os.path.join(ORIG, g["bottle"] + ".jpg")).convert("RGB")
     h = 420
     im = src.resize((round(src.width * h / src.height), h), Image.LANCZOS)
     # cut the bottle out of its white studio background: light pixels connected to the picture's edge become transparent

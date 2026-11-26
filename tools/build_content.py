@@ -111,7 +111,7 @@ missing_entries = sum(1 for mid, areas in maps.items() for a in areas if a not i
 if missing_entries: print(f"note: {missing_entries} map areas have no region guide (shown with name only)")
 
 PHOTOS = os.path.join(os.path.dirname(OUT), "Photos")
-photo_ids = {f[:-4] for f in os.listdir(PHOTOS) if f.endswith(".jpg")} if os.path.isdir(PHOTOS) else set()
+photo_ids = {os.path.splitext(f)[0] for f in os.listdir(PHOTOS) if f.endswith((".jpg", ".heic"))} if os.path.isdir(PHOTOS) else set()
 
 def check_visual(v, where):
     if not v: return

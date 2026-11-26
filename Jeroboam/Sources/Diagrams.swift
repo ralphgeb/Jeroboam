@@ -585,7 +585,9 @@ enum Photos {
     }()
     static func image(_ id: String) -> UIImage? {
         if let i = cache[id] { return i }
-        guard let url = Bundle.main.url(forResource: id, withExtension: "jpg", subdirectory: "Photos"),
+        // HEIC (tools/compress_photos.py, about 40% smaller), or a JPEG added since
+        guard let url = Bundle.main.url(forResource: id, withExtension: "heic", subdirectory: "Photos")
+                ?? Bundle.main.url(forResource: id, withExtension: "jpg", subdirectory: "Photos"),
               let img = UIImage(contentsOfFile: url.path) else { return nil }
         cache[id] = img
         return img

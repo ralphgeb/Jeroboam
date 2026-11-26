@@ -13,6 +13,9 @@ content/            SOURCE of all text: YAML (course/*.yaml units, grapes, regio
 tools/fetch_photos.py + .github/workflows/photos.yml   fetch CC/PD photos from Commons on a runner (this container's IP is
                     rate-limited) -> pushed to the `photos` branch; pick, resize to 900 px and copy into Resources/Photos
                     (+ credits.json). Lessons use `visual: "photo:<id>"`; missing ids are hidden with a warning.
+                    Then run `python3 tools/compress_photos.py` (pip install pillow-heif): every <id>.jpg in Resources/Photos becomes
+                    <id>.heic (quality 50, max 1,200 px; 69 -> 40 MB for 695 photos, no visible difference) and the original moves to
+                    media/photos-original/ (in the repo, not in the app). `Photos.image` loads .heic, else .jpg.
 tools/build_content.py   YAML -> Jeroboam/Resources/Content/{course,library}.json + validation (run after every content edit)
 tools/build_maps2.py     map builder v2 (zoomable, levels 0/1/2). Sources in /home/user/ne (Natural Earth) and /home/user/geo:
                          fr/communes-<dept>.geojson (gregoiredavid/france-geojson), it_comuni.geojson (openpolis/geojson-italy),
