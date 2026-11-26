@@ -10,6 +10,21 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 26 Nov 2026 (evening): merged the price session's work
+
+- Merged `claude/optimistic-carson-85ujkl` (critic scores per critic with the shop page quoting each, Wine Enthusiast dataset
+  scores, 20-column `app_wines.tsv.z`) into `claude/vibrant-ramanujan-g4uz35`. No conflicts; the combined branch builds and the
+  content check passes. Their code is additive (new optional fields `dbCritics`/`dbCriticLinks`, columns 19–20).
+- Checked the new list: 196,714 rows, all 20 columns, numeric prices, 28,870 with critic scores; all 134 aroma words are on the
+  wheel (families + `also`). "Gooseberry" (2,879 wines) had no icon keyword: now mapped to the small green-berry icon.
+- Unpacked, the list is 50.8 MB on the phone (was 45.1 MB); the app indexes it in the background at launch (`PriceBook.warm`).
+- **For the price session:** these still look like non-wine in the list (the `Vin de Liqueur`, Liqueur Muscat/Topaque and
+  Hardys "Whiskers Blake" tawny entries ARE wine and should stay): Hamilton Rum "87 White Stache", Brannland IsCider, Brutes
+  Cider Rosa Himmel, Domaine des Grottes Scideration (cider), Eve's Cidery Dry Sparkling Perry, Ross-on-Wye Green Horse Pet Nat
+  Perry, Koloa Hawaiian Mai Tai Cocktail, and the 0.0% wines (Henri Badoux Aigle Murailles 0.0%, Leitz Eins Zwei Zero Riesling
+  and Sparkling 0.0%, Sangre de Toro White 0.0%). Rules to add in `wine_clean.py`: cider, perry, cocktail, rum producers, "0.0%".
+- Phones download the list from `main`: the new scores reach them once this branch is merged to `main`.
+
 ## 26 Nov 2026
 
 ### For the other sessions
