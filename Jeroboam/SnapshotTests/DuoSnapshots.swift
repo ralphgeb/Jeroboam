@@ -101,7 +101,7 @@ final class DuoSnapshots: XCTestCase {
 
     /// The Journal's wine map and charts, with the example data (an empty journal).
     func testJournalInsights() {
-        snap("insights", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(JournalStore()) }
+        snap("insights", settle: 3.0) { ScrollView { JournalInsights(tasted: false).padding(20) }.environment(JournalStore()) }
     }
 
     func testMatchCard() {
@@ -334,7 +334,7 @@ final class DuoSnapshots: XCTestCase {
     /// The grey loading cards of a scan, and the Journal with its heat map.
     func testScanSkeleton() {
         snap("scan-loading") { ScrollView { ScanSkeleton().padding(20) } }
-        snap("journal-heat", settle: 3.0) { ScrollView { JournalInsights().padding(20) } }
+        snap("journal-heat", settle: 3.0) { ScrollView { JournalInsights(tasted: false).padding(20) } }
     }
 
     /// Atlas search, Georgia in the main atlas, and the France map with its commune lines.
@@ -417,7 +417,7 @@ final class DuoSnapshots: XCTestCase {
 
     /// Heat map, Oregon centering, profile spacing, region page without the big map button.
     func testRound3() {
-        snap("heat3", settle: 3.0) { ScrollView { JournalInsights().padding(20) } }
+        snap("heat3", settle: 3.0) { ScrollView { JournalInsights(tasted: false).padding(20) } }
         snap("oregon3", settle: 4.0) { MapExplorer(mapID: "oregon") }
         snap("profile3", settle: 3.0) { ProfileView() }
         if let r = ContentStore.shared.region("spain") { snap("spain-page3", settle: 3.0) { NavigationStack { RegionDetailView(region: r) } } }
@@ -429,7 +429,7 @@ final class DuoSnapshots: XCTestCase {
         snap("cellar4", settle: 3.0) { NavigationStack { CellarView() }.environment(j) }
         snap("journal4", settle: 3.0) { JournalHome().environment(j) }
         snap("history4", settle: 3.0) { NavigationStack { ScanHistoryView() }.environment(j) }
-        snap("heat4", settle: 3.0) { ScrollView { JournalInsights().padding(20) }.environment(j) }
+        snap("heat4", settle: 3.0) { ScrollView { JournalInsights(tasted: false).padding(20) }.environment(j) }
     }
 
     /// The real RootView with the Duo's status column (camera, clock, battery) as a right-hand safe-area inset: the tabs must
