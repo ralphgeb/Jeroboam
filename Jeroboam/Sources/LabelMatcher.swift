@@ -40,15 +40,17 @@ struct LabelMatcher {
     }
 
     /// One row of the list (rows of the same wine in other vintages or sizes are added once).
-    mutating func add(name: String, producer: String, place: String, row: Int32 = 0) {
+    /// `place`: region and appellation (left out of the name and producer words); `appellation`: the words a label of this wine prints.
+    mutating func add(name: String, producer: String, place: String, appellation: String = "", row: Int32 = 0) {
         let placeWords = PriceBook.tokens(place)
+        let appWords = PriceBook.tokens(appellation.isEmpty ? place : appellation).subtracting(Self.generic)
         let p = Self.core(producer, drop: placeWords, generic: Self.generic)
         let own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric)
         guard !p.isEmpty, !own.isEmpty else { return }
-        let key = p.sorted().joined(separator: " ") + "|" + own.sorted().joined(separator: " ") + "|" + placeWords.sorted().joined(separator: " ")
+        let key = p.sorted().joined(separator: " ") + "|" + own.sorted().joined(separator: " ") + "|" + appWords.sorted().joined(separator: " ")
         guard seen.insert(key).inserted else { return }
         let i = Int32(wines.count)
-        wines.append(Wine(producer: p, own: own, place: placeWords.subtracting(Self.generic), name: name, maker: producer, row: row))
+        wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row))
         for w in own { index[w, default: []].append(i) }
         words.formUnion(own); words.formUnion(p)
     }

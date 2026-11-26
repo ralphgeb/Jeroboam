@@ -161,13 +161,13 @@ final class LogicTests: XCTestCase {
 
     private func sampleList() -> LabelMatcher {
         var m = LabelMatcher()
-        m.add(name: "Ferrari Maximum Rosé", producer: "Ferrari", place: "Trentino Trento")
-        m.add(name: "Trento DOC \"Maximum Blanc de Blancs\" - Ferrari", producer: "Ferrari", place: "Trentino Trento")
-        m.add(name: "Domaine Humbert Charmes Chambertin Grand Cru", producer: "Domaine Humbert Frères", place: "Burgundy Charmes-Chambertin")
-        m.add(name: "Domaine Humbert Gevrey Chambertin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Gevrey-Chambertin")
-        m.add(name: "Domaine Humbert Fixin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Fixin")
-        m.add(name: "St Hallett Faith Shiraz Red Wine", producer: "St Hallett", place: "Barossa Valley")
-        m.add(name: "Bread & Butter - Chardonnay - California", producer: "Bread & Butter", place: "California")
+        m.add(name: "Ferrari Maximum Rosé", producer: "Ferrari", place: "Trentino Trento", appellation: "Trento")
+        m.add(name: "Trento DOC \"Maximum Blanc de Blancs\" - Ferrari", producer: "Ferrari", place: "Trentino Trento", appellation: "Trento")
+        m.add(name: "Domaine Humbert Charmes Chambertin Grand Cru", producer: "Domaine Humbert Frères", place: "Burgundy Charmes-Chambertin", appellation: "Charmes-Chambertin")
+        m.add(name: "Domaine Humbert Gevrey Chambertin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Gevrey-Chambertin", appellation: "Gevrey-Chambertin")
+        m.add(name: "Domaine Humbert Fixin Vieilles Vignes", producer: "Domaine Humbert Frères", place: "Burgundy Fixin", appellation: "Fixin")
+        m.add(name: "St Hallett Faith Shiraz Red Wine", producer: "St Hallett", place: "Barossa Valley", appellation: "Barossa Valley")
+        m.add(name: "Bread & Butter - Chardonnay - California", producer: "Bread & Butter", place: "California", appellation: "California")
         return m
     }
 

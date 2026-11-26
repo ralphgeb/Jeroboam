@@ -185,7 +185,7 @@ final class PriceBook {
             }
             rows.append(Row(usd: usd, low: Double(f[5]) ?? 0, high: Double(f[6]) ?? 0, vintage: f[2], size: Int(f[3]) ?? 750, shops: Int(f[7]) ?? 1, link: f.count > 8 ? f[8] : "", tokens: toks, color: Self.color(of: f[0] + " " + f[1] + " " + (f.count > 8 ? f[8].replacingOccurrences(of: "-", with: " ") : "")), detail: detail))
             for t in toks { index[t, default: []].append(i) }
-            labels.add(name: f[0], producer: f[1], place: f.count > 12 ? f[11] + " " + f[12] : "", row: i)
+            labels.add(name: f[0], producer: f[1], place: f.count > 12 ? f[11] + " " + f[12] : "", appellation: f.count > 12 ? f[12] : "", row: i)
         }
     }
 
