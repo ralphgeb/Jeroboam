@@ -145,4 +145,17 @@ final class LogicTests: XCTestCase {
         XCTAssertFalse(TastingScore.grapeRight(miss))
         XCTAssertLessThan(TastingScore.total(miss), s)
     }
+
+    func testLabelTextConfirmsAFairlySureAnswer() {
+        var w = WineIdentity.empty
+        w.found = true; w.producer = "Domaine Les Cousins"; w.name = "La Montagne Sacrée"; w.confidence = "medium"
+        let label = "LES COUSINS\nLa Montagne Sacree\n2021\nVin de France"
+        XCTAssertTrue(WineRecognizer.textIsEnough(w, label: label))
+        w.producer = "Château Margaux"                       // a producer that is not on the label: look at the photo
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
+        w.confidence = "high"                                // Claude is sure
+        XCTAssertTrue(WineRecognizer.textIsEnough(w, label: label))
+        w.confidence = "low"
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
+    }
 }
