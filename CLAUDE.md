@@ -151,7 +151,9 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - Search: `Search.swift` (fold/matches/rank, `SearchBar`, `AtlasSearchResults`). RootView decides the rail layout from a keyboard-independent size (`stableSize`); the keyboard used to flip the layout and pop pages.
 - Great wines: country chips start with **All**, which turns on by itself when you search (results from every country).
 - Only France is free in the Atlas (`Plus.freeCountries`). All five mock exams are open.
-- Prices: shop list (`PriceBook`, per-750 ml, vintage first, cheapest link) -> shared Cloudflare list (`PriceCloud`, secrets PRICE_DB_URL / PRICE_DB_KEY; backend/cloudflare) -> Great wines -> estimate. Whatever is found is shared; `PriceCloud.seedOnce()` sends a phone's known prices once. `PriceUpdater` downloads a newer `prices.tsv` from the repo (see content/prices/LIVE_PRICES.md).
+- Prices: shop list (`PriceBook`, per-750 ml, vintage first, cheapest link) -> shared Cloudflare list (`PriceCloud`, secrets PRICE_DB_URL / PRICE_DB_KEY; backend/cloudflare) -> Great wines -> estimate. Whatever is found is shared; `PriceCloud.seedOnce()` sends a phone's known prices once. `PriceUpdater` downloads `content/prices/app_wines.tsv.z` (7 MB) right after install and then every 6 h when it changed;
+  NO price list ships in the app any more (it was 29 MB): until the download, lookups use the cloud list and the estimate
+  (see content/prices/LIVE_PRICES.md). `build_app_prices.py` writes a reference copy to content/prices/prices.tsv.
 - Map explorer "More details" button (France etc.) toggles commune lines + names.
 - Journal wine page: `WineGlance` (4 compact tiles + 2:1 region map), then `WineInfoCard` holds grapes, drink window, fun fact. Heat map = blurred + alpha-threshold blobs in 3 bands.
 - Atlas extras with `atlas: true`: georgia, moldova, great-lakes (Midwest), oregon (Oregon & Washington, ~38 AVAs).

@@ -28,9 +28,6 @@ targets:
       - path: Resources/Photos
         type: folder
         buildPhase: resources
-      - path: Resources/Prices
-        type: folder
-        buildPhase: resources
       - Resources/Assets.xcassets
       - Resources/PrivacyInfo.xcprivacy
     dependencies:

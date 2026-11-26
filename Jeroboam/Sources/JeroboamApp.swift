@@ -233,7 +233,11 @@ struct RootView: View {
                 .plusSheetHost()
         }
         .onChange(of: phase) { _, p in
-            if p == .active { progress.refreshStreakState(); progress.scheduleReminder() }
+            if p == .active {
+                progress.refreshStreakState(); progress.scheduleReminder()
+                // the wine list arrives after install; if the first try was offline, try again on the way back in
+                if PriceUpdater.downloaded == nil { Task { await PriceUpdater.refresh() } }
+            }
             if p == .background || p == .inactive { progress.saveNow(); CloudSync.shared.pushAll() }
         }
         .onAppear {

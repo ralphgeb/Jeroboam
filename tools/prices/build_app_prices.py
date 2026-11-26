@@ -5,7 +5,8 @@ python3 tools/prices/build_app_prices.py"""
 import csv, os
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SRC = os.path.join(ROOT, "content/prices/wine_prices.csv")
-OUT = os.path.join(ROOT, "Jeroboam/Resources/Prices/prices.tsv")
+# not shipped in the app any more (the app downloads content/prices/app_wines.tsv.z, 7 MB, after install): a reference copy
+OUT = os.path.join(ROOT, "content/prices/prices.tsv")
 GBP_TO_USD = 1.0990 / 0.83735
 import re
 SKIP = re.compile(r"\b(keg|kegs|cans?|can pack|gift card|voucher|subscription|club membership)\b", re.I)

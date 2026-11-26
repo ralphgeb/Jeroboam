@@ -154,11 +154,11 @@ final class PriceBook {
         lock.lock(); defer { lock.unlock() }
         guard !loaded else { return }
         loaded = true
-        // the list downloaded by PriceUpdater (newer than the one in the app) wins; the bundled one is the offline fallback
+        // the list is not in the app (it would add 29 MB to the download): PriceUpdater fetches it, compressed, after install.
+        // Until it arrives, lookups fall back to the shared online list and the estimate; reload() reads it once it is here.
         guard let url = PriceUpdater.downloaded
-                ?? Bundle.main.url(forResource: "prices", withExtension: "tsv", subdirectory: "Prices")
-                ?? Bundle.main.url(forResource: "prices", withExtension: "tsv"),
-              let text = try? String(contentsOf: url, encoding: .utf8) else { return }
+                ?? Bundle.main.url(forResource: "prices", withExtension: "tsv", subdirectory: "Prices"),
+              let text = try? String(contentsOf: url, encoding: .utf8) else { loaded = false; return }
         rows.reserveCapacity(200_000)
         for line in text.split(separator: "\n", omittingEmptySubsequences: true) {
             let f = line.split(separator: "\t", omittingEmptySubsequences: false).map(String.init)

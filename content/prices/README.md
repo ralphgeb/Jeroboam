@@ -34,7 +34,8 @@
 4. **Merge**: `python3 tools/prices/merge_prices.py content/prices/wine_prices.csv` (Shopify offers + the sources below).
 5. **Details**: `python3 tools/prices/enrich_details.py <shop-data dir>`.
 6. **App files**: `python3 tools/prices/build_app_wines.py` (content/prices/app_wines.tsv.z) and `python3 tools/prices/build_app_prices.py`
-   (Jeroboam/Resources/Prices/prices.tsv). Phones download them from `main` (see LIVE_PRICES.md).
+   (content/prices/prices.tsv, reference only). Phones download app_wines.tsv.z from `main` after install (see LIVE_PRICES.md);
+   no price list is shipped inside the app.
 
 ## Sources
 - Shopify shops (`sources/shopify_shops.csv.gz`, 68 shops): UK — Hedonism, Highbury Vintners, Shrine to the Vine, The Good Wine Shop,

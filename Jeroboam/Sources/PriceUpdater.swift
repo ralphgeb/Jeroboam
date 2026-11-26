@@ -24,7 +24,8 @@ enum PriceUpdater {
     /// `force`: pulling down in the cellar checks right away (a list that has not changed costs nothing: the ETag answers 304).
     static func refresh(force: Bool = false) async {
         let d = UserDefaults.standard
-        if !force, let last = d.object(forKey: "wineListChecked") as? Date, Date().timeIntervalSince(last) < 6 * 3600 { return }
+        // no list on the phone yet (a new install): fetch it now, whatever the clock says
+        if !force, downloaded != nil, let last = d.object(forKey: "wineListChecked") as? Date, Date().timeIntervalSince(last) < 6 * 3600 { return }
         guard let src = source, let dest = fileURL else { return }
         var req = URLRequest(url: src)
         req.timeoutInterval = 60
