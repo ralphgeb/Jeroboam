@@ -58,7 +58,8 @@ struct RecognitionResult {
     /// What is still to do after the bottle is on screen (`WineRecognizer.finish`): checking a wine the databases do not fully
     /// know. nil when the result is final.
     var pending: Pending? = nil
-    enum Pending { case vet(sig: String?), fresh(sig: String?), typed }
+    /// enrich: named by our wine list from the label (grapes and all); only the fun fact, food, palate and drinking window are asked of Claude.
+    enum Pending { case vet(sig: String?), fresh(sig: String?), typed, enrich(sig: String?) }
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
     var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
 }
@@ -190,7 +191,8 @@ enum WineRecognizer {
         if let w = await Task.detached(priority: .userInitiated, operation: { PriceBook.shared.wine(fromLabel: lines) }).value {
             clock.add("Our wine list", since: t)
             var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
-            if w.fromDatabase == true { WineDB.shared.save(w, signature: sig) } else { r.pending = .fresh(sig: sig) }
+            // named and its grapes known: only the fun fact, food and drinking window are left for Claude (after it is shown)
+            if w.fromDatabase == true { WineDB.shared.save(w, signature: sig); r.pending = .enrich(sig: sig) } else { r.pending = .fresh(sig: sig) }
             return r
         }
         clock.add("List (not found)", since: t)
@@ -296,6 +298,11 @@ enum WineRecognizer {
             let (w, cost, limited) = await verifyOnline(r0.identity)
             r.identity = w; r.extraUSD = cost; r.limited = limited
             WineDB.shared.save(r.identity)
+        case .enrich(let sig):
+            let (w, cost) = await enrich(r0.identity)
+            r.identity = w; r.extraUSD = cost
+            WineDB.shared.save(w, signature: sig)
+            if cost > 0 { PriceCloud.shareWine(w, sig: sig) }   // the next person gets the fun fact too
         }
         return r
     }
@@ -451,6 +458,28 @@ enum WineRecognizer {
         if !notes.isEmpty { v.tastingNotes = notes }
         if let s = obj["palate"] as? String, !s.isEmpty { v.palate = s }
         return true
+    }
+
+    /// A wine named by our list from its label: everything about it comes from the list except what only Claude writes — the fun
+    /// fact, food, palate sentence and drinking window. One text-only call (≈ $0.0004), after the bottle is already on screen;
+    /// the list's producer, name, region, grapes and aromas are kept whatever Claude says.
+    static func enrich(_ w: WineIdentity) async -> (WineIdentity, Double) {
+        guard isAvailable, !DailyBudget.hardStop, w.funFact.isEmpty else { return (w, 0) }
+        let t = Date()
+        defer { ScanClock.shared.add("Fun fact & food", since: t) }
+        let about = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
+            + (w.region.isEmpty ? "" : " (" + w.region + (w.country.isEmpty ? "" : ", " + w.country) + ")")
+            + (w.grapes.isEmpty ? "" : ". Grapes: " + w.grapes.joined(separator: ", "))
+        guard let r = try? await call(content: [["type": "text", "text": "The user typed this wine: " + about]]) else { return (w, 0) }
+        DailyBudget.add(r.costUSD)
+        var o = w
+        let c = r.identity
+        o.funFact = c.funFact
+        if o.food.isEmpty { o.food = c.food }
+        if o.palate.isEmpty { o.palate = c.palate }
+        if (o.drinkWindow ?? "").isEmpty { o.drinkWindow = c.drinkWindow }
+        // tasting notes stay the list's own: Claude's would be a guess, and a guess is never shown as a fact
+        return (o, r.costUSD)
     }
 
     /// "Château Batailley 2021" with vintage 2021 would show the year twice: keep it out of the name.
