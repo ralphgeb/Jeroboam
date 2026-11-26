@@ -111,6 +111,24 @@ random.Random(7).shuffle(rows)
 sample = rows[:N]
 print(f"{len(rows)} wines with known grapes the app cannot settle for free; testing {len(sample)}", flush=True)
 
+# ONE="wine name": ask Gemini about that one wine (thinking off, then on) and print its full answer.
+if os.environ.get("ONE"):
+    wine = os.environ["ONE"]
+    prompt = (f"Use web search to check this wine: {wine}. Use the producer's own page, a wine shop page or a critic's page "
+              f"for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + FORMAT)
+    lines = [f"# Gemini on one wine: {wine}", ""]
+    for v, extra in [("thinking off", {"thinking": {"thinkingBudget": 0}}), ("thinking on", {})]:
+        d, secs, err = post("/gemini", {"prompt": prompt, **extra})
+        cand = ((d or {}).get("candidates") or [{}])[0]
+        text = "".join(p.get("text", "") for p in (cand.get("content") or {}).get("parts", []))
+        g = cand.get("groundingMetadata") or {}
+        lines += [f"## {v}: {secs:.1f} s, searched: {'yes' if g.get('groundingChunks') else 'no'}", "",
+                  "```", (err or text.strip())[:1500], "```", ""]
+        if g.get("webSearchQueries"): lines.append("Searches: " + "; ".join(g["webSearchQueries"]))
+        for c in (g.get("groundingChunks") or [])[:5]: lines.append("- " + (c.get("web") or {}).get("title", ""))
+        lines.append("")
+    open("compare_report.md", "w").write("\n".join(lines)); print("\n".join(lines)); sys.exit(0)
+
 # SPEED=1: Gemini only, the same wines asked four ways, to see what its thinking costs in time and whether it searches.
 VARIANTS = [("as now (thinking on)", {}), ("thinking off (budget 0)", {"thinking": {"thinkingBudget": 0}}),
             ("thinking minimal", {"thinking": {"thinkingLevel": "minimal"}}), ("Flash-Lite", {"lite": True})]
