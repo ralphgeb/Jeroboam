@@ -111,13 +111,20 @@ async function gemini(req, env) {
   const d = day();
   const row = await env.DB.prepare("SELECT calls FROM claude_usage WHERE day = ? AND device = 'gemini'").bind(d).first();
   if (row && row.calls >= Number(env.GEMINI_DAILY_CALLS || 300)) return claudeError("Gemini's daily test limit is reached.", 429, "limit");
-  const model = env.GEMINI_MODEL || (await geminiModel(env));
+  // b.lite: the cheaper, quicker Flash-Lite. b.thinking: Google's thinkingConfig, only these keys (thinking off = budget 0 or level
+  // "minimal", depending on the model); Gemini thinks by default and that thinking was most of its 13 s per wine.
+  const model = (b.lite ? await geminiModel(env, true) : null) || env.GEMINI_MODEL || (await geminiModel(env));
   if (!model) return claudeError("No Gemini Flash model found for this key.", 503);
+  const gen = { maxOutputTokens: Number(env.GEMINI_MAX_TOKENS || 8192) };   // Gemini's thinking counts against this limit too
+  const t = b.thinking || {};
+  if (Number.isInteger(t.thinkingBudget) || typeof t.thinkingLevel === "string")
+    gen.thinkingConfig = Number.isInteger(t.thinkingBudget) ? { thinkingBudget: Math.max(0, Math.min(t.thinkingBudget, 4096)) }
+                                                           : { thinkingLevel: String(t.thinkingLevel).slice(0, 12) };
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
     body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: prompt }] }], tools: [{ google_search: {} }],
-                           generationConfig: { maxOutputTokens: Number(env.GEMINI_MAX_TOKENS || 8192) } }),   // Gemini's thinking counts against this limit too
+                           generationConfig: gen }),
   });
   const text = await res.text();
   await env.DB.prepare(`INSERT INTO claude_usage (day, device, usd, calls) VALUES (?, 'gemini', 0, 1)
@@ -127,12 +134,18 @@ async function gemini(req, env) {
 
 // Google renames its models often: without GEMINI_MODEL, ask Google which models this key can use and take the current Flash
 // ("gemini-flash-latest" when offered, else the newest plain Flash that can generate content).
-async function geminiModel(env) {
+async function geminiModel(env, lite = false) {
   const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=200", { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
   if (!r.ok) return null;
   const list = ((await r.json()).models || [])
     .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
     .map((m) => String(m.name || "").replace(/^models\//, ""));
+  if (lite) {
+    if (list.includes("gemini-flash-lite-latest")) return "gemini-flash-lite-latest";
+    const l = list.filter((n) => /^gemini-[\d.]+-flash-lite(-preview)?(-\d+)?$/.test(n));
+    l.sort((a, b) => parseFloat(b.slice(7)) - parseFloat(a.slice(7)) || a.length - b.length);
+    return l[0] || null;
+  }
   if (list.includes("gemini-flash-latest")) return "gemini-flash-latest";
   const flash = list.filter((n) => /^gemini-[\d.]+-flash(-\d+)?$/.test(n) || /^gemini-[\d.]+-flash-preview/.test(n));
   const ver = (n) => parseFloat((n.match(/gemini-([\d.]+)/) || [0, 0])[1]);
@@ -148,7 +161,8 @@ export default {
     if (url.pathname === "/claude/ping") return json({ ok: true, key: !!env.ANTHROPIC_API_KEY });
     if (url.pathname === "/gemini/ping") {
       const model = env.GEMINI_API_KEY ? (env.GEMINI_MODEL || (await geminiModel(env))) : null;
-      return json({ ok: true, key: !!env.GEMINI_API_KEY, model });
+      const lite = env.GEMINI_API_KEY ? await geminiModel(env, true) : null;
+      return json({ ok: true, key: !!env.GEMINI_API_KEY, model, lite });
     }
     if (url.pathname === "/gemini") {
       if (req.method !== "POST") return json({ error: "method" }, 405);

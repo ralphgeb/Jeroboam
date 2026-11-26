@@ -81,8 +81,8 @@ def ask_claude(prompt):
         (u.get("server_tool_use", {}) or {}).get("web_search_requests", 0) * 0.01
     return last_json(text), secs, cost, None
 
-def ask_gemini(prompt):
-    d, secs, err = post("/gemini", {"prompt": prompt})
+def ask_gemini(prompt, extra=None):
+    d, secs, err = post("/gemini", {"prompt": prompt, **(extra or {})})
     if err and os.environ.get("DEBUG"): print("  gemini error:", err, flush=True)
     if err: return None, secs, None, err
     cand = (d.get("candidates") or [{}])[0]
@@ -110,6 +110,41 @@ for r in csv.DictReader(open(os.path.join(ROOT, "content/prices/wine_details.csv
 random.Random(7).shuffle(rows)
 sample = rows[:N]
 print(f"{len(rows)} wines with known grapes the app cannot settle for free; testing {len(sample)}", flush=True)
+
+# SPEED=1: Gemini only, the same wines asked four ways, to see what its thinking costs in time and whether it searches.
+VARIANTS = [("as now (thinking on)", {}), ("thinking off (budget 0)", {"thinking": {"thinkingBudget": 0}}),
+            ("thinking minimal", {"thinking": {"thinkingLevel": "minimal"}}), ("Flash-Lite", {"lite": True})]
+if os.environ.get("SPEED"):
+    res = {v: {"secs": [], "searched": 0, "score": {}, "err": ""} for v, _ in VARIANTS}
+    rows_out = []
+    for i, r in enumerate(sample, 1):
+        truth = r["grape_blend"].split(",")[0].rsplit(" ", 1)[0].strip()
+        wine = " ".join(x for x in [r["producer"], r["wine"], r["vintage"]] if x)
+        place = f" ({r['region']})" if r["region"] else ""
+        prompt = (f"Use web search to check this wine: {wine}{place}. Use the producer's own page, a wine shop page or a critic's page "
+                  f"for this exact wine. Report only what those pages say; never fill gaps from memory.\n" + FORMAT)
+        cells = []
+        for v, extra in VARIANTS:
+            ga, gs, grounded, gerr = ask_gemini(prompt, extra)
+            vg = "error" if gerr else verdict(ga, truth)
+            x = res[v]; x["score"][vg] = x["score"].get(vg, 0) + 1
+            if gerr: x["err"] = gerr[:160]
+            else: x["secs"].append(gs); x["searched"] += bool(grounded)
+            cells.append(f"{vg[:9]} {gs:.1f}s{' S' if grounded else ''}")
+            time.sleep(0.5)
+        rows_out.append(f"| {i} | {wine[:50]} | {truth} | " + " | ".join(cells) + " |")
+        print(rows_out[-1], flush=True)
+    med = lambda t: sorted(t)[len(t) // 2] if t else 0
+    lines = [f"# Gemini speed test ({len(sample)} wines, free)", "", "S = Google Search was used for that answer.", ""]
+    for v, _ in VARIANTS:
+        x = res[v]; sc = x["score"]
+        lines.append(f"- **{v}**: right {sc.get('right', 0)}, wrong {sc.get('WRONG', 0)}, not found {sc.get('not found', 0)}, "
+                     f"errors {sc.get('error', 0)}; median {med(x['secs']):.1f} s; searched {x['searched']}/{len(x['secs'])}"
+                     + (f"; error: {x['err']}" if x["err"] else ""))
+    lines += ["", "| # | Wine | Known | " + " | ".join(v for v, _ in VARIANTS) + " |", "|---|---|---|---|---|---|---|"] + rows_out
+    open("compare_report.md", "w").write("\n".join(lines))
+    print("\n".join(lines[:9]))
+    sys.exit(0)
 
 out, score = [], {"claude": {}, "gemini": {}}
 spend, secs_c, secs_g = 0.0, [], []
