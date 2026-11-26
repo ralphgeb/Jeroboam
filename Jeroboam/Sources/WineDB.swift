@@ -70,6 +70,7 @@ final class WineDB {
     func noteScan(_ w: WineIdentity, image: UIImage?) {
         guard !w.name.isEmpty else { return }
         PriceCloud.shareWine(w, count: true)   // counted anonymously (once per scan), so we can see what people scan
+        if let image { LabelPrint.share(image, for: w) }   // the label's fingerprint, for picture matching later (numbers, not the photo)
         let small: Data? = image.flatMap { img in
             let side = max(img.size.width, img.size.height)
             let k = min(1, 240 / max(1, side))

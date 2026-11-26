@@ -333,3 +333,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   scans (tools/label_match_test.py, label-match.yml, worker `GET /wines/export`): 7 found, 0 wrong picks. LogicTests cover it.
 - Worker wines table: `grapes`, `grape_percent`, `checked` columns (added and back-filled by the worker); a scan counts once
   (`count` flag: only `WineDB.noteScan` sends true).
+- **Label fingerprints (step 1, collecting only)**: `LabelPrint.swift` makes an Apple Vision feature print of each photo scan
+  (on the phone, 640 px, 32-bit floats) and `PriceCloud.sharePrint` sends it with the wine key (`WineDB.noteScan`). Worker table
+  `label_prints` (at most 5 per wine), `POST /print`, `GET /prints/export`. Not used for matching yet: once a few hundred exist,
+  measure same-label vs look-alike distances, then match (with the label text as a check). Privacy page + listing §5 updated.

@@ -203,6 +203,32 @@ export default {
     // ---- wines: every scan adds to a counter and keeps what Claude found out (so the next person's scan costs nothing)
     //   GET  /wine?sig=<label signature>  or  ?key=<wine key>   -> 200 {"json": "<identity>"} or 404
     //   POST /wine  {"key","sig","json","name","producer","vintage","region","country","style"}  -> adds the wine or counts one more scan
+    // ---- label fingerprints (the app's LabelPrint: Apple Vision feature prints, 32-bit floats, base64), at most 5 per wine.
+    //   POST /print {"key","rev","dims","vec"}   GET /prints/export?limit=  (for tests run on GitHub)
+    if (url.pathname === "/print" && req.method === "POST") {
+      let b;
+      try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
+      const key = clean(b.key, 300), vec = String(b.vec || "");
+      const rev = Number(b.rev) | 0, dims = Number(b.dims) | 0;
+      if (!key || !vec || vec.length > 20000 || dims <= 0 || dims > 8192) return json({ error: "bad" }, 400);
+      await env.DB.prepare(`CREATE TABLE IF NOT EXISTS label_prints (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT NOT NULL,
+                            rev INTEGER, dims INTEGER, vec TEXT NOT NULL, created INTEGER)`).run();
+      await env.DB.prepare("CREATE INDEX IF NOT EXISTS label_prints_key ON label_prints (key)").run();
+      await env.DB.prepare("INSERT INTO label_prints (key, rev, dims, vec, created) VALUES (?, ?, ?, ?, ?)")
+        .bind(key, rev, dims, vec, Math.floor(Date.now() / 1000)).run();
+      // keep the 5 newest of each wine
+      await env.DB.prepare(`DELETE FROM label_prints WHERE key = ? AND id NOT IN
+                            (SELECT id FROM label_prints WHERE key = ? ORDER BY id DESC LIMIT 5)`).bind(key, key).run();
+      return json({ ok: true });
+    }
+    if (url.pathname === "/prints/export") {
+      const limit = Math.max(1, Math.min(20000, Number(url.searchParams.get("limit")) || 5000));
+      try {
+        const { results } = await env.DB.prepare("SELECT key, rev, dims, vec, created FROM label_prints ORDER BY id DESC LIMIT ?").bind(limit).all();
+        return json({ rows: results || [] });
+      } catch { return json({ rows: [] }); }
+    }
+
     // ---- for tests run on GitHub (tools/label_match_test.py): the scanned wines that have a label signature, newest first
     //   GET /wines/export?limit=1000 -> {"rows": [{"sig","name","producer","vintage","json"}]}
     if (url.pathname === "/wines/export") {

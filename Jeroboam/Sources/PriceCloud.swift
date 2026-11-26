@@ -100,4 +100,11 @@ enum PriceCloud {
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine", method: "POST", body: data) else { return }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
     }
+
+    /// A label's visual fingerprint for the wine it turned out to be (`LabelPrint`). Anonymous: the wine's key and numbers only.
+    static func sharePrint(key: String, print: Data, revision: Int, count: Int) {
+        let body: [String: Any] = ["key": key, "rev": revision, "dims": count, "vec": print.base64EncodedString()]
+        guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("print", method: "POST", body: data) else { return }
+        Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
+    }
 }
