@@ -10,6 +10,12 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 26 Nov 2026 (23:47 UTC): build-ios run 85 uploaded (expected TestFlight build 69)
+
+- From main 6d43b41: label -> wine list before Claude (+ fun-fact fill-in), text and photo calls side by side, real 1,024 px
+  photo, a scan counted once, label fingerprints collected. Worker (with /print, grape columns, count flag) deployed by Ralph.
+- Logo vectors for Ralph in media/brand/ (full artwork, Bordeaux/white/mono mark, app icon).
+
 ## For the session harvesting wine images for fingerprints (27 Nov)
 
 Ralph asked another Claude to harvest wine images and make "digital fingerprints" on GitHub machines. The app side already

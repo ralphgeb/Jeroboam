@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS wines (
   country    TEXT,
   style      TEXT,
   json       TEXT,
+  grapes     TEXT,      -- readable copy of the JSON's grapes ("Merlot, Cabernet Franc"); the worker adds these 3 columns if missing
+  grape_percent TEXT,
+  checked    INTEGER,   -- 1 when the grapes were confirmed (online check, rule, label or our wine list)
   scans      INTEGER DEFAULT 1,
   first_seen INTEGER,
   last_seen  INTEGER

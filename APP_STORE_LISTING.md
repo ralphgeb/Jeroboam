@@ -97,7 +97,8 @@ Wine lookups are estimates. Please drink responsibly. Jero is for adults of lega
 - "Do you or your third-party partners collect data?" Yes.
 - Tracking: No. (No ad networks, no tracking.)
 - Data types to tick (every one: **not linked to the user**, **not used for tracking**, purpose **App Functionality**):
-  1. Photos or Videos (a label photo is sent for identification when the text is unclear)
+  1. Photos or Videos (a label photo is sent for identification when the text is unclear; a numeric fingerprint of each
+     scanned label's look is kept in Jero's wine table for faster recognition, not the photo)
   2. Other User Content (the text read from a label)
   3. Product Interaction under Usage Data (the anonymous wine count: which wines are looked up)
   4. Device ID under Identifiers (a random number made by the app on first use, sent with wine lookups so Jero's server can

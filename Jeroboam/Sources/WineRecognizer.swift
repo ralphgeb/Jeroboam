@@ -58,7 +58,8 @@ struct RecognitionResult {
     /// What is still to do after the bottle is on screen (`WineRecognizer.finish`): checking a wine the databases do not fully
     /// know. nil when the result is final.
     var pending: Pending? = nil
-    enum Pending { case vet(sig: String?), fresh(sig: String?), typed }
+    /// enrich: named by our wine list from the label (grapes and all); only the fun fact, food, palate and drinking window are asked of Claude.
+    enum Pending { case vet(sig: String?), fresh(sig: String?), typed, enrich(sig: String?) }
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
     var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
 }
@@ -185,6 +186,16 @@ enum WineRecognizer {
             if needsVet(hit.identity) { r.pending = .vet(sig: sig) }
             return r
         }
+        // our wine list may name it from the label alone: instant, free, and its grapes come with it (LabelMatcher)
+        t = Date()
+        if let w = await Task.detached(priority: .userInitiated, operation: { PriceBook.shared.wine(fromLabel: lines) }).value {
+            clock.add("Our wine list", since: t)
+            var r = RecognitionResult(identity: w, usedImage: false, inputTokens: 0, outputTokens: 0)
+            // named and its grapes known: only the fun fact, food and drinking window are left for Claude (after it is shown)
+            if w.fromDatabase == true { WineDB.shared.save(w, signature: sig); r.pending = .enrich(sig: sig) } else { r.pending = .fresh(sig: sig) }
+            return r
+        }
+        clock.add("List (not found)", since: t)
         // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
         let cloud = Task { () -> WineIdentity? in
             guard let sig else { return nil }
@@ -287,6 +298,11 @@ enum WineRecognizer {
             let (w, cost, limited) = await verifyOnline(r0.identity)
             r.identity = w; r.extraUSD = cost; r.limited = limited
             WineDB.shared.save(r.identity)
+        case .enrich(let sig):
+            let (w, cost) = await enrich(r0.identity)
+            r.identity = w; r.extraUSD = cost
+            WineDB.shared.save(w, signature: sig)
+            if cost > 0 { PriceCloud.shareWine(w, sig: sig) }   // the next person gets the fun fact too
         }
         return r
     }
@@ -444,6 +460,28 @@ enum WineRecognizer {
         return true
     }
 
+    /// A wine named by our list from its label: everything about it comes from the list except what only Claude writes — the fun
+    /// fact, food, palate sentence and drinking window. One text-only call (≈ $0.0004), after the bottle is already on screen;
+    /// the list's producer, name, region, grapes and aromas are kept whatever Claude says.
+    static func enrich(_ w: WineIdentity) async -> (WineIdentity, Double) {
+        guard isAvailable, !DailyBudget.hardStop, w.funFact.isEmpty else { return (w, 0) }
+        let t = Date()
+        defer { ScanClock.shared.add("Fun fact & food", since: t) }
+        let about = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")
+            + (w.region.isEmpty ? "" : " (" + w.region + (w.country.isEmpty ? "" : ", " + w.country) + ")")
+            + (w.grapes.isEmpty ? "" : ". Grapes: " + w.grapes.joined(separator: ", "))
+        guard let r = try? await call(content: [["type": "text", "text": "The user typed this wine: " + about]]) else { return (w, 0) }
+        DailyBudget.add(r.costUSD)
+        var o = w
+        let c = r.identity
+        o.funFact = c.funFact
+        if o.food.isEmpty { o.food = c.food }
+        if o.palate.isEmpty { o.palate = c.palate }
+        if (o.drinkWindow ?? "").isEmpty { o.drinkWindow = c.drinkWindow }
+        // tasting notes stay the list's own: Claude's would be a guess, and a guess is never shown as a fact
+        return (o, r.costUSD)
+    }
+
     /// "Château Batailley 2021" with vintage 2021 would show the year twice: keep it out of the name.
     static func tidy(_ w: WineIdentity) -> WineIdentity {
         var w = w
@@ -453,28 +491,58 @@ enum WineRecognizer {
     }
 
     /// `lines`: the label text already read by `identifyFast` (reading it again cost up to a second).
+    /// The text call and the photo call start together: when the text answer is good enough (Claude is sure, or the producer
+    /// and wine it names are printed on the label) the photo call is dropped; otherwise its answer is already on its way.
+    /// One after the other they took about 10 s on a phone (text 3.5 s, then photo 6 s); side by side the worst case is the photo's time.
     private static func identifyFresh(image: UIImage, lines: [String]) async throws -> RecognitionResult {
         guard isAvailable else { throw RecognizerError.noKey }
-        if let text = usefulText(lines) {
-            var r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
-            // Text alone is enough only for a confident, named answer; otherwise look at the photo too
-            // (script or curved labels such as López de Heredia often defeat OCR).
-            if r.identity.found && !r.identity.name.isEmpty && r.identity.confidence == "high" { return r }
-            // fall back to the image, adding the cost of the first call
-            if let jpeg = small(image) {
-                var r2 = try await call(content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text))
-                r2.inputTokens += r.inputTokens
-                r2.outputTokens += r.outputTokens
-                r2.usedImage = true
-                return (r2.identity.found && !r2.identity.name.isEmpty) || !r.identity.found ? r2 : r
-            }
+        guard let text = usefulText(lines) else {
+            guard let jpeg = small(image) else { throw RecognizerError.badResponse }
+            var r = try await call(content: imageContent(jpeg, extra: nil))
+            r.usedImage = true
+            return r
+        }
+        let photo: Task<RecognitionResult, Error>? = small(image).map { jpeg in
+            Task { try await call(content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text)) }
+        }
+        var r: RecognitionResult
+        do {
+            r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
+        } catch {
+            // the text call failed: the photo call may still answer
+            guard let photo, var r2 = try? await photo.value else { throw error }
+            r2.usedImage = true
+            return r2
+        }
+        if textIsEnough(r.identity, label: text) || photo == nil {
+            photo?.cancel()
             r.usedImage = false
             return r
         }
-        guard let jpeg = small(image) else { throw RecognizerError.badResponse }
-        var r = try await call(content: imageContent(jpeg, extra: nil))
-        r.usedImage = true
-        return r
+        guard var r2 = try? await photo?.value else { r.usedImage = false; return r }
+        r2.inputTokens += r.inputTokens
+        r2.outputTokens += r.outputTokens
+        r2.usedImage = true
+        return (r2.identity.found && !r2.identity.name.isEmpty) || !r.identity.found ? r2 : r
+    }
+
+    /// The label text alone settles it: Claude is sure, or (fairly sure and) the producer and the wine it names are printed on the label.
+    static func textIsEnough(_ w: WineIdentity, label: String) -> Bool {
+        guard w.found, !w.name.isEmpty else { return false }
+        if w.confidence == "high" { return true }
+        guard w.confidence == "medium" else { return false }
+        func words(_ s: String) -> [String] {
+            s.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
+                .components(separatedBy: CharacterSet.letters.inverted).filter { $0.count >= 4 }
+        }
+        let onLabel = Set(words(label))
+        let common: Set<String> = ["chateau", "domaine", "bodega", "bodegas", "weingut", "tenuta", "cantina", "estate", "winery",
+                                   "vineyards", "wines", "family", "reserve", "reserva", "riserva", "rouge", "blanc", "rosso", "bianco"]
+        func printed(_ s: String) -> Bool {
+            let ws = words(s).filter { !common.contains($0) }
+            return ws.isEmpty || ws.contains { onLabel.contains($0) }
+        }
+        return printed(w.producer) && printed(w.name)
     }
 
     static func identify(text: String) async throws -> RecognitionResult {
@@ -522,11 +590,12 @@ enum WineRecognizer {
 
     /// Downscale so the image costs roughly 1,000–1,500 input tokens.
     private static func small(_ image: UIImage) -> Data? {
-        let maxSide: CGFloat = 1400
+        let maxSide: CGFloat = 1024   // enough to read a label; fewer image tokens and a quicker upload than 1,400
         let s = min(1, maxSide / max(image.size.width, image.size.height))
         let size = CGSize(width: image.size.width * s, height: image.size.height * s)
-        let r = UIGraphicsImageRenderer(size: size)
-        let img = r.image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
+        // scale 1: real pixels (the renderer's default is the screen's 3x, which sent photos three times too big)
+        let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
+        let img = UIGraphicsImageRenderer(size: size, format: fmt).image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
         return img.jpegData(compressionQuality: 0.72)
     }
 

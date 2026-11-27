@@ -319,3 +319,21 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (`Wine.identity`, `GreatWine.identity`).
 - Scan timing: `ScanClock` records each step (label, phone/cloud lookup, Claude, name lookup, free pages, paid search, price);
   last 30 scans in Settings > TestFlight > Scan timings (`ScanTimingsView`), never in the scan screen. The label is read once.
+
+## Faster scans, round 2 (27 Nov, not yet on TestFlight)
+- Scan timings showed Claude was the wait (text 3.8 s; text then photo ~10 s). Now: text and photo calls start together
+  (`identifyFresh`), a "medium" text answer is accepted when its producer and name are printed on the label (`textIsEnough`),
+  and the photo sent is really 1,024 px (renderer scale 1; it was 3x).
+- **Label -> our wine list before Claude** (`LabelMatcher.swift`, built in `PriceBook.loadIfNeeded`, used by
+  `PriceBook.wine(fromLabel:)` in `identifyFast(image:)` right after the phone's own memory). Rules: producer = more than half of
+  its words on the label (place words, Château/Bodegas… not counted); the wine's own name entirely on the label (shop extras like
+  Magnum/Trento DOC/(Italy) ignored; colour/tier words kept); a name of only weak words also needs its appellation; ties -> nil;
+  one-letter OCR slips for 6+ letter words. Clean display name (`displayName`), vintage from the label. Then `.enrich` pending:
+  one text-only Claude call fills fun fact, food, palate, drinking window (never grapes or tasting notes). Tested on 32 real
+  scans (tools/label_match_test.py, label-match.yml, worker `GET /wines/export`): 7 found, 0 wrong picks. LogicTests cover it.
+- Worker wines table: `grapes`, `grape_percent`, `checked` columns (added and back-filled by the worker); a scan counts once
+  (`count` flag: only `WineDB.noteScan` sends true).
+- **Label fingerprints (step 1, collecting only)**: `LabelPrint.swift` makes an Apple Vision feature print of each photo scan
+  (on the phone, 640 px, 32-bit floats) and `PriceCloud.sharePrint` sends it with the wine key (`WineDB.noteScan`). Worker table
+  `label_prints` (at most 5 per wine), `POST /print`, `GET /prints/export`. Not used for matching yet: once a few hundred exist,
+  measure same-label vs look-alike distances, then match (with the label text as a check). Privacy page + listing §5 updated.

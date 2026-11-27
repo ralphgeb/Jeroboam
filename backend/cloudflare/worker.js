@@ -50,6 +50,33 @@ function shape(b) {
   return out;
 }
 
+// The wines table gets readable grapes, their percentages and whether they were checked online (added Nov 2026). Done once per
+// worker start: missing columns are added and older rows filled from the JSON they already hold.
+let winesReady = false;
+async function winesColumns(env) {
+  if (winesReady) return;
+  for (const col of ["grapes TEXT", "grape_percent TEXT", "checked INTEGER"]) {
+    try { await env.DB.prepare(`ALTER TABLE wines ADD COLUMN ${col}`).run(); } catch (e) { /* already there */ }
+  }
+  await env.DB.prepare(`UPDATE wines SET
+      grapes = (SELECT group_concat(value, ', ') FROM json_each(wines.json, '$.grapes')),
+      grape_percent = (SELECT group_concat(value, ', ') FROM json_each(wines.json, '$.grape_percent')),
+      checked = CASE WHEN json_extract(wines.json, '$.checked') = 1 OR json_extract(wines.json, '$.from_database') = 1 THEN 1 ELSE 0 END
+    WHERE grapes IS NULL AND json IS NOT NULL AND json_valid(json)`).run();
+  winesReady = true;
+}
+
+/// What a wine's JSON says about its grapes, for the readable columns.
+function grapeColumns(text) {
+  try {
+    const w = JSON.parse(text || "{}");
+    const g = Array.isArray(w.grapes) ? w.grapes.map(String).filter(Boolean) : [];
+    const p = Array.isArray(w.grape_percent) ? w.grape_percent.map(Number) : [];
+    return { grapes: g.length ? g.join(", ").slice(0, 300) : null, percent: p.length ? p.join(", ").slice(0, 100) : null,
+             checked: w.checked === true || w.from_database === true ? 1 : 0 };
+  } catch { return { grapes: null, percent: null, checked: 0 }; }
+}
+
 async function usage(env) {
   await env.DB.prepare(
     "CREATE TABLE IF NOT EXISTS claude_usage (day TEXT NOT NULL, device TEXT NOT NULL, usd REAL NOT NULL DEFAULT 0, calls INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, device))"
@@ -176,6 +203,42 @@ export default {
     // ---- wines: every scan adds to a counter and keeps what Claude found out (so the next person's scan costs nothing)
     //   GET  /wine?sig=<label signature>  or  ?key=<wine key>   -> 200 {"json": "<identity>"} or 404
     //   POST /wine  {"key","sig","json","name","producer","vintage","region","country","style"}  -> adds the wine or counts one more scan
+    // ---- label fingerprints (the app's LabelPrint: Apple Vision feature prints, 32-bit floats, base64), at most 5 per wine.
+    //   POST /print {"key","rev","dims","vec"}   GET /prints/export?limit=  (for tests run on GitHub)
+    if (url.pathname === "/print" && req.method === "POST") {
+      let b;
+      try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
+      const key = clean(b.key, 300), vec = String(b.vec || "");
+      const rev = Number(b.rev) | 0, dims = Number(b.dims) | 0;
+      if (!key || !vec || vec.length > 20000 || dims <= 0 || dims > 8192) return json({ error: "bad" }, 400);
+      await env.DB.prepare(`CREATE TABLE IF NOT EXISTS label_prints (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT NOT NULL,
+                            rev INTEGER, dims INTEGER, vec TEXT NOT NULL, created INTEGER)`).run();
+      await env.DB.prepare("CREATE INDEX IF NOT EXISTS label_prints_key ON label_prints (key)").run();
+      await env.DB.prepare("INSERT INTO label_prints (key, rev, dims, vec, created) VALUES (?, ?, ?, ?, ?)")
+        .bind(key, rev, dims, vec, Math.floor(Date.now() / 1000)).run();
+      // keep the 5 newest of each wine
+      await env.DB.prepare(`DELETE FROM label_prints WHERE key = ? AND id NOT IN
+                            (SELECT id FROM label_prints WHERE key = ? ORDER BY id DESC LIMIT 5)`).bind(key, key).run();
+      return json({ ok: true });
+    }
+    if (url.pathname === "/prints/export") {
+      const limit = Math.max(1, Math.min(20000, Number(url.searchParams.get("limit")) || 5000));
+      try {
+        const { results } = await env.DB.prepare("SELECT key, rev, dims, vec, created FROM label_prints ORDER BY id DESC LIMIT ?").bind(limit).all();
+        return json({ rows: results || [] });
+      } catch { return json({ rows: [] }); }
+    }
+
+    // ---- for tests run on GitHub (tools/label_match_test.py): the scanned wines that have a label signature, newest first
+    //   GET /wines/export?limit=1000 -> {"rows": [{"sig","name","producer","vintage","json"}]}
+    if (url.pathname === "/wines/export") {
+      const limit = Math.max(1, Math.min(5000, Number(url.searchParams.get("limit")) || 1000));
+      const { results } = await env.DB.prepare(
+        "SELECT sig, name, producer, vintage, json FROM wines WHERE sig IS NOT NULL AND sig != '' ORDER BY last_seen DESC LIMIT ?"
+      ).bind(limit).all();
+      return json({ rows: results || [] });
+    }
+
     if (url.pathname === "/wine") {
       if (req.method === "GET") {
         const sig = clean(url.searchParams.get("sig"), 300), key = clean(url.searchParams.get("key"), 300);
@@ -190,14 +253,25 @@ export default {
         try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
         const key = clean(b.key, 300);
         if (!key || !clean(b.name)) return json({ error: "bad" }, 400);
+        await winesColumns(env);
         const now = Math.floor(Date.now() / 1000);
+        const g = grapeColumns(b.json);
+        // a scan counts once: the app also sends the wine again after checking it, with "count": false (older builds send no flag)
+        const add = b.count === false ? 0 : 1;
+        // a checked wine's grapes replace an unchecked guess, never the other way round; region and country fill in when known
         await env.DB.prepare(
-          `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, scans, first_seen, last_seen)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-           ON CONFLICT(key) DO UPDATE SET scans = scans + 1, last_seen = excluded.last_seen,
-             sig = COALESCE(excluded.sig, sig), json = COALESCE(excluded.json, json)`
+          `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, grapes, grape_percent, checked, scans, first_seen, last_seen)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(key) DO UPDATE SET scans = scans + ?, last_seen = excluded.last_seen,
+             sig = COALESCE(excluded.sig, sig),
+             region = COALESCE(NULLIF(excluded.region, ''), region), country = COALESCE(NULLIF(excluded.country, ''), country),
+             style = COALESCE(NULLIF(excluded.style, ''), style),
+             json = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.json, json) ELSE json END,
+             grapes = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.grapes, grapes) ELSE grapes END,
+             grape_percent = CASE WHEN excluded.checked >= COALESCE(checked, 0) THEN COALESCE(excluded.grape_percent, grape_percent) ELSE grape_percent END,
+             checked = MAX(COALESCE(checked, 0), excluded.checked)`
         ).bind(key, b.sig ? clean(b.sig, 300) : null, clean(b.name), clean(b.producer), clean(b.vintage, 12), clean(b.region), clean(b.country, 60),
-               clean(b.style, 20), b.json ? String(b.json).slice(0, 8000) : null, now, now).run();
+               clean(b.style, 20), b.json ? String(b.json).slice(0, 8000) : null, g.grapes, g.percent, g.checked, add, now, now, add).run();
         return json({ ok: true });
       }
       return json({ error: "method" }, 405);

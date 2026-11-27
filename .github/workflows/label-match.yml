@@ -1,0 +1,23 @@
+name: Label match test (scanning option 3)
+# Runs tools/label_match_test.py: can the phone name a scanned wine from our wine list alone? Free (no AI calls).
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/label-match.yml", "tools/label_match_test.py"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Is the export on the worker?
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -H "x-jero-key: $KEY" "$URL/wines/export?limit=1")
+          [ "$code" = 200 ] || { echo "::error::Paste the new worker.js into Cloudflare and Deploy (export answered $code)"; exit 1; }
+      - run: python3 tools/label_match_test.py
+      - if: always()
+        run: '[ -f label_match_report.md ] && cat label_match_report.md >> "$GITHUB_STEP_SUMMARY" || true'

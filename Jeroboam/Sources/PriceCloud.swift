@@ -90,12 +90,21 @@ enum PriceCloud {
     }
 
     /// Counts one more scan of this wine and keeps its details. Only the wine itself goes out: no photo, no name, no device or account.
-    static func shareWine(_ w: WineIdentity, sig: String? = nil) {
+    /// `count`: true only for the one call per scan (`WineDB.noteScan`); the same wine sent again after its check updates it without
+    /// counting a second scan.
+    static func shareWine(_ w: WineIdentity, sig: String? = nil, count: Bool = false) {
         guard w.found, !w.name.isEmpty, let json = (try? JSONEncoder().encode(w)).flatMap({ String(data: $0, encoding: .utf8) }) else { return }
         var body: [String: Any] = ["key": WineDB.key(w), "json": json, "name": w.name, "producer": w.producer, "vintage": w.vintage,
-                                   "region": w.region, "country": w.country, "style": w.style]
+                                   "region": w.region, "country": w.country, "style": w.style, "count": count]
         if let sig { body["sig"] = sig }
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine", method: "POST", body: data) else { return }
+        Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
+    }
+
+    /// A label's visual fingerprint for the wine it turned out to be (`LabelPrint`). Anonymous: the wine's key and numbers only.
+    static func sharePrint(key: String, print: Data, revision: Int, count: Int) {
+        let body: [String: Any] = ["key": key, "rev": revision, "dims": count, "vec": print.base64EncodedString()]
+        guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("print", method: "POST", body: data) else { return }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
     }
 }
