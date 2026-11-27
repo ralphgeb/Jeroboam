@@ -388,3 +388,14 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   `JournalEntry.notePhotos`, synced in the CloudKit payload, left out of the key-value fallback); after Save a pop-up asks Remove one /
   Remove all / Keep in cellar; a bottle page whose bottle is gone dismisses itself (no blank page); "Taste this bottle" sits near the
   top of the bottle page; empty Cellar / Tastings tabs show `CellarWelcome` / `TastingsWelcome` (TastingExtras.swift).
+
+## Misread labels (27 Nov, not yet on TestFlight)
+- `LabelMatcher.misreads(lines:)`: a 6+ letter label word the list never uses, 1 letter (or 2, same first letter, worth 1/20) off a
+  known word, the commoner word winning by 5x ("RESENE" -> reserve). Common label words (`labelCommon`, generic/weak/noise) never count.
+  The corrected word is used by the list lookup; `identifyFresh` names the slips for Claude and never settles a misread label from the
+  text answer (the photo answer, already running, decides; ~2 s more on those scans, no extra calls). Python twin in
+  tools/label_match_test.py (report section "Misread check").
+- Relaxed list tier: if no wine's own name is fully printed, one whose name minus weak words is printed with its producer counts (no ties).
+- Vintage = latest year printed ("since 1928"); Claude's year < 1950 or > next year is replaced. `enrich` fills an empty region/country.
+- Known data bug (prices session): Black Market (NZ) prices are 6/3/12-packs stored as bottle prices (~10k rows, e.g. Trivento Reserve
+  Malbec 119.94 NZD = 6 x 19.99). Pack size shows only in the price ending.

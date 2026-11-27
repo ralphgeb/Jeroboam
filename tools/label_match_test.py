@@ -143,11 +143,13 @@ def vocab(wines):
     for w in freq: by[(w[0], len(w))].append(w)
     return freq, by
 
+LABEL_COMMON = set(['controlee', 'controllata', 'garantita', 'origine', 'origen', 'denominacion', 'denominazione', 'appellation', 'prodotto', 'produit', 'product', 'produced', 'producer', 'imbottigliato', 'embotellado', 'bouteille', 'bouteilles', 'variedad', 'varietal', 'fundada', 'fundado', 'italia', 'france', 'espana', 'portugal', 'argentina', 'australia', 'proprietaire', 'propriete', 'recoltant', 'viticulteur', 'winemaker', 'contains', 'sulfites', 'sulphites', 'solfiti', 'vintage', 'cosecha', 'annata', 'millesime', 'bottled', 'grown', 'region', 'alcohol', 'indicazione', 'geografica', 'tipica', 'protetta', 'protegida', 'calificada', 'qualitatswein', 'pradikatswein', 'trocken', 'gutsabfullung', 'erzeugerabfullung', 'barrel', 'barrels', 'months', 'oak', 'aged', 'agricola', 'societa', 'famille', 'heritiers', 'negociant', 'domaines', 'cantine', 'tenute'])
+
 def misreads(words, freq, by):
     """Same rule as LabelMatcher.misreads: a 6+ letter word the list never uses, 1 (else 2) letters off a known word."""
     out = {}
     for w in words:
-        if len(w) < 6 or w in freq or not w.isalpha(): continue
+        if len(w) < 6 or w in freq or not w.isalpha() or w in LABEL_COMMON or w in GENERIC or w in NAME_GENERIC: continue
         score = {}
         for n in (len(w) - 1, len(w), len(w) + 1):
             for f in set("abcdefghijklmnopqrstuvwxyz"):

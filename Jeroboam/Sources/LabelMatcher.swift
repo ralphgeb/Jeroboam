@@ -190,9 +190,14 @@ struct LabelMatcher {
     /// when two fit, if it is far more common). Used to read the label right and to send a misread label to the photo answer.
     func misreads(lines: [String]) -> [String: String] { misreadMap(PriceBook.tokens(lines.joined(separator: " "))) }
 
+    /// Words printed on many labels that wine names leave out (legal lines, countries, "domaine"…): never misreads.
+    static let labelCommon: Set<String> = ["controlee", "controllata", "garantita", "origine", "origen", "denominacion", "denominazione", "appellation", "prodotto", "produit", "product", "produced", "producer", "imbottigliato", "embotellado", "bouteille", "bouteilles", "variedad", "varietal", "fundada", "fundado", "italia", "france", "espana", "portugal", "argentina", "australia", "proprietaire", "propriete", "recoltant", "viticulteur", "winemaker", "contains", "sulfites", "sulphites", "solfiti", "vintage", "cosecha", "annata", "millesime", "bottled", "grown", "region", "alcohol", "indicazione", "geografica", "tipica", "protetta", "protegida", "calificada", "qualitatswein", "pradikatswein", "trocken", "gutsabfullung", "erzeugerabfullung", "barrel", "barrels", "months", "oak", "aged", "agricola", "societa", "famille", "heritiers", "negociant", "domaines", "cantine", "tenute"]
+
     private func misreadMap(_ label: Set<String>) -> [String: String] {
         var out: [String: String] = [:]
-        for w in label where w.count >= 6 && !words.contains(w) && w.allSatisfy({ $0.isLetter }) {
+        for w in label where w.count >= 6 && !words.contains(w) && w.allSatisfy({ $0.isLetter })
+            && !Self.labelCommon.contains(w) && !Self.generic.contains(w) && !Self.nameGeneric.contains(w)
+            && !Self.noise.contains(w) && !Self.weak.contains(w) {
             // a rare word one letter off ("refene") must not beat a common one two letters off ("reserve"): a two-letter slip
             // counts 20 times less
             var score: [String: Double] = [:]
