@@ -57,6 +57,22 @@ enum Currency {
         return v / rf * rt
     }
 
+    /// A round amount in the chosen currency for a US-dollar threshold (price filters): $50 -> "£40", "€45", "¥7,500".
+    static func round(_ usd: Double) -> String {
+        let to = rate(code) != nil ? code : "USD"
+        let v = convert(usd, from: "USD", to: to)
+        let step: Double = v >= 1000 ? 100 : (v >= 100 ? 10 : 5)
+        let n = NumberFormatter()
+        n.numberStyle = .currency; n.currencyCode = to; n.maximumFractionDigits = 0
+        return n.string(from: NSNumber(value: max(step, (v / step).rounded() * step))) ?? "\(Int(v))"
+    }
+
+    /// The chosen currency's symbol ("£", "€", "$").
+    static var symbol: String {
+        let n = NumberFormatter(); n.numberStyle = .currency; n.currencyCode = rate(code) != nil ? code : "USD"
+        return n.currencySymbol ?? "$"
+    }
+
     /// A price in the chosen currency.
     static func format(_ v: Double, from: String) -> String {
         let to = code

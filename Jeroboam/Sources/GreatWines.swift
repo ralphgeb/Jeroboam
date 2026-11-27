@@ -42,12 +42,11 @@ struct GreatWine: Decodable, Identifiable, Hashable {
         let nums = scores.split(whereSeparator: { !$0.isNumber }).compactMap { Int($0) }
         return nums.max() ?? 0
     }
-    /// "$920" when looked up, else the estimated range.
+    /// "£725" when looked up, else the estimated range, in the reader's currency (the list holds US dollars).
     var priceText: String {
-        if let a = avgPrice { return a >= 1000 ? "$\(a / 1000),\(String(format: "%03d", a % 1000))" : "$\(a)" }
+        if let a = avgPrice { return Currency.format(Double(a), from: "USD") }
         guard price.count == 2 else { return "" }
-        func f(_ v: Int) -> String { v >= 1000 ? "$\(v / 1000),\(String(format: "%03d", v % 1000))" : "$\(v)" }
-        return "\(f(price[0]))–\(f(price[1]))"
+        return Currency.format(Double(price[0]), from: "USD") + "–" + Currency.format(Double(price[1]), from: "USD")
     }
     var scoreText: String { criticScore.map { "\($0)" } ?? scores }
 
@@ -339,6 +338,15 @@ struct GreatWinesScreen: View {
     enum Sort: String, CaseIterable { case featured = "Featured", priceUp = "Price: low to high", priceDown = "Price: high to low", rating = "Rating" }
     enum Band: String, CaseIterable {
         case all = "Any price", under50 = "Under $50", mid = "$50–150", over150 = "$150+"
+        /// The label in the reader's currency (the bands are US-dollar amounts).
+        var title: String {
+            switch self {
+            case .all: return "Any price"
+            case .under50: return "Under " + Currency.round(50)
+            case .mid: return Currency.round(50) + "–" + Currency.round(150)
+            case .over150: return Currency.round(150) + "+"
+            }
+        }
         func matches(_ v: Int) -> Bool {
             switch self { case .all: return true; case .under50: return v < 50; case .mid: return v >= 50 && v <= 150; case .over150: return v > 150 }
         }
@@ -441,7 +449,7 @@ struct GreatWinesScreen: View {
         parts.append(sub ?? "")
         parts.append(applied)
         parts.append(sort.rawValue)
-        parts.append(band.rawValue)
+        parts.append(band.title)
         parts.append(String(minScore))
         return parts.joined(separator: "|")
     }
@@ -499,8 +507,8 @@ struct GreatWinesScreen: View {
                     Picker("Sort", selection: $sort) { ForEach(Sort.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
                 } label: { chip("arrow.up.arrow.down", sort.rawValue, on: sort != .featured) }
                 Menu {
-                    Picker("Price", selection: $band) { ForEach(Band.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
-                } label: { chip("dollarsign.circle", band.rawValue, on: band != .all) }
+                    Picker("Price", selection: $band) { ForEach(Band.allCases, id: \.self) { Text($0.title).tag($0) } }
+                } label: { chip("tag", band.title, on: band != .all) }
                 Menu {
                     Picker("Rating", selection: $minScore) {
                         Text("Any rating").tag(0); Text("90 and up").tag(90); Text("95 and up").tag(95)

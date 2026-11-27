@@ -170,7 +170,7 @@ struct WineDetailView: View {
                     factRow("Price") {
                         HStack(spacing: 1) {
                             ForEach(1...4, id: \.self) { i in
-                                Text("$").font(.jero(size: 15, weight: .semibold))
+                                Text(Currency.symbol).font(.jero(size: 15, weight: .semibold))
                                     .foregroundStyle(i <= w.price ? Palette.wine : Palette.inkFaint.opacity(0.5))
                             }
                         }

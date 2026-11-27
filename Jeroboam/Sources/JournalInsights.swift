@@ -376,9 +376,10 @@ struct JournalInsights: View {
 
     private var priceCard: some View {
         let ps = wines.compactMap(\.price)
-        let tiers: [(String, Int)] = [("Under $20", ps.filter { $0 < 20 }.count), ("$20–50", ps.filter { $0 >= 20 && $0 < 50 }.count),
-                                      ("$50–100", ps.filter { $0 >= 50 && $0 < 100 }.count), ("$100+", ps.filter { $0 >= 100 }.count)]
-        return card("What you spend", ps.isEmpty ? "Scan a bottle to see its price" : "Typical bottle about US$\(Int(ps.sorted()[ps.count / 2]))") {
+        let r = Currency.round
+        let tiers: [(String, Int)] = [("Under " + r(20), ps.filter { $0 < 20 }.count), (r(20) + "–" + r(50), ps.filter { $0 >= 20 && $0 < 50 }.count),
+                                      (r(50) + "–" + r(100), ps.filter { $0 >= 50 && $0 < 100 }.count), (r(100) + "+", ps.filter { $0 >= 100 }.count)]
+        return card("What you spend", ps.isEmpty ? "Scan a bottle to see its price" : "Typical bottle about " + Currency.format(ps.sorted()[ps.count / 2], from: "USD")) {
             Chart(tiers, id: \.0) { t, n in
                 BarMark(x: .value("Tier", t), y: .value("Wines", n)).foregroundStyle(Palette.brass.gradient).cornerRadius(5)
             }

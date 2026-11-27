@@ -230,9 +230,12 @@ struct CellarView: View {
                 menu(icon: "arrow.up.arrow.down", title: sort.rawValue, active: sort != .recent) {
                     Picker("Sort", selection: $sort) { ForEach(Sort.allCases) { Text($0.rawValue).tag($0) } }
                 }
-                menu(icon: "tag", title: ["Any price", "Under $25", "$25–50", "$50–100", "$100+"][priceBand], active: priceBand > 0) {
+                // the bands are US-dollar amounts, labelled in the reader's currency
+                let bands = ["Any price", "Under " + Currency.round(25), Currency.round(25) + "–" + Currency.round(50),
+                             Currency.round(50) + "–" + Currency.round(100), Currency.round(100) + "+"]
+                menu(icon: "tag", title: bands[priceBand], active: priceBand > 0) {
                     Picker("Price", selection: $priceBand) {
-                        Text("Any price").tag(0); Text("Under $25").tag(1); Text("$25–50").tag(2); Text("$50–100").tag(3); Text("$100+").tag(4)
+                        ForEach(0..<bands.count, id: \.self) { Text(bands[$0]).tag($0) }
                     }
                 }
                 menu(icon: "star", title: minRating == 0 ? "Any rating" : "\(minRating)+ pts", active: minRating > 0) {
