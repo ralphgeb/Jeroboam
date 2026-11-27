@@ -84,6 +84,7 @@ final class WineDB {
     func noteScan(_ w: WineIdentity, image: UIImage?) {
         guard !w.name.isEmpty else { return }
         PriceCloud.shareWine(w, count: true)   // counted anonymously (once per scan), so we can see what people scan
+        DispatchQueue.main.async { CloudSync.shared.journalChanged() }   // the scan list is backed up to iCloud with the journal
         if let image { LabelPrint.share(image, for: w) }   // the label's fingerprint, for picture matching later (numbers, not the photo)
         let small: Data? = image.flatMap { img in
             let side = max(img.size.width, img.size.height)
@@ -121,6 +122,39 @@ final class WineDB {
         lock.unlock()
         if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
         PriceCloud.shareWine(new)
+    }
+
+    // MARK: iCloud backup of the scan list (JournalCloud: one record "scan-history" in the journal zone)
+
+    /// Every wine looked up on this phone, with all its details, price and small label picture (the label-text links are left
+    /// out: they are only a shortcut). Sorted keys, so an unchanged list gives the same bytes and is not sent again.
+    func backupData() -> Data? {
+        lock.lock(); let wines = store.wines; lock.unlock()
+        guard !wines.isEmpty else { return nil }
+        let e = JSONEncoder(); e.outputFormatting = .sortedKeys
+        return try? e.encode(wines)
+    }
+
+    /// Wines from the iCloud copy that this phone lacks (a new phone, a reinstall, another phone's scans) are added; a wine both
+    /// have keeps the copy seen most recently, and its scan count is the larger of the two.
+    func merge(backup: Data) {
+        guard let theirs = try? JSONDecoder().decode([String: Entry].self, from: backup), !theirs.isEmpty else { return }
+        lock.lock()
+        var changed = false
+        for (k, t) in theirs {
+            if let mine = store.wines[k] {
+                let newer = (t.lastSeen ?? t.saved) > (mine.lastSeen ?? mine.saved)
+                var m = newer ? t : mine
+                m.scans = max(mine.scans ?? 0, t.scans ?? 0) == 0 ? nil : max(mine.scans ?? 0, t.scans ?? 0)
+                m.thumb = m.thumb ?? mine.thumb ?? t.thumb
+                if newer || m.scans != mine.scans || m.thumb != mine.thumb { store.wines[k] = m; changed = true }
+            } else {
+                store.wines[k] = t; changed = true
+            }
+        }
+        let snapshot = store
+        lock.unlock()
+        if changed, let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
     }
 
     /// Everything ever scanned, newest first.

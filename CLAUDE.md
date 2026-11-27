@@ -344,3 +344,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   Shop-vs-shop test result: 39% right (look-alikes); Ralph's plan: prints only as a cross-check on the label reading later.
 - Label matcher fix (Guigal Côtes du Rhône read as Château d'Ampuis): the "bottled by" line counts for the producer only; wines named
   by producer + appellation can match; named cuvées beat them; phones forget remembered label links once (`forgetLabelLinksOnce`).
+- **Scan list backed up to iCloud**: `WineDB.backupData()/merge(backup:)`; `JournalCloud.push` sends the whole list (details, price,
+  label thumb; not the label-text links) as one record `scan-history` of the existing `Bottle` type, the list in its `photo` asset
+  (payload `{"jeroScanList":1}`, which no build decodes as a bottle). Pull merges it (newest copy of a wine wins, scan counts max).
+  `WineDB.noteScan` schedules a push.

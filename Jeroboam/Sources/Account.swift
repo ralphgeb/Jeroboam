@@ -382,6 +382,8 @@ final class JournalCloud {
         SHA256.hash(data: d).map { String(format: "%02x", $0) }.joined()
     }
     private static let encoder: JSONEncoder = { let e = JSONEncoder(); e.outputFormatting = .sortedKeys; return e }()
+    /// The record holding the scan list (never a real bottle's id: those are UUIDs).
+    static let scanListID = "scan-history"
 
     private func payload(_ e: JournalEntry) -> Data? { try? Self.encoder.encode(e) }
     private func payload(_ b: CellarBottle) -> Data? { var c = b; c.thumb = nil; return try? Self.encoder.encode(c) }
@@ -411,6 +413,14 @@ final class JournalCloud {
         for rec in incoming {
             guard let data = rec["payload"] as? Data else { continue }
             let rid = rec.recordID.recordName
+            // the scan list ("See all previously scanned wines"): its file comes down and is merged into the phone's list
+            if rid == Self.scanListID {
+                if let url = (rec["photo"] as? CKAsset)?.fileURL, let file = try? Data(contentsOf: url) {
+                    await Task.detached(priority: .utility) { WineDB.shared.merge(backup: file) }.value
+                    sentNow[rid] = Self.fingerprint(file)
+                }
+                continue
+            }
             if gone.contains(rid) { continue }
             let fp = Self.fingerprint(data)
             let asset = rec["photo"] as? CKAsset
@@ -484,6 +494,20 @@ final class JournalCloud {
         }
         for e in j.entries { add(type: "Tasting", id: e.id, data: payload(e), photo: e.photo) }
         for b in j.cellar { add(type: "Bottle", id: b.id, data: payload(b), photo: b.photo) }
+        // the scan list rides along as one record of the Bottle type (no new record type to set up in CloudKit), its whole
+        // list in the photo field as a file; only when it changed
+        var scanList: CKRecord? = nil
+        var scanListFP: String? = nil
+        if let list = await Task.detached(priority: .utility, operation: { WineDB.shared.backupData() }).value {
+            let fp = Self.fingerprint(list)
+            let file = FileManager.default.temporaryDirectory.appendingPathComponent("jero-scan-list.json")
+            if sentNow[Self.scanListID] != fp, (try? list.write(to: file, options: .atomic)) != nil {
+                let rec = CKRecord(recordType: "Bottle", recordID: CKRecord.ID(recordName: Self.scanListID, zoneID: zoneID))
+                rec["payload"] = Data("{\"jeroScanList\":1}".utf8)
+                rec["photo"] = CKAsset(fileURL: file)
+                scanList = rec; scanListFP = fp
+            }
+        }
         let names = Set(changes.compactMap { $0.photo })
         let files: [String: URL] = await Task.detached(priority: .utility) {
             var out: [String: URL] = [:]
@@ -497,6 +521,7 @@ final class JournalCloud {
             records.append(rec)
             prints[c.rid] = c.fp
         }
+        if let rec = scanList, let fp = scanListFP { records.append(rec); prints[Self.scanListID] = fp }
         let toDelete = CloudSync.deleted.subtracting(deletedSent).map { CKRecord.ID(recordName: $0, zoneID: zoneID) }
         guard !records.isEmpty || !toDelete.isEmpty else { return }
 
