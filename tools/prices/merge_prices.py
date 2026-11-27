@@ -88,11 +88,6 @@ def union(a,b,allow_same):
     if a==b: return
     if not allow_same and shops[a]&shops[b]: return
     parent[a]=b; shops[b]|=shops[a]
-ex={}
-for i,o in enumerate(offers):
-    k=(o['key'],o['vintage'],o['size'])
-    if k in ex: union(i,ex[k],True)
-    else: ex[k]=i
 # colour of a name: never join a white or rosé with a red (or a name that says no colour: "Chateau Musar" is the red, not the Blanc)
 WHITE_W=re.compile(r"\b(blanc|blanche|bianco|blanco|branco|white|weiss|weisswein|blanc de blancs)\b")
 ROSE_W=re.compile(r"\b(rose|rosado|rosato|blush|pink)\b")
@@ -109,6 +104,11 @@ for i,o in enumerate(offers): buckets[(o['vintage'],o['size'])].append((i,set(o[
 def name_words(n):   # the key drops colour words, so the colour is read from the full name
     return re.findall(r'[a-z]+',unicodedata.normalize('NFKD',n).encode('ascii','ignore').decode().lower())
 colour={i:colour_of(name_words(o['name'])) for i,o in enumerate(offers)}
+ex={}
+for i,o in enumerate(offers):
+    k=(o['key'],o['vintage'],o['size'],colour[i])
+    if k in ex: union(i,ex[k],True)
+    else: ex[k]=i
 for b_,items in buckets.items():
     idx=C.defaultdict(list)
     for i,t in items:
