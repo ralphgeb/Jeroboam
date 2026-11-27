@@ -1,0 +1,14 @@
+{
+ "host": "morenaturalwine.com",
+ "wine_pages": 4033,
+ "pages_without_photo": 0,
+ "distinct_photos": 3946,
+ "status": {
+  "ok": 3946
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 3946
+}
