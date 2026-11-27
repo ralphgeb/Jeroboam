@@ -10,6 +10,14 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 27 Nov 2026 (11:54 UTC): build-ios run 88 uploaded (main d46a4bd, expected TestFlight build 72)
+
+- Misread labels (Ralph scanned a screen photo of Château Margaux 2018 -> "Château Nâteau", priced as Château Canon): a name of only
+  classification words never settles a scan; a producer unknown to the list waits for the photo answer (`knowsProducer`); a price
+  needs the producer's own word. Château Margaux (producer = appellation) can now be matched (`placeNamed`, never beats Palmer).
+- Château names from classification words (Lynch-Bages "Grand Vin Grand Cru Classé") and the label's tier added back (Bosconia Reserva).
+- Streak freezes: explanation sheet, earned note, snowflake badge; earned for 7-day streaks, levels, passed exams; Plus holds 3.
+
 ## 27 Nov 2026 (10:09 UTC): build-ios run 87 uploaded (main a713a13, expected TestFlight build 71)
 
 - Cellar: tighter top, chart panel `Reveal`; scan list backed up to iCloud; App Store build switch (`for_app_store`);
