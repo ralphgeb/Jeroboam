@@ -1,0 +1,14 @@
+{
+ "host": "domestiquewine.com",
+ "wine_pages": 304,
+ "pages_without_photo": 1,
+ "distinct_photos": 302,
+ "status": {
+  "ok": 302
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 302
+}
