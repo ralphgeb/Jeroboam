@@ -1,0 +1,15 @@
+{
+ "host": "thatcherswine.com",
+ "wine_pages": 13961,
+ "pages_without_photo": 1,
+ "distinct_photos": 13949,
+ "status": {
+  "ok": 13944,
+  "unusable": 5
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 13944
+}
