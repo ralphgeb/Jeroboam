@@ -266,6 +266,22 @@ final class PriceBook {
     func wine(fromLabel lines: [String]) -> WineIdentity? {
         loadIfNeeded()
         guard !rows.isEmpty, let m = labels.match(lines: lines) else { return nil }
+        return identity(of: m, lines: lines)
+    }
+
+    /// Up to 10 wines of the list this label might be (sent to Claude as a help, never as the answer).
+    func shortlist(lines: [String]) -> [LabelMatcher.Wine] {
+        loadIfNeeded()
+        return rows.isEmpty ? [] : labels.shortlist(lines: lines)
+    }
+
+    /// The shortlisted wine Claude picked, if the label supports it (else nil: Claude's own answer stands).
+    func wine(fromPick m: LabelMatcher.Wine, lines: [String]) -> WineIdentity? {
+        guard labels.supports(m, lines: lines) else { return nil }
+        return identity(of: m, lines: lines)
+    }
+
+    private func identity(of m: LabelMatcher.Wine, lines: [String]) -> WineIdentity {
         var w = WineIdentity.empty
         w.found = true; w.confidence = "high"; w.fromDatabase = true
         w.producer = m.maker

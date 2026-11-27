@@ -69,6 +69,49 @@ struct LabelMatcher {
         words.formUnion(own); words.formUnion(p)
     }
 
+    /// The label's words, as `match` reads them (the "bottled by" line apart; one-letter OCR slips corrected).
+    private func labelWords(_ lines: [String]) -> (name: Set<String>, producer: Set<String>) {
+        let small = lines.filter { l in Self.bottler.contains { l.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased().contains($0) } }
+        var label = PriceBook.tokens(lines.filter { !small.contains($0) }.joined(separator: " "))
+        label.formUnion(corrections(label))
+        return (label, label.union(PriceBook.tokens(small.joined(separator: " "))))
+    }
+
+    /// The wines this label might be, best first (at most `limit`): a word of their own name on the label, plus their producer
+    /// or another name word or their appellation. Only a help for Claude, so looser than `match`; empty when nothing fits well.
+    func shortlist(lines: [String], limit: Int = 10) -> [Wine] {
+        let (label, producerWords) = labelWords(lines)
+        var score: [Int32: Double] = [:]
+        for w in label where !Self.weak.contains(w) {
+            for i in index[w] ?? [] where score[i] == nil {
+                let x = wines[Int(i)]
+                let own = Double(x.own.intersection(label).count)
+                let prod = Double(x.producer.intersection(producerWords).count)
+                let place = Double(x.place.intersection(label).count)
+                // the share of its own name that is printed matters more than its length
+                let s = own / Double(max(1, x.own.count)) * 2 + prod + place * 0.5 - Double(x.own.subtracting(label).count) * 0.5
+                if own >= 1 && (prod >= 1 || own >= 2 || place >= 1) && s >= 2 { score[i] = s }
+            }
+        }
+        // one entry per wine (the same producer + name in other vintages or sizes are one)
+        var seen = Set<String>()
+        var out: [Wine] = []
+        for (i, _) in score.sorted(by: { $0.value > $1.value }) {
+            let x = wines[Int(i)]
+            if seen.insert(x.maker.lowercased() + "|" + x.own.sorted().joined()).inserted { out.append(x) }
+            if out.count == limit { break }
+        }
+        return out
+    }
+
+    /// Whether the label supports this wine (for Claude's pick from the shortlist): all of its own name printed, or its producer
+    /// and part of its name.
+    func supports(_ x: Wine, lines: [String]) -> Bool {
+        let (label, producerWords) = labelWords(lines)
+        guard !x.own.intersection(label).isEmpty else { return false }
+        return x.own.isSubset(of: label) || !x.producer.isDisjoint(with: producerWords)
+    }
+
     /// True when every word is one the list's wines use (producers and names).
     func knows(_ ws: Set<String>) -> Bool { ws.isSubset(of: words) }
 

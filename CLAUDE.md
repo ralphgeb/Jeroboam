@@ -378,3 +378,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   `Backup{wines, removed}` (old builds' plain list still decodes); `merge` applies removals (unless scanned again later) and never
   re-adds a removed wine from an older copy. Claude's instructions: name the real estate of a known cuvée whose label hides the
   producer (La Pialade = Château Rayas), else leave producer empty with low confidence; never guess a producer from the region.
+- **Shortlist for Claude**: `LabelMatcher.shortlist` (up to 10 list wines with a word of their own name on the label + producer, a
+  second name word or the appellation) is added to both Claude calls (`shortlistText`); Claude answers `list_pick` (0 = none) and still
+  identifies the wine itself. A pick is used only if `LabelMatcher.supports` it (whole own name printed, or producer + part of it);
+  then the list's facts replace Claude's (Claude's fun fact/palate/food/window kept). Test: tools/shortlist_test.py, shortlist-test.yml.

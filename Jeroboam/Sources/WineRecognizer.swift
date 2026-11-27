@@ -32,6 +32,8 @@ struct WineIdentity: Codable, Hashable {
     var fromDatabase: Bool? = nil
     /// True once the grapes, region and notes were checked on the web (or came from the wine database).
     var checked: Bool? = nil
+    /// Claude's pick from the shortlist of Jero's wines sent with the label (1-based; 0 or nil = none of them).
+    var listPick: Int? = nil
 
     enum CodingKeys: String, CodingKey {
         case found, name, producer, region, country, grapes, vintage, style, palate, food, currency, confidence
@@ -39,6 +41,7 @@ struct WineIdentity: Codable, Hashable {
         case drinkWindow = "drink_window", grapePercent = "grape_percent", dbScore = "db_score", dbScoreLink = "db_score_link", fromDatabase = "from_database"
         case dbCritics = "db_critics", dbCriticLinks = "db_critic_links"
         case checked
+        case listPick = "list_pick"
     }
 
     static let empty = WineIdentity(found: false, name: "", producer: "", region: "", country: "", grapes: [], vintage: "",
@@ -531,19 +534,39 @@ enum WineRecognizer {
     /// and wine it names are printed on the label) the photo call is dropped; otherwise its answer is already on its way.
     /// One after the other they took about 10 s on a phone (text 3.5 s, then photo 6 s); side by side the worst case is the photo's time.
     private static func identifyFresh(image: UIImage, lines: [String]) async throws -> RecognitionResult {
+        let short = await Task.detached(priority: .userInitiated) { PriceBook.shared.shortlist(lines: lines) }.value
+        var r = try await identifyFresh(image: image, lines: lines, shortlist: short)
+        // Claude chose one of our wines: it is used only if the label supports it (its name, or producer and name words, printed)
+        if let n = r.identity.listPick, n >= 1, n <= short.count,
+           let w = await Task.detached(priority: .userInitiated, operation: { PriceBook.shared.wine(fromPick: short[n - 1], lines: lines) }).value {
+            var o = w
+            o.funFact = r.identity.funFact; o.palate = r.identity.palate; o.food = r.identity.food
+            if (o.drinkWindow ?? "").isEmpty { o.drinkWindow = r.identity.drinkWindow }
+            if o.vintage.isEmpty { o.vintage = r.identity.vintage }
+            o.listPick = n
+            r.identity = o
+            ScanClock.shared.add("Claude picked from our list (#\(n) of \(short.count))", since: Date())
+        } else if !short.isEmpty {
+            ScanClock.shared.add("Shortlist of \(short.count): none picked", since: Date())
+        }
+        return r
+    }
+
+    private static func identifyFresh(image: UIImage, lines: [String], shortlist: [LabelMatcher.Wine]) async throws -> RecognitionResult {
         guard isAvailable else { throw RecognizerError.noKey }
+        let listText = shortlistText(shortlist)
         guard let text = usefulText(lines) else {
             guard let jpeg = small(image) else { throw RecognizerError.badResponse }
-            var r = try await call(content: imageContent(jpeg, extra: nil))
+            var r = try await call(content: imageContent(jpeg, extra: listText.isEmpty ? nil : listText))
             r.usedImage = true
             return r
         }
         let photo: Task<RecognitionResult, Error>? = small(image).map { jpeg in
-            Task { try await call(content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text)) }
+            Task { try await call(content: imageContent(jpeg, extra: "OCR text, for reference:\n" + text + listText)) }
         }
         var r: RecognitionResult
         do {
-            r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text]])
+            r = try await call(content: [["type": "text", "text": "Text read from the wine label (OCR, may contain errors):\n\n" + text + listText]])
         } catch {
             // the text call failed: the photo call may still answer
             guard let photo, var r2 = try? await photo.value else { throw error }
@@ -586,6 +609,13 @@ enum WineRecognizer {
         guard printed(w.producer) else { return false }
         if w.confidence == "high" { return true }
         return w.confidence == "medium" && printed(w.name)
+    }
+
+    /// The numbered shortlist added to Claude's message (empty when the list has no good candidates).
+    static func shortlistText(_ s: [LabelMatcher.Wine]) -> String {
+        guard !s.isEmpty else { return "" }
+        let rows = s.enumerated().map { i, w in "\(i + 1). \(w.maker) — \(w.name)" }
+        return "\n\nWines from Jero's list that might be this wine (pick one only if the label really is it, else 0):\n" + rows.joined(separator: "\n")
     }
 
     static func identify(text: String) async throws -> RecognitionResult {
@@ -659,7 +689,10 @@ enum WineRecognizer {
     region: always name the wine region or appellation (for example Mendoza, Pauillac, Rioja), working it out from the producer and wine when the label does not print it.     style: one of red, white, rose, sparkling, fortified, sweet, orange. confidence: high, medium or low. \
     fun_fact: one short, accurate sentence that teaches something about this wine, its region or grape. \
     drink_window: when to drink it, e.g. "Now–2030" or "Drink now". \
-    grape_percent: the usual blend in whole percent, in the same order as grapes, adding up to 100 (a single-variety wine is [100]). Keep every field concise.
+    grape_percent: the usual blend in whole percent, in the same order as grapes, adding up to 100 (a single-variety wine is [100]). Keep every field concise. \
+    list_pick: when the message lists numbered wines from Jero's wine list, give the number of the one that IS this wine (same producer \
+    and same wine; any vintage), or 0 when none of them is. The list is only a help: never pick a wine just because it is listed, and \
+    when none fits, identify the wine yourself as usual. Without a list, give 0.
     """
 
     private static var schema: [String: Any] {
@@ -677,7 +710,8 @@ enum WineRecognizer {
                 "style": ["type": "string", "enum": ["red", "white", "rose", "sparkling", "fortified", "sweet", "orange"]],
                 "tasting_notes": strArr, "palate": str, "food": strArr, "price_low": num, "price_high": num, "currency": str,
                 "grape_percent": ["type": "array", "items": ["type": "integer"]],
-                "confidence": ["type": "string", "enum": ["high", "medium", "low"]], "fun_fact": str, "drink_window": str
+                "confidence": ["type": "string", "enum": ["high", "medium", "low"]], "fun_fact": str, "drink_window": str,
+                "list_pick": ["type": "integer"]
             ]
         ]
     }
