@@ -1289,10 +1289,15 @@ struct ScanFlow: View {
             if w.name.isEmpty { w.name = pick.name }
             wine = w
             checking = false
-            if noted { WineDB.shared.correct(from: was, to: w, image: image) } else { WineDB.shared.noteScan(w, image: image) }
+            // the scan counts once, for the chosen wine; then the first answer is corrected everywhere: the scan list and its iCloud
+            // copy, the online list (its row, label signature and fingerprints move to the chosen wine) and the scan timings
+            if !noted {
+                WineDB.shared.noteScan(w, image: image)
+                ScanClock.shared.finish(wine: w.name)
+            }
+            WineDB.shared.correct(from: was, to: w, image: image)
             noted = true
             await priced
-            ScanClock.shared.finish(wine: wine.name)
         }
     }
 
