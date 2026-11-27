@@ -1,0 +1,15 @@
+{
+ "host": "sf.flatiron-wines.com",
+ "wine_pages": 3085,
+ "pages_without_photo": 1,
+ "distinct_photos": 3079,
+ "status": {
+  "unusable": 114,
+  "ok": 2965
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 2965
+}
