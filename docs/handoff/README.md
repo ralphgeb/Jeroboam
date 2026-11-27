@@ -22,3 +22,4 @@ the price list). They don't see each other's conversations, so they keep each ot
 | File | Who | Topic |
 |---|---|---|
 | [claude-maps-and-app.md](claude-maps-and-app.md) | the app / maps / course session | maps, app features, journal, sync, course content, download size, scanning speed |
+| [claude-prices.md](claude-prices.md) | the price-list session | wine price list, shop harvest, critics' scores, label fingerprints of shop photos |
