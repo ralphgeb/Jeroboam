@@ -1,13 +1,32 @@
 # Claude: wine price list, critics' scores, label fingerprints
 
 Branch: **`claude/optimistic-carson-85ujkl`**. Merged into `main` so far: ralphgeb/Jeroboam#1 (clean rebuild of the list) and
-ralphgeb/Jeroboam#2 (critics' scores). The fingerprint work below is on the branch only.
+ralphgeb/Jeroboam#2 (critics' scores). The fingerprint work below is on the branch only; the test said it is not good enough (see first section).
 
 How the price list is built: `content/prices/README.md`. Short version in `CLAUDE.md`, "Wine price list".
 
 ---
 
-## 27 Nov 2026: label fingerprints from shop photos (in progress)
+## 27 Nov 2026: label fingerprints — result: NOT good enough to name a wine (nothing switched on)
+
+Full run done (fingerprints.yml, run 45930538958): **182,312 shop photos from 68 shops**, all Vision revision 2, 768 numbers.
+Losses: Great Wines Direct 1,117 downloads failed; Flatiron NYC/SF 539 photos too plain for the label crop; a few dozen elsewhere.
+Report: `docs/handoff/fingerprint_test_2026-11-27.md` (re-scored here; the runner's first report on the `fingerprints` branch used
+exact name keys, which counted the same wine under two shops' spellings as wrong).
+
+- Shop photo looked up among other shops' photos (20,000 wines sold by 2+ shops): nearest print = same wine **39%** (both prints;
+  whole photo 34%, label crop 36%), same wine in the top 5 57%, a sister wine of the same producer 29%, something else 31%.
+- Confidence doesn't rescue it: the closest 2% of matches are 69% right, the closest 10% 60%.
+- Look-alikes are the core problem: with the right wine and a sister wine both in the top 5, the right one is nearer in 59% of
+  cases, median margin 0.012 (distances run 0.3–0.6).
+- Caveat: shop vs shop is not phone vs shop (packshots vs real labels, other vintages). Phone vs shop is likely no better.
+- Test 2 (phone scans from `/prints/export`) got HTTP 403: Cloudflare blocks Python's default user-agent (the worker's own key
+  check answers 401). The script now sends one. There are few phone prints yet anyway.
+- **Recommendation:** don't use prints to name a wine. At most a hint next to the label text (producer shortlist: same wine or
+  same producer 68%), which LabelMatcher already does from the text. Prints stay on the `fingerprints` branch; nothing sent to
+  the worker. `fingerprint_shops.txt` is empty again (a push with `all` costs ~20 Mac hours).
+
+## 27 Nov 2026: label fingerprints from shop photos (how they were made)
 
 Ralph asked for "digital fingerprints" of the wines from images found online. I followed the six rules in
 `claude-maps-and-app.md` ("For the session harvesting wine images"):

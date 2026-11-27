@@ -16,6 +16,44 @@ import numpy as np
 
 SAME = 0.05            # closer than this = the same picture file
 
+# Shops name one wine differently ("Domaine du Coulet Cornas Brise Cailloux" / "Coulet (Matthieu Barret) Cornas Brise Cailloux",
+# "... Chablis (Case only)"), so "same wine" is judged on words, not on the exact key: the words of producer + name, minus filler
+# (domaine, chateau, sizes, years, case ...), are the same set, or one set holds the other; never when the words that differ
+# include a colour/style word or a grape (Branco vs Tinto, Chardonnay vs Pinot Noir).
+FILLER = set("""domaine domaines dom chateau ch maison bodega bodegas cantina cantine tenuta azienda agricola weingut quinta casa
+estate estates vineyard vineyards winery wines wine cellars cellar the de du des la le les di del della dei delle da do das dos
+von van und and et e y a l d s case only bottle bottles magnum mag half jeroboam ml cl ltr l 750ml 375ml 15l 750 375 1500 aoc
+aop doc docg igp igt do doca ava gi vdf vin vino nv mv bx""".split())
+CONFLICT = set("""blanc blanche bianco blanco branco white weiss rouge rosso tinto red rot rose rosado rosato pink orange
+brut extra sec demi doux dry sweet nature zero sparkling spumante frizzante cremant still""".split())
+GRAPES = set()
+try:
+    _lib = json.load(open(os.path.join(os.path.dirname(__file__), "../../Jeroboam/Resources/Content/library.json")))
+    for g in _lib.get("grapes", []):
+        GRAPES |= set(fold(g.get("name", "")).split())
+except Exception:
+    pass
+GRAPES -= FILLER
+
+
+def words(r):
+    return frozenset(w for w in fold(r["producer_name"] + " " + r["wine"]).split()
+                     if w not in FILLER and not w.isdigit() and not (len(w) == 4 and w[:2] in ("19", "20")))
+
+
+def same_wine(a, b):
+    if a["label_id"] == b["label_id"]: return True
+    A, B = a["words"], b["words"]
+    if len(A) < 2 or len(B) < 2: return False
+    diff = A ^ B
+    if diff & (CONFLICT | GRAPES): return False
+    return A <= B or B <= A or len(A & B) / len(A | B) >= 0.75
+
+
+def same_producer(a, b):
+    P = frozenset(w for w in fold(a["producer_name"]).split() if w not in FILLER)
+    return bool(P) and P <= b["words"]
+
 
 def fold(s):
     s = "".join(c for c in unicodedata.normalize("NFD", s or "") if unicodedata.category(c) != "Mn").lower()
@@ -42,7 +80,8 @@ def load(d):
         for r in ok:
             m = meta[r]; k = m["key"]
             rows.append({"host": host, "rev": int(status[r]["revision"]), "key": k, "label_id": "|".join(k.split("|")[:2]),
-                         "producer": k.split("|")[0], "wine": m["wine"], "link": m["link"]})
+                         "producer": k.split("|")[0], "producer_name": m.get("producer") or "", "wine": m["wine"], "link": m["link"]})
+    for r in rows: r["words"] = words(r)
     if not rows: sys.exit("no prints")
     return np.concatenate(full), np.concatenate(label), rows
 
@@ -81,19 +120,21 @@ def main():
     lines += [f"## Test 1: shop photo vs other shops' photos", "",
               f"{len(q):,} photos of wines sold by 2+ shops, each looked up among {len(rows):,} prints of the other shops.", ""]
     C = np.concatenate([F, L], 1) / np.sqrt(2)          # both prints together
-    lines += ["| print | right (nearest is the same wine) | right in top 5 | same picture file | wrong: look-alike (same producer) | wrong: other |",
+    lines += ["Right = the nearest print is the same wine (judged on its words, see FILLER/CONFLICT; the strict figure in brackets",
+              "needs the exact same producer + name key). Look-alike = same producer, another wine.", "",
+              "| print | right (strict) | right in top 5 | same picture file | wrong: look-alike (same producer) | wrong: other |",
               "|---|---|---|---|---|---|"]
     best = {}
     for name, X in (("whole photo", F), ("label crop", L), ("both", C)):
         idx, dist = nearest(X[q], X, 5, lambda j: host == host[q[j]])
-        right1 = lab[idx[:, 0]] == lab[q]
-        right5 = (lab[idx] == lab[q][:, None]).any(1)
+        strict = lab[idx[:, 0]] == lab[q]
+        sw = np.array([[same_wine(rows[q[j]], rows[i]) for i in idx[j]] for j in range(len(q))])
+        right1, right5 = sw[:, 0], sw.any(1)
         same = right1 & (dist[:, 0] < SAME)
         wrong = ~right1
-        look = wrong & (np.array([rows[i]["producer"] for i in idx[:, 0]]) == np.array([rows[i]["producer"] for i in q]))
-        n = len(q)
+        look = wrong & np.array([same_producer(rows[q[j]], rows[idx[j, 0]]) for j in range(len(q))])
         pc = lambda m: f"{m.sum():,} ({100 * m.mean():.0f}%)"
-        lines.append(f"| {name} | {pc(right1)} | {pc(right5)} | {pc(same)} | {pc(look)} | {pc(wrong & ~look)} |")
+        lines.append(f"| {name} | {pc(right1)} ({100 * strict.mean():.0f}%) | {pc(right5)} | {pc(same)} | {pc(look)} | {pc(wrong & ~look)} |")
         best[name] = (idx, dist, right1, same)
     lines += ["", "Without identical picture files (what a phone photo would face), and how sure a match can be by distance:", "",
               "| print | right | accept if nearest closer than | accepted | of those right |", "|---|---|---|---|---|"]
@@ -101,11 +142,23 @@ def main():
         m = ~same
         if not m.any(): continue
         d0, r0 = dist[m, 0], right1[m]
-        for t in np.quantile(d0, [0.1, 0.25, 0.5]):
+        for t in np.quantile(d0, [0.02, 0.05, 0.1, 0.25, 0.5]):
             acc = d0 < t
             lines.append(f"| {name} | {100 * r0.mean():.0f}% | {t:.3f} | {100 * acc.mean():.0f}% | {100 * r0[acc].mean():.0f}% |")
-    # examples of wrong answers (for reading by hand)
+    # how far apart are the same wine and its look-alikes? (both prints, nearest same-wine print vs nearest look-alike print)
     idx, dist, right1, same = best["both"]
+    gap = []
+    for j in range(len(q)):
+        a = rows[q[j]]; sd = ld = None
+        for n, i in enumerate(idx[j]):
+            b = rows[i]
+            if sd is None and same_wine(a, b): sd = dist[j, n]
+            elif ld is None and not same_wine(a, b) and same_producer(a, b): ld = dist[j, n]
+        if sd is not None and ld is not None: gap.append(ld - sd)
+    if gap:
+        g = np.array(gap)
+        lines += ["", f"When both the same wine and a look-alike are in the top 5 ({len(g):,} photos): the same wine is closer in "
+                  f"{100 * (g > 0).mean():.0f}%; median margin {np.median(g):.3f}."]
     lines += ["", "Some wrong answers (both prints):", ""]
     for j in np.where(~right1)[0][:25]:
         a, b = rows[q[j]], rows[idx[j, 0]]
@@ -114,7 +167,7 @@ def main():
     url, key = os.environ.get("URL"), os.environ.get("KEY")
     if url and key:
         try:
-            req = urllib.request.Request(url.rstrip("/") + "/prints/export?limit=20000", headers={"x-jero-key": key})
+            req = urllib.request.Request(url.rstrip("/") + "/prints/export?limit=20000", headers={"x-jero-key": key, "user-agent": "jero-fingerprint-test"})
             scans = json.load(urllib.request.urlopen(req, timeout=60)).get("rows", [])
         except Exception as e:
             scans = []; lines += ["", f"Phone scans could not be read: {e}"]
