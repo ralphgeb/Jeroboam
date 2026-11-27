@@ -1,0 +1,157 @@
+name: Label fingerprints of shop photos
+
+# Apple Vision feature prints of every wine photo in the shop catalogues (shop-data branch, `images` field), made exactly like the
+# app's LabelPrint on a Mac (tools/prices/LabelPrints.swift), one job per shop -> `fingerprints` branch
+# (<host>.meta.tsv: key/producer/wine/vintage/link per photo; <host>.full.f16 / .label.f16: the prints; <host>.status.tsv; <host>.prints.json).
+# Then a test on all of them (tools/prices/fingerprint_test.py -> fingerprint_test.md). Only numbers and shop links, never the photos.
+# Nothing is sent to the worker and nothing is used by the app until the test says the prints are good enough.
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only these hosts (comma separated); empty = every shop in the price list"
+        required: false
+        default: ""
+      test_only:
+        description: "Skip fingerprinting, only re-run the test"
+        type: boolean
+        default: false
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "tools/prices/fingerprint_shops.txt"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fingerprints
+  cancel-in-progress: false
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      hosts: ${{ steps.l.outputs.hosts }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: |
+          if [ "${{ github.event.inputs.test_only }}" = "true" ]; then echo 'hosts=[]' >> "$GITHUB_OUTPUT"; exit 0; fi
+          git fetch -q --depth 1 origin shop-data
+          have=$(git ls-tree --name-only FETCH_HEAD | sed -n 's/\.jsonl\.gz$//p' | paste -sd, -)
+          ONLY="${{ github.event.inputs.only }}"
+          # a push runs the shops listed in tools/prices/fingerprint_shops.txt ("all" = every shop in the price list)
+          if [ "${{ github.event_name }}" = "push" ]; then
+            ONLY=$(grep -v "^#" tools/prices/fingerprint_shops.txt | grep -v "^all$" | grep . | paste -sd, -)
+            if [ -z "$ONLY" ] && ! grep -qx all tools/prices/fingerprint_shops.txt; then echo 'hosts=[]' >> "$GITHUB_OUTPUT"; exit 0; fi
+          fi
+          python3 - "$have" "$ONLY" >> "$GITHUB_OUTPUT" <<'PY'
+          import csv, json, sys
+          from urllib.parse import urlparse
+          csv.field_size_limit(10 ** 9)
+          have = set(sys.argv[1].split(",")); only = [h for h in sys.argv[2].split(",") if h]
+          hosts = {}
+          for r in csv.DictReader(open("content/prices/wine_prices.csv", encoding="utf-8")):
+              for part in (r.get("links") or "").split(" ; "):
+                  h = urlparse(part.split(": ", 1)[-1].strip()).netloc
+                  if h in have: hosts[h] = hosts.get(h, 0) + 1
+          out = only or [h for h, _ in sorted(hosts.items(), key=lambda x: -x[1])]   # biggest shops first
+          print("hosts=" + json.dumps(out))
+          PY
+          cat "$GITHUB_OUTPUT"
+      - name: Make sure the fingerprints branch exists
+        run: |
+          if ! git ls-remote --exit-code origin refs/heads/fingerprints; then
+            mkdir /tmp/fp && cd /tmp/fp && git init -q -b fingerprints
+            git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+            echo "Label fingerprints (Apple Vision feature prints) of the shops' wine photos (fingerprints.yml). No photos." > README.md
+            git add README.md && git commit -qm "fingerprints" && git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" fingerprints
+          fi
+
+  shop:
+    needs: list
+    if: ${{ needs.list.outputs.hosts != '[]' }}
+    runs-on: xcode-27
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        host: ${{ fromJson(needs.list.outputs.hosts) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select the newest released Xcode
+        run: |
+          best=""; bestv=0
+          for x in $(ls -d /Applications/Xcode_*.app 2>/dev/null | grep -viE "beta|rc|preview"); do
+            v=$(DEVELOPER_DIR="$x/Contents/Developer" xcodebuild -version 2>/dev/null | awk 'NR==1{print $2}')
+            n=$(echo "$v" | awk -F. '{printf "%d%03d%03d", $1, $2, $3}')
+            if [ -n "$v" ] && [ "$n" -gt "$bestv" ]; then best=$x; bestv=$n; fi
+          done
+          if [ -n "$best" ]; then sudo xcode-select -s "$best/Contents/Developer"; fi
+          xcodebuild -version; sw_vers; uname -m
+      - name: Shop catalogue
+        run: |
+          mkdir sd && cd sd && git init -q
+          git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data
+          git checkout -q FETCH_HEAD -- "${{ matrix.host }}.jsonl.gz"
+      - name: Fingerprint ${{ matrix.host }}
+        run: |
+          H="${{ matrix.host }}"
+          python3 tools/prices/fingerprint_wines.py jobs sd content/prices/wine_prices.csv "$H" out
+          swiftc -O tools/prices/LabelPrints.swift -o labelprints
+          ./labelprints "out/$H.jobs.tsv" "out/$H" 12
+          python3 tools/prices/fingerprint_wines.py pack out "$H"
+          rm -f "out/$H.jobs.tsv"; ls -la out
+      - name: Push to fingerprints
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          H="${{ matrix.host }}"
+          mkdir /tmp/fp && cd /tmp/fp && git init -q -b fingerprints
+          for i in $(seq 1 15); do
+            if git fetch -q --depth 1 "$URL" fingerprints && git reset -q --hard FETCH_HEAD; then
+              cp "$GITHUB_WORKSPACE"/out/* .
+              git add -A
+              git diff --cached --quiet || git commit -qm "$H"
+              git push -q "$URL" HEAD:fingerprints || true
+            fi
+            if git fetch -q --depth 1 "$URL" fingerprints && git cat-file -e "FETCH_HEAD:$H.prints.json" 2>/dev/null \
+               && [ "$(git show "FETCH_HEAD:$H.prints.json" | shasum)" = "$(shasum < "$GITHUB_WORKSPACE/out/$H.prints.json")" ]; then
+              echo "saved $H"; exit 0
+            fi
+            sleep $((RANDOM % 30 + 10))
+          done
+          echo "could not save $H"; exit 1
+
+  test:
+    needs: [list, shop]
+    if: ${{ always() && (needs.shop.result == 'success' || github.event.inputs.test_only == 'true') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy
+      - name: Test
+        run: |
+          mkdir fp && cd fp && git init -q
+          git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" fingerprints && git checkout -q FETCH_HEAD
+          cd .. && python3 tools/prices/fingerprint_test.py fp fp/fingerprint_test.md
+          cat fp/fingerprint_test.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Push the report
+        run: |
+          cd fp
+          git config user.name "github-actions[bot]"; git config user.email "github-actions[bot]@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git add fingerprint_test.md && git commit -qm "fingerprint test" || exit 0
+            git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:fingerprints && exit 0
+            git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" fingerprints && git reset -q --soft FETCH_HEAD
+          done
