@@ -224,9 +224,32 @@ export default {
     if (url.pathname === "/prints/export") {
       const limit = Math.max(1, Math.min(20000, Number(url.searchParams.get("limit")) || 5000));
       try {
-        const { results } = await env.DB.prepare("SELECT key, rev, dims, vec, created FROM label_prints ORDER BY id DESC LIMIT ?").bind(limit).all();
+        const since = Number(url.searchParams.get("since")) || 0;
+        const { results } = await env.DB.prepare("SELECT id, key, rev, dims, vec, created FROM label_prints WHERE created >= ? ORDER BY id DESC LIMIT ?").bind(since, limit).all();
         return json({ rows: results || [] });
       } catch { return json({ rows: [] }); }
+    }
+
+    // ---- fingerprint check (TestFlight only, while testing): GitHub's print-check.yml compares each phone print with the shop
+    //   photos' prints and posts the 3 nearest; the app lists them (Settings > TestFlight > Fingerprint check).
+    //   POST /prints/checks {"checks":[{"id","key","created","results"}]}   GET /prints/checks?limit=40
+    if (url.pathname === "/prints/checks") {
+      await env.DB.prepare(`CREATE TABLE IF NOT EXISTS print_checks (id INTEGER PRIMARY KEY, key TEXT, created INTEGER,
+                            results TEXT, checked INTEGER)`).run();
+      if (req.method === "POST") {
+        let b;
+        try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
+        const list = Array.isArray(b.checks) ? b.checks.slice(0, 500) : [];
+        const now = Math.floor(Date.now() / 1000);
+        for (const c of list) {
+          await env.DB.prepare("INSERT OR REPLACE INTO print_checks (id, key, created, results, checked) VALUES (?, ?, ?, ?, ?)")
+            .bind(Number(c.id) | 0, clean(c.key, 300), Number(c.created) | 0, JSON.stringify(c.results || {}).slice(0, 8000), now).run();
+        }
+        return json({ ok: true, saved: list.length });
+      }
+      const limit = Math.max(1, Math.min(200, Number(url.searchParams.get("limit")) || 40));
+      const { results } = await env.DB.prepare("SELECT id, key, created, results, checked FROM print_checks ORDER BY created DESC LIMIT ?").bind(limit).all();
+      return json({ rows: results || [] });
     }
 
     // ---- for tests run on GitHub (tools/label_match_test.py): the scanned wines that have a label signature, newest first

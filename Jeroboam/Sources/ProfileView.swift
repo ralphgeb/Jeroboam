@@ -19,6 +19,7 @@ struct ProfileView: View {
     @State private var settingsOpen = false
     @State private var showCredits = false
     @State private var showScanTimings = false
+    @State private var showPrintCheck = false
     @State private var sidePane = 0   // Duo sideways: 0 collection, 1 achievements on the right
     @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
@@ -98,6 +99,7 @@ struct ProfileView: View {
             .sheet(isPresented: $showExtraAtlas) { ExtraAtlasView() }
             .sheet(isPresented: $showCredits) { CreditsView() }
             .sheet(isPresented: $showScanTimings) { ScanTimingsView() }
+            .sheet(isPresented: $showPrintCheck) { FingerprintCheckView() }
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -183,6 +185,8 @@ struct ProfileView: View {
                             .buttonStyle(.plain)
                             Hairline()
                             Button { showScanTimings = true } label: { testRow("Scan timings", "stopwatch") }
+                            Hairline()
+                            Button { showPrintCheck = true } label: { testRow("Fingerprint check", "viewfinder") }
                             Hairline()
                             DuoPreviewPicker().padding(.vertical, 12)
                             Hairline()

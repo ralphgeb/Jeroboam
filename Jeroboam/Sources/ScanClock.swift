@@ -91,3 +91,95 @@ struct ScanTimingsView: View {
         }
     }
 }
+
+/// TestFlight, while testing picture matching: for each recent scan, what the label reading said and the 3 shop photos whose
+/// fingerprints are nearest (worked out on GitHub every 30 minutes by print-check.yml). Nothing here changes what a scan shows.
+struct FingerprintCheckView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var rows: [Row] = []
+    @State private var loading = true
+
+    struct Hit: Identifiable { let id = UUID(); let wine: String; let producer: String; let dist: Double; let same: Bool; let sameProducer: Bool }
+    struct Row: Identifiable { let id: Int; let key: String; let created: Date; let verdict: String; let note: String; let label: [Hit]; let whole: [Hit] }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    ScreenHeader(eyebrow: "TestFlight", title: "Fingerprint check",
+                                 subtitle: "Each scan's picture compared with 182,000 shop photos. Checked on GitHub every 30 minutes, so a new scan shows up a little later.")
+                    if loading { ProgressView().frame(maxWidth: .infinity).padding(.top, 20) }
+                    else if rows.isEmpty {
+                        Text("No checked scans yet. Scan a bottle with the camera, then look again in about 30 minutes.")
+                            .font(.jero(size: 14)).foregroundStyle(Palette.inkSoft)
+                    } else {
+                        let same = rows.filter { $0.verdict == "same wine" }.count
+                        let prod = rows.filter { $0.verdict == "same producer" }.count
+                        Text("Picture agreed with the label reading on \(same) of \(rows.count) scans; same producer, other wine on \(prod).")
+                            .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                        ForEach(rows) { r in card(r) }
+                    }
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+            .task { await load() }
+            .refreshable { await load() }
+        }
+    }
+
+    private func card(_ r: Row) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(Self.nice(r.key)).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
+                Spacer(minLength: 6)
+                Text(r.created.formatted(date: .abbreviated, time: .shortened)).font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
+            }
+            Text(r.note.isEmpty ? r.verdict.capitalized : r.note)
+                .font(.system(size: 12.5, weight: .semibold))
+                .foregroundStyle(r.verdict == "same wine" ? Palette.correct : (r.verdict == "same producer" ? Palette.brass : Palette.wrong))
+            if !r.label.isEmpty {
+                Text("Label crops").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
+                ForEach(r.label) { hit($0) }
+            }
+            if !r.whole.isEmpty {
+                Text("Whole photos").font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.inkSoft).padding(.top, 2)
+                ForEach(r.whole) { hit($0) }
+            }
+        }
+        .padding(14).frame(maxWidth: .infinity, alignment: .leading).cardStyle(padding: 0)
+    }
+
+    private func hit(_ h: Hit) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+            Image(systemName: h.same ? "checkmark.circle.fill" : (h.sameProducer ? "circle.lefthalf.filled" : "xmark.circle"))
+                .font(.system(size: 11)).foregroundStyle(h.same ? Palette.correct : (h.sameProducer ? Palette.brass : Palette.inkFaint))
+            Text(h.wine).font(.system(size: 12.5)).foregroundStyle(Palette.ink).lineLimit(2)
+            Spacer(minLength: 4)
+            Text(String(format: "%.3f", h.dist)).font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft)
+        }
+    }
+
+    /// "guigal|cotes du rhone|2016" -> "Guigal · Cotes Du Rhone · 2016"
+    static func nice(_ key: String) -> String {
+        key.split(separator: "|").map { $0.capitalized }.filter { !$0.isEmpty }.joined(separator: " · ")
+    }
+
+    private func load() async {
+        let raw = await PriceCloud.printChecks()
+        func hits(_ a: Any?) -> [Hit] {
+            (a as? [[String: Any]] ?? []).map { Hit(wine: $0["wine"] as? String ?? "", producer: $0["producer"] as? String ?? "",
+                                                    dist: $0["dist"] as? Double ?? 0, same: $0["same"] as? Bool ?? false,
+                                                    sameProducer: $0["sameProducer"] as? Bool ?? false) }
+        }
+        rows = raw.compactMap { r in
+            guard let id = r["id"] as? Int else { return nil }
+            let res = (r["results"] as? String).flatMap { $0.data(using: .utf8) }.flatMap { try? JSONSerialization.jsonObject(with: $0) as? [String: Any] } ?? [:]
+            return Row(id: id, key: r["key"] as? String ?? "", created: Date(timeIntervalSince1970: TimeInterval(r["created"] as? Int ?? 0)),
+                       verdict: res["verdict"] as? String ?? "", note: res["note"] as? String ?? "",
+                       label: hits(res["label"]), whole: hits(res["whole"]))
+        }
+        loading = false
+    }
+}

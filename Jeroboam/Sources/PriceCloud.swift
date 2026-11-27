@@ -107,4 +107,12 @@ enum PriceCloud {
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("print", method: "POST", body: data) else { return }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
     }
+
+    /// TestFlight: the fingerprint checks GitHub made for recent scans (`FingerprintCheckView`). Raw rows; empty when unreachable.
+    static func printChecks() async -> [[String: Any]] {
+        guard let req = request("prints/checks", query: [URLQueryItem(name: "limit", value: "40")]),
+              let (data, resp) = try? await URLSession.shared.data(for: req), (resp as? HTTPURLResponse)?.statusCode == 200,
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [] }
+        return obj["rows"] as? [[String: Any]] ?? []
+    }
 }

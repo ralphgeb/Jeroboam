@@ -1,0 +1,35 @@
+name: Fingerprint check (TestFlight test)
+# Compares the phones' new label prints with the shop-photo prints (fingerprints branch) and posts the 3 nearest wines to the
+# worker for the app's TestFlight page "Fingerprint check". Runs every 30 minutes WHILE TESTING: delete the schedule to stop.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7,37 * * * *"
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/print-check.yml", "tools/print_check.py"]
+concurrency:
+  group: print-check
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Anything new to check?
+        id: new
+        run: |
+          since=$(( $(date +%s) - 259200 ))
+          n=$(curl -s -A jero-print-check -H "x-jero-key: $KEY" "$URL/prints/export?limit=2000&since=$since" | python3 -c 'import sys,json;print(len(json.load(sys.stdin).get("rows",[])))' || echo 0)
+          echo "phone prints in 3 days: $n"; echo "n=$n" >> "$GITHUB_OUTPUT"
+      - if: steps.new.outputs.n != '0'
+        uses: actions/checkout@v4
+        with:
+          ref: fingerprints
+          path: fp
+      - if: steps.new.outputs.n != '0'
+        run: pip install -q numpy && python3 tools/print_check.py fp

@@ -10,6 +10,15 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
+## 27 Nov 2026: Guigal fix + fingerprint check page (TestFlight only)
+
+- Ralph scanned E. Guigal Côtes du Rhône 2016 and got Château d'Ampuis (Côte-Rôtie) from the label matcher: the "mis en bouteille
+  par E. Guigal, Château d'Ampuis" line. Fixed (bottled-by line = producer only; appellation-named wines can match; cuvées beat
+  them); re-test on 37 real labels: 7 found, 0 wrong. Phones forget remembered label links once. Ralph to delete the cloud row.
+- Read the prices session's fingerprint result (39% right shop vs shop). Ralph asked for a TestFlight page showing how today's
+  phone scans match the shop prints: `print-check.yml` + `tools/print_check.py` (uses their fingerprint_test.py) -> worker
+  `/prints/checks` -> Settings > TestFlight > Fingerprint check. Remove the workflow's schedule when the test is over.
+
 ## 26 Nov 2026 (23:47 UTC): build-ios run 85 uploaded (expected TestFlight build 69)
 
 - From main 6d43b41: label -> wine list before Claude (+ fun-fact fill-in), text and photo calls side by side, real 1,024 px
