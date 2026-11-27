@@ -1,0 +1,14 @@
+{
+ "host": "www.thelivingvine.ca",
+ "wine_pages": 147,
+ "pages_without_photo": 0,
+ "distinct_photos": 147,
+ "status": {
+  "ok": 147
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 147
+}
