@@ -1,0 +1,14 @@
+{
+ "host": "thewinebuff.com",
+ "wine_pages": 277,
+ "pages_without_photo": 0,
+ "distinct_photos": 275,
+ "status": {
+  "ok": 275
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 275
+}
