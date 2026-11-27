@@ -4,6 +4,11 @@ name: Build and upload to TestFlight
 # Once a run succeeds you can add a `push:` trigger for the main branch.
 on:
   workflow_dispatch:
+    inputs:
+      for_app_store:
+        description: "For App Store review: no TestFlight tools or test checkout in this build"
+        type: boolean
+        default: false
 
 jobs:
   testflight:
@@ -22,6 +27,7 @@ jobs:
       # then the Anthropic key is NOT put into the app at all. Until then the old way (key in the build) keeps scanning working.
       JERO_API_KEY: ${{ vars.CLAUDE_PROXY_READY != 'true' && secrets.ANTHROPIC_API_KEY || '' }}
       JERO_CLAUDE_PROXY: ${{ vars.CLAUDE_PROXY_READY == 'true' && '1' || '' }}
+      JERO_STORE_BUILD: ${{ inputs.for_app_store && '1' || '' }}
       JERO_PRICE_URL: ${{ secrets.PRICE_DB_URL }}
       JERO_PRICE_KEY: ${{ secrets.PRICE_DB_KEY }}
 
@@ -260,6 +266,7 @@ jobs:
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
             JERO_API_KEY="$JERO_API_KEY" \
             JERO_CLAUDE_PROXY="$JERO_CLAUDE_PROXY" \
+            JERO_STORE_BUILD="$JERO_STORE_BUILD" \
             JERO_PRICE_URL="$JERO_PRICE_URL" \
             JERO_PRICE_KEY="$JERO_PRICE_KEY" \
             2>&1 | tee build/archive.log || {

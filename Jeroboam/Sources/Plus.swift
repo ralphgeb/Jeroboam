@@ -2,14 +2,16 @@ import LocalAuthentication
 import StoreKit
 import SwiftUI
 
-/// Where this copy of Jero came from. The same build goes to TestFlight and the App Store, so it's
-/// worked out at run time: a TestFlight install carries a sandbox receipt, an App Store one doesn't.
+/// Where this copy of Jero came from: a TestFlight install carries a sandbox receipt, an App Store one doesn't.
+/// App Review ALSO runs with a sandbox receipt, so a build meant for the App Store is made with the build-ios.yml switch
+/// "For App Store review" (Info.plist `JeroStoreBuild` = 1): it never shows the TestFlight tools or the test checkout.
 enum Distribution {
+    static let isStoreBuild = (Bundle.main.object(forInfoDictionaryKey: "JeroStoreBuild") as? String) == "1"
     static let isTestFlight: Bool = {
         #if DEBUG || targetEnvironment(simulator)
         return true
         #else
-        return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+        return !isStoreBuild && Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
         #endif
     }()
 }
@@ -604,7 +606,8 @@ struct JeroPrivacyView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Jero is a wine-learning app. Your progress, profile and journal are stored on your iPhone and, when iCloud sync is on, in your own iCloud.")
-                section("Wine scans", "When you scan a label, the label text (and, if needed, a small copy of the photo) is sent to Anthropic's Claude to identify the wine. Nothing else is sent, and Jero keeps no servers of its own.")
+                section("Wine scans", "When you scan a label, Jero first looks for it in its own wine list. If it isn't there, the label text (and, if needed, a small copy of the photo) is sent through Jero's server to Anthropic's Claude to identify the wine.")
+                section("Jero's wine database", "The wines people scan are kept anonymously on Jero's server (the wine's name, grapes and price, plus a numeric fingerprint of the label's look, never the photo), so the next scan of the same wine is instant. A random number made by the app on first use lets the server keep each phone to a small daily allowance; it says nothing about you.")
                 section("Jero Plus", "Subscriptions are bought and managed by Apple through the App Store. Jero only learns whether your subscription is active.")
                 section("No tracking", "No ads, no analytics and no selling of data.")
                 section("Contact", "Through the App Store page's support link.")

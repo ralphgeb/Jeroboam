@@ -55,6 +55,9 @@ function shape(b) {
 let winesReady = false;
 async function winesColumns(env) {
   if (winesReady) return;
+  // done once ever: a small marker table remembers it (otherwise every cold start would re-read the whole wines table)
+  await env.DB.prepare("CREATE TABLE IF NOT EXISTS jero_meta (k TEXT PRIMARY KEY, v TEXT)").run();
+  if (await env.DB.prepare("SELECT v FROM jero_meta WHERE k = 'wines_columns_v1'").first()) { winesReady = true; return; }
   for (const col of ["grapes TEXT", "grape_percent TEXT", "checked INTEGER"]) {
     try { await env.DB.prepare(`ALTER TABLE wines ADD COLUMN ${col}`).run(); } catch (e) { /* already there */ }
   }
@@ -63,6 +66,7 @@ async function winesColumns(env) {
       grape_percent = (SELECT group_concat(value, ', ') FROM json_each(wines.json, '$.grape_percent')),
       checked = CASE WHEN json_extract(wines.json, '$.checked') = 1 OR json_extract(wines.json, '$.from_database') = 1 THEN 1 ELSE 0 END
     WHERE grapes IS NULL AND json IS NOT NULL AND json_valid(json)`).run();
+  await env.DB.prepare("INSERT OR REPLACE INTO jero_meta (k, v) VALUES ('wines_columns_v1', '1')").run();
   winesReady = true;
 }
 
