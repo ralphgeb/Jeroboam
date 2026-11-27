@@ -18,6 +18,15 @@ final class WineDB {
     private struct Store: Codable {
         var wines: [String: Entry] = [:]
         var signatures: [String: String] = [:]
+        /// Wines taken out of the list (a corrected wrong wine) and when: kept so every phone removes them too, and so an
+        /// older copy from iCloud never brings them back.
+        var removed: [String: Date]? = nil
+    }
+
+    /// The iCloud copy: the list and its removals.
+    private struct Backup: Codable {
+        var wines: [String: Entry]
+        var removed: [String: Date]?
     }
 
     private var store = Store()
@@ -111,7 +120,13 @@ final class WineDB {
         lock.lock()
         let ok = Self.key(old), nk = Self.key(new)
         let was = store.wines[ok]
-        if ok != nk { store.wines[ok] = nil }
+        if ok != nk {
+            store.wines[ok] = nil
+            var gone = store.removed ?? [:]
+            gone[ok] = Date()            // other phones remove it too (iCloud backup)
+            store.removed = gone
+        }
+        store.removed?[nk] = nil         // the corrected wine is wanted, even if it was removed once before
         var e = store.wines[nk] ?? Entry(identity: new, price: was?.price)
         e.identity = new
         e.lastSeen = Date(); e.scans = (was?.scans ?? 1)
@@ -135,19 +150,35 @@ final class WineDB {
     /// Every wine looked up on this phone, with all its details, price and small label picture (the label-text links are left
     /// out: they are only a shortcut). Sorted keys, so an unchanged list gives the same bytes and is not sent again.
     func backupData() -> Data? {
-        lock.lock(); let wines = store.wines; lock.unlock()
-        guard !wines.isEmpty else { return nil }
+        lock.lock(); let wines = store.wines, removed = store.removed; lock.unlock()
+        guard !wines.isEmpty || !(removed ?? [:]).isEmpty else { return nil }
         let e = JSONEncoder(); e.outputFormatting = .sortedKeys
-        return try? e.encode(wines)
+        return try? e.encode(Backup(wines: wines, removed: removed))
     }
 
     /// Wines from the iCloud copy that this phone lacks (a new phone, a reinstall, another phone's scans) are added; a wine both
     /// have keeps the copy seen most recently, and its scan count is the larger of the two.
     func merge(backup: Data) {
-        guard let theirs = try? JSONDecoder().decode([String: Entry].self, from: backup), !theirs.isEmpty else { return }
+        // older builds sent the list alone, newer ones the list and its removals
+        let copy = (try? JSONDecoder().decode(Backup.self, from: backup))
+            ?? (try? JSONDecoder().decode([String: Entry].self, from: backup)).map { Backup(wines: $0, removed: nil) }
+        guard let copy else { return }
+        let theirs = copy.wines
         lock.lock()
         var changed = false
+        // removals first: a wine removed on another phone goes here too, unless it was scanned again here after the removal
+        var gone = store.removed ?? [:]
+        for (k, when) in copy.removed ?? [:] {
+            if gone[k] == nil || gone[k]! < when { gone[k] = when; changed = true }
+            if let mine = store.wines[k], (mine.lastSeen ?? mine.saved) <= when {
+                store.wines[k] = nil
+                changed = true
+                for (sig, v) in store.signatures where v == k { store.signatures[sig] = nil }
+            }
+        }
+        store.removed = gone.isEmpty ? nil : gone
         for (k, t) in theirs {
+            if let when = gone[k], (t.lastSeen ?? t.saved) <= when { continue }   // removed after this copy was made
             if let mine = store.wines[k] {
                 let newer = (t.lastSeen ?? t.saved) > (mine.lastSeen ?? mine.saved)
                 var m = newer ? t : mine

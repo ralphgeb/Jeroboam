@@ -374,3 +374,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   tastings of the same wrong wine. `WineDB.correct` moves the label signatures, sends the corrected wine with its signature, renames
   scan timings (`ScanClock.rename`) and calls worker `POST /wine/correct` (drops the wrong wine row, moves its sig and
   `label_prints` to the right key, deletes its `print_checks` so the fingerprint check runs again).
+- Scan list removals sync: `WineDB.Store.removed` (key -> date) is filled by `correct`; the iCloud backup is now
+  `Backup{wines, removed}` (old builds' plain list still decodes); `merge` applies removals (unless scanned again later) and never
+  re-adds a removed wine from an older copy. Claude's instructions: name the real estate of a known cuvée whose label hides the
+  producer (La Pialade = Château Rayas), else leave producer empty with low confidence; never guess a producer from the region.

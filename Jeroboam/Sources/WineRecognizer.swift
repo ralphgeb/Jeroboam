@@ -649,7 +649,10 @@ enum WineRecognizer {
     lowering confidence when unsure. \
     name is the wine's own name exactly as the label prints it (the cuvée, vineyard or appellation, for example "Delicado" or "Tondonia Reserva"), \
     never a grape or style you invented; producer is the winery on the label (for example "Ximénez-Spínola"). \
-    Read the largest words on the label first and do not replace them with a better-known wine. Only if you cannot name it at all, set found=false and fill what you can (for example the region or grape). \
+    Read the largest words on the label first and do not replace them with a better-known wine. \
+    Some labels do not print the producer in large type (Château Rayas's "La Pialade" shows only La Pialade and Côtes du Rhône): \
+    if you know which estate makes the named wine, give that estate as producer; if you do not, leave producer empty and set \
+    confidence low. Never put a producer you are guessing from the region alone. Only if you cannot name it at all, set found=false and fill what you can (for example the region or grape). \
     tasting_notes: 4-6 short aroma/flavor descriptors typical of this wine (e.g. "Black cherry", "Vanilla"). \
     palate: one sentence on structure (sweetness, acidity, tannin, body). \
     price_low/price_high: typical current retail price range for one 750 ml bottle in US dollars, as an estimate from your knowledge (0 if unknown). \
