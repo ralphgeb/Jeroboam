@@ -51,7 +51,7 @@ struct JeroboamApp: App {
             .task { await Plus.shared.listen() }
             .task { await Currency.refresh() }
             // the wine list's search index is built in the background at launch, so the first scan does not wait for it
-            .task { await Task.detached(priority: .utility) { PriceBook.shared.warm() }.value }
+            .task { await Task.detached(priority: .utility) { WineDB.shared.forgetLabelLinksOnce(); PriceBook.shared.warm() }.value }
             .task { await PriceUpdater.refresh(); await journal.refreshFromShopList() }
             .task { await journal.repriceShopBottlesOnce() }
             .task { await PriceCloud.seedOnce() }
