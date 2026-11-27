@@ -1,0 +1,16 @@
+{
+ "host": "www.winechateau.com",
+ "wine_pages": 33567,
+ "pages_without_photo": 15701,
+ "distinct_photos": 17804,
+ "status": {
+  "ok": 17799,
+  "unusable": 4,
+  "undecodable": 1
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 17799
+}
