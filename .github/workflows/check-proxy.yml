@@ -21,6 +21,13 @@ jobs:
           echo "ping: HTTP $code $(cat ping.json)"
           [ "$code" = 200 ] || { echo "::error::The worker does not know /claude yet: paste the new worker.js and Deploy"; exit 1; }
           grep -q '"key":true' ping.json || { echo "::error::The worker has no ANTHROPIC_API_KEY secret yet"; exit 1; }
+      - name: Is the latest worker deployed? (correction route)
+        run: |
+          # a harmless request (same wrong and right key): the latest worker answers 400 "bad", an older one 404
+          code=$(curl -s -o fix.json -w "%{http_code}" -X POST -H "x-jero-key: $KEY" -H "content-type: application/json" \
+                 -d '{"from":"check","to":"check"}' "$URL/wine/correct")
+          echo "correction route: HTTP $code $(cat fix.json)"
+          if [ "$code" = 400 ]; then echo "The latest worker (with /wine/correct) is deployed."; else echo "::warning::Older worker: paste backend/cloudflare/worker.js again"; fi
       - name: One tiny call through the proxy
         run: |
           body='{"max_tokens":16,"messages":[{"role":"user","content":"Reply with the single word: ok"}]}'
