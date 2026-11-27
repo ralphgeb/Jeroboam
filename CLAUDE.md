@@ -350,7 +350,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (payload `{"jeroScanList":1}`, which no build decodes as a bottle). Pull merges it (newest copy of a wine wins, scan counts max).
   `WineDB.noteScan` schedules a push.
 
-## Release readiness (27 Nov)
+## Release readiness (27 Nov) — full to-do list: docs/LAUNCH_CHECKLIST.md
 - **App Store builds:** run build-ios.yml with **"For App Store review"** ticked (`JERO_STORE_BUILD=1` -> Info.plist `JeroStoreBuild`):
   `Distribution.isTestFlight` is then always false. App Review runs with a sandbox receipt like TestFlight, so a normal build would
   show reviewers the TestFlight section and the free test checkout. TestFlight builds: leave it unticked.
