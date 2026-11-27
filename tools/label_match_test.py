@@ -108,7 +108,6 @@ def match(label_words, wines, index):
             if not (N <= L and 2 * len(P & L) > len(P)): continue
             # "Charmes-Chambertin Grand Cru" has only "grand" of its own: its appellation must be on the label as well
             if N <= WEAK and not (Pl and Pl <= L): continue
-            if len(N) == 1 and Pl and not (Pl & L) and N != Pl: continue   # small print names places (Guigal's Château d'Ampuis)
             cands.append(k)
     if not cands: return None, "no match"
     # the most words in common wins: the wine's own name, plus its place when the label prints it (Gevrey, not Fixin)

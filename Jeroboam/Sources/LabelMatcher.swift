@@ -8,7 +8,7 @@ import Foundation
 /// - every word of its own name is on the label (shop extras such as Magnum, Trento DOC or (Italy) are not required; colour and
 ///   tier words are: Maximum Rosé is not Maximum Blanc de Blancs),
 /// - a name made only of common words (Grand, Réserve, Vieilles Vignes…) also has its appellation on the label;
-///   a one-word name needs some of its appellation on the label (small print names places too); a wine named only by producer
+///   words of the "bottled by" line count for the producer only (it names places: Guigal's Château d'Ampuis); a wine named only by producer
 ///   and appellation ("Guigal Côtes du Rhône") takes the appellation as its name.
 /// The most specific wine wins; another wine that fits just as well means the label cannot tell them apart -> nil (Claude decides).
 /// A label word one letter off a list word (OCR slips: "Haltett" for Hallett) counts, for words of 6+ letters, when only one word fits.
@@ -33,6 +33,10 @@ struct LabelMatcher {
         "legno", "coffret", "etui", "italy", "france", "spain", "portugal", "germany", "austria", "usa", "california", "australia",
         "zealand", "chile", "argentina", "africa", "south", "lebanon", "greece", "hungary", "limited", "edition", "doc", "docg", "aoc",
         "aop", "igt", "igp", "dop", "freres", "fils", "pere", "sons", "brothers", "750ml", "375ml", "1500ml", "150cl", "75cl", "red", "wine"]
+    /// Phrases of the "bottled by" line, in the label languages we meet most.
+    static let bottler = ["mis en bouteille", "mise en bouteille", "bottled by", "bottled at", "produced and bottled", "imbottigliato",
+                          "embotellado", "abgefullt", "erzeugerabfullung", "engarrafado", "eleve et mis", "elabore et mis",
+                          "proprietaire a", "negociant a", "produced by", "prodotto da", "elaborado por"]
     static let weak: Set<String> = ["grand", "reserve", "reserva", "riserva", "vieilles", "vignes", "rouge", "blanc", "blancs", "rose",
         "rosso", "bianco", "tinto", "blanco", "brut", "classico", "superiore", "selection", "special", "cuvee", "premier", "villages",
         "crianza", "estate", "old", "vines", "red", "white", "dry", "sec", "cru"]
@@ -61,18 +65,19 @@ struct LabelMatcher {
 
     /// The wine this label names, or nil when it is not in the list or the label cannot tell two wines apart.
     func match(lines: [String]) -> Wine? {
-        var label = PriceBook.tokens(lines.joined(separator: " "))
+        // the "bottled by" line names the producer's address ("mis en bouteille par E. Guigal, Château d'Ampuis"): its words may
+        // confirm the producer but never a wine's own name (Château d'Ampuis is also the name of Guigal's Côte-Rôtie)
+        let small = lines.filter { l in Self.bottler.contains { l.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased().contains($0) } }
+        var label = PriceBook.tokens(lines.filter { !small.contains($0) }.joined(separator: " "))
         label.formUnion(corrections(label))
+        let producerWords = label.union(PriceBook.tokens(small.joined(separator: " ")))
         var cands: [Int32] = []
         var looked = Set<Int32>()
         for w in label {
             for i in index[w] ?? [] where looked.insert(i).inserted {
                 let x = wines[Int(i)]
-                guard x.own.isSubset(of: label), 2 * x.producer.intersection(label).count > x.producer.count else { continue }
+                guard x.own.isSubset(of: label), 2 * x.producer.intersection(producerWords).count > x.producer.count else { continue }
                 if x.own.isSubset(of: Self.weak) && !(!x.place.isEmpty && x.place.isSubset(of: label)) { continue }
-                // a one-word name whose appellation is not on the label at all: the word may be small print ("mis en bouteille
-                // par E. Guigal, Château d'Ampuis" is the address on every Guigal label, not their Côte-Rôtie)
-                if x.own.count == 1 && !x.place.isEmpty && x.place.isDisjoint(with: label) && x.own != x.place { continue }
                 cands.append(i)
             }
         }
