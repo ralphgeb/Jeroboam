@@ -79,6 +79,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           URL="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           H="${{ matrix.host }}"
+          # an empty catalogue (shop blocked us or was down) never replaces the one already saved
+          if [ "$(zcat "$GITHUB_WORKSPACE/out/$H.jsonl.gz" 2>/dev/null | head -1 | wc -l)" = "0" ]; then
+            echo "::warning::$H gave no products ($(grep -o '"error": *"[^"]*"' "$GITHUB_WORKSPACE/out/$H.report.json")); keeping the saved catalogue"; exit 0
+          fi
           mkdir /tmp/sd && cd /tmp/sd && git init -q -b shop-data
           for i in $(seq 1 15); do
             if git fetch -q --depth 1 "$URL" shop-data && git reset -q --hard FETCH_HEAD; then
