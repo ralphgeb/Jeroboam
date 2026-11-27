@@ -22,7 +22,10 @@ exact name keys, which counted the same wine under two shops' spellings as wrong
 - Caveat: shop vs shop is not phone vs shop (packshots vs real labels, other vintages). Phone vs shop is likely no better.
 - Test 2 (phone scans from `/prints/export`) got HTTP 403: Cloudflare blocks Python's default user-agent (the worker's own key
   check answers 401). The script now sends one. There are few phone prints yet anyway.
-- **Recommendation:** don't use prints to name a wine. At most a hint next to the label text (producer shortlist: same wine or
+- **Ralph's decision (27 Nov):** keep the prints. The app identifies wines by **reading the label only**. Later, once phone scans
+  pile up, a print match is to be used as a **cross-check** on the label reading: the label text and the print should point
+  to the same wine (agree = more sure; disagree = ask/verify). Not built yet; when it is, re-run Test 2 on real phone prints first.
+- Recommendation (mine, before that decision): don't use prints to name a wine. At most a hint next to the label text (producer shortlist: same wine or
   same producer 68%), which LabelMatcher already does from the text. Prints stay on the `fingerprints` branch; nothing sent to
   the worker. `fingerprint_shops.txt` is empty again (a push with `all` costs ~20 Mac hours).
 
