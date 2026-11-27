@@ -1,0 +1,15 @@
+{
+ "host": "allywines.com",
+ "wine_pages": 111,
+ "pages_without_photo": 0,
+ "distinct_photos": 110,
+ "status": {
+  "ok": 108,
+  "unusable": 2
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 108
+}
