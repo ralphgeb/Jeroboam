@@ -1,0 +1,14 @@
+{
+ "host": "kegnbottle.com",
+ "wine_pages": 1627,
+ "pages_without_photo": 5,
+ "distinct_photos": 1618,
+ "status": {
+  "ok": 1618
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 1618
+}
