@@ -259,4 +259,18 @@ final class LogicTests: XCTestCase {
         w.found = true; w.producer = "Château de la Gardine"; w.name = "La Pialade"; w.confidence = "high"
         XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label.joined(separator: "\n")))
     }
+
+    func testTescoScans() {
+        var m = LabelMatcher()
+        m.add(name: "Trivento \"Golden Reserve\" Luján de Cuyo Malbec", producer: "Trivento", place: "Mendoza Luján de Cuyo", appellation: "Luján de Cuyo")
+        m.add(name: "Trivento Reserve Malbec", producer: "Trivento", place: "Mendoza", appellation: "Mendoza")
+        // the camera read RESENE for RESERVE: Golden Reserve is still found (not the plain Reserve)
+        XCTAssertEqual(m.match(lines: ["TRIVENTO", "GOLDEN RESENE", "MALBEC", "LUJÁN DE CUYO · MENDOZA"])?.name,
+                       "Trivento \"Golden Reserve\" Luján de Cuyo Malbec")
+        // "El Cuyo" is a place, not a producer the list knows
+        XCTAssertFalse(m.knowsMaker(["cuyo"]))
+        XCTAssertTrue(m.knowsMaker(["trivento"]))
+        // "since 1928" is the founding year: the vintage is the latest year printed
+        XCTAssertEqual(LabelMatcher.vintage(["STELLENRUST", "SINCE 1928", "PINOTAGE 2022"]), "2022")
+    }
 }

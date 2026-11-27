@@ -23,6 +23,7 @@ struct LabelMatcher {
     private(set) var wines: [Wine] = []
     private var index: [String: [Int32]] = [:]     // own-name word -> wines
     private var words = Set<String>()              // every word the list knows (for OCR slips)
+    private var makerWords = Set<String>()         // the words of the list's producers' names
     private var seen = Set<String>()
 
     static let generic: Set<String> = ["chateau", "bodega", "bodegas", "weingut", "tenuta", "cantina", "estate", "winery", "vineyard",
@@ -67,6 +68,7 @@ struct LabelMatcher {
         wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row, placeNamed: placeNamed))
         for w in own { index[w, default: []].append(i) }
         words.formUnion(own); words.formUnion(p)
+        if !placeNamed { makerWords.formUnion(p) }
     }
 
     /// The label's words, as `match` reads them (the "bottled by" line apart; one-letter OCR slips corrected).
@@ -114,6 +116,8 @@ struct LabelMatcher {
 
     /// True when every word is one the list's wines use (producers and names).
     func knows(_ ws: Set<String>) -> Bool { ws.isSubset(of: words) }
+    /// True when every word is a word of a producer's name in the list ("El Cuyo": "cuyo" is a place, not a producer).
+    func knowsMaker(_ ws: Set<String>) -> Bool { ws.isSubset(of: makerWords) }
 
     /// The wine this label names, or nil when it is not in the list or the label cannot tell two wines apart.
     func match(lines: [String]) -> Wine? {
@@ -131,6 +135,19 @@ struct LabelMatcher {
                 guard x.own.isSubset(of: label), 2 * x.producer.intersection(producerWords).count > x.producer.count else { continue }
                 if x.own.isSubset(of: Self.weak) && !(!x.place.isEmpty && x.place.isSubset(of: label)) { continue }
                 cands.append(i)
+            }
+        }
+        // A tier word misread by the camera ("RESENE" for RESERVE on Trivento Golden Reserve): when nothing matched in full, a wine
+        // whose own name WITHOUT its common words (reserve, grand…) is printed, with its producer, still counts; never a tie.
+        if cands.isEmpty {
+            for w in label where !Self.weak.contains(w) {
+                for i in index[w] ?? [] where !cands.contains(i) {
+                    let x = wines[Int(i)]
+                    let strong = x.own.subtracting(Self.weak)
+                    guard !strong.isEmpty, strong != x.own, strong.isSubset(of: label),
+                          2 * x.producer.intersection(producerWords).count > x.producer.count else { continue }
+                    cands.append(i)
+                }
             }
         }
         // Some labels never print the producer (Rayas's "La Pialade" says only La Pialade, Côtes du Rhône): when no producer was
@@ -206,17 +223,19 @@ struct LabelMatcher {
         return out.isEmpty ? w.name : out
     }
 
-    /// The vintage printed on the label: a year between 1900 and next year, standing on its own (not part of a longer number).
+    /// The vintage printed on the label: the LATEST year between 1900 and next year standing on its own ("Since 1928 … 2022" is 2022;
+    /// a founding year is always older than the wine).
     static func vintage(_ lines: [String]) -> String {
         let next = Calendar.current.component(.year, from: Date()) + 1
+        var best = 0
         for l in lines {
             var run = ""
             for ch in l + " " {
                 if ch.isASCII && ch.isNumber { run.append(ch); continue }
-                if run.count == 4, let y = Int(run), y >= 1900, y <= next { return run }
+                if run.count == 4, let y = Int(run), y >= 1900, y <= next { best = max(best, y) }
                 run = ""
             }
         }
-        return ""
+        return best > 0 ? String(best) : ""
     }
 }

@@ -236,6 +236,9 @@ enum WineRecognizer {
         case .claude(var r):
             DailyBudget.add(r.costUSD)
             r.identity = tidy(r.identity)
+            // "1928" from "since 1928" (Stellenrust): a year before 1950 or after next year is not trusted; the label's latest year is
+            let next = Calendar.current.component(.year, from: Date()) + 1
+            if let y = Int(r.identity.vintage), y < 1950 || y > next { r.identity.vintage = LabelMatcher.vintage(lines) }
             r.identity = await Task.detached(priority: .userInitiated) { [id = r.identity] in PriceBook.shared.overlay(withLabelTier(id, lines: lines)) }.value
             r.pending = .fresh(sig: sig)
             return r
@@ -480,6 +483,8 @@ enum WineRecognizer {
         o.funFact = c.funFact
         if o.food.isEmpty { o.food = c.food }
         if o.palate.isEmpty { o.palate = c.palate }
+        if o.region.isEmpty { o.region = c.region }       // a list row without its place (Trivento, Penfolds had none)
+        if o.country.isEmpty { o.country = c.country }
         if (o.drinkWindow ?? "").isEmpty { o.drinkWindow = c.drinkWindow }
         // tasting notes stay the list's own: Claude's would be a guess, and a guess is never shown as a fact
         return (o, r.costUSD)

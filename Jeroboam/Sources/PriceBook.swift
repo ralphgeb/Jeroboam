@@ -258,7 +258,7 @@ final class PriceBook {
         loadIfNeeded()
         guard !rows.isEmpty else { return true }
         let words = PriceBook.tokens(producer).subtracting(LabelMatcher.generic).subtracting(LabelMatcher.noise)
-        return !words.isEmpty && labels.knows(words)
+        return !words.isEmpty && labels.knowsMaker(words)
     }
 
     /// The wine a label names, found in the list from the label's text alone (no Claude call), with what the list knows about it.
