@@ -382,3 +382,9 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   second name word or the appellation) is added to both Claude calls (`shortlistText`); Claude answers `list_pick` (0 = none) and still
   identifies the wine itself. A pick is used only if `LabelMatcher.supports` it (whole own name printed, or producer + part of it);
   then the list's facts replace Claude's (Claude's fun fact/palate/food/window kept). Test: tools/shortlist_test.py, shortlist-test.yml.
+- **Tasting round (27 Nov)**: tasting a cellar bottle goes straight to Look (setting the photo no longer jumped to the identify page);
+  identify page = Start button first, wine card under it, name field only when the label wasn't read; aroma families two per row and
+  the tapped one opens right under its row (`familyButton`); notes take up to 3 photos (`NotePhotosRow`, 900 px JPEG in
+  `JournalEntry.notePhotos`, synced in the CloudKit payload, left out of the key-value fallback); after Save a pop-up asks Remove one /
+  Remove all / Keep in cellar; a bottle page whose bottle is gone dismisses itself (no blank page); "Taste this bottle" sits near the
+  top of the bottle page; empty Cellar / Tastings tabs show `CellarWelcome` / `TastingsWelcome` (TastingExtras.swift).

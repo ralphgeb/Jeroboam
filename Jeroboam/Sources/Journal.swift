@@ -30,6 +30,8 @@ struct JournalEntry: Codable, Identifiable, Hashable {
     var guessCountry: String? = nil
     var score: Int? = nil
     var price: PriceInfo? = nil
+    /// Up to 3 photos added to the notes (JPEG, 900 px, kept inside the tasting so they go to iCloud with it).
+    var notePhotos: [Data]? = nil
 
     var title: String { wine.name.isEmpty ? "Untitled wine" : wine.name }
     /// The rating on the 100-point scale (older 1–10 ratings are converted).
@@ -470,8 +472,7 @@ struct JournalHome: View {
     // ---- cellar
     @ViewBuilder private var cellarSection: some View {
         if journal.cellar.isEmpty {
-            empty(icon: "square.stack.3d.up", title: "Your cellar is empty",
-                  text: "Scan the bottles you own. Jero keeps the details and the average price, and adds up what your cellar is worth.")
+            CellarWelcome(onScan: { scan = true })
         } else {
             HStack(spacing: 10) {
                 stat("\(journal.bottleCount)", journal.bottleCount == 1 ? "bottle" : "bottles")
@@ -530,8 +531,7 @@ struct JournalHome: View {
     // ---- tastings
     @ViewBuilder private var tastingsSection: some View {
         if journal.entries.isEmpty {
-            empty(icon: "wineglass", title: "No tastings yet",
-                  text: "Try a blind tasting: snap the label, taste without looking, guess the grape and country, then see your score.")
+            TastingsWelcome(onBlind: { blind = true })
         } else {
             HStack(spacing: 10) {
                 stat("\(journal.entries.count)", "tastings")
@@ -1305,6 +1305,7 @@ struct TastingFlow: View {
     @State private var countryOptions: [String] = []
     @State private var prepared = false
     @State private var tookFromCellar = false   // the tasted bottle was taken out of the cellar
+    @State private var cellarAsk = false        // after saving: take this bottle out of the cellar?
 
     private var steps: [Step] {
         Step.allCases.filter { s in
@@ -1341,9 +1342,20 @@ struct TastingFlow: View {
         }
         .background(Palette.paper.ignoresSafeArea())
         .animation(.easeInOut(duration: 0.3), value: step)
-        .onChange(of: photo) { _, img in if img != nil { go(.identify) } }
+        .onChange(of: photo) { _, img in if img != nil && step == .photo { go(.identify) } }
         .sheet(isPresented: $ratingGuide, onDismiss: { seenRatingGuide = true }) { RatingGuideSheet() }
         .onAppear(perform: prepare)
+        .confirmationDialog(cellarQuestion, isPresented: $cellarAsk, titleVisibility: .visible) {
+            if let b = journal.cellarBottle(for: entry.wine) {
+                if b.quantity > 1 {
+                    Button("Remove one (\(b.quantity - 1) left)") { journal.takeOne(b); withAnimation { tookFromCellar = true } }
+                    Button("Remove all \(b.quantity)", role: .destructive) { journal.delete(b); withAnimation { tookFromCellar = true } }
+                } else {
+                    Button("Remove from cellar", role: .destructive) { journal.delete(b); withAnimation { tookFromCellar = true } }
+                }
+            }
+            Button("Keep in cellar", role: .cancel) {}
+        }
     }
 
     private var stepScroll: some View {
@@ -1452,14 +1464,17 @@ struct TastingFlow: View {
                     .buttonStyle(PrimaryButtonStyle(enabled: entry.identified))
                     .disabled(!entry.identified)
             } else {
-                if entry.identified { WineInfoCard(wine: entry.wine) }
                 if let e = error { ErrorNote(message: e) }
-                TextField("Wine name", text: $entry.wine.name)
-                    .font(.system(size: 17, weight: .semibold))
-                    .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
+                if !entry.identified {
+                    // the label couldn't be read: the name is typed by hand
+                    TextField("Wine name", text: $entry.wine.name)
+                        .font(.system(size: 17, weight: .semibold))
+                        .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
+                }
                 Button("Start tasting") { go(.look) }
                     .buttonStyle(PrimaryButtonStyle(enabled: !entry.wine.name.isEmpty))
                     .disabled(entry.wine.name.isEmpty)
+                if entry.identified { WineInfoCard(wine: entry.wine) }
             }
         }
         .task {
@@ -1582,46 +1597,58 @@ struct TastingFlow: View {
                 }
             }
             if q.isEmpty {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 10)], spacing: 10) {
-                    ForEach(cats) { cat in
-                        let picked = cat.items.filter { entry.aromas.contains($0) }.count
-                        let open = expandedFamily == cat.id
-                        Button { withAnimation(.easeInOut(duration: 0.2)) { expandedFamily = open ? nil : cat.id } } label: {
-                            HStack(spacing: 10) {
-                                FlavorIcon(aroma: cat.items.first ?? "", size: 24)
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(cat.name).font(.system(size: 14, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                                    Text(picked > 0 ? "\(picked) picked" : "\(cat.items.count) aromas").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
-                                }
-                                Spacer(minLength: 0)
-                            }
-                            .padding(10)
-                            .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .fill(picked > 0 ? Color(hex: cat.color).opacity(0.30) : Palette.card))
-                            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .strokeBorder(open ? Palette.wine : (picked > 0 ? Color(hex: cat.color).mix(with: .black, 0.15) : Palette.line.opacity(0.7)),
-                                              lineWidth: open || picked > 0 ? 2.2 : 0.7))
-                            .overlay(alignment: .topTrailing) {
-                                if picked > 0 {
-                                    Text("\(picked)").font(.system(size: 11, weight: .bold)).foregroundStyle(.white)
-                                        .frame(width: 20, height: 20).background(Circle().fill(Palette.wine)).offset(x: 6, y: -6)
-                                }
-                            }
+                // two families per row; the one you tap opens right under its own row
+                let rows = stride(from: 0, to: cats.count, by: 2).map { Array(cats[$0..<min($0 + 2, cats.count)]) }
+                VStack(spacing: 10) {
+                    ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                        HStack(spacing: 10) {
+                            ForEach(row) { cat in familyButton(cat) }
+                            if row.count == 1 { Color.clear.frame(maxWidth: .infinity) }
                         }
-                        .buttonStyle(.plain)
+                        if let id = expandedFamily, let cat = row.first(where: { $0.id == id }) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Eyebrow(cat.name)
+                                FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(cat.items, id: \.self) { aromaToggle($0, highlighted: false) } }
+                            }
+                            .padding(14)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color(hex: cat.color).opacity(0.10)))
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                        }
                     }
-                }
-                if let id = expandedFamily, let cat = cats.first(where: { $0.id == id }) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Eyebrow(cat.name)
-                        FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(cat.items, id: \.self) { aromaToggle($0, highlighted: false) } }
-                    }
-                    .padding(14)
-                    .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Color(hex: cat.color).opacity(0.10)))
-                    .transition(.opacity)
                 }
             }
         }
+    }
+
+    private func familyButton(_ cat: AromaCategory) -> some View {
+        let picked = cat.items.filter { entry.aromas.contains($0) }.count
+        let open = expandedFamily == cat.id
+        return Button { withAnimation(.easeInOut(duration: 0.2)) { expandedFamily = open ? nil : cat.id } } label: {
+            HStack(spacing: 10) {
+                FlavorIcon(aroma: cat.items.first ?? "", size: 24)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(cat.name).font(.system(size: 14, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
+                    Text(picked > 0 ? "\(picked) picked" : "\(cat.items.count) aromas").font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: open ? "chevron.up" : "chevron.down").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.inkFaint)
+            }
+            .padding(10)
+            .frame(maxWidth: .infinity)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(picked > 0 ? Color(hex: cat.color).opacity(0.30) : Palette.card))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .strokeBorder(open ? Palette.wine : (picked > 0 ? Color(hex: cat.color).mix(with: .black, 0.15) : Palette.line.opacity(0.7)),
+                              lineWidth: open || picked > 0 ? 2.2 : 0.7))
+            .overlay(alignment: .topTrailing) {
+                if picked > 0 {
+                    Text("\(picked)").font(.system(size: 11, weight: .bold)).foregroundStyle(.white)
+                        .frame(width: 20, height: 20).background(Circle().fill(Palette.wine)).offset(x: 6, y: -6)
+                }
+            }
+        }
+        .buttonStyle(.plain)
     }
 
     private func coach(_ text: String) -> some View {
@@ -1757,6 +1784,7 @@ struct TastingFlow: View {
                 TextField("Where, with whom, with what…", text: $entry.notes, axis: .vertical)
                     .lineLimit(3...6)
                     .padding(14).background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
+                NotePhotosRow(photos: Binding(get: { entry.notePhotos ?? [] }, set: { entry.notePhotos = $0.isEmpty ? nil : $0 }))
             }
         }
     }
@@ -1808,27 +1836,16 @@ struct TastingFlow: View {
         }
     }
 
-    /// A tasted wine that is in the cellar: offer to take that bottle out (one of them when there are several).
+    private var cellarQuestion: String {
+        let n = journal.cellarBottle(for: entry.wine)?.quantity ?? 1
+        return n > 1 ? "You have \(n) of these in your cellar" : "This bottle is in your cellar"
+    }
+
+    /// After the pop-up: a quiet line saying the bottle left the cellar.
     @ViewBuilder private var cellarPrompt: some View {
         if tookFromCellar {
             Label("Taken out of your cellar", systemImage: "checkmark.circle.fill")
                 .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.correct)
-        } else if let b = journal.cellarBottle(for: entry.wine) {
-            VStack(alignment: .leading, spacing: 10) {
-                Text(b.quantity > 1 ? "You have \(b.quantity) of these in your cellar." : "This bottle is in your cellar.")
-                    .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                Button {
-                    journal.takeOne(b)
-                    Haptics.success()
-                    withAnimation { tookFromCellar = true }
-                } label: {
-                    Label(b.quantity > 1 ? "Remove one from cellar" : "Remove from cellar", systemImage: "minus.circle")
-                }
-                .buttonStyle(SecondaryButtonStyle())
-            }
-            .padding(16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
         }
     }
 
@@ -1840,6 +1857,8 @@ struct TastingFlow: View {
         progress.award(xp: blind ? 25 : 15)
         Haptics.success()
         go(.done)
+        // the tasted wine is in the cellar: ask, in a pop-up, whether to take it out
+        if journal.cellarBottle(for: entry.wine) != nil { DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { cellarAsk = true } }
     }
 
     private func stepTitle(_ t: String, _ sub: String) -> some View {
@@ -1981,6 +2000,15 @@ struct EntryDetailView: View {
                     }
                     if !e.quality.isEmpty { section("Stood out") { Text(e.quality.joined(separator: " · ")).font(.system(size: 14.5)) } }
                     if !e.notes.isEmpty { section("Notes") { Text(e.notes).font(.system(size: 15)).foregroundStyle(Palette.ink) } }
+                    if let ps = e.notePhotos, !ps.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 10) {
+                                ForEach(Array(ps.enumerated()), id: \.offset) { _, d in
+                                    if let img = UIImage(data: d) { TappablePhoto(image: img, height: 150).frame(width: 150) }
+                                }
+                            }
+                        }
+                    }
                     Button(role: .destructive) { confirmDelete = true } label: {
                         Text("Delete tasting").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.wrong)
                     }
@@ -2039,6 +2067,8 @@ struct CellarDetailView: View {
                         Label("Not the right wine? Correct its name", systemImage: "pencil").font(.system(size: 13, weight: .semibold))
                     }
                     .foregroundStyle(Palette.wine).padding(.top, -8)
+                    Button { tasting = true } label: { Label("Taste this bottle", systemImage: "wineglass") }
+                        .buttonStyle(PrimaryButtonStyle())
                     if relooking { CheckingNote(text: "Looking up \(b.title) again…") }
                     WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
                     // body, acidity, tannin… expected from its grapes and place; your own marks beside them once you have tasted it
@@ -2067,8 +2097,6 @@ struct CellarDetailView: View {
                     .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.card))
                     WineInfoCard(wine: b.wine)
                     ScoreLinkCard(wine: b.wine, score: b.wine.dbScore, link: b.wine.dbScoreLink)
-                    Button { tasting = true } label: { Label("Taste this bottle", systemImage: "wineglass") }
-                        .buttonStyle(PrimaryButtonStyle())
                     Button(role: .destructive) { confirmDelete = true } label: {
                         Text("Remove from cellar").font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.wrong)
                     }
@@ -2096,8 +2124,12 @@ struct CellarDetailView: View {
             .confirmationDialog("Remove this wine from your cellar?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Remove", role: .destructive) { journal.delete(b); dismiss() }
             }
+        } else {
+            // the bottle left the cellar (taken out after a tasting): back to the cellar, not a blank page
+            Color.clear.onAppear { dismiss() }
         }
     }
+
 
     /// After a correction: the wine is identified again from the names you typed (our wine list first, else Claude and the
     /// online check), and everything about it is replaced; what you typed (name, producer, and any field you changed) wins.

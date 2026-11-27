@@ -152,7 +152,7 @@ final class CloudSync {
             // until CloudKit has synced once (or in builds without it) the journal also travels in the key-value store
             // (1 MB in all, bottles with small pictures), so nothing stops syncing while the switch-over happens
             // the pictures are made off the main thread (decoding label photos there froze the app)
-            let entries = j.entries.map { e -> JournalEntry in var c = e; c.photo = nil; return c }
+            let entries = j.entries.map { e -> JournalEntry in var c = e; c.photo = nil; c.notePhotos = nil; return c }
             let bottles = j.cellar
             let kv = self.kv
             Task.detached(priority: .utility) {
