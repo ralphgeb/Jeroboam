@@ -1,0 +1,14 @@
+{
+ "host": "www.chambersstwines.com",
+ "wine_pages": 21012,
+ "pages_without_photo": 2731,
+ "distinct_photos": 18114,
+ "status": {
+  "ok": 18114
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 18114
+}
