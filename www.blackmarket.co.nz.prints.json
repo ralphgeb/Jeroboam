@@ -1,0 +1,14 @@
+{
+ "host": "www.blackmarket.co.nz",
+ "wine_pages": 11384,
+ "pages_without_photo": 89,
+ "distinct_photos": 9884,
+ "status": {
+  "ok": 9884
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 9884
+}
