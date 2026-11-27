@@ -1,0 +1,14 @@
+{
+ "host": "www.wine-boutique.co.uk",
+ "wine_pages": 174,
+ "pages_without_photo": 11,
+ "distinct_photos": 163,
+ "status": {
+  "ok": 163
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 163
+}
