@@ -1,0 +1,15 @@
+{
+ "host": "zyn.ca",
+ "wine_pages": 6762,
+ "pages_without_photo": 12,
+ "distinct_photos": 6749,
+ "status": {
+  "ok": 6748,
+  "unusable": 1
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 6748
+}
