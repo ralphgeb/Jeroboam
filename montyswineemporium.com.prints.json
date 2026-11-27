@@ -1,0 +1,14 @@
+{
+ "host": "montyswineemporium.com",
+ "wine_pages": 236,
+ "pages_without_photo": 0,
+ "distinct_photos": 236,
+ "status": {
+  "ok": 236
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 236
+}
