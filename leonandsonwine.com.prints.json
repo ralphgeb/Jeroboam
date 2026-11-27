@@ -1,0 +1,14 @@
+{
+ "host": "leonandsonwine.com",
+ "wine_pages": 7810,
+ "pages_without_photo": 226,
+ "distinct_photos": 7501,
+ "status": {
+  "ok": 7501
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 7501
+}
