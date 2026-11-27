@@ -1,0 +1,15 @@
+name: Recent scans (check)
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/recent-scans.yml", "tools/recent_scans.py"]
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q pyyaml && python3 tools/recent_scans.py 12
