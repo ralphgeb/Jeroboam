@@ -347,7 +347,19 @@ enum WineRecognizer {
                 r.identity = k; PriceCloud.shareWine(k, sig: sig); return r
             }
             ScanClock.shared.add("Name lookup", since: t)
-            let (w, cost, limited) = await verifyOnline(r0.identity)
+            // found in our list without its grapes (Claude never saw it): the fun fact, food, palate, drinking window and a missing
+            // region are asked for at the same time as the online check, so the page fills in completely
+            async let facts: (WineIdentity, Double)? = r0.identity.funFact.isEmpty ? enrich(r0.identity) : nil
+            var (w, cost, limited) = await verifyOnline(r0.identity)
+            if let (e, c) = await facts {
+                cost += c
+                if w.funFact.isEmpty { w.funFact = e.funFact }
+                if w.food.isEmpty { w.food = e.food }
+                if w.palate.isEmpty { w.palate = e.palate }
+                if (w.drinkWindow ?? "").isEmpty { w.drinkWindow = e.drinkWindow }
+                if w.region.isEmpty { w.region = e.region }
+                if w.country.isEmpty { w.country = e.country }
+            }
             r.identity = w; r.extraUSD = cost; r.limited = limited
             WineDB.shared.save(r.identity, signature: sig)
             if !limited { PriceCloud.shareWine(r.identity, sig: sig) }   // an unchecked wine is not shared

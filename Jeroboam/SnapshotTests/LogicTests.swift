@@ -260,6 +260,23 @@ final class LogicTests: XCTestCase {
         XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label.joined(separator: "\n")))
     }
 
+    func testLongerProducerName() {
+        var m = LabelMatcher()
+        m.add(name: "Marbuzet", producer: "Chateau Marbuzet", place: "Bordeaux Saint-Estèphe", appellation: "Saint-Estèphe")
+        m.add(name: "Haut-Marbuzet", producer: "Château Haut-Marbuzet", place: "Bordeaux Saint-Estèphe", appellation: "Saint-Estèphe")
+        m.add(name: "Côtes du Rhône", producer: "Château de la Gardine", place: "Rhône Côtes du Rhône", appellation: "Côtes du Rhône")
+        // La Croix de Marbuzet is not Château Marbuzet
+        XCTAssertNil(m.match(lines: ["Saint-Estèphe", "APPELLATION SAINT-ESTÈPHE CONTRÔLÉE", "CHATEAU", "LA CROIX DE MARBUZET", "2014",
+                                     "S.C.E.A. CROIX DE MARBUZET"]))
+        // Haut-Marbuzet is itself, not Château Marbuzet
+        XCTAssertEqual(m.match(lines: ["CHATEAU HAUT-MARBUZET", "SAINT-ESTÈPHE", "2016"])?.maker, "Château Haut-Marbuzet")
+        // "Château de la Gardine": the de/la before the name belong to the château itself
+        XCTAssertEqual(m.match(lines: ["CHÂTEAU DE LA GARDINE", "CÔTES DU RHÔNE"])?.maker, "Château de la Gardine")
+        XCTAssertEqual(m.match(lines: ["Chateau Marbuzet", "Saint-Estèphe"])?.maker, "Chateau Marbuzet")
+        m.add(name: "Chianti Classico", producer: "Castello di Ama", place: "Tuscany Chianti Classico", appellation: "Chianti Classico")
+        XCTAssertEqual(m.match(lines: ["CASTELLO DI AMA", "CHIANTI CLASSICO"])?.maker, "Castello di Ama")
+    }
+
     func testTescoScans() {
         var m = LabelMatcher()
         m.add(name: "Trivento \"Golden Reserve\" Luján de Cuyo Malbec", producer: "Trivento", place: "Mendoza Luján de Cuyo", appellation: "Luján de Cuyo")

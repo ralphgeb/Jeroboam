@@ -137,7 +137,7 @@ struct LabelMatcher {
     /// and part of its name.
     func supports(_ x: Wine, lines: [String]) -> Bool {
         let (label, producerWords) = labelWords(lines)
-        guard !x.own.intersection(label).isEmpty else { return false }
+        guard !x.own.intersection(label).isEmpty, !longerName(x, lines) else { return false }
         return x.own.isSubset(of: label) || !x.producer.isDisjoint(with: producerWords)
     }
 
@@ -157,6 +157,37 @@ struct LabelMatcher {
             for i in (byMaker[w] ?? []).prefix(200) { for o in wines[Int(i)].own where out[o] == nil { out[o] = 0 } }
         }
         return out.sorted { $0.value > $1.value }.prefix(limit).map { $0.key.prefix(1).uppercased() + $0.key.dropFirst() }
+    }
+
+    private static let connectors: Set<String> = ["de", "du", "des", "la", "le", "les", "di", "del", "della", "da", "do", "dos", "das",
+                                                  "van", "von", "d", "l", "of", "the"]
+
+    /// On the label, the producer's first word comes right after another name word, joined by a hyphen or by "de", "la"…
+    /// ("La Croix DE Marbuzet", "Haut-Marbuzet"): the label names a longer producer than this wine's.
+    func longerName(_ x: Wine, _ lines: [String]) -> Bool {
+        func fold(_ s: String) -> String { s.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased() }
+        let full = fold(x.maker).split(whereSeparator: { !$0.isLetter }).map(String.init)
+        guard let first = full.first(where: { x.producer.contains($0) }) else { return false }
+        let own = Set(full)   // every word of the producer's own full name ("Castello DI Ama", "Domaine DE LA Romanée-Conti")
+        let filler = Self.generic.union(Self.nameGeneric).union(Self.noise).union(Self.weak).union(Self.labelCommon)
+        for line in lines {
+            let l = fold(line)
+            // the line's words with what joins each to the next (a hyphen or spaces)
+            var ws: [(word: String, hyphen: Bool)] = []
+            var cur = "", gap = ""
+            for ch in l + " " {
+                if ch.isLetter { if cur.isEmpty && !ws.isEmpty { ws[ws.count - 1].hyphen = gap.contains("-") }; cur.append(ch); gap = "" }
+                else { if !cur.isEmpty { ws.append((cur, false)); cur = "" }; gap.append(ch) }
+            }
+            guard let i = ws.firstIndex(where: { $0.word == first }), i > 0 else { continue }
+            var j = i - 1
+            var joined = ws[j].hyphen
+            while j >= 0 && Self.connectors.contains(ws[j].word) { joined = true; j -= 1 }
+            guard joined, j >= 0 else { continue }
+            let w = ws[j].word
+            if w.count >= 3 && !filler.contains(w) && !own.contains(w) && !x.own.contains(w) { return true }
+        }
+        return false
     }
 
     /// True when every word is one the list's wines use (producers and names).
@@ -209,6 +240,10 @@ struct LabelMatcher {
                 }
             }
         }
+        // the producer is only the end of a longer name on the label ("LA CROIX DE MARBUZET" is not Château Marbuzet,
+        // "HAUT-MARBUZET" neither): not its wine
+        let named = lines.filter { !small.contains($0) }
+        cands.removeAll { longerName(wines[Int($0)], named) }
         // a wine named only by its appellation counts its words once, so a named cuvée of the same place (La Landonne) beats it
         // a Château Palmer label prints "Margaux" too: a producer named only by its place never beats one named by its own words
         if cands.contains(where: { !wines[Int($0)].placeNamed }) { cands.removeAll { wines[Int($0)].placeNamed } }
