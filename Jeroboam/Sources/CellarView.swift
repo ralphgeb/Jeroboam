@@ -22,6 +22,7 @@ struct CellarView: View {
     @State private var vintage = ""             // "" any
     @AppStorage("jero.cellarCompact") private var asList = true      // the compact list is the first view
     @State private var openStat: CellarStat? = nil
+    @State private var shownStat: CellarStat? = nil   // the panel's content, kept while it closes
     @State private var opened: CellarBottle? = nil
 
     private func family(_ s: String) -> String {
@@ -71,8 +72,8 @@ struct CellarView: View {
     var body: some View {
         let list = shown
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                ScreenHeader(eyebrow: "Your wines", title: "Cellar", subtitle: "Every bottle you own, what it is worth and how it scores.")
+            VStack(alignment: .leading, spacing: 12) {
+                ScreenHeader(eyebrow: "Your wines", title: "Cellar")
                 stats(list)
                 chips
                 filterBar
@@ -99,7 +100,6 @@ struct CellarView: View {
                             .font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
                     }
                 }
-                Color.clear.frame(height: 2)
                 if list.isEmpty {
                     Text("No bottles match these filters.").font(.system(size: 14)).foregroundStyle(Palette.inkSoft)
                         .frame(maxWidth: .infinity).padding(.vertical, 40)
@@ -141,7 +141,7 @@ struct CellarView: View {
         let bottlesPriced = priced.reduce(0) { $0 + $1.quantity }
         let avg = bottlesPriced == 0 ? 0 : priced.reduce(0.0) { $0 + ($1.price?.average ?? 0) * Double($1.quantity) } / Double(bottlesPriced)
         let cur = journal.cellarCurrency
-        return VStack(spacing: 10) {
+        return VStack(spacing: 0) {
             // the value takes two thirds of the row, the average bottle the last third
             GeometryReader { g in
                 HStack(spacing: 10) {
@@ -151,11 +151,16 @@ struct CellarView: View {
                 }
             }
             .frame(height: 64)
-            if let s = openStat {
-                CellarChartPanel(stat: s, bottles: list, currency: cur).transition(.unfold)
+            // always in place; its height goes from 0 to the panel's own height (and back), clipped, so the list below moves
+            // down and up in step with the panel instead of jumping before it has finished closing
+            Reveal(open: openStat != nil) {
+                if let s = openStat ?? shownStat {
+                    CellarChartPanel(stat: s, bottles: list, currency: cur).padding(.top, 10)
+                }
             }
         }
         .animation(.smooth(duration: 0.35), value: openStat)
+        .onChange(of: openStat) { _, v in if let v { shownStat = v } }
     }
     /// Two big buttons (list first). Big enough to press, and nothing under them reacts to a press that lands on them.
     private var layoutToggle: some View {
@@ -164,7 +169,6 @@ struct CellarView: View {
             toggleButton("square.grid.2x2", compact: false)
         }
         .padding(3).background(Capsule().fill(Palette.cardAlt))
-        .padding(.bottom, 6)
         .zIndex(2)
     }
     private func toggleButton(_ icon: String, compact: Bool) -> some View {

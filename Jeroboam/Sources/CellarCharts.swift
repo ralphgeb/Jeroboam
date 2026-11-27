@@ -204,3 +204,27 @@ struct ExpandFold: ViewModifier {
 extension AnyTransition {
     static var unfold: AnyTransition { .modifier(active: ExpandFold(p: 0), identity: ExpandFold(p: 1)) }
 }
+
+/// Content that opens downward by its real height and closes the same way: the frame grows from 0 to the content's measured height
+/// (clipped), so whatever sits below follows it smoothly in both directions.
+struct Reveal<Content: View>: View {
+    let open: Bool
+    @ViewBuilder var content: Content
+    @State private var height: CGFloat = 0
+
+    var body: some View {
+        content
+            .fixedSize(horizontal: false, vertical: true)
+            .background(GeometryReader { g in Color.clear.preference(key: RevealHeight.self, value: g.size.height) })
+            .onPreferenceChange(RevealHeight.self) { height = $0 }
+            .frame(height: open ? height : 0, alignment: .top)
+            .clipped()
+            .opacity(open ? 1 : 0)
+            .allowsHitTesting(open)
+    }
+}
+
+private struct RevealHeight: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = max(value, nextValue()) }
+}
