@@ -1,0 +1,14 @@
+{
+ "host": "www.topcuvee.com",
+ "wine_pages": 58,
+ "pages_without_photo": 0,
+ "distinct_photos": 57,
+ "status": {
+  "ok": 57
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 57
+}
