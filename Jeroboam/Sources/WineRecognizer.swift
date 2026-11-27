@@ -233,7 +233,7 @@ enum WineRecognizer {
         case .claude(var r):
             DailyBudget.add(r.costUSD)
             r.identity = tidy(r.identity)
-            r.identity = await Task.detached(priority: .userInitiated) { PriceBook.shared.overlay(r.identity) }.value
+            r.identity = await Task.detached(priority: .userInitiated) { [id = r.identity] in PriceBook.shared.overlay(withLabelTier(id, lines: lines)) }.value
             r.pending = .fresh(sig: sig)
             return r
         case .failed(let e): throw e
@@ -488,6 +488,25 @@ enum WineRecognizer {
         let v = w.vintage.trimmingCharacters(in: .whitespaces)
         if !v.isEmpty, w.name.hasSuffix(" " + v) { w.name = String(w.name.dropLast(v.count + 1)).trimmingCharacters(in: .whitespaces) }
         w.name = chateauName(w)
+        return w
+    }
+
+    /// Claude often leaves the quality tier out of the name ("Viña Bosconia" for a label that says Reserva), and the wine list
+    /// treats a Reserva and a plain wine as different wines, so nothing matched. The tier printed on the label is added back first;
+    /// if the list still doesn't know the wine, the name stays as Claude gave it.
+    static func withLabelTier(_ w: WineIdentity, lines: [String]) -> WineIdentity {
+        let fold: (String) -> String = { $0.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased() }
+        let label = " " + fold(lines.joined(separator: " ")).map { $0.isLetter || $0.isNumber ? $0 : " " }.reduce(into: "") { $0.append($1) } + " "
+        let name = " " + fold(w.name) + " "
+        for tier in ["gran reserva", "gran riserva", "grande reserve", "reserva", "riserva", "reserve", "crianza", "grand cru", "premier cru", "1er cru"] {
+            let t = " " + tier + " "
+            if label.contains(t) {
+                if name.contains(t) { return w }
+                var o = w
+                o.name = w.name + " " + tier.split(separator: " ").map { $0.capitalized }.joined(separator: " ")
+                return PriceBook.shared.details(for: o) != nil ? o : w
+            }
+        }
         return w
     }
 

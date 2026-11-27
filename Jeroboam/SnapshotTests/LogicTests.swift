@@ -215,4 +215,16 @@ final class LogicTests: XCTestCase {
         w.producer = "Bargylus"; w.name = "Grand Vin de Syrie"              // not a château: untouched
         XCTAssertEqual(WineRecognizer.chateauName(w), "Grand Vin de Syrie")
     }
+
+    func testFamousLabelsFoundInTheList() {
+        var m = LabelMatcher()
+        m.add(name: "Lynch Bages", producer: "Chateau Lynch-Bages", place: "Bordeaux Pauillac", appellation: "Pauillac")
+        m.add(name: "Echo De Lynch Bages 17 Pauillac", producer: "Echo de Lynch Bages", place: "Bordeaux Pauillac", appellation: "Pauillac")
+        m.add(name: "Blanc de Lynch Bages", producer: "Chateau Lynch-Bages", place: "Bordeaux Pauillac", appellation: "Pauillac")
+        m.add(name: "Lopez de Heredia Rioja Bosconia Reserva", producer: "Lopez de Heredia", place: "Rioja", appellation: "")
+        m.add(name: "Lopez de Heredia Rioja Bosconia Gran Reserva", producer: "Lopez de Heredia", place: "Rioja", appellation: "")
+        XCTAssertEqual(m.match(lines: ["CHÂTEAU LYNCH-BAGES", "GRAND VIN", "GRAND CRU CLASSÉ EN 1855", "PAUILLAC", "2017"])?.name, "Lynch Bages")
+        XCTAssertEqual(m.match(lines: ["VIÑA BOSCONIA", "RIOJA", "RESERVA", "R. LÓPEZ DE HEREDIA", "VIÑA TONDONIA S.A.", "HARO", "2012"])?.name,
+                       "Lopez de Heredia Rioja Bosconia Reserva")
+    }
 }
