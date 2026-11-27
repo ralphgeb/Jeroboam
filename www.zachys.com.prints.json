@@ -1,0 +1,15 @@
+{
+ "host": "www.zachys.com",
+ "wine_pages": 6727,
+ "pages_without_photo": 552,
+ "distinct_photos": 6175,
+ "status": {
+  "ok": 6164,
+  "unusable": 11
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 6164
+}
