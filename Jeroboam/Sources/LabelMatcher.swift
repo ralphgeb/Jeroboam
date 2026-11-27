@@ -63,6 +63,9 @@ struct LabelMatcher {
         words.formUnion(own); words.formUnion(p)
     }
 
+    /// True when every word is one the list's wines use (producers and names).
+    func knows(_ ws: Set<String>) -> Bool { ws.isSubset(of: words) }
+
     /// The wine this label names, or nil when it is not in the list or the label cannot tell two wines apart.
     func match(lines: [String]) -> Wine? {
         // the "bottled by" line names the producer's address ("mis en bouteille par E. Guigal, Château d'Ampuis"): its words may

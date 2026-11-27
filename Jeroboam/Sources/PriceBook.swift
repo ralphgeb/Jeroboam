@@ -197,6 +197,7 @@ final class PriceBook {
         let q = Self.tokens(w.producer + " " + w.name)
         let wineColor = Self.color(of: w)
         guard !q.isEmpty, !rows.isEmpty else { return nil }
+        let producerWords = Self.tokens(w.producer).subtracting(LabelMatcher.generic)
         let rare = q.compactMap { t in index[t].map { (t, $0) } }.sorted { $0.1.count < $1.1.count }.prefix(3)
         guard !rare.isEmpty else { return nil }
         let short = Self.shortNameWords(w)
@@ -205,6 +206,9 @@ final class PriceBook {
         for (_, posting) in rare where posting.count < 12_000 {
             for i in posting where seen.insert(i).inserted {
                 let r = rows[Int(i)]
+                // the producer's own words must be there: classification words alone ("Premier Grand Cru Classé") fit many
+                // châteaux (a misread "Château Nâteau" was priced as Château Canon)
+                if !producerWords.isEmpty && producerWords.isDisjoint(with: r.tokens) { continue }
                 let matched = q.intersection(r.tokens).count
                 let coverage = Double(matched) / Double(q.count)
                 guard coverage >= 0.75, matched >= min(2, q.count), Self.linkHas(r, short) else { continue }
@@ -245,6 +249,16 @@ final class PriceBook {
         }
         return PriceInfo(average: lowest(r), low: lowest(r), high: max(per750(r, r.high), lowest(r)), currency: "USD",
                          source: src, url: r.link.isEmpty ? nil : "https://" + r.link)
+    }
+
+    /// Whether the list knows this producer: every real word of its name (not Château/Domaine…, not places) is a word the list's
+    /// producers use. A misread name ("Nâteau") is unknown; so is a small producer the list doesn't carry (then the photo decides).
+    /// Before the list has been downloaded every producer counts as known.
+    func knowsProducer(_ producer: String) -> Bool {
+        loadIfNeeded()
+        guard !rows.isEmpty else { return true }
+        let words = PriceBook.tokens(producer).subtracting(LabelMatcher.generic).subtracting(LabelMatcher.noise)
+        return !words.isEmpty && labels.knows(words)
     }
 
     /// The wine a label names, found in the list from the label's text alone (no Claude call), with what the list knows about it.

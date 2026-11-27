@@ -227,4 +227,15 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(m.match(lines: ["VIÑA BOSCONIA", "RIOJA", "RESERVA", "R. LÓPEZ DE HEREDIA", "VIÑA TONDONIA S.A.", "HARO", "2012"])?.name,
                        "Lopez de Heredia Rioja Bosconia Reserva")
     }
+
+    func testClassificationAloneIsNotEnough() {
+        // a curved CHÂTEAU MARGAUX label read as "Château Nâteau" + "Premier Grand Cru Classé": wait for the photo
+        var w = WineIdentity.empty
+        w.found = true; w.producer = "Château Nâteau"; w.name = "Premier Grand Cru Classé"; w.confidence = "high"; w.region = "Saint-Émilion"
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: "NÂTEAU 2018 GRAND VIN PREMIER GRAND CRU CLASSE"))
+        var m = LabelMatcher()
+        m.add(name: "Chateau Margaux", producer: "Chateau Margaux", place: "Bordeaux Margaux", appellation: "Margaux")
+        XCTAssertTrue(m.knows(["margaux"]))
+        XCTAssertFalse(m.knows(["nateau"]))
+    }
 }

@@ -550,7 +550,10 @@ enum WineRecognizer {
             r2.usedImage = true
             return r2
         }
-        if textIsEnough(r.identity, label: text) || photo == nil {
+        // a producer our wine list has never heard of may be a misread label ("Château Nâteau" for a curved CHÂTEAU MARGAUX):
+        // then the photo's answer, already on its way, gets the last word
+        let known = PriceBook.shared.knowsProducer(r.identity.producer)
+        if (textIsEnough(r.identity, label: text) && known) || photo == nil {
             photo?.cancel()
             r.usedImage = false
             return r
@@ -565,6 +568,8 @@ enum WineRecognizer {
     /// The label text alone settles it: Claude is sure, or (fairly sure and) the producer and the wine it names are printed on the label.
     static func textIsEnough(_ w: WineIdentity, label: String) -> Bool {
         guard w.found, !w.name.isEmpty else { return false }
+        // a name made only of classification words ("Premier Grand Cru Classé") says nothing about which wine it is
+        if chateauName(w) != w.name && !w.producer.isEmpty { return false }
         if w.confidence == "high" { return true }
         guard w.confidence == "medium" else { return false }
         func words(_ s: String) -> [String] {
