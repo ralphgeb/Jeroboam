@@ -117,11 +117,17 @@ final class WineDB {
         e.lastSeen = Date(); e.scans = (was?.scans ?? 1)
         e.thumb = e.thumb ?? was?.thumb
         store.wines[nk] = e
-        for (sig, k) in store.signatures where k == ok { store.signatures[sig] = nk }
+        var sigs: [String] = []
+        for (sig, k) in store.signatures where k == ok { store.signatures[sig] = nk; sigs.append(sig) }
         let snapshot = store
         lock.unlock()
         if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
-        PriceCloud.shareWine(new)
+        // the corrected wine goes up with this label's signature, so the next scan of the label finds it online too
+        PriceCloud.shareWine(new, sig: sigs.first)
+        // online: the wrong wine's row goes, its label signature and fingerprints move to the corrected wine
+        if ok != nk { PriceCloud.correctWine(from: ok, to: nk) }
+        ScanClock.rename(from: old.name, to: new.name)
+        DispatchQueue.main.async { CloudSync.shared.journalChanged() }   // the scan list backup follows
     }
 
     // MARK: iCloud backup of the scan list (JournalCloud: one record "scan-history" in the journal zone)

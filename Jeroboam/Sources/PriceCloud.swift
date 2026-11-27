@@ -115,4 +115,12 @@ enum PriceCloud {
               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [] }
         return obj["rows"] as? [[String: Any]] ?? []
     }
+
+    /// A wine corrected by hand: the online wine list drops the wrong wine and gives its label signature, label fingerprints and
+    /// fingerprint checks to the corrected one (worker `POST /wine/correct`), so the next scan of that label finds the right wine.
+    static func correctWine(from oldKey: String, to newKey: String) {
+        let body: [String: Any] = ["from": oldKey, "to": newKey]
+        guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine/correct", method: "POST", body: data) else { return }
+        Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
+    }
 }

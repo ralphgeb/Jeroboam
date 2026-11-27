@@ -287,6 +287,23 @@ export default {
       return json({ rows: results || [] });
     }
 
+    // ---- a wine corrected by hand in the app: drop the wrong wine, give its label signature, fingerprints and checks to the right one
+    //   POST /wine/correct {"from": "<wrong key>", "to": "<corrected key>"}
+    if (url.pathname === "/wine/correct" && req.method === "POST") {
+      let b;
+      try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
+      const from = clean(b.from, 300), to = clean(b.to, 300);
+      if (!from || !to || from === to) return json({ error: "bad" }, 400);
+      const old = await env.DB.prepare("SELECT sig FROM wines WHERE key = ?").bind(from).first();
+      if (old && old.sig) await env.DB.prepare("UPDATE wines SET sig = COALESCE(sig, ?) WHERE key = ?").bind(old.sig, to).run();
+      await env.DB.prepare("DELETE FROM wines WHERE key = ?").bind(from).run();
+      try { await env.DB.prepare("UPDATE label_prints SET key = ? WHERE key = ?").bind(to, from).run(); } catch (e) {}
+      // the checks are worked out again under the right wine (GitHub's print-check, started now when it can be)
+      try { await env.DB.prepare("DELETE FROM print_checks WHERE key = ?").bind(from).run(); } catch (e) {}
+      if (env.GITHUB_TOKEN) ctx.waitUntil(startPrintCheck(env));
+      return json({ ok: true });
+    }
+
     if (url.pathname === "/wine") {
       if (req.method === "GET") {
         const sig = clean(url.searchParams.get("sig"), 300), key = clean(url.searchParams.get("key"), 300);

@@ -369,3 +369,8 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - Label matcher: when no producer is on the label, a rare own-name word used by ONE producer in the list + its appellation on the
   label finds the wine (Rayas "La Pialade"). `textIsEnough` needs the producer printed even at "high" confidence (else the photo
   answer decides: a confident "Château de la Gardine" for La Pialade).
+- **Correcting a wine** (bottle page > "Not the right wine?"): `CellarDetailView.relook` identifies it again from the typed names
+  (list first, else Claude + online check), replaces its details (typed name/producer/changed fields win), re-prices it, and updates
+  tastings of the same wrong wine. `WineDB.correct` moves the label signatures, sends the corrected wine with its signature, renames
+  scan timings (`ScanClock.rename`) and calls worker `POST /wine/correct` (drops the wrong wine row, moves its sig and
+  `label_prints` to the right key, deletes its `print_checks` so the fingerprint check runs again).

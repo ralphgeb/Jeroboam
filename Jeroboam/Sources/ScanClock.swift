@@ -44,6 +44,15 @@ final class ScanClock: @unchecked Sendable {
 
     static func clear() { UserDefaults.standard.removeObject(forKey: key) }
 
+    /// A wine corrected by hand: its scans are listed under the right name (marked as corrected).
+    static func rename(from old: String, to new: String) {
+        guard !old.isEmpty, !new.isEmpty, old != new else { return }
+        var list = records
+        var changed = false
+        for i in list.indices where list[i].wine == old { list[i].wine = new + " (corrected from " + old + ")"; changed = true }
+        if changed, let d = try? JSONEncoder().encode(list) { UserDefaults.standard.set(d, forKey: key) }
+    }
+
     /// "Label 0.6 s · Lookup 0.8 s · Claude 2.9 s · … · total 9.4 s"
     func summary() -> String {
         lock.lock(); defer { lock.unlock() }

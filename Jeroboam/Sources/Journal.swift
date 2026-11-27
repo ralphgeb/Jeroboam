@@ -2115,6 +2115,11 @@ struct CellarDetailView: View {
             if typed.region != old.region && !typed.region.isEmpty { w.region = typed.region }
             if typed.country != old.country && !typed.country.isEmpty { w.country = typed.country }
             journal.noteCost(r.costUSD)
+            // tastings of the same (wrong) wine follow the correction
+            let oldKey = WineDB.key(old)
+            for e in journal.entries where WineDB.key(e.wine) == oldKey {
+                var f = e; f.wine = w; journal.upsert(f)
+            }
             if var c = journal.cellar.first(where: { $0.id == b.id }) {
                 c.wine = w; c.price = nil
                 journal.upsert(c)
