@@ -337,7 +337,8 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (on the phone, 640 px, 32-bit floats) and `PriceCloud.sharePrint` sends it with the wine key (`WineDB.noteScan`). Worker table
   `label_prints` (at most 5 per wine), `POST /print`, `GET /prints/export`. Not used for matching yet: once a few hundred exist,
   measure same-label vs look-alike distances, then match (with the label text as a check). Privacy page + listing §5 updated.
-- **Fingerprint check (TestFlight only, while testing)**: `print-check.yml` (every 30 min + by hand; DELETE its schedule to stop)
+- **Fingerprint check (TestFlight only, while testing)**: `print-check.yml` (started by the worker on each `POST /print` via secret
+  GITHUB_TOKEN, at most once a minute; hourly backup; shop prints cached; DELETE the workflow to stop)
   runs `tools/print_check.py`: new phone prints (worker `/prints/export?since=`) vs the 182k shop-photo prints on the `fingerprints`
   branch (made by the prices session, `tools/prices/fingerprint_test.py` helpers) -> 3 nearest wines (label crops and whole photos)
   -> worker `POST /prints/checks` (table `print_checks`). App: Settings > TestFlight > Fingerprint check (`FingerprintCheckView`).

@@ -1,10 +1,11 @@
 name: Fingerprint check (TestFlight test)
 # Compares the phones' new label prints with the shop-photo prints (fingerprints branch) and posts the 3 nearest wines to the
-# worker for the app's TestFlight page "Fingerprint check". Runs every 30 minutes WHILE TESTING: delete the schedule to stop.
+# worker for the app's TestFlight page "Fingerprint check". Started by the worker as soon as a phone sends a print (secret
+# GITHUB_TOKEN on the worker), plus an hourly backup run. To stop the test: delete this file (or its schedule).
 on:
   workflow_dispatch:
   schedule:
-    - cron: "7,37 * * * *"
+    - cron: "17 * * * *"
   push:
     branches: ["claude/**"]
     paths: [".github/workflows/print-check.yml", "tools/print_check.py"]
@@ -20,13 +21,23 @@ jobs:
       KEY: ${{ secrets.PRICE_DB_KEY }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: tools
       - name: Anything new to check?
         id: new
         run: |
           since=$(( $(date +%s) - 259200 ))
           n=$(curl -s -A jero-print-check -H "x-jero-key: $KEY" "$URL/prints/export?limit=2000&since=$since" | python3 -c 'import sys,json;print(len(json.load(sys.stdin).get("rows",[])))' || echo 0)
           echo "phone prints in 3 days: $n"; echo "n=$n" >> "$GITHUB_OUTPUT"
+          echo "fp=$(git ls-remote origin refs/heads/fingerprints | cut -c1-12)" >> "$GITHUB_OUTPUT"
+      # the 182k shop prints (624 MB) are kept in GitHub's cache until the fingerprints branch changes: no full download each run
       - if: steps.new.outputs.n != '0'
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: fp
+          key: shop-prints-${{ steps.new.outputs.fp }}
+      - if: steps.new.outputs.n != '0' && steps.cache.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
         with:
           ref: fingerprints

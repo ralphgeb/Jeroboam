@@ -77,6 +77,24 @@ function grapeColumns(text) {
   } catch { return { grapes: null, percent: null, checked: 0 }; }
 }
 
+// Starts GitHub's fingerprint check (workflow_dispatch of print-check.yml on main) at most once a minute.
+async function startPrintCheck(env) {
+  try {
+    const now = Math.floor(Date.now() / 1000);
+    await env.DB.prepare("CREATE TABLE IF NOT EXISTS print_check_runs (id INTEGER PRIMARY KEY, at INTEGER)").run();
+    const last = await env.DB.prepare("SELECT at FROM print_check_runs WHERE id = 1").first();
+    if (last && now - last.at < 60) return;
+    await env.DB.prepare("INSERT OR REPLACE INTO print_check_runs (id, at) VALUES (1, ?)").bind(now).run();
+    const repo = env.GITHUB_REPO || "ralphgeb/Jeroboam";
+    await fetch(`https://api.github.com/repos/${repo}/actions/workflows/print-check.yml/dispatches`, {
+      method: "POST",
+      headers: { "authorization": `Bearer ${env.GITHUB_TOKEN}`, "accept": "application/vnd.github+json",
+                 "x-github-api-version": "2022-11-28", "user-agent": "jero-worker", "content-type": "application/json" },
+      body: JSON.stringify({ ref: "main" }),
+    });
+  } catch (e) { /* the hourly run picks it up */ }
+}
+
 async function usage(env) {
   await env.DB.prepare(
     "CREATE TABLE IF NOT EXISTS claude_usage (day TEXT NOT NULL, device TEXT NOT NULL, usd REAL NOT NULL DEFAULT 0, calls INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, device))"
@@ -181,7 +199,7 @@ async function geminiModel(env, lite = false) {
 }
 
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ctx) {
     if (req.headers.get("x-jero-key") !== env.API_KEY) return json({ error: "no" }, 401);
     const url = new URL(req.url);
 
@@ -219,6 +237,9 @@ export default {
       // keep the 5 newest of each wine
       await env.DB.prepare(`DELETE FROM label_prints WHERE key = ? AND id NOT IN
                             (SELECT id FROM label_prints WHERE key = ? ORDER BY id DESC LIMIT 5)`).bind(key, key).run();
+      // TestFlight fingerprint check: ask GitHub to compare this print now (print-check.yml), instead of waiting for its timer.
+      // Needs the secret GITHUB_TOKEN (fine-grained: this repo, Actions read/write). GitHub queues at most one waiting run.
+      if (env.GITHUB_TOKEN) ctx.waitUntil(startPrintCheck(env));
       return json({ ok: true });
     }
     if (url.pathname === "/prints/export") {
