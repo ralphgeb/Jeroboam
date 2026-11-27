@@ -10,7 +10,7 @@ The project's own rules and the technical detail of each feature are in `CLAUDE.
 
 ---
 
-## 27 Nov 2026: Guigal fix + fingerprint check page (TestFlight only)
+## 27 Nov 2026: Guigal fix + fingerprint check page (TestFlight only) — build-ios run 86 uploaded 08:04 UTC (main 9d2527f, expected build 70)
 
 - Ralph scanned E. Guigal Côtes du Rhône 2016 and got Château d'Ampuis (Côte-Rôtie) from the label matcher: the "mis en bouteille
   par E. Guigal, Château d'Ampuis" line. Fixed (bottled-by line = producer only; appellation-named wines can match; cuvées beat
