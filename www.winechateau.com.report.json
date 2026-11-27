@@ -3,12 +3,12 @@
  "base": "https://www.winechateau.com",
  "status": "existing",
  "declared_currency": "USD",
- "products": 50967,
+ "products": 50970,
  "pages": 100,
  "via_collections": true,
  "error": null,
  "storefront_currency": "USD",
  "storefront_rate": "1.0",
  "stopped_early": true,
- "seconds": 9068
+ "seconds": 9041
 }
