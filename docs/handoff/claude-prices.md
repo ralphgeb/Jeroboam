@@ -38,7 +38,14 @@ Ralph asked for "digital fingerprints" of the wines from images found online. I 
   switched on in the app.
 - **Cost note for Ralph:** Mac minutes count 10x on private repos; the whole run is ~20 Mac hours.
 
-## 27 Nov 2026: fixes from the app session's notes (in the next list rebuild)
+## 27 Nov 2026: list rebuilt from the re-harvest (198,220 rows, 198,033 wines in the app file)
+
+- All 69 working Shopify shops re-harvested with photo links. 20 shops in shops.json have never answered ("no products.json");
+  the harvest now keeps a saved catalogue when a shop gives no products.
+- The fixes below are in this build. Also: Wine Chateau's "Bx " Bordeaux shelf code is stripped from names (≈740 rows; 93
+  turned out to be duplicates and merged).
+
+## 27 Nov 2026: fixes from the app session's notes (in this rebuild)
 
 - Not wine now: ciders/perries (IsCider, Cidery, "Pet Nat Perry"), cocktails (Mai Tai), "0.0%" wines (the old rule never
   matched because of a word-boundary bug), wines whose producer is a rum maker / distillery / brewery (Hamilton Rum).
