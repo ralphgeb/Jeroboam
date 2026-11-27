@@ -96,3 +96,25 @@ struct ScanSkeleton: View {
         .accessibilityLabel("Reading the label")
     }
 }
+
+/// The wine profile card's place while the grapes are being checked (same title, five soft rows).
+struct ProfileSkeleton: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Wine profile").font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+            Text("Working it out from the grapes…").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).padding(.top, -6)
+            VStack(spacing: 14) {
+                ForEach(0..<5, id: \.self) { i in
+                    HStack(spacing: 12) {
+                        SkeletonBar(width: 70, height: 10)
+                        SkeletonBar(height: 8)
+                    }
+                    .opacity(1 - Double(i) * 0.1)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cardStyle(padding: 16)
+        .accessibilityLabel("Wine profile loading")
+    }
+}

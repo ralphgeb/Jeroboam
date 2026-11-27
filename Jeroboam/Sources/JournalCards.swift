@@ -7,6 +7,8 @@ struct WineGlance: View {
     /// The score: your own points for a tasting, a rough guess for a bottle in the cellar.
     var points: Int? = nil
     var pointsAreGuess = false
+    /// The price is being looked up (after a correction): the price tile shows a soft placeholder.
+    var pricing = false
 
     private var grapeLine: String { wine.grapes.first ?? "–" }
 
@@ -18,8 +20,8 @@ struct WineGlance: View {
                      note: points.map { RatingGuide.band($0).0 } ?? "Taste it to score it")
                 tile(icon: "calendar", label: "Vintage", value: wine.vintage.isEmpty ? "NV" : wine.vintage, unit: "",
                      note: (wine.drinkWindow?.isEmpty == false) ? "Drink \(wine.drinkWindow!)" : "Drinking window unknown")
-                tile(icon: "tag", label: priceLabel, value: price.map { $0.averageText } ?? "–", unit: price == nil ? "" : "/ 750 ml",
-                     note: priceNote)
+                tile(icon: "tag", label: priceLabel, value: pricing ? "…" : (price.map { $0.averageText } ?? "–"),
+                     unit: price == nil || pricing ? "" : "/ 750 ml", note: pricing ? "Looking up the price…" : priceNote)
                 tile(icon: "leaf", label: "Main grape", value: grapeLine, unit: "",
                      note: wine.grapes.count > 1 ? "+ \(wine.grapes.count - 1) more" : (wine.style.isEmpty ? "" : wine.style.capitalized), small: true)
             }

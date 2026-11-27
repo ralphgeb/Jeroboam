@@ -146,3 +146,131 @@ struct CellarWelcome: View {
         .clipShape(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous))
     }
 }
+
+// MARK: - Aromas: this wine's vs yours
+
+/// The aromas this wine usually shows (its tasting notes, else its main grape's), each ticked when you found it (✓ the same word,
+/// ≈ the same family), then the ones you noted that it doesn't usually show. Used at the end of a tasting and on the tasting page.
+struct AromaCompareCard: View {
+    let wine: WineIdentity
+    let picked: [String]
+
+    static func typical(_ w: WineIdentity) -> [String] {
+        if !w.tastingNotes.isEmpty { return Array(w.tastingNotes.prefix(6)) }
+        return Array((matchGrape(w.grapes.first)?.aromas ?? []).prefix(6))
+    }
+
+    private enum Hit { case exact, close, none }
+    private func hit(_ a: String) -> Hit {
+        let mine = picked.map { $0.lowercased() }
+        if mine.contains(a.lowercased()) { return .exact }
+        if let f = ContentStore.shared.aromaCategory(forItem: a)?.id,
+           picked.contains(where: { ContentStore.shared.aromaCategory(forItem: $0)?.id == f }) { return .close }
+        return .none
+    }
+
+    var body: some View {
+        let typical = Self.typical(wine)
+        let lower = Set(typical.map { $0.lowercased() })
+        let extra = picked.filter { !lower.contains($0.lowercased()) }
+        let found = typical.filter { hit($0) == .exact }.count
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Aromas").font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                Spacer()
+                if !typical.isEmpty && !picked.isEmpty {
+                    Text("\(found) of \(typical.count) found").font(.jero(size: 13, weight: .semibold)).foregroundStyle(Palette.wine)
+                }
+            }
+            if !typical.isEmpty {
+                Text(wine.tastingNotes.isEmpty ? "Typical of its grape" : "In this wine")
+                    .font(.jero(size: 12.5, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                FlowLayout(spacing: 8, lineSpacing: 8) {
+                    ForEach(typical, id: \.self) { a in chip(a, hit(a)) }
+                }
+            }
+            if !extra.isEmpty {
+                Text(typical.isEmpty ? "You noted" : "You also noted").font(.jero(size: 12.5, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                FlowLayout(spacing: 8, lineSpacing: 8) {
+                    ForEach(extra, id: \.self) { AromaChip(text: $0, compact: true) }
+                }
+            }
+            if picked.isEmpty {
+                Text("You didn't note any aromas this time.").font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cardStyle(padding: 16)
+    }
+
+    private func chip(_ a: String, _ h: Hit) -> some View {
+        HStack(spacing: 5) {
+            FlavorIcon(aroma: a, size: 16)
+            Text(a).font(.system(size: 13)).foregroundStyle(h == .exact ? Palette.onWine : Palette.ink)
+            if h != .none {
+                Image(systemName: h == .exact ? "checkmark" : "circle.lefthalf.filled")
+                    .font(.system(size: 10, weight: .bold)).foregroundStyle(h == .exact ? Palette.onWine : Palette.wine)
+            }
+        }
+        .padding(.horizontal, 10).padding(.vertical, 6)
+        .background(Capsule().fill(h == .exact ? Palette.wine : (h == .close ? Palette.wineSoft : Palette.cardAlt)))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(a + (h == .exact ? ", you found it" : h == .close ? ", you found a close one" : ""))
+    }
+}
+
+// MARK: - Tastings list (the same compact list / cards switch as the cellar)
+
+struct LayoutSwitch: View {
+    @Binding var asList: Bool
+    var body: some View {
+        HStack(spacing: 0) {
+            button("list.bullet", compact: true)
+            button("square.grid.2x2", compact: false)
+        }
+        .padding(3).background(Capsule().fill(Palette.cardAlt))
+    }
+    private func button(_ icon: String, compact: Bool) -> some View {
+        let on = asList == compact
+        return Button { Haptics.tap(); withAnimation(.smooth(duration: 0.2)) { asList = compact } } label: {
+            Image(systemName: icon).font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(on ? Palette.onWine : Palette.ink)
+                .frame(width: 46, height: 34)
+                .background(Capsule().fill(on ? Palette.wine : Color.clear))
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(compact ? "Compact list" : "Cards")
+    }
+}
+
+/// One tasting as a compact row, like a cellar row: picture, name, vintage and place, points on the right with the date.
+struct EntryRow: View {
+    let entry: JournalEntry
+    var last = false
+    var body: some View {
+        HStack(spacing: 10) {
+            Thumb(photo: entry.photo, style: entry.wine.style).frame(width: 34, height: 44)
+                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+            VStack(alignment: .leading, spacing: 1) {
+                HStack(spacing: 5) {
+                    if entry.isBlind {
+                        Image(systemName: "eye.slash").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.wine)
+                    }
+                    Text(entry.title).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
+                }
+                Text([entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
+                    .font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+            }
+            Spacer(minLength: 6)
+            VStack(alignment: .trailing, spacing: 1) {
+                Text("\(entry.points) pts").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                Text(entry.date.formatted(.dateTime.day().month(.abbreviated).year(.twoDigits)))
+                    .font(.system(size: 11.5).monospacedDigit()).foregroundStyle(Palette.inkSoft).lineLimit(1)
+            }
+        }
+        .padding(.horizontal, 12).padding(.vertical, 7)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 56) } }
+        .contentShape(Rectangle())
+    }
+}
