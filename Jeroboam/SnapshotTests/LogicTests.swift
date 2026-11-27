@@ -187,5 +187,20 @@ final class LogicTests: XCTestCase {
         XCTAssertNil(m.match(lines: ["Atibaia", "Les Cousins", "75cl"]))
         XCTAssertEqual(m.match(lines: ["BREAD & BUTTER", "CHARDONNAY", "2025"]).map(LabelMatcher.displayName), "Chardonnay")
         XCTAssertEqual(LabelMatcher.vintage(["Fundada en 1877", "CHARDONNAY 2025"]), "2025")
+        // Guigal's address (Château d'Ampuis) is on every label: the Côtes du Rhône must not become their Côte-Rôtie
+        var g = LabelMatcher()
+        g.add(name: "E. Guigal - Château d'Ampuis", producer: "E. Guigal", place: "Rhône Valley Côte-Rôtie", appellation: "Côte-Rôtie")
+        g.add(name: "Guigal Côtes du Rhône Red (France)", producer: "Guigal", place: "Rhône Valley Côtes du Rhône", appellation: "Côtes du Rhône")
+        g.add(name: "Cotes du Rhone Blanc Guigal", producer: "Guigal", place: "Rhône Valley Côtes du Rhône", appellation: "Côtes du Rhône")
+        let cdr = ["E.GUIGAL", "2016", "E.GUIGAL", "CÔTES DU RHÔNE", "Appellation Côtes du Rhône Contrôlée", "E.GUIGAL",
+                   "ÉLEVÉ ET MIS EN BOUTEILLE PAR E.GUIGAL CHATEAU D'AMPUIS - RHONE - FRANCE"]
+        XCTAssertEqual(g.match(lines: cdr)?.name, "Guigal Côtes du Rhône Red (France)")
+        XCTAssertNil(g.match(lines: ["E.GUIGAL", "2016", "MIS EN BOUTEILLE PAR E.GUIGAL CHATEAU D'AMPUIS"]))   // the neck label only: not enough
+        // a named cuvée beats the producer's plain wine of the same appellation
+        g.add(name: "Guigal Côte-Rôtie", producer: "Guigal", place: "Rhône Valley Côte-Rôtie", appellation: "Côte-Rôtie")
+        g.add(name: "Guigal Côte-Rôtie La Landonne", producer: "Guigal", place: "Rhône Valley Côte-Rôtie", appellation: "Côte-Rôtie")
+        XCTAssertEqual(g.match(lines: ["E. GUIGAL", "LA LANDONNE", "CÔTE-RÔTIE", "2017"])?.name, "Guigal Côte-Rôtie La Landonne")
+        // (Guigal's plain Côte-Rôtie is the one labelled "Brune et Blonde", so the plain wine is the right answer here)
+        XCTAssertEqual(g.match(lines: ["E. GUIGAL", "CÔTE-RÔTIE", "Brune et Blonde", "2017"])?.name, "Guigal Côte-Rôtie")
     }
 }

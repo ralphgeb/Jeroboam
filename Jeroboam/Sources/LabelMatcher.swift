@@ -7,7 +7,9 @@ import Foundation
 /// - more than half of the producer's words are on the label (place words and Château/Bodegas… do not count),
 /// - every word of its own name is on the label (shop extras such as Magnum, Trento DOC or (Italy) are not required; colour and
 ///   tier words are: Maximum Rosé is not Maximum Blanc de Blancs),
-/// - a name made only of common words (Grand, Réserve, Vieilles Vignes…) also has its appellation on the label.
+/// - a name made only of common words (Grand, Réserve, Vieilles Vignes…) also has its appellation on the label;
+///   a one-word name needs some of its appellation on the label (small print names places too); a wine named only by producer
+///   and appellation ("Guigal Côtes du Rhône") takes the appellation as its name.
 /// The most specific wine wins; another wine that fits just as well means the label cannot tell them apart -> nil (Claude decides).
 /// A label word one letter off a list word (OCR slips: "Haltett" for Hallett) counts, for words of 6+ letters, when only one word fits.
 struct LabelMatcher {
@@ -45,7 +47,9 @@ struct LabelMatcher {
         let placeWords = PriceBook.tokens(place)
         let appWords = PriceBook.tokens(appellation.isEmpty ? place : appellation).subtracting(Self.generic)
         let p = Self.core(producer, drop: placeWords, generic: Self.generic)
-        let own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric)
+        var own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric)
+        // "Guigal Côtes du Rhône": a wine named only by its producer and appellation — the appellation is its name
+        if own.isEmpty { own = appWords }
         guard !p.isEmpty, !own.isEmpty else { return }
         let key = p.sorted().joined(separator: " ") + "|" + own.sorted().joined(separator: " ") + "|" + appWords.sorted().joined(separator: " ")
         guard seen.insert(key).inserted else { return }
@@ -66,10 +70,14 @@ struct LabelMatcher {
                 let x = wines[Int(i)]
                 guard x.own.isSubset(of: label), 2 * x.producer.intersection(label).count > x.producer.count else { continue }
                 if x.own.isSubset(of: Self.weak) && !(!x.place.isEmpty && x.place.isSubset(of: label)) { continue }
+                // a one-word name whose appellation is not on the label at all: the word may be small print ("mis en bouteille
+                // par E. Guigal, Château d'Ampuis" is the address on every Guigal label, not their Côte-Rôtie)
+                if x.own.count == 1 && !x.place.isEmpty && x.place.isDisjoint(with: label) && x.own != x.place { continue }
                 cands.append(i)
             }
         }
-        func score(_ x: Wine) -> Int { x.own.count + x.place.intersection(label).count }
+        // a wine named only by its appellation counts its words once, so a named cuvée of the same place (La Landonne) beats it
+        func score(_ x: Wine) -> Int { x.own == x.place ? x.own.count : x.own.count + x.place.intersection(label).count }
         let sorted = cands.map { wines[Int($0)] }.sorted {
             (score($0), $0.producer.intersection(label).count, -$0.producer.subtracting(label).count)
                 > (score($1), $1.producer.intersection(label).count, -$1.producer.subtracting(label).count)

@@ -57,6 +57,7 @@ def load_list():
         place = tokens((f[11] if len(f) > 11 else "") + " " + (f[12] if len(f) > 12 else ""))
         P = core(f[1], drop=place)   # "Domaine X: Gevrey-Chambertin": the place is not the producer
         N = core(f[0], drop=set(tokens(f[1])) | place, generic=NAME_GENERIC)
+        if not N: N = frozenset(t for t in place if len(t) >= MIN and t not in GENERIC and t in tokens(f[12] if len(f) > 12 and f[12] else (f[11] if len(f) > 11 else "")))   # named by its appellation
         if not P or not N: continue
         k = (P, N, frozenset(t for t in place if len(t) >= MIN and t not in GENERIC))
         if k not in wines: wines[k] = (f[0], f[1], f[13] if len(f) > 13 else "", f[11] if len(f) > 11 else "")
@@ -107,10 +108,11 @@ def match(label_words, wines, index):
             if not (N <= L and 2 * len(P & L) > len(P)): continue
             # "Charmes-Chambertin Grand Cru" has only "grand" of its own: its appellation must be on the label as well
             if N <= WEAK and not (Pl and Pl <= L): continue
+            if len(N) == 1 and Pl and not (Pl & L) and N != Pl: continue   # small print names places (Guigal's Château d'Ampuis)
             cands.append(k)
     if not cands: return None, "no match"
     # the most words in common wins: the wine's own name, plus its place when the label prints it (Gevrey, not Fixin)
-    def score(k): return len(k[1]) + len(k[2] & L)
+    def score(k): return len(k[1]) if k[1] == k[2] else len(k[1]) + len(k[2] & L)
     cands.sort(key=lambda k: (score(k), len(k[0] & L), -len(k[0] - L)), reverse=True)
     best = cands[0]
     # same score but a different wine (another name, or another place of the same name) -> can't tell
