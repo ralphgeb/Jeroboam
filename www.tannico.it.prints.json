@@ -1,0 +1,14 @@
+{
+ "host": "www.tannico.it",
+ "wine_pages": 7520,
+ "pages_without_photo": 36,
+ "distinct_photos": 7480,
+ "status": {
+  "ok": 7480
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 7480
+}
