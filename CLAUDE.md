@@ -399,3 +399,12 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - Vintage = latest year printed ("since 1928"); Claude's year < 1950 or > next year is replaced. `enrich` fills an empty region/country.
 - Known data bug (prices session): Black Market (NZ) prices are 6/3/12-packs stored as bottle prices (~10k rows, e.g. Trivento Reserve
   Malbec 119.94 NZD = 6 x 19.99). Pack size shows only in the price ending.
+- **Second label read** (`WineRecognizer.readText`): first plain Vision read, then a second one with `customWords` =
+  `LabelMatcher.hints` (the list words the first read's words are or are 1–2 letters from, + the producer's name words), language
+  correction on (en/fr/it/es/de/pt) and `regionOfInterest` = the text area. `mergeReads`: second read's lines first, first-read lines
+  only when the second missed them (a misread next to its corrected word is dropped).
+- **Producer's range for Claude**: `LabelMatcher.shortlist` adds up to 15 wines of the producer printed on the label (1–2 producers)
+  after the scored ones.
+- **"Which one is it?"**: when the text answer and the photo answer name different wines (`WineRecognizer.sameWine`), the photo's is
+  shown and the other is `RecognitionResult.alternative`; ScanFlow shows `WhichWineCard`; choosing re-runs `finish` + price
+  (`run` guard) and corrects the scan list (`WineDB.correct`) if it was already noted. Tasting flow ignores the alternative.

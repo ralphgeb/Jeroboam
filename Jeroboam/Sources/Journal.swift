@@ -1112,6 +1112,11 @@ struct ScanFlow: View {
     @State private var tasteNow = false
     @State private var started = false
     @State private var paidUSD: Double? = nil
+    // the label text and the photo named different wines: both are offered ("Which one is it?")
+    @State private var alternative: WineIdentity? = nil
+    @State private var firstResult: RecognitionResult? = nil
+    @State private var noted = false     // this scan is already in the scan list (a later choice corrects it)
+    @State private var run = 0           // a choice made meanwhile wins over the first answer's check
 
     var body: some View {
         GeometryReader { g in
@@ -1176,6 +1181,9 @@ struct ScanFlow: View {
             ScanSkeleton()
         } else {
             if let e = error { ErrorNote(message: e) }
+            if identified, let alt = alternative, !added {
+                WhichWineCard(current: wine, other: alt) { choose(alt) }
+            }
             if identified { WineInfoCard(wine: wine) }
             if checking { CheckingNote() }
             // what to expect in the glass, before deciding to add it (waits for checked grapes: a guess is never shown)
@@ -1234,22 +1242,58 @@ struct ScanFlow: View {
             identified = true
             journal.noteCost(r.costUSD)
             first = r
+            firstResult = r
+            alternative = r.alternative.map { WineRecognizer.provisional(RecognitionResult(identity: $0, usedImage: true, inputTokens: 0, outputTokens: 0)) }
         } catch { self.error = error.localizedDescription }
         working = false
         guard let r0 = first else { return }
+        let mine = run
         let shownName = wine.name
         checking = r0.pending != nil
         async let priced: Void = findPrice()
         let r = await WineRecognizer.finish(r0)
+        journal.noteCost(r.costUSD)
+        guard run == mine else { await priced; return }   // the other wine was chosen meanwhile: its own check takes over
         var w = r.identity
         if w.name.isEmpty || wine.name != shownName { w.name = wine.name }   // a correction typed meanwhile wins
         wine = w
         checking = false
         if r.limited { self.error = RecognizerError.limit.errorDescription }
-        journal.noteCost(r.costUSD)
         WineDB.shared.noteScan(w, image: image)
+        noted = true
         await priced
         ScanClock.shared.finish(wine: wine.name)   // TestFlight: Settings > TestFlight > Scan timings
+    }
+
+    /// The other answer was the right one: it is shown, checked and priced, and the first one stays offered (to switch back).
+    /// If the first was already in the scan list, the list (and the online list) are corrected.
+    private func choose(_ pick: WineIdentity) {
+        guard let r0 = firstResult else { return }
+        run += 1
+        let mine = run
+        let was = wine
+        alternative = was
+        wine = pick
+        price = nil
+        checking = true
+        Haptics.tap()
+        Task {
+            async let priced: Void = findPrice()
+            var r = r0
+            r.identity = pick; r.alternative = nil
+            if r.pending == nil { r.pending = .fresh(sig: nil) }
+            let f = await WineRecognizer.finish(r)
+            journal.noteCost(f.costUSD)
+            guard run == mine else { await priced; return }
+            var w = f.identity
+            if w.name.isEmpty { w.name = pick.name }
+            wine = w
+            checking = false
+            if noted { WineDB.shared.correct(from: was, to: w, image: image) } else { WineDB.shared.noteScan(w, image: image) }
+            noted = true
+            await priced
+            ScanClock.shared.finish(wine: wine.name)
+        }
     }
 
     private func findPrice() async {
@@ -2395,6 +2439,45 @@ struct FlowPhotoPane: View {
 
 
 /// "Checking grapes and tasting notes…" under a bottle that is already on screen.
+/// The label text and the photo named different wines: the one shown and the other, to choose with one tap.
+struct WhichWineCard: View {
+    let current: WineIdentity
+    let other: WineIdentity
+    let onPick: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Which one is it?").font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+            Text("The label could be read two ways. Tap the other wine if it's the right one.")
+                .font(.jero(size: 14)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+            row(current, chosen: true)
+            Button(action: onPick) { row(other, chosen: false) }.buttonStyle(.plain)
+                .accessibilityHint("Shows this wine instead")
+        }
+        .padding(16)
+        .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
+    }
+
+    private func row(_ w: WineIdentity, chosen: Bool) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: chosen ? "checkmark.circle.fill" : "circle")
+                .font(.system(size: 20)).foregroundStyle(chosen ? Palette.wine : Palette.inkSoft)
+            VStack(alignment: .leading, spacing: 2) {
+                if !w.producer.isEmpty {
+                    Text(w.producer).font(.jero(size: 12, weight: .semibold)).foregroundStyle(Palette.wine).lineLimit(1)
+                }
+                Text([w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " "))
+                    .font(.jero(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(2)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .strokeBorder(chosen ? Palette.wine.opacity(0.5) : Palette.line, lineWidth: chosen ? 1.5 : 1))
+        .contentShape(Rectangle())
+    }
+}
+
 struct CheckingNote: View {
     var text = "Checking grapes and tasting notes…"
     var body: some View {

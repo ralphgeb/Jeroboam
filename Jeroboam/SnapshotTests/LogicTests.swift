@@ -276,5 +276,20 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(m.misreads(lines: ["TRIVENTO", "GOLDEN RESENE", "MALBEC"]), ["resene": "reserve"])
         XCTAssertTrue(m.misreads(lines: ["TRIVENTO", "GOLDEN RESERVE", "MALBEC", "LUJÁN DE CUYO"]).isEmpty)
         XCTAssertEqual(LabelMatcher.distance(Array("resene"), Array("reserve"), limit: 2), 2)
+        // the producer printed: its whole range is offered to Claude
+        let short = m.shortlist(lines: ["TRIVENTO", "MALBEC", "MENDOZA"])
+        XCTAssertTrue(short.contains { $0.name == "Trivento Reserve Malbec" })
+        // camera hints: the misread's likely word and the producer
+        let hints = m.hints(lines: ["TRIVENTO", "GOLDEN RESENE", "MALBEC"])
+        XCTAssertTrue(hints.contains("Reserve") && hints.contains("Trivento"))
+        // a second read that got it right replaces the first read's misread line
+        XCTAssertEqual(WineRecognizer.mergeReads(["TRIVENTO", "GOLDEN RESERVE"], ["TRIVENTO", "GOLDEN RESENE", "2023"]),
+                       ["TRIVENTO", "GOLDEN RESERVE", "2023"])
+        // two answers for one label
+        var a = WineIdentity.empty; a.producer = "Trivento"; a.name = "Golden Reserve Malbec"
+        var b = WineIdentity.empty; b.producer = "El Cuyo"; b.name = "Mendoza Malbec"
+        var c = WineIdentity.empty; c.producer = "Bodegas Trivento"; c.name = "Golden Reserve Malbec Luján de Cuyo"
+        XCTAssertFalse(WineRecognizer.sameWine(a, b))
+        XCTAssertTrue(WineRecognizer.sameWine(a, c))
     }
 }

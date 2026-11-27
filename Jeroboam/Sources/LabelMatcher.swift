@@ -26,6 +26,7 @@ struct LabelMatcher {
     private var freq: [String: Int] = [:]          // how many wines use each word (the commoner word wins a close call)
     private var byStart: [String: [String]] = [:]  // words by first letter + length (for two-letter slips)
     private var makerWords = Set<String>()         // the words of the list's producers' names
+    private var byMaker: [String: [Int32]] = [:]   // producer word -> wines (the producer's whole range for Claude)
     private var seen = Set<String>()
 
     static let generic: Set<String> = ["chateau", "bodega", "bodegas", "weingut", "tenuta", "cantina", "estate", "winery", "vineyard",
@@ -69,6 +70,7 @@ struct LabelMatcher {
         let i = Int32(wines.count)
         wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row, placeNamed: placeNamed))
         for w in own { index[w, default: []].append(i) }
+        if !placeNamed { for w in p { byMaker[w, default: []].append(i) } }
         for w in own.union(p).union(appWords).union(placeWords) {
             freq[w, default: 0] += 1
             if words.insert(w).inserted, let f = w.first { byStart["\(f)\(w.count)", default: []].append(w) }
@@ -86,7 +88,7 @@ struct LabelMatcher {
 
     /// The wines this label might be, best first (at most `limit`): a word of their own name on the label, plus their producer
     /// or another name word or their appellation. Only a help for Claude, so looser than `match`; empty when nothing fits well.
-    func shortlist(lines: [String], limit: Int = 10) -> [Wine] {
+    func shortlist(lines: [String], limit: Int = 10, range: Int = 15) -> [Wine] {
         let (label, producerWords) = labelWords(lines)
         var score: [Int32: Double] = [:]
         for w in label where !Self.weak.contains(w) {
@@ -108,6 +110,26 @@ struct LabelMatcher {
             if seen.insert(x.maker.lowercased() + "|" + x.own.sorted().joined()).inserted { out.append(x) }
             if out.count == limit { break }
         }
+        // the producer printed on the label: its whole range goes too (Trivento Reserve, Golden Reserve, Private Reserve…), so
+        // Claude chooses between real wines instead of making one up ("El Cuyo" for a misread Golden Reserve)
+        var makers: [Int32] = []
+        var tried = Set<Int32>()
+        for w in producerWords {
+            for i in byMaker[w] ?? [] where tried.insert(i).inserted {
+                let x = wines[Int(i)]
+                if x.producer.isSubset(of: producerWords) { makers.append(i) }
+            }
+        }
+        let makerCount = Set(makers.map { wines[Int($0)].maker.lowercased() }).count
+        if makerCount >= 1 && makerCount <= 2 {
+            let ranked = makers.map { wines[Int($0)] }.sorted {
+                let a = $0.own.intersection(label).count, b = $1.own.intersection(label).count
+                return a != b ? a > b : $0.name.count < $1.name.count
+            }
+            for x in ranked where out.count < limit + range {
+                if seen.insert(x.maker.lowercased() + "|" + x.own.sorted().joined()).inserted { out.append(x) }
+            }
+        }
         return out
     }
 
@@ -117,6 +139,24 @@ struct LabelMatcher {
         let (label, producerWords) = labelWords(lines)
         guard !x.own.intersection(label).isEmpty else { return false }
         return x.own.isSubset(of: label) || !x.producer.isDisjoint(with: producerWords)
+    }
+
+    /// Words to tell the camera's text reader to expect on this label (its second read): the list words this label's words are,
+    /// or are a slip or two away from ("resene" -> Reserve), plus the producers' names it seems to show. At most `limit`.
+    func hints(lines: [String], limit: Int = 300) -> [String] {
+        let label = PriceBook.tokens(lines.joined(separator: " "))
+        var out: [String: Int] = [:]
+        for w in label where w.count >= 4 && w.allSatisfy({ $0.isLetter }) {
+            if let f = freq[w] { out[w] = f; continue }
+            guard w.count >= 5 else { continue }
+            let near = oneEdit(w).union(w.count >= 6 ? twoEdits(w) : [])
+            for c in near.sorted(by: { (freq[$0] ?? 0) > (freq[$1] ?? 0) }).prefix(3) { out[c] = freq[c] ?? 0 }
+        }
+        // the whole names of producers whose words are on the label ("Koonunga", "Hill" with Penfolds)
+        for w in label where out[w] != nil {
+            for i in (byMaker[w] ?? []).prefix(200) { for o in wines[Int(i)].own where out[o] == nil { out[o] = 0 } }
+        }
+        return out.sorted { $0.value > $1.value }.prefix(limit).map { $0.key.prefix(1).uppercased() + $0.key.dropFirst() }
     }
 
     /// True when every word is one the list's wines use (producers and names).

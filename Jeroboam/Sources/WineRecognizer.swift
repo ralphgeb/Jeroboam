@@ -61,6 +61,8 @@ struct RecognitionResult {
     /// What is still to do after the bottle is on screen (`WineRecognizer.finish`): checking a wine the databases do not fully
     /// know. nil when the result is final.
     var pending: Pending? = nil
+    /// The other answer when the label text and the photo named different wines: the scan screen asks "Which one is it?".
+    var alternative: WineIdentity? = nil
     /// enrich: named by our wine list from the label (grapes and all); only the fun fact, food, palate and drinking window are asked of Claude.
     enum Pending { case vet(sig: String?), fresh(sig: String?), typed, enrich(sig: String?) }
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
@@ -140,21 +142,65 @@ enum WineRecognizer {
 
     // MARK: OCR
 
+    /// The label's text, read twice: a first plain read, then a second one told which wine words to expect (the list words the first
+    /// read's words are, or are a slip away from: "RESENE" is read again knowing "Reserve" and "Trivento" exist), closer in on the
+    /// text and with language correction in the main wine languages. The second read's lines come first; a first-read line is kept
+    /// only when the second missed it.
     static func readText(_ image: UIImage) async -> [String] {
         guard let cg = image.cgImage else { return [] }
         let orientation = CGImagePropertyOrientation(image.imageOrientation)
-        return await Task.detached(priority: .userInitiated) { () -> [String] in
-            let req = VNRecognizeTextRequest()
-            req.recognitionLevel = .accurate
+        let first = await Task.detached(priority: .userInitiated) { ocr(cg, orientation, hints: [], roi: nil) }.value
+        guard !first.lines.isEmpty else { return [] }
+        let hints = await Task.detached(priority: .userInitiated) { PriceBook.shared.ocrHints(lines: first.lines) }.value
+        let second = await Task.detached(priority: .userInitiated) { ocr(cg, orientation, hints: hints, roi: first.box) }.value
+        return mergeReads(second.lines, first.lines)
+    }
+
+    private static func ocr(_ cg: CGImage, _ orientation: CGImagePropertyOrientation, hints: [String], roi: CGRect?) -> (lines: [String], box: CGRect?) {
+        let req = VNRecognizeTextRequest()
+        req.recognitionLevel = .accurate
+        if hints.isEmpty {
             req.usesLanguageCorrection = false
-            req.minimumTextHeight = 0.015
-            let handler = VNImageRequestHandler(cgImage: cg, orientation: orientation, options: [:])
-            do { try handler.perform([req]) } catch { return [] }
-            let obs = req.results ?? []
-            // biggest text first (names and appellations are usually large)
-            return obs.sorted { $0.boundingBox.height > $1.boundingBox.height }
-                .compactMap { $0.topCandidates(1).first?.string }
-        }.value
+        } else {
+            // the expected words only count with language correction on; wine labels are mostly in these languages
+            req.usesLanguageCorrection = true
+            req.recognitionLanguages = ["en-US", "fr-FR", "it-IT", "es-ES", "de-DE", "pt-BR"]
+            req.customWords = hints
+        }
+        req.minimumTextHeight = roi == nil ? 0.015 : 0.01
+        if let roi { req.regionOfInterest = roi }
+        let handler = VNImageRequestHandler(cgImage: cg, orientation: orientation, options: [:])
+        do { try handler.perform([req]) } catch { return ([], nil) }
+        let obs = req.results ?? []
+        // where the text is (the label), with a margin; nil when that is nearly the whole picture
+        var box: CGRect? = nil
+        for o in obs { box = box.map { $0.union(o.boundingBox) } ?? o.boundingBox }
+        if let b = box {
+            let m = b.insetBy(dx: -0.04, dy: -0.04).intersection(CGRect(x: 0, y: 0, width: 1, height: 1))
+            box = m.width * m.height > 0.8 || m.isNull ? nil : m
+        }
+        // biggest text first (names and appellations are usually large)
+        let lines = obs.sorted { $0.boundingBox.height > $1.boundingBox.height }.compactMap { $0.topCandidates(1).first?.string }
+        return (lines, box)
+    }
+
+    /// The second read's lines, then the first read's lines that it missed: a first-read line whose words the second read already has
+    /// (the same, or a slip or two away: "RESENE" next to "RESERVE") is left out, so a misread does not come back.
+    static func mergeReads(_ second: [String], _ first: [String]) -> [String] {
+        guard !second.isEmpty else { return first }
+        let seen = PriceBook.tokens(second.joined(separator: " "))
+        let joined = second.joined(separator: " ").lowercased()
+        var out = second
+        for l in first {
+            let ws = PriceBook.tokens(l).filter { $0.count >= 4 }
+            if ws.isEmpty {
+                if !joined.contains(l.lowercased().trimmingCharacters(in: .whitespaces)) { out.append(l) }
+                continue
+            }
+            let covered = ws.filter { w in seen.contains(w) || seen.contains { LabelMatcher.distance(Array(w), Array($0), limit: 2) <= 2 } }
+            if covered.count * 2 < ws.count { out.append(l) }
+        }
+        return out
     }
 
     static func usefulText(_ lines: [String]) -> String? {
@@ -240,6 +286,12 @@ enum WineRecognizer {
             let next = Calendar.current.component(.year, from: Date()) + 1
             if let y = Int(r.identity.vintage), y < 1950 || y > next { r.identity.vintage = LabelMatcher.vintage(lines) }
             r.identity = await Task.detached(priority: .userInitiated) { [id = r.identity] in PriceBook.shared.overlay(withLabelTier(id, lines: lines)) }.value
+            if var alt = r.alternative {
+                alt = tidy(alt)
+                if let y = Int(alt.vintage), y < 1950 || y > next { alt.vintage = LabelMatcher.vintage(lines) }
+                alt = await Task.detached(priority: .userInitiated) { [a = alt] in PriceBook.shared.overlay(withLabelTier(a, lines: lines)) }.value
+                r.alternative = sameWine(alt, r.identity) ? nil : alt
+            }
             r.pending = .fresh(sig: sig)
             return r
         case .failed(let e): throw e
@@ -602,7 +654,27 @@ enum WineRecognizer {
         r2.inputTokens += r.inputTokens
         r2.outputTokens += r.outputTokens
         r2.usedImage = true
-        return (r2.identity.found && !r2.identity.name.isEmpty) || !r.identity.found ? r2 : r
+        var out = (r2.identity.found && !r2.identity.name.isEmpty) || !r.identity.found ? r2 : r
+        // the text and the photo named different wines: the photo's answer is shown first, the other one is offered beside it
+        if r.identity.found, r2.identity.found, !r.identity.name.isEmpty, !r2.identity.name.isEmpty, !sameWine(r.identity, r2.identity) {
+            out.alternative = out.usedImage ? r.identity : r2.identity
+            ScanClock.shared.add("Text and photo disagree: \(r.identity.producer) \(r.identity.name) / \(r2.identity.producer) \(r2.identity.name)", since: Date())
+        }
+        return out
+    }
+
+    /// Whether two answers name the same wine: their producers share a real word (or one has none), and so do their names (or one
+    /// name is all inside the other). "Trivento Golden Reserve Malbec" and "El Cuyo Mendoza Malbec" are not.
+    static func sameWine(_ a: WineIdentity, _ b: WineIdentity) -> Bool {
+        let skip = LabelMatcher.generic.union(LabelMatcher.noise)
+        let pa = PriceBook.tokens(a.producer).subtracting(skip), pb = PriceBook.tokens(b.producer).subtracting(skip)
+        // a grape or colour alone says nothing about which wine: compare what is left of the names after the producers
+        let na = PriceBook.tokens(a.name).subtracting(skip).subtracting(pa).subtracting(pb)
+        let nb = PriceBook.tokens(b.name).subtracting(skip).subtracting(pa).subtracting(pb)
+        let producers = pa.isEmpty || pb.isEmpty || !pa.isDisjoint(with: pb)
+        let names = na.isEmpty || nb.isEmpty || na.isSubset(of: nb) || nb.isSubset(of: na)
+            || na.intersection(nb).subtracting(LabelMatcher.weak).count >= 2
+        return producers && names
     }
 
     /// The label text alone settles it: Claude is sure, or (fairly sure and) the producer and the wine it names are printed on the label.

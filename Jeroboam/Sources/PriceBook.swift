@@ -270,6 +270,12 @@ final class PriceBook {
     }
 
     /// Up to 10 wines of the list this label might be (sent to Claude as a help, never as the answer).
+    /// Words for the camera's second read of this label (see LabelMatcher.hints); empty before the list is loaded.
+    func ocrHints(lines: [String]) -> [String] {
+        loadIfNeeded()
+        return rows.isEmpty ? [] : labels.hints(lines: lines)
+    }
+
     /// Label words that look like camera misreads ("resene" -> "reserve"); empty before the list is loaded.
     func misreads(lines: [String]) -> [String: String] {
         rows.isEmpty ? [:] : labels.misreads(lines: lines)
