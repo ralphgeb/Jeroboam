@@ -366,3 +366,6 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   saved in `jero.tasteQuiz`. Once the journal has wines, `TasteQuizCard` sits at the bottom.
   TestFlight Settings "Fresh journal" (`jero.freshJournal`, `JournalPreview`): the journal shows an empty in-memory store
   (`JournalStore.blank()`) and its own quiz result; nothing is deleted.
+- Label matcher: when no producer is on the label, a rare own-name word used by ONE producer in the list + its appellation on the
+  label finds the wine (Rayas "La Pialade"). `textIsEnough` needs the producer printed even at "high" confidence (else the photo
+  answer decides: a confident "Château de la Gardine" for La Pialade).

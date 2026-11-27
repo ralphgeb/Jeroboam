@@ -570,8 +570,6 @@ enum WineRecognizer {
         guard w.found, !w.name.isEmpty else { return false }
         // a name made only of classification words ("Premier Grand Cru Classé") says nothing about which wine it is
         if chateauName(w) != w.name && !w.producer.isEmpty { return false }
-        if w.confidence == "high" { return true }
-        guard w.confidence == "medium" else { return false }
         func words(_ s: String) -> [String] {
             s.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased()
                 .components(separatedBy: CharacterSet.letters.inverted).filter { $0.count >= 4 }
@@ -583,7 +581,11 @@ enum WineRecognizer {
             let ws = words(s).filter { !common.contains($0) }
             return ws.isEmpty || ws.contains { onLabel.contains($0) }
         }
-        return printed(w.producer) && printed(w.name)
+        // the producer must be printed too, even when Claude is sure: "Château de la Gardine" for a La Pialade label (which only
+        // names Rayas in its small print) was a confident guess; then the photo answer, already on its way, decides
+        guard printed(w.producer) else { return false }
+        if w.confidence == "high" { return true }
+        return w.confidence == "medium" && printed(w.name)
     }
 
     static func identify(text: String) async throws -> RecognitionResult {

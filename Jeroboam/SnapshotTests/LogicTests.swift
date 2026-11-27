@@ -153,7 +153,9 @@ final class LogicTests: XCTestCase {
         XCTAssertTrue(WineRecognizer.textIsEnough(w, label: label))
         w.producer = "Château Margaux"                       // a producer that is not on the label: look at the photo
         XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
-        w.confidence = "high"                                // Claude is sure
+        w.confidence = "high"                                // sure, but the producer isn't on the label: wait for the photo
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
+        w.producer = "Domaine Les Cousins"                   // sure and printed
         XCTAssertTrue(WineRecognizer.textIsEnough(w, label: label))
         w.confidence = "low"
         XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label))
@@ -241,5 +243,20 @@ final class LogicTests: XCTestCase {
         m.add(name: "Chateau Palmer", producer: "Chateau Palmer", place: "Bordeaux Margaux", appellation: "Margaux")
         XCTAssertEqual(m.match(lines: ["CHÂTEAU MARGAUX", "2018", "GRAND VIN", "PREMIER GRAND CRU CLASSÉ"])?.maker, "Chateau Margaux")
         XCTAssertEqual(m.match(lines: ["CHÂTEAU PALMER", "MARGAUX", "2016", "APPELLATION MARGAUX CONTRÔLÉE"])?.maker, "Chateau Palmer")
+    }
+
+    func testRareNameWithoutProducer() {
+        // La Pialade's label never prints Rayas: the rare name + its appellation find it; a common word never does
+        var m = LabelMatcher()
+        m.add(name: "Chateau Rayas Cotes du Rhone La Pialade", producer: "Chateau Rayas", place: "Rhône Valley Côtes du Rhône", appellation: "Côtes du Rhône")
+        m.add(name: "Guigal Côtes du Rhône Red (France)", producer: "Guigal", place: "Rhône Valley Côtes du Rhône", appellation: "Côtes du Rhône")
+        m.add(name: "Domaine Grand Veneur Côtes du Rhône Réserve", producer: "Domaine Grand Veneur", place: "Rhône Valley Côtes du Rhône", appellation: "Côtes du Rhône")
+        let label = ["2015", "LA PIALADE", "CÔTES DU RHÔNE", "MIS EN BOUTEILLE PAR LE PROPRIÉTAIRE", "APPELLATION CÔTES-DU-RHÔNE CONTRÔLÉE", "13,5% Vol"]
+        XCTAssertEqual(m.match(lines: label)?.maker, "Chateau Rayas")
+        XCTAssertNil(m.match(lines: ["RÉSERVE", "CÔTES DU RHÔNE", "2019"]))   // "Réserve" is not a name only one producer uses
+        // a confident answer whose producer is not on the label waits for the photo
+        var w = WineIdentity.empty
+        w.found = true; w.producer = "Château de la Gardine"; w.name = "La Pialade"; w.confidence = "high"
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label.joined(separator: "\n")))
     }
 }

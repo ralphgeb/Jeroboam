@@ -90,6 +90,20 @@ struct LabelMatcher {
                 cands.append(i)
             }
         }
+        // Some labels never print the producer (Rayas's "La Pialade" says only La Pialade, Côtes du Rhône): when no producer was
+        // found, a wine whose own name is a rare word that only ONE producer in the list uses, with its appellation on the label,
+        // is that producer's wine.
+        if cands.isEmpty {
+            for w in label where w.count >= 5 && !Self.weak.contains(w) {
+                guard let ids = index[w], Set(ids.map { wines[Int($0)].producer }).count == 1 else { continue }
+                for i in ids {
+                    let x = wines[Int(i)]
+                    guard x.own.isSubset(of: label), !x.own.isSubset(of: Self.weak), x.own != x.place,
+                          !x.place.isEmpty, x.place.isSubset(of: label) else { continue }
+                    if !cands.contains(i) { cands.append(i) }
+                }
+            }
+        }
         // a wine named only by its appellation counts its words once, so a named cuvée of the same place (La Landonne) beats it
         // a Château Palmer label prints "Margaux" too: a producer named only by its place never beats one named by its own words
         if cands.contains(where: { !wines[Int($0)].placeNamed }) { cands.removeAll { wines[Int($0)].placeNamed } }
