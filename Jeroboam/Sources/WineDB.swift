@@ -51,6 +51,20 @@ final class WineDB {
         lock.lock(); defer { lock.unlock() }
         return store.signatures[sig].flatMap { store.wines[$0] }
     }
+    /// Labels remembered by builds whose list matching could pick the wrong wine (Guigal's Côtes du Rhône became their Château
+    /// d'Ampuis from the "bottled by" line): the label -> wine links are forgotten once, so those labels are identified again.
+    /// The wines themselves (scan history, journal) are kept.
+    func forgetLabelLinksOnce() {
+        let flag = "jero.labelLinksReset1"
+        guard !UserDefaults.standard.bool(forKey: flag) else { return }
+        UserDefaults.standard.set(true, forKey: flag)
+        lock.lock()
+        store.signatures = [:]
+        let snapshot = store
+        lock.unlock()
+        if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
+    }
+
     /// Prices found by the shop list before it told red from white are looked up again (once).
     func dropShopPricesOnce() {
         let flag = "jero.shopPricesColorFix2"

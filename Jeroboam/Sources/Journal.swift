@@ -220,6 +220,7 @@ final class JournalStore {
         let flag = "jero.cellarColorFix2"
         guard persist, !UserDefaults.standard.bool(forKey: flag) else { return }
         WineDB.shared.dropShopPricesOnce()
+        WineDB.shared.forgetLabelLinksOnce()
         for b in cellar {
             guard let src = b.price?.source, src.hasPrefix("Cheapest of") || src.hasPrefix("Shop price") || src.hasPrefix("Average of") else { continue }
             let (p, _) = await WineRecognizer.averagePrice(for: b.wine)
