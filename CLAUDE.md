@@ -408,3 +408,15 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
 - **"Which one is it?"**: when the text answer and the photo answer name different wines (`WineRecognizer.sameWine`), the photo's is
   shown and the other is `RecognitionResult.alternative`; ScanFlow shows `WhichWineCard`; choosing re-runs `finish` + price
   (`run` guard) and corrects the scan list (`WineDB.correct`) if it was already noted. Tasting flow ignores the alternative.
+
+## Tastings round (27 Nov evening)
+- Tastings tab: same compact list / cards switch as the cellar (`LayoutSwitch`, `EntryRow`, `jero.tastingsCompact`), newest first.
+- Tasting page (`EntryDetailView`): Your notes card (notes, stood out, colour, photos) -> palate ONCE (`BottleProfileCard` expected vs
+  yours; plain bars only when the wine is unknown) -> `AromaCompareCard` (this wine's aromas, ✓ found / half = same family, then
+  "you also noted") -> WineInfoCard, price, score. WineGlance is no longer on the tasting page.
+- End of a tasting: profile vs yours + aromas card, then (if the wine is in the cellar) a card with Remove 1 bottle / Keep in cellar
+  (`cellarChoice`; the pop-up is gone).
+- Scan result: `WineInfoCard(checking:)` shows skeletons where grapes/notes will appear, `ProfileSkeleton` holds the profile card's
+  place, and ScanFlow animates checking/wine/pricing changes.
+- Correcting a bottle: the old price is dropped at once (unless "You paid"), price tile (`WineGlance(pricing:)`) + card show loading,
+  and the new wine's price replaces it even when none is found (`refresh(corrected:)`). There is no cellar home-screen widget.

@@ -221,3 +221,11 @@ exists on `claude/vibrant-ramanujan-g4uz35` (not on main/TestFlight yet) — ple
   shareable tasting card, the Jero puppy mascot.
 - Still to do from earlier: Claude API behind the Cloudflare worker (key out of the binary), localisation, splitting Journal.swift.
 - Missing history photos h-02 and h-18 (Egypt now has one; "Today and tomorrow" has none).
+
+## 27 Nov evening (scan accuracy + tastings round)
+- Scans: misread words spotted and corrected (`LabelMatcher.misreads`), the photo answer decides on a misread label, a second
+  Vision read with expected wine words (`customWords`), the producer's whole range in Claude's shortlist, "Which one is it?" when
+  text and photo disagree (choice corrects everything via `WineDB.correct`). Vintage = latest year printed. TestFlight run 90.
+- Black Market (NZ) six-pack prices flagged for the prices session (owner passes it on).
+- Tastings round (see CLAUDE.md "Tastings round"): tastings list switch, simpler tasting page, end-of-tasting comparison + cellar
+  buttons, scan placeholders, corrected bottle re-priced.
