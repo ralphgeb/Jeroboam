@@ -106,7 +106,9 @@ def colour_of(t):
     return 'red'
 buckets=C.defaultdict(list)
 for i,o in enumerate(offers): buckets[(o['vintage'],o['size'])].append((i,set(o['key'].split())))
-colour={i:colour_of(o['key'].split()) for i,o in enumerate(offers)}
+def name_words(n):   # the key drops colour words, so the colour is read from the full name
+    return re.findall(r'[a-z]+',unicodedata.normalize('NFKD',n).encode('ascii','ignore').decode().lower())
+colour={i:colour_of(name_words(o['name'])) for i,o in enumerate(offers)}
 for b_,items in buckets.items():
     idx=C.defaultdict(list)
     for i,t in items:
