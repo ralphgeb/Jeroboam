@@ -1,0 +1,14 @@
+{
+ "host": "parcellewine.com",
+ "wine_pages": 8233,
+ "pages_without_photo": 337,
+ "distinct_photos": 7891,
+ "status": {
+  "ok": 7891
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 7891
+}
