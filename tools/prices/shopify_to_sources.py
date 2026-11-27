@@ -126,6 +126,7 @@ def main():
         return False
 
     DISTRIBUTOR = re.compile(r"\b(wines?|wine company|company|collective|vintners|marques|usa|imports?|selections?|cellars group)\s*$|^stellar cellars$")
+    SPIRIT_MAKER = re.compile(r"\b(rum|rhum|distill\w*|brewer\w*|brewing|cidery|ciderie|spirits)\b")
     good_vendor = {k: vendor_ok(*k) for k in vstat}
     canon = {}                                      # folded -> spelling as written (vendors first, then titles, then the old list)
     spell = C.defaultdict(C.Counter)
@@ -227,6 +228,8 @@ def main():
         if cur not in RATES:
             stats[h]['currency?'] += 1; continue
         prod, how = producer_of(p)
+        if prod and SPIRIT_MAKER.search(fold(prod)):        # 'Hamilton Rum' '87 White Stache'
+            stats[h]['not wine'] += 1; continue
         stats[h]['producer ' + how] += 1
         name = p['title']
         if prod and not names_in_title(prod, name):
