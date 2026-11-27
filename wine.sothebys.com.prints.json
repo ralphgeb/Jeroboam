@@ -1,0 +1,14 @@
+{
+ "host": "wine.sothebys.com",
+ "wine_pages": 1047,
+ "pages_without_photo": 60,
+ "distinct_photos": 766,
+ "status": {
+  "ok": 766
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 766
+}
