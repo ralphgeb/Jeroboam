@@ -1,0 +1,14 @@
+{
+ "host": "winetherapynyc.com",
+ "wine_pages": 6549,
+ "pages_without_photo": 653,
+ "distinct_photos": 5870,
+ "status": {
+  "ok": 5870
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 5870
+}
