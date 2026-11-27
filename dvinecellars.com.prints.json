@@ -1,0 +1,14 @@
+{
+ "host": "dvinecellars.com",
+ "wine_pages": 714,
+ "pages_without_photo": 13,
+ "distinct_photos": 699,
+ "status": {
+  "ok": 699
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 699
+}
