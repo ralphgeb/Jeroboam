@@ -195,8 +195,14 @@ def blend_in(t):
         tot = sum(v for _, v in found)
         if found and (90 <= tot <= 101 or (len(found) == 1 and found[0][1] == 100)): return sorted(found, key=lambda x: -x[1])
     return []
-def place_from(text):
+# place names that are also ordinary words in a shop description ('notes of cassis' is not the Provence appellation)
+AMBIGUOUS_IN_TEXT = {'cassis', 'graves', 'port', 'toro', 'bellet', 'tavel', 'lirac', 'rully', 'mercurey', 'sherry'}
+WHITE_NAME = re.compile(r"\b(blanc|bianco|blanco|branco|white|weiss|weisswein)\b")
+RED_NAME = re.compile(r"\b(blanc de noirs?|rouge|rosso|tinto|red|rose|rosado|rosato|cheval blanc|mas blanc|white (?:zinfandel|merlot|grenache|pinot noir|shiraz))\b")
+def place_from(text, description=False):
     for m in PLACE_RX.finditer(fold(text)):
+        if description and m.group(1) in AMBIGUOUS_IN_TEXT:
+            continue
         return PLACES[m.group(1)]
     return None
 SHOP_COUNTRY = {'www.chapeldown.com': 'England', 'lymebaywinery.co.uk': 'England', 'www.ridgeview.co.uk': 'England', 'www.grapebritannia.co.uk': 'England'}
@@ -216,7 +222,7 @@ def analyse(name, d):
     if host in SHOP_COUNTRY and 'country' not in out: out['country'] = SHOP_COUNTRY[host]
     treg = tag_value(tags, 'region')
     tapp = tag_value(tags, 'appellation|subregion|sub[- ]region|origin|aoc|doc|ava')
-    hit = place_from(name) or (place_from(' '.join([tapp or '', treg or ''] + tags)) if tags else None) or place_from(text[:400])
+    hit = place_from(name) or (place_from(' '.join([tapp or '', treg or ''] + tags)) if tags else None) or place_from(text[:400], description=True)
     if hit:
         out['appellation'], out['region'], c = hit
         if 'country' not in out: out['country'] = c
@@ -411,9 +417,19 @@ def main():
         if not row['grapes']:
             g = mono_grape(row['appellation'] or row['region'], row['color'])
             if g: row['grapes'] = g
+        def is_red(g): b = BERRY.get(g, '').lower(); return 'black' in b or 'red' in b or 'dark' in b
+        # the name says white ('Chateau Pape Clement Blanc') but the facts came from the estate's red: trust the name
+        if WHITE_NAME.search(fold(row['wine'])) and not RED_NAME.search(fold(row['wine'])) and row['color'] in ('Red', 'Rosé'):
+            row['color'] = 'White'
+            keep = [g.strip() for g in row['grapes'].split(',') if g.strip() and not is_red(g.strip())]
+            row['grapes'] = ', '.join(keep)
+            if any(is_red(x.rsplit(' ', 1)[0]) for x in row['grape_blend'].split(', ') if x): row['grape_blend'] = ''; row['blend_source'] = ''
+            if row['aromas_source'] != 'shop description': row['aromas'] = ''; row['aromas_source'] = ''
+            if not row['grapes']:
+                g = mono_grape(row['appellation'] or row['region'], row['color'])
+                if g: row['grapes'] = g
         gl = [g.strip() for g in row['grapes'].split(',') if g.strip()]
         rule = mono_grape(row['appellation'] or row['region'], row['color'])
-        def is_red(g): b = BERRY.get(g, '').lower(); return 'black' in b or 'red' in b or 'dark' in b
         bl = [x.rsplit(' ', 1)[0] for x in row['grape_blend'].split(', ') if x]
         mixed = row['color'] == 'White' and any(is_red(g) for g in bl) or row['color'] == 'Red' and bl and not any(is_red(g) for g in bl)
         if row['grape_blend'] and (mixed or rule and row['color'] != 'Sparkling' and not row['grape_blend'].startswith(rule)):
