@@ -18,8 +18,10 @@ How the price list is built: `content/prices/README.md`. Short version in `CLAUD
   3.49), 19 added with tesco.com product links. Shelf price, not Clubcard.
 - **Waitrose Cellar** (19 PDFs, 418 wines): 265 already in the list (63%), 153 new; all 415 bottles (gift sets/cases skipped) added at
   full bottle price, never the 25%-off-6 offer; sizes from the price per litre.
-- Fingerprints for these (Tesco/Waitrose Cellar/trolley product pages): `fingerprint_wines.py` reads the page's og:image when a host
-  has no catalogue on shop-data. Not run yet.
+- Fingerprints for these: `fingerprint_wines.py` reads the product page's og:image when a host has no catalogue on shop-data.
+  Run 27 Nov: trolley.co.uk 2,218 of 2,218 supermarket pages fingerprinted (all supermarkets, incl. the 77 Tesco wines that
+  have a trolley link). tesco.com (19 new wines) and waitrosecellar.com (380) gave no photo to the runner (blocked or no og:image):
+  0 prints. Total now 184,530 prints from 69 shops.
 
 ## 27 Nov 2026: label fingerprints — result: NOT good enough to name a wine (nothing switched on)
 
