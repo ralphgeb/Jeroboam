@@ -203,4 +203,16 @@ final class LogicTests: XCTestCase {
         // (Guigal's plain Côte-Rôtie is the one labelled "Brune et Blonde", so the plain wine is the right answer here)
         XCTAssertEqual(g.match(lines: ["E. GUIGAL", "CÔTE-RÔTIE", "Brune et Blonde", "2017"])?.name, "Guigal Côte-Rôtie")
     }
+
+    func testChateauNameIsNotItsClassification() {
+        var w = WineIdentity.empty
+        w.found = true; w.producer = "Château Lynch-Bages"; w.name = "Grand Vin Grand Cru Classé"; w.region = "Pauillac, Bordeaux"
+        XCTAssertEqual(WineRecognizer.chateauName(w), "Château Lynch-Bages")
+        w.producer = "Chateau Angelus"; w.name = "Premier Grand Cru Classe B Saint-Emilion Grand Cru"; w.region = "Saint-Émilion, Bordeaux"
+        XCTAssertEqual(WineRecognizer.chateauName(w), "Chateau Angelus")
+        w.producer = "Château Lynch-Bages"; w.name = "Echo de Lynch-Bages"   // a real second wine keeps its name
+        XCTAssertEqual(WineRecognizer.chateauName(w), "Echo de Lynch-Bages")
+        w.producer = "Bargylus"; w.name = "Grand Vin de Syrie"              // not a château: untouched
+        XCTAssertEqual(WineRecognizer.chateauName(w), "Grand Vin de Syrie")
+    }
 }

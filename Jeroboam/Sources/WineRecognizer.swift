@@ -487,7 +487,24 @@ enum WineRecognizer {
         var w = w
         let v = w.vintage.trimmingCharacters(in: .whitespaces)
         if !v.isEmpty, w.name.hasSuffix(" " + v) { w.name = String(w.name.dropLast(v.count + 1)).trimmingCharacters(in: .whitespaces) }
+        w.name = chateauName(w)
         return w
+    }
+
+    /// A château's main wine has no name of its own: Claude sometimes takes the label's classification words as its name
+    /// ("Château Lynch-Bages" / "Grand Vin Grand Cru Classé"), and then the wine list can't find it (its words are not in
+    /// "Lynch Bages"). When the name is only such words (and the place), the wine's name is the château's.
+    static func chateauName(_ w: WineIdentity) -> String {
+        let fold: (String) -> String = { $0.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: nil).lowercased() }
+        let producer = fold(w.producer)
+        guard producer.hasPrefix("chateau") || producer.hasPrefix("ch.") || producer.hasPrefix("clos ") || producer.hasPrefix("domaine") else { return w.name }
+        let boiler: Set<String> = ["grand", "vin", "cru", "crus", "classe", "classes", "premier", "1er", "deuxieme", "troisieme",
+                                   "quatrieme", "cinquieme", "5eme", "bourgeois", "exceptionnel", "superieur", "superieure", "de", "du",
+                                   "en", "b", "a", "appellation", "controlee", "aoc", "mis", "bouteille", "au", "chateau", "the", "red", "wine"]
+        let place = Set(fold(w.region + " " + w.country).split { !$0.isLetter && !$0.isNumber }.map(String.init))
+        let words = fold(w.name).split { !$0.isLetter && !$0.isNumber }.map(String.init)
+        let own = words.filter { !boiler.contains($0) && !place.contains($0) && !producer.contains($0) }
+        return own.isEmpty && !words.isEmpty ? w.producer : w.name
     }
 
     /// `lines`: the label text already read by `identifyFast` (reading it again cost up to a second).
