@@ -1,0 +1,14 @@
+{
+ "host": "www.naturalwinedealers.com",
+ "wine_pages": 592,
+ "pages_without_photo": 0,
+ "distinct_photos": 592,
+ "status": {
+  "ok": 592
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 592
+}
