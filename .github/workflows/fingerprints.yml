@@ -95,7 +95,7 @@ jobs:
         run: |
           mkdir sd && cd sd && git init -q
           git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" shop-data
-          git checkout -q FETCH_HEAD -- "${{ matrix.host }}.jsonl.gz"
+          git checkout -q FETCH_HEAD -- "${{ matrix.host }}.jsonl.gz" 2>/dev/null || echo "no catalogue for ${{ matrix.host }}: the product pages are read instead"
       - name: Fingerprint ${{ matrix.host }}
         run: |
           H="${{ matrix.host }}"

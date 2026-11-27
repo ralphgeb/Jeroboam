@@ -27,7 +27,7 @@
     {"name": "Wine Therapy", "base": "https://winetherapynyc.com", "location": "New York NY US", "currency": "USD", "status": "existing"},
     {"name": "Zyn", "base": "https://zyn.ca", "location": "Toronto Canada", "currency": "CAD", "status": "existing"},
     {"name": "BGWM", "base": "https://bgwm.co.uk", "location": "London UK", "currency": "GBP", "status": "existing"},
-    {"name": "Black Market", "base": "https://www.blackmarket.co.nz", "location": "Auckland New Zealand", "currency": "NZD", "status": "existing"},
+    {"name": "Black Market", "base": "https://www.blackmarket.co.nz", "location": "Auckland New Zealand", "currency": "NZD", "status": "existing", "case_priced": true},
     {"name": "Chambers Street Wines", "base": "https://www.chambersstwines.com", "location": "New York NY US", "currency": "USD", "status": "existing"},
     {"name": "Chapel Down", "base": "https://www.chapeldown.com", "location": "Kent UK", "currency": "GBP", "status": "existing", "country": "England"},
     {"name": "Crush Wine & Spirits", "base": "https://www.crushwineco.com", "location": "New York NY US", "currency": "USD", "status": "existing"},

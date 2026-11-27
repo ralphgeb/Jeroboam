@@ -66,7 +66,7 @@ if os.path.exists(SH):
     for x in rows:
         add(x['sold_in'],x['shop'],x['location'],x['wine_name'],x['producer'],x['vintage'],x['size'],x['price'],x['currency'],x['in_stock'],x['url'],cased=True)
 print('shopify offers',len(offers),'from',len(harvested),'shops')
-SHOP_NAMES|={'tesco',"sainsbury's",'morrisons','asda','waitrose','aldi','iceland','zachys','hedonism wines','sotheby\'s wine','crush wine & spirits'}
+SHOP_NAMES|={'tesco',"sainsbury's",'morrisons','asda','waitrose','waitrose cellar','aldi','iceland','zachys','hedonism wines','sotheby\'s wine','crush wine & spirits'}
 old=lambda u: host(u) not in harvested
 for x in csv.DictReader(open(D+'sources/uk_supermarkets.csv')):
     add('UK supermarket',x['supermarket'],'UK',x['wine_name'],x['brand'],x['vintage'],x['size'] or '75cl',x['price_gbp'],'GBP','yes',x['trolley_url'])
@@ -93,8 +93,20 @@ for i,o in enumerate(offers):
     k=(o['key'],o['vintage'],o['size'])
     if k in ex: union(i,ex[k],True)
     else: ex[k]=i
+# colour of a name: never join a white or rosé with a red (or a name that says no colour: "Chateau Musar" is the red, not the Blanc)
+WHITE_W=re.compile(r"\b(blanc|blanche|bianco|blanco|branco|white|weiss|weisswein|blanc de blancs)\b")
+ROSE_W=re.compile(r"\b(rose|rosado|rosato|blush|pink)\b")
+RED_EXC=re.compile(r"\b(blanc de noirs?|cheval blanc|mas blanc)\b")
+BLUSH=re.compile(r"\bwhite (?:zinfandel|merlot|grenache|pinot noir|shiraz)\b")
+def colour_of(t):
+    j=' '.join(t)
+    if BLUSH.search(j): return 'rose'
+    if ROSE_W.search(j) and not re.search(r"\brose (?:hill|bay|wood|mount|valley)\b",j): return 'rose'
+    if WHITE_W.search(j) and not RED_EXC.search(j): return 'white'
+    return 'red'
 buckets=C.defaultdict(list)
 for i,o in enumerate(offers): buckets[(o['vintage'],o['size'])].append((i,set(o['key'].split())))
+colour={i:colour_of(o['key'].split()) for i,o in enumerate(offers)}
 for b_,items in buckets.items():
     idx=C.defaultdict(list)
     for i,t in items:
@@ -104,6 +116,7 @@ for b_,items in buckets.items():
             if len(idx[w])>3000: continue
             for j,u in idx[w]:
                 if j<=i or offers[j]['shop']==offers[i]['shop']: continue
+                if colour[i]!=colour[j]: continue
                 inter=len(t&u); jac=inter/len(t|u)
                 if jac>=0.75 or (inter>=3 and inter==min(len(t),len(u)) and jac>=0.6): union(i,j,False)
 G=C.defaultdict(list)

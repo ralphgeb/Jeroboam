@@ -148,7 +148,7 @@ struct Result { var status = "download_failed"; var rev = 0; var full: [Float] =
 func work(_ s: String, _ session: Session) -> Result {
     var r = Result()
     var u = s.hasPrefix("//") ? "https:" + s : s
-    u += (u.contains("?") ? "&" : "?") + "width=1600"          // Shopify CDN: at most 1600 px wide
+    if u.contains("cdn.shopify.com") || u.contains("/cdn/shop/") { u += (u.contains("?") ? "&" : "?") + "width=1600" }   // Shopify CDN: at most 1600 px wide
     guard let url = URL(string: u), let data = session.get(url) else { return r }
     guard let big = decode(data, maxSide: 1600) else { r.status = "undecodable"; return r }
     guard case .ok(let crop) = labelCrop(big) else { r.status = "unusable"; return r }

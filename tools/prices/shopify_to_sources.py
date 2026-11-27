@@ -24,6 +24,21 @@ REGION = [('US', 'US wine shop'), ('UK', 'UK wine shop'), ('Australia', 'Austral
 SHOP_WORDS = set("wine wines shop store cellar cellars merchant merchants co company the and online direct boutique market emporium".split())
 
 
+ENDING = {99: 3, 95: 2, 90: 2, 49: 1, 50: 1, 0: 1, 45: 1, 89: 1, 79: 1, 69: 1, 59: 1, 29: 1, 19: 1, 9: 1, 25: 1, 75: 1}
+
+
+def case_size(price):
+    """Shops that price whole cases without saying so (shops.json "case_priced"): the case size that gives a shop-like bottle
+    price ($19.99 x 6 = 119.94, $27.99 x 12 = 335.88, $89.99 x 3 = 269.97). Ties go to 6; a price that only reads as a
+    single bottle ($84.99) is one bottle; nothing fits -> 6, the shop's usual case."""
+    c = round(price * 100)
+    score = {d: ENDING.get((c // d) % 100, 0) if c % d == 0 else 0 for d in (6, 12, 3)}
+    d = max((6, 12, 3), key=lambda d: score[d])
+    if score[d]:
+        return d
+    return 1 if ENDING.get(c % 100, 0) >= 2 else 6
+
+
 def region_label(loc):
     for k, v in REGION:
         if loc.endswith(k):
@@ -224,6 +239,7 @@ def main():
     out, stats = [], C.defaultdict(C.Counter)
     for p in prods:
         h = p['host']; s = shops[h]; rep = report.get(h, {})
+        mixed = any(t.lower() == 'mixed case' for t in (p.get('tags') or []))
         cur = s['currency']   # the configured currency; the storefront's (seen from a US runner) is only reported
         if cur not in RATES:
             stats[h]['currency?'] += 1; continue
@@ -254,6 +270,11 @@ def main():
                 pk = pack_count(p['title'])   # 'Case of 6', 'Three Bottle OWC' in the product name
             if pk == -1:
                 stats[h]['case of unknown size'] += 1; continue
+            if pk == 1 and s.get('case_priced'):
+                if mixed:
+                    stats[h]['mixed case'] += 1; continue
+                pk = case_size(price)                 # Black Market: the price is for a case of 6 (or 12, or 3), never said
+                stats[h][f'case of {pk} (from the price)'] += 1
             per = price / pk
             vint = vintage_of(p['title']) or (vt if re.fullmatch(r'(19|20)\d\d', vt.strip()) else '') or vintage_of('', vt)
             eur750 = per / RATES[cur] * 750 / ml

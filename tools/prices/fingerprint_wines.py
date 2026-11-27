@@ -43,12 +43,36 @@ def wine_pages(prices_csv, host):
     return out
 
 
+def page_photos(pages, workers=6):
+    """Shops without a catalogue on shop-data (Tesco, trolley.co.uk for the UK supermarkets): the product page's own photo
+    (og:image / twitter:image), read on the runner. Yields {"url": page, "images": [photo]} like a catalogue line."""
+    import re, time, urllib.request
+    from concurrent.futures import ThreadPoolExecutor
+    pat = re.compile(r"""<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)["'][^>]*content=["']([^"']+)["']"""
+                     r"""|<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["'](?:og:image|twitter:image)["']""", re.I)
+    def one(url):
+        for attempt in range(3):
+            try:
+                req = urllib.request.Request(url, headers={"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 "
+                                                           "(KHTML, like Gecko) Version/17.0 Safari/605.1.15", "accept-language": "en-GB"})
+                html = urllib.request.urlopen(req, timeout=30).read(600000).decode("utf-8", "ignore")
+                m = pat.search(html)
+                img = (m.group(1) or m.group(2)).replace("&amp;", "&") if m else None
+                return {"url": url, "images": [img] if img else []}
+            except Exception:
+                time.sleep(2 + 3 * attempt)
+        return {"url": url, "images": []}
+    with ThreadPoolExecutor(workers) as ex:
+        yield from ex.map(one, sorted(pages))
+
+
 def jobs(data_dir, prices_csv, host, out):
     os.makedirs(out, exist_ok=True)
     pages = wine_pages(prices_csv, host)
     photo_rows, order, no_photo = defaultdict(list), [], 0
-    for line in gzip.open(os.path.join(data_dir, f"{host}.jsonl.gz"), "rt", encoding="utf-8"):
-        p = json.loads(line)
+    cat = os.path.join(data_dir, f"{host}.jsonl.gz")
+    lines = (json.loads(l) for l in gzip.open(cat, "rt", encoding="utf-8")) if os.path.exists(cat) else page_photos(pages)
+    for p in lines:
         url = (p.get("url") or "").split("?")[0]
         if url not in pages:
             continue
