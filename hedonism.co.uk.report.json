@@ -3,12 +3,12 @@
  "base": "https://hedonism.co.uk",
  "status": "existing",
  "declared_currency": "GBP",
- "products": 34590,
+ "products": 34250,
  "pages": 100,
  "via_collections": true,
  "error": null,
  "storefront_currency": "GBP",
  "storefront_rate": "1.0",
  "stopped_early": true,
- "seconds": 9121
+ "seconds": 9064
 }
