@@ -186,6 +186,39 @@ final class GameProgress {
         var goalJustReached: Bool
         var newAchievements: [Achievement]
         var usedFreeze: Bool
+        /// Why a streak freeze was earned with this lesson ("7 days in a row", "Level 2 reached", "a mock exam passed"), if one was.
+        var earnedFreeze: String? = nil
+    }
+
+    // MARK: Streak freezes
+    // Start with 1. Earn one every 7 days in a row, on reaching a new level, and for passing a mock exam (at most one a week).
+    // Hold at most 2 (3 with Jero Plus). One covers exactly one missed day, used by the next lesson.
+
+    var maxFreezes: Int { Plus.shared.active ? 3 : 2 }
+
+    /// Today is protected: yesterday was missed and a freeze will cover it when the next lesson is done.
+    var freezeCoversYesterday: Bool {
+        guard !data.lastActiveDay.isEmpty, let gap = daysBetween(data.lastActiveDay, Self.day()) else { return false }
+        return gap == 2 && data.freezes > 0 && data.streak > 0
+    }
+
+    /// A freeze earned outside a lesson's streak step (level reached, exam passed); shown on the next end screen.
+    @ObservationIgnored private var pendingFreeze: String? = nil
+
+    @discardableResult func earnFreeze(_ why: String) -> Bool {
+        guard data.freezes < maxFreezes else { return false }
+        data.freezes += 1
+        pendingFreeze = why
+        return true
+    }
+
+    /// A passed mock exam (70% or more) earns a freeze, at most once every 7 days.
+    func examPassed(accuracy: Double) {
+        guard accuracy >= 0.7 else { return }
+        let key = "jero.examFreezeDay"
+        let last = UserDefaults.standard.string(forKey: key) ?? ""
+        if let gap = last.isEmpty ? nil : daysBetween(last, Self.day()), gap < 7 { return }
+        if earnFreeze("for passing a mock exam") { UserDefaults.standard.set(Self.day(), forKey: key) }
     }
 
     @discardableResult
@@ -208,16 +241,18 @@ final class GameProgress {
             }
             d.lastActiveDay = today
             streakUp = true
-            // Earn a streak freeze every 7 days (max 2).
-            if d.streak % 7 == 0 && d.freezes < 2 { d.freezes += 1 }
+            // Earn a streak freeze every 7 days in a row (max 2, 3 with Plus).
+            if d.streak % 7 == 0 && d.freezes < maxFreezes { d.freezes += 1; pendingFreeze = "for \(d.streak) days in a row" }
         }
         d.bestStreak = max(d.bestStreak, d.streak)
         d.xp += xp
         d.dailyXP[today, default: 0] += xp
         data = d
         let newOnes = checkAchievements()
+        let earned = pendingFreeze
+        pendingFreeze = nil
         return Reward(xp: xp, streakIncreased: streakUp, newStreak: data.streak,
-                      goalJustReached: !wasGoal && goalReached, newAchievements: newOnes, usedFreeze: usedFreeze)
+                      goalJustReached: !wasGoal && goalReached, newAchievements: newOnes, usedFreeze: usedFreeze, earnedFreeze: earned)
     }
 
     func recordAnswer(cardID: String, correct: Bool) {
@@ -270,6 +305,7 @@ final class GameProgress {
             let ids = level.courseUnits.flatMap { $0.lessons.map(\.id) }
             if !ids.isEmpty && ids.allSatisfy({ data.lessons[$0] != nil }) && !data.unlockedLevels.contains(level.number + 1) {
                 data.unlockedLevels.append(level.number + 1)
+                earnFreeze("for finishing Level \(level.number)")   // a new level reached
             }
         }
     }

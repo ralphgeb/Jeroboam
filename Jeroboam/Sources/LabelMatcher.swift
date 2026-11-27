@@ -15,7 +15,10 @@ import Foundation
 struct LabelMatcher {
     struct Wine { let producer: Set<String>; let own: Set<String>; let place: Set<String>; let name: String; let maker: String
                   /// the list row it came from (its details: grapes, region, aromas…)
-                  let row: Int32 }
+                  let row: Int32
+                  /// the producer's name is only its place ("Château Margaux" in Margaux): a weaker clue, since every label of
+                  /// that appellation prints the word
+                  var placeNamed = false }
 
     private(set) var wines: [Wine] = []
     private var index: [String: [Int32]] = [:]     // own-name word -> wines
@@ -50,7 +53,10 @@ struct LabelMatcher {
     mutating func add(name: String, producer: String, place: String, appellation: String = "", row: Int32 = 0) {
         let placeWords = PriceBook.tokens(place)
         let appWords = PriceBook.tokens(appellation.isEmpty ? place : appellation).subtracting(Self.generic)
-        let p = Self.core(producer, drop: placeWords, generic: Self.generic)
+        var p = Self.core(producer, drop: placeWords, generic: Self.generic)
+        // "Château Margaux" in Margaux: without its place the producer has no word left, so the place word is its name
+        let placeNamed = p.isEmpty
+        if placeNamed { p = Self.core(producer, generic: Self.generic) }
         var own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric)
         // "Guigal Côtes du Rhône": a wine named only by its producer and appellation — the appellation is its name
         if own.isEmpty { own = appWords }
@@ -58,7 +64,7 @@ struct LabelMatcher {
         let key = p.sorted().joined(separator: " ") + "|" + own.sorted().joined(separator: " ") + "|" + appWords.sorted().joined(separator: " ")
         guard seen.insert(key).inserted else { return }
         let i = Int32(wines.count)
-        wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row))
+        wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row, placeNamed: placeNamed))
         for w in own { index[w, default: []].append(i) }
         words.formUnion(own); words.formUnion(p)
     }
@@ -85,6 +91,8 @@ struct LabelMatcher {
             }
         }
         // a wine named only by its appellation counts its words once, so a named cuvée of the same place (La Landonne) beats it
+        // a Château Palmer label prints "Margaux" too: a producer named only by its place never beats one named by its own words
+        if cands.contains(where: { !wines[Int($0)].placeNamed }) { cands.removeAll { wines[Int($0)].placeNamed } }
         func score(_ x: Wine) -> Int { x.own == x.place ? x.own.count : x.own.count + x.place.intersection(label).count }
         let sorted = cands.map { wines[Int($0)] }.sorted {
             (score($0), $0.producer.intersection(label).count, -$0.producer.subtracting(label).count)

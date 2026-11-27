@@ -515,13 +515,15 @@ struct AromaChip: View {
 struct FlameBadge: View {
     let count: Int
     var active = true
+    var frozen = false     // a streak freeze is keeping the streak today (shown as a snowflake until the day's lesson)
     var size: CGFloat = 15
 
     var body: some View {
         HStack(spacing: 4) {
-            Image(systemName: active ? "flame.fill" : "flame")
+            // a freeze is covering yesterday: the flame is a snowflake until today's lesson
+            Image(systemName: frozen && !active ? "snowflake" : (active ? "flame.fill" : "flame"))
                 .font(.system(size: size, weight: .semibold))
-                .foregroundStyle(active ? Palette.flame : Palette.inkFaint)
+                .foregroundStyle(frozen && !active ? Palette.slate : (active ? Palette.flame : Palette.inkFaint))
             Text("\(count)")
                 .font(.numeric(size + 1, .bold))
                 .foregroundStyle(active ? Palette.ink : Palette.inkSoft)
@@ -530,7 +532,7 @@ struct FlameBadge: View {
         }
         .fixedSize()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(count) day streak")
+        .accessibilityLabel(frozen && !active ? "\(count) day streak, kept by a streak freeze: do a lesson today" : "\(count) day streak")
     }
 }
 

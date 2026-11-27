@@ -356,3 +356,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   show reviewers the TestFlight section and the free test checkout. TestFlight builds: leave it unticked.
 - Before launch: delete `print-check.yml` (and the worker's GITHUB_TOKEN), raise the worker's GLOBAL_DAILY_USD, consider Workers Paid.
 - Cellar page: no subtitle, tighter gaps; stat-tile chart panel uses `Reveal` (real height, clipped) instead of the scale transition.
+- **Streak freezes**: start with 1; earn one every 7 days in a row, on finishing a level (`completeLesson` unlock), and for a mock
+  exam at 70%+ (`Session.isExam`, `examPassed`, once a week); hold 2 (3 with Plus, `maxFreezes`); one covers exactly one missed
+  day (used by the next lesson). Lesson end screen says when one was earned (`Reward.earnedFreeze`); the streak flame is a
+  snowflake while a freeze covers yesterday (`freezeCoversYesterday`); Profile > Streak freezes tile opens `StreakFreezeSheet`.

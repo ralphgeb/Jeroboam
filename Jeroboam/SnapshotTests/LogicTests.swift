@@ -237,5 +237,9 @@ final class LogicTests: XCTestCase {
         m.add(name: "Chateau Margaux", producer: "Chateau Margaux", place: "Bordeaux Margaux", appellation: "Margaux")
         XCTAssertTrue(m.knows(["margaux"]))
         XCTAssertFalse(m.knows(["nateau"]))
+        // Château Margaux is found from its label; a Château Palmer label (also "Margaux") never becomes Château Margaux
+        m.add(name: "Chateau Palmer", producer: "Chateau Palmer", place: "Bordeaux Margaux", appellation: "Margaux")
+        XCTAssertEqual(m.match(lines: ["CHÂTEAU MARGAUX", "2018", "GRAND VIN", "PREMIER GRAND CRU CLASSÉ"])?.maker, "Chateau Margaux")
+        XCTAssertEqual(m.match(lines: ["CHÂTEAU PALMER", "MARGAUX", "2016", "APPELLATION MARGAUX CONTRÔLÉE"])?.maker, "Chateau Palmer")
     }
 }

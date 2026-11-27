@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var showCredits = false
     @State private var showScanTimings = false
     @State private var showPrintCheck = false
+    @State private var showFreezes = false
     @State private var sidePane = 0   // Duo sideways: 0 collection, 1 achievements on the right
     @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
@@ -100,6 +101,7 @@ struct ProfileView: View {
             .sheet(isPresented: $showCredits) { CreditsView() }
             .sheet(isPresented: $showScanTimings) { ScanTimingsView() }
             .sheet(isPresented: $showPrintCheck) { FingerprintCheckView() }
+            .sheet(isPresented: $showFreezes) { StreakFreezeSheet().presentationDetents([.medium, .large]) }
             .confirmationDialog("Reset all progress?", isPresented: $confirmReset, titleVisibility: .visible) {
                 Button("Reset", role: .destructive) { progress.reset() }
             } message: {
@@ -145,7 +147,11 @@ struct ProfileView: View {
                         stat("\(progress.data.xp)", "Total XP", "sparkle", Palette.brass)
                         stat("\(progress.completedCount)/\(ContentStore.shared.totalLessons)", "Lessons", "book.closed", Palette.wine)
                         stat("\(Int((progress.accuracy * 100).rounded()))%", "Accuracy", "scope", Palette.sage)
-                        stat("\(progress.data.freezes)", "Streak freezes", "snowflake", Palette.slate)
+                        // tap: how streak freezes work
+                        Button { showFreezes = true } label: {
+                            stat("\(progress.data.freezes) of \(progress.maxFreezes)", "Streak freezes · how they work", "snowflake", Palette.slate)
+                        }
+                        .buttonStyle(PressableStyle())
                     }
 
                     WeekStrip()
@@ -459,5 +465,60 @@ struct PlusStatusCard: View {
             }
             .buttonStyle(PressableStyle())
         }
+    }
+}
+
+/// How streak freezes work (Profile > Streak freezes).
+struct StreakFreezeSheet: View {
+    @Environment(GameProgress.self) private var progress
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    ScreenHeader(eyebrow: "Your streak", title: "Streak freezes",
+                                 subtitle: "A freeze keeps your streak alive when you miss a day.")
+                    HStack(spacing: 8) {
+                        ForEach(0..<progress.maxFreezes, id: \.self) { i in
+                            Image(systemName: "snowflake").font(.system(size: 22, weight: .semibold))
+                                .foregroundStyle(i < progress.data.freezes ? Palette.slate : Palette.inkFaint.opacity(0.5))
+                                .frame(width: 46, height: 46)
+                                .background(Circle().fill(i < progress.data.freezes ? Palette.slate.opacity(0.12) : Palette.cardAlt))
+                        }
+                        Text("You have \(progress.data.freezes) of \(progress.maxFreezes)").font(.jero(size: 15, weight: .semibold))
+                            .foregroundStyle(Palette.ink).padding(.leading, 6)
+                    }
+                    if progress.freezeCoversYesterday {
+                        Label("A freeze is covering yesterday. Do a lesson today to keep your streak.", systemImage: "snowflake")
+                            .font(.jero(size: 14, weight: .medium)).foregroundStyle(Palette.slate)
+                    }
+                    GroupCard {
+                        row("calendar.badge.exclamationmark", "Miss one day", "A freeze covers it by itself; it is used when you do your next lesson.", false)
+                        row("xmark.circle", "Miss two days or more", "The streak starts again, freeze or not.", false)
+                        row("flame.fill", "7 days in a row", "Earn a freeze every 7 days of streak.", false)
+                        row("rosette", "Finish a level", "Earn a freeze when a new level opens.", false)
+                        row("checkmark.seal", "Pass a mock exam", "70% or more earns a freeze (once a week).", false)
+                        row("sparkles", "Hold up to \(progress.maxFreezes)", Plus.shared.active ? "Jero Plus lets you hold 3." : "Hold 2, or 3 with Jero Plus.", true)
+                    }
+                }
+                .padding(.horizontal, Metrics.margin).padding(.vertical, 12)
+            }
+            .background(Palette.paper.ignoresSafeArea())
+            .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+        }
+    }
+
+    private func row(_ icon: String, _ title: String, _ detail: String, _ last: Bool) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: icon).font(.system(size: 15)).foregroundStyle(Palette.slate).frame(width: 22).padding(.top, 2)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
+                Text(detail).font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 14).padding(.vertical, 11)
+        .overlay(alignment: .bottom) { if !last { Hairline().padding(.leading, 48) } }
     }
 }

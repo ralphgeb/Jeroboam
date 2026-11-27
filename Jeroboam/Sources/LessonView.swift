@@ -7,6 +7,7 @@ struct Session: Identifiable {
     let lessonID: String?        // nil for practice
     let cards: [Card]
     var accent: Color = Palette.wine
+    var isExam = false
 }
 
 /// Plays a session card by card, with feedback and an end screen.
@@ -199,6 +200,7 @@ struct LessonPlayer: View {
             progress.completeLesson(id, accuracy: accuracy)
         } else {
             progress.data.practiceSessions += 1
+            if session.isExam { progress.examPassed(accuracy: accuracy) }
         }
         reward = progress.award(xp: xp)
         finished = true
@@ -733,6 +735,21 @@ struct LessonComplete: View {
             .opacity(appear ? 1 : 0)
             .offset(y: appear ? 0 : 16)
 
+            if let why = reward?.earnedFreeze {
+                HStack(spacing: 10) {
+                    Image(systemName: "snowflake").font(.system(size: 20, weight: .semibold)).foregroundStyle(Palette.slate)
+                        .symbolEffect(.bounce, value: appear)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("You earned a streak freeze").font(.jero(size: 16, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text(why.prefix(1).uppercased() + why.dropFirst() + ". It covers a day you miss.")
+                            .font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, Metrics.margin)
+                .padding(.top, 22)
+                .opacity(appear ? 1 : 0)
+            }
             if let r = reward, r.streakIncreased {
                 HStack(spacing: 10) {
                     Image(systemName: "flame.fill").font(.system(size: 22)).foregroundStyle(Palette.flame)

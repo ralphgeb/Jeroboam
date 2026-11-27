@@ -275,7 +275,7 @@ struct StreakXPPill: View {
     @Environment(GameProgress.self) private var progress
     var body: some View {
         HStack(spacing: 14) {
-            FlameBadge(count: progress.data.streak, active: progress.activeToday)
+            FlameBadge(count: progress.data.streak, active: progress.activeToday, frozen: progress.freezeCoversYesterday)
             XPBadge(xp: progress.data.xp)
         }
         .padding(.horizontal, 12).padding(.vertical, 7)

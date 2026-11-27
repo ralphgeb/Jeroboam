@@ -87,7 +87,7 @@ enum QuizGenerator {
         seen.formUnion(lessonQs.map(\.id))
         UserDefaults.standard.set(Array(seen), forKey: seenKey)
         let generated = session(.mixed, count: count - lessonQs.count, maxLevel: level).cards
-        return Session(title: "Level \(level) mock exam", lessonID: nil, cards: (lessonQs + generated).shuffled())
+        return Session(title: "Level \(level) mock exam", lessonID: nil, cards: (lessonQs + generated).shuffled(), isExam: true)
     }
 
     static func mistakes(_ ids: [String]) -> Session {
