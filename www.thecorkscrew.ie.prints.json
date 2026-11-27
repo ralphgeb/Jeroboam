@@ -1,0 +1,15 @@
+{
+ "host": "www.thecorkscrew.ie",
+ "wine_pages": 755,
+ "pages_without_photo": 0,
+ "distinct_photos": 746,
+ "status": {
+  "ok": 745,
+  "unusable": 1
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 745
+}
