@@ -1,0 +1,14 @@
+{
+ "host": "www.newcomerwines.com",
+ "wine_pages": 547,
+ "pages_without_photo": 0,
+ "distinct_photos": 529,
+ "status": {
+  "ok": 529
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 529
+}
