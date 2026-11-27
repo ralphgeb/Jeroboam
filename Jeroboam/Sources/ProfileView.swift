@@ -21,6 +21,7 @@ struct ProfileView: View {
     @State private var showScanTimings = false
     @State private var showPrintCheck = false
     @State private var showFreezes = false
+    @AppStorage("jero.freshJournal") private var freshJournal = false
     @State private var sidePane = 0   // Duo sideways: 0 collection, 1 achievements on the right
     @Environment(\.coverClose) private var coverClose
     @State private var widgetTheme = WidgetSettings.theme
@@ -193,6 +194,15 @@ struct ProfileView: View {
                             Button { showScanTimings = true } label: { testRow("Scan timings", "stopwatch") }
                             Hairline()
                             Button { showPrintCheck = true } label: { testRow("Fingerprint check", "viewfinder") }
+                            Hairline()
+                            // the journal as a brand-new user sees it; nothing is deleted
+                            Toggle(isOn: $freshJournal) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Fresh journal").font(.jero(size: 16)).foregroundStyle(Palette.ink)
+                                    Text("Hide my wines and show the journal as new. Nothing is deleted.").font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft)
+                                }
+                            }
+                            .tint(Palette.wine).padding(.vertical, 10)
                             Hairline()
                             DuoPreviewPicker().padding(.vertical, 12)
                             Hairline()

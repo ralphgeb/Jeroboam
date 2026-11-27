@@ -129,12 +129,13 @@ struct JournalInsights: View {
         return out
     }
 
-    private var useExample: Bool { real.count < 3 }
+    /// No made-up wines any more: the charts show only real bottles and tastings (nothing at all on an empty tab).
+    private var useExample: Bool { false }
     private var wines: [InsightWine] { useExample ? Self.example.filter { $0.tasted == tasted } : real }
 
     var body: some View {
         Group {
-            if snap != nil { content } else { placeholder }
+            if snap == nil { placeholder } else if !real.isEmpty { content }
         }
         .task(id: signature) {
             let cellar = journal.cellar, entries = journal.entries

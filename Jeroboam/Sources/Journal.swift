@@ -141,6 +141,9 @@ final class JournalStore {
 
     private init(empty: Bool) { persist = false }
 
+    /// An empty journal kept in memory only (TestFlight "fresh journal": the app as a new user sees it).
+    static func blank() -> JournalStore { JournalStore(empty: true) }
+
     init() {
         if let data = try? Data(contentsOf: url), let e = try? JSONDecoder().decode([JournalEntry].self, from: data) { entries = e }
         if let data = try? Data(contentsOf: cellarURL), let c = try? JSONDecoder().decode([CellarBottle].self, from: data) { cellar = c }
@@ -338,8 +341,12 @@ func styleColor(_ s: String) -> Color {
 
 /// The Journal is part of Jero Plus: free users see a made-up cellar, greyed out, under the Bordeaux lock.
 struct JournalView: View {
+    @AppStorage("jero.freshJournal") private var fresh = false
     var body: some View {
-        if Plus.shared.active {
+        if Plus.shared.active && fresh && Distribution.isTestFlight {
+            // TestFlight: a brand-new journal; the real one is untouched and comes back when the switch is off
+            JournalHome().environment(JournalPreview.blank)
+        } else if Plus.shared.active {
             JournalHome()
         } else {
             JournalHome()
@@ -373,18 +380,25 @@ struct JournalHome: View {
                         actionTile(icon: "eye.slash", title: "Blind tasting", detail: "Scored out of 100", primary: false) { blind = true }
                     }
 
-                    Picker("Section", selection: $section) {
-                        Text("Cellar").tag(0)
-                        Text("Tastings").tag(1)
-                    }
-                    .pickerStyle(.segmented)
+                    if journal.cellar.isEmpty && journal.entries.isEmpty {
+                        // a new journal: a welcome, the taste quiz and what the journal will show (no made-up wines)
+                        JournalWelcome(onScan: { scan = true }, onBlind: { blind = true })
+                        JournalExtras(onBlind: { blind = true })
+                    } else {
+                        Picker("Section", selection: $section) {
+                            Text("Cellar").tag(0)
+                            Text("Tastings").tag(1)
+                        }
+                        .pickerStyle(.segmented)
 
-                    if section == 0 { cellarSection } else { tastingsSection }
-                    // the charts follow the tab: your cellar's bottles, or the wines you have tasted
-                    JournalInsights(tasted: section == 1)
-                    CollectionCard()
-                    JournalExtras(onBlind: { blind = true })
-                    NavigationLink(value: HistoryRoute()) {
+                        if section == 0 { cellarSection } else { tastingsSection }
+                        // the charts follow the tab: your cellar's bottles, or the wines you have tasted
+                        JournalInsights(tasted: section == 1)
+                        CollectionCard()
+                        JournalExtras(onBlind: { blind = true })
+                        TasteQuizCard()   // kept at the bottom once the journal has wines
+                    }
+                    if journal.persist { NavigationLink(value: HistoryRoute()) {
                         HStack(spacing: 12) {
                             Image(systemName: "clock.arrow.circlepath").font(.system(size: 16)).foregroundStyle(Palette.wine)
                                 .frame(width: 38, height: 38).background(Circle().fill(Palette.wineSoft))
@@ -400,6 +414,7 @@ struct JournalHome: View {
                         .overlay(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).strokeBorder(Palette.line.opacity(0.7), lineWidth: 0.5))
                     }
                     .buttonStyle(PressableStyle())
+                    }
                     Color.clear.frame(height: 20)
             }
             .background(Palette.paper.ignoresSafeArea())

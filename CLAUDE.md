@@ -360,3 +360,9 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   exam at 70%+ (`Session.isExam`, `examPassed`, once a week); hold 2 (3 with Plus, `maxFreezes`); one covers exactly one missed
   day (used by the next lesson). Lesson end screen says when one was earned (`Reward.earnedFreeze`); the streak flame is a
   snowflake while a freeze covers yesterday (`freezeCoversYesterday`); Profile > Streak freezes tile opens `StreakFreezeSheet`.
+- **New journal & taste quiz** (`TasteQuiz.swift`): an empty journal shows `JournalWelcome` (hero "Scan your first bottle", the
+  taste quiz, what the journal will show) + JournalExtras; no made-up example charts any more (`JournalInsights` shows only real
+  wines). `TasteQuizView`: 6 everyday questions -> `TasteStyle` (9 styles) with 3 grapes and a classic from Wines of the world;
+  saved in `jero.tasteQuiz`. Once the journal has wines, `TasteQuizCard` sits at the bottom.
+  TestFlight Settings "Fresh journal" (`jero.freshJournal`, `JournalPreview`): the journal shows an empty in-memory store
+  (`JournalStore.blank()`) and its own quiz result; nothing is deleted.
