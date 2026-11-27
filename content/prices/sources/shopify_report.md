@@ -10,7 +10,7 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 | Aylesbury Estate (aylesburyestate.com.au) | new | AUD | 13 | 3 | 0 | 10 | 0 / 0 / 0 / 3 / 7 / 0 |  |
 | BGWM (bgwm.co.uk) | existing | GBP | 5527 | 32 | 416 | 5055 | 0 / 0 / 3935 / 1014 / 100 / 30 |  |
 | Biondivino (www.biondivino.com) | new | USD | 2088 | 740 | 109 | 1237 | 0 / 114 / 3 / 887 / 209 / 26 |  |
-| Black Market (www.blackmarket.co.nz) | existing | NZD | 14557 | 2462 | 188 | 11901 | 0 / 2125 / 0 / 8746 / 539 / 497 |  |
+| Black Market (www.blackmarket.co.nz) | existing | NZD | 14557 | 2462 | 188 | 11886 | 0 / 2125 / 0 / 8746 / 539 / 497 |  |
 | Blackhearts & Sparrows (www.blackheartsandsparrows.com.au) | candidate | AUD | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Bottle Apostle (www.bottleapostle.com) | new | GBP | 0 | 0 | 0 | 0 | 0 / 0 / 0 / 0 / 0 / 0 | no products.json |
 | Camperdown Cellars (camperdowncellars.com.au) | existing | AUD | 5259 | 2855 | 186 | 2216 | 0 / 2177 / 0 / 35 / 4 / 2 |  |
@@ -94,4 +94,4 @@ Per shop: products in the catalogue, what was dropped and why, wine offers kept,
 | Zachys (www.zachys.com) | existing | USD | 8364 | 584 | 2 | 7774 | 0 / 0 / 1 / 7142 / 188 / 447 |  |
 | Zyn (zyn.ca) | existing | CAD | 10915 | 3391 | 310 | 7198 | 0 / 72 / 28 / 6169 / 821 / 122 |  |
 
-Total offers: 239248 from 68 shops.
+Total offers: 239233 from 68 shops.

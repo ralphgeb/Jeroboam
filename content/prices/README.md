@@ -1,6 +1,6 @@
 # Wine prices (harvested 2026-11-25)
 
-- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 198k wines from 80 shops).
+- `wine_prices.csv` — the merged list: one row per wine + vintage + bottle size (about 203k wines from 80 shops + Tesco and Waitrose Cellar shelf checks).
   Duplicates are merged and, when a wine is sold by several shops, the price is the average of one price per shop (in-stock prices preferred,
   outliers more than 2.5x off the median dropped). Prices in GBP, EUR and USD (ECB rates of 2026-11-20:
   1 EUR = 0.83735 GBP = 1.0990 USD = 1.6487 AUD = 1.5723 CAD = 1.9968 NZD = 0.9223 CHF). `prices` lists every shop price used (cheapest first);
@@ -84,4 +84,11 @@ notes, avg_score, scores, score_links, details_link.
 - Scores are critics' scores quoted on the shop pages (Wine Advocate, Wine Spectator, James Suckling, Vinous, Jeb Dunnuck,
   Burghound, Decanter, Wine Enthusiast, Jancis Robinson /20 …), plus the ones kept from the previous build. `avg_score` averages the
   100-point scores; `score_links` are the shop pages that quote them (the critics' own sites need a subscription).
-- Filled in (2026-11-27, 198,220 rows): colour 96%, country 93%, region 87%, appellation 49%, grapes 87%, blend 32%, aromas 88%, critics' score 14.5% (28.8k wines: shop feeds, 14 shops' product pages, 2.3k from the Wine Enthusiast dataset); producer known for 98.5%.
+- Filled in (2026-11-27, 202,756 rows): colour 96%, country 93%, region 87%, appellation 49%, grapes 87%, blend 32%, aromas 88%, critics' score 14.5% (28.8k wines: shop feeds, 14 shops' product pages, 2.3k from the Wine Enthusiast dataset); producer known for 98.5%.
+
+## Notes (27 Nov 2026)
+- `shops.json` `"case_priced": true` (Black Market): the shop prices whole cases without saying so; the case size is read from the
+  price (6 / 12 / 3: the one that gives a shop-like bottle price such as 19.99), a price that only reads as one bottle stays one bottle.
+- Merging never joins a red with a white or rosé of the same name (the colour is read from the full name, also in the exact-key step).
+- `sources/uk_supermarkets.csv` also holds Tesco's own shelf (checked against a Tesco page, 27 Nov: links to tesco.com) and
+  Waitrose Cellar (waitrosecellar.com, full bottle price, never the 25%-off-6 offer).

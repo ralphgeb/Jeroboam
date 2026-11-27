@@ -7,6 +7,20 @@ How the price list is built: `content/prices/README.md`. Short version in `CLAUD
 
 ---
 
+## 27 Nov 2026 (evening): Black Market cases, colours, Tesco and Waitrose Cellar (202,756 rows)
+
+- **Black Market prices were case prices** (the app session's note; ~10,500 wines 6x, ~1,500 12x too high, e.g. Trivento Reserve
+  Malbec NZ$119.94 = 6 x 19.99). `shops.json` `"case_priced": true` + `shopify_to_sources.case_size`: the case size (6/12/3) whose
+  bottle price reads like a shop price; one-bottle prices (spirits) stay. Mixed cases dropped. Rare miss: Cristal 2015 NZ$379.50 read as 6.
+- **Colour merges fixed:** both merge steps refuse to join a red with a white/rosé (colour from the full name; the key drops colour
+  words). ~2,700 wines were split, e.g. Domaine de Chevalier Blanc/Rouge, Pavillon Blanc/Rouge, Château Musar red/Blanc.
+- **Tesco** (Ralph's PDF of tesco.com, 99 products): 77 confirmed, 2 prices fixed (Bella Cucina Prosecco 4.39, Vineyards Fruity Red
+  3.49), 19 added with tesco.com product links. Shelf price, not Clubcard.
+- **Waitrose Cellar** (19 PDFs, 418 wines): 265 already in the list (63%), 153 new; all 415 bottles (gift sets/cases skipped) added at
+  full bottle price, never the 25%-off-6 offer; sizes from the price per litre.
+- Fingerprints for these (Tesco/Waitrose Cellar/trolley product pages): `fingerprint_wines.py` reads the page's og:image when a host
+  has no catalogue on shop-data. Not run yet.
+
 ## 27 Nov 2026: label fingerprints — result: NOT good enough to name a wine (nothing switched on)
 
 Full run done (fingerprints.yml, run 45930538958): **182,312 shop photos from 68 shops**, all Vision revision 2, 768 numbers.
