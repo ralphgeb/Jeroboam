@@ -3,7 +3,8 @@
 
 Runs on a GitHub runner (.github/workflows/harvest_shops.yml): this project's dev container cannot reach the shops.
 Writes, per shop, <out>/<host>.jsonl.gz with one product per line:
-  {url, id, handle, title, vendor, type, tags[], text, published_at, variants: [{title, price, compare_at, available, grams, sku}]}
+  {url, id, handle, title, vendor, type, tags[], text, published_at, variants: [{title, price, compare_at, available, grams, sku}],
+   images: [first 3 product photo URLs on the Shopify CDN]}
 and <out>/<host>.report.json (per shop: products, pages, capped, currency seen on the storefront, errors).
 Nothing is filtered here; tools/prices/shopify_to_sources.py decides what is wine and what each bottle costs.
 
@@ -65,7 +66,8 @@ def slim(p, base):
     return {"url": f"{base}/products/{p.get('handle', '')}", "id": p.get("id"), "handle": p.get("handle"),
             "title": (p.get("title") or "").strip(), "vendor": (p.get("vendor") or "").strip(),
             "type": (p.get("product_type") or "").strip(), "tags": tags, "text": text_of(p.get("body_html")),
-            "published_at": p.get("published_at"), "variants": vs}
+            "published_at": p.get("published_at"), "variants": vs,
+            "images": [i.get("src") for i in (p.get("images") or []) if isinstance(i, dict) and i.get("src")][:3]}
 
 
 def paged(session, url_fmt, delay, max_pages, deadline=None):
