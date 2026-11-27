@@ -1019,9 +1019,11 @@ struct EditWineSheet: View {
                     TextField("Producer (for example Ximénez-Spínola)", text: $wine.producer)
                     TextField("Vintage (or NV)", text: $wine.vintage).keyboardType(.numbersAndPunctuation)
                 }
-                Section("Where it is from") {
+                Section {
                     TextField("Region or appellation", text: $wine.region)
                     TextField("Country", text: $wine.country)
+                } header: { Text("Where it is from") } footer: {
+                    Text("When you save, Jero looks this wine up again: its grapes, region, price, score and notes are updated to match.")
                 }
             }
             .navigationTitle("Correct the wine").navigationBarTitleDisplayMode(.inline)
@@ -2022,6 +2024,7 @@ struct CellarDetailView: View {
     @State private var pricing = false
     @State private var tasting = false
     @State private var editing = false
+    @State private var relooking = false   // looking the wine up again after a correction
 
     var body: some View {
         if let b = journal.cellar.first(where: { $0.id == bottleID }) {
@@ -2036,6 +2039,7 @@ struct CellarDetailView: View {
                         Label("Not the right wine? Correct its name", systemImage: "pencil").font(.system(size: 13, weight: .semibold))
                     }
                     .foregroundStyle(Palette.wine).padding(.top, -8)
+                    if relooking { CheckingNote(text: "Looking up \(b.title) again…") }
                     WineGlance(wine: b.wine, price: b.price, points: b.roughRating, pointsAreGuess: true)
                     // body, acidity, tannin… expected from its grapes and place; your own marks beside them once you have tasted it
                     BottleProfileCard(wine: b.wine, tasting: journal.entries.first { WineDB.key($0.wine) == WineDB.key(b.wine) })
@@ -2085,13 +2089,42 @@ struct CellarDetailView: View {
                 EditWineSheet(wine: b.wine) { fixed in
                     var c = b; c.wine = fixed; journal.upsert(c)
                     WineDB.shared.correct(from: b.wine, to: fixed, image: JournalStore.image(b.photo))
-                    Task { await refresh(c) }
+                    // the corrected wine is looked up again straight away: grapes, region, score, notes, then the price
+                    Task { await relook(c, was: b.wine) }
                 }
             }
             .confirmationDialog("Remove this wine from your cellar?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Remove", role: .destructive) { journal.delete(b); dismiss() }
             }
         }
+    }
+
+    /// After a correction: the wine is identified again from the names you typed (our wine list first, else Claude and the
+    /// online check), and everything about it is replaced; what you typed (name, producer, and any field you changed) wins.
+    private func relook(_ b: CellarBottle, was old: WineIdentity) async {
+        relooking = true
+        defer { relooking = false }
+        let typed = b.wine
+        let text = [typed.producer, typed.name, typed.vintage, typed.region, typed.country].filter { !$0.isEmpty }.joined(separator: " ")
+        if let r = try? await WineRecognizer.identify(text: text) {
+            var w = r.identity
+            w.found = true
+            w.name = typed.name
+            if !typed.producer.isEmpty { w.producer = typed.producer }
+            if !typed.vintage.isEmpty { w.vintage = typed.vintage }
+            if typed.region != old.region && !typed.region.isEmpty { w.region = typed.region }
+            if typed.country != old.country && !typed.country.isEmpty { w.country = typed.country }
+            journal.noteCost(r.costUSD)
+            if var c = journal.cellar.first(where: { $0.id == b.id }) {
+                c.wine = w; c.price = nil
+                journal.upsert(c)
+                WineDB.shared.save(w)
+                PriceCloud.shareWine(w)
+                await refresh(c)
+                return
+            }
+        }
+        await refresh(b)
     }
 
     private func refresh(_ b: CellarBottle) async {
@@ -2326,10 +2359,11 @@ struct FlowPhotoPane: View {
 
 /// "Checking grapes and tasting notes…" under a bottle that is already on screen.
 struct CheckingNote: View {
+    var text = "Checking grapes and tasting notes…"
     var body: some View {
         HStack(spacing: 8) {
             ProgressView().controlSize(.small)
-            Text("Checking grapes and tasting notes…").font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
+            Text(text).font(.system(size: 13)).foregroundStyle(Palette.inkSoft)
         }
         .padding(.horizontal, 4)
         .accessibilityElement(children: .combine)
