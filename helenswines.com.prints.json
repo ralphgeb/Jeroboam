@@ -1,0 +1,14 @@
+{
+ "host": "helenswines.com",
+ "wine_pages": 166,
+ "pages_without_photo": 0,
+ "distinct_photos": 166,
+ "status": {
+  "ok": 166
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 166
+}
