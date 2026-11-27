@@ -1,0 +1,15 @@
+{
+ "host": "sf.vervewine.com",
+ "wine_pages": 750,
+ "pages_without_photo": 43,
+ "distinct_photos": 670,
+ "status": {
+  "ok": 668,
+  "unusable": 2
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 668
+}
