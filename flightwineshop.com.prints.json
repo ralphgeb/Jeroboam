@@ -1,0 +1,14 @@
+{
+ "host": "flightwineshop.com",
+ "wine_pages": 492,
+ "pages_without_photo": 6,
+ "distinct_photos": 478,
+ "status": {
+  "ok": 478
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 478
+}
