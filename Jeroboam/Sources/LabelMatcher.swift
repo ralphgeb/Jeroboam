@@ -23,6 +23,8 @@ struct LabelMatcher {
     private(set) var wines: [Wine] = []
     private var index: [String: [Int32]] = [:]     // own-name word -> wines
     private var words = Set<String>()              // every word the list knows (for OCR slips)
+    private var freq: [String: Int] = [:]          // how many wines use each word (the commoner word wins a close call)
+    private var byStart: [String: [String]] = [:]  // words by first letter + length (for two-letter slips)
     private var makerWords = Set<String>()         // the words of the list's producers' names
     private var seen = Set<String>()
 
@@ -67,7 +69,10 @@ struct LabelMatcher {
         let i = Int32(wines.count)
         wines.append(Wine(producer: p, own: own, place: appWords, name: name, maker: producer, row: row, placeNamed: placeNamed))
         for w in own { index[w, default: []].append(i) }
-        words.formUnion(own); words.formUnion(p)
+        for w in own.union(p).union(appWords).union(placeWords) {
+            freq[w, default: 0] += 1
+            if words.insert(w).inserted, let f = w.first { byStart["\(f)\(w.count)", default: []].append(w) }
+        }
         if !placeNamed { makerWords.formUnion(p) }
     }
 
@@ -178,30 +183,73 @@ struct LabelMatcher {
     }
 
     /// For each 6+ letter label word the list does not know: the one list word a single letter away (changed, added or missing).
-    private func corrections(_ label: Set<String>) -> Set<String> {
-        var out = Set<String>()
-        let letters = Array("abcdefghijklmnopqrstuvwxyz")
+    private func corrections(_ label: Set<String>) -> Set<String> { Set(misreadMap(label).values) }
+
+    /// The label's words that look like camera misreads of a word the list uses ("resene" -> "reserve"): words of 6+ letters the
+    /// list never uses, one letter off a single known word, or else two letters off one (same first letter; the commoner word
+    /// when two fit, if it is far more common). Used to read the label right and to send a misread label to the photo answer.
+    func misreads(lines: [String]) -> [String: String] { misreadMap(PriceBook.tokens(lines.joined(separator: " "))) }
+
+    private func misreadMap(_ label: Set<String>) -> [String: String] {
+        var out: [String: String] = [:]
         for w in label where w.count >= 6 && !words.contains(w) && w.allSatisfy({ $0.isLetter }) {
-            let a = Array(w)
-            var found = Set<String>()
-            for i in 0...a.count {
-                if i < a.count {
-                    var d = a; d.remove(at: i)
-                    let s = String(d); if words.contains(s) { found.insert(s) }
-                }
-                for c in letters {
-                    var ins = a; ins.insert(c, at: i)
-                    let s = String(ins); if words.contains(s) { found.insert(s) }
-                    if i < a.count, a[i] != c {
-                        var sub = a; sub[i] = c
-                        let s2 = String(sub); if words.contains(s2) { found.insert(s2) }
-                    }
-                }
-                if found.count > 1 { break }
-            }
-            if found.count == 1 { out.formUnion(found) }
+            // a rare word one letter off ("refene") must not beat a common one two letters off ("reserve"): a two-letter slip
+            // counts 20 times less
+            var score: [String: Double] = [:]
+            for c in oneEdit(w) { score[c] = Double(freq[c] ?? 0) }
+            for c in twoEdits(w) where score[c] == nil { score[c] = Double(freq[c] ?? 0) / 20 }
+            let ranked = score.sorted { $0.value > $1.value }
+            if let best = ranked.first, ranked.count == 1 || best.value >= 5 * max(0.05, ranked[1].value) { out[w] = best.key }
         }
         return out
+    }
+
+    private func oneEdit(_ w: String) -> Set<String> {
+        let letters = Array("abcdefghijklmnopqrstuvwxyz")
+        let a = Array(w)
+        var found = Set<String>()
+        for i in 0...a.count {
+            if i < a.count {
+                var d = a; d.remove(at: i)
+                let s = String(d); if words.contains(s) { found.insert(s) }
+            }
+            for c in letters {
+                var ins = a; ins.insert(c, at: i)
+                let s = String(ins); if words.contains(s) { found.insert(s) }
+                if i < a.count, a[i] != c {
+                    var sub = a; sub[i] = c
+                    let s2 = String(sub); if words.contains(s2) { found.insert(s2) }
+                }
+            }
+        }
+        return found
+    }
+
+    private func twoEdits(_ w: String) -> Set<String> {
+        guard w.count >= 6, let f = w.first else { return [] }
+        let a = Array(w)
+        var found = Set<String>()
+        for n in (w.count - 2)...(w.count + 2) {
+            for c in byStart["\(f)\(n)"] ?? [] where Self.distance(a, Array(c), limit: 2) <= 2 { found.insert(c) }
+        }
+        return found
+    }
+
+    /// Edit distance, giving up (returning limit + 1) once it must exceed `limit`.
+    static func distance(_ a: [Character], _ b: [Character], limit: Int) -> Int {
+        if abs(a.count - b.count) > limit { return limit + 1 }
+        var prev = Array(0...b.count)
+        for i in 1...max(1, a.count) where !a.isEmpty {
+            var cur = [i] + Array(repeating: 0, count: b.count)
+            var rowMin = i
+            for j in 1...max(1, b.count) where !b.isEmpty {
+                cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1))
+                rowMin = min(rowMin, cur[j])
+            }
+            if rowMin > limit { return limit + 1 }
+            prev = cur
+        }
+        return prev[b.count]
     }
 
     /// The wine's name as a person would write it: the quoted part when the shop quotes it, without the producer, packaging,

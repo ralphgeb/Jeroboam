@@ -123,6 +123,43 @@ def match(label_words, wines, index):
 
 NEAR = None
 
+def lev(a, b, limit=2):
+    if abs(len(a) - len(b)) > limit: return limit + 1
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i] + [0] * len(b)
+        for j, cb in enumerate(b, 1):
+            cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb))
+        if min(cur) > limit: return limit + 1
+        prev = cur
+    return prev[-1]
+
+def vocab(wines):
+    """The app's LabelMatcher vocabulary: producer, own-name and place words, with how many wines use each."""
+    freq = defaultdict(int)
+    for k in wines:
+        for w in k[0] | k[1] | k[2]: freq[w] += 1
+    by = defaultdict(list)
+    for w in freq: by[(w[0], len(w))].append(w)
+    return freq, by
+
+def misreads(words, freq, by):
+    """Same rule as LabelMatcher.misreads: a 6+ letter word the list never uses, 1 (else 2) letters off a known word."""
+    out = {}
+    for w in words:
+        if len(w) < 6 or w in freq or not w.isalpha(): continue
+        score = {}
+        for n in (len(w) - 1, len(w), len(w) + 1):
+            for f in set("abcdefghijklmnopqrstuvwxyz"):
+                for c in by.get((f, n), []):
+                    if lev(w, c, 1) <= 1: score[c] = freq[c]
+        for n in range(len(w) - 2, len(w) + 3):
+            for c in by.get((w[0], n), []):
+                if c not in score and lev(w, c, 2) <= 2: score[c] = freq[c] / 20
+        r = sorted(score.items(), key=lambda x: -x[1])
+        if r and (len(r) == 1 or r[0][1] >= 5 * max(0.05, r[1][1])): out[w] = r[0][0]
+    return out
+
 def main():
     global NEAR
     url, key = os.environ["URL"].rstrip("/"), os.environ["KEY"]
@@ -133,8 +170,12 @@ def main():
     print(f"{len(rows)} scanned labels; {len(wines)} distinct wines in the list", flush=True)
     tally = defaultdict(int)
     lines = []
+    freq, by = vocab(wines)
+    flagged = []
     for r in rows:
         sig = (r.get("sig") or "").split()
+        m = misreads(sig, freq, by)
+        if m: flagged.append(f"- {' '.join(sig)[:70]} -> " + ", ".join(f"{a} = {b}" for a, b in m.items()) + f"  (Claude: {r.get('producer') or ''} — {r.get('name') or ''})")
         claude = tokens((r.get("producer") or "") + " " + (r.get("name") or ""))
         claude4 = {t for t in claude if len(t) >= 4}
         t, why = match(sig, wines, index)
@@ -159,6 +200,7 @@ def main():
                "The label text used here is only the phone's short signature (8 words at most); the phone has the whole label.", ""]
     order = {"DIFFERENT from Claude": 0, "agrees with Claude": 1, "ambiguous": 2, "no match": 3}
     lines.sort(key=lambda l: order[l.split(" | ")[0][2:]])
+    summary += [f"## Misread check: {len(flagged)} of {len(rows)} labels would wait for the photo answer", ""] + flagged + [""]
     report = "\n".join(summary + ["| Result | Label words | Claude said | List wine |", "|---|---|---|---|"] + lines)
     open("label_match_report.md", "w").write(report)
     print("\n".join(summary))

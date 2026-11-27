@@ -539,8 +539,14 @@ enum WineRecognizer {
     /// and wine it names are printed on the label) the photo call is dropped; otherwise its answer is already on its way.
     /// One after the other they took about 10 s on a phone (text 3.5 s, then photo 6 s); side by side the worst case is the photo's time.
     private static func identifyFresh(image: UIImage, lines: [String]) async throws -> RecognitionResult {
-        let short = await Task.detached(priority: .userInitiated) { PriceBook.shared.shortlist(lines: lines) }.value
-        var r = try await identifyFresh(image: image, lines: lines, shortlist: short)
+        let (short, slips) = await Task.detached(priority: .userInitiated) {
+            (PriceBook.shared.shortlist(lines: lines), PriceBook.shared.misreads(lines: lines))
+        }.value
+        if !slips.isEmpty {
+            ScanClock.shared.add("Label misread (" + slips.map { "\($0.key) → \($0.value)" }.sorted().joined(separator: ", ")
+                                 + "): the photo answer decides", since: Date())
+        }
+        var r = try await identifyFresh(image: image, lines: lines, shortlist: short, slips: slips)
         // Claude chose one of our wines: it is used only if the label supports it (its name, or producer and name words, printed)
         if let n = r.identity.listPick, n >= 1, n <= short.count,
            let w = await Task.detached(priority: .userInitiated, operation: { PriceBook.shared.wine(fromPick: short[n - 1], lines: lines) }).value {
@@ -557,9 +563,13 @@ enum WineRecognizer {
         return r
     }
 
-    private static func identifyFresh(image: UIImage, lines: [String], shortlist: [LabelMatcher.Wine]) async throws -> RecognitionResult {
+    private static func identifyFresh(image: UIImage, lines: [String], shortlist: [LabelMatcher.Wine],
+                                      slips: [String: String] = [:]) async throws -> RecognitionResult {
         guard isAvailable else { throw RecognizerError.noKey }
-        let listText = shortlistText(shortlist)
+        // words the camera probably misread are named for Claude ("RESENE" is probably RESERVE)
+        let slipText = slips.isEmpty ? "" : "\n\nProbable camera misreads: "
+            + slips.map { "\($0.key.uppercased()) = \($0.value.uppercased())" }.sorted().joined(separator: ", ")
+        let listText = shortlistText(shortlist) + slipText
         guard let text = usefulText(lines) else {
             guard let jpeg = small(image) else { throw RecognizerError.badResponse }
             var r = try await call(content: imageContent(jpeg, extra: listText.isEmpty ? nil : listText))
@@ -581,7 +591,9 @@ enum WineRecognizer {
         // a producer our wine list has never heard of may be a misread label ("Château Nâteau" for a curved CHÂTEAU MARGAUX):
         // then the photo's answer, already on its way, gets the last word
         let known = PriceBook.shared.knowsProducer(r.identity.producer)
-        if (textIsEnough(r.identity, label: text) && known) || photo == nil {
+        // a misread label ("RESENE" for RESERVE: Trivento Golden Reserve became "El Cuyo", a word of Luján de Cuyo) never settles it
+        // from the text alone: the photo is not fooled by the camera's reading
+        if (textIsEnough(r.identity, label: text) && known && slips.isEmpty) || photo == nil {
             photo?.cancel()
             r.usedImage = false
             return r

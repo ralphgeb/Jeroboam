@@ -272,5 +272,9 @@ final class LogicTests: XCTestCase {
         XCTAssertTrue(m.knowsMaker(["trivento"]))
         // "since 1928" is the founding year: the vintage is the latest year printed
         XCTAssertEqual(LabelMatcher.vintage(["STELLENRUST", "SINCE 1928", "PINOTAGE 2022"]), "2022")
+        // the misread is spotted (two letters off RESERVE) so the scan waits for the photo answer
+        XCTAssertEqual(m.misreads(lines: ["TRIVENTO", "GOLDEN RESENE", "MALBEC"]), ["resene": "reserve"])
+        XCTAssertTrue(m.misreads(lines: ["TRIVENTO", "GOLDEN RESERVE", "MALBEC", "LUJÁN DE CUYO"]).isEmpty)
+        XCTAssertEqual(LabelMatcher.distance(Array("resene"), Array("reserve"), limit: 2), 2)
     }
 }

@@ -270,6 +270,11 @@ final class PriceBook {
     }
 
     /// Up to 10 wines of the list this label might be (sent to Claude as a help, never as the answer).
+    /// Label words that look like camera misreads ("resene" -> "reserve"); empty before the list is loaded.
+    func misreads(lines: [String]) -> [String: String] {
+        rows.isEmpty ? [:] : labels.misreads(lines: lines)
+    }
+
     func shortlist(lines: [String]) -> [LabelMatcher.Wine] {
         loadIfNeeded()
         return rows.isEmpty ? [] : labels.shortlist(lines: lines)
