@@ -193,4 +193,5 @@ def tidy_title(title):
     t = re.sub(r"\s*[\(\[](?:[^)\]]*\b(?:pre[- ]?sale|pre[- ]?order|presale|arriving|eta|allocation|in stock|back in stock|offer|sold out|limited stock|new arrival|special price)\b[^)\]]*)[\)\]]", "", t, flags=re.I)
     t = re.sub(r"\s*[-|]\s*(?:pre[- ]?order|sold out|last bottles?|new arrival|on sale|sale)\s*$", "", t, flags=re.I)
     t = re.sub(r"^BX\s+[A-Z]{2,4}\s+(?=[A-Z])", "", t)          # Wine Chateau bin codes: 'BX MED Cap Royal Bordeaux Superieur'
+    t = re.sub(r"^[Bb][Xx]\s+(?=[A-Z])", "", t)                   # Wine Chateau's Bordeaux shelf code: 'Bx Clos Fourtet Saint-Emilion'
     return t.strip(" -|")
