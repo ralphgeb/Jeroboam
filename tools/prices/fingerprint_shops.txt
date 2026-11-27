@@ -1,1 +1,4 @@
 # shops to fingerprint on the next push (fingerprints.yml), one host per line; "all" = every shop in the price list; none = nothing
+www.tesco.com
+www.waitrosecellar.com
+www.trolley.co.uk
