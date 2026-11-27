@@ -1,0 +1,14 @@
+{
+ "host": "parched.wine",
+ "wine_pages": 2282,
+ "pages_without_photo": 3,
+ "distinct_photos": 2275,
+ "status": {
+  "ok": 2275
+ },
+ "dims": 768,
+ "revisions": [
+  2
+ ],
+ "fingerprinted": 2275
+}
