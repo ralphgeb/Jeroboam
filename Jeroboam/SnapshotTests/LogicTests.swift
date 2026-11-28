@@ -277,6 +277,16 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(m.match(lines: ["CASTELLO DI AMA", "CHIANTI CLASSICO"])?.maker, "Castello di Ama")
     }
 
+    func testLinkingWordsAreNotANAme() {
+        var m = LabelMatcher()
+        m.add(name: "Cassetta in Legno \"Antinori nel Chianti Classico\" - Antinori", producer: "Antinori", place: "Tuscany Chianti Classico", appellation: "Chianti Classico")
+        m.add(name: "Antinori Tignanello", producer: "Antinori", place: "Tuscany Toscana", appellation: "Toscana")
+        let back = ["Vino prodotto con Sangiovese e, in piccola parte, Cabernet nell'antico podere", "nel cuore della Toscana, di",
+                    "proprietà dei Marchesi Antinori", "TOSCANA", "ANTINORI"]
+        XCTAssertNil(m.match(lines: back))
+        XCTAssertEqual(m.match(lines: ["TIGNANELLO", "2004"] + back)?.name, "Antinori Tignanello")
+    }
+
     func testScatteredProducer() {
         var m = LabelMatcher()
         m.add(name: "Wairau River Reserve Marlborough Sauvignon Blanc", producer: "Wairau River", place: "Marlborough", appellation: "Marlborough")

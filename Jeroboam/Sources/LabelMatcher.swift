@@ -61,7 +61,9 @@ struct LabelMatcher {
         // "Château Margaux" in Margaux: without its place the producer has no word left, so the place word is its name
         let placeNamed = p.isEmpty
         if placeNamed { p = Self.core(producer, generic: Self.generic) }
-        var own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric)
+        // small linking words ("nel", "della", "des", "the"…) are never a wine's name: a label's small print is full of them
+        // (Tignanello's back text "nel cuore della Toscana" matched a gift box called "Antinori nel Chianti Classico")
+        var own = Self.core(name, drop: PriceBook.tokens(producer).union(placeWords), generic: Self.nameGeneric).subtracting(Self.linking)
         // "Guigal Côtes du Rhône": a wine named only by its producer and appellation — the appellation is its name
         if own.isEmpty { own = appWords }
         guard !p.isEmpty, !own.isEmpty else { return }
@@ -183,6 +185,12 @@ struct LabelMatcher {
                      name: name, maker: producer, row: 0, placeNamed: false)
         return longerName(x, lines) || scattered(x, lines)
     }
+
+    /// Linking words of the wine languages: never part of a wine's own name.
+    static let linking: Set<String> = ["nel", "nell", "nella", "nei", "negli", "della", "delle", "dello", "degli", "dei", "del", "dal", "dalla",
+        "con", "per", "tra", "fra", "sul", "sulla", "una", "uno", "les", "des", "aux", "sur", "sous", "dans", "avec", "pour", "par", "une",
+        "los", "las", "del", "con", "por", "para", "una", "der", "die", "das", "und", "von", "vom", "zum", "zur", "dem", "den", "ein",
+        "eine", "the", "and", "for", "with", "from", "dos", "das", "com", "pelo", "pela", "uma"]
 
     private static let connectors: Set<String> = ["de", "du", "des", "la", "le", "les", "di", "del", "della", "da", "do", "dos", "das",
                                                   "van", "von", "d", "l", "of", "the"]
