@@ -445,3 +445,9 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   `TastedAromasCard` (your aromas as icon tiles, green right / red not in the wine, then "You missed") -> palate you vs the wine
   (your bars only when the wine's profile is unknown) -> blind: wine card + price. Pinned footer: in the cellar = Remove 1 bottle /
   Keep in cellar (each finishes); else Done. The tasting page uses `TastedAromasCard` too. `matchGrape` reads "Ruländer (Pinot Gris)".
+- (28 Nov, after build 92) Matcher: `LabelMatcher.linking` words (nel, della, des, the…) are never a wine's own name (Tignanello's back
+  text matched a gift box "Antinori nel Chianti Classico"). `supports` (Claude's list pick) now needs more than half the producer's
+  words printed and a name of only weak words needs its appellation (Whispering Angel, signed "Sacha Lichine", became "The Pale Rosé
+  by Sacha Lichine"). `textIsEnough` needs the wine's own name printed at any confidence. `PriceBook.cleanGrapes` reads
+  "Grenache^Cinsault;Cinsault;Rose Blend" as Grenache, Cinsault; a label printing rosé/rosato/rosado is never filed as red.
+  Not on TestFlight yet (owner: hold until his next batch).

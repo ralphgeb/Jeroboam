@@ -760,8 +760,10 @@ enum WineRecognizer {
         // the producer must be printed too, even when Claude is sure: "Château de la Gardine" for a La Pialade label (which only
         // names Rayas in its small print) was a confident guess; then the photo answer, already on its way, decides
         guard printed(w.producer) else { return false }
-        if w.confidence == "high" { return true }
-        return w.confidence == "medium" && printed(w.name)
+        // the wine's own name must be printed too, even when Claude is sure: "The Pale" (Sacha Lichine's other rosé) for a Whispering
+        // Angel label whose script name the camera missed but whose signature it read; then the photo answer decides
+        guard printed(w.name) else { return false }
+        return w.confidence == "high" || w.confidence == "medium"
     }
 
     /// The numbered shortlist added to Claude's message (empty when the list has no good candidates).

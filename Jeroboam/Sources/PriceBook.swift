@@ -16,6 +16,25 @@ final class PriceBook {
         let detail: Detail?
     }
     /// What the wine database knows about a bottle besides its price (only in the downloaded list).
+    /// The list's grape field made readable: "Grenache^Cinsault;Cinsault;Rose Blend" (a shop's blend group, repeats, a style word)
+    /// becomes Grenache, Cinsault. Kept as it is when it is already clean (its percents then still line up).
+    static func cleanGrapes(_ field: String, percents: String) -> [String] {
+        let raw = field.split(separator: ";").map(String.init)
+        guard raw.contains(where: { $0.contains("^") }) || raw.contains(where: isStyleWord)
+                || Set(raw.map { $0.lowercased() }).count < raw.count else { return raw }
+        var out: [String] = [], seen = Set<String>()
+        for part in raw.flatMap({ $0.split(separator: "^").map { $0.trimmingCharacters(in: .whitespaces) } }) where !part.isEmpty {
+            let k = part.lowercased().replacingOccurrences(of: "cinsualt", with: "cinsault")
+            if seen.insert(k).inserted { out.append(k == part.lowercased() ? part : "Cinsault") }
+        }
+        let real = out.filter { !isStyleWord($0) }
+        return real.isEmpty ? out : real
+    }
+    private static func isStyleWord(_ g: String) -> Bool {
+        let t = g.lowercased()
+        return t == "blend" || t.hasSuffix(" blend") || t.hasPrefix("non-varietal") || t == "field blend"
+    }
+
     struct Detail { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int]
                     var critics: [String] = [], criticLinks: [String] = [] }
     struct WineDetails { let colour: String, country: String, region: String, appellation: String, grapes: [String], aromas: [String], score: Int?, scoreLink: String?, percents: [Int]
@@ -177,9 +196,10 @@ final class PriceBook {
             var detail: Detail? = nil
             if f.count >= 17, !(f[9].isEmpty && f[10].isEmpty && f[11].isEmpty && f[13].isEmpty) {
                 detail = Detail(colour: f[9], country: f[10], region: f[11], appellation: f[12],
-                                grapes: f[13].split(separator: ";").map(String.init), aromas: f[14].split(separator: ";").map(String.init),
+                                grapes: Self.cleanGrapes(f[13], percents: f.count > 17 ? f[17] : ""), aromas: f[14].split(separator: ";").map(String.init),
                                 score: Int(f[15]), scoreLink: f[16].isEmpty ? nil : f[16],
-                                percents: f.count > 17 ? f[17].split(separator: ";").compactMap { Int($0) } : [],
+                                percents: Self.cleanGrapes(f[13], percents: f.count > 17 ? f[17] : "") == f[13].split(separator: ";").map(String.init)
+                                    ? (f.count > 17 ? f[17].split(separator: ";").compactMap { Int($0) } : []) : [],
                                 critics: f.count > 18 ? f[18].split(separator: ";").map(String.init) : [],
                                 criticLinks: f.count > 19 ? f[19].split(separator: ";", omittingEmptySubsequences: false).map(String.init) : [])
             }
@@ -314,6 +334,9 @@ final class PriceBook {
                               case "o": w.style = "orange"; case "f": w.style = "fortified"; case "d": w.style = "sweet"; default: break }
         }
         if w.style.isEmpty { w.style = ["", "red", "white", "rose"][Int(r.color)] }
+        // the label says rosé (or rosato, rosado): a shop that filed it as red is wrong
+        let printed = PriceBook.tokens(lines.joined(separator: " "))
+        if w.style == "red", !printed.isDisjoint(with: ["rose", "rosato", "rosado", "rosat"]) { w.style = "rose" }
         // a better-matching row of the same wine (its vintage, its critic scores) when there is one
         let o = overlay(w)
         if o.fromDatabase == true { w.dbScore = o.dbScore; w.dbScoreLink = o.dbScoreLink; w.dbCritics = o.dbCritics; w.dbCriticLinks = o.dbCriticLinks }

@@ -287,6 +287,18 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(m.match(lines: ["TIGNANELLO", "2004"] + back)?.name, "Antinori Tignanello")
     }
 
+    func testSignatureIsNotAProducer() {
+        var m = LabelMatcher()
+        m.add(name: "The Pale Rose by Sacha Lichine", producer: "The Pale by Sacha Lichine", place: "", appellation: "")
+        let label = ["20TH VINTAGE", "LIMITED EDITION", "SACHA LICHINE", "CÔTES DE PROVENCE ROSÉ 2025"]
+        XCTAssertNil(m.match(lines: label))
+        XCTAssertFalse(m.supports(m.wines[0], lines: label))
+        XCTAssertEqual(PriceBook.cleanGrapes("Grenache^Cinsault;Cinsault;Rose Blend", percents: ""), ["Grenache", "Cinsault"])
+        XCTAssertEqual(PriceBook.cleanGrapes("Merlot;Cabernet Franc", percents: "60;40"), ["Merlot", "Cabernet Franc"])
+        var w = WineIdentity.empty; w.found = true; w.confidence = "high"; w.producer = "The Pale by Sacha Lichine"; w.name = "The Pale"
+        XCTAssertFalse(WineRecognizer.textIsEnough(w, label: label.joined(separator: "\n")))
+    }
+
     func testScatteredProducer() {
         var m = LabelMatcher()
         m.add(name: "Wairau River Reserve Marlborough Sauvignon Blanc", producer: "Wairau River", place: "Marlborough", appellation: "Marlborough")

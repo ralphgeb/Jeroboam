@@ -140,7 +140,12 @@ struct LabelMatcher {
     func supports(_ x: Wine, lines: [String]) -> Bool {
         let (label, producerWords) = labelWords(lines)
         guard !x.own.intersection(label).isEmpty, !longerName(x, lines), !scattered(x, lines) else { return false }
-        return x.own.isSubset(of: label) || !x.producer.isDisjoint(with: producerWords)
+        // a name of only common words ("Rosé") with no appellation on the label says nothing: "The Pale Rosé by Sacha Lichine" was
+        // accepted for a Whispering Angel label signed by Sacha Lichine
+        if x.own.isSubset(of: Self.weak) && !(!x.place.isEmpty && x.place.isSubset(of: label)) { return false }
+        // the producer: more than half of its words printed (one shared word, a signature, is not enough)
+        let producerOK = 2 * x.producer.intersection(producerWords).count > x.producer.count
+        return x.own.isSubset(of: label) && producerOK || (producerOK && x.own.subtracting(Self.weak).isSubset(of: label))
     }
 
     /// Words to tell the camera's text reader to expect on this label (its second read): the list words this label's words are,
