@@ -64,7 +64,8 @@ final class WineDB {
     /// d'Ampuis from the "bottled by" line): the label -> wine links are forgotten once, so those labels are identified again.
     /// The wines themselves (scan history, journal) are kept.
     func forgetLabelLinksOnce() {
-        let flag = "jero.labelLinksReset1"
+        // reset 2: links saved before the "longer producer name" and "scattered producer" rules (La Croix de Marbuzet, Wairau Cove)
+        let flag = "jero.labelLinksReset2"
         guard !UserDefaults.standard.bool(forKey: flag) else { return }
         UserDefaults.standard.set(true, forKey: flag)
         lock.lock()

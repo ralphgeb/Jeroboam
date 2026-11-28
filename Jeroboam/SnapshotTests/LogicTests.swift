@@ -277,6 +277,18 @@ final class LogicTests: XCTestCase {
         XCTAssertEqual(m.match(lines: ["CASTELLO DI AMA", "CHIANTI CLASSICO"])?.maker, "Castello di Ama")
     }
 
+    func testScatteredProducer() {
+        var m = LabelMatcher()
+        m.add(name: "Wairau River Reserve Marlborough Sauvignon Blanc", producer: "Wairau River", place: "Marlborough", appellation: "Marlborough")
+        let cove = ["WAIRAU COVE", "NEW ZEALAND", "Reserve", "SAUVIGNON BLANC", "WAIHOPAI RIVER · MARLBOROUGH"]
+        XCTAssertNil(m.match(lines: cove))
+        XCTAssertTrue(m.contradicts(producer: "Wairau River", name: "Reserve Marlborough Sauvignon Blanc", lines: cove))
+        XCTAssertTrue(m.contradicts(producer: "Chateau Marbuzet", name: "Marbuzet", lines: ["CHATEAU", "LA CROIX DE MARBUZET", "SAINT-ESTÈPHE"]))
+        XCTAssertFalse(m.contradicts(producer: "Château Rayas", name: "La Pialade", lines: ["LA PIALADE", "CÔTES DU RHÔNE"]))
+        let river = ["WAIRAU RIVER", "RESERVE", "SAUVIGNON BLANC", "MARLBOROUGH NEW ZEALAND"]
+        XCTAssertEqual(m.match(lines: river)?.maker, "Wairau River")
+    }
+
     func testTescoScans() {
         var m = LabelMatcher()
         m.add(name: "Trivento \"Golden Reserve\" Luján de Cuyo Malbec", producer: "Trivento", place: "Mendoza Luján de Cuyo", appellation: "Luján de Cuyo")

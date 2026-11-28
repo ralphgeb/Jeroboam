@@ -420,3 +420,14 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   place, and ScanFlow animates checking/wine/pricing changes.
 - Correcting a bottle: the old price is dropped at once (unless "You paid"), price tile (`WineGlance(pricing:)`) + card show loading,
   and the new wine's price replaces it even when none is found (`refresh(corrected:)`). There is no cellar home-screen widget.
+
+## Black Market packs, scattered producers, refills (28 Nov)
+- **Black Market (NZ) pack prices fixed in the data**: `tools/prices/fix_pack_prices.py` (run after merge_prices.py; idempotent) divides
+  each Black Market price by its pack (6/3/12/2 from the price ending, else 6) and recomputes the row; shops.json `"packs": true` makes
+  shopify_to_sources.py do the same on a full rebuild. 11,384 rows (Calvet Prestige 119.94 -> 19.99 NZD). app_wines.tsv.z rebuilt.
+- **LabelMatcher.scattered**: a producer whose words are on the label but never together on one line is not it ("WAIRAU Cove" +
+  "Waihopai RIVER" is not Wairau River). `contradicts(producer:name:lines:)` (longerName or scattered) also screens a wine remembered
+  for the label on the phone (`WineDB.entry(forSignature:)`) or online (`PriceCloud.wine(sig:)`). Label links reset once more
+  (`jero.labelLinksReset2`).
+- **Refill**: a remembered wine missing grapes/region/fun fact/drinking window gets `Pending.refill` on a re-scan: one Claude call for
+  the facts (`enrich(force:)`), and the online grape check once per wine per phone (`jero.refilledWines`).

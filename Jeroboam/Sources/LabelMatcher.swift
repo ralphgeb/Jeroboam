@@ -137,7 +137,7 @@ struct LabelMatcher {
     /// and part of its name.
     func supports(_ x: Wine, lines: [String]) -> Bool {
         let (label, producerWords) = labelWords(lines)
-        guard !x.own.intersection(label).isEmpty, !longerName(x, lines) else { return false }
+        guard !x.own.intersection(label).isEmpty, !longerName(x, lines), !scattered(x, lines) else { return false }
         return x.own.isSubset(of: label) || !x.producer.isDisjoint(with: producerWords)
     }
 
@@ -157,6 +157,31 @@ struct LabelMatcher {
             for i in (byMaker[w] ?? []).prefix(200) { for o in wines[Int(i)].own where out[o] == nil { out[o] = 0 } }
         }
         return out.sorted { $0.value > $1.value }.prefix(limit).map { $0.key.prefix(1).uppercased() + $0.key.dropFirst() }
+    }
+
+    /// The producer's words are on the label but never together on one line ("WAIRAU Cove" … "Waihopai RIVER" is not Wairau River):
+    /// another producer whose name shares a word with this one.
+    func scattered(_ x: Wine, _ lines: [String]) -> Bool {
+        guard x.producer.count >= 2 else { return false }
+        var label = PriceBook.tokens(lines.joined(separator: " "))
+        label.formUnion(corrections(label))
+        guard 2 * x.producer.intersection(label).count > x.producer.count else { return false }
+        for l in lines {
+            var t = PriceBook.tokens(l)
+            t.formUnion(corrections(t))
+            if 2 * x.producer.intersection(t).count > x.producer.count { return false }
+        }
+        return true
+    }
+
+    /// A wine remembered for this label (on the phone or online) that the label itself rules out: its producer is only the end of a
+    /// longer name on it, or its producer's words are scattered over different lines. Such a memory is not used.
+    func contradicts(producer: String, name: String, lines: [String]) -> Bool {
+        let p = Self.core(producer, generic: Self.generic)
+        guard !p.isEmpty else { return false }
+        let x = Wine(producer: p, own: Self.core(name, drop: PriceBook.tokens(producer), generic: Self.nameGeneric), place: [],
+                     name: name, maker: producer, row: 0, placeNamed: false)
+        return longerName(x, lines) || scattered(x, lines)
     }
 
     private static let connectors: Set<String> = ["de", "du", "des", "la", "le", "les", "di", "del", "della", "da", "do", "dos", "das",
@@ -243,7 +268,7 @@ struct LabelMatcher {
         // the producer is only the end of a longer name on the label ("LA CROIX DE MARBUZET" is not Château Marbuzet,
         // "HAUT-MARBUZET" neither): not its wine
         let named = lines.filter { !small.contains($0) }
-        cands.removeAll { longerName(wines[Int($0)], named) }
+        cands.removeAll { longerName(wines[Int($0)], named) || scattered(wines[Int($0)], lines) }
         // a wine named only by its appellation counts its words once, so a named cuvée of the same place (La Landonne) beats it
         // a Château Palmer label prints "Margaux" too: a producer named only by its place never beats one named by its own words
         if cands.contains(where: { !wines[Int($0)].placeNamed }) { cands.removeAll { wines[Int($0)].placeNamed } }

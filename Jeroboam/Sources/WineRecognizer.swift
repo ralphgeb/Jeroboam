@@ -64,7 +64,8 @@ struct RecognitionResult {
     /// The other answer when the label text and the photo named different wines: the scan screen asks "Which one is it?".
     var alternative: WineIdentity? = nil
     /// enrich: named by our wine list from the label (grapes and all); only the fun fact, food, palate and drinking window are asked of Claude.
-    enum Pending { case vet(sig: String?), fresh(sig: String?), typed, enrich(sig: String?) }
+    /// refill: a wine remembered on the phone that is still missing facts (grapes, region, fun fact…): they are looked up again.
+    enum Pending { case vet(sig: String?), fresh(sig: String?), typed, enrich(sig: String?), refill(sig: String?) }
     /// Claude Haiku 5.5: $0.10 / MTok input, $0.50 / MTok output (prompts ≤100K tokens).
     var costUSD: Double { Double(inputTokens) * 0.10 / 1_000_000 + Double(outputTokens) * 0.50 / 1_000_000 + extraUSD }
 }
@@ -229,10 +230,13 @@ enum WineRecognizer {
         clock.add("Label", since: t)
         t = Date()
         let sig = WineDB.signature(lines)
-        if let sig, let hit = WineDB.shared.entry(forSignature: sig) {
+        // a wine remembered for this label is used, unless the label rules it out (an older, wrong answer: "La Croix de Marbuzet"
+        // remembered as Château Marbuzet); a remembered wine still missing facts is filled in after it is shown
+        if let sig, let hit = WineDB.shared.entry(forSignature: sig), !PriceBook.shared.contradicts(hit.identity, lines: lines) {
             clock.add("Found on phone", since: t)
             var r = RecognitionResult(identity: hit.identity, usedImage: false, inputTokens: 0, outputTokens: 0)
             if needsVet(hit.identity) { r.pending = .vet(sig: sig) }
+            else if needsRefill(hit.identity) { r.pending = .refill(sig: sig) }
             return r
         }
         // our wine list may name it from the label alone: instant, free, and its grapes come with it (LabelMatcher)
@@ -247,8 +251,8 @@ enum WineRecognizer {
         clock.add("List (not found)", since: t)
         // someone else may have scanned this label already: their result is kept online, so this scan costs nothing
         let cloud = Task { () -> WineIdentity? in
-            guard let sig else { return nil }
-            return await PriceCloud.wine(sig: sig)
+            guard let sig, let w = await PriceCloud.wine(sig: sig) else { return nil }
+            return PriceBook.shared.contradicts(w, lines: lines) ? nil : w   // someone's wrong answer for this label is not reused
         }
         t = Date()
         if let w = await firstOf(cloud, within: 0.8) {
@@ -329,6 +333,19 @@ enum WineRecognizer {
 
     private static func needsVet(_ w: WineIdentity) -> Bool { w.found && !w.name.isEmpty && w.fromDatabase != true && w.checked != true }
 
+    /// A remembered wine missing its grapes, region, fun fact or drinking window (saved by an older build, or the check found
+    /// nothing): scanning it again fills what is missing. The grapes are looked for online once per wine per phone (it can cost a
+    /// paid search); the rest is one small Claude call.
+    private static func needsRefill(_ w: WineIdentity) -> Bool {
+        guard w.found, !w.name.isEmpty else { return false }
+        return w.funFact.isEmpty || w.region.isEmpty || (w.drinkWindow ?? "").isEmpty
+            || (w.grapes.isEmpty && !refilled.contains(WineDB.key(w)))
+    }
+    private static var refilled: Set<String> {
+        get { Set(UserDefaults.standard.stringArray(forKey: "jero.refilledWines") ?? []) }
+        set { UserDefaults.standard.set(Array(newValue.suffix(500)), forKey: "jero.refilledWines") }
+    }
+
     /// The rest of the job, while the bottle is already on screen: for a wine the databases do not fully know, look it up by
     /// name (free) or check it online. Returns the final result; its tokens are 0 and `extraUSD` is what the check cost.
     static func finish(_ r0: RecognitionResult) async -> RecognitionResult {
@@ -368,6 +385,35 @@ enum WineRecognizer {
             let (w, cost, limited) = await verifyOnline(r0.identity)
             r.identity = w; r.extraUSD = cost; r.limited = limited
             WineDB.shared.save(r.identity)
+        case .refill(let sig):
+            let w0 = r0.identity
+            let key = WineDB.key(w0)
+            async let facts: (WineIdentity, Double)? = (w0.funFact.isEmpty || w0.region.isEmpty || (w0.drinkWindow ?? "").isEmpty)
+                ? enrich(w0, force: true) : nil
+            var w = w0, cost = 0.0, limited = false
+            if w0.grapes.isEmpty && !refilled.contains(key) {
+                var u = w0; u.fromDatabase = nil; u.checked = nil
+                let (v, c, l) = await verifyOnline(u)
+                if !v.grapes.isEmpty { w.grapes = v.grapes; w.grapePercent = v.grapePercent }
+                if w.tastingNotes.isEmpty { w.tastingNotes = v.tastingNotes }
+                if w.region.isEmpty { w.region = v.region }
+                if w.country.isEmpty { w.country = v.country }
+                w.checked = true
+                cost += c; limited = l
+                if !l { refilled.insert(key) }
+            }
+            if let (e, c) = await facts {
+                cost += c
+                if !e.funFact.isEmpty { w.funFact = e.funFact }
+                if w.food.isEmpty { w.food = e.food }
+                if w.palate.isEmpty { w.palate = e.palate }
+                if (w.drinkWindow ?? "").isEmpty { w.drinkWindow = e.drinkWindow }
+                if w.region.isEmpty { w.region = e.region }
+                if w.country.isEmpty { w.country = e.country }
+            }
+            r.identity = w; r.extraUSD = cost; r.limited = limited
+            WineDB.shared.save(w, signature: sig)
+            if cost > 0 { PriceCloud.shareWine(w, sig: sig) }
         case .enrich(let sig):
             let (w, cost) = await enrich(r0.identity)
             r.identity = w; r.extraUSD = cost
@@ -533,8 +579,8 @@ enum WineRecognizer {
     /// A wine named by our list from its label: everything about it comes from the list except what only Claude writes — the fun
     /// fact, food, palate sentence and drinking window. One text-only call (≈ $0.0004), after the bottle is already on screen;
     /// the list's producer, name, region, grapes and aromas are kept whatever Claude says.
-    static func enrich(_ w: WineIdentity) async -> (WineIdentity, Double) {
-        guard isAvailable, !DailyBudget.hardStop, w.funFact.isEmpty else { return (w, 0) }
+    static func enrich(_ w: WineIdentity, force: Bool = false) async -> (WineIdentity, Double) {
+        guard isAvailable, !DailyBudget.hardStop, w.funFact.isEmpty || force else { return (w, 0) }
         let t = Date()
         defer { ScanClock.shared.add("Fun fact & food", since: t) }
         let about = [w.producer, w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " ")

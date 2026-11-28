@@ -270,6 +270,11 @@ final class PriceBook {
     }
 
     /// Up to 10 wines of the list this label might be (sent to Claude as a help, never as the answer).
+    /// The label itself rules this remembered wine out (see LabelMatcher.contradicts). Works before the list is loaded.
+    func contradicts(_ w: WineIdentity, lines: [String]) -> Bool {
+        labels.contradicts(producer: w.producer, name: w.name, lines: lines)
+    }
+
     /// Words for the camera's second read of this label (see LabelMatcher.hints); empty before the list is loaded.
     func ocrHints(lines: [String]) -> [String] {
         loadIfNeeded()

@@ -254,6 +254,10 @@ def main():
                 pk = pack_count(p['title'])   # 'Case of 6', 'Three Bottle OWC' in the product name
             if pk == -1:
                 stats[h]['case of unknown size'] += 1; continue
+            if pk == 1 and s.get('packs'):
+                # the shop's price is the whole pack (Black Market: 6, 3 or 12 bottles); see fix_pack_prices.py
+                from fix_pack_prices import pack_of
+                pk = pack_of(price)
             per = price / pk
             vint = vintage_of(p['title']) or (vt if re.fullmatch(r'(19|20)\d\d', vt.strip()) else '') or vintage_of('', vt)
             eur750 = per / RATES[cur] * 750 / ml
