@@ -97,7 +97,10 @@ enum PriceCloud {
         var body: [String: Any] = ["key": WineDB.key(w), "json": json, "name": w.name, "producer": w.producer, "vintage": w.vintage,
                                    "region": w.region, "country": w.country, "style": w.style, "count": count]
         if let sig { body["sig"] = sig }
-        guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine", method: "POST", body: data) else { return }
+        guard let data = try? JSONSerialization.data(withJSONObject: body), var req = request("wine", method: "POST", body: data) else { return }
+        // a counted scan carries the phone's random install number, so the server can count how many phones scan each day
+        // (never linked to a person; the same number as the Claude allowance uses)
+        if count { req.setValue(installID, forHTTPHeaderField: "x-jero-device") }
         Task.detached(priority: .background) { _ = try? await URLSession.shared.data(for: req) }
     }
 

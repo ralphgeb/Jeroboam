@@ -102,7 +102,8 @@ Wine lookups are estimates. Please drink responsibly. Jero is for adults of lega
   2. Other User Content (the text read from a label)
   3. Product Interaction under Usage Data (the anonymous wine count: which wines are looked up)
   4. Device ID under Identifiers (a random number made by the app on first use, sent with wine lookups so Jero's server can
-     keep each phone to its small daily allowance; not the advertising ID, not linked to the person)
+     keep each phone to its small daily allowance, and with each scan so it can count phones per day; purposes: App
+     Functionality + Analytics; not the advertising ID, not linked to the person)
 - Everything else: not collected (no name, email, contact, location, purchases, diagnostics).
 - Privacy Policy URL: step 3 link.
 

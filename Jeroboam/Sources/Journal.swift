@@ -1392,8 +1392,6 @@ struct TastingFlow: View {
     @State private var grapeOptions: [String] = []
     @State private var countryOptions: [String] = []
     @State private var prepared = false
-    @State private var tookFromCellar = false   // the tasted bottle was taken out of the cellar
-    @State private var keptInCellar = false     // "Keep in cellar" was chosen
 
     private var steps: [Step] {
         Step.allCases.filter { s in
@@ -1485,7 +1483,11 @@ struct TastingFlow: View {
 
     @ViewBuilder private var footer: some View {
         switch step {
-        case .photo, .identify, .done: EmptyView()
+        case .photo, .identify: EmptyView()
+        case .done:
+            doneActions
+                .padding(.horizontal, Metrics.margin).padding(.top, 24).padding(.bottom, 10)
+                .background(LinearGradient(colors: [Palette.paper.opacity(0), Palette.paper, Palette.paper], startPoint: .top, endPoint: .bottom).ignoresSafeArea())
         default:
             Button(step == .verdict ? (blind ? "Reveal the wine" : "Save to journal") : "Continue") { next() }
                 .buttonStyle(PrimaryButtonStyle(enabled: step != .guess || (entry.guessGrape != nil && entry.guessCountry != nil)))
@@ -1664,14 +1666,6 @@ struct TastingFlow: View {
             .background(Capsule().fill(Palette.card))
             if !results.isEmpty {
                 FlowLayout(spacing: 8, lineSpacing: 8) { ForEach(results, id: \.self) { aromaToggle($0, highlighted: false) } }
-            }
-            if !blind && !entry.wine.tastingNotes.isEmpty && q.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Eyebrow("Try looking for", color: Palette.wine)
-                    FlowLayout(spacing: 8, lineSpacing: 8) {
-                        ForEach(entry.wine.tastingNotes, id: \.self) { n in aromaToggle(n, highlighted: true) }
-                    }
-                }
             }
             if q.isEmpty {
                 // two families per row; the one you tap opens right under its own row
@@ -1868,77 +1862,82 @@ struct TastingFlow: View {
 
     // ---- done / reveal
     private var doneStep: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            if blind {
-                ScreenHeader(eyebrow: "Blind tasting", title: "It was…")
-                if let s = entry.score {
-                    HStack(spacing: 18) {
-                        ZStack {
-                            GoalRing(progress: Double(s) / 100, lineWidth: 6).frame(width: 84, height: 84)
-                            VStack(spacing: 0) {
-                                Text("\(s)").font(.system(size: 26, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
-                                Text("/100").font(.system(size: 11)).foregroundStyle(Palette.inkFaint)
-                            }
+        VStack(alignment: .leading, spacing: 16) {
+            // the bottle you tasted: its picture, the colour you saw, your score
+            TastedHero(entry: entry, photo: photo, blind: blind, xp: blind ? 25 : 15)
+            if blind, let s = entry.score {
+                HStack(spacing: 18) {
+                    ZStack {
+                        GoalRing(progress: Double(s) / 100, lineWidth: 6).frame(width: 72, height: 72)
+                        VStack(spacing: 0) {
+                            Text("\(s)").font(.system(size: 22, weight: .semibold).monospacedDigit()).foregroundStyle(Palette.ink)
+                            Text("/100").font(.system(size: 10)).foregroundStyle(Palette.inkFaint)
                         }
-                        VStack(alignment: .leading, spacing: 6) {
-                            ForEach(Array(TastingScore.breakdown(entry).enumerated()), id: \.offset) { _, item in
-                                HStack(spacing: 8) {
-                                    Image(systemName: item.2 ? "checkmark.circle.fill" : "circle.dashed")
-                                        .font(.system(size: 13)).foregroundStyle(item.2 ? Palette.correct : Palette.inkFaint)
-                                    Text(item.1).font(.system(size: 13.5)).foregroundStyle(Palette.ink)
-                                }
+                    }
+                    VStack(alignment: .leading, spacing: 6) {
+                        ForEach(Array(TastingScore.breakdown(entry).enumerated()), id: \.offset) { _, item in
+                            HStack(spacing: 8) {
+                                Image(systemName: item.2 ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                    .font(.system(size: 13)).foregroundStyle(item.2 ? Palette.correct : Palette.wrong)
+                                Text(item.1).font(.system(size: 13.5)).foregroundStyle(Palette.ink)
                             }
                         }
                     }
-                    .padding(16)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(RoundedRectangle(cornerRadius: Metrics.radius, style: .continuous).fill(Palette.card))
                 }
-            } else {
-                ScreenHeader(eyebrow: "Journal", title: "Saved", subtitle: "Here's how your tasting compares with this wine.")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .cardStyle(padding: 16)
             }
-            // what the wine is expected to be, with your marks beside it, then its aromas against the ones you found
-            BottleProfileCard(wine: entry.wine, tasting: entry)
-            if !entry.aromas.isEmpty || !AromaCompareCard.typical(entry.wine).isEmpty {
-                AromaCompareCard(wine: entry.wine, picked: entry.aromas)
+            // your nose: what you picked, right in green, wrong in red, then what you missed
+            TastedAromasCard(wine: entry.wine, picked: entry.aromas)
+            // your palate against what this wine is expected to be
+            if WineProfile.estimate(entry.wine) != nil {
+                BottleProfileCard(wine: entry.wine, tasting: entry)
+            } else {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Your palate").font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                    Text("We don't know this wine's profile yet, so here are your own marks.")
+                        .font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).padding(.top, -4)
+                    palateRow("Sweetness", entry.sweetness, of: 4)
+                    palateRow("Acidity", entry.acidity, of: 5)
+                    if entry.wine.style == "red" { palateRow("Tannin", entry.tannin, of: 5) }
+                    palateRow("Body", entry.body, of: 5)
+                    palateRow("Finish", entry.finish, of: 5)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .cardStyle(padding: 16)
             }
             if blind {
                 WineInfoCard(wine: entry.wine)
                 if entry.price != nil { PriceCard(price: entry.price, wine: entry.wine) }
             }
-            cellarChoice
-            Text("+\(blind ? 25 : 15) XP").font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette.brass)
-            Button("Done") { dismiss() }.buttonStyle(PrimaryButtonStyle())
         }
     }
 
-    /// The tasted wine is in the cellar: take one bottle out, or keep it. Once chosen, a quiet line says what happened.
-    @ViewBuilder private var cellarChoice: some View {
-        if tookFromCellar {
-            Label(journal.cellarBottle(for: entry.wine).map { "One bottle taken out · \($0.quantity) left in your cellar" }
-                  ?? "Taken out of your cellar", systemImage: "checkmark.circle.fill")
-                .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.correct)
-        } else if keptInCellar {
-            Label("Kept in your cellar", systemImage: "checkmark.circle")
-                .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.inkSoft)
-        } else if let b = journal.cellarBottle(for: entry.wine) {
-            VStack(alignment: .leading, spacing: 12) {
+    private func palateRow(_ name: String, _ v: Int, of n: Int) -> some View {
+        HStack(spacing: 12) {
+            Text(name).font(.system(size: 13, weight: .medium)).foregroundStyle(Palette.ink).frame(width: 80, alignment: .leading)
+            HStack(spacing: 3) {
+                ForEach(1...n, id: \.self) { i in Capsule().fill(i <= v ? Palette.brass : Palette.line).frame(height: 5) }
+            }
+        }
+    }
+
+    /// The last page's buttons, pinned at the bottom. A bottle from the cellar: taking one out or keeping it IS the way to finish
+    /// (no separate Done); any other wine: Done.
+    @ViewBuilder private var doneActions: some View {
+        VStack(spacing: 10) {
+            if let b = journal.cellarBottle(for: entry.wine) {
+                Text(b.quantity > 1 ? "You have \(b.quantity) of these in your cellar" : "This bottle is in your cellar")
+                    .font(.jero(size: 13.5, weight: .medium)).foregroundStyle(Palette.inkSoft)
                 HStack(spacing: 10) {
-                    Image(systemName: "square.stack.3d.up").font(.system(size: 15)).foregroundStyle(Palette.wine)
-                    Text(b.quantity > 1 ? "You have \(b.quantity) of these in your cellar" : "This bottle is in your cellar")
-                        .font(.jero(size: 15, weight: .semibold)).foregroundStyle(Palette.ink)
-                }
-                HStack(spacing: 10) {
-                    Button { Haptics.tap(); journal.takeOne(b); withAnimation { tookFromCellar = true } } label: {
-                        Text("Remove 1 bottle")
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    Button { Haptics.tap(); withAnimation { keptInCellar = true } } label: { Text("Keep in cellar") }
+                    Button { Haptics.success(); journal.takeOne(b); dismiss() } label: { Text("Remove 1 bottle") }
+                        .buttonStyle(PrimaryButtonStyle())
+                    Button { Haptics.tap(); dismiss() } label: { Text("Keep in cellar") }
                         .buttonStyle(SecondaryButtonStyle())
                 }
+            } else {
+                Button("Done") { dismiss() }.buttonStyle(PrimaryButtonStyle())
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .cardStyle(padding: 16)
         }
     }
 
@@ -1982,8 +1981,20 @@ struct TastingFlow: View {
 
 func matchGrape(_ name: String?) -> Grape? {
     guard let n = name?.lowercased(), !n.isEmpty else { return nil }
+    func find(_ n: String) -> Grape? {
+        ContentStore.shared.library.grapes.first { g in
+            g.name.lowercased() == n || n.contains(g.name.lowercased()) || (g.aka ?? []).contains { $0.lowercased() == n }
+        }
+    }
+    if let g = find(n) { return g }
+    // "Ruländer (Pinot Gris)", "Pinot Gris / Grigio": each part on its own, and other names inside a longer one
+    for part in n.components(separatedBy: CharacterSet(charactersIn: "()/,;")).map({ $0.trimmingCharacters(in: .whitespaces) })
+        where part.count >= 3 && part != n {
+        if let g = find(part) { return g }
+    }
+    let folded = n.folding(options: .diacriticInsensitive, locale: nil)
     return ContentStore.shared.library.grapes.first { g in
-        g.name.lowercased() == n || n.contains(g.name.lowercased()) || (g.aka ?? []).contains { $0.lowercased() == n }
+        (g.aka ?? []).contains { a in a.count >= 5 && folded.contains(a.lowercased().folding(options: .diacriticInsensitive, locale: nil)) }
     }
 }
 
@@ -2081,7 +2092,7 @@ struct EntryDetailView: View {
                         }
                     }
                     if !e.aromas.isEmpty || !AromaCompareCard.typical(e.wine).isEmpty {
-                        AromaCompareCard(wine: e.wine, picked: e.aromas)
+                        TastedAromasCard(wine: e.wine, picked: e.aromas)   // the same marking as at the end of the tasting
                     }
                     // then the bottle itself
                     if e.identified { WineInfoCard(wine: e.wine) }
@@ -2418,62 +2429,111 @@ struct DrinkWindowChart: View {
     let vintage: String
     @State private var touched: CGFloat? = nil
 
-    private func phase(_ yr: Int, _ a: Int, _ b: Int, _ peak: Double) -> String {
-        if yr < a { return "Too young" }
-        if yr > b { return "Past its best" }
-        if abs(Double(yr) - peak) <= max(1, Double(b - a) * 0.15) { return "At its peak" }
-        return Double(yr) < peak ? "Getting there" : "Still good"
+    /// The wine's life from its vintage: it rises to its peak, then slowly fades; the drinking window is shaded. The peak comes
+    /// from the vintage and the end of the window (a little past the middle of its life), so a 1976 Spätlese peaked decades ago
+    /// and a 2024 Bordeaux peaks in a year or two: no two wines draw the same curve.
+    private struct Life {
+        let start: Int, end: Int, born: Int?, lo: Int, hi: Int, peak: Double
+        init?(window: String, vintage: String) {
+            guard let w = DrinkWindow.years(window) else { return nil }
+            start = w.start; end = w.end
+            let now = Calendar.current.component(.year, from: Date())
+            if let v = Int(vintage.prefix(4)), v >= 1900, v <= w.end { born = v } else { born = nil }
+            if let v = born {
+                peak = min(Double(w.end) - 0.5, max(Double(v) + 1, Double(v) + Double(w.end - v) * 0.55))
+                lo = v
+            } else {
+                peak = Double(w.start) + Double(w.end - w.start) * 0.4
+                lo = min(w.start, now) - 2
+            }
+            hi = max(w.end, now) + max(2, (w.end - lo) / 12)
+        }
+        /// 0…1: how good the wine is that year (low when young, 1 at its peak, fading after, gone past the window).
+        func level(_ t: Double) -> Double {
+            let a = Double(lo), b = Double(end), p = peak
+            if t <= p {
+                let u = max(0, min(1, (t - a) / max(0.5, p - a)))
+                return 0.18 + 0.82 * (u * u * (3 - 2 * u))
+            }
+            if t <= b {
+                let u = (t - p) / max(0.5, b - p)
+                return 1 - 0.55 * u * u
+            }
+            let u = min(1, (t - b) / max(1, Double(hi) - b))
+            return 0.45 * (1 - u) * (1 - u) + 0.03
+        }
     }
 
-    private var years: (start: Int, end: Int)? { DrinkWindow.years(window) }
+    private func phase(_ yr: Int, _ l: Life) -> String {
+        if yr < l.start { return "Too young" }
+        if yr > l.end { return "Past its best" }
+        if abs(Double(yr) - l.peak) <= max(1, Double(l.end - l.start) * 0.15) { return "At its peak" }
+        return Double(yr) < l.peak ? "Getting there" : "Past its peak, still good"
+    }
 
     var body: some View {
-        if let w = years {
+        if let l = Life(window: window, vintage: vintage) {
             let now = Calendar.current.component(.year, from: Date())
-            let lo = w.start - 2
-            let hi = w.end + 2
-            let peak = Double(w.start) + Double(w.end - w.start) * 0.6
-            let span = Double(max(1, hi - lo))
+            let span = Double(max(1, l.hi - l.lo))
+            let peakYear = Int(l.peak.rounded())
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Image(systemName: "calendar").font(.system(size: 13)).foregroundStyle(Palette.wine)
-                    Text("Drink " + (w.start == w.end ? "in " + String(w.start) : String(w.start) + "–" + String(w.end)))
+                    Text("Drink " + (l.start == l.end ? "in " + String(l.start) : String(l.start) + "–" + String(l.end)))
                         .font(.system(size: 14, weight: .semibold)).foregroundStyle(Palette.ink)
                     Spacer()
-                    Text("Peak " + String(Int(peak.rounded()))).font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
+                    Text(Double(now) > l.peak + 1 ? "Peaked ~" + String(peakYear)
+                         : (Double(now) < l.peak - 1 ? "Peak ~" + String(peakYear) : "At its peak now"))
+                        .font(.system(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
                 }
                 GeometryReader { geo in
                     let W = geo.size.width, H = geo.size.height - 18
-                    let x: (Double) -> CGFloat = { CGFloat(($0 - Double(lo)) / span) * W }
+                    let x: (Double) -> CGFloat = { CGFloat(($0 - Double(l.lo)) / span) * W }
+                    let y: (Double) -> CGFloat = { 4 + (1 - CGFloat(l.level($0))) * (H - 4) }
                     let curve = Path { p in
-                        p.move(to: CGPoint(x: x(Double(lo)), y: H))
-                        let a = Double(w.start), b = Double(w.end)
-                        p.addCurve(to: CGPoint(x: x(peak), y: 4), control1: CGPoint(x: x(a), y: H), control2: CGPoint(x: x((a + peak) / 2), y: 4))
-                        p.addCurve(to: CGPoint(x: x(Double(hi)), y: H), control1: CGPoint(x: x((peak + b) / 2 + 0.3), y: 4), control2: CGPoint(x: x(b), y: H))
+                        let n = 80
+                        for i in 0...n {
+                            let t = Double(l.lo) + span * Double(i) / Double(n)
+                            let pt = CGPoint(x: x(t), y: y(t))
+                            if i == 0 { p.move(to: pt) } else { p.addLine(to: pt) }
+                        }
+                    }
+                    let area = Path { p in
+                        p.addPath(curve)
+                        p.addLine(to: CGPoint(x: W, y: H)); p.addLine(to: CGPoint(x: 0, y: H)); p.closeSubpath()
                     }
                     ZStack(alignment: .topLeading) {
+                        // the drinking window
+                        Rectangle().fill(Palette.wine.opacity(0.08))
+                            .frame(width: max(2, x(Double(l.end) + 0.5) - x(Double(l.start) - 0.5)), height: H)
+                            .offset(x: x(Double(l.start) - 0.5))
                         Path { p in p.move(to: CGPoint(x: 0, y: H)); p.addLine(to: CGPoint(x: W, y: H)) }
                             .stroke(Palette.line, lineWidth: 1)
-                        curve.stroke(Palette.wine, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
-                        curve.fill(LinearGradient(colors: [Palette.wine.opacity(0.28), Palette.wine.opacity(0.02)], startPoint: .top, endPoint: .bottom))
-                        Circle().fill(Palette.wine).frame(width: 9, height: 9).position(x: x(peak), y: 4)
-                        if (lo...hi).contains(now) {
+                        area.fill(LinearGradient(colors: [Palette.wine.opacity(0.26), Palette.wine.opacity(0.02)], startPoint: .top, endPoint: .bottom))
+                        curve.stroke(Palette.wine, style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+                        Circle().fill(Palette.wine).frame(width: 9, height: 9).position(x: x(l.peak), y: y(l.peak))
+                        if (l.lo...l.hi).contains(now) {
                             Path { p in p.move(to: CGPoint(x: x(Double(now)), y: 0)); p.addLine(to: CGPoint(x: x(Double(now)), y: H)) }
                                 .stroke(Palette.ink.opacity(0.5), style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                            Circle().fill(Palette.ink).frame(width: 6, height: 6).position(x: x(Double(now)), y: y(Double(now)))
                             Text("Today").font(.system(size: 10, weight: .semibold)).foregroundStyle(Palette.ink)
                                 .position(x: min(max(x(Double(now)), 18), W - 18), y: H + 11)
                         }
-                        Text(String(lo)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: 12, y: H + 11)
-                        Text(String(hi)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: W - 12, y: H + 11)
+                        if abs(x(Double(now)) - 14) > 40 {
+                            Text(String(l.lo)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: 14, y: H + 11)
+                        }
+                        if abs(x(Double(now)) - (W - 14)) > 40 {
+                            Text(String(l.hi)).font(.system(size: 10)).foregroundStyle(Palette.inkSoft).position(x: W - 14, y: H + 11)
+                        }
                         // press or drag on the chart: the year under your finger and how the wine is drinking then
                         if let t = touched {
-                            let yr = Int((Double(lo) + Double(t / max(W, 1)) * span).rounded())
-                            let cx = min(max(t, 40), W - 40)
+                            let yr = Int((Double(l.lo) + Double(t / max(W, 1)) * span).rounded())
+                            let cx = min(max(t, 50), W - 50)
                             Path { p in p.move(to: CGPoint(x: t, y: 0)); p.addLine(to: CGPoint(x: t, y: H)) }
                                 .stroke(Palette.wine, lineWidth: 1.5)
                             VStack(spacing: 1) {
                                 Text(String(yr)).font(.system(size: 13, weight: .bold)).foregroundStyle(.white)
-                                Text(phase(yr, w.start, w.end, peak)).font(.system(size: 10)).foregroundStyle(.white.opacity(0.9))
+                                Text(phase(yr, l)).font(.system(size: 10)).foregroundStyle(.white.opacity(0.9))
                             }
                             .padding(.horizontal, 8).padding(.vertical, 4)
                             .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.wine))
@@ -2486,6 +2546,8 @@ struct DrinkWindowChart: View {
                         .onEnded { _ in withAnimation(.easeOut(duration: 0.3)) { touched = nil } })
                 }
                 .frame(height: 92)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Drinking window \(l.start) to \(l.end), " + (Double(now) > l.peak + 1 ? "peaked around \(peakYear)" : "peak around \(peakYear)"))
             }
             .padding(12)
             .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.wineSoft.opacity(0.6)))

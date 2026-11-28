@@ -85,6 +85,12 @@ enum DailyBudget {
         return "jero.spend." + f.string(from: Date())
     }
     static var spent: Double { UserDefaults.standard.double(forKey: key) }
+    /// Scans made today on this phone (TestFlight cost line).
+    static var scansToday: Int { UserDefaults.standard.integer(forKey: key.replacingOccurrences(of: "spend", with: "scans")) }
+    static func countScan() {
+        let k = key.replacingOccurrences(of: "spend", with: "scans")
+        UserDefaults.standard.set(UserDefaults.standard.integer(forKey: k) + 1, forKey: k)
+    }
     static func add(_ c: Double) { if c > 0 { UserDefaults.standard.set(spent + c, forKey: key) } }
     /// The allowance for checking new wines on the web is used up (the TestFlight switch pretends it is).
     static var reached: Bool { testLimit || spent >= limitUSD }

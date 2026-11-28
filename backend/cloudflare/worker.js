@@ -202,8 +202,27 @@ async function geminiModel(env, lite = false) {
   return flash[0] || null;
 }
 
+// ---- the owner's page (halopro.xyz/jero): every scanned wine, and how many phones scan each day.
+//   GET /admin/scans  with header  x-jero-admin: <ADMIN_KEY secret>  (a password the owner sets in Cloudflare; the app never has it)
+const ADMIN_CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "x-jero-admin", "access-control-allow-methods": "GET, OPTIONS" };
+async function adminScans(req, env) {
+  const reply = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json", ...ADMIN_CORS } });
+  if (req.method === "OPTIONS") return new Response(null, { headers: ADMIN_CORS });
+  if (!env.ADMIN_KEY) return reply({ error: "Add a secret called ADMIN_KEY to the worker (Settings > Variables), then reload." }, 503);
+  if (req.headers.get("x-jero-admin") !== env.ADMIN_KEY) return reply({ error: "Wrong password." }, 401);
+  const all = async (q) => { try { return (await env.DB.prepare(q).all()).results || []; } catch (e) { return []; } };
+  let wines = await all("SELECT name, producer, vintage, region, country, style, grapes, checked, scans, first_seen, last_seen FROM wines ORDER BY last_seen DESC LIMIT 5000");
+  if (!wines.length) wines = await all("SELECT name, producer, vintage, region, country, style, scans, first_seen, last_seen FROM wines ORDER BY last_seen DESC LIMIT 5000");
+  const days = await all("SELECT day, COUNT(*) AS phones, SUM(scans) AS scans FROM scan_days GROUP BY day ORDER BY day DESC LIMIT 90");
+  const phones = await all("SELECT COUNT(DISTINCT device) AS n FROM scan_days");
+  const ai = await all("SELECT day, COUNT(*) AS phones, SUM(calls) AS calls, ROUND(SUM(usd), 4) AS usd FROM claude_usage WHERE device != 'gemini' GROUP BY day ORDER BY day DESC LIMIT 90");
+  const aiPhones = await all("SELECT COUNT(DISTINCT device) AS n FROM claude_usage WHERE device != 'gemini'");
+  return reply({ wines, days, phones: (phones[0] || {}).n || 0, ai, aiPhones: (aiPhones[0] || {}).n || 0, at: Math.floor(Date.now() / 1000) });
+}
+
 export default {
   async fetch(req, env, ctx) {
+    if (new URL(req.url).pathname === "/admin/scans") return adminScans(req, env);
     if (req.headers.get("x-jero-key") !== env.API_KEY) return json({ error: "no" }, 401);
     const url = new URL(req.url);
 
@@ -323,6 +342,15 @@ export default {
         const g = grapeColumns(b.json);
         // a scan counts once: the app also sends the wine again after checking it, with "count": false (older builds send no flag)
         const add = b.count === false ? 0 : 1;
+        // how many phones scan each day (the app's random install number; nothing else about the phone)
+        const dev = clean(req.headers.get("x-jero-device"), 64);
+        if (add && dev) {
+          try {
+            await env.DB.prepare("CREATE TABLE IF NOT EXISTS scan_days (day TEXT NOT NULL, device TEXT NOT NULL, scans INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, device))").run();
+            await env.DB.prepare("INSERT INTO scan_days (day, device, scans) VALUES (?, ?, 1) ON CONFLICT(day, device) DO UPDATE SET scans = scans + 1")
+              .bind(new Date().toISOString().slice(0, 10), dev).run();
+          } catch (e) {}
+        }
         // a checked wine's grapes replace an unchecked guess, never the other way round; region and country fill in when known
         await env.DB.prepare(
           `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, grapes, grape_percent, checked, scans, first_seen, last_seen)

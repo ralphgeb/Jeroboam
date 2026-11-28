@@ -274,3 +274,129 @@ struct EntryRow: View {
         .contentShape(Rectangle())
     }
 }
+
+// MARK: - The last page of a tasting
+
+/// The bottle you tasted at the top of the last page: its picture, the colour you saw, your score and the XP earned.
+struct TastedHero: View {
+    let entry: JournalEntry
+    let photo: UIImage?
+    let blind: Bool
+    let xp: Int
+
+    var body: some View {
+        let w = entry.wine
+        let color = entry.colorID.flatMap { ContentStore.shared.color($0) }
+        HStack(alignment: .top, spacing: 14) {
+            Group {
+                if let photo {
+                    Color.clear.overlay { Image(uiImage: photo).resizable().scaledToFill() }.clipped()
+                } else {
+                    Thumb(photo: entry.photo, style: w.style)
+                }
+            }
+            .frame(width: 96, height: 128)
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(blind ? "It was…" : "Tasting saved").font(.jero(size: 12, weight: .semibold)).foregroundStyle(Palette.wine)
+                    .textCase(.uppercase).kerning(0.6)
+                if !w.producer.isEmpty {
+                    Text(w.producer).font(.jero(size: 13, weight: .semibold)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                }
+                Text([w.name.isEmpty ? "Your wine" : w.name, w.vintage].filter { !$0.isEmpty }.joined(separator: " "))
+                    .font(.jero(size: 21, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(3).minimumScaleFactor(0.8)
+                if !w.region.isEmpty || !w.country.isEmpty {
+                    Text([w.region, w.country].filter { !$0.isEmpty }.joined(separator: " · "))
+                        .font(.jero(size: 13)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                }
+                HStack(spacing: 10) {
+                    if let c = color {
+                        HStack(spacing: 6) {
+                            Rectangle().fill(Color(hex: c.hex)).frame(width: 16, height: 16)
+                                .overlay(Rectangle().strokeBorder(Palette.line, lineWidth: 0.5))
+                            Text(c.name).font(.jero(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
+                        }
+                    }
+                    Text("\(entry.points) pts").font(.system(size: 13, weight: .bold).monospacedDigit()).foregroundStyle(Palette.bordeaux)
+                    Text("+\(xp) XP").font(.system(size: 12, weight: .bold)).foregroundStyle(Palette.brass)
+                        .padding(.horizontal, 7).padding(.vertical, 3).background(Capsule().fill(Palette.brass.opacity(0.14)))
+                }
+                .padding(.top, 4)
+            }
+            Spacer(minLength: 0)
+        }
+        .accessibilityElement(children: .combine)
+    }
+}
+
+/// Your nose, marked: every aroma you picked with its icon, green when the wine has it (or one of its family), red when it
+/// doesn't; then the aromas the wine has that you didn't pick.
+struct TastedAromasCard: View {
+    let wine: WineIdentity
+    let picked: [String]
+
+    private func right(_ a: String, typical: [String]) -> Bool {
+        let t = typical.map { $0.lowercased() }
+        if t.contains(a.lowercased()) { return true }
+        guard let f = ContentStore.shared.aromaCategory(forItem: a)?.id else { return false }
+        return typical.contains { ContentStore.shared.aromaCategory(forItem: $0)?.id == f }
+    }
+
+    var body: some View {
+        let typical = AromaCompareCard.typical(wine)
+        let rights = picked.filter { right($0, typical: typical) }
+        let missed = typical.filter { t in !picked.contains { right($0, typical: [t]) } }
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Your nose").font(.jero(size: 17, weight: .semibold)).foregroundStyle(Palette.ink)
+                Spacer()
+                if !typical.isEmpty && !picked.isEmpty {
+                    Text("\(rights.count) of \(picked.count) right").font(.jero(size: 13, weight: .semibold))
+                        .foregroundStyle(rights.isEmpty ? Palette.wrong : Palette.correct)
+                }
+            }
+            if picked.isEmpty {
+                Text("You didn't pick any aromas this time.").font(.jero(size: 13.5)).foregroundStyle(Palette.inkSoft)
+            } else if typical.isEmpty {
+                Text("We don't know this wine's aromas yet, so these can't be marked.").font(.jero(size: 13)).foregroundStyle(Palette.inkSoft)
+                grid(picked) { _ in nil }
+            } else {
+                grid(picked) { right($0, typical: typical) }
+            }
+            if !missed.isEmpty {
+                Text(picked.isEmpty ? "This wine usually shows" : "You missed").font(.jero(size: 12.5, weight: .semibold)).foregroundStyle(Palette.inkSoft)
+                FlowLayout(spacing: 8, lineSpacing: 8) {
+                    ForEach(missed, id: \.self) { AromaChip(text: $0, compact: true) }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cardStyle(padding: 16)
+    }
+
+    private func grid(_ items: [String], ok: @escaping (String) -> Bool?) -> some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 78), spacing: 8)], spacing: 8) {
+            ForEach(items, id: \.self) { a in
+                let r = ok(a)
+                let tint: Color = r == true ? Palette.correct : (r == false ? Palette.wrong : Palette.wine)
+                VStack(spacing: 6) {
+                    FlavorIcon(aroma: a, size: 26)
+                    Text(a).font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.ink)
+                        .multilineTextAlignment(.center).lineLimit(2).minimumScaleFactor(0.85)
+                }
+                .frame(maxWidth: .infinity, minHeight: 78)
+                .padding(.horizontal, 4)
+                .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(tint.opacity(r == nil ? 0.06 : 0.12)))
+                .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(tint.opacity(0.55), lineWidth: r == nil ? 0.5 : 1.2))
+                .overlay(alignment: .topTrailing) {
+                    if let r {
+                        Image(systemName: r ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .font(.system(size: 14)).foregroundStyle(tint).padding(5)
+                    }
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(a + (r == true ? ", right" : r == false ? ", not in this wine" : ""))
+            }
+        }
+    }
+}

@@ -431,3 +431,17 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (`jero.labelLinksReset2`).
 - **Refill**: a remembered wine missing grapes/region/fun fact/drinking window gets `Pending.refill` on a re-scan: one Claude call for
   the facts (`enrich(force:)`), and the online grape check once per wine per phone (`jero.refilledWines`).
+
+## Owner round (28 Nov)
+- Achievement badges: every achievement has its own form + metal in `AchievementBadge.style` (the later ones were all silver).
+- TestFlight cost line: "All time: N lookups · ≈ $X" + "Today: N scans · $Y (daily limit)" (`DailyBudget.scansToday`, counted in `WineDB.noteScan`).
+- **Owner's scans page: halopro.xyz/jero** (repo ralphgeb/FridgeCheck, default branch `claude/loving-carson-pfwq6a`, folder `jero/`):
+  asks for the worker address + password once (browser only), shows totals, scans/phones per day, every wine (search, sort, CSV for Excel).
+  Worker `GET /admin/scans` (header `x-jero-admin` = secret **ADMIN_KEY**, CORS open) returns wines + `scan_days` (day, device, scans).
+  Counted scans now send `x-jero-device` (install number) -> table `scan_days`. Privacy: Device ID purposes App Functionality + Analytics.
+- Drinking window chart: `DrinkWindowChart.Life` = the wine's life from its vintage (rise to a peak at vintage + 55% of its life up to
+  the window's end, fade after), window shaded, "Peaked ~1998" / "Peak ~2031" / "At its peak now".
+- Tasting: no "Try looking for" hints while smelling. Last page = `TastedHero` (photo, colour seen, points, XP) -> blind score card ->
+  `TastedAromasCard` (your aromas as icon tiles, green right / red not in the wine, then "You missed") -> palate you vs the wine
+  (your bars only when the wine's profile is unknown) -> blind: wine card + price. Pinned footer: in the cellar = Remove 1 bottle /
+  Keep in cellar (each finishes); else Done. The tasting page uses `TastedAromasCard` too. `matchGrape` reads "Ruländer (Pinot Gris)".

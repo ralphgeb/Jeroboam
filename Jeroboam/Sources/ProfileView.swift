@@ -11,7 +11,10 @@ struct ProfileView: View {
     private var lookupLine: String {
         let today = String(format: "%.3f", DailyBudget.spent), cap = String(format: "%.2f", DailyBudget.limitUSD)
         let total = String(format: "%.3f", journalSpent)
-        return (journalLookups > 0 ? "Wine lookups: \(journalLookups) · ≈ $\(total) in AI cost" : "No wine lookups yet") + " · today $\(today) of $\(cap)"
+        let n = DailyBudget.scansToday
+        // all time, then today on its own line: how many scans and what they cost
+        return (journalLookups > 0 ? "All time: \(journalLookups) lookups · ≈ $\(total) in AI cost" : "No wine lookups yet")
+            + "\nToday: \(n) \(n == 1 ? "scan" : "scans") · $\(today) (daily limit $\(cap))"
     }
 
     @State private var currencyCode = Currency.code

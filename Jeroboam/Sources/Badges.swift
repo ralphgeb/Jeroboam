@@ -23,6 +23,18 @@ struct AchievementBadge: View {
         "perfect": (.hexagon, .silver), "perfect-10": (.hexagon, .gold), "xp-500": (.shield, .silver), "xp-2000": (.shield, .gold),
         "level-1": (.laurel, .bronze), "level-2": (.laurel, .silver), "level-3": (.laurel, .gold),
         "ampelographer": (.seal, .bordeaux), "globetrotter": (.hexagon, .bordeaux), "practice-10": (.shield, .bronze), "answers-500": (.seal, .gold),
+        // the later achievements had no style and all came out silver: each gets its own form and metal (first steps bronze,
+        // middle silver, big ones gold, exploring and journal ones Bordeaux)
+        "level-4": (.laurel, .gold), "level-5": (.laurel, .bordeaux),
+        "streak-14": (.rosette, .silver), "streak-100": (.rosette, .bordeaux), "xp-5000": (.shield, .bordeaux),
+        "perfect-25": (.hexagon, .bordeaux), "answers-2000": (.seal, .bordeaux), "practice-50": (.shield, .gold),
+        "grapes-50": (.seal, .gold), "regions-60": (.hexagon, .gold),
+        "first-scan": (.seal, .bronze), "cellar-10": (.shield, .silver), "cellar-50": (.shield, .gold),
+        "first-tasting": (.rosette, .bronze), "blind-first": (.hexagon, .bronze), "blind-80": (.hexagon, .gold), "blind-10": (.rosette, .gold),
+        "countries-3": (.laurel, .bronze), "countries-10": (.laurel, .bordeaux),
+        "tried-grapes-5": (.seal, .bronze), "tried-grapes-15": (.seal, .silver), "tried-grapes-30": (.seal, .gold),
+        "bordeaux-five": (.rosette, .bordeaux), "tried-places-10": (.hexagon, .silver), "tried-countries-8": (.laurel, .silver),
+        "classics-5": (.shield, .bronze), "classics-20": (.shield, .bordeaux),
     ]
 
     var body: some View {

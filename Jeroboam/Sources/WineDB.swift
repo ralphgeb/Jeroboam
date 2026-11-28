@@ -93,6 +93,7 @@ final class WineDB {
     /// Remembers a scan: the wine stays in this list for good, even when it is removed from the cellar or the tastings.
     func noteScan(_ w: WineIdentity, image: UIImage?) {
         guard !w.name.isEmpty else { return }
+        DailyBudget.countScan()
         PriceCloud.shareWine(w, count: true)   // counted anonymously (once per scan), so we can see what people scan
         DispatchQueue.main.async { CloudSync.shared.journalChanged() }   // the scan list is backed up to iCloud with the journal
         if let image { LabelPrint.share(image, for: w) }   // the label's fingerprint, for picture matching later (numbers, not the photo)
