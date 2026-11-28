@@ -513,7 +513,7 @@ struct JournalHome: View {
             Thumb(photo: b.photo, style: b.wine.style).frame(width: 46, height: 58)
             VStack(alignment: .leading, spacing: 2) {
                 Text(b.title).font(.system(size: 15, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text([b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · "))
+                Text([b.wine.producer, b.wine.region, b.wine.country].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 Text("Vintage \(b.vintageText)")
                     .font(.system(size: 11.5, weight: .medium)).foregroundStyle(Palette.wine).lineLimit(1)
@@ -621,6 +621,9 @@ struct EntryTile: View {
                 }
             }
             VStack(alignment: .leading, spacing: 2) {
+                if !entry.wine.producer.isEmpty {
+                    Text(entry.wine.producer).font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.wine).lineLimit(1)
+                }
                 Text(entry.title).font(.system(size: 13, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2)
                 Text([entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
@@ -1149,6 +1152,7 @@ struct ScanFlow: View {
     @State private var firstResult: RecognitionResult? = nil
     @State private var noted = false     // this scan is already in the scan list (a later choice corrects it)
     @State private var run = 0           // a choice made meanwhile wins over the first answer's check
+    @State private var editing = false   // "Not the right wine?"
 
     var body: some View {
         GeometryReader { g in
@@ -1222,6 +1226,13 @@ struct ScanFlow: View {
                 WhichWineCard(current: wine, other: alt) { choose(alt) }
             }
             if identified { WineInfoCard(wine: wine, checking: checking) }
+            if identified && !added {
+                Button { editing = true } label: {
+                    Label("Not the right wine? Correct its name", systemImage: "pencil").font(.system(size: 13, weight: .semibold))
+                }
+                .foregroundStyle(Palette.wine).padding(.top, -6)
+                .sheet(isPresented: $editing) { EditWineSheet(wine: wine) { typed in correct(typed) } }
+            }
             if checking { CheckingNote().transition(.opacity) }
             // what to expect in the glass, before deciding to add it (waits for checked grapes: a guess is never shown); until then a
             // placeholder of the same size holds its place, so nothing jumps when the check ends
@@ -1302,6 +1313,30 @@ struct ScanFlow: View {
         noted = true
         await priced
         ScanClock.shared.finish(wine: wine.name)   // TestFlight: Settings > TestFlight > Scan timings
+    }
+
+    /// "Not the right wine?" on the result: the typed names are looked up again (list, else Claude and the online check), the
+    /// bottle shown and priced again; if the scan was already in the scan list, the correction goes everywhere (scan list, online
+    /// list, fingerprints, other phones).
+    private func correct(_ typed: WineIdentity) {
+        run += 1
+        let mine = run
+        let was = wine
+        alternative = nil
+        wine = typed
+        price = nil
+        checking = true
+        Task {
+            let (w, cost) = await WineRelook.lookUp(typed, was: was)
+            journal.noteCost(cost)
+            guard run == mine else { return }
+            wine = w
+            checking = false
+            if !noted { WineDB.shared.noteScan(w, image: image); ScanClock.shared.finish(wine: w.name) }
+            WineDB.shared.correct(from: was, to: w, image: image)
+            noted = true
+            await findPrice()
+        }
     }
 
     /// The other answer was the right one: it is shown, checked and priced, and the first one stays offered (to switch back).
@@ -2269,17 +2304,9 @@ struct CellarDetailView: View {
         relooking = true
         pricing = true
         defer { relooking = false; pricing = false }
-        let typed = b.wine
-        let text = [typed.producer, typed.name, typed.vintage, typed.region, typed.country].filter { !$0.isEmpty }.joined(separator: " ")
-        if let r = try? await WineRecognizer.identify(text: text) {
-            var w = r.identity
-            w.found = true
-            w.name = typed.name
-            if !typed.producer.isEmpty { w.producer = typed.producer }
-            if !typed.vintage.isEmpty { w.vintage = typed.vintage }
-            if typed.region != old.region && !typed.region.isEmpty { w.region = typed.region }
-            if typed.country != old.country && !typed.country.isEmpty { w.country = typed.country }
-            journal.noteCost(r.costUSD)
+        do {
+            let (w, cost) = await WineRelook.lookUp(b.wine, was: old)
+            journal.noteCost(cost)
             // tastings of the same (wrong) wine follow the correction
             let oldKey = WineDB.key(old)
             for e in journal.entries where WineDB.key(e.wine) == oldKey {

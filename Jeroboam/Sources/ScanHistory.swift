@@ -42,7 +42,7 @@ struct ScanHistoryView: View {
         .background(Palette.paper.ignoresSafeArea())
         .pageChrome()
         .onAppear { items = WineDB.shared.history() }
-        .sheet(item: $open) { item in HistoryDetail(entry: item.entry) }
+        .sheet(item: $open, onDismiss: { items = WineDB.shared.history() }) { item in HistoryDetail(entry: item.entry) }
     }
 
     private func row(_ e: WineDB.Entry, last: Bool) -> some View {
@@ -72,10 +72,12 @@ struct ScanHistoryView: View {
 }
 
 private struct HistoryDetail: View {
-    let entry: WineDB.Entry
+    @State var entry: WineDB.Entry
     @Environment(\.dismiss) private var dismiss
     @Environment(JournalStore.self) private var journal
     @State private var added = false
+    @State private var editing = false
+    @State private var relooking = false
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -86,6 +88,11 @@ private struct HistoryDetail: View {
                     }
                     ScreenHeader(eyebrow: "Scanned " + (entry.lastSeen ?? entry.saved).formatted(date: .long, time: .omitted),
                                  title: entry.identity.name, subtitle: entry.identity.producer)
+                    Button { editing = true } label: {
+                        Label("Not the right wine? Correct its name", systemImage: "pencil").font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Palette.wine).padding(.top, -8).disabled(relooking)
+                    if relooking { CheckingNote(text: "Looking it up again…") }
                     WineGlance(wine: entry.identity, price: entry.price)
                     WineInfoCard(wine: entry.identity)
                     if let p = entry.price { PriceCard(price: p, wine: entry.identity) }
@@ -101,7 +108,25 @@ private struct HistoryDetail: View {
             }
             .background(Palette.paper.ignoresSafeArea())
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } } }
+            .sheet(isPresented: $editing) { EditWineSheet(wine: entry.identity) { typed in Task { await correct(typed) } } }
         }
         .environment(\.hasRail, false)
+    }
+
+    /// "Not the right wine?" on a scan you didn't keep: looked up again from the typed names, then corrected everywhere (this list,
+    /// the online list and other phones, and any bottle or tasting of the same wrong wine in your journal), and priced again.
+    private func correct(_ typed: WineIdentity) async {
+        relooking = true
+        defer { relooking = false }
+        let old = entry.identity
+        let (w, cost) = await WineRelook.lookUp(typed, was: old)
+        journal.noteCost(cost)
+        WineDB.shared.correct(from: old, to: w, image: entry.thumb.flatMap { UIImage(data: $0) })
+        WineFixes.apply(PriceCloud.Fix(id: 0, from: WineDB.key(old), to: WineDB.key(w), wine: w))
+        entry.identity = w
+        entry.price = nil
+        let (p, c) = await WineRecognizer.averagePrice(for: w)
+        journal.noteCost(c)
+        if let p { entry.price = p; WineDB.shared.save(w, price: p) }
     }
 }

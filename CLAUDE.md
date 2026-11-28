@@ -458,3 +458,7 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   (no upload), cellar bottles and tastings with the wrong key get the right wine (`WineFixes.merged` keeps vintage/fun fact/notes the
   fix leaves empty; your notes, photos, paid price and score stay), a cellar bottle whose wine changed is re-priced from the list,
   scan timings renamed. halopro.xyz/jero has a Fix button per wine. fix-wines.yml modes: list / apply / log (resend earlier fixes).
+- Compact lists show the producer: cellar rows (Journal + CellarView, "Producer · vintage · region"), cellar cards and tasting
+  cards (producer above the name), tasting rows. "Not the right wine?" is also on the scan result (ScanFlow `correct`, before or
+  after adding) and on every page of Everything you've scanned (`HistoryDetail.correct`); all use `WineRelook.lookUp` (typed names
+  win, list first, else Claude + online check), `WineDB.correct` (online list + feed for other phones) and re-price.

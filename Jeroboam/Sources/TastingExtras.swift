@@ -259,7 +259,7 @@ struct EntryRow: View {
                     }
                     Text(entry.title).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
                 }
-                Text([entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
+                Text([entry.wine.producer, entry.wine.vintage, entry.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
             Spacer(minLength: 6)

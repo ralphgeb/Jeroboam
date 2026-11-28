@@ -276,6 +276,7 @@ struct CellarView: View {
                 }
             }
             VStack(alignment: .leading, spacing: 3) {
+                Text(b.wine.producer.isEmpty ? " " : b.wine.producer).font(.system(size: 11, weight: .semibold)).foregroundStyle(Palette.wine).lineLimit(1)
                 Text(b.title).font(.system(size: 13.5, weight: .semibold)).foregroundStyle(Palette.ink).lineLimit(2, reservesSpace: true)
                 Text([b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · ")).font(.system(size: 11.5)).foregroundStyle(Palette.inkSoft).lineLimit(1)
                 HStack {
@@ -301,7 +302,7 @@ struct CellarView: View {
             Thumb(photo: b.photo, style: b.wine.style).frame(width: 34, height: 44).clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
             VStack(alignment: .leading, spacing: 1) {
                 Text(b.title).font(.system(size: 14.5, weight: .medium)).foregroundStyle(Palette.ink).lineLimit(1)
-                Text([b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
+                Text([b.wine.producer, b.vintageText, b.wine.region].filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.system(size: 12)).foregroundStyle(Palette.inkSoft).lineLimit(1)
             }
             Spacer(minLength: 6)

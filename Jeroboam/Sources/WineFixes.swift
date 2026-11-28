@@ -62,3 +62,23 @@ import Foundation
     /// a fun fact already found).
     nonisolated static func merged(_ mine: WineIdentity, _ right: WineIdentity) -> WineIdentity { mergedPlain(mine, right) }
 }
+
+/// "Not the right wine?": the wine is identified again from the names you typed (our wine list first, else Claude and the online
+/// check). What you typed wins (name, producer, vintage, and any place you changed); the rest comes from the new lookup.
+enum WineRelook {
+    static func lookUp(_ typed: WineIdentity, was old: WineIdentity) async -> (wine: WineIdentity, cost: Double) {
+        let text = [typed.producer, typed.name, typed.vintage, typed.region, typed.country].filter { !$0.isEmpty }.joined(separator: " ")
+        guard let r = try? await WineRecognizer.identify(text: text) else {
+            var w = typed; w.found = true
+            return (w, 0)
+        }
+        var w = r.identity
+        w.found = true
+        w.name = typed.name
+        if !typed.producer.isEmpty { w.producer = typed.producer }
+        if !typed.vintage.isEmpty { w.vintage = typed.vintage }
+        if typed.region != old.region && !typed.region.isEmpty { w.region = typed.region }
+        if typed.country != old.country && !typed.country.isEmpty { w.country = typed.country }
+        return (w, r.costUSD)
+    }
+}
