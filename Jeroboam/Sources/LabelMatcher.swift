@@ -187,10 +187,10 @@ struct LabelMatcher {
     }
 
     /// Linking words of the wine languages: never part of a wine's own name.
-    static let linking: Set<String> = ["nel", "nell", "nella", "nei", "negli", "della", "delle", "dello", "degli", "dei", "del", "dal", "dalla",
-        "con", "per", "tra", "fra", "sul", "sulla", "una", "uno", "les", "des", "aux", "sur", "sous", "dans", "avec", "pour", "par", "une",
-        "los", "las", "del", "con", "por", "para", "una", "der", "die", "das", "und", "von", "vom", "zum", "zur", "dem", "den", "ein",
-        "eine", "the", "and", "for", "with", "from", "dos", "das", "com", "pelo", "pela", "uma"]
+    static let linking: Set<String> = ["nel", "nell", "nella", "nei", "negli", "della", "delle", "dello", "degli", "dei", "del",
+        "dal", "dalla", "con", "per", "tra", "fra", "sul", "sulla", "una", "uno", "les", "des", "aux", "sur", "sous", "dans", "avec",
+        "pour", "par", "une", "los", "las", "por", "para", "der", "die", "das", "und", "von", "vom", "zum", "zur", "dem", "den",
+        "ein", "eine", "the", "and", "for", "with", "from", "dos", "com", "pelo", "pela", "uma"]
 
     private static let connectors: Set<String> = ["de", "du", "des", "la", "le", "les", "di", "del", "della", "da", "do", "dos", "das",
                                                   "van", "von", "d", "l", "of", "the"]
