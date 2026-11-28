@@ -1,0 +1,22 @@
+name: Fix wrong wines in the online list
+# tools/fix_wines.py: "list" prints every saved wine; "apply" applies tools/wine_fixes.json. Runs on a push of either file, or by hand.
+on:
+  workflow_dispatch:
+    inputs:
+      mode: { description: "list or apply", default: "list" }
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/fix-wines.yml", "tools/fix_wines.py", "tools/wine_fixes.json"]
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      URL: ${{ secrets.PRICE_DB_URL }}
+      KEY: ${{ secrets.PRICE_DB_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mode="${{ github.event.inputs.mode }}"
+          if [ -z "$mode" ]; then if [ -f tools/wine_fixes.json ]; then mode=apply; else mode=list; fi; fi
+          python3 tools/fix_wines.py $mode
+          [ "$mode" = apply ] && python3 tools/fix_wines.py list || true
