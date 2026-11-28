@@ -14,7 +14,8 @@
     "Vermentino"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "chateau desclans|whispering angel 20th vintage limited edition|2025"
  },
  {
   "from": "antinori|nel chianti classico|2004",
@@ -31,7 +32,8 @@
     "Cabernet Franc"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "antinori|tignanello|2004"
  },
  {
   "from": "wairau river|reserve marlborough sauvignon blanc|2025",
@@ -48,13 +50,15 @@
    "grape_percent": [
     100
    ]
-  }
+  },
+  "to": "wairau cove|reserve sauvignon blanc|2025"
  },
  {
   "from": "chateau la croix de marbuzet|marbuzet|2014",
   "wine": {
    "name": "Château La Croix de Marbuzet"
-  }
+  },
+  "to": "chateau la croix de marbuzet|chateau la croix de marbuzet|2014"
  },
  {
   "from": "el cuyo|mendoza malbec|2023",
@@ -71,14 +75,16 @@
    "grape_percent": [
     100
    ]
-  }
+  },
+  "to": "trivento|golden reserve|2023"
  },
  {
   "from": "trivento|golden reserve|2023",
   "wine": {
    "region": "Luján de Cuyo, Mendoza",
    "country": "Argentina"
-  }
+  },
+  "to": "trivento|golden reserve|2023"
  },
  {
   "from": "trivento|reserve malbec|2026",
@@ -86,13 +92,15 @@
    "vintage": "2025",
    "region": "Mendoza",
    "country": "Argentina"
-  }
+  },
+  "to": "trivento|reserve malbec|2025"
  },
  {
   "from": "stellenrust|stellenbosch pinotage|1928",
   "wine": {
    "vintage": ""
-  }
+  },
+  "to": "stellenrust|stellenbosch pinotage|"
  },
  {
   "from": "felix solis|mucho mas|unknown",
@@ -105,14 +113,16 @@
     "Syrah"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "felix solis|mucho mas|"
  },
  {
   "from": "penfolds|koonunga hill shiraz|2024",
   "wine": {
    "region": "South Eastern Australia",
    "country": "Australia"
-  }
+  },
+  "to": "penfolds|koonunga hill shiraz|2024"
  },
  {
   "from": "chateau de la gardine|la pialade|2015",
@@ -127,7 +137,8 @@
     "Syrah"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "chateau rayas|la pialade|2015"
  },
  {
   "from": "chateau nateau|premier grand cru classe|2018",
@@ -145,7 +156,8 @@
     "Petit Verdot"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "chateau margaux|chateau margaux|2018"
  },
  {
   "from": "haltett|faith|2025",
@@ -160,14 +172,16 @@
    "grape_percent": [
     100
    ]
-  }
+  },
+  "to": "st hallett|faith shiraz|2025"
  },
  {
   "from": "armit wines|tenuta san guido sassicaia bolgheri sassicaia|2023",
   "wine": {
    "producer": "Tenuta San Guido",
    "name": "Sassicaia"
-  }
+  },
+  "to": "tenuta san guido|sassicaia|2023"
  },
  {
   "from": "guigal|cote rotie chateau dampuis|2016",
@@ -180,32 +194,37 @@
     "Mourvèdre"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "guigal|cotes du rhone|2016"
  },
  {
   "from": "ixsir|el|2020",
   "wine": {
    "name": "El Ixsir"
-  }
+  },
+  "to": "ixsir|el ixsir|2020"
  },
  {
   "from": "concha y toro|casillero del diablo malbec|",
   "wine": {
    "region": "Central Valley",
    "country": "Chile"
-  }
+  },
+  "to": "concha y toro|casillero del diablo malbec|"
  },
  {
   "from": "ornellaia|le serre nuove dell|2013",
   "wine": {
    "name": "Le Serre Nuove dell'Ornellaia"
-  }
+  },
+  "to": "ornellaia|le serre nuove dellornellaia|2013"
  },
  {
   "from": "isole e olena|cabernet sauvignon toscana|2016",
   "wine": {
    "name": "Collezione Privata Cabernet Sauvignon"
-  }
+  },
+  "to": "isole e olena|collezione privata cabernet sauvignon|2016"
  },
  {
   "from": "isole e olena|collezione privata|2016",
@@ -217,13 +236,15 @@
    "grape_percent": [
     100
    ]
-  }
+  },
+  "to": "isole e olena|collezione privata cabernet sauvignon|2016"
  },
  {
   "from": "chateau lynchbages|grand vin grand cru classe|2017",
   "wine": {
    "name": "Château Lynch-Bages"
-  }
+  },
+  "to": "chateau lynchbages|chateau lynchbages|2017"
  },
  {
   "from": "campo viejo|reserva rioja|2019",
@@ -234,7 +255,8 @@
     "Mazuelo"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "campo viejo|reserva rioja|2019"
  },
  {
   "from": "nicolas feuillatte|reserve exclusive rose champagne|",
@@ -246,7 +268,8 @@
     "Chardonnay"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "nicolas feuillatte|reserve exclusive rose champagne|"
  },
  {
   "from": "famille perrin|la vieille ferme|2025",
@@ -262,6 +285,7 @@
     "Vermentino"
    ],
    "grape_percent": null
-  }
+  },
+  "to": "famille perrin|la vieille ferme blanc|2025"
  }
 ]

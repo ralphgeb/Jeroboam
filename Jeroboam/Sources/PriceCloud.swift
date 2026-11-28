@@ -121,6 +121,20 @@ enum PriceCloud {
 
     /// A wine corrected by hand: the online wine list drops the wrong wine and gives its label signature, label fingerprints and
     /// fingerprint checks to the corrected one (worker `POST /wine/correct`), so the next scan of that label finds the right wine.
+    /// A correction every phone takes in (see WineFixes): the wrong wine's key and the right wine.
+    struct Fix { let id: Int; let from: String; let to: String; let wine: WineIdentity? }
+
+    static func fixes(since: Int) async -> [Fix] {
+        guard let req = request("wine/fixes", query: [URLQueryItem(name: "since", value: String(since))]),
+              let (data, resp) = try? await URLSession.shared.data(for: req), (resp as? HTTPURLResponse)?.statusCode == 200,
+              let o = try? JSONSerialization.jsonObject(with: data) as? [String: Any], let list = o["fixes"] as? [[String: Any]] else { return [] }
+        return list.compactMap { f in
+            guard let id = (f["id"] as? NSNumber)?.intValue, let from = f["from"] as? String, let to = f["to"] as? String else { return nil }
+            let w = (f["json"] as? String).flatMap { try? JSONDecoder().decode(WineIdentity.self, from: Data($0.utf8)) }
+            return Fix(id: id, from: from, to: to, wine: w)
+        }
+    }
+
     static func correctWine(from oldKey: String, to newKey: String) {
         let body: [String: Any] = ["from": oldKey, "to": newKey]
         guard let data = try? JSONSerialization.data(withJSONObject: body), let req = request("wine/correct", method: "POST", body: data) else { return }

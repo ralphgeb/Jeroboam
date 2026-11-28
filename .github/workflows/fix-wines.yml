@@ -3,7 +3,7 @@ name: Fix wrong wines in the online list
 on:
   workflow_dispatch:
     inputs:
-      mode: { description: "list or apply", default: "list" }
+      mode: { description: "list, apply (new fixes) or log (resend earlier fixes so phones take them in)", default: "list" }
   push:
     branches: ["claude/**"]
     paths: [".github/workflows/fix-wines.yml", "tools/fix_wines.py", "tools/wine_fixes.json"]
@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           mode="${{ github.event.inputs.mode }}"
-          if [ -z "$mode" ]; then if [ -f tools/wine_fixes.json ]; then mode=apply; else mode=list; fi; fi
+          if [ -z "$mode" ]; then mode=list; fi
           python3 tools/fix_wines.py $mode
           [ "$mode" = apply ] && python3 tools/fix_wines.py list || true

@@ -202,16 +202,86 @@ async function geminiModel(env, lite = false) {
   return flash[0] || null;
 }
 
+// ---- corrections: a wrong wine and what it really is. Made in the app ("Not the right wine?"), on the owner's page or by
+// tools/fix_wines.py. Each one is kept in wine_fixes so every phone takes it in (GET /wine/fixes?since=<id>).
+function foldKey(s) {
+  return String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\p{L}\p{N} ]/gu, "");
+}
+// the app's WineDB.key: producer|name|vintage, folded
+function wineKey(w) {
+  return [foldKey(w.producer), foldKey(w.name).split(/\s+/).filter(Boolean).join(" "), foldKey(w.vintage)].map((x) => x.trim()).join("|");
+}
+async function fixesTable(env) {
+  await env.DB.prepare("CREATE TABLE IF NOT EXISTS wine_fixes (id INTEGER PRIMARY KEY AUTOINCREMENT, from_key TEXT NOT NULL, to_key TEXT NOT NULL, json TEXT, at INTEGER)").run();
+}
+// the wrong wine's row goes; its label signature, fingerprints and checks move to the right one
+async function moveWine(env, ctx, from, to) {
+  const old = await env.DB.prepare("SELECT sig FROM wines WHERE key = ?").bind(from).first();
+  if (old && old.sig) await env.DB.prepare("UPDATE wines SET sig = COALESCE(sig, ?) WHERE key = ?").bind(old.sig, to).run();
+  await env.DB.prepare("DELETE FROM wines WHERE key = ?").bind(from).run();
+  try { await env.DB.prepare("UPDATE label_prints SET key = ? WHERE key = ?").bind(to, from).run(); } catch (e) {}
+  try { await env.DB.prepare("DELETE FROM print_checks WHERE key = ?").bind(from).run(); } catch (e) {}
+  if (env.GITHUB_TOKEN && ctx) ctx.waitUntil(startPrintCheck(env));
+}
+async function logFix(env, from, to, json) {
+  await fixesTable(env);
+  await env.DB.prepare("INSERT INTO wine_fixes (from_key, to_key, json, at) VALUES (?, ?, ?, ?)")
+    .bind(from, to, json || null, Math.floor(Date.now() / 1000)).run();
+}
+// fixes one wine: `wine` holds the right details (only the fields to change); the rest is kept from the wrong row
+async function applyFix(env, ctx, from, wine) {
+  await winesColumns(env);
+  const old = await env.DB.prepare("SELECT sig, json FROM wines WHERE key = ?").bind(from).first();
+  let base = {};
+  try { base = JSON.parse((old && old.json) || "{}"); } catch (e) {}
+  const right = Object.assign({}, base, wine, { found: true });
+  delete right.from_database; delete right.list_pick;
+  if (Array.isArray(right.grapes) && right.grapes.length) right.checked = true;
+  if (!right.name) return { error: "The wine needs a name." };
+  const to = wineKey(right);
+  const text = JSON.stringify(right);
+  const g = grapeColumns(text);
+  const now = Math.floor(Date.now() / 1000);
+  await env.DB.prepare(
+    `INSERT INTO wines (key, sig, name, producer, vintage, region, country, style, json, grapes, grape_percent, checked, scans, first_seen, last_seen)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)
+     ON CONFLICT(key) DO UPDATE SET sig = COALESCE(sig, excluded.sig), name = excluded.name, producer = excluded.producer,
+       vintage = excluded.vintage, region = excluded.region, country = excluded.country, style = excluded.style, json = excluded.json,
+       grapes = excluded.grapes, grape_percent = excluded.grape_percent, checked = excluded.checked`
+  ).bind(to, (old && old.sig) || null, clean(right.name, 200), clean(right.producer, 200), clean(right.vintage, 20), clean(right.region, 200),
+         clean(right.country, 100), clean(right.style, 40), text, g.grapes, g.percent, g.checked, now, now).run();
+  if (to !== from) {
+    // the scans of the wrong row count for the right one
+    const sc = await env.DB.prepare("SELECT scans FROM wines WHERE key = ?").bind(from).first();
+    if (sc && sc.scans) await env.DB.prepare("UPDATE wines SET scans = scans + ? WHERE key = ?").bind(sc.scans, to).run();
+    await moveWine(env, ctx, from, to);
+  }
+  await logFix(env, from, to, text);
+  return { ok: true, from, to };
+}
+
 // ---- the owner's page (halopro.xyz/jero): every scanned wine, and how many phones scan each day.
 //   GET /admin/scans  with header  x-jero-admin: <ADMIN_KEY secret>  (a password the owner sets in Cloudflare; the app never has it)
-const ADMIN_CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "x-jero-admin", "access-control-allow-methods": "GET, OPTIONS" };
+const ADMIN_CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "x-jero-admin, content-type", "access-control-allow-methods": "GET, POST, OPTIONS" };
+//   POST /admin/fix  {"from": "<wrong key>", "wine": {producer, name, vintage, region, country, style, grapes}}  (same password)
+async function adminFix(req, env, ctx) {
+  const reply = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json", ...ADMIN_CORS } });
+  if (req.method === "OPTIONS") return new Response(null, { headers: ADMIN_CORS });
+  if (!env.ADMIN_KEY || req.headers.get("x-jero-admin") !== env.ADMIN_KEY) return reply({ error: "Wrong password." }, 401);
+  let b;
+  try { b = await req.json(); } catch (e) { return reply({ error: "json" }, 400); }
+  const from = clean(b.from, 300);
+  if (!from || !b.wine || typeof b.wine !== "object") return reply({ error: "bad" }, 400);
+  const r = await applyFix(env, ctx, from, b.wine);
+  return reply(r, r.error ? 400 : 200);
+}
 async function adminScans(req, env) {
   const reply = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "content-type": "application/json", ...ADMIN_CORS } });
   if (req.method === "OPTIONS") return new Response(null, { headers: ADMIN_CORS });
   if (!env.ADMIN_KEY) return reply({ error: "Add a secret called ADMIN_KEY to the worker (Settings > Variables), then reload." }, 503);
   if (req.headers.get("x-jero-admin") !== env.ADMIN_KEY) return reply({ error: "Wrong password." }, 401);
   const all = async (q) => { try { return (await env.DB.prepare(q).all()).results || []; } catch (e) { return []; } };
-  let wines = await all("SELECT name, producer, vintage, region, country, style, grapes, checked, scans, first_seen, last_seen FROM wines ORDER BY last_seen DESC LIMIT 5000");
+  let wines = await all("SELECT key, name, producer, vintage, region, country, style, grapes, checked, scans, first_seen, last_seen FROM wines ORDER BY last_seen DESC LIMIT 5000");
   if (!wines.length) wines = await all("SELECT name, producer, vintage, region, country, style, scans, first_seen, last_seen FROM wines ORDER BY last_seen DESC LIMIT 5000");
   const days = await all("SELECT day, COUNT(*) AS phones, SUM(scans) AS scans FROM scan_days GROUP BY day ORDER BY day DESC LIMIT 90");
   const phones = await all("SELECT COUNT(DISTINCT device) AS n FROM scan_days");
@@ -223,6 +293,7 @@ async function adminScans(req, env) {
 export default {
   async fetch(req, env, ctx) {
     if (new URL(req.url).pathname === "/admin/scans") return adminScans(req, env);
+    if (new URL(req.url).pathname === "/admin/fix") return adminFix(req, env, ctx);
     if (req.headers.get("x-jero-key") !== env.API_KEY) return json({ error: "no" }, 401);
     const url = new URL(req.url);
 
@@ -313,14 +384,28 @@ export default {
       try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
       const from = clean(b.from, 300), to = clean(b.to, 300);
       if (!from || !to || from === to) return json({ error: "bad" }, 400);
-      const old = await env.DB.prepare("SELECT sig FROM wines WHERE key = ?").bind(from).first();
-      if (old && old.sig) await env.DB.prepare("UPDATE wines SET sig = COALESCE(sig, ?) WHERE key = ?").bind(old.sig, to).run();
-      await env.DB.prepare("DELETE FROM wines WHERE key = ?").bind(from).run();
-      try { await env.DB.prepare("UPDATE label_prints SET key = ? WHERE key = ?").bind(to, from).run(); } catch (e) {}
-      // the checks are worked out again under the right wine (GitHub's print-check, started now when it can be)
-      try { await env.DB.prepare("DELETE FROM print_checks WHERE key = ?").bind(from).run(); } catch (e) {}
-      if (env.GITHUB_TOKEN) ctx.waitUntil(startPrintCheck(env));
+      await moveWine(env, ctx, from, to);
+      // every phone takes the correction in: the right wine as it is now stored
+      const now = await env.DB.prepare("SELECT json FROM wines WHERE key = ?").bind(to).first();
+      await logFix(env, from, to, now && now.json);
       return json({ ok: true });
+    }
+    //   POST /wine/fix {"from": "<wrong key>", "wine": {...fields to change}}  (tools/fix_wines.py)
+    if (url.pathname === "/wine/fix" && req.method === "POST") {
+      let b;
+      try { b = await req.json(); } catch { return json({ error: "json" }, 400); }
+      const from = clean(b.from, 300);
+      if (!from || !b.wine || typeof b.wine !== "object") return json({ error: "bad" }, 400);
+      const r = await applyFix(env, ctx, from, b.wine);
+      return json(r, r.error ? 400 : 200);
+    }
+    //   GET /wine/fixes?since=<id> -> {"fixes": [{"id", "from", "to", "json"}]}: corrections since the phone's last look
+    if (url.pathname === "/wine/fixes") {
+      await fixesTable(env);
+      const since = Number(url.searchParams.get("since")) || 0;
+      const { results } = await env.DB.prepare("SELECT id, from_key AS \"from\", to_key AS \"to\", json FROM wine_fixes WHERE id > ? ORDER BY id LIMIT 500")
+        .bind(since).all();
+      return json({ fixes: results || [] });
     }
 
     if (url.pathname === "/wine") {

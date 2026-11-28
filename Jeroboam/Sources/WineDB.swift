@@ -117,6 +117,32 @@ final class WineDB {
         if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
     }
 
+    /// A correction made elsewhere (another phone, the owner's page): the wrong wine's entry and its label links move to the right
+    /// wine on this phone. Nothing is sent back (the server already has it).
+    func takeFix(from old: String, to right: WineIdentity) {
+        lock.lock()
+        let nk = Self.key(right)
+        let was = store.wines[old]
+        guard was != nil || store.signatures.values.contains(old) else { lock.unlock(); return }
+        if old != nk {
+            store.wines[old] = nil
+            var gone = store.removed ?? [:]
+            gone[old] = Date()
+            store.removed = gone
+        }
+        var e = store.wines[nk] ?? Entry(identity: right, price: nil)
+        e.identity = WineFixes.mergedPlain(was?.identity, right)
+        e.lastSeen = e.lastSeen ?? was?.lastSeen
+        e.scans = max(e.scans ?? 0, was?.scans ?? 0)
+        e.thumb = e.thumb ?? was?.thumb
+        store.wines[nk] = e
+        for (sig, k) in store.signatures where k == old { store.signatures[sig] = nk }
+        let snapshot = store
+        lock.unlock()
+        if let d = try? JSONEncoder().encode(snapshot) { try? d.write(to: url, options: .atomic) }
+        DispatchQueue.main.async { CloudSync.shared.journalChanged() }
+    }
+
     /// The owner corrected a wine that was read wrongly: the wrong entry (and the label signatures pointing at it) goes, the right one stays.
     func correct(from old: WineIdentity, to new: WineIdentity, image: UIImage?) {
         lock.lock()

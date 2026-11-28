@@ -451,3 +451,10 @@ number: Xcode's upload renumbers to the next free number (run 80 = build 65). `a
   by Sacha Lichine"). `textIsEnough` needs the wine's own name printed at any confidence. `PriceBook.cleanGrapes` reads
   "Grenache^Cinsault;Cinsault;Rose Blend" as Grenache, Cinsault; a label printing rosé/rosato/rosado is never filed as red.
   Not on TestFlight yet (owner: hold until his next batch).
+- **Corrections reach every phone** (`WineFixes.swift`): worker table `wine_fixes` (id, from_key, to_key, json) is filled by
+  `/wine/correct` (app), `/wine/fix` (tools/fix_wines.py, app key) and `/admin/fix` (owner's page, ADMIN_KEY), all through
+  `applyFix`/`moveWine` (right wine keeps the wrong row's signature, prints and scans). Phones fetch `GET /wine/fixes?since=` at
+  launch (after the price list) and on return to the foreground (hourly): `WineDB.takeFix` moves the scan-list entry and label links
+  (no upload), cellar bottles and tastings with the wrong key get the right wine (`WineFixes.merged` keeps vintage/fun fact/notes the
+  fix leaves empty; your notes, photos, paid price and score stay), a cellar bottle whose wine changed is re-priced from the list,
+  scan timings renamed. halopro.xyz/jero has a Fix button per wine. fix-wines.yml modes: list / apply / log (resend earlier fixes).

@@ -52,12 +52,13 @@ struct JeroboamApp: App {
             .task { await Currency.refresh() }
             // the wine list's search index is built in the background at launch, so the first scan does not wait for it
             .task { await Task.detached(priority: .utility) { WineDB.shared.forgetLabelLinksOnce(); PriceBook.shared.warm() }.value }
-            .task { await PriceUpdater.refresh(); await journal.refreshFromShopList() }
+            .task { await PriceUpdater.refresh(); await journal.refreshFromShopList(); await WineFixes.sync(force: true) }
             .task { await journal.repriceShopBottlesOnce() }
             .task { await PriceCloud.seedOnce() }
             .onAppear {
                 QuizGenerator.lessonCompleted = { [progress] id in progress.isCompleted(id) }
                 Achievement.journal = journal
+                WineFixes.start(journal)   // corrections made anywhere reach this phone's journal
                 CloudSync.shared.start(progress, journal)
             }
         }
@@ -239,6 +240,8 @@ struct RootView: View {
                 progress.refreshStreakState(); progress.scheduleReminder()
                 // the wine list arrives after install; if the first try was offline, try again on the way back in
                 if PriceUpdater.downloaded == nil { Task { await PriceUpdater.refresh() } }
+                // corrections made on other phones or the owner's page (at most once an hour)
+                Task { await WineFixes.sync() }
             }
             if p == .background || p == .inactive { progress.saveNow(); CloudSync.shared.pushAll() }
         }
