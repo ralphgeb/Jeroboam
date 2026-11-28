@@ -1,0 +1,1176 @@
+Command line invocation:
+    /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/xcodebuild build -project Jeroboam.xcodeproj -scheme Jeroboam -configuration Debug -destination id=E9A4AE21-D50D-471B-A586-FA9961A8E36C -derivedDataPath build/dd CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (2 targets)
+    Target 'Jeroboam' in project 'Jeroboam'
+        ➜ Explicit dependency on target 'JeroWidget' in project 'Jeroboam'
+    Target 'JeroWidget' in project 'Jeroboam' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: 7b4cb380da7728a8e5eb5c68568a3a5c
+Build description path: /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/XCBuildData/7b4cb380da7728a8e5eb5c68568a3a5c.xcbuilddata
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/CompilationCache.noindex
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/CompilationCache.noindex
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex
+
+ClangStatCache /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam-6fcb90b65b2e74eaa7f76d7f119e9327-VFS-iphonesimulator/all-product-headers.yaml
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam-6fcb90b65b2e74eaa7f76d7f119e9327-VFS-iphonesimulator/all-product-headers.yaml
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/PrecompiledHeaders
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/PrecompiledHeaders
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Jeroboam.xcodeproj
+    builtin-create-build-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_const_extract_protocols.json (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftConstValuesFileList (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.LinkFileList (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-OutputFileMap.json (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyMetadataFileList (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyStaticMetadataFileList (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-project-headers.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-own-target-headers.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-generated-files.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-target-headers.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-non-framework-target-headers.hmap (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibPath-normal-arm64.txt (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibInstallName-normal-arm64.txt (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibInstallName-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_const_extract_protocols.json (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftConstValuesFileList (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.LinkFileList (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-OutputFileMap.json (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyStaticMetadataFileList (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyMetadataFileList (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-project-headers.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-own-target-headers.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-generated-files.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-target-headers.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-non-framework-target-headers.hmap (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugEntryPoint-normal-arm64.txt (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugEntryPoint-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibPath-normal-arm64.txt (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibInstallName-normal-arm64.txt (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    write-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibInstallName-normal-arm64.txt
+
+MkDir /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /bin/mkdir -p /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns
+
+MkDir /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /bin/mkdir -p /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+MkDir /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /bin/mkdir -p /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+ProcessInfoPlistFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Info.plist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Info.plist (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-infoPlistUtility /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Info.plist -producttype com.apple.product-type.app-extension -expandbuildsettings -format binary -platform iphonesimulator -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Info.plist
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/__preview.dylib normal (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -install_name @rpath/JeroWidget.debug.dylib -Xlinker -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_dependency_info.dat -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/__preview.dylib
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/widget.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Resources/widget.json (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Resources/widget.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/PrivacyInfo.xcprivacy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/PrivacyInfo.xcprivacy (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/PrivacyInfo.xcprivacy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Bottles /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Resources/Bottles (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/Resources/Bottles /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+SwiftDriver JeroWidget normal arm64 com.apple.xcode.tools.swift.compiler (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftDriver -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name JeroWidget -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -application-extension -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_float-2DJPQ5TZDSQ31KTAKX0N7UVTR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stddef-7A78U2EQP3BHDAG1UD68JXRB4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftShims-CMO969XTXALEGFE19BRXX5GRO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ptrauth-7IGBH32UDNSEYINYFGV11GTE2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ActivityKit-EIQP9WA83AGTH2U11NAADDHQP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_AvailabilityInternal-F5GV4DFSUR5GMSO6QNEA21C51.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_SwiftConcurrencyShims-4K57IBY2718Q6Z5Q0CY2RXO0M.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ptrcheck-BPCCGL59BEGYY5JY2079HGZHN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdbool-E02AW0BPI7DIWVXIEJO8JHMBA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/DeveloperToolsSupport-3NRMQRTN9JLKEWGIL0V1QUQJR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation1-5DDQFTFW5V1SO8CM783UZHZNT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdarg-BBI1AU5FXOIKJFW10NH6SRWLW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ExtensionFoundation-EUNV2HH9029GJ8J1DUDNTJ9GZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_limits-B7KKL6JNQ0U3WDQ1LADCWTB6C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation2-8F4NL04K6NVFIZ28WBKMK28M8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdint-18LH6RQ0O52TXQ54W1SS503RR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_tgmath-AKLGOZJ5QMJ1L33VCZCFLI05Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/string_h-4306BY2BDIVJH5EMYT3L6TO9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/sys_types-1M1FE4UHY8GMTHD8HOYG2UH55.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_intrinsics-700PH5S26C1ROAO7UVXS9ZEVO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation3-8CE70V5WD09GP0KBGEPL43AHO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdatomic-5O0W43GGCC9NOATV2FRTXUBAN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_inttypes-DMH77FB9AHBBXELIGOCRSWLV3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Darwin-9DED6RVYGDFMHBZE0WX5QCI8S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/simd-C1W1SXH4U9IL1C6TSDOG2Q9ZR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/MachO-7C6Q4YLCA08G6LPY6QNAZ1548.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ObjectiveC-9H1LUCLLCXRZISETXP6AQQXGI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os_object-9Y36IHKLA8GMERA1ZLY3U7H73.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Spatial-MZEXT3BJOBVZIL1188K7ETZW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os_workgroup-7MLNLLPHF1HAMBHG0FVM2OBQ3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Dispatch-7HVX3MTD7QU6279N7BNAI56UQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/dnssd-93RXPORXYHRKQ1XZEKC5VYRY3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreFoundation-26YQSQ1ZI2Y8UF83ITEHI2GG8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/XPC-EXMT57CQO854HT2LRKQZWN4BQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os-CRT8AAJ2XTHNW9KBNWKS7DMN3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Security-9850G8XCNWWPXD2O527ODH89U.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreGraphics-46FO2R2T2L9WK0MTFE5XWQ3G6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreAudioTypes-AKZUYMYGRTVHRQIY8JTU5I1PZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CFNetwork-1POTF9GRW2U02GMRYE9ZHOKG5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreText-CJ14MY0SO6OFP5PTWYI1ASNST.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ImageIO-3KW4SE0D7YMC0ELKO0GBK6U5D.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreAudio-245NBBXGZBB6OVXJKVJ9CXBHX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Foundation-12W2FNQVKNULYB6YIBDSJHNB9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/WidgetKit-2DLE09ZEL4BPP5G3XYNUJIGSD.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/FileProvider-E2IYXYNM1US1BF1QHZYN9I8FP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreData-EGF51WVJTAWDPZWGYAVSPNHF3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_LocationEssentials-9X2DS3R2J6VCJNHOFGHVH86X8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/OpenGLES-3TMMJ05HSIIENQU9O7YUWRCL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UniformTypeIdentifiers-BYIHJO3CFT0NG8TWY9B09MKLN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/DataDetection-4K8QK7V9229DMQ0054BH7I2F4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/RelevanceKit-2C509QEIRILTWCXXQS9Q3N2BG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Symbols-5FOKTCYQ448YMW2J2D7TE8CRB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UIUtilities-4ZJP4W5OHRMPGFTOE1KH48CLK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreSpotlight-BJEESUP06MK3KQS3KO3AEHKTK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AppIntents-ETYB4XV0QK0ILK4C6P778JGLV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/OSLog-747O7EJCDKK8KB6KB4O49ASL3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UserNotifications-2V073674TA9OGG58IWOB9410L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/IOSurface-9IYFFWW0SWSG4SS48F72TF1SG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreLocation-EE7ATQR2I8QDIAKUQVR50C3LN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Accessibility-191GDOMWOIO9R2NSQHA8OJTSY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Metal-4ROM45NBQM15EQXRIBIROMYE5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreTransferable-7AEJ3USY8WJE4T9I99RPXQCI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreMotion-368KO53BW6RG674ID38YBI2HR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Network-7LO1G13PIHUL7O0Y09XYBNKDF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Intents-EAG61S162D159YZ2RILA3IDSL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AppIntentsTypeSupport-ABNUWGRQ7HFLW85PP26BUPAGE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreVideo-98VR6ATFYG40MDLP2L71XU3TH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreMedia-EOOV4QH82865G1OVJ21ZWKF5W.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreImage-BYIMLMSKOTZ2IY5ZHJDOE5O67.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/QuartzCore-849BLSFFL9Q6E3XWH4D7E7VO1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UIKit-62AMQ0Z74R3TIAY03SV2UHF3D.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftUICore-8DWWD1GL3B8FB4W88BNXOV1KR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftUI-EIFQU7APGDUSKM0AU1AFTVKE4.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ JeroWidget (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftCompile normal arm64 (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    
+
+SwiftCompile normal arm64 Compiling\ BrandShapes.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BrandShapes.swift (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BrandShapes.swift (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile BrandShapes.swift
+
+SwiftCompile normal arm64 Compiling\ JeroWidget.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/JeroWidget.swift (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/JeroWidget/JeroWidget.swift (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JeroWidget.swift
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for JeroWidget (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftDriver\ Compilation\ Requirements JeroWidget normal arm64 com.apple.xcode.tools.swift.compiler (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name JeroWidget -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -application-extension -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources/JeroWidget-Swift.h /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-Swift.h (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-Swift.h -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources/JeroWidget-Swift.h
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftdoc (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftdoc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.abi.json (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.abi.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftsourceinfo (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftsourceinfo /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+MkDir /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/unthinned (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /bin/mkdir -p /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/unthinned
+
+MkDir /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /bin/mkdir -p /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned
+
+GenerateAssetSymbols /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/actool /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets --compile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --minimum-deployment-target 17.0 --platform iphonesimulator --bundle-identifier com.ralphgeb.jero --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CompileAssetCatalogVariant thinned /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/actool /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets --compile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone19,2 --filter-for-device-os-version 27.2 --development-region en --target-device iphone --minimum-deployment-target 17.0 --platform iphonesimulator
+/* com.apple.actool.compilation-results */
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist_thinned
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned/AppIcon60x60@2x.png
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned/AppIcon76x76@2x~ipad.png
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned/Assets.car
+
+
+LinkAssetCatalog /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Assets.xcassets (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-linkAssetCatalog --thinned /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/thinned --thinned-dependencies /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist_unthinned --output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app --plist-output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist
+note: Emplaced /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Assets.car (in target 'Jeroboam' from project 'Jeroboam')
+note: Emplaced /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/AppIcon60x60@2x.png (in target 'Jeroboam' from project 'Jeroboam')
+note: Emplaced /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/AppIcon76x76@2x~ipad.png (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftDriver Jeroboam normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftDriver -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Jeroboam -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftShims-CKUP8TUZLCB9BCARSHHRAEYNH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ActivityKit-ADMNSEDMC7LZ4BFUQMRXAYQRR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_AvailabilityInternal-258A6K9RIVKB3E3AJCQL4ZMSX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdarg-7OIR673GO5CZNGT0OBF9UUG09.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdbool-5YVTXFXRGX428W2MU9MCGEAFT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_StoreKit_SwiftUI-3G44TQSQ364VJO4FO4F6V45B.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_SwiftConcurrencyShims-6JOB22Y10VX8WBJ4ZSLLNUM0A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ptrcheck-BYJI0QIZ5QLKO8OW75PYB0T8Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ptrauth-A878H1PHZ55T7FA7V8WOMS361.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stddef-383YBAITPZTLKWLOJG5D6Q5BJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_float-7XO818F3Y3MNPPGYNHGAQ3MMF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/DeveloperToolsSupport-3KNSROX1IKQ8I6VRJW5B2DXCM.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation1-CEN34408MI4KA1H08LJXPSDHG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_limits-DN0DXCQET3WE2T7GP8372IPT7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation2-AU4GLJZBV9TGF63VOM4BVXZQ1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ExtensionFoundation-9XJV8V4708ATYCH086O17PF39.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdint-3VPU9Y8LY3CFN0LCR9G7K0ZHA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_tgmath-D94OBW4TLJX13I4Y0NGWJZ14G.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/string_h-B1SOVMYJN3YIEX1TTFCRZ8ZRT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_stdatomic-7ZJH2PM9ITTXZDW7A7A9WUKBS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_intrinsics-AJDQC32NL895BXE8WGR8IHM59.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_DarwinFoundation3-9873WR3CB9XT80JSZLNEC4IHO.pcm
+
+SwiftDriverJobDiscovery normal arm64 Compiling BrandShapes.swift (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/sys_types-435QE822YIKVHERKY2JHTSCK9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/simd-5HOC6H4N5PC21R3KQDVZHLEOF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_Builtin_inttypes-H9JJ263D1BUCUD63TNYD4EKH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Darwin-BKBAGPNO475G7D1N7AUUHSE6H.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ObjectiveC-CY1PHV4N3QRY48R7TXAADR8MQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/MachO-14X4LOD47G31CB3YP2O7SXZT8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Spatial-8TT2V4ZRJ08YOAN4XDJDA8EIM.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os_object-CCJIEWV0IK4ZH8J3R973SW9WH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Compression-8IJNS7X8JQYI0LF4DBZUZCNW6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os_workgroup-4QJZD6RZTVOD3ZOWKFPGJD06K.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Dispatch-D93TZMVHX6757LHV1MBXJTJH4.pcm
+
+SwiftDriverJobDiscovery normal arm64 Compiling JeroWidget.swift (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftDriver\ Compilation JeroWidget normal arm64 com.apple.xcode.tools.swift.compiler (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-Swift-Compilation -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name JeroWidget -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -application-extension -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget.debug.dylib normal (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -filelist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.LinkFileList -install_name @rpath/JeroWidget.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/../../Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_dependency_info.dat -fapplication-extension -fobjc-link-runtime -L/Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.swiftmodule -Xlinker -alias -Xlinker _NSExtensionMain -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget.debug.dylib
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/XPC-46UTTNAZJP4XV5C48CVG3X2QO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/dnssd-C9R6H8ZGVPL7NFXA89AUJ2DB4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreFoundation-8VZS6L672IT3NERYHORIEMZVI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/os-2KAI7YANYHZBHV8G9ZJ3YEQ5T.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreGraphics-5PEZ0GPGPV6C3WHYAPWU3T1JM.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CFNetwork-9XGW1J65QHW0OABXWQ1M7XUJT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreAudioTypes-DJKVBVUU4ZHW4AE2EY1OZOQ5F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Security-4XF0SV6BXSX96AUJM1NZZUM1L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreText-4083FU1MK82RG99EJZQ2JQ0QW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreAudio-A829Z09C9JWY1QWC477XQ21EH.pcm
+
+ConstructStubExecutorLinkFileList /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-ExecutorLinkFileList-normal-arm64.txt (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    construct-stub-executor-link-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget.debug.dylib /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'JeroWidget' from project 'Jeroboam')
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Foundation-6EZG499DJIRNKK948ONRQQP7B.pcm
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget normal (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/../../Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_entry -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugEntryPoint-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget-ExecutorLinkFileList-normal-arm64.txt /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget.debug.dylib -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/ImageIO-4ECUDGB5HDG1G7HXYP10HN6T3.pcm
+
+ExtractAppIntentsMetadata (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.2.47.0.kAXFmi/Metal.xctoolchain --module-name JeroWidget --sdk-root /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk --xcode-version 27B52 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.ralphgeb.jero.widget --output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/JeroWidget --dependency-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget_dependency_info.dat --stringsdata-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftFileList --metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/Objects-normal/arm64/JeroWidget.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-11-28 10:35:14.921 appintentsmetadataprocessor[30156:75413] Starting App Intents metadata extraction
+2026-11-28 10:35:15.042 appintentsmetadataprocessor[30156:75413] Extracted no relevant App Intents symbols, skipping writing output
+
+AppIntentsSSUTraining (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Info.plist --temp-dir-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/ssu --bundle-id com.ralphgeb.jero.widget --product-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex --extracted-metadata-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Metadata.appintents --metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/JeroWidget.build/JeroWidget.DependencyMetadataFileList --source-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex/Info.plist --archive-ssu-assets
+2026-11-28 10:35:15.101 appintentsnltrainingprocessor[30157:75418] Parsing options for appintentsnltrainingprocessor
+2026-11-28 10:35:15.101 appintentsnltrainingprocessor[30157:75418] Starting AppIntents SSU YAML Generation
+2026-11-28 10:35:15.107 appintentsnltrainingprocessor[30157:75418] No AppShortcuts found - Skipping.
+
+RegisterExecutionPolicyException /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-RegisterExecutionPolicyException /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+Touch /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex (in target 'JeroWidget' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /usr/bin/touch -c /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PrivacyInfo.xcprivacy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/PrivacyInfo.xcprivacy (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/PrivacyInfo.xcprivacy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Photos /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Photos (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Photos /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/__preview.dylib normal (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -install_name @rpath/Jeroboam.debug.dylib -Xlinker -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_dependency_info.dat -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/__preview.dylib
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Maps /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Maps (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Maps /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/IOSurface-8V93889F5ZYIDNIU647U4UPBS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Network-A7FRD6V52XHUV3VY4SORNNRH9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/DataDetection-21CS65PCUYF7ADCC0J2DW9YWP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UniformTypeIdentifiers-CM0EYHRQ1YLH2WLHRN6EWZVOR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AppIntents-1ERQ3ZHM7GLZ4QNMA4VQ1F5X8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/FileProvider-2DCWNP0AY7I2MMDXRDB7XM47X.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreSpotlight-44ZOVB3J23DV6R9HBD5TXEMW1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AVRouting-2NARYS1OLJ9HHZOMHHMXVEG66.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/_LocationEssentials-1L65PFQFPBGZHSXG74HXK2F86.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UserNotifications-HP1KQ1Z202KFJCBJPIX95J5T.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Accessibility-CCEBOCGTMG3FT0HKRIUUQO387.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreLocation-3Z9XXASC3U9BD9EKGWR31TBT2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UIUtilities-EFXSW6J8J596KXC7WKIID6SS2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/BackgroundAssets-BMLF47GIBFJ4U75BP7M4V286D.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreMIDI-CNOUIUK0TLXTJKR8JCQGWRW5V.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreMotion-2LGBVK96629VAI8LVJ87K0G7D.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CloudKit-5T8UZ03BPXTWIMD1AQLGOF5EC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/LocalAuthentication-14Q37AD1W9KIWE6V6B0RYZOXT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/RelevanceKit-B94VNLTWWNGBEHUD5HN125VGV.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/OSLog-2EIDWH9D0TJCXC5PS4T0G0D2S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/OpenGLES-18PAYAEVRBBT4JAJRMBRBY5M4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreData-BFM8GWHMJR7WQAVON4E6VDQQY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Intents-E7DLYKDT9Z1SXU4TM05RV6I82.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AppIntentsTypeSupport-4EI0OJFMA76HIH9CO8DZ3RMF2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AudioToolbox-87I8TWTOY6COR2H8TE5IZYE08.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Metal-ACWOYGMHAKUKB2SX0IU7DW7Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/WidgetKit-E4FIY780BVS5BF2TT5AZPYHWO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreTransferable-4WLQ0LLNU1HQ1PLXO8LTYZP97.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Symbols-NEGL7FGP9ROALSDOG6SW0I65.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreVideo-2VCGZ17ZWM82USJCDA7FJATR2.pcm
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Grapes /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Grapes (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Grapes /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+CpResource /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Content /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Content (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Resources/Content /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreMedia-8LVJ1OOBFMS5ZQKALPHIRS1KQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Accelerate-EB7SS07SVCKMCTU1CDJGWSUW7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreML-3JT2CCY3KD8EXVC1WH3NKSTQQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/QuartzCore-5X6OARJAV079M5SWXBSTRMIQE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/CoreImage-3PDCNHA3TH4NLBW9X39LOT42J.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/VideoToolbox-12VKN2J12DIGWJJTUH4QRA8F6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/MediaToolbox-80BYOKDLUU5FAQ5COXQ5NRPT6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/UIKit-2X3UPK2FP15B73F1IWTSLL78F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AVFAudio-ABCBNO7VEEA24QH1ZT9BJLCMC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Vision-3BPSPJ1NA57TKSOJ1IOEX41NI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/AVFoundation-62854Y0A5CAORMG02JSHLXXPT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftUICore-CZ5CZE6209ON7LR1MADMCBD8D.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/Photos-6R4Q19U5OONKGNKI8IQDBEFUU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/StoreKit-4GJ1YGH0Z3XXRACZ74T0N61Q0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/SwiftUI-7PZ1MJL13A03SYF3ER9C4AQKS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules/PhotosUI-72AJH6B4U9HEEFMH99HR4ZC4Y.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Jeroboam (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftCompile normal arm64 (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    
+
+SwiftCompile normal arm64 Compiling\ Account.swift,\ Adaptive.swift,\ AromaViews.swift,\ BadgeReveal.swift,\ Badges.swift,\ BrandShapes.swift,\ CellarCharts.swift,\ CellarView.swift,\ Collection.swift,\ ColorChart.swift,\ ContentStore.swift,\ Credits.swift,\ Currency.swift,\ DebugScreens.swift,\ DetailPane.swift,\ Diagrams.swift,\ DrinkAlerts.swift,\ DuoPreview.swift,\ ExtraAtlas.swift,\ Flags.swift,\ FlavorIcons.swift,\ Gates.swift,\ GlassArt.swift,\ GrapeViews.swift,\ GreatWines.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Account.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Adaptive.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/AromaViews.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BadgeReveal.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Badges.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BrandShapes.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/CellarCharts.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/CellarView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Collection.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ColorChart.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ContentStore.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Credits.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Currency.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DebugScreens.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DetailPane.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Diagrams.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DrinkAlerts.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DuoPreview.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ExtraAtlas.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Flags.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/FlavorIcons.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Gates.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GlassArt.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GrapeViews.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GreatWines.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Account.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Account.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Adaptive.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Adaptive.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/AromaViews.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile AromaViews.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BadgeReveal.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile BadgeReveal.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Badges.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Badges.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/BrandShapes.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile BrandShapes.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/CellarCharts.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile CellarCharts.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/CellarView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile CellarView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Collection.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Collection.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ColorChart.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ColorChart.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ContentStore.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ContentStore.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Credits.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Credits.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Currency.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Currency.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DebugScreens.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile DebugScreens.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DetailPane.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile DetailPane.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Diagrams.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Diagrams.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DrinkAlerts.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile DrinkAlerts.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/DuoPreview.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile DuoPreview.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ExtraAtlas.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ExtraAtlas.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Flags.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Flags.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/FlavorIcons.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile FlavorIcons.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Gates.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Gates.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GlassArt.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile GlassArt.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GrapeViews.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile GrapeViews.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/GreatWines.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile GreatWines.swift
+
+SwiftCompile normal arm64 Compiling\ ProfileView.swift,\ Progress.swift,\ QuizGenerator.swift,\ RefMaps.swift,\ RegionViews.swift,\ ScanClock.swift,\ ScanHistory.swift,\ Search.swift,\ SessionPane.swift,\ Skeleton.swift,\ SplashMark.swift,\ StyleGuide.swift,\ TasteQuiz.swift,\ TastingExtras.swift,\ Theme.swift,\ UserProfile.swift,\ WebFacts.swift,\ WidgetSettings.swift,\ WineBelt.swift,\ WineCards.swift,\ WineDB.swift,\ WineProfile.swift,\ WineRecognizer.swift,\ Wines.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ProfileView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Progress.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/QuizGenerator.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/RefMaps.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/RegionViews.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ScanClock.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ScanHistory.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Search.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/SessionPane.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Skeleton.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/SplashMark.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/StyleGuide.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/TasteQuiz.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/TastingExtras.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Theme.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/UserProfile.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WebFacts.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WidgetSettings.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineBelt.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineCards.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineDB.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineProfile.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineRecognizer.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Wines.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ProfileView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ProfileView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Progress.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Progress.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/QuizGenerator.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile QuizGenerator.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/RefMaps.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile RefMaps.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/RegionViews.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile RegionViews.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ScanClock.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ScanClock.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/ScanHistory.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile ScanHistory.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Search.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Search.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/SessionPane.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile SessionPane.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Skeleton.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Skeleton.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/SplashMark.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile SplashMark.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/StyleGuide.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile StyleGuide.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/TasteQuiz.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile TasteQuiz.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/TastingExtras.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile TastingExtras.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Theme.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Theme.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/UserProfile.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile UserProfile.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WebFacts.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WebFacts.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WidgetSettings.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WidgetSettings.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineBelt.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WineBelt.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineCards.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WineCards.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineDB.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WineDB.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineProfile.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WineProfile.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/WineRecognizer.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile WineRecognizer.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Wines.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Wines.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile GeneratedAssetSymbols.swift
+
+SwiftCompile normal arm64 Compiling\ Illustrations.swift,\ JeroboamApp.swift,\ Journal.swift,\ JournalCards.swift,\ JournalCharts.swift,\ JournalExtras.swift,\ JournalInsights.swift,\ LabelMatcher.swift,\ LabelPrint.swift,\ LabelViews.swift,\ LearnView.swift,\ LessonView.swift,\ LibraryView.swift,\ LimitCard.swift,\ MapTerms.swift,\ MapView.swift,\ Models.swift,\ Onboarding.swift,\ PhotoViewer.swift,\ PlacementQuiz.swift,\ Plus.swift,\ PracticeView.swift,\ PriceBook.swift,\ PriceCloud.swift,\ PriceUpdater.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Illustrations.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JeroboamApp.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Journal.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalCards.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalCharts.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalExtras.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalInsights.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelMatcher.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelPrint.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelViews.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LearnView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LessonView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LibraryView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LimitCard.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapTerms.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Models.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Onboarding.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PhotoViewer.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PlacementQuiz.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Plus.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PracticeView.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceBook.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceCloud.swift /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceUpdater.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Illustrations.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Illustrations.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JeroboamApp.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JeroboamApp.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Journal.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Journal.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalCards.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JournalCards.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalCharts.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JournalCharts.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalExtras.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JournalExtras.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalInsights.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile JournalInsights.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelMatcher.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LabelMatcher.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelPrint.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LabelPrint.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LabelViews.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LabelViews.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LearnView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LearnView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LessonView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LessonView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LibraryView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LibraryView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/LimitCard.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile LimitCard.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapTerms.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile MapTerms.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile MapView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Models.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Models.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Onboarding.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Onboarding.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PhotoViewer.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PhotoViewer.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PlacementQuiz.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PlacementQuiz.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Plus.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile Plus.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PracticeView.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PracticeView.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceBook.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PriceBook.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceCloud.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PriceCloud.swift
+
+SwiftCompile normal arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/PriceUpdater.swift (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-SwiftPerFileCompile PriceUpdater.swift
+
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/JournalInsights.swift:143:48: warning: main actor-isolated static method 'makeReal(cellar:entries:)' cannot be called from outside of the actor; this is an error in the Swift 6 language mode
+141 |             let cellar = journal.cellar, entries = journal.entries
+142 |             snap = await Task.detached(priority: .userInitiated) { () -> Snapshot in
+143 |                 Snapshot(real: JournalInsights.makeReal(cellar: cellar, entries: entries))
+    |                                                `- warning: main actor-isolated static method 'makeReal(cellar:entries:)' cannot be called from outside of the actor; this is an error in the Swift 6 language mode
+144 |             }.value
+145 |         }
+
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift:609:25: warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 607 |                 let screenArea = a.area * s * s
+ 608 |                 for opt in options {
+ 609 |                     var t = ctx
+     |                         `- warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 610 |                     let resolved = opt.map { t.resolve(Text($0).font(.system(size: fs, weight: .semibold)).foregroundColor(ink)) }
+ 611 |                     let sizes = resolved.map { $0.measure(in: CGSize(width: 300, height: 60)) }
+
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift:655:25: warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 653 |                     let c = screen(v.at)
+ 654 |                     guard full.insetBy(dx: -40, dy: -20).contains(c) else { continue }
+ 655 |                     var t = ctx
+     |                         `- warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 656 |                     let ink = t.resolve(Text(v.name).font(.system(size: fs, weight: .medium)).foregroundColor(Palette.ink.opacity(0.82)))
+ 657 |                     let sz = ink.measure(in: CGSize(width: 220, height: 30))
+
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift:701:13: warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 699 |         let s = fit * zoom
+ 700 |         let c = CGPoint(x: a.centroid.x * s + offset.width, y: a.centroid.y * s + offset.height)
+ 701 |         var t = ctx
+     |             `- warning: variable 't' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 702 |         let title = t.resolve(Text(a.name).font(.system(size: 12.5 * max(1, labelScale * 0.9), weight: .semibold)).foregroundColor(Palette.ink))
+ 703 |         let tsz = title.measure(in: CGSize(width: 240, height: 60))
+
+/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/MapView.swift:868:13: warning: initialization of immutable value 'byID' was never used; consider replacing with assignment to '_' or removing it [#NoUsage]
+ 866 |     func zoneRect(for ids: Set<String>) -> CGRect? {
+ 867 |         guard !insets.isEmpty, !ids.isEmpty else { return nil }
+ 868 |         let byID = Dictionary(uniqueKeysWithValues: areas.map { ($0.id, $0) })
+     |             `- warning: initialization of immutable value 'byID' was never used; consider replacing with assignment to '_' or removing it [#NoUsage]
+ 869 |         var rect: CGRect? = nil
+ 870 |         for a in areas where ids.contains(a.id) {
+
+[#NoUsage]: <https://docs.swift.org/compiler/documentation/diagnostics/no-usage>
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+SwiftDriverJobDiscovery normal arm64 Emitting module for Jeroboam (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftDriver\ Compilation\ Requirements Jeroboam normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Jeroboam -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling Account.swift, Adaptive.swift, AromaViews.swift, BadgeReveal.swift, Badges.swift, BrandShapes.swift, CellarCharts.swift, CellarView.swift, Collection.swift, ColorChart.swift, ContentStore.swift, Credits.swift, Currency.swift, DebugScreens.swift, DetailPane.swift, Diagrams.swift, DrinkAlerts.swift, DuoPreview.swift, ExtraAtlas.swift, Flags.swift, FlavorIcons.swift, Gates.swift, GlassArt.swift, GrapeViews.swift, GreatWines.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftMergeGeneratedHeaders /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/Jeroboam-Swift.h /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-Swift.h (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-Swift.h -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/Jeroboam-Swift.h
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftdoc (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftdoc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.abi.json (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.abi.json /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftsourceinfo (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftsourceinfo /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling ProfileView.swift, Progress.swift, QuizGenerator.swift, RefMaps.swift, RegionViews.swift, ScanClock.swift, ScanHistory.swift, Search.swift, SessionPane.swift, Skeleton.swift, SplashMark.swift, StyleGuide.swift, TasteQuiz.swift, TastingExtras.swift, Theme.swift, UserProfile.swift, WebFacts.swift, WidgetSettings.swift, WineBelt.swift, WineCards.swift, WineDB.swift, WineProfile.swift, WineRecognizer.swift, Wines.swift, GeneratedAssetSymbols.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftDriverJobDiscovery normal arm64 Compiling Illustrations.swift, JeroboamApp.swift, Journal.swift, JournalCards.swift, JournalCharts.swift, JournalExtras.swift, JournalInsights.swift, LabelMatcher.swift, LabelPrint.swift, LabelViews.swift, LearnView.swift, LessonView.swift, LibraryView.swift, LimitCard.swift, MapTerms.swift, MapView.swift, Models.swift, Onboarding.swift, PhotoViewer.swift, PlacementQuiz.swift, Plus.swift, PracticeView.swift, PriceBook.swift, PriceCloud.swift, PriceUpdater.swift (in target 'Jeroboam' from project 'Jeroboam')
+
+SwiftDriver\ Compilation Jeroboam normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-Swift-Compilation -- /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Jeroboam -Onone @/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKStatCaches.noindex/iphonesimulator27.2-24B8118-9aa026f88bf9ed31cff8761912ac5bd1414ec6ff3c837c3a1760e1fb4ff3fe25.sdkstatcache -output-file-map /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-generated-files.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-own-target-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-project-headers.hmap -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam-Swift.h -working-directory /Users/runner/work/Jeroboam/Jeroboam/Jeroboam -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam.debug.dylib normal (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -filelist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.LinkFileList -install_name @rpath/Jeroboam.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-ExecutorLinkFileList-normal-arm64.txt (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    construct-stub-executor-link-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam.debug.dylib /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'Jeroboam' from project 'Jeroboam')
+
+Ld /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam normal (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -F/Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam-ExecutorLinkFileList-normal-arm64.txt /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam.debug.dylib -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam
+
+Copy /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns/JeroWidget.appex /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks -remove-static-executable /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/JeroWidget.appex /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns
+
+ProcessInfoPlistFile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Info.plist /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Info.plist (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-infoPlistUtility /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/Sources/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/assetcatalog_generated_info.plist -scanforprivacyfile /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns/JeroWidget.appex -o /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Info.plist
+
+ExtractAppIntentsMetadata (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.2.47.0.kAXFmi/Metal.xctoolchain --module-name Jeroboam --sdk-root /Applications/Xcode_27.2.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.2.sdk --xcode-version 27B52 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.ralphgeb.jero --output /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam --dependency-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam_dependency_info.dat --stringsdata-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftFileList --metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Objects-normal/arm64/Jeroboam.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-11-28 10:36:26.244 appintentsmetadataprocessor[32566:81209] Starting App Intents metadata extraction
+2026-11-28 10:36:26.424 appintentsmetadataprocessor[32566:81209] Extracted no relevant App Intents symbols, skipping writing output
+
+CopySwiftLibs /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Jeroboam.debug.dylib --scan-folder /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Frameworks --scan-folder /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns --scan-folder /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/SystemExtensions --scan-folder /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Extensions --platform iphonesimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.2.47.0.kAXFmi/Metal.xctoolchain --toolchain /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+Ignoring --strip-bitcode because --sign was not passed
+
+ValidateEmbeddedBinary /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns/JeroWidget.appex (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/usr/bin/embeddedBinaryValidationUtility /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/PlugIns/JeroWidget.appex -info-plist-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Info.plist
+
+AppIntentsSSUTraining (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /Applications/Xcode_27.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Info.plist --temp-dir-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/ssu --bundle-id com.ralphgeb.jero --product-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app --extracted-metadata-path /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Metadata.appintents --metadata-file-list /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/Jeroboam.build/Debug-iphonesimulator/Jeroboam.build/Jeroboam.DependencyMetadataFileList --source-file /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app/Info.plist --archive-ssu-assets
+2026-11-28 10:36:26.481 appintentsnltrainingprocessor[32568:81218] Parsing options for appintentsnltrainingprocessor
+2026-11-28 10:36:26.482 appintentsnltrainingprocessor[32568:81218] Starting AppIntents SSU YAML Generation
+2026-11-28 10:36:26.483 appintentsnltrainingprocessor[32568:81218] No AppShortcuts found - Skipping.
+
+RegisterExecutionPolicyException /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-RegisterExecutionPolicyException /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+Validate /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    builtin-validationUtility /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app -shallow-bundle -infoplist-subpath Info.plist
+
+Touch /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app (in target 'Jeroboam' from project 'Jeroboam')
+    cd /Users/runner/work/Jeroboam/Jeroboam/Jeroboam
+    /usr/bin/touch -c /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Products/Debug-iphonesimulator/Jeroboam.app
+
+PruneExplicitPrecompiledModules /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/runner/work/Jeroboam/Jeroboam/Jeroboam/build/dd/SDKExplicitPrecompiledModules
+
+** BUILD SUCCEEDED **
+
